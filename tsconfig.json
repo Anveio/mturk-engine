@@ -18,6 +18,8 @@
     "noUnusedLocals": true
   },
   "exclude": [
+    "server",
+    "__test__",
     "node_modules",
     "build",
     "scripts",

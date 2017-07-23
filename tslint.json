@@ -50,7 +50,7 @@
     ],
     "quotemark": [true, "single", "jsx-double"],
     "radix": true,
-    "semicolon": [true, "always"],
+    "semicolon": [true, "ignore-bound-class-methods"],
     "switch-default": true,
 
     "trailing-comma": [false],

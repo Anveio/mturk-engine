@@ -5,7 +5,14 @@
   "main": "index.js",
   "author": "Shovon Hasan <im.shovonhasan@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "nodemon ./index.js"
+  },
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "http-proxy": "^1.16.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }

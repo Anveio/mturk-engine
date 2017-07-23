@@ -1,8 +1,9 @@
 import * as React from 'react';
 import axios from 'axios';
 import { Page, Layout, Card } from '@shopify/polaris';
-// tslint:disable:no-any
-// tslint:disable:semicolon
+
+import { API_URL } from './constants';
+
 interface State {
   data: any;
   clicked: number;
@@ -28,14 +29,6 @@ class App extends React.Component<{}, State> {
   };
 
   readonly queryString = (): string => {
-    // const {
-    //   selectedSearchType,
-    //   sortType,
-    //   pageSize,
-    //   minReward,
-    //   qualifiedFor
-    // } = this.params();
-
     let builtParams = '';
     const params = this.params();
     if (params) {
@@ -51,19 +44,21 @@ class App extends React.Component<{}, State> {
     }
 
     // return `https://www.mturk.com/mturk/searchbar?${builtParams}`;
-    return `https://www.mturk.com/mturk/checkrecognition`;
+    return `${API_URL}/mturk/findhits?match=false`;
   };
 
   readonly fetchData = () => {
     axios
-      .get(this.queryString(), {  })
+      .get(this.queryString(), {})
       .then(
-        response =>
+        response => {
+          console.log(typeof response.data);
           this.setState(() => {
             return {
               data: response.data
             };
-          }),
+          });
+        },
         reject => {
           this.setState(() => {
             return {
@@ -73,7 +68,7 @@ class App extends React.Component<{}, State> {
         }
       )
       .catch(reason => {
-        return reason;
+        console.error(reason);
       });
   };
 
