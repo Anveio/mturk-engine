@@ -1,3 +1,8 @@
+/**
+ * Credit to: https://blog.javascripting.com/2015/01/17/dont-hassle-with-cors/
+ * &:  
+ */
+
 const express = require('express');
 const request = require('request');
 
@@ -13,7 +18,7 @@ app.use('/', (req, res) => {
 
   console.log(new Date(), ' -- Rquest Received:', req.url);
 
-  const url = 'http://www.mturk.com' + req.url;
+  const url = 'http://worker.mturk.com' + req.url;
   req.pipe(request(url)).pipe(res);
 });
 
@@ -23,10 +28,3 @@ const server = app.listen(app.get('port'), () => {
   console.log(`Express running → PORT ${server.address().port}`);
 });
 
-// const httpProxy = require('http-proxy');
-
-// const proxy = httpProxy.createProxyServer({
-//   target: 'https://www.mturk.com',
-//   localAddress: 'http://localhost:7777',
-//   changeOrigin: true
-// });

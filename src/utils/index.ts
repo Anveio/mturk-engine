@@ -4,4 +4,8 @@ const stringToDomFragment = (htmlString: string): DocumentFragment => {
   return range.createContextualFragment(htmlString);
 };
 
-export { stringToDomFragment };
+const filterHits = (dom: DocumentFragment) => {
+  return dom.querySelectorAll('*');
+};
+
+export { stringToDomFragment, filterHits };

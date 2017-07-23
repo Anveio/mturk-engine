@@ -8,3 +8,4 @@ const fragment = range.createContextualFragment(response.data);
 console.timeEnd('Test create fragment');
 ```
 
+window.indexedDB to persistently store found hits?

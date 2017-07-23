@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Page, Layout, Card } from '@shopify/polaris';
 
 import { API_URL } from './constants';
-import { stringToDomFragment } from './utils';
+import { stringToDomFragment, filterHits } from './utils';
 
 interface State {
   data: any;
@@ -30,22 +30,22 @@ class App extends React.Component<{}, State> {
   };
 
   readonly queryString = (): string => {
-    let builtParams = '';
-    const params = this.params();
-    if (params) {
-      for (let param in params) {
-        if (param) {
-          builtParams += `${param}=${params[param]}&`;
-        }
-      }
-    }
+    // let builtParams = '';
+    // const params = this.params();
+    // if (params) {
+    //   for (let param in params) {
+    //     if (param) {
+    //       builtParams += `${param}=${params[param]}&`;
+    //     }
+    //   }
+    // }
 
-    if (builtParams.endsWith('&')) {
-      builtParams.substring(0, builtParams.length - 1);
-    }
+    // if (builtParams.endsWith('&')) {
+    //   builtParams.substring(0, builtParams.length - 1);
+    // }
 
-    // return `https://www.mturk.com/mturk/searchbar?${builtParams}`;
-    return `${API_URL}/mturk/findhits?match=false`;
+    // // return `https://www.mturk.com/mturk/searchbar?${builtParams}`;
+    return `${API_URL}`;
   };
 
   readonly fetchData = () => {
@@ -53,14 +53,13 @@ class App extends React.Component<{}, State> {
       .get(this.queryString(), {})
       .then(
         response => {
-          console.time('Test create fragment');
-          const fragment = stringToDomFragment(response.data as string);
-          console.timeEnd('Test create fragment');
-          console.log(fragment);
+          const data: string = response.data;
+          const hits = filterHits(stringToDomFragment(data));
+          console.log(hits);
 
           this.setState(() => {
             return {
-              data: response.data
+              data
             };
           });
         },
