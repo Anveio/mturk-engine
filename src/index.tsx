@@ -5,6 +5,8 @@ import registerServiceWorker from './registerServiceWorker';
 
 import '@shopify/polaris/styles.css';
 
+document.write();
+
 if (!document.getElementById('root')) {
   const div = document.createElement('div');
   div.id = 'root';

@@ -16,12 +16,6 @@
     "jsx-boolean-value": false,
     "label-position": true,
     "max-line-length": [true, 120],
-    "member-ordering": [
-      true,
-      "public-before-private",
-      "static-before-instance",
-      "variables-before-functions"
-    ],
     "no-any": true,
     "no-arg": true,
     "no-bitwise": true,
@@ -35,7 +29,7 @@
       "timeEnd",
       "trace"
     ],
-    "no-consecutive-blank-lines": true,
+    "no-consecutive-blank-lines": [true],
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-variable": true,
@@ -59,8 +53,7 @@
     "semicolon": [true, "always"],
     "switch-default": true,
 
-    "trailing-comma": false,
-
+    "trailing-comma": [false],
     "triple-equals": [true, "allow-null-check"],
     "typedef": [true, "parameter", "property-declaration"],
     "typedef-whitespace": [
