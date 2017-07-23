@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Page, Layout, Card } from '@shopify/polaris';
 
 import { API_URL } from './constants';
+import { stringToDomFragment } from './utils';
 
 interface State {
   data: any;
@@ -52,7 +53,11 @@ class App extends React.Component<{}, State> {
       .get(this.queryString(), {})
       .then(
         response => {
-          console.log(typeof response.data);
+          console.time('Test create fragment');
+          const fragment = stringToDomFragment(response.data as string);
+          console.timeEnd('Test create fragment');
+          console.log(fragment);
+
           this.setState(() => {
             return {
               data: response.data
