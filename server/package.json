@@ -1,0 +1,11 @@
+{
+  "name": "proxy-dev-server",
+  "version": "1.0.0",
+  "description": "A simple server to bypass CORS problems in development when working with the MTurk API.",
+  "main": "index.js",
+  "author": "Shovon Hasan <im.shovonhasan@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
