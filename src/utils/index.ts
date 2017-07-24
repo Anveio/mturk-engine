@@ -13,24 +13,29 @@ const stringToDomFragment = (htmlString: string): DocumentFragment => {
  * @param dom A DocumentFragment created by stringToDomFragment
  */
 const filterHits = (dom: DocumentFragment) => {
-  return dom.querySelectorAll('*');
+  return dom.querySelector('tbody#HTT');
 };
 
 /**
- * Clears the head and body of a document so that the react app can cleanly be inserted.
- * Only for production use.
+ * Production config. Clears the head and body of a document so that the react app can cleanly be inserted.
  */
 const clearDom = (): void => {
   document.head.innerHTML = '';
   document.body.innerHTML = '';
 };
 
+/**
+ * Production config. Appends a div with the id of root to the body of the present document.
+ */
 const createRootDiv = (): void => {
   const div = document.createElement('div');
   div.id = 'root';
   document.body.appendChild(div);
 };
 
+/**
+ * Production config. Appends a link to Shopify Polaris's stylesheet to the head of the present document.
+ */
 const importPolarisStylesheet = (): void => {
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';

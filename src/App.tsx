@@ -6,7 +6,7 @@ import { API_URL } from './constants';
 import { stringToDomFragment, filterHits } from './utils';
 
 interface State {
-  data: any;
+  data: null | string;
   clicked: number;
 }
 
@@ -50,13 +50,13 @@ class App extends React.Component<{}, State> {
 
   readonly fetchData = () => {
     axios
-      .get(this.queryString(), {})
+      .get(this.queryString())
       .then(
         response => {
           const data: string = response.data;
           const hits = filterHits(stringToDomFragment(data));
           console.log(hits);
-          
+
           this.setState(() => ({ data }));
         },
         reject => {

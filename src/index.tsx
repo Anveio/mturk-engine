@@ -7,11 +7,11 @@ import { clearDom, createRootDiv, importPolarisStylesheet } from './utils';
 import '@shopify/polaris/styles.css';
 
 // If root is not present, kick off changes for production.
-if (!document.getElementById('root')) {
+if (!document.querySelector('#root')) {
   clearDom();
   createRootDiv();
   importPolarisStylesheet();
 }
 
-ReactDOM.render(<App />, document.getElementById('root') as HTMLElement);
+ReactDOM.render(<App />, document.querySelector('#root') as HTMLElement);
 // registerServiceWorker();
