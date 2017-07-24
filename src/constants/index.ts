@@ -1,4 +1,4 @@
 export const API_URL =
   process.env.NODE_ENV === 'production'
-    ? 'https://worker.mturk.com'
+    ? 'https://www.mturk.com'
     : 'http://localhost:7777';

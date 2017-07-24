@@ -56,19 +56,11 @@ class App extends React.Component<{}, State> {
           const data: string = response.data;
           const hits = filterHits(stringToDomFragment(data));
           console.log(hits);
-
-          this.setState(() => {
-            return {
-              data
-            };
-          });
+          
+          this.setState(() => ({ data }));
         },
         reject => {
-          this.setState(() => {
-            return {
-              data: reject.data
-            };
-          });
+          this.setState(() => ({ data: reject.data }));
         }
       )
       .catch(reason => {
@@ -85,8 +77,8 @@ class App extends React.Component<{}, State> {
         >
           <Layout.Section>
             <Card sectioned>
-              {this.state.data || 'No data found.'}. Clicked{' '}
-              {this.state.clicked} times.
+              {this.state.data || 'No data found.'} Clicked {this.state.clicked}{' '}
+              times.
             </Card>
           </Layout.Section>
         </Page>
