@@ -37,10 +37,10 @@ export const parseRequesterName = (input: HTMLTableElement): string => {
 export const parseRequesterId = (input: HTMLTableElement): string => {
   const requesterIdElem = input.querySelector(requesterIdAnchorString);
   if (requesterIdElem) {
-    /**
-     * Credit to: Line 708 in https://greasyfork.org/en/scripts/21815-hit-finder-beta/code#n708
-     */
     const href = requesterIdElem.getAttribute('href') as string;
+    /**
+     * Credit to: L708 in https://greasyfork.org/en/scripts/21815-hit-finder-beta/code#n708
+     */
     return href.split('requesterId=')[1];
   } else {
     return '[Error retrieving requester ID]';
