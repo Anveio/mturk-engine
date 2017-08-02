@@ -25,14 +25,24 @@ export const tabulateData = (input: HTMLTableElement[]): HitTableEntry[] =>
   input.map(generateHitData);
 
 export const generateHitData = (input: HTMLTableElement): HitTableEntry => ({
+  title: parseHitTitleeas(input),
   requester: parseRequesterName(input),
   requesterId: parseRequesterId(input),
   reward: 1,
-  description: parseHitTitle(input),
+  description: parseHitDescription(input),
   groupId: '',
   pandaLink: '',
   previewLink: ''
 });
+
+export const parseHitTitleeas = (input: HTMLTableElement): string => {
+  const hitTitleElem = input.querySelector('a.capsulelink');
+  if (hitTitleElem && hitTitleElem.textContent) {
+    return hitTitleElem.textContent;
+  } else {
+    return '[Error retrieving hit title]';
+  }
+};
 
 export const parseRequesterName = (input: HTMLTableElement): string => {
   const requesterNameElem = input.querySelector('span.requesterIdentity');
@@ -56,7 +66,7 @@ export const parseRequesterId = (input: HTMLTableElement): string => {
   }
 };
 
-export const parseHitTitle = (input: HTMLTableElement): string => {
+export const parseHitDescription = (input: HTMLTableElement): string => {
   const hitTitleElem = input.querySelector('a.capsulelink');
   if (hitTitleElem && hitTitleElem.textContent) {
     return hitTitleElem.textContent;

@@ -7,6 +7,7 @@ interface SearchParams {
 }
 
 interface HitTableEntry {
+  title: string;
   requester: string;
   requesterId: string;
   reward: number;
