@@ -34,7 +34,11 @@ export const tabulateData = (input: HTMLTableElement[]): HitTableEntry[] =>
 export const parseRequesterName = (input: HTMLTableElement): string => {
   const reqNameElement = input.querySelector('span.requesterIdentity');
   console.log(reqNameElement);
-  return reqNameElement ? reqNameElement.innerHTML : 'No Requester ID found';
+  if (reqNameElement && reqNameElement.textContent) {
+    return reqNameElement.textContent;
+  } else {
+    return '[Error retrieving requester name]';
+  }
 };
 
 export const parseHitPage = (html: string): HitTableEntry[] => {
