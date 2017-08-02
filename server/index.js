@@ -1,23 +1,26 @@
-/**
- * Credit to: https://blog.javascripting.com/2015/01/17/dont-hassle-with-cors/
- * &:  
- */
-
 const express = require('express');
 const request = require('request');
+const cookies = require('./cookie');
 
 const app = express();
 
-app.use('/', (req, res) => {
-  // console.log(req.headers);
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-  );
+app.use('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Credentials', 'true');
 
-  console.log(new Date(), ' -- Rquest Received:', req.url);
+  console.log(new Date(), ' -- Request Received:', req.url);
 
+  req.header;
+
+  // Object.keys(cookies).forEach(key => res.cookie(key, cookies[key]));
+  console.log(req.headers);
+  req.headers.cookie = cookies;
+  // Object.assign(req.headers, { cookie: cookies });
+
+  /**
+  * Credit to: https://blog.javascripting.com/2015/01/17/dont-hassle-with-cors/
+  */
+  // console.log(req.session.cookies);
   const url = 'http://www.mturk.com' + req.url;
   req.pipe(request(url)).pipe(res);
 });
