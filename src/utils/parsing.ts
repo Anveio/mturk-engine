@@ -25,17 +25,17 @@ export const tabulateData = (input: HTMLTableElement[]): HitTableEntry[] =>
   input.map(generateHitData);
 
 export const generateHitData = (input: HTMLTableElement): HitTableEntry => ({
-  title: parseHitTitleeas(input),
+  title: parseHitTitle(input),
   requester: parseRequesterName(input),
   requesterId: parseRequesterId(input),
-  reward: 1,
+  reward: parseHitReward(input),
   description: parseHitDescription(input),
-  groupId: '',
+  groupId: parseGroupId(input),
   pandaLink: '',
   previewLink: ''
 });
 
-export const parseHitTitleeas = (input: HTMLTableElement): string => {
+export const parseHitTitle = (input: HTMLTableElement): string => {
   const hitTitleElem = input.querySelector('a.capsulelink');
   if (hitTitleElem && hitTitleElem.textContent) {
     return hitTitleElem.textContent;
@@ -75,7 +75,26 @@ export const parseHitDescription = (input: HTMLTableElement): string => {
   }
 };
 
-// export const generate
+export const parseHitReward = (input: HTMLTableElement): string => {
+  const hitRewardElem = input.querySelector('span.reward');
+  if (hitRewardElem && hitRewardElem.textContent) {
+    return hitRewardElem.textContent;
+  } else {
+    return '[Error retrieving HIT reward amount]';
+  }
+};
+
+export const parseGroupId = (input: HTMLTableElement): string => {
+  const groupIdElem = input.querySelector('a[href*="groupId="]');
+  if (groupIdElem) {
+    const href = groupIdElem.getAttribute('href') as string;
+    return href.split('=')[1];
+  } else if (input.querySelector('a[href*="requestqualification?"]')) {
+    return '[You are not qualified]';
+  } else {
+    return '[Error retrieving HIT Group ID]';
+  }
+};
 
 export const parseHitPage = (html: string): HitTableEntry[] => {
   const table = stringToDomElement(html);

@@ -7,12 +7,12 @@ export interface Props {
 }
 
 const HitRow = ({ data }: Props) => {
-  const { requester, reward, title } = data;
-
+  const { requester, reward, title, pandaLink } = data;
   const props: ItemProps = {
     attributeOne: title,
     attributeTwo: requester,
-    attributeThree: reward
+    attributeThree: reward,
+    url: pandaLink
   };
 
   return <ResourceList.Item {...props} />;

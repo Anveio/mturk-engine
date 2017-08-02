@@ -8,9 +8,7 @@ export interface Props {
 }
 
 const HitTable = ({ rows }: Props) => {
-  return (
-    <ResourceList items={rows} renderItem={data => <HitRow data={data} />} />
-  );
+  return <ResourceList items={rows} renderItem={data => <HitRow data={data} />} />;
 };
 
 export default HitTable;
