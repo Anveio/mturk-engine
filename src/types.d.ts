@@ -5,3 +5,9 @@ interface SearchParams {
   readonly minReward: number;
   readonly qualifiedFor: 'on' | 'off';
 }
+
+interface HitTableEntry {
+  requester: string;
+  reward: number;
+  title: string;
+}

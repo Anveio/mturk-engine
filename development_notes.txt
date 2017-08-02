@@ -9,3 +9,5 @@ console.timeEnd('Test create fragment');
 ```
 
 window.indexedDB to persistently store found hits?
+
+div.

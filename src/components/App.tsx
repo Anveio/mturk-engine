@@ -2,11 +2,13 @@ import * as React from 'react';
 import axios from 'axios';
 import { Page, Layout, Card } from '@shopify/polaris';
 
-import { API_URL } from './constants';
-import { stringToDomFragment, filterHits } from './utils';
+import HitTable from './HitTable/HitTable';
+
+import { API_URL } from '../constants';
+import { stringToDomElement, selectHitContainers, tabulateData } from '../utils';
 
 interface State {
-  data: null | string;
+  data: null | NodeList;
   clicked: number;
 }
 
@@ -19,15 +21,13 @@ class App extends React.Component<{}, State> {
     };
   }
 
-  readonly params = (): SearchParams => {
-    return {
-      selectedSearchType: 'hitgroups',
-      sortType: 'LastUpdatedTime%3A1',
-      pageSize: 25,
-      minReward: 1.0,
-      qualifiedFor: 'on'
-    };
-  };
+  readonly params = (): SearchParams => ({
+    selectedSearchType: 'hitgroups',
+    sortType: 'LastUpdatedTime%3A1',
+    pageSize: 25,
+    minReward: 1.0,
+    qualifiedFor: 'on'
+  });
 
   readonly queryString = (): string => {
     // let builtParams = '';
@@ -45,27 +45,32 @@ class App extends React.Component<{}, State> {
     // }
 
     // // return `https://www.mturk.com/mturk/searchbar?${builtParams}`;
-    return `${API_URL}`;
+    return `${API_URL}/mturk/findhits?match=true`;
   };
 
-  readonly fetchData = () => {
+  private readonly fetchData = () => {
     axios
       .get(this.queryString())
       .then(
-        response => {
-          const data: string = response.data;
-          const hits = filterHits(stringToDomFragment(data));
-          console.log(hits);
-
-          this.setState(() => ({ data }));
+        success => {
+          // console.group(success.data);
+          const data: string = success.data;
+          const hits = selectHitContainers(stringToDomElement(data));
+          this.setState((): Partial<State> => {
+            return { data: hits };
+          });
         },
         reject => {
           this.setState(() => ({ data: reject.data }));
         }
       )
       .catch(reason => {
-        console.error(reason);
+        console.warn(reason);
       });
+  };
+
+  noDataMarkup = () => {
+    return <p>No data found.</p>;
   };
 
   render() {
@@ -76,9 +81,12 @@ class App extends React.Component<{}, State> {
           primaryAction={{ content: 'Fetch Data', onAction: this.fetchData }}
         >
           <Layout.Section>
-            <Card sectioned>
-              {this.state.data || 'No data found.'} Clicked {this.state.clicked}{' '}
-              times.
+            <Card sectioned title="Data">
+              {this.state.data ? (
+                <HitTable rows={tabulateData(this.state.data)} />
+              ) : (
+                this.noDataMarkup()
+              )}
             </Card>
           </Layout.Section>
         </Page>
