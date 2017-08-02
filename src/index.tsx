@@ -1,7 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './components/App';
-import { clearDom, createRootDiv, importPolarisStylesheet } from './utils';
+import {
+  clearDom,
+  createRootDiv,
+  importPolarisStylesheet
+} from './utils/production';
 // import registerServiceWorker from './registerServiceWorker';
 
 import '@shopify/polaris/styles.css';

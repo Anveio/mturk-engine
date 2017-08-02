@@ -2,13 +2,13 @@ import * as React from 'react';
 import axios from 'axios';
 import { Page, Layout, Card } from '@shopify/polaris';
 
+import { API_URL } from '../constants';
+import { parseHitPage } from '../utils/parsing';
+
 import HitTable from './HitTable/HitTable';
 
-import { API_URL } from '../constants';
-import { stringToDomElement, selectHitContainers, tabulateData } from '../utils';
-
 interface State {
-  data: null | NodeList;
+  data: null | HitTableEntry[];
   clicked: number;
 }
 
@@ -55,7 +55,7 @@ class App extends React.Component<{}, State> {
         success => {
           // console.group(success.data);
           const data: string = success.data;
-          const hits = selectHitContainers(stringToDomElement(data));
+          const hits = parseHitPage(data);
           this.setState((): Partial<State> => {
             return { data: hits };
           });
@@ -83,7 +83,7 @@ class App extends React.Component<{}, State> {
           <Layout.Section>
             <Card sectioned title="Data">
               {this.state.data ? (
-                <HitTable rows={tabulateData(this.state.data)} />
+                <HitTable rows={this.state.data} />
               ) : (
                 this.noDataMarkup()
               )}

@@ -1,3 +1,3 @@
-import { configureApiRoot } from '../utils';
+import { configureApiRoot } from '../utils/config';
 
 export const API_URL = configureApiRoot();

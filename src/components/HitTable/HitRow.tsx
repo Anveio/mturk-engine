@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card } from '@shopify/polaris';
+import { ResourceList } from '@shopify/polaris';
 
 export interface Props {
   data: HitTableEntry;
@@ -8,13 +8,13 @@ export interface Props {
 const HitRow = ({ data }: Props) => {
   const { requester, reward, title } = data;
 
-  return (
-    <Card sectioned title={title}>
-      <p>
-        Requester: {requester}, Reward: {reward}
-      </p>
-    </Card>
-  );
+  const props = {
+    attributeOne: requester,
+    attributeTwo: reward,
+    attributeThree: title
+  };
+
+  return <ResourceList.Item {...props} />;
 };
 
 export default HitRow;
