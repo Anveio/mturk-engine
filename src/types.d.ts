@@ -10,5 +10,8 @@ interface HitTableEntry {
   requester: string;
   requesterId: string;
   reward: number;
-  title: string;
+  description: string;
+  groupId: string;
+  pandaLink: string;
+  previewLink: string;
 }

@@ -1,4 +1,8 @@
-import { hitIdentifier, requesterIdAnchorString } from '../constants';
+import {
+  hitIdentifier,
+  requesterIdAnchorString
+  // hitDescriptionString
+} from '../constants';
 
 /**
  * Parses an HTML string into a table element.
@@ -18,12 +22,17 @@ export const selectHitContainers = (el: HTMLTableElement): HTMLTableElement[] =>
   Array.from(el.querySelectorAll(hitIdentifier) as NodeListOf<HTMLTableElement>);
 
 export const tabulateData = (input: HTMLTableElement[]): HitTableEntry[] =>
-  input.map(el => ({
-    requester: parseRequesterName(el),
-    requesterId: parseRequesterId(el),
-    reward: 1,
-    title: 'title'
-  }));
+  input.map(generateHitData);
+
+export const generateHitData = (input: HTMLTableElement): HitTableEntry => ({
+  requester: parseRequesterName(input),
+  requesterId: parseRequesterId(input),
+  reward: 1,
+  description: parseHitTitle(input),
+  groupId: '',
+  pandaLink: '',
+  previewLink: ''
+});
 
 export const parseRequesterName = (input: HTMLTableElement): string => {
   const requesterNameElem = input.querySelector('span.requesterIdentity');
@@ -46,6 +55,17 @@ export const parseRequesterId = (input: HTMLTableElement): string => {
     return '[Error retrieving requester ID]';
   }
 };
+
+export const parseHitTitle = (input: HTMLTableElement): string => {
+  const hitTitleElem = input.querySelector('a.capsulelink');
+  if (hitTitleElem && hitTitleElem.textContent) {
+    return hitTitleElem.textContent;
+  } else {
+    return '[Error retrieving HIT name]';
+  }
+};
+
+// export const generate
 
 export const parseHitPage = (html: string): HitTableEntry[] => {
   const table = stringToDomElement(html);
