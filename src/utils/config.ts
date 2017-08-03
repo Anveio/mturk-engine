@@ -4,7 +4,7 @@
 export const configureApiRoot = () => {
   const hostname = window && window.location && window.location.hostname;
   switch (hostname) {
-    case 'mturk.com':
+    case 'www.mturk.com':
       return 'https://www.mturk.com';
     case 'localhost':
       return 'http://localhost:7777';
