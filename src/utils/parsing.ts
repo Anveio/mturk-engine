@@ -35,7 +35,7 @@ export const generateHitData = (input: HTMLTableElement): HitTableEntry => ({
 export const parseHitTitle = (input: HTMLTableElement): string => {
   const hitTitleElem = input.querySelector('a.capsulelink');
   if (hitTitleElem && hitTitleElem.textContent) {
-    return hitTitleElem.textContent;
+    return hitTitleElem.textContent.trim();
   } else {
     return '[Error retrieving hit title]';
   }

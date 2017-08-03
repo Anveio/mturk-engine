@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Card, Stack } from '@shopify/polaris';
 import RequesterBadges from './RequesterBadges';
 
+import { truncate } from '../../utils/formatting';
+
 interface Props {
   requester: string;
   title: string;
@@ -9,7 +11,7 @@ interface Props {
 
 const RequesterInfo = ({ title, requester }: Props) => {
   return (
-    <Card.Section title={title}>
+    <Card.Section title={truncate(title)}>
       <Stack vertical spacing="tight">
         <RequesterBadges requester={requester} />
       </Stack>
