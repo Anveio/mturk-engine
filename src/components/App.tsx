@@ -10,6 +10,7 @@ import HitTable from './HitTable/HitTable';
 
 interface State {
   data: null | HitTableEntry[];
+  
 }
 
 class App extends React.Component<{}, State> {

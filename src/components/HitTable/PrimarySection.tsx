@@ -12,7 +12,7 @@ const Actionable = ({ reward, groupId }: Props) => {
 
   return (
     <Card.Section>
-      <Stack spacing="loose">
+      <Stack>
         <ButtonGroup segmented>
           <Button external url={previewUrl} icon="view" />
           <Button primary external url={pandaUrl} icon="add" />
