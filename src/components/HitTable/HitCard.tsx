@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { Card, Stack } from '@shopify/polaris';
 import Reward from './Reward';
-import HitActions from './HitActions';
+// import HitActions from './HitActions';
+
+import RequesterInfo from './RequesterInfo';
 
 export interface Props {
   data: HitTableEntry;
 }
 
 const HitRow = ({ data }: Props) => {
-  const { requester, title, groupId, reward } = data;
+  const { requester, reward, title } = data;
   return (
-    <Card title={title}>
-      <Stack vertical={false} distribution="fill">
-        <Card.Section title={requester}>{groupId}</Card.Section>
-        <Stack vertical={false} distribution="trailing" alignment="fill">
-          <HitActions />
-          <Reward reward={reward} />
-        </Stack>
+    <Card>
+      <Stack vertical={false} distribution="leading" alignment="fill">
+        <Reward reward={reward} />
+        {/* <HitActions /> */}
+        <RequesterInfo requester={requester} title={title} />
       </Stack>
     </Card>
   );

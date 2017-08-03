@@ -4,9 +4,9 @@ import { Card, ButtonGroup, Button } from '@shopify/polaris';
 const HitActions = () => {
   return (
     <Card.Section>
-      <ButtonGroup>
-        <Button primary>Accept</Button>
-        <Button>Preview</Button>
+      <ButtonGroup segmented>
+        <Button primary icon="add" />
+        <Button icon="view" />
       </ButtonGroup>
     </Card.Section>
   );

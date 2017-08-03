@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, DisplayText } from '@shopify/polaris';
+import { Card, Stack, DisplayText, ButtonGroup, Button } from '@shopify/polaris';
 
 export interface Props {
   reward: string;
@@ -8,7 +8,13 @@ export interface Props {
 const Reward = ({ reward }: Props) => {
   return (
     <Card.Section>
-      <DisplayText size="large">{reward}</DisplayText>
+      <Stack spacing="loose">
+        <DisplayText>{reward}</DisplayText>
+        <ButtonGroup segmented>
+          <Button primary icon="add" />
+          <Button icon="view" />
+        </ButtonGroup>
+      </Stack>
     </Card.Section>
   );
 };
