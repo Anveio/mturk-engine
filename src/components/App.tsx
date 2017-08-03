@@ -55,7 +55,9 @@ class App extends React.Component<{}, State> {
         success => {
           // console.group(success.data);
           const data: string = success.data;
+          const t0 = performance.now();
           const hits = parseHitPage(data);
+          console.log(performance.now() - t0);
           this.setState((): Partial<State> => {
             return { data: hits };
           });
