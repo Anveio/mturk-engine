@@ -31,8 +31,6 @@ export const generateHitData = (input: HTMLTableElement): HitTableEntry => ({
   reward: parseHitReward(input),
   description: parseHitDescription(input),
   groupId: parseGroupId(input),
-  pandaLink: '',
-  previewLink: ''
 });
 
 export const parseHitTitle = (input: HTMLTableElement): string => {

@@ -13,6 +13,4 @@ interface HitTableEntry {
   reward: string;
   description: string;
   groupId: string;
-  pandaLink: string;
-  previewLink: string;
 }

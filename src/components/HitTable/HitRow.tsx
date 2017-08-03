@@ -7,12 +7,12 @@ export interface Props {
 }
 
 const HitRow = ({ data }: Props) => {
-  const { requester, reward, title, pandaLink } = data;
+  const { requester, reward, title, groupId } = data;
   const props: ItemProps = {
     attributeOne: title,
     attributeTwo: requester,
     attributeThree: reward,
-    url: pandaLink
+    url: `https://www.mturk.com/mturk/previewandaccept?groupId=${groupId}`
   };
 
   return <ResourceList.Item {...props} />;
