@@ -19,6 +19,7 @@ node_modules
 
 example.js
 cookie.js
+development_notes.txt
 
 npm-debug.log*
 yarn-debug.log*
