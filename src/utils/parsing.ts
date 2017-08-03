@@ -29,8 +29,7 @@ export const generateHitData = (input: HTMLTableElement): HitTableEntry => ({
   requester: parseRequesterName(input),
   requesterId: parseRequesterId(input),
   reward: parseHitReward(input),
-  description: parseHitDescription(input),
-  groupId: parseGroupId(input),
+  groupId: parseGroupId(input)
 });
 
 export const parseHitTitle = (input: HTMLTableElement): string => {
@@ -61,15 +60,6 @@ export const parseRequesterId = (input: HTMLTableElement): string => {
     return href.split('requesterId=')[1];
   } else {
     return '[Error retrieving requester ID]';
-  }
-};
-
-export const parseHitDescription = (input: HTMLTableElement): string => {
-  const hitTitleElem = input.querySelector('a.capsulelink');
-  if (hitTitleElem && hitTitleElem.textContent) {
-    return hitTitleElem.textContent;
-  } else {
-    return '[Error retrieving HIT name]';
   }
 };
 

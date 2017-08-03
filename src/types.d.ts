@@ -11,6 +11,5 @@ interface HitTableEntry {
   requester: string;
   requesterId: string;
   reward: string;
-  description: string;
   groupId: string;
 }
