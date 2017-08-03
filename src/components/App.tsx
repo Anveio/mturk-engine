@@ -4,22 +4,18 @@ import { Page, Layout } from '@shopify/polaris';
 
 import { API_URL } from '../constants';
 import { parseHitPage } from '../utils/parsing';
+import { sampleData } from '../utils/sampleData';
 
 import HitTable from './HitTable/HitTable';
 
 interface State {
   data: null | HitTableEntry[];
-  clicked: number;
 }
 
 class App extends React.Component<{}, State> {
-  constructor() {
-    super();
-    this.state = {
-      data: null,
-      clicked: 0
-    };
-  }
+  state = {
+    data: sampleData
+  };
 
   readonly params = (): SearchParams => ({
     selectedSearchType: 'hitgroups',
