@@ -10,11 +10,11 @@ export interface Props {
 }
 
 const HitCard = ({ data }: Props) => {
-  const { requester, reward, title } = data;
+  const { requester, reward, title, groupId } = data;
   return (
     <Card>
       <Stack vertical={false} distribution="leading">
-        <PrimarySection reward={reward} />
+        <PrimarySection reward={reward} groupId={groupId} />
         <InfoSection requester={requester} title={title} />
       </Stack>
     </Card>
