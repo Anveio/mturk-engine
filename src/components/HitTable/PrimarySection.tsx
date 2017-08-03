@@ -5,18 +5,18 @@ export interface Props {
   reward: string;
 }
 
-const Reward = ({ reward }: Props) => {
+const Actionable = ({ reward }: Props) => {
   return (
     <Card.Section>
       <Stack spacing="loose">
-        <DisplayText>{reward}</DisplayText>
         <ButtonGroup segmented>
-          <Button primary icon="add" />
           <Button icon="view" />
+          <Button primary icon="add" />
         </ButtonGroup>
+        <DisplayText>{reward}</DisplayText>
       </Stack>
     </Card.Section>
   );
 };
 
-export default Reward;
+export default Actionable;

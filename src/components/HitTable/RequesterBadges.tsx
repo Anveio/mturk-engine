@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { List, Stack, Badge } from '@shopify/polaris';
+import { Stack, Caption, Badge } from '@shopify/polaris';
 
 interface Props {
   requester: string;
@@ -7,11 +7,10 @@ interface Props {
 
 const BadgeList = ({ requester }: Props) => {
   return (
-    <List.Item>
-      <Stack>
-        <Badge status="success">High T.O.</Badge>
-      </Stack>
-    </List.Item>
+    <Stack>
+      <Caption>{requester}</Caption>
+      <Badge status="success">High T.O.</Badge>
+    </Stack>
   );
 };
 
