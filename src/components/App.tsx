@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Page, Layout, Card } from '@shopify/polaris';
+import { Page, Layout } from '@shopify/polaris';
 
 import { API_URL } from '../constants';
 import { parseHitPage } from '../utils/parsing';
@@ -81,13 +81,11 @@ class App extends React.Component<{}, State> {
           primaryAction={{ content: 'Fetch Data', onAction: this.fetchData }}
         >
           <Layout.Section>
-            <Card sectioned title="Data">
-              {this.state.data ? (
-                <HitTable rows={this.state.data} />
-              ) : (
-                this.noDataMarkup()
-              )}
-            </Card>
+            {this.state.data ? (
+              <HitTable rows={this.state.data} />
+            ) : (
+              this.noDataMarkup()
+            )}
           </Layout.Section>
         </Page>
       </main>
