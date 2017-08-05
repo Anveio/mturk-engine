@@ -1,8 +1,4 @@
-import {
-  hitIdentifier,
-  requesterIdAnchorString
-  // hitDescriptionString
-} from '../constants';
+import { hitIdentifier, requesterIdAnchorString } from '../constants';
 
 /**
  * Parses an HTML string into a table element.

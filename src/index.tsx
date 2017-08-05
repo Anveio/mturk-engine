@@ -1,21 +1,28 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './components/App';
+import { Provider } from 'react-redux';
+import store from './store';
+import { configureApiRoot } from './utils/config';
 import {
   clearDom,
   createRootDiv,
   importPolarisStylesheet
 } from './utils/production';
-// import registerServiceWorker from './registerServiceWorker';
 
+import App from './components/App';
 import '@shopify/polaris/styles.css';
 
-// If root is not present, kick off changes for production.
-if (!document.querySelector('#root')) {
+// If not in development, kick off productions configurations.
+if (configureApiRoot() !== 'http://localhost:7777') {
   clearDom();
   createRootDiv();
   importPolarisStylesheet();
 }
 
-ReactDOM.render(<App />, document.querySelector('#root') as HTMLElement);
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.querySelector('#root') as HTMLElement
+);
 // registerServiceWorker();

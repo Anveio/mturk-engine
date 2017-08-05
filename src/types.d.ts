@@ -1,3 +1,7 @@
+interface RootState {
+  data: HitTableEntry[];
+}
+
 interface SearchParams {
   readonly selectedSearchType: string;
   readonly sortType: string;

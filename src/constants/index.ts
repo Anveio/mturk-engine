@@ -13,5 +13,3 @@ export const hitIdentifier = `table[cellpadding="0"][cellspacing="0"][border="0"
  * Credit to: L704 https://greasyfork.org/en/scripts/21815-hit-finder-beta/code#n704
  */
 export const requesterIdAnchorString = `a[href^="/mturk/searchbar?selectedSearchType=hitgroups&requesterId="]`;
-
-export const hitDescriptionString = `td[class="capsule_field_title"]:contains(Description:)`;
