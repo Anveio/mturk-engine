@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card, Stack } from '@shopify/polaris';
-import PrimarySection from './PrimarySection';
+import ActionSection from './ActionSection';
 // import HitActions from './HitActions';
 
 import InfoSection from './InfoSection';
@@ -14,7 +14,7 @@ const HitCard = ({ data }: Props) => {
   return (
     <Card>
       <Stack vertical={false} distribution="leading">
-        <PrimarySection reward={reward} groupId={groupId} />
+        <ActionSection reward={reward} groupId={groupId} />
         <InfoSection requester={requester} title={title} />
       </Stack>
     </Card>
