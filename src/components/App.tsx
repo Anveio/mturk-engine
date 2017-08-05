@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { Page, Layout } from '@shopify/polaris';
+import { Page, Stack, Banner } from '@shopify/polaris';
 
 import { API_URL } from '../constants';
 import { parseHitPage } from '../utils/parsing';
@@ -10,7 +10,6 @@ import HitTable from './HitTable/HitTable';
 
 interface State {
   data: null | HitTableEntry[];
-  
 }
 
 class App extends React.Component<{}, State> {
@@ -79,13 +78,14 @@ class App extends React.Component<{}, State> {
           title="Worker"
           primaryAction={{ content: 'Fetch Data', onAction: this.fetchData }}
         >
-          <Layout.Section>
+          <Stack vertical spacing="tight">
+            <Banner />
             {this.state.data ? (
               <HitTable rows={this.state.data} />
             ) : (
               this.noDataMarkup()
             )}
-          </Layout.Section>
+          </Stack>
         </Page>
       </main>
     );
