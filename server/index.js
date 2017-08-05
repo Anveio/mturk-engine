@@ -10,13 +10,7 @@ app.use('*', (req, res) => {
 
   console.log(new Date(), ' -- Request Received:', req.url);
 
-  req.header;
-
-  // Object.keys(cookies).forEach(key => res.cookie(key, cookies[key]));
-  console.log(req.headers);
   req.headers.cookie = cookies;
-  // Object.assign(req.headers, { cookie: cookies });
-
   /**
   * Credit to: https://blog.javascripting.com/2015/01/17/dont-hassle-with-cors/
   */

@@ -4,11 +4,12 @@ import { ResourceList } from '@shopify/polaris';
 import HitCard from './HitCard';
 
 export interface Props {
-  rows: HitTableEntry[];
+  data: HitTableEntry[];
 }
 
-const HitTable = ({ rows }: Props) => {
-  return <ResourceList items={rows} renderItem={data => <HitCard data={data} />} />;
+const HitTable = ({ data }: Props) => {
+  console.log(data);
+  return <ResourceList items={data} renderItem={hit => <HitCard data={hit} />} />;
 };
 
 export default HitTable;

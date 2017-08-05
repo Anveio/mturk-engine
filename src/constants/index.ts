@@ -1,7 +1,15 @@
 import { configureApiRoot } from '../utils/config';
 
-export const API_URL = configureApiRoot();
+export const GET_HIT_PAGE_REQUEST = 'GET_HIT_PAGE_REQUEST';
+export type GET_HIT_PAGE_REQUEST = typeof GET_HIT_PAGE_REQUEST;
 
+export const GET_HIT_PAGE_SUCCESS = 'GET_HIT_PAGE_SUCCESS';
+export type GET_HIT_PAGE_SUCCESS = typeof GET_HIT_PAGE_SUCCESS;
+
+export const GET_HIT_PAGE_FAILURE = 'GET_HIT_PAGE_FAILURE';
+export type GET_HIT_PAGE_FAILURE = typeof GET_HIT_PAGE_FAILURE;
+
+export const API_URL = configureApiRoot();
 /**
  * The string to be passed to querySelector in order to find the table containing all fetched HITs.
  * Credit to: L697 https://greasyfork.org/en/scripts/21815-hit-finder-beta/code#n697
