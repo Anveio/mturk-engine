@@ -1,4 +1,3 @@
-
 interface RootState {
   data: HitTableEntry[];
 }
@@ -17,4 +16,18 @@ interface HitTableEntry {
   requesterId: string;
   reward: string;
   groupId: string;
+}
+
+interface TurkopticonApiResponse {
+  name: string;
+  attrs: RequesterAttributes;
+  reviews: number;
+  tos_flags: number;
+}
+
+interface RequesterAttributes {
+  comm: string;
+  pay: string;
+  fair: string;
+  fast: string;
 }
