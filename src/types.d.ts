@@ -1,3 +1,4 @@
+
 interface RootState {
   data: HitTableEntry[];
 }

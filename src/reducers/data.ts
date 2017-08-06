@@ -15,6 +15,5 @@ export default (state = initial, action: HitPageAction): HitTableEntry[] => {
     default:
       return state;
   }
-
   return [ ...partialState, ...state ];
 };
