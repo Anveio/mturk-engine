@@ -1,17 +1,13 @@
 import * as React from 'react';
 import { Page, Stack, Banner } from '@shopify/polaris';
 
-import HitTable from './HitTable/HitTable';
-
-export interface Props {
-  readonly data: HitTableEntry[];
-}
+import HitTable from '../containers/HitTable';
 
 export interface Handlers {
   readonly onFetch: () => void;
 }
 
-class App extends React.PureComponent<Props & Handlers, never> {
+class App extends React.PureComponent<Handlers, never> {
   render() {
     return (
       <main>
@@ -21,7 +17,7 @@ class App extends React.PureComponent<Props & Handlers, never> {
         >
           <Stack vertical spacing="tight">
             <Banner />
-            <HitTable data={this.props.data} />
+            <HitTable />
           </Stack>
         </Page>
       </main>

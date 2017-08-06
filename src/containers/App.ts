@@ -2,14 +2,10 @@ import * as actions from '../actions/data';
 import { connect, Dispatch } from 'react-redux';
 import axios from 'axios';
 
-import App, { Props, Handlers } from '../components/App';
+import App, { Handlers } from '../components/App';
 
 import { API_URL } from '../constants';
 import { parseHitPage } from '../utils/parsing';
-
-const mapState = (state: RootState): Props => ({
-  data: state.data
-});
 
 const mapDispatch = (dispatch: Dispatch<actions.HitPageAction>): Handlers => ({
   onFetch: () => {
@@ -31,4 +27,4 @@ const mapDispatch = (dispatch: Dispatch<actions.HitPageAction>): Handlers => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(App);
+export default connect(mapDispatch)(App);
