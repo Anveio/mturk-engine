@@ -9,7 +9,6 @@ import { parseHitPage } from '../utils/parsing';
 
 const mapDispatch = (dispatch: Dispatch<actions.HitPageAction>): Handlers => ({
   onFetch: () => {
-    console.log('hi');
     axios
       .get(`${API_URL}/mturk/findhits?match=true`)
       .then(success => {
@@ -27,4 +26,4 @@ const mapDispatch = (dispatch: Dispatch<actions.HitPageAction>): Handlers => ({
   }
 });
 
-export default connect(mapDispatch)(App);
+export default connect(null, mapDispatch)(App);
