@@ -1,13 +1,22 @@
 import { configureApiRoot } from '../utils/config';
 
-export const GET_HIT_PAGE_REQUEST = 'GET_HIT_PAGE_REQUEST';
-export type GET_HIT_PAGE_REQUEST = typeof GET_HIT_PAGE_REQUEST;
+export const FETCH_HIT_PAGE_REQUEST = 'FETCH_HIT_PAGE_REQUEST';
+export type FETCH_HIT_PAGE_REQUEST = typeof FETCH_HIT_PAGE_REQUEST;
 
-export const GET_HIT_PAGE_SUCCESS = 'GET_HIT_PAGE_SUCCESS';
-export type GET_HIT_PAGE_SUCCESS = typeof GET_HIT_PAGE_SUCCESS;
+export const FETCH_HIT_PAGE_SUCCESS = 'FETCH_HIT_PAGE_SUCCESS';
+export type FETCH_HIT_PAGE_SUCCESS = typeof FETCH_HIT_PAGE_SUCCESS;
 
-export const GET_HIT_PAGE_FAILURE = 'GET_HIT_PAGE_FAILURE';
-export type GET_HIT_PAGE_FAILURE = typeof GET_HIT_PAGE_FAILURE;
+export const FETCH_HIT_PAGE_FAILURE = 'FETCH_HIT_PAGE_FAILURE';
+export type FETCH_HIT_PAGE_FAILURE = typeof FETCH_HIT_PAGE_FAILURE;
+
+export const FETCH_TURKOPTICON_SUCCESS = 'FETCH_TURKOPTICON_SUCCESS';
+export type FETCH_TURKOPTICON_SUCCESS = typeof FETCH_TURKOPTICON_SUCCESS;
+
+export const FETCH_TURKOPTICON_REQUEST = 'FETCH_TURKOPTICON_REQUEST';
+export type FETCH_TURKOPTICON_REQUEST = typeof FETCH_TURKOPTICON_REQUEST;
+
+export const FETCH_TURKOPTICON_FAILURE = 'FETCH_TURKOPTICON_FAILURE';
+export type FETCH_TURKOPTICON_FAILURE = typeof FETCH_TURKOPTICON_FAILURE;
 
 export const API_URL = configureApiRoot();
 /**
@@ -21,3 +30,8 @@ export const hitIdentifier = `table[cellpadding="0"][cellspacing="0"][border="0"
  * Credit to: L704 https://greasyfork.org/en/scripts/21815-hit-finder-beta/code#n704
  */
 export const requesterIdAnchorString = `a[href^="/mturk/searchbar?selectedSearchType=hitgroups&requesterId="]`;
+
+/**
+ * The root URL for querying the attributes of multiple requesters simultaneously
+ */
+export const turkopticonApiMulti = `https://turkopticon.ucsd.edu/api/multi-attrs.php?ids=`;

@@ -19,6 +19,7 @@ const mapDispatch = (dispatch: Dispatch<actions.HitPageAction>): Handlers => ({
         console.log('Time to parse HITs: ' + (performance.now() - t0));
 
         dispatch(actions.getHitPageSuccess(hits));
+        return hits;
       })
       .catch(reason => {
         console.warn(reason);

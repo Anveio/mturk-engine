@@ -16,22 +16,23 @@ interface HitTableEntry {
   requesterId: string;
   reward: string;
   groupId: string;
+  turkopticon?: RequesterDetails
 }
 
-interface TurkopticonApiResponse {
+interface TOpticonApiResponse {
   name: string;
   attrs: RequesterAttributes;
   reviews: number;
   tos_flags: number;
 }
 
-interface RequesterDetails extends TurkopticonApiResponse {
-  id: string;
+interface RequesterDetails extends TOpticonApiResponse {
+  id?: string;
 }
 
 interface RequesterAttributes {
-  comm: string;
-  pay: string;
-  fair: string;
-  fast: string;
+  comm?: string;
+  pay?: string;
+  fair?: string;
+  fast?: string;
 }
