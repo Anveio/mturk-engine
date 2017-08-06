@@ -25,6 +25,10 @@ interface TurkopticonApiResponse {
   tos_flags: number;
 }
 
+interface RequesterDetails extends TurkopticonApiResponse {
+  id: string;
+}
+
 interface RequesterAttributes {
   comm: string;
   pay: string;
