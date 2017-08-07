@@ -22,7 +22,7 @@ export interface HitTableEntry {
   turkopticon?: Requester;
 }
 
-export interface TOpticonApiResponse {
+export interface TOpticonResponse {
   name: string;
   attrs: RequesterScores;
   reviews: number;
@@ -39,6 +39,6 @@ export interface RequesterScores {
 /**
  * Each string should be parseFloat()-able into a number.
  */
-export interface Requester extends TOpticonApiResponse {
+export interface Requester extends TOpticonResponse {
   id?: string;
 }

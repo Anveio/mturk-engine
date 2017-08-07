@@ -1,4 +1,4 @@
-import { Requester, TOpticonApiResponse, HitTableEntry } from '../types';
+import { Requester, TOpticonResponse, HitTableEntry } from '../types';
 import { turkopticonApiMulti } from '../constants';
 import { Map } from 'immutable';
 import axios from 'axios';
@@ -14,8 +14,8 @@ export const batchFetchTOpticon = (requesterIds: string[]) => {
     .get(turkopticonApiMulti + requesterIds)
     .then(response => {
       console.log('Time to ping TO ' + (performance.now() - t0));
-      const data: TOpticonApiResponse = response.data;
-      return TOpticonResToMap(data);
+      const data: TOpticonResponse = response.data;
+      return mapFromTO(data);
     })
     .catch();
 };
@@ -28,9 +28,7 @@ export const selectRequesterIds = (hits: HitTableEntry[]) => {
   return hits.map(hit => hit.requesterId);
 };
 
-export const TOpticonResToMap = (
-  data: TOpticonApiResponse
-): Map<string, Requester> => {
+export const mapFromTO = (data: TOpticonResponse): Map<string, Requester> => {
   return Object.keys(data).reduce((acc, requester: string): Map<
     string,
     Requester
