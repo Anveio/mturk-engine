@@ -28,12 +28,9 @@ export const selectRequesterIds = (hits: HitTableEntry[]) => {
   return hits.map(hit => hit.requesterId);
 };
 
-export const mapFromTO = (data: TOpticonResponse): Map<string, Requester> => {
-  return Object.keys(data).reduce((acc, requester: string): Map<
-    string,
-    Requester
-  > => {
-    return acc.set(requester, data[requester]);
-    // tslint:disable-next-line:align
-  }, Map<string, Requester>());
-};
+export const mapFromTO = (data: TOpticonResponse): Map<string, Requester> =>
+  Object.keys(data).reduce(
+    (acc, requester: string): Map<string, Requester> =>
+      acc.set(requester, data[requester]),
+    Map<string, Requester>()
+  );
