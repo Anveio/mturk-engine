@@ -10,10 +10,15 @@ export const batchFetchTOpticon = (requesterIds: string[]) => {
   return axios.get(turkopticonApiMulti + requesterIds).then(
     response => {
       const data: TOpticonApiResponse = response.data;
-      return Object.keys(data).map(requester => ({
-        id: requester,
-        ...data[requester]
-      })) as RequesterDetails[];
+      // return Object.keys(data).map(requester => ({
+      //   id: requester,
+      //   ...data[requester]
+      // })) as RequesterDetails[];
+      return Object.keys(data).reduce((acc, requester: string) => {
+        const copy = new Map(acc);
+        copy.set(requester, data[requester]);
+        return copy;
+      }, new Map<string, RequesterDetails>());
     },
     reject => {
       return null;

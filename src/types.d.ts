@@ -1,5 +1,6 @@
 interface RootState {
   hits: HitTableEntry[];
+  requesters: Map<string, RequesterDetails>
 }
 
 interface SearchParams {

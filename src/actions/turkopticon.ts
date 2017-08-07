@@ -2,7 +2,7 @@ import * as constants from '../constants';
 
 export interface FetchTOpticonSuccess {
   type: constants.FETCH_TURKOPTICON_SUCCESS;
-  data: RequesterDetails[];
+  data: Map<string, RequesterDetails>;
 }
 
 export interface FetchTOpticonFailure {
@@ -11,7 +11,9 @@ export interface FetchTOpticonFailure {
 
 export type TOpticonAction = FetchTOpticonSuccess | FetchTOpticonFailure;
 
-export const fetchTOpticonSuccess = (data: RequesterDetails[]): FetchTOpticonSuccess => ({
+export const fetchTOpticonSuccess = (
+  data: Map<string, RequesterDetails>
+): FetchTOpticonSuccess => ({
   type: constants.FETCH_TURKOPTICON_SUCCESS,
   data
 });

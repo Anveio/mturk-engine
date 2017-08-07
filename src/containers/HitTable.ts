@@ -11,8 +11,10 @@ const mapState = (state: RootState): Props => ({
 const mapDispatch = (dispatch: Dispatch<actions.TOpticonAction>): Handlers => ({
   onRefresh: async (hits: HitTableEntry[]) => {
     const freshTOpticons = await batchFetchTOpticon(selectRequesterIds(hits));
+    console.log(freshTOpticons);
+    const x = new Map();
     freshTOpticons
-      ? dispatch(actions.fetchTOpticonSuccess(freshTOpticons))
+      ? dispatch(actions.fetchTOpticonSuccess(x))
       : dispatch(actions.fetchTOpticonFailure());
   }
 });
