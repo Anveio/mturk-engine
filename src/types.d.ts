@@ -21,7 +21,7 @@ interface HitTableEntry {
 
 interface TOpticonApiResponse {
   name: string;
-  attrs: RequesterAttributes;
+  attrs: RequesterScores;
   reviews: number;
   tos_flags: number;
 }
@@ -33,7 +33,7 @@ interface RequesterDetails extends TOpticonApiResponse {
 /**
  * Each string should be parseFloat()-able into a number.
  */
-interface RequesterAttributes {
+interface RequesterScores {
   comm?: string;
   pay?: string;
   fair?: string;
