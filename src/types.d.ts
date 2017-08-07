@@ -1,5 +1,5 @@
 interface RootState {
-  data: HitTableEntry[];
+  hits: HitTableEntry[];
 }
 
 interface SearchParams {
@@ -16,7 +16,7 @@ interface HitTableEntry {
   requesterId: string;
   reward: string;
   groupId: string;
-  turkopticon?: RequesterDetails
+  turkopticon?: RequesterDetails;
 }
 
 interface TOpticonApiResponse {
@@ -30,6 +30,9 @@ interface RequesterDetails extends TOpticonApiResponse {
   id?: string;
 }
 
+/**
+ * Each string should be parseFloat()-able into a number.
+ */
 interface RequesterAttributes {
   comm?: string;
   pay?: string;

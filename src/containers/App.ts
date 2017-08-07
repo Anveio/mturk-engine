@@ -1,4 +1,4 @@
-import * as actions from '../actions/data';
+import * as actions from '../actions/hits';
 import { connect, Dispatch } from 'react-redux';
 import axios from 'axios';
 
@@ -12,9 +12,9 @@ const mapDispatch = (dispatch: Dispatch<actions.HitPageAction>): Handlers => ({
     axios
       .get(`${API_URL}/mturk/findhits?match=true`)
       .then(success => {
-        const data: string = success.data;
+        const rawHtml: string = success.data;
         const t0 = performance.now();
-        const hits = parseHitPage(data);
+        const hits = parseHitPage(rawHtml);
         // tslint:disable-next-line:no-console
         console.log('Time to parse HITs: ' + (performance.now() - t0));
 

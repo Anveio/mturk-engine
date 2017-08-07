@@ -1,4 +1,4 @@
-import { HitPageAction } from '../actions/data';
+import { HitPageAction } from '../actions/hits';
 import { FETCH_HIT_PAGE_SUCCESS } from '../constants';
 
 import { sampleData } from '../utils/sampleData';

@@ -4,7 +4,7 @@ import HitCard from './HitCard';
 import { filterHitsWithoutTO } from '../../utils/turkopticon';
 
 export interface Props {
-  readonly data: HitTableEntry[];
+  readonly hits: HitTableEntry[];
 }
 
 export interface Handlers {
@@ -13,14 +13,14 @@ export interface Handlers {
 
 class HitTable extends React.PureComponent<Props & Handlers, never> {
   componentWillReceiveProps() {
-    this.props.onRefresh(filterHitsWithoutTO(this.props.data));
+    this.props.onRefresh(filterHitsWithoutTO(this.props.hits));
   }
 
   public render() {
     return (
       <ResourceList
-        items={this.props.data}
-        renderItem={hit => <HitCard data={hit} />}
+        items={this.props.hits}
+        renderItem={hit => <HitCard hit={hit} />}
       />
     );
   }

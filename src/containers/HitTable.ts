@@ -5,7 +5,7 @@ import HitTable, { Props, Handlers } from '../components/HitTable/HitTable';
 import { batchFetchTOpticon, selectRequesterIds } from '../utils/turkopticon';
 
 const mapState = (state: RootState): Props => ({
-  data: state.data
+  hits: state.hits
 });
 
 const mapDispatch = (dispatch: Dispatch<actions.TOpticonAction>): Handlers => ({

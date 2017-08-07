@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import { default as data } from './reducers/data';
+import { default as hits } from './reducers/hits';
 
 export const rootReducer = combineReducers<RootState>({
-  data
+  hits
 });
