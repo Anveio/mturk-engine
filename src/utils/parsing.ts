@@ -30,20 +30,16 @@ export const generateHitData = (input: HTMLTableElement): HitTableEntry => ({
 
 export const parseHitTitle = (input: HTMLTableElement): string => {
   const hitTitleElem = input.querySelector('a.capsulelink');
-  if (hitTitleElem && hitTitleElem.textContent) {
-    return hitTitleElem.textContent.trim();
-  } else {
-    return '[Error retrieving hit title]';
-  }
+  return hitTitleElem && hitTitleElem.textContent
+    ? hitTitleElem.textContent.trim()
+    : '[Error retrieving hit title]';
 };
 
 export const parseRequesterName = (input: HTMLTableElement): string => {
   const requesterNameElem = input.querySelector('span.requesterIdentity');
-  if (requesterNameElem && requesterNameElem.textContent) {
-    return requesterNameElem.textContent;
-  } else {
-    return '[Error retrieving requester name]';
-  }
+  return requesterNameElem && requesterNameElem.textContent
+    ? requesterNameElem.textContent
+    : '[Error retrieving requester name]';
 };
 
 export const parseRequesterId = (input: HTMLTableElement): string => {
@@ -61,11 +57,10 @@ export const parseRequesterId = (input: HTMLTableElement): string => {
 
 export const parseHitReward = (input: HTMLTableElement): string => {
   const hitRewardElem = input.querySelector('span.reward');
-  if (hitRewardElem && hitRewardElem.textContent) {
-    return hitRewardElem.textContent;
-  } else {
-    return '[Error retrieving HIT reward amount]';
-  }
+
+  return hitRewardElem && hitRewardElem.textContent
+    ? hitRewardElem.textContent
+    : '[Error retrieving HIT reward amount]';
 };
 
 export const parseGroupId = (input: HTMLTableElement): string => {
