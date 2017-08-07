@@ -1,5 +1,7 @@
-import axios from 'axios';
+import { Requester, TOpticonApiResponse, HitTableEntry } from '../types';
 import { turkopticonApiMulti } from '../constants';
+import { Map } from 'immutable';
+import axios from 'axios';
 
 export const batchFetchTOpticon = (requesterIds: string[]) => {
   /**
@@ -7,23 +9,15 @@ export const batchFetchTOpticon = (requesterIds: string[]) => {
    * arrays to strings, which automatically appends a comma between array elements,
    * to build our query string.
    */
-  return axios.get(turkopticonApiMulti + requesterIds).then(
-    response => {
+  const t0 = performance.now();
+  return axios
+    .get(turkopticonApiMulti + requesterIds)
+    .then(response => {
+      console.log('Time to ping TO ' + (performance.now() - t0));
       const data: TOpticonApiResponse = response.data;
-      // return Object.keys(data).map(requester => ({
-      //   id: requester,
-      //   ...data[requester]
-      // })) as RequesterDetails[];
-      return Object.keys(data).reduce((acc, requester: string) => {
-        const copy = new Map(acc);
-        copy.set(requester, data[requester]);
-        return copy;
-      }, new Map<string, RequesterDetails>());
-    },
-    reject => {
-      return null;
-    }
-  );
+      return TOpticonResToMap(data);
+    })
+    .catch();
 };
 
 export const filterHitsWithoutTO = (hits: HitTableEntry[]) => {
@@ -32,4 +26,16 @@ export const filterHitsWithoutTO = (hits: HitTableEntry[]) => {
 
 export const selectRequesterIds = (hits: HitTableEntry[]) => {
   return hits.map(hit => hit.requesterId);
+};
+
+export const TOpticonResToMap = (
+  data: TOpticonApiResponse
+): Map<string, Requester> => {
+  return Object.keys(data).reduce((acc, requester: string): Map<
+    string,
+    Requester
+  > => {
+    return acc.set(requester, data[requester]);
+    // tslint:disable-next-line:align
+  }, Map<string, Requester>());
 };

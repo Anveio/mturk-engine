@@ -1,13 +1,15 @@
+import { Requester } from '../types';
 import { TOpticonAction } from '../actions/turkopticon';
 import { FETCH_TURKOPTICON_SUCCESS } from '../constants';
+import { Map } from 'immutable';
 
-const initial: Map<string, RequesterDetails> = new Map();
+const initial: Map<string, Requester> = Map<string, Requester>();
 
 export default (
   state = initial,
   action: TOpticonAction
-): Map<string, RequesterDetails> => {
-  let partialState: Map<string, RequesterDetails>;
+): Map<string, Requester> => {
+  let partialState: Map<string, Requester> | undefined;
 
   switch (action.type) {
     case FETCH_TURKOPTICON_SUCCESS:
@@ -16,6 +18,5 @@ export default (
     default:
       return state;
   }
-  const x = { ...partialState, ...state };
-  return new Map(x);
+  return state.merge(partialState);
 };

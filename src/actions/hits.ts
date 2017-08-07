@@ -1,4 +1,5 @@
 import * as constants from '../constants';
+import { HitTableEntry } from '../types';
 
 export interface GetHitPageSuccess {
   type: constants.FETCH_HIT_PAGE_SUCCESS;

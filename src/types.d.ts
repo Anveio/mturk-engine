@@ -1,9 +1,11 @@
-interface RootState {
+import * as Immutable from 'immutable';
+
+export interface RootState {
   hits: HitTableEntry[];
-  requesters: Map<string, RequesterDetails>
+  requesters: Immutable.Map<string, Requester>;
 }
 
-interface SearchParams {
+export interface SearchParams {
   readonly selectedSearchType: string;
   readonly sortType: string;
   readonly pageSize: number;
@@ -11,32 +13,32 @@ interface SearchParams {
   readonly qualifiedFor: 'on' | 'off';
 }
 
-interface HitTableEntry {
+export interface HitTableEntry {
   title: string;
-  requester: string;
+  requesterName: string;
   requesterId: string;
   reward: string;
   groupId: string;
-  turkopticon?: RequesterDetails;
+  turkopticon?: Requester;
 }
 
-interface TOpticonApiResponse {
+export interface TOpticonApiResponse {
   name: string;
   attrs: RequesterScores;
   reviews: number;
   tos_flags: number;
 }
 
-interface RequesterDetails extends TOpticonApiResponse {
-  id?: string;
+export interface RequesterScores {
+  comm?: string;
+  pay?: string;
+  fair?: string;
+  fast?: string;
 }
 
 /**
  * Each string should be parseFloat()-able into a number.
  */
-interface RequesterScores {
-  comm?: string;
-  pay?: string;
-  fair?: string;
-  fast?: string;
+export interface Requester extends TOpticonApiResponse {
+  id?: string;
 }

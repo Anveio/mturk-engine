@@ -1,9 +1,11 @@
+import { HitTableEntry } from '../types';
+
 import { HitPageAction } from '../actions/hits';
 import { FETCH_HIT_PAGE_SUCCESS } from '../constants';
 
-import { sampleData } from '../utils/sampleData';
+import { sampleHits } from '../utils/sampleData';
 
-const initial: HitTableEntry[] = sampleData;
+const initial: HitTableEntry[] = sampleHits;
 
 export default (state = initial, action: HitPageAction): HitTableEntry[] => {
   let partialState: HitTableEntry[];

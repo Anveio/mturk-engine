@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { HitTableEntry } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import HitCard from './HitCard';
 import { filterHitsWithoutTO } from '../../utils/turkopticon';

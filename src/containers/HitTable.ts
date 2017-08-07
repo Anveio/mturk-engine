@@ -1,3 +1,5 @@
+import { RootState, HitTableEntry } from '../types';
+
 import { connect, Dispatch } from 'react-redux';
 import * as actions from '../actions/turkopticon';
 import HitTable, { Props, Handlers } from '../components/HitTable/HitTable';
@@ -10,12 +12,12 @@ const mapState = (state: RootState): Props => ({
 
 const mapDispatch = (dispatch: Dispatch<actions.TOpticonAction>): Handlers => ({
   onRefresh: async (hits: HitTableEntry[]) => {
-    const freshTOpticons = await batchFetchTOpticon(selectRequesterIds(hits));
-    console.log(freshTOpticons);
-    const x = new Map();
-    freshTOpticons
-      ? dispatch(actions.fetchTOpticonSuccess(x))
-      : dispatch(actions.fetchTOpticonFailure());
+    try {
+      const freshTOpticons = await batchFetchTOpticon(selectRequesterIds(hits));
+      dispatch(actions.fetchTOpticonSuccess(freshTOpticons));
+    } catch (e) {
+      dispatch(actions.fetchTOpticonFailure());
+    }
   }
 });
 

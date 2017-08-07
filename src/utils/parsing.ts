@@ -1,3 +1,5 @@
+import { HitTableEntry } from '../types';
+
 import { hitIdentifier, requesterIdAnchorString } from '../constants';
 
 /**
@@ -22,7 +24,7 @@ export const tabulateData = (input: HTMLTableElement[]): HitTableEntry[] =>
 
 export const generateHitData = (input: HTMLTableElement): HitTableEntry => ({
   title: parseHitTitle(input),
-  requester: parseRequesterName(input),
+  requesterName: parseRequesterName(input),
   requesterId: parseRequesterId(input),
   reward: parseHitReward(input),
   groupId: parseGroupId(input)
