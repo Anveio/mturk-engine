@@ -9,7 +9,7 @@ export interface Props {
 }
 
 const HitCard = ({ hit }: Props) => {
-  const { requester, reward, title, groupId } = hit;
+  const { requester, reward, title, groupId, } = hit;
   return (
     <Card>
       <Stack>
