@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Hit, HitSet } from '../../types';
+import { Hit, HitSet, RequesterMap } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import HitCard from './HitCard';
 
 export interface Props {
   readonly hits: HitSet;
+  readonly requesters: RequesterMap;
 }
 
 class HitTable extends React.PureComponent<Props, never> {
@@ -12,7 +13,12 @@ class HitTable extends React.PureComponent<Props, never> {
     return (
       <ResourceList
         items={this.props.hits.toArray()}
-        renderItem={(hit: Hit) => <HitCard hit={hit} requester={hit.turkopticon} />}
+        renderItem={(hit: Hit) => (
+          <HitCard
+            hit={hit}
+            requester={this.props.requesters.get(hit.requesterId)}
+          />
+        )}
       />
     );
   }

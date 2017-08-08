@@ -6,7 +6,8 @@ import HitTable, { Props } from '../components/HitTable/HitTable';
 // import { batchFetchTOpticon, selectRequesterId } from '../utils/turkopticon';
 
 const mapState = (state: RootState): Props => ({
-  hits: state.hits
+  hits: state.hits,
+  requesters: state.requesters
 });
 
 export default connect(mapState)(HitTable);

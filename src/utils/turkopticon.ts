@@ -63,6 +63,4 @@ export const mapFromTO = (data: TOpticonResponse): RequesterMap =>
     Map<string, Requester>()
   );
 
-export const assignRequestersToHits = (hits: Hit[], requesters: RequesterMap) => {
-  hits.map(hit => ({ ...hit, turkopticon: requesters.get(hit.requesterId) }));
-};
+export const assignRequestersToHits = (hits: HitSet, requesters: RequesterMap) => {};
