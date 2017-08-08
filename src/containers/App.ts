@@ -1,5 +1,13 @@
-import { HitPageAction, getHitPageSuccess } from '../actions/hits';
-import { TOpticonAction, fetchTOpticonSuccess } from '../actions/turkopticon';
+import {
+  HitPageAction,
+  getHitPageSuccess,
+  getHitPageFailure
+} from '../actions/hits';
+import {
+  TOpticonAction,
+  fetchTOpticonSuccess,
+  fetchTOpticonFailure
+} from '../actions/turkopticon';
 import { connect, Dispatch } from 'react-redux';
 
 import App, { Handlers } from '../components/App';
@@ -29,8 +37,10 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
     const hitData = await fetchHits;
     const topticonData = await fetchTOpticon;
 
-    dispatch(getHitPageSuccess(hitData));
-    dispatch(fetchTOpticonSuccess(topticonData));
+    hitData ? dispatch(getHitPageSuccess(hitData)) : dispatch(getHitPageFailure());
+    topticonData
+      ? dispatch(fetchTOpticonSuccess(topticonData))
+      : dispatch(fetchTOpticonFailure());
   }
 });
 
