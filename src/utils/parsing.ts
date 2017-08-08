@@ -1,6 +1,6 @@
-import { Hit } from '../types';
-
+import { Hit, HitSet } from '../types';
 import { hitIdentifier, requesterIdAnchorString } from '../constants';
+import { Set } from 'immutable';
 
 /**
  * Parses an HTML string into a table element.
@@ -19,8 +19,11 @@ export const stringToDomElement = (htmlString: string): HTMLTableElement => {
 export const selectHitContainers = (el: HTMLTableElement): HTMLTableElement[] =>
   Array.from(el.querySelectorAll(hitIdentifier) as NodeListOf<HTMLTableElement>);
 
-export const tabulateData = (input: HTMLTableElement[]): Hit[] =>
-  input.map(generateHitData);
+export const tabulateData = (input: HTMLTableElement[]): HitSet =>
+  input.reduce(
+    (set: HitSet, hit: HTMLTableElement) => set.add(generateHitData(hit)),
+    Set([])
+  );
 
 export const generateHitData = (input: HTMLTableElement): Hit => ({
   title: parseHitTitle(input),
@@ -77,7 +80,7 @@ export const parseGroupId = (input: HTMLTableElement): string => {
   }
 };
 
-export const parseHitPage = (html: string): Hit[] => {
+export const parseHitPage = (html: string): HitSet => {
   const table = stringToDomElement(html);
   const hitContainers = selectHitContainers(table);
   const hitData = tabulateData(hitContainers);

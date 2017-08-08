@@ -11,11 +11,7 @@ import {
   fetchTOpticonFailure
 } from '../actions/turkopticon';
 import { batchFetchHits } from '../utils/fetchHits';
-import {
-  batchFetchTOpticon,
-  noTurkopticon,
-  selectRequesterId
-} from '../utils/turkopticon';
+import { batchFetchTOpticon, hitSetToRequesterIdsArray } from '../utils/turkopticon';
 
 type AppAction = HitPageAction | TOpticonAction;
 
@@ -32,10 +28,8 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
 
     const fetchTOpticon = (async () => {
       const hits = await fetchHits;
-      return await batchFetchTOpticon(
-        hits.filter(noTurkopticon).map(selectRequesterId)
-      );
-
+      const requesterIds = hitSetToRequesterIdsArray(hits);
+      return await batchFetchTOpticon(requesterIds);
     })();
 
     const topticonData = await fetchTOpticon;

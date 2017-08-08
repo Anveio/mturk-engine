@@ -2,6 +2,7 @@ import {
   Requester,
   TOpticonResponse,
   Hit,
+  HitSet,
   RequesterScores,
   RequesterMap
 } from '../types';
@@ -28,8 +29,10 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
 };
 
 export const noTurkopticon = (hit: Hit) => !hit.turkopticon;
-
 export const selectRequesterId = (hit: Hit) => hit.requesterId;
+export const hitSetToRequesterIdsArray = (hits: HitSet): string[] => {
+  return hits.filter(noTurkopticon).map(selectRequesterId).toArray();
+};
 
 export const calculateAverageScore = (scores: RequesterScores) => {
   const categories = filterCategories(scores);
