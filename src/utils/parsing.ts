@@ -1,4 +1,4 @@
-import { HitTableEntry } from '../types';
+import { Hit } from '../types';
 
 import { hitIdentifier, requesterIdAnchorString } from '../constants';
 
@@ -19,10 +19,10 @@ export const stringToDomElement = (htmlString: string): HTMLTableElement => {
 export const selectHitContainers = (el: HTMLTableElement): HTMLTableElement[] =>
   Array.from(el.querySelectorAll(hitIdentifier) as NodeListOf<HTMLTableElement>);
 
-export const tabulateData = (input: HTMLTableElement[]): HitTableEntry[] =>
+export const tabulateData = (input: HTMLTableElement[]): Hit[] =>
   input.map(generateHitData);
 
-export const generateHitData = (input: HTMLTableElement): HitTableEntry => ({
+export const generateHitData = (input: HTMLTableElement): Hit => ({
   title: parseHitTitle(input),
   requesterName: parseRequesterName(input),
   requesterId: parseRequesterId(input),
@@ -77,7 +77,7 @@ export const parseGroupId = (input: HTMLTableElement): string => {
   }
 };
 
-export const parseHitPage = (html: string): HitTableEntry[] => {
+export const parseHitPage = (html: string): Hit[] => {
   const table = stringToDomElement(html);
   const hitContainers = selectHitContainers(table);
   const hitData = tabulateData(hitContainers);

@@ -1,7 +1,7 @@
 import * as Immutable from 'immutable';
 
 export interface RootState {
-  hits: HitTableEntry[];
+  hits: Hit[];
   requesters: RequesterMap;
 }
 
@@ -15,7 +15,7 @@ export interface SearchParams {
   readonly qualifiedFor: 'on' | 'off';
 }
 
-export interface HitTableEntry {
+export interface Hit {
   title: string;
   requesterName: string;
   requesterId: string;

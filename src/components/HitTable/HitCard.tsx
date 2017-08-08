@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { HitTableEntry, Requester } from '../../types';
+import { Hit, Requester } from '../../types';
 import { Card, Stack } from '@shopify/polaris';
 import ActionSection from './ActionSection';
 import InfoSection from './InfoSection';
 
 export interface Props {
-  hit: HitTableEntry;
+  hit: Hit;
   requester?: Requester;
 }
 
