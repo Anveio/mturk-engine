@@ -1,35 +1,36 @@
 import {
   Requester,
   TOpticonResponse,
-  HitTableEntry,
-  RequesterScores
+  Hit,
+  RequesterScores,
+  RequesterMap
 } from '../types';
 import { turkopticonApiMulti } from '../constants';
 import { Map } from 'immutable';
 import axios from 'axios';
 
-export const batchFetchTOpticon = (requesterIds: string[]) => {
+export const batchFetchTOpticon = async (requesterIds: string[]) => {
   /**
    * Potentially unsafe: We're relying on javascript's built-in type coercion of 
    * arrays to strings, which automatically appends a comma between array elements,
    * to build our query string.
    */
-  const t0 = performance.now();
-  return axios
-    .get(turkopticonApiMulti + requesterIds)
-    .then(response => {
-      console.log('Time to ping TO ' + (performance.now() - t0));
-      const data: TOpticonResponse = response.data;
-      return mapFromTO(data);
-    })
-    .catch();
+  try {
+    const t0 = performance.now();
+    const response = await axios.get(turkopticonApiMulti + requesterIds);
+    console.log('Time to ping TO: ' + (performance.now() - t0));
+    const data: TOpticonResponse = response.data;
+    return mapFromTO(data);
+  } catch (e) {
+    throw Error('Problem fetching data from TO');
+  }
 };
 
-export const filterHitsWithoutTO = (hits: HitTableEntry[]) => {
+export const filterHitsWithoutTO = (hits: Hit[]) => {
   return hits.filter(hit => !hit.turkopticon);
 };
 
-export const selectRequesterIds = (hits: HitTableEntry[]) => {
+export const selectRequesterIds = (hits: Hit[]) => {
   return hits.map(hit => hit.requesterId);
 };
 
@@ -55,16 +56,13 @@ export const filterCategories = (scores: RequesterScores) =>
     {}
   );
 
-export const mapFromTO = (data: TOpticonResponse): Map<string, Requester> =>
+export const mapFromTO = (data: TOpticonResponse): RequesterMap =>
   Object.keys(data).reduce(
-    (acc, requester: string): Map<string, Requester> =>
+    (acc, requester: string): RequesterMap =>
       data[requester] ? acc.set(requester, data[requester]) : acc,
     Map<string, Requester>()
   );
 
-export const assignTOpticonToHit = (
-hits: HitTableEntry[],
-requesters: Map<string, Requester>
-) => {
-
+export const assignRequestersToHits = (hits: Hit[], requesters: RequesterMap) => {
+  hits.map(hit => ({ ...hit, turkopticon: requesters.get(hit.requesterId) }));
 };
