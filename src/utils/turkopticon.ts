@@ -18,7 +18,8 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
   try {
     const t0 = performance.now();
     const response = await axios.get(turkopticonApiMulti + requesterIds);
-    console.log('Time to ping TO: ' + (performance.now() - t0));
+    // tslint:disable-next-line:no-console
+    console.log('Time to fetch TO: ' + (performance.now() - t0));
     const data: TOpticonResponse = response.data;
     return mapFromTO(data);
   } catch (e) {
