@@ -1,30 +1,36 @@
-import * as actions from '../actions/hits';
+import { HitPageAction, getHitPageSuccess } from '../actions/hits';
+import { TOpticonAction, fetchTOpticonSuccess } from '../actions/turkopticon';
 import { connect, Dispatch } from 'react-redux';
-import axios from 'axios';
 
 import App, { Handlers } from '../components/App';
+import { batchFetchHits } from '../utils/fetchHits';
+import {
+  batchFetchTOpticon,
+  noTurkopticon,
+  selectRequesterId
+} from '../utils/turkopticon';
 
-import { API_URL } from '../constants';
-import { parseHitPage } from '../utils/parsing';
+type AppAction = HitPageAction | TOpticonAction;
 
-const mapDispatch = (dispatch: Dispatch<actions.HitPageAction>): Handlers => ({
-  onFetch: () => {
-    axios
-      .get(`${API_URL}/mturk/findhits?match=true`)
-      .then(success => {
-        const rawHtml: string = success.data;
-        const t0 = performance.now();
-        const hits = parseHitPage(rawHtml);
-        // tslint:disable-next-line:no-console
-        console.log('Time to parse HITs: ' + (performance.now() - t0));
+const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
+  /**
+   * Credit to: https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/
+   */
+  onFetch: async () => {
+    const fetchHits = (async () => await batchFetchHits())();
 
-        dispatch(actions.getHitPageSuccess(hits));
+    const fetchTOpticon = (async () => {
+      const hits = await fetchHits;
+      return await batchFetchTOpticon(
+        hits.filter(noTurkopticon).map(selectRequesterId)
+      );
+    })();
 
-        return hits;
-      })
-      .catch(reason => {
-        console.warn(reason);
-      });
+    const hitData = await fetchHits;
+    const topticonData = await fetchTOpticon;
+
+    dispatch(getHitPageSuccess(hitData));
+    dispatch(fetchTOpticonSuccess(topticonData));
   }
 });
 
