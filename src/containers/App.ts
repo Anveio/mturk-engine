@@ -12,6 +12,7 @@ import {
 } from '../actions/turkopticon';
 import { batchFetchHits } from '../utils/fetchHits';
 import { batchFetchTOpticon, hitSetToRequesterIdsArray } from '../utils/turkopticon';
+import { Set } from 'immutable';
 
 type AppAction = HitPageAction | TOpticonAction;
 
@@ -21,21 +22,36 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
    */
   onFetch: async () => {
     const fetchHits = (async () => {
-      const hitData = await batchFetchHits();
-      hitData ? dispatch(getHitPageSuccess(hitData)) : dispatch(getHitPageFailure());
-      return hitData;
+      try {
+        const hitData = await batchFetchHits();
+        hitData
+          ? dispatch(getHitPageSuccess(hitData))
+          : dispatch(getHitPageFailure());
+        return hitData;
+      } catch (e) {
+        /**
+         * Return an empty set on error to simplify function signature.
+         */
+        dispatch(getHitPageFailure());
+        return Set([]);
+      }
     })();
 
-    const fetchTOpticon = (async () => {
-      const hits = await fetchHits;
-      const requesterIds = hitSetToRequesterIdsArray(hits);
-      return await batchFetchTOpticon(requesterIds);
+    (async () => {
+      try {
+        const hits = await fetchHits;
+        if (hits.isEmpty()) {
+          return;
+        }
+        const requesterIds = hitSetToRequesterIdsArray(hits);
+        const topticonData = await batchFetchTOpticon(requesterIds);
+        topticonData
+          ? dispatch(fetchTOpticonSuccess(topticonData))
+          : dispatch(fetchTOpticonFailure());
+      } catch (e) {
+        dispatch(fetchTOpticonFailure());
+      }
     })();
-
-    const topticonData = await fetchTOpticon;
-    topticonData
-      ? dispatch(fetchTOpticonSuccess(topticonData))
-      : dispatch(fetchTOpticonFailure());
   }
 });
 
