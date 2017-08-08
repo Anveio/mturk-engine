@@ -2,8 +2,10 @@ import * as Immutable from 'immutable';
 
 export interface RootState {
   hits: HitTableEntry[];
-  requesters: Immutable.Map<string, Requester>;
+  requesters: RequesterMap;
 }
+
+export type RequesterMap = Immutable.Map<string, Requester>;
 
 export interface SearchParams {
   readonly selectedSearchType: string;

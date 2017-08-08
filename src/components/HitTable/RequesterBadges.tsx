@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Badge } from '@shopify/polaris';
+import { Requester } from '../../types';
 
 interface Props {
-  requester: string;
+  requester?: Requester;
 }
 
 const BadgeList = ({ requester }: Props) => {

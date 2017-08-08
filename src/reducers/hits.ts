@@ -3,7 +3,7 @@ import { HitTableEntry } from '../types';
 import { HitPageAction } from '../actions/hits';
 import { FETCH_HIT_PAGE_SUCCESS } from '../constants';
 
-import { sampleHits } from '../utils/sampleData';
+import sampleHits from '../utils/sampleHits';
 
 const initial: HitTableEntry[] = sampleHits;
 

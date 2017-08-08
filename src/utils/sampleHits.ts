@@ -1,5 +1,5 @@
 // tslint:disable
-export const sampleHits = [
+export default [
   {
     title:
       '\n                            Type the text from the images, carefully. Productivity and bonuses guaranteed.\n                            \n                        ',

@@ -1,4 +1,9 @@
-import { Requester, TOpticonResponse, HitTableEntry } from '../types';
+import {
+  Requester,
+  TOpticonResponse,
+  HitTableEntry,
+  RequesterScores
+} from '../types';
 import { turkopticonApiMulti } from '../constants';
 import { Map } from 'immutable';
 import axios from 'axios';
@@ -28,9 +33,38 @@ export const selectRequesterIds = (hits: HitTableEntry[]) => {
   return hits.map(hit => hit.requesterId);
 };
 
+export const calculateAverageScore = (scores: RequesterScores) => {
+  const categories = filterCategories(scores);
+  const total = Object.keys(categories).reduce(
+    (acc, category: string) => parseFloat(categories[category]),
+    0
+  );
+
+  return total / Object.keys(categories).length;
+};
+
+/**
+ * Takes a RequesterScores object and returns a new object in which none of the  
+ * keys correspond to the string '0.00'.
+ * @param scores 
+ */
+export const filterCategories = (scores: RequesterScores) =>
+  Object.keys(scores).reduce(
+    (acc, category: string) =>
+      scores[category] !== '0.00' ? { ...acc, ...scores[category] } : acc,
+    {}
+  );
+
 export const mapFromTO = (data: TOpticonResponse): Map<string, Requester> =>
   Object.keys(data).reduce(
     (acc, requester: string): Map<string, Requester> =>
-      acc.set(requester, data[requester]),
+      data[requester] ? acc.set(requester, data[requester]) : acc,
     Map<string, Requester>()
   );
+
+export const assignTOpticonToHit = (
+hits: HitTableEntry[],
+requesters: Map<string, Requester>
+) => {
+
+};

@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { HitTableEntry } from '../../types';
+import { HitTableEntry, Requester } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import HitCard from './HitCard';
+import { Map } from 'immutable';
 import { filterHitsWithoutTO } from '../../utils/turkopticon';
 
 export interface Props {
   readonly hits: HitTableEntry[];
+  readonly requesters: Map<string, Requester>;
 }
 
 export interface Handlers {
@@ -21,7 +23,9 @@ class HitTable extends React.PureComponent<Props & Handlers, never> {
     return (
       <ResourceList
         items={this.props.hits}
-        renderItem={hit => <HitCard hit={hit} />}
+        renderItem={(hit: HitTableEntry) => (
+          <HitCard hit={hit} requester={hit.turkopticon} />
+        )}
       />
     );
   }

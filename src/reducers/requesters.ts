@@ -3,7 +3,9 @@ import { TOpticonAction } from '../actions/turkopticon';
 import { FETCH_TURKOPTICON_SUCCESS } from '../constants';
 import { Map } from 'immutable';
 
-const initial: Map<string, Requester> = Map<string, Requester>();
+import sampleRequesters from '../utils/sampleRequesters';
+
+const initial: Map<string, Requester> = Map<string, Requester>(sampleRequesters);
 
 export default (
   state = initial,

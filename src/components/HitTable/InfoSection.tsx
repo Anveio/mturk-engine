@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { Card, Stack } from '@shopify/polaris';
-import RequesterBadges from './RequesterBadges';
-import TOpticonButton from './TOpticonButton';
-
+import RequesterButton from './RequesterButton';
+import { Requester } from '../../types';
 import { truncate } from '../../utils/formatting';
 
 interface Props {
-  requester: string;
+  requester: Requester | string;
   title: string;
 }
 
@@ -14,8 +13,7 @@ const RequesterInfo = ({ title, requester }: Props) => {
   return (
     <Card.Section title={truncate(title)}>
       <Stack spacing="tight">
-        <TOpticonButton score={2.1} requesterName={requester} />
-        <RequesterBadges requester={requester} />
+        <RequesterButton requester={requester} />
       </Stack>
     </Card.Section>
   );
