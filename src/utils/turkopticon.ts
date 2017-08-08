@@ -26,13 +26,9 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
   }
 };
 
-export const filterHitsWithoutTO = (hits: Hit[]) => {
-  return hits.filter(hit => !hit.turkopticon);
-};
+export const noTurkopticon = (hit: Hit) => !hit.turkopticon;
 
-export const selectRequesterIds = (hits: Hit[]) => {
-  return hits.map(hit => hit.requesterId);
-};
+export const selectRequesterId = (hit: Hit) => hit.requesterId;
 
 export const calculateAverageScore = (scores: RequesterScores) => {
   const categories = filterCategories(scores);
