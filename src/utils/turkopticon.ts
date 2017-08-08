@@ -1,10 +1,10 @@
 import {
-  Requester,
-  TOpticonResponse,
   Hit,
   HitSet,
+  Requester,
+  RequesterMap,
   RequesterScores,
-  RequesterMap
+  TOpticonResponse
 } from '../types';
 import { turkopticonApiMulti } from '../constants';
 import { Map } from 'immutable';
@@ -30,7 +30,7 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
 
 export const noTurkopticon = (hit: Hit) => !hit.turkopticon;
 export const selectRequesterId = (hit: Hit) => hit.requesterId;
-export const hitSetToRequesterIdsArray = (hits: HitSet): string[] => {
+export const hitSetToRequesterIdsArray = (hits: HitSet) => {
   return hits.filter(noTurkopticon).map(selectRequesterId).toArray();
 };
 

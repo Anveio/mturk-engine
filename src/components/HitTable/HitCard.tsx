@@ -5,8 +5,8 @@ import ActionSection from './ActionSection';
 import InfoSection from './InfoSection';
 
 export interface Props {
-  hit: Hit;
-  requester?: Requester;
+  readonly hit: Hit;
+  readonly requester?: Requester;
 }
 
 const HitCard = ({ hit, requester }: Props) => {

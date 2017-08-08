@@ -5,8 +5,8 @@ import { Requester } from '../../types';
 import { truncate } from '../../utils/formatting';
 
 interface Props {
-  requester: Requester | string;
-  title: string;
+  readonly requester: Requester | string;
+  readonly title: string;
 }
 
 const RequesterInfo = ({ title, requester }: Props) => {

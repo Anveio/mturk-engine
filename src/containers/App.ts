@@ -40,9 +40,6 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
     (async () => {
       try {
         const hits = await fetchHits;
-        if (hits.isEmpty()) {
-          return;
-        }
         const requesterIds = hitSetToRequesterIdsArray(hits);
         const topticonData = await batchFetchTOpticon(requesterIds);
         topticonData

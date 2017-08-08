@@ -6,6 +6,7 @@ export const batchFetchHits = async () => {
   try {
     const t0 = performance.now();
     const response = await axios.get(`${API_URL}/mturk/findhits?match=true`);
+    // tslint:disable-next-line:no-console
     console.log('Time to fetch HITs: ' + (performance.now() - t0));
     const rawHtml: string = response.data;
     return parseHitPage(rawHtml);

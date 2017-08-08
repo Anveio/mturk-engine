@@ -21,7 +21,7 @@ export const selectHitContainers = (el: HTMLTableElement): HTMLTableElement[] =>
 
 export const tabulateData = (input: HTMLTableElement[]): HitSet =>
   input.reduce(
-    (set: HitSet, hit: HTMLTableElement) => set.add(generateHitData(hit)),
+    (map: HitSet, hit: HTMLTableElement) => map.add(generateHitData(hit)),
     Set([])
   );
 

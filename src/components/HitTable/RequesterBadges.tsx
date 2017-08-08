@@ -3,7 +3,7 @@ import { Badge } from '@shopify/polaris';
 import { Requester } from '../../types';
 
 interface Props {
-  requester?: Requester;
+  readonly requester?: Requester;
 }
 
 const BadgeList = ({ requester }: Props) => {

@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Card, Stack, DisplayText, ButtonGroup, Button } from '@shopify/polaris';
 
 export interface Props {
-  reward: string;
-  groupId: string;
+  readonly reward: string;
+  readonly groupId: string;
 }
 
 const Actionable = ({ reward, groupId }: Props) => {

@@ -1,8 +1,8 @@
 import * as Immutable from 'immutable';
 
 export interface RootState {
-  hits: HitSet;
-  requesters: RequesterMap;
+  readonly hits: HitSet;
+  readonly requesters: RequesterMap;
 }
 
 export type HitSet = Immutable.Set<Hit>;
@@ -17,31 +17,31 @@ export interface SearchParams {
 }
 
 export interface Hit {
-  title: string;
-  requesterName: string;
-  requesterId: string;
-  reward: string;
-  groupId: string;
-  turkopticon?: Requester;
+  readonly title: string;
+  readonly requesterName: string;
+  readonly requesterId: string;
+  readonly reward: string;
+  readonly groupId: string;
+  readonly turkopticon?: Requester;
 }
 
 export interface TOpticonResponse {
-  name: string;
-  attrs: RequesterScores;
-  reviews: number;
-  tos_flags: number;
+  readonly name: string;
+  readonly attrs: RequesterScores;
+  readonly reviews: number;
+  readonly tos_flags: number;
 }
 
 export interface RequesterScores {
-  comm?: string;
-  pay?: string;
-  fair?: string;
-  fast?: string;
+  readonly comm?: string;
+  readonly pay?: string;
+  readonly fair?: string;
+  readonly fast?: string;
 }
 
 /**
  * Each string should be parseFloat()-able into a number.
  */
 export interface Requester extends TOpticonResponse {
-  id?: string;
+  readonly id?: string;
 }
