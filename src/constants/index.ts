@@ -35,3 +35,5 @@ export const requesterIdAnchorString = `a[href^="/mturk/searchbar?selectedSearch
  * The root URL for querying the attributes of multiple requesters simultaneously
  */
 export const turkopticonApiMulti = `https://turkopticon.ucsd.edu/api/multi-attrs.php?ids=`;
+
+export const tutkopticonBaseUrl = `https://turkopticon.ucsd.edu/`;

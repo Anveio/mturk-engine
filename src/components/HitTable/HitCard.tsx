@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Hit, Requester } from '../../types';
 import { Card, Stack } from '@shopify/polaris';
 import ActionSection from './ActionSection';
-import InfoSection from './InfoSection';
+import InfoSection, { Props as InfoSectionProps } from './InfoSection';
 
 export interface Props {
   readonly hit: Hit;
@@ -10,12 +10,18 @@ export interface Props {
 }
 
 const HitCard = ({ hit, requester }: Props) => {
-  const { requesterName, reward, title, groupId } = hit;
+  const { requesterName, reward, title, groupId, requesterId } = hit;
+  const infoSectionProps: InfoSectionProps = {
+    requester: requester || requesterName,
+    requesterId: requesterId,
+    title: title
+  };
+  
   return (
     <Card>
       <Stack>
         <ActionSection reward={reward} groupId={groupId} />
-        <InfoSection requester={requester || requesterName} title={title} />
+        <InfoSection {...infoSectionProps} />
       </Stack>
     </Card>
   );

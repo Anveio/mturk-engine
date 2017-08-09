@@ -34,14 +34,13 @@ export const hitSetToRequesterIdsArray = (hits: HitSet) => {
   return hits.filter(noTurkopticon).map(selectRequesterId).toArray();
 };
 
-export const calculateAverageScore = (scores: RequesterScores) => {
+export const calculateAverageScore = (scores: RequesterScores): string => {
   const categories = filterCategories(scores);
   const total = Object.keys(categories).reduce(
-    (acc, category: string) => parseFloat(categories[category]),
+    (acc, category: string) => acc + parseFloat(categories[category]),
     0
   );
-
-  return total / Object.keys(categories).length;
+  return (total / Object.keys(categories).length).toFixed(2);
 };
 
 /**
@@ -51,8 +50,8 @@ export const calculateAverageScore = (scores: RequesterScores) => {
  */
 export const filterCategories = (scores: RequesterScores) =>
   Object.keys(scores).reduce(
-    (acc, category: string) =>
-      scores[category] !== '0.00' ? { ...acc, ...scores[category] } : acc,
+    (acc: Object, category: string) =>
+      scores[category] !== '0.00' ? { ...acc, [category]: scores[category] } : acc,
     {}
   );
 
