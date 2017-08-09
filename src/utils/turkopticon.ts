@@ -40,7 +40,9 @@ export const calculateAverageScore = (scores: RequesterScores): string => {
     (acc, category: string) => acc + parseFloat(categories[category]),
     0
   );
-  return (total / Object.keys(categories).length).toFixed(2);
+  return Object.keys(categories).length > 0
+    ? (total / Object.keys(categories).length).toFixed(2)
+    : 'No score';
 };
 
 /**
