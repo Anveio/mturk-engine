@@ -21,7 +21,7 @@ const RequesterButton = ({ requester, id }: Props) => {
   const buttonTO = ({ name, attrs }: Requester) => {
     return (
       <Button plain url={tutkopticonBaseUrl + id} external>
-        {`${name} - ${calculateAverageScore(attrs)}`}
+        {`${name} - ${calculateAverageScore(attrs) || 'No Data'}`}
       </Button>
     );
   };
