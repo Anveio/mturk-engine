@@ -1,6 +1,6 @@
-import { Hit, HitSet } from '../types';
+import { Hit, HitMap } from '../types';
 import { hitIdentifier, requesterIdAnchorString } from '../constants';
-import { Set } from 'immutable';
+import { Map } from 'immutable';
 
 /**
  * Parses an HTML string into a table element.
@@ -19,19 +19,22 @@ export const stringToDomElement = (htmlString: string): HTMLTableElement => {
 export const selectHitContainers = (el: HTMLTableElement): HTMLTableElement[] =>
   Array.from(el.querySelectorAll(hitIdentifier) as NodeListOf<HTMLTableElement>);
 
-export const tabulateData = (input: HTMLTableElement[]): HitSet =>
+export const tabulateData = (input: HTMLTableElement[]): HitMap =>
   input.reduce(
-    (map: HitSet, hit: HTMLTableElement) => map.add(generateHitData(hit)),
-    Set([])
+    (map: HitMap, hit: HTMLTableElement) =>
+      map.set(parseGroupId(hit), generateHitData(hit)),
+    Map<string, Hit>()
   );
 
-export const generateHitData = (input: HTMLTableElement): Hit => ({
-  title: parseHitTitle(input),
-  requesterName: parseRequesterName(input),
-  requesterId: parseRequesterId(input),
-  reward: parseHitReward(input),
-  groupId: parseGroupId(input)
-});
+export const generateHitData = (input: HTMLTableElement): Hit => {
+  return {
+    title: parseHitTitle(input),
+    requesterName: parseRequesterName(input),
+    requesterId: parseRequesterId(input),
+    reward: parseHitReward(input),
+    groupId: parseGroupId(input)
+  };
+};
 
 export const parseHitTitle = (input: HTMLTableElement): string => {
   const hitTitleElem = input.querySelector('a.capsulelink');
@@ -80,7 +83,7 @@ export const parseGroupId = (input: HTMLTableElement): string => {
   }
 };
 
-export const parseHitPage = (html: string): HitSet => {
+export const parseHitPage = (html: string): HitMap => {
   const table = stringToDomElement(html);
   const hitContainers = selectHitContainers(table);
   const hitData = tabulateData(hitContainers);

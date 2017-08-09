@@ -1,11 +1,11 @@
 import * as Immutable from 'immutable';
 
 export interface RootState {
-  readonly hits: HitSet;
+  readonly hits: HitMap;
   readonly requesters: RequesterMap;
 }
 
-export type HitSet = Immutable.Set<Hit>;
+export type HitMap = Immutable.Map<string, Hit>;
 export type RequesterMap = Immutable.Map<string, Requester>;
 
 export interface SearchParams {

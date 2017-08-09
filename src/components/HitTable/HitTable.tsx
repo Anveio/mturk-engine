@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Hit, HitSet, RequesterMap } from '../../types';
+import { Hit, HitMap, RequesterMap } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import HitCard from './HitCard';
 
 export interface Props {
-  readonly hits: HitSet;
+  readonly hits: HitMap;
   readonly requesters: RequesterMap;
 }
 

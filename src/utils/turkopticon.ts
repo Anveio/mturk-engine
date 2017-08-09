@@ -1,6 +1,6 @@
 import {
   Hit,
-  HitSet,
+  HitMap,
   Requester,
   RequesterMap,
   RequesterScores,
@@ -30,7 +30,7 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
 
 export const noTurkopticon = (hit: Hit) => !hit.turkopticon;
 export const selectRequesterId = (hit: Hit) => hit.requesterId;
-export const hitSetToRequesterIdsArray = (hits: HitSet) => {
+export const hitMapToRequesterIdsArray = (hits: HitMap) => {
   return hits.filter(noTurkopticon).map(selectRequesterId).toArray();
 };
 
@@ -61,5 +61,3 @@ export const mapFromTO = (data: TOpticonResponse): RequesterMap =>
       data[requester] ? acc.set(requester, data[requester]) : acc,
     Map<string, Requester>()
   );
-
-export const assignRequestersToHits = (hits: HitSet, requesters: RequesterMap) => {};

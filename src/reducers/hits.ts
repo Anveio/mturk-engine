@@ -1,16 +1,16 @@
-import { Hit, HitSet } from '../types';
+import { Hit, HitMap } from '../types';
 import { HitPageAction } from '../actions/hits';
 import { TOpticonAction } from '../actions/turkopticon';
 import { FETCH_HIT_PAGE_SUCCESS, FETCH_TURKOPTICON_SUCCESS } from '../constants';
-import { Set } from 'immutable';
+import { Map } from 'immutable';
 // import sampleHits from '../utils/sampleHits';
 
-const initial: HitSet = Set<Hit>([]);
+const initial: HitMap = Map<string, Hit>();
 
 type FetchAction = HitPageAction | TOpticonAction;
 
-export default (state = initial, action: FetchAction): HitSet => {
-  let partialState: HitSet | undefined;
+export default (state = initial, action: FetchAction): HitMap => {
+  let partialState: HitMap | undefined;
 
   switch (action.type) {
     case FETCH_HIT_PAGE_SUCCESS:
@@ -20,9 +20,9 @@ export default (state = initial, action: FetchAction): HitSet => {
       partialState = state
         .map((hit: Hit): Hit => ({
           ...hit,
-          ...{ turkopticon: action.data.get(hit.requesterId) || hit.turkopticon }
+          turkopticon: action.data.get(hit.requesterId)
         }))
-        .toSet();
+        .toMap();
       break;
     default:
       return state;

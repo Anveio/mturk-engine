@@ -1,5 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import App, { Handlers } from '../components/App';
+import { Hit } from '../types';
 import {
   HitPageAction,
   getHitPageSuccess,
@@ -11,8 +12,8 @@ import {
   fetchTOpticonFailure
 } from '../actions/turkopticon';
 import { batchFetchHits } from '../utils/fetchHits';
-import { batchFetchTOpticon, hitSetToRequesterIdsArray } from '../utils/turkopticon';
-import { Set } from 'immutable';
+import { batchFetchTOpticon, hitMapToRequesterIdsArray } from '../utils/turkopticon';
+import { Map } from 'immutable';
 
 type AppAction = HitPageAction | TOpticonAction;
 
@@ -24,16 +25,16 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
     const fetchHits = (async () => {
       try {
         const hitData = await batchFetchHits();
-        hitData
-          ? dispatch(getHitPageSuccess(hitData))
-          : dispatch(getHitPageFailure());
+        hitData.isEmpty()
+          ? dispatch(getHitPageFailure())
+          : dispatch(getHitPageSuccess(hitData))
         return hitData;
       } catch (e) {
         /**
          * Return an empty set on error to simplify function signature.
          */
         dispatch(getHitPageFailure());
-        return Set([]);
+        return Map<string, Hit>();
       }
     })();
 
@@ -45,7 +46,7 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
          * requester returned by fetchHits.
          */
         const hits = await fetchHits;
-        const requesterIds = hitSetToRequesterIdsArray(hits);
+        const requesterIds = hitMapToRequesterIdsArray(hits);
         const topticonData = await batchFetchTOpticon(requesterIds);
         topticonData
           ? dispatch(fetchTOpticonSuccess(topticonData))

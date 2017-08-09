@@ -1,9 +1,9 @@
 import * as constants from '../constants';
-import { HitSet } from '../types';
+import { HitMap } from '../types';
 
 export interface GetHitPageSuccess {
   type: constants.FETCH_HIT_PAGE_SUCCESS;
-  data: HitSet;
+  data: HitMap;
 }
 
 export interface GetHitPageFailure {
@@ -12,7 +12,7 @@ export interface GetHitPageFailure {
 
 export type HitPageAction = GetHitPageSuccess | GetHitPageFailure;
 
-export const getHitPageSuccess = (data: HitSet): GetHitPageSuccess => ({
+export const getHitPageSuccess = (data: HitMap): GetHitPageSuccess => ({
   type: constants.FETCH_HIT_PAGE_SUCCESS,
   data
 });
