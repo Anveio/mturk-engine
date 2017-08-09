@@ -10,12 +10,8 @@ interface Props {
 }
 
 const RequesterButton = ({ requester, id }: Props) => {
-  const buttonNoTO = (name: string) => {
-    return (
-      <Button plain url={tutkopticonBaseUrl + id} external>
-        {`${name}`}
-      </Button>
-    );
+  const textNoTO = (name: string) => {
+    return <p>{name}</p>;
   };
 
   const buttonTO = ({ name, attrs }: Requester) => {
@@ -26,7 +22,7 @@ const RequesterButton = ({ requester, id }: Props) => {
     );
   };
 
-  return typeof requester === 'string' ? buttonNoTO(requester) : buttonTO(requester);
+  return typeof requester === 'string' ? textNoTO(requester) : buttonTO(requester);
 };
 
 export default RequesterButton;
