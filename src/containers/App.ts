@@ -39,6 +39,11 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
 
     (async () => {
       try {
+        /**
+         * We cannot know what to query Turkopticon with until fetchHits resolves.
+         * After fetchHits resolves we query Turkopticon with the ids of each 
+         * requester returned by fetchHits.
+         */
         const hits = await fetchHits;
         const requesterIds = hitSetToRequesterIdsArray(hits);
         const topticonData = await batchFetchTOpticon(requesterIds);
