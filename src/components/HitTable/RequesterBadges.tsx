@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { Badge } from '@shopify/polaris';
 import { Requester } from '../../types';
+// import { analyzeRequester } from '../../utils/badges';
 
-interface Props {
-  readonly requester?: Requester;
-}
-
-const BadgeList = ({ requester }: Props) => {
+const BadgeList = (requester: Requester) => {
   return <Badge status="success">High T.O.</Badge>;
 };
 

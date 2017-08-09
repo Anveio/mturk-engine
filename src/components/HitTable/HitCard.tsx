@@ -16,7 +16,7 @@ const HitCard = ({ hit, requester }: Props) => {
     requesterId: requesterId,
     title: title
   };
-  
+
   return (
     <Card>
       <Stack>

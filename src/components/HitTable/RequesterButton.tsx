@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Requester } from '../../types';
-import { Button } from '@shopify/polaris';
+import { Button, Stack } from '@shopify/polaris';
+import RequesterBadges from './RequesterBadges';
 import { calculateAverageScore } from '../../utils/turkopticon';
 import { tutkopticonBaseUrl } from '../../constants';
 
@@ -11,14 +12,21 @@ interface Props {
 
 const RequesterButton = ({ requester, id }: Props) => {
   const textNoTO = (name: string) => {
-    return <p>{name}</p>;
+    return (
+      <Stack spacing="tight" vertical={false}>
+        <p>{name}</p>
+      </Stack>
+    );
   };
 
-  const buttonTO = ({ name, attrs }: Requester) => {
+  const buttonTO = (props: Requester) => {
     return (
-      <Button plain url={tutkopticonBaseUrl + id} external>
-        {`${name} - ${calculateAverageScore(attrs) || 'No Data'}`}
-      </Button>
+      <Stack spacing="tight" vertical={false}>
+        <Button plain url={tutkopticonBaseUrl + id} external>
+          {`${props.name} - ${calculateAverageScore(props.attrs) || 'No Data'}`}
+        </Button>
+        <RequesterBadges {...props} />
+      </Stack>
     );
   };
 

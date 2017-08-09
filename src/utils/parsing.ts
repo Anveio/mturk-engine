@@ -26,15 +26,13 @@ export const tabulateData = (input: HTMLTableElement[]): HitMap =>
     Map<string, Hit>()
   );
 
-export const generateHitData = (input: HTMLTableElement): Hit => {
-  return {
-    title: parseHitTitle(input),
-    requesterName: parseRequesterName(input),
-    requesterId: parseRequesterId(input),
-    reward: parseHitReward(input),
-    groupId: parseGroupId(input)
-  };
-};
+export const generateHitData = (input: HTMLTableElement): Hit => ({
+  title: parseHitTitle(input),
+  requesterName: parseRequesterName(input),
+  requesterId: parseRequesterId(input),
+  reward: parseHitReward(input),
+  groupId: parseGroupId(input)
+});
 
 export const parseHitTitle = (input: HTMLTableElement): string => {
   const hitTitleElem = input.querySelector('a.capsulelink');
@@ -59,7 +57,7 @@ export const parseRequesterId = (input: HTMLTableElement): string => {
      */
     return href.split('requesterId=')[1];
   } else {
-    return '[Error retrieving requester ID]';
+    return '[Error retrieving requester name]';
   }
 };
 
