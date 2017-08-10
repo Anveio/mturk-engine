@@ -1,13 +1,19 @@
 import * as React from 'react';
 import { Page, Stack, Banner } from '@shopify/polaris';
+import { HitMap, RequesterMap } from '../types';
+import EmptyHitTable from './HitTable/EmptyHitTable';
+import HitTable from './HitTable/HitTable';
 
-import HitTable from '../containers/HitTable';
+export interface Props {
+  readonly hits: HitMap;
+  readonly requesters: RequesterMap;
+}
 
 export interface Handlers {
   readonly onFetch: () => void;
 }
 
-const App = ({ onFetch }: Handlers) => {
+const App = ({ hits, requesters, onFetch }: Props & Handlers) => {
   return (
     <main>
       <Page
@@ -16,7 +22,11 @@ const App = ({ onFetch }: Handlers) => {
       >
         <Stack vertical spacing="tight">
           <Banner />
-          <HitTable />
+          {hits.isEmpty() ? (
+            <EmptyHitTable onAction={onFetch} />
+          ) : (
+            <HitTable hits={hits} requesters={requesters} />
+          )}
         </Stack>
       </Page>
     </main>

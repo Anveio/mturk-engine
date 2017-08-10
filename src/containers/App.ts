@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
-import App, { Handlers } from '../components/App';
-import { Hit, Requester } from '../types';
+import App, { Props, Handlers } from '../components/App';
+import { RootState, Hit, Requester } from '../types';
 import {
   HitPageAction,
   getHitPageSuccess,
@@ -16,6 +16,11 @@ import { batchFetchTOpticon, hitMapToRequesterIdsArray } from '../utils/turkopti
 import { Map } from 'immutable';
 
 type AppAction = HitPageAction | TOpticonAction;
+
+const mapState = (state: RootState): Props => ({
+  hits: state.hits,
+  requesters: state.requesters
+});
 
 const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
   /**
@@ -61,4 +66,4 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
   }
 });
 
-export default connect(null, mapDispatch)(App);
+export default connect(mapState, mapDispatch)(App);

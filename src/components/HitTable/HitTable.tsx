@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Hit, HitMap, RequesterMap } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import HitCard from './HitCard';
+
 import { sortByTime } from '../../utils/sorting';
 
 export interface Props {
