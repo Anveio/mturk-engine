@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Requester } from '../../types';
-import { Button, Stack } from '@shopify/polaris';
+import { Button, Stack, Badge } from '@shopify/polaris';
 import RequesterBadges from './RequesterBadges';
 import { calculateAverageScore } from '../../utils/turkopticon';
 import { truncate } from '../../utils/formatting';
@@ -16,6 +16,7 @@ const RequesterButton = ({ requester, id }: Props) => {
     return (
       <Stack spacing="tight" vertical={false}>
         <p>{truncate(name, 45)}</p>
+        <Badge status="info" progress="incomplete">No T.O.</Badge>
       </Stack>
     );
   };
