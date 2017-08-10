@@ -12,7 +12,11 @@ import {
   fetchTOpticonFailure
 } from '../actions/turkopticon';
 import { batchFetchHits } from '../utils/fetchHits';
-import { batchFetchTOpticon, hitMapToRequesterIdsArray } from '../utils/turkopticon';
+import {
+  batchFetchTOpticon,
+  // noTurkopticon,
+  hitMapToRequesterIdsArray
+} from '../utils/turkopticon';
 import { Map } from 'immutable';
 
 type AppAction = HitPageAction | TOpticonAction;
@@ -27,7 +31,7 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
         const hitData = await batchFetchHits();
         hitData.isEmpty()
           ? dispatch(getHitPageFailure())
-          : dispatch(getHitPageSuccess(hitData))
+          : dispatch(getHitPageSuccess(hitData));
         return hitData;
       } catch (e) {
         /**

@@ -3,6 +3,7 @@ import { Hit, Requester } from '../../types';
 import { Card, Stack } from '@shopify/polaris';
 import ActionSection from './ActionSection';
 import InfoSection, { Props as InfoSectionProps } from './InfoSection';
+import UnqualifiedCard from './UnqualifiedCard';
 
 export interface Props {
   readonly hit: Hit;
@@ -17,7 +18,9 @@ const HitCard = ({ hit, requester }: Props) => {
     title: title
   };
 
-  return (
+  return hit.groupId === '[Error retrieving HIT Group ID]' ? (
+    <UnqualifiedCard {...hit} />
+  ) : (
     <Card>
       <Stack>
         <ActionSection reward={reward} groupId={groupId} />
