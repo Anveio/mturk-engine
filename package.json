@@ -13,10 +13,12 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
-    "redux": "^3.7.2"
+    "redux": "^3.7.2",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "@types/react-redux": "^4.4.47",
+    "@types/uuid": "^3.4.0",
     "react-scripts-ts": "2.3.2"
   },
   "scripts": {

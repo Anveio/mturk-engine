@@ -18,7 +18,7 @@ const HitCard = ({ hit, requester }: Props) => {
     title: title
   };
 
-  return hit.groupId === '[Error retrieving HIT Group ID]' ? (
+  return hit.groupId.startsWith('[Error:groupId]-') ? (
     <UnqualifiedCard {...hit} />
   ) : (
     <Card>

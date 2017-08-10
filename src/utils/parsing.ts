@@ -1,6 +1,7 @@
 import { Hit, HitMap } from '../types';
 import { hitTableIdentifier, requesterIdAnchor, groupIdAnchor } from '../constants';
 import { Map } from 'immutable';
+import { v4 } from 'uuid';
 
 /**
  * Parses an HTML string into a table element.
@@ -71,15 +72,20 @@ export const parseHitReward = (input: HTMLTableElement): string => {
     : '[Error retrieving HIT reward amount]';
 };
 
+/**
+ * Fetches the groupId of a Hit. If one cannot be found. return a string that 
+ * starts with '[Error:groupId]-' then appends a v4 uuid so that it can be uniquely
+ * indexed in the HitMap.
+ * @param input 
+ */
 export const parseGroupId = (input: HTMLTableElement): string => {
   // const groupIdElem = input.querySelector('a[href*="groupId="]');
   const groupIdElem = input.querySelector(groupIdAnchor);
-  console.log(groupIdElem);
   if (groupIdElem) {
     const href = groupIdElem.getAttribute('href') as string;
     return href.split('=')[1];
   } else {
-    return '[Error retrieving HIT Group ID]';
+    return '[Error:groupId]-' + v4();
   }
 };
 
