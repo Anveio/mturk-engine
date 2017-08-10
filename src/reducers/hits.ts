@@ -3,9 +3,9 @@ import { HitPageAction } from '../actions/hits';
 import { TOpticonAction } from '../actions/turkopticon';
 import { FETCH_HIT_PAGE_SUCCESS, FETCH_TURKOPTICON_SUCCESS } from '../constants';
 import { Map } from 'immutable';
-// import sampleHits from '../utils/sampleHits';
+import sampleHits from '../utils/sampleHits';
 
-const initial: HitMap = Map<string, Hit>();
+const initial: HitMap = Map<string, Hit>(sampleHits);
 
 type FetchAction = HitPageAction | TOpticonAction;
 
