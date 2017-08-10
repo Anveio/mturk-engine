@@ -30,8 +30,13 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
 
 export const noTurkopticon = (hit: Hit) => !hit.turkopticon;
 export const selectRequesterId = (hit: Hit) => hit.requesterId;
+export const invalidGroupId = (hit: Hit) =>
+  !hit.groupId.startsWith('[Error:groupId]-');
 export const hitMapToRequesterIdsArray = (hits: HitMap) => {
-  return hits.filter(noTurkopticon).map(selectRequesterId).toArray();
+  return hits
+    .filter(noTurkopticon)
+    .map(selectRequesterId)
+    .toArray();
 };
 
 export const calculateAverageScore = (scores: RequesterScores): string => {
