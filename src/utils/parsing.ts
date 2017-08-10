@@ -1,5 +1,5 @@
 import { Hit, HitMap } from '../types';
-import { hitIdentifier, requesterIdAnchorString } from '../constants';
+import { hitTableIdentifier, requesterIdAnchor, groupIdAnchor } from '../constants';
 import { Map } from 'immutable';
 
 /**
@@ -17,7 +17,9 @@ export const stringToDomElement = (htmlString: string): HTMLTableElement => {
  * @param dom A DocumentFragment created by stringToDomFragment
  */
 export const selectHitContainers = (el: HTMLTableElement): HTMLTableElement[] =>
-  Array.from(el.querySelectorAll(hitIdentifier) as NodeListOf<HTMLTableElement>);
+  Array.from(el.querySelectorAll(hitTableIdentifier) as NodeListOf<
+    HTMLTableElement
+  >);
 
 export const tabulateData = (input: HTMLTableElement[]): HitMap =>
   input.reduce(
@@ -49,7 +51,7 @@ export const parseRequesterName = (input: HTMLTableElement): string => {
 };
 
 export const parseRequesterId = (input: HTMLTableElement): string => {
-  const requesterIdElem = input.querySelector(requesterIdAnchorString);
+  const requesterIdElem = input.querySelector(requesterIdAnchor);
   if (requesterIdElem) {
     const href = requesterIdElem.getAttribute('href') as string;
     /**
@@ -70,12 +72,12 @@ export const parseHitReward = (input: HTMLTableElement): string => {
 };
 
 export const parseGroupId = (input: HTMLTableElement): string => {
-  const groupIdElem = input.querySelector('a[href*="groupId="]');
+  // const groupIdElem = input.querySelector('a[href*="groupId="]');
+  const groupIdElem = input.querySelector(groupIdAnchor);
+  console.log(groupIdElem);
   if (groupIdElem) {
     const href = groupIdElem.getAttribute('href') as string;
     return href.split('=')[1];
-  } else if (input.querySelector('a[href*="requestqualification?"]')) {
-    return '[You are not qualified]';
   } else {
     return '[Error retrieving HIT Group ID]';
   }
