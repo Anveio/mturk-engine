@@ -23,6 +23,7 @@ export interface Hit {
   readonly reward: string;
   readonly groupId: string;
   readonly turkopticon?: Requester;
+  readonly time: number
 }
 
 export interface TOpticonResponse {
