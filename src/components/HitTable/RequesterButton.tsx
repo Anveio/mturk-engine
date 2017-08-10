@@ -16,7 +16,9 @@ const RequesterButton = ({ requester, id }: Props) => {
     return (
       <Stack spacing="tight" vertical={false}>
         <p>{truncate(name, 45)}</p>
-        <Badge status="info" progress="incomplete">No T.O.</Badge>
+        <Badge status="info" progress="incomplete">
+          No T.O.
+        </Badge>
       </Stack>
     );
   };
