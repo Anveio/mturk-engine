@@ -9,9 +9,14 @@ export interface Props {
 }
 
 const HitTable = ({ hits, requesters }: Props) => {
+  const sortedHits = (hits: HitMap) =>
+    hits
+      .toArray()
+      .slice(0, 50);
+
   return (
     <ResourceList
-      items={hits.toArray()}
+      items={sortedHits(hits)}
       renderItem={(hit: Hit) => (
         <HitCard hit={hit} requester={requesters.get(hit.requesterId)} />
       )}
