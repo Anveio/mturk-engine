@@ -8,20 +8,15 @@ export interface Props {
   readonly requesters: RequesterMap;
 }
 
-class HitTable extends React.PureComponent<Props, never> {
-  public render() {
-    return (
-      <ResourceList
-        items={this.props.hits.toArray()}
-        renderItem={(hit: Hit) => (
-          <HitCard
-            hit={hit}
-            requester={this.props.requesters.get(hit.requesterId)}
-          />
-        )}
-      />
-    );
-  }
-}
+const HitTable = ({ hits, requesters }: Props) => {
+  return (
+    <ResourceList
+      items={hits.toArray()}
+      renderItem={(hit: Hit) => (
+        <HitCard hit={hit} requester={requesters.get(hit.requesterId)} />
+      )}
+    />
+  );
+};
 
 export default HitTable;

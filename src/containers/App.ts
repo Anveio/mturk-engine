@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import App, { Handlers } from '../components/App';
-import { Hit } from '../types';
+import { Hit, Requester } from '../types';
 import {
   HitPageAction,
   getHitPageSuccess,
@@ -12,11 +12,7 @@ import {
   fetchTOpticonFailure
 } from '../actions/turkopticon';
 import { batchFetchHits } from '../utils/fetchHits';
-import {
-  batchFetchTOpticon,
-  // noTurkopticon,
-  hitMapToRequesterIdsArray
-} from '../utils/turkopticon';
+import { batchFetchTOpticon, hitMapToRequesterIdsArray } from '../utils/turkopticon';
 import { Map } from 'immutable';
 
 type AppAction = HitPageAction | TOpticonAction;
@@ -42,7 +38,7 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
       }
     })();
 
-    (async () => {
+    const fetchTopticonData = (async () => {
       try {
         /**
          * We cannot know what to query Turkopticon with until fetchHits resolves.
@@ -51,14 +47,17 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
          */
         const hits = await fetchHits;
         const requesterIds = hitMapToRequesterIdsArray(hits);
-        const topticonData = await batchFetchTOpticon(requesterIds);
-        topticonData
-          ? dispatch(fetchTOpticonSuccess(topticonData))
-          : dispatch(fetchTOpticonFailure());
+        return await batchFetchTOpticon(requesterIds);
       } catch (e) {
         dispatch(fetchTOpticonFailure());
+        return Map<string, Requester>();
       }
     })();
+
+    const topticonData = await fetchTopticonData;
+    topticonData
+      ? dispatch(fetchTOpticonSuccess(topticonData))
+      : dispatch(fetchTOpticonFailure());
   }
 });
 

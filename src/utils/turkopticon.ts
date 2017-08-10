@@ -35,6 +35,7 @@ export const invalidGroupId = (hit: Hit) =>
 export const hitMapToRequesterIdsArray = (hits: HitMap) => {
   return hits
     .filter(noTurkopticon)
+    .filter(invalidGroupId)
     .map(selectRequesterId)
     .toArray();
 };
