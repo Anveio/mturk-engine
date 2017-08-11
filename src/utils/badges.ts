@@ -8,7 +8,7 @@ interface BadgeData {
 
 type Status = 'success' | 'info' | 'attention' | 'warning';
 
-export const analyzeRequester = (requester: Requester): BadgeData[] => {
+export const calculateAllBadges = (requester: Requester): BadgeData[] => {
   const badges: BadgeData[] = [ calculateScoreBadge(requester.attrs) ];
 
   return badges.filter((el: BadgeData) => el !== null).slice(0, 3);
