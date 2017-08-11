@@ -2,14 +2,18 @@ import { Requester, RequesterScores } from '../types';
 import { calculateAverageScore } from './turkopticon';
 
 interface BadgeData {
-  status: Status;
+  status?: Status;
+  progress?: Progress;
   text: string;
 }
 
 type Status = 'success' | 'info' | 'attention' | 'warning';
+type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
 
 export const calculateAllBadges = (requester: Requester): BadgeData[] => {
-  const badges: BadgeData[] = [ calculateScoreBadge(requester.attrs) ];
+  const badges: BadgeData[] = [ 
+    calculateScoreBadge(requester.attrs),
+  ];
 
   return badges.filter((el: BadgeData) => el !== null).slice(0, 3);
 };
@@ -51,10 +55,3 @@ const assignScoreText = (status: Status): string => {
   }
 };
 
-// const isMedium = (score: number) => {
-//   return (score > 2.5 && score < 3)
-// };
-
-// const isGood = (score: number) => {
-//   return (score >)
-// };
