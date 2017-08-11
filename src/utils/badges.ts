@@ -11,11 +11,12 @@ type Status = 'success' | 'info' | 'attention' | 'warning';
 type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
 
 export const calculateAllBadges = (requester: Requester): BadgeData[] => {
-  const badges: BadgeData[] = [ 
+  const tentativeBadges: (BadgeData | null)[] = [
     calculateScoreBadge(requester.attrs),
+    calculateReviewsBadge(requester.reviews)
   ];
 
-  return badges.filter((el: BadgeData) => el !== null).slice(0, 3);
+  return tentativeBadges.filter(el => el !== null).slice(0, 3) as BadgeData[];
 };
 
 const calculateScoreBadge = (scores: RequesterScores): BadgeData => {
@@ -55,3 +56,11 @@ const assignScoreText = (status: Status): string => {
   }
 };
 
+const calculateReviewsBadge = (reviews: number): BadgeData | null => {
+  const lowReviewsBadge: BadgeData = {
+    text: 'Few reviews',
+    progress: 'incomplete'
+  };
+
+  return reviews < 4 ? lowReviewsBadge : null;
+};
