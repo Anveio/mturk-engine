@@ -51,6 +51,13 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
          * requester returned by fetchHits.
          */
         const hits = await fetchHits;
+        if (hits.isEmpty()) {
+          /**
+           * Immediately exit without sending network request 
+           * and return an empty map to simply function signature.
+           */
+          return Map<string, Requester>();
+        }
         const requesterIds = hitMapToRequesterIdsArray(hits);
         return await batchFetchTOpticon(requesterIds);
       } catch (e) {
@@ -60,7 +67,7 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
     })();
 
     const topticonData = await fetchTopticonData;
-    topticonData
+    topticonData && !topticonData.isEmpty()
       ? dispatch(fetchTOpticonSuccess(topticonData))
       : dispatch(fetchTOpticonFailure());
   }
