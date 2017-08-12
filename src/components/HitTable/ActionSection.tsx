@@ -17,7 +17,7 @@ const Actionable = ({ reward, groupId }: Props) => {
           <Button external url={previewUrl} icon="view" />
           <Button primary external url={pandaUrl} icon="add" />
         </ButtonGroup>
-        <DisplayText>{reward}</DisplayText>
+        <DisplayText>${reward}</DisplayText>
       </Stack>
     </Card.Section>
   );

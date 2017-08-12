@@ -67,9 +67,8 @@ export const parseRequesterId = (input: HTMLTableElement): string => {
 
 export const parseHitReward = (input: HTMLTableElement): string => {
   const hitRewardElem = input.querySelector('span.reward');
-
   return hitRewardElem && hitRewardElem.textContent
-    ? hitRewardElem.textContent
+    ? hitRewardElem.textContent.replace('$', '')
     : '[Error retrieving HIT reward amount]';
 };
 
