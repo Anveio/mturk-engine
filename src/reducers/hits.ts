@@ -4,9 +4,9 @@ import { TOpticonAction } from '../actions/turkopticon';
 import { FETCH_HIT_PAGE_SUCCESS, FETCH_TURKOPTICON_SUCCESS } from '../constants';
 import { Map } from 'immutable';
 import { invalidGroupId } from '../utils/turkopticon';
-// import sampleHits from '../utils/sampleHits';
+import sampleHits from '../utils/sampleHits';
 
-const initial: HitMap = Map<string, Hit>();
+const initial: HitMap = Map<string, Hit>(sampleHits);
 
 type FetchAction = HitPageAction | TOpticonAction;
 
@@ -15,7 +15,7 @@ export default (state = initial, action: FetchAction): HitMap => {
 
   switch (action.type) {
     case FETCH_HIT_PAGE_SUCCESS:
-      partialState = action.data.filter(invalidGroupId).toMap();
+      partialState = action.data.filter(invalidGroupId) as HitMap;
       break;
     case FETCH_TURKOPTICON_SUCCESS:
       partialState = state.filter(invalidGroupId).map((hit: Hit): Hit => ({
