@@ -3,7 +3,7 @@ import { Hit, HitMap, RequesterMap } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import HitCard from './HitCard';
 
-import { sortByReward } from '../../utils/sorting';
+import { sortByTime } from '../../utils/sorting';
 
 export interface Props {
   readonly hits: HitMap;
@@ -12,7 +12,7 @@ export interface Props {
 
 const HitTable = ({ hits, requesters }: Props) => {
   const sortedHits = (unsortedHits: HitMap) =>
-    unsortedHits.sort(sortByReward).toArray().slice(0, 50);
+    unsortedHits.sort(sortByTime).toArray().slice(0, 50);
 
   return (
     <ResourceList

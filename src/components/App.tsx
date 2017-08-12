@@ -3,6 +3,7 @@ import { Page, Stack, Banner } from '@shopify/polaris';
 import { HitMap, RequesterMap } from '../types';
 import EmptyHitTable from './HitTable/EmptyHitTable';
 import HitTable from './HitTable/HitTable';
+import SearchForm from './SearchForm/SearchForm';
 
 export interface Props {
   readonly hits: HitMap;
@@ -17,11 +18,12 @@ const App = ({ hits, requesters, onFetch }: Props & Handlers) => {
   return (
     <main>
       <Page
-        title="Worker"
+        title="Better Mturk"
         primaryAction={{ content: 'Fetch Data', onAction: onFetch }}
       >
         <Stack vertical spacing="tight">
-          <Banner />
+          <Banner status="info">Scanned {hits.size} hits.</Banner>
+          <SearchForm />
           {hits.isEmpty() ? (
             <EmptyHitTable onAction={onFetch} />
           ) : (
