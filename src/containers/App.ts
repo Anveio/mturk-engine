@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import App, { Props, Handlers } from '../components/App';
-import { RootState, Hit, Requester } from '../types';
+import { RootState, Hit, Requester, SearchOptions } from '../types';
 import {
   HitPageAction,
   getHitPageSuccess,
@@ -19,17 +19,18 @@ type AppAction = HitPageAction | TOpticonAction;
 
 const mapState = (state: RootState): Props => ({
   hits: state.hits,
-  requesters: state.requesters
+  requesters: state.requesters,
+  options: state.searchOptions
 });
 
 const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
   /**
    * Credit to: https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/
    */
-  onFetch: async () => {
+  onFetch: async (options: SearchOptions) => {
     const fetchHits = (async () => {
       try {
-        const hitData = await batchFetchHits();
+        const hitData = await batchFetchHits(options);
         hitData.isEmpty()
           ? dispatch(getHitPageFailure())
           : dispatch(getHitPageSuccess(hitData));

@@ -1,29 +1,32 @@
 import * as React from 'react';
 import { Page, Stack, Banner } from '@shopify/polaris';
-import { HitMap, RequesterMap } from '../types';
+import { HitMap, RequesterMap, SearchOptions } from '../types';
 import HitTable from './HitTable/HitTable';
 import SearchForm from '../containers/SearchForm';
 
 export interface Props {
   readonly hits: HitMap;
   readonly requesters: RequesterMap;
+  readonly options: SearchOptions;
 }
 
 export interface Handlers {
-  readonly onFetch: () => void;
+  readonly onFetch: (options: SearchOptions) => void;
 }
 
-const App = ({ hits, requesters, onFetch }: Props & Handlers) => {
+const App = ({ hits, requesters, options, onFetch }: Props & Handlers) => {
+  const fetchAction = () => onFetch(options);
+
   return (
     <main>
       <Page
         title="Better Mturk"
-        primaryAction={{ content: 'Fetch Data', onAction: onFetch }}
+        primaryAction={{ content: 'Fetch Data', onAction: fetchAction }}
       >
         <Stack vertical spacing="tight">
           <Banner status="info">Scanned {hits.size} hits.</Banner>
           <SearchForm />
-          <HitTable hits={hits} requesters={requesters} emptyAction={onFetch} />
+          <HitTable hits={hits} requesters={requesters} emptyAction={fetchAction} />
         </Stack>
       </Page>
     </main>
