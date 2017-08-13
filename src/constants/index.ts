@@ -18,6 +18,9 @@ export type FETCH_TURKOPTICON_REQUEST = typeof FETCH_TURKOPTICON_REQUEST;
 export const FETCH_TURKOPTICON_FAILURE = 'FETCH_TURKOPTICON_FAILURE';
 export type FETCH_TURKOPTICON_FAILURE = typeof FETCH_TURKOPTICON_FAILURE;
 
+export const UPDATE_FIELD = 'UPDATE_FIELD';
+export type UPDATE_FIELD = typeof UPDATE_FIELD;
+
 export const API_URL = configureApiRoot();
 /**
  * The string to be passed to querySelector in order to find the table containing all fetched HITs.

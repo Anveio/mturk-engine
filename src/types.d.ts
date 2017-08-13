@@ -3,10 +3,18 @@ import * as Immutable from 'immutable';
 export interface RootState {
   readonly hits: HitMap;
   readonly requesters: RequesterMap;
+  readonly searchOptions: SearchOptions;
 }
 
 export type HitMap = Immutable.Map<string, Hit>;
 export type RequesterMap = Immutable.Map<string, Requester>;
+
+export type HitSorting = 'Latest' | 'Batch Size' | 'Reward';
+export interface SearchOptions {
+  readonly delay: string;
+  readonly minReward: string;
+  readonly sortType: HitSorting;
+}
 
 export interface SearchParams {
   readonly selectedSearchType: string;
@@ -23,7 +31,7 @@ export interface Hit {
   readonly reward: string;
   readonly groupId: string;
   readonly turkopticon?: Requester;
-  readonly time: number
+  readonly time: number;
 }
 
 export interface TOpticonResponse {

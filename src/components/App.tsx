@@ -3,7 +3,7 @@ import { Page, Stack, Banner } from '@shopify/polaris';
 import { HitMap, RequesterMap } from '../types';
 import EmptyHitTable from './HitTable/EmptyHitTable';
 import HitTable from './HitTable/HitTable';
-import SearchForm from './SearchForm/SearchForm';
+import SearchForm from '../containers/SearchForm';
 
 export interface Props {
   readonly hits: HitMap;

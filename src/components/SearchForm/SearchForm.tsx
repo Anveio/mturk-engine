@@ -1,25 +1,43 @@
 import * as React from 'react';
+import { SearchOptions } from '../../types';
 import { Card, FormLayout, TextField, Select } from '@shopify/polaris';
 
-interface Props {}
+const sortingOptions: string[] = [ 'Latest', 'Batch Size', 'Reward' ];
 
-type Option =
-  | string
-  | {
-      value: string;
-      label: string;
-      disabled?: boolean;
-    };
+export interface Handlers {
+  readonly onChange: (field: keyof SearchOptions, value: string) => void;
+}
 
-const sortingOptions: Option[] = [ 'Latest', 'Batch Size', 'Reward' ];
+const SearchOptionsForm = (props: SearchOptions & Handlers) => {
+  const { delay, minReward, onChange, sortType } = props;
 
-const SearchOptionsForm = ({  }: Props) => {
+  const updateField = (field: keyof SearchOptions) => (value: string) => {
+    onChange(field, value);
+  };
+
   return (
     <Card sectioned title="Edit Search Options">
       <FormLayout>
-        <TextField label="Search Delay" type="number" autoComplete={false} />
-        <TextField label="Minimum Reward" type="number" autoComplete={false} />
-        <Select label="Sort By" options={sortingOptions} />
+        <TextField
+          label="Search Delay"
+          type="number"
+          autoComplete={false}
+          value={delay}
+          onChange={updateField('delay')}
+        />
+        <TextField
+          label="Minimum Reward"
+          type="number"
+          autoComplete={false}
+          value={minReward}
+          onChange={updateField('minReward')}
+        />
+        <Select
+          label="Sort By"
+          options={sortingOptions}
+          value={sortType}
+          onChange={updateField('sortType')}
+        />
       </FormLayout>
     </Card>
   );
