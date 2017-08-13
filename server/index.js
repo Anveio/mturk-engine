@@ -7,15 +7,12 @@ const app = express();
 app.use('*', (req, res) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header('Access-Control-Allow-Credentials', 'true');
-
-  console.log(new Date(), ' -- Request Received:', req.url);
-
+  console.log(new Date(), ' -- Request Received:', req.originalUrl);
   req.headers.cookie = cookies;
   /**
   * Credit to: https://blog.javascripting.com/2015/01/17/dont-hassle-with-cors/
   */
-  // console.log(req.session.cookies);
-  const url = 'http://www.mturk.com' + req.url;
+  const url = 'http://www.mturk.com' + req.originalUrl;
   req.pipe(request(url)).pipe(res);
 });
 
