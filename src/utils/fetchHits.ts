@@ -6,6 +6,7 @@ import { parseHitPage } from './parsing';
 export const batchFetchHits = async (options: SearchOptions) => {
   try {
     const t0 = performance.now();
+    console.info(`${API_URL}${generateQueryString(options)}`);
     const response = await axios.get(`${API_URL}${generateQueryString(options)}`);
     // tslint:disable-next-line:no-console
     console.log('Time to fetch HITs: ' + (performance.now() - t0));
@@ -17,19 +18,25 @@ export const batchFetchHits = async (options: SearchOptions) => {
 };
 
 export const generateQueryString = (options: SearchOptions) => {
-  const nonParam = `/mturk/searchbar?`;
-  return `${nonParam}${sortParam(options.sortType)}`;
+  const { sortType, minReward } = options;
+
+  const nonParam = `/mturk/searchbar?selectedSearchType=hitgroups`;
+  return `${nonParam}${sortParam(sortType)}${minRewardParam(minReward)}`;
 };
 
-const sortParam = (sorting: HitSorting): string => {
+const sortParam = (sorting: HitSorting) => {
   switch (sorting) {
     case 'Latest':
-      return 'selectedSearchType=hitgroups&LastUpdatedTime%3A1';
+      return '&LastUpdatedTime%3A1';
     case 'Batch Size':
-      return 'selectedSearchType=hitgroups&sortType=NumHITs%3A1';
+      return '&sortType=NumHITs%3A1';
     case 'Reward':
-      return 'selectedSearchType=hitgroups&Reward%3A1';
+      return '&Reward%3A1';
     default:
       throw new Error('Problem generating sortType param');
   }
+};
+
+const minRewardParam = (minReward: string): string => {
+  return `&minReward=${minReward}`;
 };
