@@ -14,6 +14,7 @@ const SearchDelayField = ({ value, onChange }: Props) => {
   return (
     <TextField
       label="Search Delay"
+
       type="number"
       suffix="seconds"
       placeholder="Minimum 10 seconds"

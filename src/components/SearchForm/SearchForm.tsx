@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SearchOptions } from '../../types';
-import { Layout, FormLayout, Stack } from '@shopify/polaris';
+import { Layout, FormLayout, Stack, Button } from '@shopify/polaris';
 import { MinimumRewardField, SearchDelayField, SortTypeField } from './SearchFields';
 
 const sortingOptions: string[] = [ 'Latest', 'Batch Size', 'Reward' ];
@@ -31,6 +31,7 @@ const SearchOptionsForm = (props: SearchOptions & Handlers) => {
             options={sortingOptions}
           />
         </Stack>
+        <Button plain>Hide form</Button>
       </FormLayout>
     </Layout>
   );
