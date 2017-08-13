@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Page, Stack, Banner } from '@shopify/polaris';
 import { HitMap, RequesterMap } from '../types';
-import EmptyHitTable from './HitTable/EmptyHitTable';
 import HitTable from './HitTable/HitTable';
 import SearchForm from '../containers/SearchForm';
 
@@ -24,11 +23,7 @@ const App = ({ hits, requesters, onFetch }: Props & Handlers) => {
         <Stack vertical spacing="tight">
           <Banner status="info">Scanned {hits.size} hits.</Banner>
           <SearchForm />
-          {hits.isEmpty() ? (
-            <EmptyHitTable onAction={onFetch} />
-          ) : (
-            <HitTable hits={hits} requesters={requesters} />
-          )}
+          <HitTable hits={hits} requesters={requesters} emptyAction={onFetch} />
         </Stack>
       </Page>
     </main>
