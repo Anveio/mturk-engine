@@ -2,16 +2,12 @@ import * as React from 'react';
 import { TextField, Select, Checkbox } from '@shopify/polaris';
 
 interface Props {
-  readonly onChange: (value: string) => void;
-}
-
-interface TextFieldProps extends Props {
   readonly value: string;
+  readonly onChange: (value: string) => void;
 }
 
 interface SortTypeProps extends Props {
   readonly options: string[];
-  readonly value: string;
 }
 
 interface CheckBoxProps {
@@ -19,7 +15,7 @@ interface CheckBoxProps {
   readonly checked: boolean;
 }
 
-const SearchDelayField = ({ value, onChange }: TextFieldProps) => {
+const SearchDelayField = ({ value, onChange }: Props) => {
   return (
     <TextField
       label="Search Delay"
@@ -33,7 +29,7 @@ const SearchDelayField = ({ value, onChange }: TextFieldProps) => {
   );
 };
 
-const MinimumRewardField = ({ value, onChange }: TextFieldProps) => {
+const MinimumRewardField = ({ value, onChange }: Props) => {
   return (
     <TextField
       label="Minimum Reward"
