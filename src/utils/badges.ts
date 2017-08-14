@@ -2,21 +2,17 @@ import { Requester, RequesterScores } from '../types';
 import { calculateAverageScore } from './turkopticon';
 
 type Status = 'success' | 'info' | 'attention' | 'warning';
-// type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
-// type ExceptionStatus = 'neutral' | 'warning' | 'critical';
-
-// interface BadgeData {
-//   status?: Status;
-//   progress?: Progress;
-//   text: string;
-// }
 
 interface BadgeDescriptor {
   status: Status;
   content: string;
 }
 
-export const calculateAllBadges = (requester: Requester): BadgeDescriptor[] => {
+export const generateBadges = (requester: Requester | undefined): BadgeDescriptor[] => {
+  if (!requester) {
+    return [];
+  }
+
   const tentativeBadges: (BadgeDescriptor | null)[] = [
     calculateScoreBadge(requester.attrs),
     calculateReviewsBadge(requester.reviews)

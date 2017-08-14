@@ -1,5 +1,5 @@
 import { Hit, Requester } from '../types';
-import { calculateAllBadges } from './badges';
+import { generateBadges } from './badges';
 import { truncate } from './formatting';
 
 type ExceptionStatus = 'neutral' | 'warning' | 'critical';
@@ -17,7 +17,6 @@ const generateExceptions = (groupId: string): ExceptionDescriptor[] => {
 
 export const generateItemProps = (hit: Hit, requester: Requester | undefined) => {
   const { requesterName, reward, groupId, title } = hit;
-  const badges = requester ? calculateAllBadges(requester) : [];
 
   const actions = [
     {
@@ -37,7 +36,7 @@ export const generateItemProps = (hit: Hit, requester: Requester | undefined) =>
     attributeOne: truncate(title, 80),
     attributeTwo: truncate(requesterName, 45),
     attributeThree: reward,
-    badges,
+    badges: generateBadges(requester),
     actions,
     exceptions: generateExceptions(groupId)
   };
