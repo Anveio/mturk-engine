@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Hit, Requester } from '../../types';
 import { ResourceList } from '@shopify/polaris';
-import UnqualifiedCard from './UnqualifiedCard';
 import { calculateAllBadges } from '../../utils/badges';
 
 export interface Props {
@@ -17,15 +16,16 @@ const HitCard = ({ hit, requester }: Props) => {
     attributeOne: title,
     attributeTwo: requesterName,
     attributeThree: reward,
+    badges
   };
 
   return hit.groupId.startsWith('[Error:groupId]-') ? (
-    <UnqualifiedCard {...hit} />
-  ) : (
     <ResourceList.Item
       {...itemProps}
-      badges={badges}
+      exceptions={[ { status: 'warning', title: 'You are not qualified.' } ]}
     />
+  ) : (
+    <ResourceList.Item {...itemProps} />
   );
 };
 
