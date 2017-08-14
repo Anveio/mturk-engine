@@ -1,31 +1,37 @@
 import { Requester, RequesterScores } from '../types';
 import { calculateAverageScore } from './turkopticon';
 
-interface BadgeData {
-  status?: Status;
-  progress?: Progress;
-  text: string;
+type Status = 'success' | 'info' | 'attention' | 'warning';
+// type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
+// type ExceptionStatus = 'neutral' | 'warning' | 'critical';
+
+// interface BadgeData {
+//   status?: Status;
+//   progress?: Progress;
+//   text: string;
+// }
+
+interface BadgeDescriptor {
+  status: Status;
+  content: string;
 }
 
-type Status = 'success' | 'info' | 'attention' | 'warning';
-type Progress = 'incomplete' | 'partiallyComplete' | 'complete';
-
-export const calculateAllBadges = (requester: Requester): BadgeData[] => {
-  const tentativeBadges: (BadgeData | null)[] = [
+export const calculateAllBadges = (requester: Requester): BadgeDescriptor[] => {
+  const tentativeBadges: (BadgeDescriptor | null)[] = [
     calculateScoreBadge(requester.attrs),
     calculateReviewsBadge(requester.reviews)
   ];
 
-  return tentativeBadges.filter(el => el !== null).slice(0, 3) as BadgeData[];
+  return tentativeBadges.filter(el => el !== null).slice(0, 3) as BadgeDescriptor[];
 };
 
-const calculateScoreBadge = (scores: RequesterScores): BadgeData => {
+const calculateScoreBadge = (scores: RequesterScores): BadgeDescriptor => {
   const average = parseFloat(calculateAverageScore(scores));
   const status = assignScoreColor(average);
-  const text = assignScoreText(status);
+  const content = assignScoreText(status);
   return {
     status,
-    text
+    content
   };
 };
 
@@ -56,10 +62,10 @@ const assignScoreText = (status: Status): string => {
   }
 };
 
-const calculateReviewsBadge = (reviews: number): BadgeData | null => {
-  const lowReviewsBadge: BadgeData = {
-    text: 'Few reviews',
-    progress: 'incomplete'
+const calculateReviewsBadge = (reviews: number): BadgeDescriptor | null => {
+  const lowReviewsBadge: BadgeDescriptor = {
+    content: 'Few reviews',
+    status: 'attention'
   };
 
   return reviews < 4 ? lowReviewsBadge : null;

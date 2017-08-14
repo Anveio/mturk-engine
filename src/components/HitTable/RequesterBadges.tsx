@@ -8,7 +8,7 @@ const BadgeList = (requester: Requester) => {
     <div>
       {calculateAllBadges(requester).map((badge, index) => (
         <Badge status={badge.status} key={index}>
-          {badge.text}
+          {badge.content}
         </Badge>
       ))}
     </div>
