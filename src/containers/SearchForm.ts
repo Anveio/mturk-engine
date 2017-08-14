@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState, SearchOptions } from '../types';
-import { FormUpdate, updateForm } from '../actions/searchOptions';
+import { FormAction, updateForm, toggleForm } from '../actions/searchOptions';
 import SearchForm, { Props, Handlers } from '../components/SearchForm/SearchForm';
 
 const mapState = (state: RootState): Props => ({
@@ -11,9 +11,12 @@ const mapState = (state: RootState): Props => ({
   qualified: state.searchOptions.qualified
 });
 
-const mapDispatch = (dispatch: Dispatch<FormUpdate>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch<FormAction>): Handlers => ({
   onChange: (field: keyof SearchOptions, value: string | boolean) => {
     dispatch(updateForm(field, value));
+  },
+  onToggle: () => {
+    dispatch(toggleForm())
   }
 });
 

@@ -20,6 +20,8 @@ export type FETCH_TURKOPTICON_FAILURE = typeof FETCH_TURKOPTICON_FAILURE;
 
 export const UPDATE_FIELD = 'UPDATE_FIELD';
 export type UPDATE_FIELD = typeof UPDATE_FIELD;
+export const TOGGLE_FORM = 'TOGGLE_FORM';
+export type TOGGLE_FORM = typeof TOGGLE_FORM;
 
 export const API_URL = configureApiRoot();
 /**

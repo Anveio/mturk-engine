@@ -12,6 +12,7 @@ const sortingOptions: string[] = [ 'Latest', 'Batch Size', 'Reward' ];
 
 export interface Handlers {
   readonly onChange: (field: keyof SearchOptions, value: string | boolean) => void;
+  readonly onToggle: () => void;
 }
 
 export interface Props extends SearchOptions {
@@ -19,7 +20,15 @@ export interface Props extends SearchOptions {
 }
 
 const SearchOptionsForm = (props: Props & Handlers) => {
-  const { delay, minReward, onChange, sortType, qualified } = props;
+  const {
+    active,
+    delay,
+    minReward,
+    sortType,
+    qualified,
+    onChange,
+    onToggle
+  } = props;
 
   const updateField = (field: keyof SearchOptions) => (value: string) => {
     onChange(field, value);
@@ -29,7 +38,7 @@ const SearchOptionsForm = (props: Props & Handlers) => {
     onChange(field, value);
   };
 
-  return (
+  return active ? (
     <Card title="Edit Search Settings" sectioned>
       <Stack>
         <FormLayout>
@@ -44,10 +53,14 @@ const SearchOptionsForm = (props: Props & Handlers) => {
             options={sortingOptions}
           />
           <QualifiedBox onChange={toggleField('qualified')} checked={qualified} />
-          <Button icon="circleCancel">Hide Search Settings</Button>
+          <Button icon="circleCancel" onClick={onToggle}>
+            Hide search settings
+          </Button>
         </FormLayout>
       </Stack>
     </Card>
+  ) : (
+    <Button onClick={onToggle}>Edit search settings</Button>
   );
 };
 
