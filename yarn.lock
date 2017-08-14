@@ -6,7 +6,7 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@shopify/images/-/images-1.1.3.tgz#b1aece3174beb101375ace13c6651b7049648b79"
 
-"@shopify/javascript-utilities@^1.1.0", "@shopify/javascript-utilities@^1.1.2":
+"@shopify/javascript-utilities@^1.1.0", "@shopify/javascript-utilities@^1.1.6":
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/@shopify/javascript-utilities/-/javascript-utilities-1.1.6.tgz#f9272feb1f0b7a3dd63a9e490548b17055e6d9f2"
   dependencies:
@@ -14,12 +14,12 @@
     "@types/react" "^15.0.21"
     lodash "^4.17.4"
 
-"@shopify/polaris@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@shopify/polaris/-/polaris-1.1.1.tgz#caaa3f26412d8201f85064377b681772e47e5729"
+"@shopify/polaris@^1.3.1":
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/@shopify/polaris/-/polaris-1.3.1.tgz#771477b04d2f25bbaaec4c8f0aa1f9f90ed0b74e"
   dependencies:
     "@shopify/images" "^1.1.0"
-    "@shopify/javascript-utilities" "^1.1.2"
+    "@shopify/javascript-utilities" "^1.1.6"
     "@shopify/react-utilities" "^1.2.0"
     "@types/prop-types" "*"
     "@types/react" "*"
