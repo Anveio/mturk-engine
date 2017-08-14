@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SearchOptions } from '../../types';
-import { Card, FormLayout, Stack, Button } from '@shopify/polaris';
+import { Layout, FormLayout, DisplayText, Caption, Button } from '@shopify/polaris';
 import {
   MinimumRewardField,
   SearchDelayField,
@@ -39,26 +39,25 @@ const SearchOptionsForm = (props: Props & Handlers) => {
   };
 
   return active ? (
-    <Card title="Edit Search Settings" sectioned>
-      <Stack>
-        <FormLayout>
-          <SearchDelayField onChange={updateField('delay')} value={delay} />
-          <MinimumRewardField
-            onChange={updateField('minReward')}
-            value={minReward}
-          />
-          <SortTypeField
-            onChange={updateField('sortType')}
-            value={sortType}
-            options={sortingOptions}
-          />
-          <QualifiedBox onChange={toggleField('qualified')} checked={qualified} />
-          <Button icon="circleCancel" onClick={onToggle}>
-            Hide search settings
-          </Button>
-        </FormLayout>
-      </Stack>
-    </Card>
+    <Layout sectioned>
+      <FormLayout>
+        <DisplayText size="small">Edit search settings.</DisplayText>
+        <Caption>
+          Changes are saved in real time and will apply on your next search.
+        </Caption>
+        <SearchDelayField onChange={updateField('delay')} value={delay} />
+        <MinimumRewardField onChange={updateField('minReward')} value={minReward} />
+        <SortTypeField
+          onChange={updateField('sortType')}
+          value={sortType}
+          options={sortingOptions}
+        />
+        <QualifiedBox onChange={toggleField('qualified')} checked={qualified} />
+        <Button icon="circleCancel" onClick={onToggle}>
+          Hide search settings
+        </Button>
+      </FormLayout>
+    </Layout>
   ) : (
     <Button onClick={onToggle}>Edit search settings</Button>
   );
