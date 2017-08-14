@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SearchOptions } from '../../types';
-import { Layout, FormLayout, Stack, Button } from '@shopify/polaris';
+import { Card, FormLayout, Stack, Button } from '@shopify/polaris';
 import {
   MinimumRewardField,
   SearchDelayField,
@@ -26,9 +26,9 @@ const SearchOptionsForm = (props: SearchOptions & Handlers) => {
   };
 
   return (
-    <Layout sectioned>
-      <FormLayout>
-        <Stack vertical={false}>
+    <Card title="Edit Search Settings" sectioned>
+      <Stack>
+        <FormLayout>
           <SearchDelayField onChange={updateField('delay')} value={delay} />
           <MinimumRewardField
             onChange={updateField('minReward')}
@@ -40,10 +40,10 @@ const SearchOptionsForm = (props: SearchOptions & Handlers) => {
             options={sortingOptions}
           />
           <QualifiedBox onChange={toggleField('qualified')} checked={qualified} />
-        </Stack>
-        <Button plain>Hide form</Button>
-      </FormLayout>
-    </Layout>
+          <Button icon="circleCancel">Hide Search Settings</Button>
+        </FormLayout>
+      </Stack>
+    </Card>
   );
 };
 
