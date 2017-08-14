@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Hit, HitMap, RequesterMap } from '../../types';
 import { ResourceList } from '@shopify/polaris';
-import HitCard from './HitCard';
+// import HitCard from './HitCard';
+import HitItem from './HitItem';
 import EmptyHitTable from './EmptyHitTable';
 
 import { sortByTime } from '../../utils/sorting';
@@ -22,11 +23,7 @@ const HitTable = ({ hits, requesters, emptyAction }: Props) => {
     <ResourceList
       items={sortedHits(hits)}
       renderItem={(hit: Hit) => (
-        <HitCard
-          hit={hit}
-          requester={requesters.get(hit.requesterId)}
-          key={hit.groupId}
-        />
+        <HitItem hit={hit} requester={requesters.get(hit.requesterId)} />
       )}
     />
   );
