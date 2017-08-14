@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Hit, Requester } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import { calculateAllBadges } from '../../utils/badges';
+import { truncate } from '../../utils/formatting';
 
 export interface Props {
   readonly hit: Hit;
@@ -9,14 +10,28 @@ export interface Props {
 }
 
 const HitCard = ({ hit, requester }: Props) => {
-  const { requesterName, reward, title } = hit;
+  const { requesterName, reward, groupId, title } = hit;
   const badges = requester ? calculateAllBadges(requester) : [];
+  const actions = [
+    {
+      content: 'Preview',
+      external: true,
+      url: `https://www.mturk.com/mturk/preview?groupId=${groupId}`
+    },
+    {
+      content: 'Accept',
+      primary: true,
+      external: true,
+      url: `https://www.mturk.com/mturk/previewandaccept?groupId=${groupId}`
+    }
+  ];
 
   const itemProps = {
-    attributeOne: title,
-    attributeTwo: requesterName,
+    attributeOne: truncate(title, 80),
+    attributeTwo: truncate(requesterName, 45),
     attributeThree: reward,
-    badges
+    badges,
+    actions
   };
 
   return hit.groupId.startsWith('[Error:groupId]-') ? (
