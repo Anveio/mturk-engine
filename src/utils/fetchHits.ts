@@ -18,10 +18,15 @@ export const batchFetchHits = async (options: SearchOptions) => {
 };
 
 export const generateQueryString = (options: SearchOptions) => {
-  const { sortType, minReward } = options;
+  const { sortType, minReward, qualified } = options;
 
   const nonParam = `/mturk/searchbar?selectedSearchType=hitgroups`;
-  return `${nonParam}${sortParam(sortType)}${minRewardParam(minReward)}`;
+  return (
+    nonParam +
+    sortParam(sortType) +
+    minRewardParam(minReward) +
+    qualifiedParam(qualified)
+  );
 };
 
 const sortParam = (sorting: HitSorting) => {
@@ -39,4 +44,8 @@ const sortParam = (sorting: HitSorting) => {
 
 const minRewardParam = (minReward: string): string => {
   return `&minReward=${minReward}`;
+};
+
+const qualifiedParam = (qualified: boolean): string => {
+  return qualified ? '&qualifiedFor=on' : '&qualifiedFor=off';
 };

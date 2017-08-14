@@ -6,7 +6,8 @@ import SearchForm, { Handlers } from '../components/SearchForm/SearchForm';
 const mapState = (state: RootState): SearchOptions => ({
   delay: state.searchOptions.delay,
   minReward: state.searchOptions.minReward,
-  sortType: state.searchOptions.sortType
+  sortType: state.searchOptions.sortType,
+  qualified: state.searchOptions.qualified
 });
 
 const mapDispatch = (dispatch: Dispatch<FormUpdate>): Handlers => ({

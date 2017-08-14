@@ -14,6 +14,7 @@ export interface SearchOptions {
   readonly delay: string;
   readonly minReward: string;
   readonly sortType: HitSorting;
+  readonly qualified: boolean;
 }
 
 export interface Hit {

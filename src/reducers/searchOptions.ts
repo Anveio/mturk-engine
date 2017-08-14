@@ -5,7 +5,8 @@ import { UPDATE_FIELD } from '../constants';
 const initial: SearchOptions = {
   delay: '10',
   minReward: '0',
-  sortType: 'Latest'
+  sortType: 'Latest',
+  qualified: true
 };
 
 export default (state = initial, action: FormUpdate): SearchOptions => {
