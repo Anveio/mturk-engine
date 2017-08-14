@@ -9,14 +9,7 @@ export interface Props {
 }
 
 const HitCard = ({ hit, requester }: Props) => {
-  return hit.groupId.startsWith('[Error:groupId]-') ? (
-    <ResourceList.Item
-      {...generateItemProps(hit, requester)}
-      exceptions={[ { status: 'warning', title: 'You are not qualified.' } ]}
-    />
-  ) : (
-    <ResourceList.Item {...generateItemProps(hit, requester)} />
-  );
+  return <ResourceList.Item {...generateItemProps(hit, requester)} />;
 };
 
 export default HitCard;
