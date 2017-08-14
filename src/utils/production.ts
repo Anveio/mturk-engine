@@ -21,6 +21,6 @@ export const createRootDiv = (): void => {
 export const importPolarisStylesheet = (): void => {
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
-  stylesheet.href = 'https://sdks.shopifycdn.com/polaris/1.0.2/polaris.css';
+  stylesheet.href = 'https://sdks.shopifycdn.com/polaris/1.3.1/polaris.min.css';
   document.head.appendChild(stylesheet);
 };
