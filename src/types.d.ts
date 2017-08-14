@@ -22,6 +22,7 @@ export interface Hit {
   readonly requesterId: string;
   readonly reward: string;
   readonly groupId: string;
+  readonly batchSize: number;
   readonly turkopticon?: Requester;
   readonly time: number;
 }

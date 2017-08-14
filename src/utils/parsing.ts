@@ -35,7 +35,8 @@ export const generateHitData = (input: HTMLTableElement): Hit => ({
   requesterId: parseRequesterId(input),
   reward: parseHitReward(input),
   groupId: parseGroupId(input),
-  time: Date.now()
+  time: Date.now(),
+  batchSize: 1
 });
 
 export const parseHitTitle = (input: HTMLTableElement): string => {
