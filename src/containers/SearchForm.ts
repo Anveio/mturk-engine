@@ -1,9 +1,10 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState, SearchOptions } from '../types';
 import { FormUpdate, updateForm } from '../actions/searchOptions';
-import SearchForm, { Handlers } from '../components/SearchForm/SearchForm';
+import SearchForm, { Props, Handlers } from '../components/SearchForm/SearchForm';
 
-const mapState = (state: RootState): SearchOptions => ({
+const mapState = (state: RootState): Props => ({
+  active: state.searchFormActive,
   delay: state.searchOptions.delay,
   minReward: state.searchOptions.minReward,
   sortType: state.searchOptions.sortType,

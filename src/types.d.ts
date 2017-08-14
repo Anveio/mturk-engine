@@ -4,6 +4,7 @@ export interface RootState {
   readonly hits: HitMap;
   readonly requesters: RequesterMap;
   readonly searchOptions: SearchOptions;
+  readonly searchFormActive: boolean;
 }
 
 export type HitMap = Immutable.Map<string, Hit>;

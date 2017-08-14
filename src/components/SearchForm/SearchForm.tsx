@@ -14,7 +14,11 @@ export interface Handlers {
   readonly onChange: (field: keyof SearchOptions, value: string | boolean) => void;
 }
 
-const SearchOptionsForm = (props: SearchOptions & Handlers) => {
+export interface Props extends SearchOptions {
+  active: boolean;
+}
+
+const SearchOptionsForm = (props: Props & Handlers) => {
   const { delay, minReward, onChange, sortType, qualified } = props;
 
   const updateField = (field: keyof SearchOptions) => (value: string) => {
