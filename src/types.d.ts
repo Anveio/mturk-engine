@@ -16,14 +16,6 @@ export interface SearchOptions {
   readonly sortType: HitSorting;
 }
 
-export interface SearchParams {
-  readonly selectedSearchType: string;
-  readonly sortType: string;
-  readonly pageSize: number;
-  readonly minReward: number;
-  readonly qualifiedFor: 'on' | 'off';
-}
-
 export interface Hit {
   readonly title: string;
   readonly requesterName: string;
