@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Hit, HitMap, RequesterMap } from '../../types';
-import { ResourceList } from '@shopify/polaris';
+import { Card, ResourceList } from '@shopify/polaris';
 // import HitCard from './HitCard';
 import HitItem from './HitItem';
 import EmptyHitTable from './EmptyHitTable';
@@ -20,12 +20,14 @@ const HitTable = ({ hits, requesters, emptyAction }: Props) => {
   return hits.isEmpty() ? (
     <EmptyHitTable onAction={emptyAction} />
   ) : (
-    <ResourceList
-      items={sortedHits(hits)}
-      renderItem={(hit: Hit) => (
-        <HitItem hit={hit} requester={requesters.get(hit.requesterId)} />
-      )}
-    />
+    <Card>
+      <ResourceList
+        items={sortedHits(hits)}
+        renderItem={(hit: Hit) => (
+          <HitItem hit={hit} requester={requesters.get(hit.requesterId)} />
+        )}
+      />
+    </Card>
   );
 };
 
