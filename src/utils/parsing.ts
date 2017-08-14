@@ -43,14 +43,14 @@ export const parseHitTitle = (input: HTMLTableElement): string => {
   const hitTitleElem = input.querySelector('a.capsulelink');
   return hitTitleElem && hitTitleElem.textContent
     ? hitTitleElem.textContent.trim()
-    : '[Error retrieving hit title]';
+    : '[Error:title]';
 };
 
 export const parseRequesterName = (input: HTMLTableElement): string => {
   const requesterNameElem = input.querySelector('span.requesterIdentity');
   return requesterNameElem && requesterNameElem.textContent
     ? requesterNameElem.textContent
-    : '[Error retrieving requester name]';
+    : '[Error:requesterName]';
 };
 
 export const parseRequesterId = (input: HTMLTableElement): string => {
@@ -62,7 +62,7 @@ export const parseRequesterId = (input: HTMLTableElement): string => {
      */
     return href.split('requesterId=')[1];
   } else {
-    return '[Error retrieving requester name]';
+    return '[Error:requesterId]';
   }
 };
 
@@ -70,7 +70,7 @@ export const parseHitReward = (input: HTMLTableElement): string => {
   const hitRewardElem = input.querySelector('span.reward');
   return hitRewardElem && hitRewardElem.textContent
     ? hitRewardElem.textContent.replace('$', '')
-    : '[Error retrieving HIT reward amount]';
+    : '[Error:reward]';
 };
 
 /**
