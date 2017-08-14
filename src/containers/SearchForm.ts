@@ -11,7 +11,7 @@ const mapState = (state: RootState): SearchOptions => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<FormUpdate>): Handlers => ({
-  onChange: (field: keyof SearchOptions, value: string) => {
+  onChange: (field: keyof SearchOptions, value: string | boolean) => {
     dispatch(updateForm(field, value));
   }
 });
