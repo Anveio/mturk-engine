@@ -3,13 +3,17 @@ import { ButtonGroup, Button } from '@shopify/polaris';
 
 interface Props {
   readonly onToggle: () => void;
-  readonly text: string;
+  readonly active: boolean;
 }
 
-const SearchButtons = ({ onToggle, text }: Props) => {
+const buttonText = (active: boolean) => {
+  return active ? 'Hide search settings' : 'Edit search settings';
+};
+
+const SearchButtons = ({ onToggle, active }: Props) => {
   return (
     <ButtonGroup>
-      <Button onClick={onToggle}>{text}</Button>
+      <Button onClick={onToggle}>{buttonText(active)}</Button>
     </ButtonGroup>
   );
 };

@@ -22,17 +22,11 @@ const SearchOptionsForm = (props: Props & Handlers) => {
           Changes are saved in real time and will apply on your next search.
         </Caption>
         <SearchForm />
-        <SearchButtons
-          onToggle={onToggle}
-          text="Hide search settings"
-        />
+        <SearchButtons onToggle={onToggle} active />
       </FormLayout>
     </Layout>
   ) : (
-    <SearchButtons
-      onToggle={onToggle}
-      text="Edit search settings"
-    />
+    <SearchButtons onToggle={onToggle} active={false} />
   );
 };
 
