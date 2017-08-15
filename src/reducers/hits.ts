@@ -26,5 +26,5 @@ export default (state = initial, action: FetchAction): HitMap => {
     default:
       return state;
   }
-  return state.merge(partialState);
+  return partialState;
 };
