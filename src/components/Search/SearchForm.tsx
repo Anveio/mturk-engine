@@ -26,7 +26,7 @@ const SearchOptionsForm = (props: SearchOptions & Handlers) => {
   };
 
   return (
-    <Stack>
+    <Stack vertical distribution="leading">
       <SearchDelayField onChange={updateField('delay')} value={delay} />
       <MinimumRewardField onChange={updateField('minReward')} value={minReward} />
       <SortTypeField

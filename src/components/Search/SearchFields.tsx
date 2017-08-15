@@ -34,6 +34,7 @@ const MinimumRewardField = ({ value, onChange }: Props) => {
     <TextField
       label="Minimum Reward"
       type="number"
+      min={0}
       prefix="$"
       autoComplete={false}
       value={value}
