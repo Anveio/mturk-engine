@@ -8,26 +8,27 @@ interface BadgeDescriptor {
   content: string;
 }
 
-export const generateBadges = (requester: Requester | undefined): BadgeDescriptor[] => {
+export const generateBadges = (
+  requester: Requester | undefined
+): BadgeDescriptor[] => {
   if (!requester) {
     return [];
   }
 
-  const tentativeBadges: (BadgeDescriptor | null)[] = [
+  const allBadges: (BadgeDescriptor | null)[] = [
     calculateScoreBadge(requester.attrs),
     calculateReviewsBadge(requester.reviews)
   ];
 
-  return tentativeBadges.filter(el => el !== null).slice(0, 3) as BadgeDescriptor[];
+  return allBadges.filter(el => el !== null).slice(0, 3) as BadgeDescriptor[];
 };
 
 const calculateScoreBadge = (scores: RequesterScores): BadgeDescriptor => {
-  const average = parseFloat(calculateAverageScore(scores));
-  const status = assignScoreColor(average);
-  const content = assignScoreText(status);
+  const average = calculateAverageScore(scores);
+  const status = assignScoreColor(parseFloat(average));
   return {
     status,
-    content
+    content: `${average} T.O.`
   };
 };
 
@@ -40,21 +41,6 @@ const assignScoreColor = (score: number): Status => {
     return 'info';
   } else {
     return 'success';
-  }
-};
-
-const assignScoreText = (status: Status): string => {
-  switch (status) {
-    case 'warning':
-      return 'Low T.O.';
-    case 'attention':
-      return 'OK T.O.';
-    case 'info':
-      return 'Good T.O.';
-    case 'success':
-      return 'Great T.O.';
-    default:
-      return 'Invalid average T.O.';
   }
 };
 
