@@ -43,7 +43,7 @@ const MinimumRewardField = ({ value, onChange }: Props) => {
   );
 };
 
-const SortTypeField = ({ options, onChange }: SortTypeProps) => {
+const SortTypeField = ({ value, options, onChange }: SortTypeProps) => {
   return (
     <Select
       label="Sort By"
@@ -51,6 +51,7 @@ const SortTypeField = ({ options, onChange }: SortTypeProps) => {
         label: option,
         value: option
       }))}
+      value={value}
       onChange={onChange}
     />
   );
