@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Page, Stack, Banner } from '@shopify/polaris';
 import { HitMap, RequesterMap, SearchOptions } from '../types';
 import HitTable from './HitTable/HitTable';
-import SearchForm from '../containers/SearchForm';
+import Search from '../containers/Search';
 
 export interface Props {
   readonly hits: HitMap;
@@ -19,13 +19,10 @@ const App = ({ hits, requesters, options, onFetch }: Props & Handlers) => {
 
   return (
     <main>
-      <Page
-        title="Better Mturk"
-        primaryAction={{ content: 'Fetch Data', onAction: fetchAction }}
-      >
+      <Page title="Better Mturk">
         <Stack vertical spacing="tight">
           <Banner status="info">Scanned {hits.size} hits.</Banner>
-          <SearchForm />
+          <Search />
           <HitTable hits={hits} requesters={requesters} emptyAction={fetchAction} />
         </Stack>
       </Page>
