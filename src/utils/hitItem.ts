@@ -19,14 +19,16 @@ export const generateItemProps = (hit: Hit, requester: Requester | undefined) =>
   const { requesterName, groupId, title } = hit;
 
   const actions = [
-    {
-      icon: 'view',
-      external: true,
-      url: `https://www.mturk.com/mturk/preview?groupId=${groupId}`
-    },
+    // {
+    //   icon: 'view',
+    //   external: true,
+    //   url: `https://www.mturk.com/mturk/preview?groupId=${groupId}`
+    // },
     {
       primary: true,
       external: true,
+      content: 'Accept',
+      accessibilityLabel: 'Accept',
       icon: 'add',
       url: `https://www.mturk.com/mturk/previewandaccept?groupId=${groupId}`
     }
