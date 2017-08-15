@@ -19,7 +19,10 @@ const App = ({ hits, requesters, options, onFetch }: Props & Handlers) => {
 
   return (
     <main>
-      <Page title="Better Mturk">
+      <Page
+        title="Better Mturk"
+        primaryAction={{ content: 'Fetch Data', onAction: fetchAction }}
+      >
         <Stack vertical spacing="tight">
           <Banner status="info">Scanned {hits.size} hits.</Banner>
           <Search />

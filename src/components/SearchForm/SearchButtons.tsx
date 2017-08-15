@@ -9,7 +9,6 @@ interface Props {
 const SearchButtons = ({ onToggle, text }: Props) => {
   return (
     <ButtonGroup>
-      <Button primary>Search Hits</Button>
       <Button onClick={onToggle}>{text}</Button>
     </ButtonGroup>
   );
