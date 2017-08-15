@@ -1,7 +1,7 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState, SearchOptions } from '../types';
 import { FormAction, updateForm } from '../actions/searchOptions';
-import SearchForm, { Handlers } from '../components/SearchForm/SearchForm';
+import SearchForm, { Handlers } from '../components/Search/SearchForm';
 
 const mapState = (state: RootState): SearchOptions => ({
   delay: state.searchOptions.delay,
