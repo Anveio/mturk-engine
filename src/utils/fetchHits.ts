@@ -32,11 +32,11 @@ export const generateQueryString = (options: SearchOptions) => {
 const sortParam = (sorting: HitSorting) => {
   switch (sorting) {
     case 'Latest':
-      return '&LastUpdatedTime%3A1';
+      return '&sortType=LastUpdatedTime%3A1';
     case 'Batch Size':
       return '&sortType=NumHITs%3A1';
     case 'Reward':
-      return '&Reward%3A1';
+      return '&sortType=Reward%3A1';
     default:
       throw new Error('Problem generating sortType param');
   }
