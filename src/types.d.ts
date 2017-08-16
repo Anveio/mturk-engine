@@ -1,6 +1,7 @@
 import * as Immutable from 'immutable';
 
 export interface RootState {
+  readonly tab: number;
   readonly hits: HitMap;
   readonly queue: HitMap;
   readonly requesters: RequesterMap;
