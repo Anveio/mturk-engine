@@ -1,6 +1,6 @@
-import {Hit, HitMap} from '../types';
-import {QueueAction} from '../actions/queue';
-import {FETCH_QUEUE_SUCCESS} from '../constants'
+import { Hit, HitMap } from '../types';
+import { QueueAction } from '../actions/queue';
+import { FETCH_QUEUE_SUCCESS } from '../constants';
 import { Map } from 'immutable';
 
 const initial: HitMap = Map<string, Hit>();
@@ -17,4 +17,4 @@ export default (state = initial, action: QueueAction): HitMap => {
   }
 
   return partialState;
-}
+};
