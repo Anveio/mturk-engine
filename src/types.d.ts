@@ -2,6 +2,7 @@ import * as Immutable from 'immutable';
 
 export interface RootState {
   readonly hits: HitMap;
+  readonly queue: HitMap;
   readonly requesters: RequesterMap;
   readonly searchOptions: SearchOptions;
   readonly searchFormActive: boolean;
