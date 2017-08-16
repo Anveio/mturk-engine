@@ -35,7 +35,7 @@ export const generateItemProps = (hit: Hit, requester: Requester | undefined) =>
   ];
 
   return {
-    attributeOne: requesterName,
+    attributeOne: truncate(requesterName, 40),
     attributeTwo: truncate(title, 80),
     badges: generateBadges(requester),
     actions,
