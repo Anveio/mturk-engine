@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Hit, Requester } from '../../types';
 import { ResourceList } from '@shopify/polaris';
-import RewardText from './RewardText';
+import InfoContainer from './RewardText';
 import { generateItemProps } from '../../utils/hitItem';
 
 export interface Props {
@@ -13,7 +13,7 @@ const HitCard = ({ hit, requester }: Props) => {
   return (
     <ResourceList.Item
       {...generateItemProps(hit, requester)}
-      attributeThree={<RewardText reward={hit.reward} />}
+      attributeThree={<InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
     />
   );
 };

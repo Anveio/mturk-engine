@@ -1,13 +1,18 @@
 import * as React from 'react';
-import { DisplayText } from '@shopify/polaris';
+import { Stack, DisplayText, Caption } from '@shopify/polaris';
 // import { rewardToVariation } from '../../utils/formatting';
 
 interface Props {
   reward: string;
+  batchSize: number;
 }
 
-const RewardText = ({ reward }: Props) => {
-  return <DisplayText size="small">${reward}</DisplayText>;
+const InfoContainer = ({reward, batchSize}: Props) => {
+  return (
+    <Stack vertical={false} spacing={'tight'} alignment="center">
+      <Caption>{batchSize} available</Caption>
+      <DisplayText size="small">${reward}</DisplayText>
+    </Stack>
+  );
 };
-
-export default RewardText;
+export default InfoContainer;
