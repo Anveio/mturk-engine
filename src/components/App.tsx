@@ -30,12 +30,14 @@ const App = (props: Props & Handlers) => {
         <Stack vertical>
           <Banner status="info">Scanned {hits.size} hits.</Banner>
           <Tabs selected={selected} tabs={tabs} onSelect={onSelectTab}>
-            <Search />
-            <HitTable
-              hits={hits}
-              requesters={requesters}
-              emptyAction={fetchAction}
-            />
+            <Stack vertical spacing="loose">
+              <Search />
+              <HitTable
+                hits={hits}
+                requesters={requesters}
+                emptyAction={fetchAction}
+              />
+            </Stack>
           </Tabs>
         </Stack>
       </Page>
