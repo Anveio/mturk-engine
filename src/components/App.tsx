@@ -14,9 +14,11 @@ export interface Props {
 
 export interface Handlers {
   readonly onFetch: (options: SearchOptions) => void;
+  readonly onSelectTab: (selectedTabIndex: number) => void;
 }
 
-const App = ({ selected, hits, requesters, options, onFetch }: Props & Handlers) => {
+const App = (props: Props & Handlers) => {
+  const { onSelectTab, selected, hits, requesters, options, onFetch } = props;
   const fetchAction = () => onFetch(options);
 
   return (
@@ -27,7 +29,7 @@ const App = ({ selected, hits, requesters, options, onFetch }: Props & Handlers)
       >
         <Stack vertical>
           <Banner status="info">Scanned {hits.size} hits.</Banner>
-          <Tabs selected={selected} tabs={tabs}>
+          <Tabs selected={selected} tabs={tabs} onSelect={onSelectTab}>
             <Search />
             <HitTable
               hits={hits}

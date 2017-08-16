@@ -6,6 +6,7 @@ import {
   getHitPageSuccess,
   getHitPageFailure
 } from '../actions/hits';
+import { ChangeTab, changeTab } from '../actions/tab';
 import {
   TOpticonAction,
   fetchTOpticonSuccess,
@@ -15,7 +16,7 @@ import { batchFetchHits } from '../utils/fetchHits';
 import { batchFetchTOpticon, hitMapToRequesterIdsArray } from '../utils/turkopticon';
 import { Map } from 'immutable';
 
-type AppAction = HitPageAction | TOpticonAction;
+type AppAction = HitPageAction | TOpticonAction | ChangeTab;
 
 const mapState = (state: RootState): Props => ({
   selected: state.tab,
@@ -25,6 +26,9 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
+  onSelectTab: (selectedTabIndex: number) => {
+    dispatch(changeTab(selectedTabIndex));
+  },
   /**
    * Credit to: https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/
    */
