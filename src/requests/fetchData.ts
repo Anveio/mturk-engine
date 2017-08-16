@@ -16,9 +16,12 @@ import { batchFetchHits } from '../utils/fetchHits';
 
 export type FetchAction = HitPageAction | TOpticonAction;
 
-export const onFetch = (dispatch: Dispatch<FetchAction>) => async (
+export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async (
   options: SearchOptions
 ) => {
+  /**
+   * Credit to: https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/
+   */
   const fetchHits = (async () => {
     try {
       const hitData = await batchFetchHits(options);

@@ -1,12 +1,10 @@
 import { connect, Dispatch } from 'react-redux';
 import App, { Props, Handlers } from '../components/App';
 import { RootState } from '../types';
-import { HitPageAction } from '../actions/hits';
 import { ChangeTab, changeTab } from '../actions/tab';
-import { TOpticonAction } from '../actions/turkopticon';
-import { onFetch } from '../requests/onFetch';
+import { queryMturkAndTOpticon, FetchAction } from '../requests/fetchData';
 
-type AppAction = HitPageAction | TOpticonAction | ChangeTab;
+type AppAction = FetchAction | ChangeTab;
 
 const mapState = (state: RootState): Props => ({
   selected: state.tab,
@@ -19,10 +17,7 @@ const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
   onSelectTab: (selectedTabIndex: number) => {
     dispatch(changeTab(selectedTabIndex));
   },
-  /**
-   * Credit to: https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/
-   */
-  onFetch: onFetch(dispatch)
+  onFetch: queryMturkAndTOpticon(dispatch)
 });
 
 export default connect(mapState, mapDispatch)(App);
