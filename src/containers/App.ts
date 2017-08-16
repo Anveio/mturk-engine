@@ -18,6 +18,7 @@ import { Map } from 'immutable';
 type AppAction = HitPageAction | TOpticonAction;
 
 const mapState = (state: RootState): Props => ({
+  selected: state.tab,
   hits: state.hits,
   requesters: state.requesters,
   options: state.searchOptions
