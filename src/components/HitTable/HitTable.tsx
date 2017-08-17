@@ -15,7 +15,7 @@ export interface Handlers {
 }
 
 const HitTable = ({ hits, requesters, options, onFetch }: Props & Handlers) => {
-  const sortedHits = (unsortedHits: HitMap) => unsortedHits.slice(0, 50).toArray();
+  const sortedHits = (unsortedHits: HitMap) => unsortedHits.slice(0, 15).toArray();
 
   return hits.isEmpty() ? (
     <EmptyHitTable onFetch={onFetch} options={options} />

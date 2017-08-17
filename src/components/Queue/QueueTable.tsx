@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { HitMap } from '../../types';
 import { Card, ResourceList } from '@shopify/polaris';
+import EmptyQueue from './EmptyQueue';
 import QueueItem from './QueueItem';
 
 export interface Props {
@@ -8,7 +9,9 @@ export interface Props {
 }
 
 const QueueTable = ({ queue }: Props) => {
-  return (
+  return queue.isEmpty() ? (
+    <EmptyQueue />
+  ) : (
     <Card>
       <ResourceList
         items={queue.toArray()}
