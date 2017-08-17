@@ -4,8 +4,6 @@ import { Card, ResourceList } from '@shopify/polaris';
 import HitItem from './HitItem';
 import EmptyHitTable from './EmptyHitTable';
 
-import { sortByTime } from '../../utils/sorting';
-
 export interface Props {
   readonly hits: HitMap;
   readonly requesters: RequesterMap;
@@ -17,8 +15,7 @@ export interface Handlers {
 }
 
 const HitTable = ({ hits, requesters, options, onFetch }: Props & Handlers) => {
-  const sortedHits = (unsortedHits: HitMap) =>
-    unsortedHits.sort(sortByTime).toArray().slice(0, 50);
+  const sortedHits = (unsortedHits: HitMap) => unsortedHits.slice(0, 50).toArray();
 
   return hits.isEmpty() ? (
     <EmptyHitTable onFetch={onFetch} options={options} />
