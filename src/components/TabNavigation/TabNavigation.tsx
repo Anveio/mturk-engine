@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Tabs } from '@shopify/polaris';
+import { Tabs, Stack } from '@shopify/polaris';
 import HitTable from '../../containers/HitTable';
+import QueueTable from '../../containers/QueueTable';
 import Search from '../../containers/Search';
 import { generateTabs } from '../../utils/tabs';
 
@@ -18,10 +19,23 @@ const TabNavigation = (props: Props & Handlers) => {
   const { searchSize, queueSize, onSelectTab, selected } = props;
   const tabs = generateTabs({ searchSize, queueSize });
 
+  const displaySelectedTab = {
+    0: () => {
+      return (
+        <Stack vertical>
+          <Search />
+          <HitTable />
+        </Stack>
+      );
+    },
+    1: () => {
+      return <QueueTable />;
+    }
+  };
+
   return (
     <Tabs selected={selected} tabs={tabs} onSelect={onSelectTab}>
-      <Search />
-      <HitTable />
+      {displaySelectedTab[selected]()}
     </Tabs>
   );
 };
