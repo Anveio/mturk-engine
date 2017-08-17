@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Page, Stack, Banner } from '@shopify/polaris';
+import { Page, Layout, Banner } from '@shopify/polaris';
 import { HitMap, RequesterMap, SearchOptions } from '../types';
 import TabNavigation from '../containers/TabNavigation';
 
@@ -25,10 +25,14 @@ const App = (props: Props & Handlers) => {
         title="Mturk Engine"
         primaryAction={{ content: 'Fetch Data', onAction: fetchAction }}
       >
-        <Stack vertical>
-          <Banner status="info">Scanned {hits.size} hits.</Banner>
-          <TabNavigation />
-        </Stack>
+        <Layout>
+          <Layout.Section>
+            <Banner status="info">Scanned {hits.size} hits.</Banner>
+          </Layout.Section>
+          <Layout.Section>
+            <TabNavigation />
+          </Layout.Section>
+        </Layout>
       </Page>
     </main>
   );
