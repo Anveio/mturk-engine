@@ -2,10 +2,11 @@ import { Dispatch } from 'react-redux';
 import { Hit } from '../types';
 import { Map } from 'immutable';
 import { fetchQueueSuccess, fetchQueueFailure, QueueAction } from '../actions/queue';
+import { getQueuePage } from '../utils/fetchQueue';
 
 export const fetchQueue = (dispatch: Dispatch<QueueAction>) => async () => {
   try {
-    const queueData = await Promise.resolve(Map<string, Hit>());
+    const queueData = await getQueuePage();
     queueData.isEmpty()
       ? dispatch(fetchQueueFailure())
       : dispatch(fetchQueueSuccess(queueData));
