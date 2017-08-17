@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Tabs, Stack } from '@shopify/polaris';
-import HitTable from '../HitTable/HitTable';
+import HitTable from '../../containers/HitTable';
 import Search from '../../containers/Search';
 import { tabs } from '../../utils/tabs';
 
