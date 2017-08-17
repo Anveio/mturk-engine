@@ -19,6 +19,7 @@ const TabNavigation = (props: Props & Handlers) => {
     <Tabs selected={selected} tabs={tabs} onSelect={onSelectTab}>
       <Stack vertical spacing="loose">
         <Search />
+        <HitTable />
       </Stack>
     </Tabs>
   );
