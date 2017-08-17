@@ -10,7 +10,7 @@ export interface FetchQueueFailure {
   type: FETCH_QUEUE_FAILURE;
 }
 
-export type QueueAction = FetchQueueSuccess;
+export type QueueAction = FetchQueueSuccess | FetchQueueFailure;
 
 export const fetchQueueSuccess = (data: HitMap): FetchQueueSuccess => ({
   type: FETCH_QUEUE_SUCCESS,
