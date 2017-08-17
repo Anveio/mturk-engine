@@ -6,17 +6,24 @@ interface TabDescriptor {
   accessibilityLabel?: string;
 }
 
-export const tabs: TabDescriptor[] = [
-  {
-    id: 'Search',
-    title: 'Search',
-    panelID: 'search',
-    accessibilityLabel: 'Search tab'
-  },
-  {
-    id: 'Queue',
-    title: 'Queue',
-    panelID: 'queue',
-    accessibilityLabel: 'Queue tab'
-  }
-];
+interface TabSizes {
+  searchSize: number;
+  queueSize: number;
+}
+
+export const generateTabs = ({ searchSize, queueSize }: TabSizes): TabDescriptor[] => {
+  return [
+    {
+      id: 'Search',
+      title: `Search (${searchSize})`,
+      panelID: 'search',
+      accessibilityLabel: 'Search tab'
+    },
+    {
+      id: 'Queue',
+      title: `Queue (${queueSize})`,
+      panelID: 'queue',
+      accessibilityLabel: 'Queue tab'
+    }
+  ];
+};

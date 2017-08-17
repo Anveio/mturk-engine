@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Layout, FormLayout, DisplayText, Caption } from '@shopify/polaris';
+import { Card, FormLayout, DisplayText, Caption } from '@shopify/polaris';
 import SearchForm from '../../containers/SearchForm';
 import SearchButtons from './SearchButtons';
 
@@ -15,7 +15,7 @@ const SearchOptionsForm = (props: Props & Handlers) => {
   const { active, onToggle } = props;
 
   return active ? (
-    <Layout sectioned>
+    <Card sectioned>
       <FormLayout>
         <DisplayText size="small">Edit search settings.</DisplayText>
         <Caption>
@@ -24,7 +24,7 @@ const SearchOptionsForm = (props: Props & Handlers) => {
         <SearchForm />
         <SearchButtons onToggle={onToggle} active />
       </FormLayout>
-    </Layout>
+    </Card>
   ) : (
     <SearchButtons onToggle={onToggle} active={false} />
   );

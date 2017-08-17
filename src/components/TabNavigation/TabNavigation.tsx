@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { Tabs, Stack } from '@shopify/polaris';
+import { Tabs } from '@shopify/polaris';
 import HitTable from '../../containers/HitTable';
 import Search from '../../containers/Search';
-import { tabs } from '../../utils/tabs';
+import { generateTabs } from '../../utils/tabs';
 
 export interface Props {
   readonly selected: number;
+  readonly searchSize: number;
+  readonly queueSize: number;
 }
 
 export interface Handlers {
@@ -13,14 +15,13 @@ export interface Handlers {
 }
 
 const TabNavigation = (props: Props & Handlers) => {
-  const { onSelectTab, selected } = props;
+  const { searchSize, queueSize, onSelectTab, selected } = props;
+  const tabs = generateTabs({ searchSize, queueSize });
 
   return (
     <Tabs selected={selected} tabs={tabs} onSelect={onSelectTab}>
-      <Stack vertical spacing="loose">
-        <Search />
-        <HitTable />
-      </Stack>
+      <Search />
+      <HitTable />
     </Tabs>
   );
 };
