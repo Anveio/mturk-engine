@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { RootState } from '../types';
-import HitTable, { Props } from '../components/Queue/QueueTable';
+import QueueTable, { Props } from '../components/Queue/QueueTable';
 
 const mapState = (state: RootState): Props => ({
   queue: state.queue
 });
 
-export default connect(mapState)(HitTable);
+export default connect(mapState)(QueueTable);

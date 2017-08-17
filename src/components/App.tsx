@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Page, Layout, Banner } from '@shopify/polaris';
 import { HitMap, RequesterMap, SearchOptions } from '../types';
+import Search from '../containers/Search';
 import TabNavigation from '../containers/TabNavigation';
 
 export interface Props {
@@ -28,6 +29,9 @@ const App = (props: Props & Handlers) => {
         <Layout>
           <Layout.Section>
             <Banner status="info">Scanned {hits.size} hits.</Banner>
+          </Layout.Section>
+          <Layout.Section>
+            <Search />
           </Layout.Section>
           <Layout.Section>
             <TabNavigation />

@@ -1,12 +1,20 @@
 import * as React from 'react';
 import { EmptyState } from '@shopify/polaris';
 
-const EmptyQueue = () => {
+export interface Handlers {
+  onRefresh: () => void;
+}
+
+const EmptyQueue = ({ onRefresh }: Handlers) => {
   return (
     <EmptyState
-      heading="You have no HITs in your queue."
+      heading="Your queue is empty."
       action={{
         content: 'Search for hits'
+      }}
+      secondaryAction={{
+        content: 'Refresh queue',
+        onAction: onRefresh
       }}
       image="https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg"
     >

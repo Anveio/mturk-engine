@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Tabs, Stack } from '@shopify/polaris';
 import HitTable from '../../containers/HitTable';
 import QueueTable from '../../containers/QueueTable';
-import Search from '../../containers/Search';
+// import Search from '../../containers/Search';
 import { generateTabs } from '../../utils/tabs';
 
 export interface Props {
@@ -23,7 +23,7 @@ const TabNavigation = (props: Props & Handlers) => {
     0: () => {
       return (
         <Stack vertical>
-          <Search />
+          {/* <Search /> */}
           <HitTable />
         </Stack>
       );

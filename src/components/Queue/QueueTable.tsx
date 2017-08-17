@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { HitMap } from '../../types';
 import { Card, ResourceList } from '@shopify/polaris';
-import EmptyQueue from './EmptyQueue';
+import EmptyQueue from '../../containers/EmptyQueue';
 import QueueItem from './QueueItem';
 
 export interface Props {
