@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { EmptyState } from '@shopify/polaris';
-
+import { SearchOptions } from '../../types';
 export interface Props {
-  onAction: () => void;
+  options: SearchOptions;
+  onFetch: (options: SearchOptions) => void;
 }
 
-const EmptyHitTable = ({ onAction }: Props) => {
+const EmptyHitTable = ({ onFetch, options }: Props) => {
+  const onAction = () => {
+    onFetch(options);
+  };
+
   return (
     <EmptyState
       heading="You haven't searched any HITs yet."
