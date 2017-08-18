@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import { parseHitPage } from './parsing';
+import { parseQueuePage } from './parsing';
 
 export const getQueuePage = async () => {
   try {
@@ -13,7 +13,7 @@ export const getQueuePage = async () => {
      * TODO: parseHitPage does not properly parse queue page. 
      * Make a separate utility function to do so.
      */
-    return parseHitPage(rawHtml);
+    return parseQueuePage(rawHtml);
   } catch (e) {
     throw Error('Problem getting queue page.');
   }

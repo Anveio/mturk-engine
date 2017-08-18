@@ -48,6 +48,8 @@ export const requesterIdAnchor = `a[href^="/mturk/searchbar?selectedSearchType=h
 
 export const groupIdAnchor = `a[href^="/mturk/preview?groupId="]`;
 
+export const hitIdAnchor = `a[href^="/mturk/continue?hitId="]`;
+
 /**
  * The root URL for querying the attributes of multiple requesters simultaneously
  */

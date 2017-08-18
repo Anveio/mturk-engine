@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { SearchOptions, HitSorting } from '../types';
 import { API_URL } from '../constants';
-import { parseHitPage } from './parsing';
+import { parseSearchPage } from './parsing';
 
 export const batchFetchHits = async (options: SearchOptions) => {
   try {
@@ -11,7 +11,7 @@ export const batchFetchHits = async (options: SearchOptions) => {
     // tslint:disable-next-line:no-console
     console.log('Time to fetch HITs: ' + (performance.now() - t0));
     const rawHtml: string = response.data;
-    return parseHitPage(rawHtml);
+    return parseSearchPage(rawHtml);
   } catch (e) {
     throw Error('Problem fetching data from MTurk.');
   }
