@@ -1,13 +1,21 @@
 import * as React from 'react';
-import { SearchItem } from '../../types';
+import { QueueItem } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 
 export interface Props {
-  readonly hit: SearchItem;
+  readonly hit: QueueItem;
 }
 
 const QueueCard = ({ hit }: Props) => {
-  return <ResourceList.Item attributeOne={hit.title} />;
+  const { title, requesterName, reward } = hit;
+
+  const itemProps = {
+    attributeOne: requesterName,
+    attributeTwo: title,
+    attributeThree: reward
+  };
+
+  return <ResourceList.Item {...itemProps} />;
 };
 
 export default QueueCard;
