@@ -2,25 +2,25 @@ import * as Immutable from 'immutable';
 
 export interface RootState {
   readonly tab: number;
-  readonly hits: HitMap;
-  readonly queue: HitMap;
+  readonly search: SearchMap;
+  readonly queue: SearchMap;
   readonly requesters: RequesterMap;
   readonly searchOptions: SearchOptions;
   readonly searchFormActive: boolean;
 }
 
-export type HitMap = Immutable.Map<string, Hit>;
+export type SearchMap = Immutable.Map<string, SearchItem>;
 export type RequesterMap = Immutable.Map<string, Requester>;
 
-export type HitSorting = 'Latest' | 'Batch Size' | 'Reward';
+export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {
   readonly delay: string;
   readonly minReward: string;
-  readonly sortType: HitSorting;
+  readonly sortType: SearchSort;
   readonly qualified: boolean;
 }
 
-export interface Hit {
+export interface SearchItem {
   readonly title: string;
   readonly requesterName: string;
   readonly requesterId: string;
@@ -30,6 +30,8 @@ export interface Hit {
   readonly turkopticon?: Requester;
   readonly time: number;
 }
+
+export interface QueueItem {}
 
 export interface TOpticonResponse {
   readonly name: string;

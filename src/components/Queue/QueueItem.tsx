@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Hit } from '../../types';
+import { SearchItem } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 
 export interface Props {
-  readonly hit: Hit;
+  readonly hit: SearchItem;
 }
 
 const QueueCard = ({ hit }: Props) => {

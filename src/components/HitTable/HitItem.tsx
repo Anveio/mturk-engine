@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Hit, Requester } from '../../types';
+import { SearchItem, Requester } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './RewardText';
 import { generateItemProps } from '../../utils/hitItem';
 
 export interface Props {
-  readonly hit: Hit;
+  readonly hit: SearchItem;
   readonly requester?: Requester;
 }
 

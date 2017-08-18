@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SearchOptions, HitSorting } from '../types';
+import { SearchOptions, SearchSort } from '../types';
 import { API_URL } from '../constants';
 import { parseSearchPage } from './parsing';
 
@@ -29,7 +29,7 @@ export const generateQueryString = (options: SearchOptions) => {
   );
 };
 
-const sortParam = (sorting: HitSorting) => {
+const sortParam = (sorting: SearchSort) => {
   switch (sorting) {
     case 'Latest':
       return '&sortType=LastUpdatedTime%3A1';

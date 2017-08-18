@@ -4,7 +4,7 @@ import HitTable, { Props, Handlers } from '../components/HitTable/HitTable';
 import { queryMturkAndTOpticon, FetchAction } from '../requests/fetchData';
 
 const mapState = (state: RootState): Props => ({
-  hits: state.hits,
+  hits: state.search,
   requesters: state.requesters,
   options: state.searchOptions
 });

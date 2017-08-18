@@ -1,5 +1,5 @@
 import { Dispatch } from 'react-redux';
-import { Hit, Requester, SearchOptions } from '../types';
+import { SearchItem, Requester, SearchOptions } from '../types';
 import { Map } from 'immutable';
 import {
   HitPageAction,
@@ -34,7 +34,7 @@ export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async 
        * Return an empty set on error to simplify function signature.
        */
       dispatch(getHitPageFailure());
-      return Map<string, Hit>();
+      return Map<string, SearchItem>();
     }
   })();
 

@@ -1,4 +1,4 @@
-import { Hit, Requester } from '../types';
+import { SearchItem, Requester } from '../types';
 import { generateBadges } from './badges';
 import { truncate } from './formatting';
 
@@ -15,7 +15,7 @@ const generateExceptions = (groupId: string): ExceptionDescriptor[] => {
     : [];
 };
 
-export const generateItemProps = (hit: Hit, requester: Requester | undefined) => {
+export const generateItemProps = (hit: SearchItem, requester: Requester | undefined) => {
   const { requesterName, groupId, title } = hit;
 
   const actions = [

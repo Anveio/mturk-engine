@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { HitMap } from '../../types';
+import { SearchMap } from '../../types';
 import { Card, ResourceList } from '@shopify/polaris';
 import EmptyQueue from '../../containers/EmptyQueue';
 import QueueItem from './QueueItem';
 
 export interface Props {
-  readonly queue: HitMap;
+  readonly queue: SearchMap;
 }
 
 const QueueTable = ({ queue }: Props) => {

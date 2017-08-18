@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Hit, HitMap, RequesterMap, SearchOptions } from '../../types';
+import { SearchItem, SearchMap, RequesterMap, SearchOptions } from '../../types';
 import { Card, ResourceList } from '@shopify/polaris';
 import HitItem from './HitItem';
 import EmptyHitTable from './EmptyHitTable';
 
 export interface Props {
-  readonly hits: HitMap;
+  readonly hits: SearchMap;
   readonly requesters: RequesterMap;
   readonly options: SearchOptions;
 }
@@ -15,7 +15,7 @@ export interface Handlers {
 }
 
 const HitTable = ({ hits, requesters, options, onFetch }: Props & Handlers) => {
-  const sortedHits = (unsortedHits: HitMap) => unsortedHits.toArray();
+  const sortedHits = (unsortedHits: SearchMap) => unsortedHits.toArray();
 
   return hits.isEmpty() ? (
     <EmptyHitTable onFetch={onFetch} options={options} />
@@ -23,7 +23,7 @@ const HitTable = ({ hits, requesters, options, onFetch }: Props & Handlers) => {
     <Card>
       <ResourceList
         items={sortedHits(hits)}
-        renderItem={(hit: Hit) => (
+        renderItem={(hit: SearchItem) => (
           <HitItem hit={hit} requester={requesters.get(hit.requesterId)} />
         )}
       />

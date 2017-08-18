@@ -1,6 +1,6 @@
 import {
-  Hit,
-  HitMap,
+  SearchItem,
+  SearchMap,
   Requester,
   RequesterMap,
   RequesterScores,
@@ -28,11 +28,11 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
   }
 };
 
-export const noTurkopticon = (hit: Hit) => !hit.turkopticon;
-export const selectRequesterId = (hit: Hit) => hit.requesterId;
-export const invalidGroupId = (hit: Hit) =>
+export const noTurkopticon = (hit: SearchItem) => !hit.turkopticon;
+export const selectRequesterId = (hit: SearchItem) => hit.requesterId;
+export const invalidGroupId = (hit: SearchItem) =>
   !hit.groupId.startsWith('[Error:groupId]-');
-export const hitMapToRequesterIdsArray = (hits: HitMap) => {
+export const hitMapToRequesterIdsArray = (hits: SearchMap) => {
   return hits
     .filter(noTurkopticon)
     .filter(invalidGroupId)

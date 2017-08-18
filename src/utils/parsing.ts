@@ -1,4 +1,4 @@
-import { Hit, HitMap } from '../types';
+import { SearchItem, SearchMap } from '../types';
 import {
   hitTableIdentifier,
   requesterIdAnchor,
@@ -27,14 +27,14 @@ export const selectHitContainers = (el: HTMLTableElement): HTMLTableElement[] =>
     HTMLTableElement
   >);
 
-export const tabulateSearchData = (input: HTMLTableElement[]): HitMap =>
+export const tabulateSearchData = (input: HTMLTableElement[]): SearchMap =>
   input.reduce(
-    (map: HitMap, hit: HTMLTableElement) =>
+    (map: SearchMap, hit: HTMLTableElement) =>
       map.set(parseGroupId(hit), generateHitData(hit)),
-    Map<string, Hit>()
+    Map<string, SearchItem>()
   );
 
-export const generateHitData = (input: HTMLTableElement): Hit => ({
+export const generateHitData = (input: HTMLTableElement): SearchItem => ({
   title: parseHitTitle(input),
   requesterName: parseRequesterName(input),
   requesterId: parseRequesterId(input),
@@ -108,14 +108,14 @@ export const parseBatchSize = (input: HTMLTableElement): number => {
   }
 };
 
-export const parseSearchPage = (html: string): HitMap => {
+export const parseSearchPage = (html: string): SearchMap => {
   const table = stringToDomElement(html);
   const hitContainers = selectHitContainers(table);
   const hitData = tabulateSearchData(hitContainers);
   return hitData;
 };
 
-export const parseQueuePage = (html: string): HitMap => {
+export const parseQueuePage = (html: string): SearchMap => {
   const table = stringToDomElement(html);
   const hitContainers = selectHitContainers(table);
   const hitData = tabulateSearchData(hitContainers);

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Page, Layout, Banner } from '@shopify/polaris';
-import { HitMap, RequesterMap, SearchOptions } from '../types';
+import { SearchMap, RequesterMap, SearchOptions } from '../types';
 import Search from '../containers/Search';
 import TabNavigation from '../containers/TabNavigation';
 
 export interface Props {
   readonly selected: number;
-  readonly hits: HitMap;
+  readonly hits: SearchMap;
   readonly requesters: RequesterMap;
   readonly options: SearchOptions;
 }

@@ -8,7 +8,7 @@ import TabNavigation, {
 
 const mapState = (state: RootState): Props => ({
   selected: state.tab,
-  searchSize: state.hits.size,
+  searchSize: state.search.size,
   queueSize: state.queue.size
 });
 

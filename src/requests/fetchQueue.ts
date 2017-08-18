@@ -1,5 +1,5 @@
 import { Dispatch } from 'react-redux';
-import { Hit } from '../types';
+import { SearchItem } from '../types';
 import { Map } from 'immutable';
 import { fetchQueueSuccess, fetchQueueFailure, QueueAction } from '../actions/queue';
 import { getQueuePage } from '../utils/fetchQueue';
@@ -13,6 +13,6 @@ export const fetchQueue = (dispatch: Dispatch<QueueAction>) => async () => {
     return queueData;
   } catch (e) {
     dispatch(fetchQueueFailure());
-    return Map<string, Hit>();
+    return Map<string, SearchItem>();
   }
 };

@@ -8,7 +8,7 @@ type AppAction = FetchAction | ChangeTab;
 
 const mapState = (state: RootState): Props => ({
   selected: state.tab,
-  hits: state.hits,
+  hits: state.search,
   requesters: state.requesters,
   options: state.searchOptions
 });
