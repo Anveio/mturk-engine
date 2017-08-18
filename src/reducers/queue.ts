@@ -1,12 +1,12 @@
-import { SearchItem, SearchMap } from '../types';
+import { QueueItem, QueueMap } from '../types';
 import { QueueAction } from '../actions/queue';
 import { FETCH_QUEUE_SUCCESS } from '../constants';
 import { Map } from 'immutable';
 
-const initial: SearchMap = Map<string, SearchItem>();
+const initial: QueueMap = Map<string, QueueItem>();
 
-export default (state = initial, action: QueueAction): SearchMap => {
-  let partialState: SearchMap | undefined;
+export default (state = initial, action: QueueAction): QueueMap => {
+  let partialState: QueueMap | undefined;
 
   switch (action.type) {
     case FETCH_QUEUE_SUCCESS:

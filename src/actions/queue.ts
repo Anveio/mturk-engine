@@ -1,9 +1,9 @@
 import { FETCH_QUEUE_FAILURE, FETCH_QUEUE_SUCCESS } from '../constants';
-import { SearchMap } from '../types';
+import { QueueMap } from '../types';
 
 export interface FetchQueueSuccess {
   type: FETCH_QUEUE_SUCCESS;
-  data: SearchMap;
+  data: QueueMap;
 }
 
 export interface FetchQueueFailure {
@@ -12,7 +12,7 @@ export interface FetchQueueFailure {
 
 export type QueueAction = FetchQueueSuccess | FetchQueueFailure;
 
-export const fetchQueueSuccess = (data: SearchMap): FetchQueueSuccess => ({
+export const fetchQueueSuccess = (data: QueueMap): FetchQueueSuccess => ({
   type: FETCH_QUEUE_SUCCESS,
   data
 });
