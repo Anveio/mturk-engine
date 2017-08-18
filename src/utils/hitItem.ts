@@ -1,3 +1,4 @@
+import { Props as ItemProps } from '@shopify/polaris/types/components/ResourceList/Item';
 import { SearchItem, Requester } from '../types';
 import { generateBadges } from './badges';
 import { truncate } from './formatting';
@@ -15,7 +16,10 @@ const generateExceptions = (groupId: string): ExceptionDescriptor[] => {
     : [];
 };
 
-export const generateItemProps = (hit: SearchItem, requester: Requester | undefined) => {
+export const generateItemProps = (
+  hit: SearchItem,
+  requester: Requester | undefined
+): ItemProps => {
   const { requesterName, groupId, title } = hit;
 
   const actions = [
