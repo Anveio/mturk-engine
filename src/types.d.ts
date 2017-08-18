@@ -31,7 +31,11 @@ export interface SearchItem {
   readonly time: number;
 }
 
-export interface QueueItem {}
+export interface QueueItem {
+  readonly title: string;
+  readonly requesterName: string;
+  readonly hitId: string;
+}
 
 export interface TOpticonResponse {
   readonly name: string;

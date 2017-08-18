@@ -6,7 +6,7 @@ import TabNavigation from '../containers/TabNavigation';
 
 export interface Props {
   readonly selected: number;
-  readonly hits: SearchMap;
+  readonly search: SearchMap;
   readonly requesters: RequesterMap;
   readonly options: SearchOptions;
 }
@@ -17,7 +17,7 @@ export interface Handlers {
 }
 
 const App = (props: Props & Handlers) => {
-  const { hits, options, onFetch } = props;
+  const { search, options, onFetch } = props;
   const fetchAction = () => onFetch(options);
 
   return (
@@ -28,7 +28,7 @@ const App = (props: Props & Handlers) => {
       >
         <Layout>
           <Layout.Section>
-            <Banner status="info">Scanned {hits.size} hits.</Banner>
+            <Banner status="info">Scanned {search.size} hits.</Banner>
           </Layout.Section>
           <Layout.Section>
             <Search />
