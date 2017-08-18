@@ -10,6 +10,7 @@ export interface RootState {
 }
 
 export type SearchMap = Immutable.Map<string, SearchItem>;
+export type QueueMap = Immutable.Map<string, QueueItem>;
 export type RequesterMap = Immutable.Map<string, Requester>;
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
@@ -35,6 +36,7 @@ export interface QueueItem {
   readonly title: string;
   readonly requesterName: string;
   readonly hitId: string;
+  readonly reward: string;
 }
 
 export interface TOpticonResponse {

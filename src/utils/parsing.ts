@@ -1,4 +1,4 @@
-import { SearchItem, SearchMap } from '../types';
+import { SearchItem, SearchMap, QueueItem, QueueMap } from '../types';
 import {
   hitTableIdentifier,
   requesterIdAnchor,
@@ -30,11 +30,11 @@ export const selectHitContainers = (el: HTMLTableElement): HTMLTableElement[] =>
 export const tabulateSearchData = (input: HTMLTableElement[]): SearchMap =>
   input.reduce(
     (map: SearchMap, hit: HTMLTableElement) =>
-      map.set(parseGroupId(hit), generateHitData(hit)),
+      map.set(parseGroupId(hit), createSearchItem(hit)),
     Map<string, SearchItem>()
   );
 
-export const generateHitData = (input: HTMLTableElement): SearchItem => ({
+export const createSearchItem = (input: HTMLTableElement): SearchItem => ({
   title: parseHitTitle(input),
   requesterName: parseRequesterName(input),
   requesterId: parseRequesterId(input),
@@ -115,10 +115,10 @@ export const parseSearchPage = (html: string): SearchMap => {
   return hitData;
 };
 
-export const parseQueuePage = (html: string): SearchMap => {
+export const parseQueuePage = (html: string): QueueMap => {
   const table = stringToDomElement(html);
   const hitContainers = selectHitContainers(table);
-  const hitData = tabulateSearchData(hitContainers);
+  const hitData = tabulateQueueData(hitContainers);
   return hitData;
 };
 
@@ -132,3 +132,17 @@ export const parseHitIdQueue = (input: HTMLTableElement): string => {
     return '[Error:groupId]-' + v4();
   }
 };
+
+export const createQueueItem = (input: HTMLTableElement): QueueItem => ({
+  title: parseHitTitle(input),
+  hitId: parseHitIdQueue(input),
+  requesterName: parseRequesterName(input),
+  reward: parseHitReward(input)
+});
+
+export const tabulateQueueData = (input: HTMLTableElement[]): QueueMap =>
+  input.reduce(
+    (map: QueueMap, hit: HTMLTableElement) =>
+      map.set(parseHitIdQueue(hit), createQueueItem(hit)),
+    Map<string, QueueItem>()
+  );
