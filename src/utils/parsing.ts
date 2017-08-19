@@ -149,5 +149,10 @@ export const tabulateQueueData = (input: HTMLTableElement[]): QueueMap =>
 
 
 export const findHitForm = (input: HTMLTableElement) => {
-  input.querySelector('form[action="/mturk/submit"]')
+  return input.querySelector('form[action="/mturk/submit"]')
+}
+
+export const validateHitAccept = (html: string): boolean => {
+  const table = stringToDomElement(html);
+  return !!findHitForm(table);
 }
