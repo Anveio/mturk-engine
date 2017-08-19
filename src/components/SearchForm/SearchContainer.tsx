@@ -11,9 +11,7 @@ export interface Props {
   readonly active: boolean;
 }
 
-const SearchOptionsForm = (props: Props & Handlers) => {
-  const { active, onToggle } = props;
-
+const SearchOptionsForm = ({ active, onToggle }: Props & Handlers) => {
   return active ? (
     <Card sectioned>
       <FormLayout>
