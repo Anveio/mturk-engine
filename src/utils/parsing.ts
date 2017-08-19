@@ -146,3 +146,8 @@ export const tabulateQueueData = (input: HTMLTableElement[]): QueueMap =>
       map.set(parseHitIdQueue(hit), createQueueItem(hit)),
     Map<string, QueueItem>()
   );
+
+
+export const findHitForm = (input: HTMLTableElement) => {
+  input.querySelector('form[action="/mturk/submit"]')
+}
