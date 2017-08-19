@@ -19,7 +19,7 @@ const SearchOptionsForm = (props: Props & Handlers) => {
       <FormLayout>
         <DisplayText size="small">Edit search settings.</DisplayText>
         <Caption>
-          Changes are saved in real time and will apply on your next search.
+          Changes are saved as you type and will apply on your next search.
         </Caption>
         <SearchForm />
         <SearchButtons onToggle={onToggle} active />
