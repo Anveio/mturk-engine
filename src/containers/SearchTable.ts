@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../types';
-import HitTable, { Props, Handlers } from '../components/HitTable/HitTable';
+import HitTable, { Props, Handlers } from '../components/SearchTable/SearchTable';
 import { queryMturkAndTOpticon, FetchAction } from '../requests/fetchData';
 
 const mapState = (state: RootState): Props => ({

@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Stack, DisplayText, Caption } from '@shopify/polaris';
-// import { rewardToVariation } from '../../utils/formatting';
 
 interface Props {
   reward: string;
   batchSize: number;
 }
 
-const InfoContainer = ({reward, batchSize}: Props) => {
+const InfoContainer = ({ reward, batchSize }: Props) => {
   return (
     <Stack vertical={false} spacing={'tight'} alignment="center">
       <Caption>{batchSize} available</Caption>

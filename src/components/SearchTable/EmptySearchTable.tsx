@@ -6,7 +6,7 @@ export interface Props {
   onFetch: (options: SearchOptions) => void;
 }
 
-const EmptyHitTable = ({ onFetch, options }: Props) => {
+const EmptySearchTable = ({ onFetch, options }: Props) => {
   const onAction = () => {
     onFetch(options);
   };
@@ -25,4 +25,4 @@ const EmptyHitTable = ({ onFetch, options }: Props) => {
   );
 };
 
-export default EmptyHitTable;
+export default EmptySearchTable;

@@ -4,7 +4,7 @@ import { FormAction, toggleForm } from '../actions/searchOptions';
 import SearchContainer, {
   Props,
   Handlers
-} from '../components/Search/SearchContainer';
+} from '../components/SearchForm/SearchContainer';
 
 const mapState = (state: RootState): Props => ({
   active: state.searchFormActive

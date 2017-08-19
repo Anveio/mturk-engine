@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { SearchItem, SearchMap, RequesterMap, SearchOptions } from '../../types';
 import { Card, ResourceList } from '@shopify/polaris';
-import HitItem from './HitItem';
-import EmptyHitTable from './EmptyHitTable';
+import SearchCard from './SearchCard';
+import EmptyHitTable from './EmptySearchTable';
 
 export interface Props {
   readonly hits: SearchMap;
@@ -24,7 +24,7 @@ const HitTable = ({ hits, requesters, options, onFetch }: Props & Handlers) => {
       <ResourceList
         items={sortedHits(hits)}
         renderItem={(hit: SearchItem) => (
-          <HitItem hit={hit} requester={requesters.get(hit.requesterId)} />
+          <SearchCard hit={hit} requester={requesters.get(hit.requesterId)} />
         )}
       />
     </Card>
