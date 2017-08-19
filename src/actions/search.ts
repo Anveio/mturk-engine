@@ -1,22 +1,22 @@
 import * as constants from '../constants';
 import { SearchMap } from '../types';
 
-export interface GetHitPageSuccess {
+export interface FetchSearchSuccess {
   type: constants.FETCH_HIT_PAGE_SUCCESS;
   data: SearchMap;
 }
 
-export interface GetHitPageFailure {
+export interface FetchSearchFailure {
   type: constants.FETCH_HIT_PAGE_FAILURE;
 }
 
-export type HitPageAction = GetHitPageSuccess | GetHitPageFailure;
+export type SearchAction = FetchSearchSuccess | FetchSearchFailure;
 
-export const getHitPageSuccess = (data: SearchMap): GetHitPageSuccess => ({
+export const fetchSearchSuccess = (data: SearchMap): FetchSearchSuccess => ({
   type: constants.FETCH_HIT_PAGE_SUCCESS,
   data
 });
 
-export const getHitPageFailure = (): GetHitPageFailure => ({
+export const fetchSearchFailure = (): FetchSearchFailure => ({
   type: constants.FETCH_HIT_PAGE_FAILURE
 });

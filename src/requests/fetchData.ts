@@ -2,10 +2,10 @@ import { Dispatch } from 'react-redux';
 import { SearchItem, Requester, SearchOptions } from '../types';
 import { Map } from 'immutable';
 import {
-  HitPageAction,
-  getHitPageSuccess,
-  getHitPageFailure
-} from '../actions/hits';
+  SearchAction,
+  fetchSearchSuccess,
+  fetchSearchFailure
+} from '../actions/search';
 import {
   TOpticonAction,
   fetchTOpticonSuccess,
@@ -14,7 +14,7 @@ import {
 import { batchFetchTOpticon, hitMapToRequesterIdsArray } from '../utils/turkopticon';
 import { batchFetchHits } from '../utils/fetchHits';
 
-export type FetchAction = HitPageAction | TOpticonAction;
+export type FetchAction = SearchAction | TOpticonAction;
 
 export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async (
   options: SearchOptions
@@ -26,14 +26,14 @@ export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async 
     try {
       const hitData = await batchFetchHits(options);
       hitData.isEmpty()
-        ? dispatch(getHitPageFailure())
-        : dispatch(getHitPageSuccess(hitData));
+        ? dispatch(fetchSearchFailure())
+        : dispatch(fetchSearchSuccess(hitData));
       return hitData;
     } catch (e) {
       /**
        * Return an empty set on error to simplify function signature.
        */
-      dispatch(getHitPageFailure());
+      dispatch(fetchSearchFailure());
       return Map<string, SearchItem>();
     }
   })();
