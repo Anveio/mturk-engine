@@ -10,7 +10,8 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<FetchAction>): Handlers => ({
-  onFetch: queryMturkAndTOpticon(dispatch)
+  onFetch: queryMturkAndTOpticon(dispatch),
+  onAccept: (groupId: string) => console.log(groupId)
 });
 
 export default connect(mapState, mapDispatch)(HitTable);

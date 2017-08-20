@@ -12,9 +12,13 @@ export interface Props {
 
 export interface Handlers {
   readonly onFetch: (options: SearchOptions) => void;
+  readonly onAccept: (groupId: string) => void;
 }
 
-const HitTable = ({ hits, requesters, options, onFetch }: Props & Handlers) => {
+// const random = (x: string) => console.log(x);
+
+const HitTable = (props: Props & Handlers) => {
+  const { hits, requesters, options, onFetch, onAccept } = props;
   const sortedHits = (unsortedHits: SearchMap) => unsortedHits.toArray();
 
   return hits.isEmpty() ? (
@@ -24,7 +28,11 @@ const HitTable = ({ hits, requesters, options, onFetch }: Props & Handlers) => {
       <ResourceList
         items={sortedHits(hits)}
         renderItem={(hit: SearchItem) => (
-          <SearchCard hit={hit} requester={requesters.get(hit.requesterId)} />
+          <SearchCard
+            hit={hit}
+            requester={requesters.get(hit.requesterId)}
+            onClick={onAccept}
+          />
         )}
       />
     </Card>
