@@ -34,8 +34,7 @@ const SearchCard = ({ hit, requester, onClick }: Props) => {
       attributeOne={truncate(requesterName, 40)}
       attributeTwo={truncate(title, 80)}
       attributeThree={
-        <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
-      }
+        <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
     />
   );
 };
