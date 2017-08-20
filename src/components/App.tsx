@@ -39,13 +39,7 @@ const App = (props: Props & Handlers) => {
           </Layout.Section>
         </Layout>
       </Page>
-      <ReduxToastr
-        timeOut={4000}
-        newestOnTop={true}
-        position="top-right"
-        
-        progressBar
-      />
+      <ReduxToastr timeOut={2000} newestOnTop={false} position="top-right" />
     </main>
   );
 };
