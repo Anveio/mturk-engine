@@ -18,10 +18,6 @@ export const stringToDomElement = (htmlString: string): HTMLTableElement => {
   return el;
 };
 
-/**
- * Accepts a DocumentFragment and returns all divs that are a HIT container.
- * @param dom A DocumentFragment created by stringToDomFragment
- */
 export const selectHitContainers = (el: HTMLTableElement): HTMLTableElement[] =>
   Array.from(el.querySelectorAll(hitTableIdentifier) as NodeListOf<
     HTMLTableElement

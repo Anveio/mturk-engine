@@ -1,6 +1,7 @@
 import { RootState } from './types';
 
 import { combineReducers } from 'redux';
+import { reducer as toastr } from 'react-redux-toastr';
 import { default as tab } from './reducers/tab';
 import { default as search } from './reducers/search';
 import { default as queue } from './reducers/queue';
@@ -10,8 +11,9 @@ import { default as searchFormActive } from './reducers/searchFormActive';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
-  search,
   queue,
+  search,
+  toastr,
   requesters,
   searchOptions,
   searchFormActive

@@ -21,6 +21,16 @@ export const createRootDiv = (): void => {
 export const importPolarisStylesheet = (): void => {
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
+  stylesheet.type = 'text/css';
   stylesheet.href = 'https://sdks.shopifycdn.com/polaris/1.3.1/polaris.min.css';
+  document.head.appendChild(stylesheet);
+};
+
+export const importToastrStylesheet = (): void => {
+  const stylesheet = document.createElement('link');
+  stylesheet.rel = 'stylesheet';
+  stylesheet.type = 'text/css';
+  stylesheet.href =
+    'http://diegoddox.github.io/react-redux-toastr/7.1/react-redux-toastr.min.css';
   document.head.appendChild(stylesheet);
 };

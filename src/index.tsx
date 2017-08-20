@@ -6,7 +6,8 @@ import { API_URL } from './constants';
 import {
   clearDom,
   createRootDiv,
-  importPolarisStylesheet
+  importPolarisStylesheet,
+  importToastrStylesheet
 } from './utils/production';
 
 import App from './containers/App';
@@ -18,6 +19,8 @@ if (API_URL !== 'http://localhost:7777') {
   createRootDiv();
   importPolarisStylesheet();
 }
+
+importToastrStylesheet();
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Page, Layout, Banner } from '@shopify/polaris';
 import { SearchMap, RequesterMap, SearchOptions } from '../types';
+import ReduxToastr from 'react-redux-toastr';
 import SearchContainer from '../containers/SearchContainer';
 import TabNavigation from '../containers/TabNavigation';
 
@@ -38,6 +39,13 @@ const App = (props: Props & Handlers) => {
           </Layout.Section>
         </Layout>
       </Page>
+      <ReduxToastr
+        timeOut={4000}
+        newestOnTop={true}
+        position="top-right"
+        
+        progressBar
+      />
     </main>
   );
 };

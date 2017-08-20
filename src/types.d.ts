@@ -1,9 +1,11 @@
 import * as Immutable from 'immutable';
+import { ToastrState } from 'react-redux-toastr';
 
 export interface RootState {
   readonly tab: number;
-  readonly search: SearchMap;
   readonly queue: SearchMap;
+  readonly toastr: ToastrState;
+  readonly search: SearchMap;
   readonly requesters: RequesterMap;
   readonly searchOptions: SearchOptions;
   readonly searchFormActive: boolean;
