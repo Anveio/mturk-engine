@@ -18,17 +18,16 @@ export type HitReturnStatus = 'repeat' | 'success' | 'error';
 
 const validateHitReturn = (html: string): HitReturnStatus => {
   const table = stringToDomElement(html);
-  const alertBox = findAlertBox(table);
-  return alertBox ? validateAlertBoxText(alertBox) : 'error';
+  const alertBox = table.querySelector('#alertboxHeader')
+  return !!alertBox ? validateAlertBoxText(alertBox) : 'error';
 };
 
-const findAlertBox = (el: HTMLTableElement) => {
-  const alertBox = el.querySelector('span#alertBoxHeader');
-  return alertBox ? alertBox as HTMLSpanElement : false;
-};
+const validateAlertBoxText = (el: Element | undefined): HitReturnStatus => {
+  if (el === undefined) {
+    return 'error';
+  }
 
-const validateAlertBoxText = (el: HTMLSpanElement): HitReturnStatus => {
-  const text = el.innerText.trim();
+  const text = (el as HTMLSpanElement).innerText.trim();
   switch (text) {
     case 'The HIT has been returned.':
       return 'success';

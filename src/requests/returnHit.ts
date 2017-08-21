@@ -8,6 +8,7 @@ export const returnHit = (dispatch: Dispatch<QueueAction>) => async (
 ) => {
   try {
     const status = await sendReturnHitRequest(hitId);
+    console.log(status);
     generateReturnToast(status);
     return status;
   } catch (e) {
