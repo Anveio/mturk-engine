@@ -2,7 +2,7 @@ import axios from 'axios';
 import { API_URL } from '../constants';
 import { stringToDomElement } from './parsing';
 
-export const returnHit = async (hitId: string) => {
+export const sendReturnHitRequest = async (hitId: string) => {
   try {
     const response = await axios.get(
       `${API_URL}/mturk/return?hitId=${hitId}&inPipeline=false`
@@ -10,7 +10,7 @@ export const returnHit = async (hitId: string) => {
     const rawHtml: string = response.data;
     return validateHitReturn(rawHtml);
   } catch (e) {
-    return false;
+    return 'error';
   }
 };
 
