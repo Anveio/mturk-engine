@@ -5,6 +5,10 @@ export const generateAcceptHitToast = (successful: boolean, title: string) => {
   successful ? successfulAcceptToast(title) : failedAcceptToast(title);
 };
 
+export const generateQueueToast = (successful: boolean) => {
+  successful ? successfulQueueToast() : failedQueueToast();
+};
+
 const successfulAcceptToast = (title: string) => {
   toastr.success(
     'Success!',
@@ -17,4 +21,15 @@ const failedAcceptToast = (title: string) => {
     'Error',
     `There was a problem adding "${truncate(title, 10)} to your queue.`
   );
+};
+
+const successfulQueueToast = () => {
+  toastr.success(
+    'Refreshed queue',
+    `Refreshed queue on ${new Date().toLocaleTimeString()}`
+  );
+};
+
+const failedQueueToast = () => {
+  toastr.warning('Error', `There was a problem refreshing your queue.`);
 };
