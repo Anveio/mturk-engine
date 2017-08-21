@@ -10,12 +10,12 @@ import { generateBadges } from '../../utils/badges';
 export interface Props {
   readonly hit: SearchItem;
   readonly requester?: Requester;
-  readonly onClick: (groupId: string) => void;
+  readonly onClick: (hit: SearchItem) => void;
 }
 
 const SearchCard = ({ hit, requester, onClick }: Props) => {
   const { requesterName, title } = hit;
-  const handleClick = () => onClick(hit.groupId);
+  const handleClick = () => onClick(hit);
 
   const actions = [
     {
@@ -33,8 +33,7 @@ const SearchCard = ({ hit, requester, onClick }: Props) => {
       attributeOne={truncate(requesterName, 40)}
       attributeTwo={truncate(title, 80)}
       attributeThree={
-        <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
-      }
+        <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
     />
   );
 };

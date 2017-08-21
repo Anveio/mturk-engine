@@ -1,15 +1,16 @@
 import { Dispatch } from 'react-redux';
+import { SearchItem } from '../types';
 import { AcceptAction, acceptHitSuccess, acceptHitFailure } from '../actions/accept';
 import { validateHitAcceptRequest } from '../utils/acceptHit';
 import { generateAcceptHitToast } from '../utils/toastr';
 
 export const sendAcceptRequest = (dispatch: Dispatch<AcceptAction>) => async (
-  groupId: string
+  hit: SearchItem
 ) => {
   try {
-    const successful = await validateHitAcceptRequest(groupId);
+    const successful = await validateHitAcceptRequest(hit.groupId);
     // const successful = true;
-    generateAcceptHitToast(successful, groupId);
+    generateAcceptHitToast(successful, hit.title);
     successful ? dispatch(acceptHitSuccess()) : dispatch(acceptHitFailure());
     return successful;
   } catch (e) {

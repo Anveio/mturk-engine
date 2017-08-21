@@ -24,10 +24,7 @@ const failedAcceptToast = (title: string) => {
 };
 
 const successfulQueueToast = () => {
-  toastr.success(
-    'Refreshed queue',
-    `Refreshed queue on ${new Date().toLocaleTimeString()}`
-  );
+  toastr.success('Refreshed queue', `${new Date().toLocaleTimeString()}`);
 };
 
 const failedQueueToast = () => {

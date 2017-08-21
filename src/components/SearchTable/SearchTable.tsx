@@ -13,7 +13,7 @@ export interface Props {
 
 export interface Handlers {
   readonly onFetch: (options: SearchOptions) => void;
-  readonly onAccept: (groupId: string) => void;
+  readonly onAccept: (hit: SearchItem) => void;
 }
 
 // const random = (x: string) => console.log(x);
