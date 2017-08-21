@@ -40,15 +40,15 @@ export const hitMapToRequesterIdsArray = (hits: SearchMap) => {
     .toArray();
 };
 
-export const calculateAverageScore = (scores: RequesterScores): string => {
+export const calculateAverageScore = (scores: RequesterScores): number | null => {
   const categories = filterCategories(scores);
   const total = Object.keys(categories).reduce(
     (acc, category: string) => acc + parseFloat(categories[category]),
     0
   );
   return Object.keys(categories).length > 0
-    ? (total / Object.keys(categories).length).toFixed(2)
-    : 'No score';
+    ? total / Object.keys(categories).length
+    : null;
 };
 
 /**

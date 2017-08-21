@@ -25,14 +25,22 @@ export const generateBadges = (
 
 const calculateScoreBadge = (scores: RequesterScores): BadgeDescriptor => {
   const average = calculateAverageScore(scores);
-  const status = assignScoreColor(parseFloat(average));
+  const status = assignScoreColor(average);
   return {
     status,
-    content: `${average} T.O.`
+    content: generateContentString(average)
   };
 };
 
-const assignScoreColor = (score: number): Status => {
+const generateContentString = (average: number | null) => {
+  return average === null ? 'No T.O.' : `${average.toFixed(2)} T.O.`;
+};
+
+const assignScoreColor = (score: number | null): Status => {
+  if (score === null) {
+    return 'info';
+  }
+
   if (score < 2) {
     return 'warning';
   } else if (score < 3) {
