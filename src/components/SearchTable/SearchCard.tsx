@@ -21,21 +21,21 @@ const SearchCard = ({ hit, requester, onClick }: Props) => {
     {
       content: 'Accept',
       accessibilityLabel: 'Accept',
-      icon: 'add'
+      icon: 'add',
+      onClick: handleClick
     }
   ];
 
   return (
-    <div onClick={handleClick}>
-      <ResourceList.Item
-        actions={actions}
-        badges={generateBadges(requester)}
-        attributeOne={truncate(requesterName, 40)}
-        attributeTwo={truncate(title, 80)}
-        attributeThree={
-          <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
-      />
-    </div>
+    <ResourceList.Item
+      actions={actions}
+      badges={generateBadges(requester)}
+      attributeOne={truncate(requesterName, 40)}
+      attributeTwo={truncate(title, 80)}
+      attributeThree={
+        <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
+      }
+    />
   );
 };
 
