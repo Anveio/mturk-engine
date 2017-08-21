@@ -2,7 +2,7 @@
   "eslint.enable": false,
   "files.exclude": {
     "**/public": true,
-    "**/server": true,
+    "**/server": false,
     "**/.vscode/": true,
     "**/*.bundle.js": true,
     "**/build": true,
