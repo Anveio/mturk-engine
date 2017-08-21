@@ -10,6 +10,6 @@ export const validateHitAcceptRequest = async (groupId: string) => {
     const rawHtml: string = response.data;
     return validateHitAccept(rawHtml);
   } catch (e) {
-    throw Error('Problem getting hit page.');
+    return false;
   }
 };
