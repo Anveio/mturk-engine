@@ -18,7 +18,7 @@ const QueueTable = ({ queue, onRefresh }: Props & Handlers) => {
   ) : (
     <Stack vertical>
       <Card sectioned>
-        <Button>Refresh queue.</Button>
+        <Button onClick={onRefresh}>Refresh queue.</Button>
       </Card>
       <Card>
         <ResourceList
