@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { Page, Layout, Banner } from '@shopify/polaris';
-import { SearchMap, RequesterMap, SearchOptions } from '../types';
+import { SearchMap, SearchOptions } from '../types';
 import ReduxToastr from 'react-redux-toastr';
 import TabNavigation from '../containers/TabNavigation';
 
 export interface Props {
   readonly selected: number;
   readonly search: SearchMap;
-  readonly requesters: RequesterMap;
-  readonly options: SearchOptions;
 }
 
 export interface Handlers {
@@ -17,15 +15,10 @@ export interface Handlers {
 }
 
 const App = (props: Props & Handlers) => {
-  const { search, options, onFetch } = props;
-  const fetchAction = () => onFetch(options);
-
+  const { search } = props;
   return (
     <main>
-      <Page
-        title="Mturk Engine"
-        primaryAction={{ content: 'Fetch Data', onAction: fetchAction }}
-      >
+      <Page title="Mturk Engine">
         <Layout>
           <Layout.Section>
             <Banner status="info">Scanned {search.size} hits.</Banner>

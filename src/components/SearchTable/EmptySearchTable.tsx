@@ -1,12 +1,17 @@
 import * as React from 'react';
 import { EmptyState } from '@shopify/polaris';
 import { SearchOptions } from '../../types';
+
 export interface Props {
   options: SearchOptions;
+  
+}
+
+export interface Handlers {
   onFetch: (options: SearchOptions) => void;
 }
 
-const EmptySearchTable = ({ onFetch, options }: Props) => {
+const EmptySearchTable = ({ onFetch, options }: Props & Handlers) => {
   const onAction = () => {
     onFetch(options);
   };

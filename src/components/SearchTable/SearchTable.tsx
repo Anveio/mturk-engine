@@ -1,31 +1,29 @@
 import * as React from 'react';
-import { SearchItem, SearchMap, RequesterMap, SearchOptions } from '../../types';
+import { SearchItem, SearchMap, RequesterMap } from '../../types';
 import { Stack, Card, ResourceList } from '@shopify/polaris';
 import SearchCard from './SearchCard';
 import SearchContainer from '../../containers/SearchContainer';
-import EmptyHitTable from './EmptySearchTable';
+import EmptyHitTable from '../../containers/EmptySearchTable';
 
 export interface Props {
   readonly hits: SearchMap;
   readonly requesters: RequesterMap;
-  readonly options: SearchOptions;
 }
 
 export interface Handlers {
-  readonly onFetch: (options: SearchOptions) => void;
   readonly onAccept: (hit: SearchItem) => void;
 }
 
 // const random = (x: string) => console.log(x);
 
 const HitTable = (props: Props & Handlers) => {
-  const { hits, requesters, options, onFetch, onAccept } = props;
+  const { hits, requesters, onAccept } = props;
   const sortedHits = (unsortedHits: SearchMap) => unsortedHits.toArray();
 
   return hits.isEmpty() ? (
     <Stack vertical>
       <SearchContainer />
-      <EmptyHitTable onFetch={onFetch} options={options} />
+      <EmptyHitTable />
     </Stack>
   ) : (
     <Stack vertical>

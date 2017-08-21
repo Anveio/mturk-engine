@@ -9,8 +9,6 @@ type AppAction = FetchAction | ChangeTab;
 const mapState = (state: RootState): Props => ({
   selected: state.tab,
   search: state.search,
-  requesters: state.requesters,
-  options: state.searchOptions
 });
 
 const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
