@@ -19,7 +19,6 @@ const SearchCard = ({ hit, requester, onClick }: Props) => {
 
   const actions = [
     {
-      primary: true,
       content: 'Accept',
       accessibilityLabel: 'Accept',
       icon: 'add',
@@ -34,7 +33,8 @@ const SearchCard = ({ hit, requester, onClick }: Props) => {
       attributeOne={truncate(requesterName, 40)}
       attributeTwo={truncate(title, 80)}
       attributeThree={
-        <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
+        <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
+      }
     />
   );
 };
