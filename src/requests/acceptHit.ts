@@ -14,6 +14,7 @@ export const sendAcceptRequest = (dispatch: Dispatch<AcceptAction>) => async (
     successful ? dispatch(acceptHitSuccess()) : dispatch(acceptHitFailure());
     return successful;
   } catch (e) {
+    generateAcceptHitToast(false, hit.title);
     dispatch(acceptHitFailure());
     return false;
   }

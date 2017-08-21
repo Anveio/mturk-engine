@@ -16,6 +16,7 @@ export const fetchQueue = (dispatch: Dispatch<QueueAction>) => async () => {
     return queueData;
   } catch (e) {
     dispatch(fetchQueueFailure());
+    generateQueueToast(false);
     return Map<string, SearchItem>();
   }
 };
