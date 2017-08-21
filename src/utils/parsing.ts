@@ -31,16 +31,17 @@ export const tabulateSearchData = (input: HTMLTableElement[]): SearchMap =>
   );
 
 export const createSearchItem = (input: HTMLTableElement): SearchItem => ({
-  title: parseHitTitle(input),
+  title: parseTitle(input),
   requesterName: parseRequesterName(input),
   requesterId: parseRequesterId(input),
-  reward: parseHitReward(input),
+  reward: parseReward(input),
   groupId: parseGroupId(input),
   time: Date.now(),
-  batchSize: parseBatchSize(input)
+  batchSize: parseBatchSize(input),
+  qualified: parseQualified(input)
 });
 
-export const parseHitTitle = (input: HTMLTableElement): string => {
+export const parseTitle = (input: HTMLTableElement): string => {
   const hitTitleElem = input.querySelector('a.capsulelink');
   return hitTitleElem && hitTitleElem.textContent
     ? hitTitleElem.textContent.trim()
@@ -67,7 +68,7 @@ export const parseRequesterId = (input: HTMLTableElement): string => {
   }
 };
 
-export const parseHitReward = (input: HTMLTableElement): string => {
+export const parseReward = (input: HTMLTableElement): string => {
   const hitRewardElem = input.querySelector('span.reward');
   return hitRewardElem && hitRewardElem.textContent
     ? hitRewardElem.textContent.replace('$', '')
@@ -104,6 +105,10 @@ export const parseBatchSize = (input: HTMLTableElement): number => {
   }
 };
 
+export const parseQualified = (input: HTMLTableElement): boolean => {
+  return !input.querySelector('a[href^="/mturk/requestqualification?"]');
+};
+
 export const parseSearchPage = (html: string): SearchMap => {
   const table = stringToDomElement(html);
   const hitContainers = selectHitContainers(table);
@@ -130,10 +135,10 @@ export const parseHitIdQueue = (input: HTMLTableElement): string => {
 };
 
 export const createQueueItem = (input: HTMLTableElement): QueueItem => ({
-  title: parseHitTitle(input),
+  title: parseTitle(input),
   hitId: parseHitIdQueue(input),
   requesterName: parseRequesterName(input),
-  reward: parseHitReward(input)
+  reward: parseReward(input)
 });
 
 export const tabulateQueueData = (input: HTMLTableElement[]): QueueMap =>
