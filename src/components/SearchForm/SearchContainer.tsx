@@ -24,7 +24,9 @@ const SearchOptionsForm = ({ active, onToggle }: Props & Handlers) => {
       </FormLayout>
     </Card>
   ) : (
-    <SearchButtons onToggle={onToggle} active={false} />
+    <Card sectioned>
+      <SearchButtons onToggle={onToggle} active={false} />
+    </Card>
   );
 };
 

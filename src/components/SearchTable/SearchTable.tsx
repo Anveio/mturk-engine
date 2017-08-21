@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { SearchItem, SearchMap, RequesterMap, SearchOptions } from '../../types';
-import { Card, ResourceList } from '@shopify/polaris';
+import { Stack, Card, ResourceList } from '@shopify/polaris';
 import SearchCard from './SearchCard';
+import SearchContainer from '../../containers/SearchContainer';
 import EmptyHitTable from './EmptySearchTable';
 
 export interface Props {
@@ -22,20 +23,26 @@ const HitTable = (props: Props & Handlers) => {
   const sortedHits = (unsortedHits: SearchMap) => unsortedHits.toArray();
 
   return hits.isEmpty() ? (
-    <EmptyHitTable onFetch={onFetch} options={options} />
+    <Stack vertical>
+      <SearchContainer />
+      <EmptyHitTable onFetch={onFetch} options={options} />
+    </Stack>
   ) : (
-    <Card>
-      <ResourceList
-        items={sortedHits(hits)}
-        renderItem={(hit: SearchItem) => (
-          <SearchCard
-            hit={hit}
-            requester={requesters.get(hit.requesterId)}
-            onClick={onAccept}
-          />
-        )}
-      />
-    </Card>
+    <Stack vertical>
+      <SearchContainer />
+      <Card>
+        <ResourceList
+          items={sortedHits(hits)}
+          renderItem={(hit: SearchItem) => (
+            <SearchCard
+              hit={hit}
+              requester={requesters.get(hit.requesterId)}
+              onClick={onAccept}
+            />
+          )}
+        />
+      </Card>
+    </Stack>
   );
 };
 

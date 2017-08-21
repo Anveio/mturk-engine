@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Tabs, Stack } from '@shopify/polaris';
+import { Tabs, Layout } from '@shopify/polaris';
 import SearchTable from '../../containers/SearchTable';
 import QueueTable from '../../containers/QueueTable';
-// import Search from '../../containers/Search';
+// import SearchContainer from '../../containers/SearchContainer';
 import { generateTabs } from '../../utils/tabs';
 
 export interface Props {
@@ -21,12 +21,7 @@ const TabNavigation = (props: Props & Handlers) => {
 
   const displaySelectedTab = {
     0: () => {
-      return (
-        <Stack vertical>
-          {/* <Search /> */}
-          <SearchTable />
-        </Stack>
-      );
+      return <SearchTable />;
     },
     1: () => {
       return <QueueTable />;
@@ -34,9 +29,11 @@ const TabNavigation = (props: Props & Handlers) => {
   };
 
   return (
-    <Tabs selected={selected} tabs={tabs} onSelect={onSelectTab}>
-      {displaySelectedTab[selected]()}
-    </Tabs>
+    <Layout.Section>
+      <Tabs selected={selected} tabs={tabs} onSelect={onSelectTab}>
+        {displaySelectedTab[selected]()}
+      </Tabs>
+    </Layout.Section>
   );
 };
 
