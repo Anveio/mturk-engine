@@ -22,8 +22,9 @@ const successfulAcceptToast = (title: string) => {
 
 const failedAcceptToast = (title: string) => {
   toastr.warning(
-    'Error',
-    `There was a problem adding "${truncate(title, 10)} to your queue.`
+    `Problem enqueing hit.`,
+    `You may not be qualified, or no HITs may be available, or you may need to solve a CAPTCHA.`,
+    { timeOut: 5000 }
   );
 };
 

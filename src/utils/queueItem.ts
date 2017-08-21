@@ -32,7 +32,7 @@ export const generateItemProps = (hit: QueueItem): ItemProps => {
   return {
     attributeOne: truncate(requesterName, 40),
     attributeTwo: truncate(title, 80),
-    attributeThree: reward,
+    attributeThree: '$' + reward,
     actions
   };
 };
