@@ -8,11 +8,9 @@ import { generateQueueToast, failedQueueToast } from '../utils/toastr';
 export const fetchQueue = (dispatch: Dispatch<QueueAction>) => async () => {
   try {
     const queueData = await getQueuePage();
-    const successful = !queueData.isEmpty();
-    generateQueueToast(successful);
-    successful
-      ? dispatch(fetchQueueSuccess(queueData))
-      : dispatch(fetchQueueFailure());
+    const empty = !queueData.isEmpty();
+    generateQueueToast(empty);
+    dispatch(fetchQueueSuccess(queueData));
     return queueData;
   } catch (e) {
     dispatch(fetchQueueFailure());

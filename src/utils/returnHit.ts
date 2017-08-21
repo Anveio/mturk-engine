@@ -14,10 +14,12 @@ export const returnHit = async (hitId: string) => {
   }
 };
 
-const validateHitReturn = (html: string): boolean => {
+export type HitReturnStatus = 'repeat' | 'success' | 'error';
+
+const validateHitReturn = (html: string): HitReturnStatus => {
   const table = stringToDomElement(html);
   const alertBox = findAlertBox(table);
-  return alertBox ? validateAlertBoxText(alertBox) : false;
+  return alertBox ? validateAlertBoxText(alertBox) : 'error';
 };
 
 const findAlertBox = (el: HTMLTableElement) => {
@@ -25,6 +27,14 @@ const findAlertBox = (el: HTMLTableElement) => {
   return alertBox ? alertBox as HTMLSpanElement : false;
 };
 
-const validateAlertBoxText = (el: HTMLSpanElement) => {
-  return el.innerText.trim() === 'The HIT has been returned.';
+const validateAlertBoxText = (el: HTMLSpanElement): HitReturnStatus => {
+  const text = el.innerText.trim();
+  switch (text) {
+    case 'The HIT has been returned.':
+      return 'success';
+    case 'You have already returned this HIT.':
+      return 'repeat';
+    default:
+      return 'error';
+  }
 };

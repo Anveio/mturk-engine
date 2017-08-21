@@ -9,10 +9,6 @@ export const getQueuePage = async () => {
     // tslint:disable-next-line:no-console
     console.log('Time to fetch queue: ' + (performance.now() - t0));
     const rawHtml: string = response.data;
-    /**
-     * TODO: parseHitPage does not properly parse queue page. 
-     * Make a separate utility function to do so.
-     */
     return parseQueuePage(rawHtml);
   } catch (e) {
     throw Error('Problem getting queue page.');
