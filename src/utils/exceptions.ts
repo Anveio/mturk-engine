@@ -5,8 +5,6 @@ export interface ExceptionDescriptor {
   description?: string;
 }
 
-export const generateExceptions = (groupId: string): ExceptionDescriptor[] => {
-  return groupId.startsWith('[Error:groupId]-')
-    ? [ { status: 'warning', title: 'You are not qualified.' } ]
-    : [];
+export const qualException = (qualified: boolean): ExceptionDescriptor[] => {
+  return !qualified ? [ { status: 'warning', title: 'Not qualified.' } ] : [];
 };

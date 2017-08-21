@@ -4,6 +4,7 @@ import { SearchItem, Requester } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
 import { truncate } from '../../utils/formatting';
+import { qualException } from '../../utils/exceptions';
 import { generateBadges } from '../../utils/badges';
 
 export interface Props {
@@ -13,7 +14,7 @@ export interface Props {
 }
 
 const SearchCard = ({ hit, requester, onClick }: Props) => {
-  const { requesterName, groupId, title } = hit;
+  const { requesterName, groupId, title, qualified } = hit;
   const handleClick = () => onClick(hit);
 
   const actions = [
@@ -43,11 +44,13 @@ const SearchCard = ({ hit, requester, onClick }: Props) => {
   return (
     <ResourceList.Item
       actions={actions}
+      exceptions={qualException(qualified)}
       badges={generateBadges(requester)}
       attributeOne={truncate(requesterName, 40)}
       attributeTwo={truncate(title, 80)}
       attributeThree={
-        <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
+        <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
+      }
     />
   );
 };
