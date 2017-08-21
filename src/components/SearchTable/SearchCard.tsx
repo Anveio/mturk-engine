@@ -3,7 +3,6 @@ import * as React from 'react';
 import { SearchItem, Requester } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
-// import { actions } from '../../utils/hitItem';
 import { truncate } from '../../utils/formatting';
 import { generateBadges } from '../../utils/badges';
 
@@ -14,14 +13,29 @@ export interface Props {
 }
 
 const SearchCard = ({ hit, requester, onClick }: Props) => {
-  const { requesterName, title } = hit;
+  const { requesterName, groupId, title } = hit;
   const handleClick = () => onClick(hit);
 
   const actions = [
     {
+      content: 'Preview',
+      accessibilityLabel: 'Preview',
+      icon: 'external',
+      external: true,
+      url: `https://www.mturk.com/mturk/preview?groupId=${groupId}`
+    },
+    {
       content: 'Accept',
       accessibilityLabel: 'Accept',
+      icon: 'external',
+      external: true,
+      url: `https://www.mturk.com/mturk/previewandaccept?groupId=${groupId}`
+    },
+    {
+      content: 'Add',
+      accessibilityLabel: 'Add',
       icon: 'add',
+      primary: true,
       onClick: handleClick
     }
   ];
