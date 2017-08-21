@@ -27,15 +27,17 @@ const SearchCard = ({ hit, requester, onClick }: Props) => {
   ];
 
   return (
-    <ResourceList.Item
-      actions={actions}
-      badges={generateBadges(requester)}
-      attributeOne={truncate(requesterName, 40)}
-      attributeTwo={truncate(title, 80)}
-      attributeThree={
-        <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
-      }
-    />
+    <div onClick={handleClick}>
+      <ResourceList.Item
+        actions={actions}
+        badges={generateBadges(requester)}
+        attributeOne={truncate(requesterName, 40)}
+        attributeTwo={truncate(title, 80)}
+        attributeThree={
+          <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
+        }
+      />
+    </div>
   );
 };
 
