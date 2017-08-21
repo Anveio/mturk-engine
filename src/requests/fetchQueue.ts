@@ -3,7 +3,7 @@ import { SearchItem } from '../types';
 import { Map } from 'immutable';
 import { fetchQueueSuccess, fetchQueueFailure, QueueAction } from '../actions/queue';
 import { getQueuePage } from '../utils/fetchQueue';
-import { generateQueueToast } from '../utils/toastr';
+import { generateQueueToast, failedQueueToast } from '../utils/toastr';
 
 export const fetchQueue = (dispatch: Dispatch<QueueAction>) => async () => {
   try {
@@ -16,7 +16,7 @@ export const fetchQueue = (dispatch: Dispatch<QueueAction>) => async () => {
     return queueData;
   } catch (e) {
     dispatch(fetchQueueFailure());
-    generateQueueToast(false);
+    failedQueueToast();
     return Map<string, SearchItem>();
   }
 };

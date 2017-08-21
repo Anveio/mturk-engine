@@ -5,8 +5,8 @@ export const generateAcceptHitToast = (successful: boolean, title: string) => {
   successful ? successfulAcceptToast(title) : failedAcceptToast(title);
 };
 
-export const generateQueueToast = (successful: boolean) => {
-  successful ? successfulQueueToast() : failedQueueToast();
+export const generateQueueToast = (notEmpty: boolean) => {
+  notEmpty ? successfulQueueToast() : emptyQueueToast();
 };
 
 const successfulAcceptToast = (title: string) => {
@@ -27,6 +27,13 @@ const successfulQueueToast = () => {
   toastr.success('Refreshed queue', `${new Date().toLocaleTimeString()}`);
 };
 
-const failedQueueToast = () => {
+export const failedQueueToast = () => {
   toastr.warning('Error', `There was a problem refreshing your queue.`);
+};
+
+const emptyQueueToast = () => {
+  toastr.info(
+    'Your queue is empty.',
+    `Accept some HITs first and try again.`
+  );
 };
