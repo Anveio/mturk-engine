@@ -16,23 +16,10 @@ export interface ExceptionDescriptor {
 // };
 
 export const generateItemProps = (hit: QueueItem): ItemProps => {
-  const { requesterName, hitId, title, reward } = hit;
-
-  const actions = [
-    {
-      primary: true,
-      external: true,
-      content: 'Continue',
-      accessibilityLabel: 'Continue',
-      icon: '',
-      url: `https://www.mturk.com/mturk/continue?hitId=${hitId}`
-    }
-  ];
-
+  const { requesterName, title, reward } = hit;
   return {
     attributeOne: truncate(requesterName, 40),
     attributeTwo: truncate(title, 80),
     attributeThree: '$' + reward,
-    actions
   };
 };
