@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SearchMap } from '../../types';
-import { Card, ResourceList, FormLayout, Button } from '@shopify/polaris';
+import { Card, ResourceList, Stack, Button } from '@shopify/polaris';
 import EmptyQueue from './EmptyQueue';
 import QueueItem from './QueueItem';
 
@@ -16,17 +16,17 @@ const QueueTable = ({ queue, onRefresh }: Props & Handlers) => {
   return queue.isEmpty() ? (
     <EmptyQueue onRefresh={onRefresh} />
   ) : (
-    <Card>
-      <Card.Section>
-        <FormLayout>
-          <Button>Refresh queue.</Button>
-        </FormLayout>
-      </Card.Section>
-      <ResourceList
-        items={queue.toArray()}
-        renderItem={hit => <QueueItem hit={hit} />}
-      />
-    </Card>
+    <Stack vertical>
+      <Card sectioned>
+        <Button>Refresh queue.</Button>
+      </Card>
+      <Card>
+        <ResourceList
+          items={queue.toArray()}
+          renderItem={hit => <QueueItem hit={hit} />}
+        />
+      </Card>
+    </Stack>
   );
 };
 
