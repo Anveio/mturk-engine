@@ -32,6 +32,7 @@ export interface SearchItem {
   readonly batchSize: number;
   readonly turkopticon?: Requester;
   readonly time: number;
+  readonly qualified: boolean;
 }
 
 export interface QueueItem {
