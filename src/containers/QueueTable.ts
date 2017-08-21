@@ -1,9 +1,15 @@
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../types';
-import QueueTable, { Props } from '../components/Queue/QueueTable';
+import { QueueAction } from '../actions/queue'
+import QueueTable, { Props, Handlers } from '../components/Queue/QueueTable';
+import { fetchQueue } from '../requests/fetchQueue';
 
 const mapState = (state: RootState): Props => ({
   queue: state.queue
 });
 
-export default connect(mapState)(QueueTable);
+const mapDispatch = (dispatch: Dispatch<QueueAction>): Handlers => ({
+  onRefresh: fetchQueue(dispatch)
+})
+
+export default connect(mapState, mapDispatch)(QueueTable);
