@@ -13,6 +13,7 @@ import {
 } from '../actions/turkopticon';
 import { batchFetchTOpticon, hitMapToRequesterIdsArray } from '../utils/turkopticon';
 import { batchFetchHits } from '../utils/fetchHits';
+import { generateSearchToast } from '../utils/toastr';
 
 export type FetchAction = SearchAction | TOpticonAction;
 
@@ -25,9 +26,9 @@ export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async 
   const fetchHits = (async () => {
     try {
       const hitData = await batchFetchHits(options);
-      hitData.isEmpty()
-        ? dispatch(fetchSearchFailure())
-        : dispatch(fetchSearchSuccess(hitData));
+      const empty = hitData.isEmpty();
+      generateSearchToast(!empty);
+      empty ? dispatch(fetchSearchFailure()) : dispatch(fetchSearchSuccess(hitData));
       return hitData;
     } catch (e) {
       /**

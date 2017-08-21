@@ -1,6 +1,10 @@
 import { toastr } from 'react-redux-toastr';
 import { truncate } from './formatting';
 
+export const generateSearchToast = (successful: boolean) => {
+  successful ? successfulSearchToast() : failedSearchToast();
+};
+
 export const generateAcceptHitToast = (successful: boolean, title: string) => {
   successful ? successfulAcceptToast(title) : failedAcceptToast(title);
 };
@@ -33,4 +37,15 @@ export const failedQueueToast = () => {
 
 const emptyQueueToast = () => {
   toastr.info('Your queue is empty.', `${new Date().toLocaleTimeString()}`);
+};
+
+const successfulSearchToast = () => {
+  toastr.success(`Search successful`, `${new Date().toLocaleTimeString()}`);
+};
+
+const failedSearchToast = () => {
+  toastr.error(
+    `Error`,
+    `Your search returned no results. Check your search settings and make sure you're logged in.`
+  );
 };
