@@ -31,6 +31,6 @@ export const importToastrStylesheet = (): void => {
   stylesheet.rel = 'stylesheet';
   stylesheet.type = 'text/css';
   stylesheet.href =
-    'http://diegoddox.github.io/react-redux-toastr/7.1/react-redux-toastr.min.css';
+    'https://diegoddox.github.io/react-redux-toastr/7.1/react-redux-toastr.min.css';
   document.head.appendChild(stylesheet);
 };
