@@ -1,10 +1,10 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../types';
 import { FormAction, toggleForm } from '../actions/searchOptions';
-import SearchContainer, {
+import SearchOptions, {
   Props,
   Handlers
-} from '../components/SearchForm/SearchContainer';
+} from '../components/SearchOptions/SearchOptions';
 import { queryMturkAndTOpticon, FetchAction } from '../requests/fetchData';
 
 const mapState = (state: RootState): Props => ({
@@ -21,4 +21,4 @@ const mapDispatch = (dispatch: Dispatch<SearchFormAction>): Handlers => ({
   onFetch: queryMturkAndTOpticon(dispatch)
 });
 
-export default connect(mapState, mapDispatch)(SearchContainer);
+export default connect(mapState, mapDispatch)(SearchOptions);

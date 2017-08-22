@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SearchItem, SearchMap, RequesterMap } from '../../types';
 import { Stack, Card, ResourceList } from '@shopify/polaris';
 import SearchCard from './SearchCard';
-import SearchContainer from '../../containers/SearchContainer';
+import SearchOptions from '../../containers/SearchOptions';
 import EmptyHitTable from '../../containers/EmptySearchTable';
 
 export interface Props {
@@ -22,12 +22,12 @@ const HitTable = (props: Props & Handlers) => {
 
   return hits.isEmpty() ? (
     <Stack vertical>
-      <SearchContainer />
+      <SearchOptions />
       <EmptyHitTable />
     </Stack>
   ) : (
     <Stack vertical>
-      <SearchContainer />
+      <SearchOptions />
       <Card>
         <ResourceList
           items={sortedHits(hits)}

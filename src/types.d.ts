@@ -9,6 +9,7 @@ export interface RootState {
   readonly requesters: RequesterMap;
   readonly searchOptions: SearchOptions;
   readonly searchFormActive: boolean;
+  
 }
 
 export type SearchMap = Immutable.Map<string, SearchItem>;
