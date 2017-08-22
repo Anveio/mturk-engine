@@ -34,6 +34,7 @@ export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async 
       /**
        * Return an empty set on error to simplify function signature.
        */
+      generateSearchToast(false);
       dispatch(fetchSearchFailure());
       return Map<string, SearchItem>();
     }

@@ -51,7 +51,7 @@ export const failedQueueToast = () => {
 };
 
 const emptyQueueToast = () => {
-  toastr.info('Your queue is empty.', `${new Date().toLocaleTimeString()}`);
+  toastr.info('Your queue is empty.', `${new Date().toLocaleTimeString()}}`);
 };
 
 const successfulSearchToast = () => {
