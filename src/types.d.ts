@@ -9,7 +9,7 @@ export interface RootState {
   readonly requesters: RequesterMap;
   readonly searchOptions: SearchOptions;
   readonly searchFormActive: boolean;
-  
+  readonly sortingOption: SortingOption;
 }
 
 export type SearchMap = Immutable.Map<string, SearchItem>;
@@ -23,6 +23,8 @@ export interface SearchOptions {
   readonly sortType: SearchSort;
   readonly qualified: boolean;
 }
+
+export type SortingOption = 'Batch Size' | 'Reward';
 
 export interface SearchItem {
   readonly title: string;
