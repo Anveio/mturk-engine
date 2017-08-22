@@ -2,8 +2,7 @@
  * Production config. Clears the head and body of a document so that the react app can cleanly be inserted.
  */
 export const clearDom = (): void => {
-  document.head.innerHTML = '';
-  document.body.innerHTML = '';
+  document.documentElement.innerHTML = '';
 };
 
 /**
