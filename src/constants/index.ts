@@ -45,6 +45,9 @@ export type TOGGLE_FORM = typeof TOGGLE_FORM;
 export const CHANGE_SELECTED_TAB = 'CHANGE_SELECTED_TAB';
 export type CHANGE_SELECTED_TAB = typeof CHANGE_SELECTED_TAB;
 
+export const CHANGE_SORTING_OPTION = 'CHANGE_SORTING_OPTION';
+export type CHANGE_SORTING_OPTION = typeof CHANGE_SORTING_OPTION;
+
 export const API_URL = configureApiRoot();
 /**
  * The string to be passed to querySelector in order to find the table containing all fetched HITs.

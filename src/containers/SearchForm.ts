@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState, SearchOptions } from '../types';
-import { FormAction, updateForm } from '../actions/searchOptions';
+import { FormAction, updateForm } from '../actions/form';
 import SearchForm, { Handlers } from '../components/SearchOptions/SearchForm';
 
 const mapState = (state: RootState): SearchOptions => ({

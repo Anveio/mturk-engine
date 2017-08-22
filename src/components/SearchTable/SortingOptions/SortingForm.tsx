@@ -1,12 +1,23 @@
 import * as React from 'react';
 import { Card, Select } from '@shopify/polaris';
+import { SortingOption } from '../../../types';
 
-export interface AppProps {}
+interface Props {
+  value: SortingOption;
+  onChange: (option: SortingOption) => void;
+}
 
-const SortingForm = (props: AppProps) => {
+const SortingForm = ({ value, onChange }: Props) => {
   return (
     <Card.Section>
-      <Select name="Sorting Options" options={[]} label="Sorting Options" />
+      <Select
+        label="Sorting Options"
+        id="select-sort-option"
+        name="Sorting Options"
+        options={[ 'Reward', 'Batch Size' ]}
+        value={value}
+        onChange={onChange}
+      />
     </Card.Section>
   );
 };

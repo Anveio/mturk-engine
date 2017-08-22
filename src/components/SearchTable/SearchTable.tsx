@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SearchItem, SearchMap, RequesterMap } from '../../types';
+import { SearchItem, SearchMap, RequesterMap, SortingOption } from '../../types';
 import { Stack, Card, ResourceList } from '@shopify/polaris';
 import SearchCard from './SearchCard';
 import SortingForm from './SortingOptions/SortingForm';
@@ -9,16 +9,18 @@ import EmptyHitTable from '../../containers/EmptySearchTable';
 export interface Props {
   readonly hits: SearchMap;
   readonly requesters: RequesterMap;
+  readonly sortingOption: SortingOption;
 }
 
 export interface Handlers {
   readonly onAccept: (hit: SearchItem) => void;
+  readonly onChangeSort: (option: SortingOption) => void;
 }
 
 // const random = (x: string) => console.log(x);
 
 const HitTable = (props: Props & Handlers) => {
-  const { hits, requesters, onAccept } = props;
+  const { hits, requesters, sortingOption, onAccept, onChangeSort } = props;
   const sortedHits = (unsortedHits: SearchMap) => unsortedHits.toArray();
 
   return hits.isEmpty() ? (
@@ -30,7 +32,7 @@ const HitTable = (props: Props & Handlers) => {
     <Stack vertical>
       <SearchOptions />
       <Card>
-        <SortingForm />
+        <SortingForm onChange={onChangeSort} value={sortingOption} />
         <ResourceList
           items={sortedHits(hits)}
           renderItem={(hit: SearchItem) => (

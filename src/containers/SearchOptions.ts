@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../types';
-import { FormAction, toggleForm } from '../actions/searchOptions';
+import { FormAction, toggleForm } from '../actions/form';
 import SearchOptions, {
   Props,
   Handlers

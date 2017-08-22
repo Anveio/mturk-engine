@@ -1,5 +1,5 @@
 import { SearchOptions } from '../types';
-import { FormUpdate } from '../actions/searchOptions';
+import { FormUpdate } from '../actions/form';
 import { UPDATE_FIELD } from '../constants';
 
 const initial: SearchOptions = {

@@ -1,4 +1,4 @@
-import { FormToggle } from '../actions/searchOptions';
+import { FormToggle } from '../actions/form';
 import { TOGGLE_FORM } from '../constants';
 const initial: boolean = false;
 
