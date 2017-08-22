@@ -13,22 +13,30 @@ export interface Handlers {
   readonly onReturn: (hitId: string) => void;
 }
 
-const QueueTable = ({ queue, onRefresh, onReturn }: Props & Handlers) => {
-  return queue.isEmpty() ? (
-    <EmptyQueue onRefresh={onRefresh} />
-  ) : (
-    <Stack vertical>
-      <Card sectioned>
-        <Button onClick={onRefresh}>Refresh queue.</Button>
-      </Card>
-      <Card>
-        <ResourceList
-          items={queue.toArray()}
-          renderItem={hit => <QueueCard hit={hit} onReturn={onReturn} />}
-        />
-      </Card>
-    </Stack>
-  );
-};
+class QueueTable extends React.PureComponent<Props & Handlers, never> {
+  componentWillMount() {
+    this.props.onRefresh();
+  }
+
+  render() {
+    const { queue, onRefresh, onReturn } = this.props;
+
+    return queue.isEmpty() ? (
+      <EmptyQueue onRefresh={onRefresh} />
+    ) : (
+      <Stack vertical>
+        <Card sectioned>
+          <Button onClick={onRefresh}>Refresh queue.</Button>
+        </Card>
+        <Card>
+          <ResourceList
+            items={queue.toArray()}
+            renderItem={hit => <QueueCard hit={hit} onReturn={onReturn} />}
+          />
+        </Card>
+      </Stack>
+    );
+  }
+}
 
 export default QueueTable;
