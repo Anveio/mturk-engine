@@ -13,6 +13,7 @@
     "redux": "^3.7.2",
     "uuid": "^3.1.0"
   },
+  "homepage": "https://www.mturk.com/mturk/findhits?match=true?mturkengine",
   "devDependencies": {
     "@types/jest": "^20.0.2",
     "@types/node": "^8.0.9",
