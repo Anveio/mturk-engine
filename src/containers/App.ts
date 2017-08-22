@@ -7,8 +7,7 @@ import { queryMturkAndTOpticon, FetchAction } from '../requests/fetchData';
 type AppAction = FetchAction | ChangeTab;
 
 const mapState = (state: RootState): Props => ({
-  selected: state.tab,
-  search: state.search
+  selected: state.tab
 });
 
 const mapDispatch = (dispatch: Dispatch<AppAction>): Handlers => ({
