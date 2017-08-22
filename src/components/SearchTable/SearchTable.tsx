@@ -5,6 +5,7 @@ import SearchCard from './SearchCard';
 import SortingForm from './SortingOptions/SortingForm';
 import SearchOptions from '../../containers/SearchOptions';
 import EmptyHitTable from '../../containers/EmptySearchTable';
+import { sortBy } from '../../utils/sorting';
 
 export interface Props {
   readonly hits: SearchMap;
@@ -21,7 +22,8 @@ export interface Handlers {
 
 const HitTable = (props: Props & Handlers) => {
   const { hits, requesters, sortingOption, onAccept, onChangeSort } = props;
-  const sortedHits = (unsortedHits: SearchMap) => unsortedHits.toArray();
+  const sortedHits = (unsortedHits: SearchMap) =>
+    unsortedHits.sort(sortBy(sortingOption)).toArray();
 
   return hits.isEmpty() ? (
     <Stack vertical>

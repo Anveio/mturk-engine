@@ -1,8 +1,19 @@
-import { SearchItem } from '../types';
-export const sortByReward = (a: SearchItem, b: SearchItem) => {
-  return parseFloat(b.reward) - parseFloat(a.reward);
+import { SearchItem, SortingOption } from '../types';
+
+export const sortBy = (option: SortingOption) => {
+  const property = optionToProperty(option);
+  return (a: SearchItem, b: SearchItem) => +b[property] - +a[property];
 };
 
-export const sortByTime = (a: SearchItem, b: SearchItem) => {
-  return a.time - b.time;
+type SearchItemProperty = 'batchSize' | 'reward';
+
+const optionToProperty = (option: SortingOption): SearchItemProperty => {
+  switch (option) {
+    case 'Batch Size':
+      return 'batchSize';
+    case 'Reward':
+      return 'reward';
+    default:
+      return 'reward';
+  }
 };
