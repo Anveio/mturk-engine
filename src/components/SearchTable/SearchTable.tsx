@@ -2,6 +2,7 @@ import * as React from 'react';
 import { SearchItem, SearchMap, RequesterMap } from '../../types';
 import { Stack, Card, ResourceList } from '@shopify/polaris';
 import SearchCard from './SearchCard';
+import SortingForm from './SortingOptions/SortingForm';
 import SearchOptions from '../../containers/SearchOptions';
 import EmptyHitTable from '../../containers/EmptySearchTable';
 
@@ -29,6 +30,7 @@ const HitTable = (props: Props & Handlers) => {
     <Stack vertical>
       <SearchOptions />
       <Card>
+        <SortingForm />
         <ResourceList
           items={sortedHits(hits)}
           renderItem={(hit: SearchItem) => (
