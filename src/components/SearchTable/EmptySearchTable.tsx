@@ -18,14 +18,14 @@ const EmptySearchTable = ({ onFetch, options }: Props & Handlers) => {
 
   return (
     <EmptyState
-      heading="You haven't searched any HITs yet."
+      heading="You search results are empty."
       action={{
         content: 'Search HITs',
         onAction
       }}
       image="https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg"
     >
-      <p>Search some HITs to get started.</p>
+      <p>Search for HITs to get started.</p>
     </EmptyState>
   );
 };
