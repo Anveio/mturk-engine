@@ -3,6 +3,7 @@ import { SearchItem, SortingOption } from '../types';
 const optionsMap = {
   'Batch Size': 'batchSize',
   Reward: 'reward',
+  Latest: 'time',
   default: 'time'
 };
 

@@ -7,6 +7,8 @@ interface Props {
   onChange: (option: SortingOption) => void;
 }
 
+const options: SortingOption[] = [ 'Reward', 'Batch Size', 'Latest' ];
+
 const SortingForm = ({ value, onChange }: Props) => {
   return (
     <Card.Section>
@@ -14,7 +16,7 @@ const SortingForm = ({ value, onChange }: Props) => {
         label="Sorting Options"
         id="select-sort-option"
         name="Sorting Options"
-        options={[ 'Reward', 'Batch Size' ]}
+        options={options}
         value={value}
         onChange={onChange}
       />

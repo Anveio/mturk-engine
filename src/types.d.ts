@@ -24,7 +24,7 @@ export interface SearchOptions {
   readonly qualified: boolean;
 }
 
-export type SortingOption = 'Batch Size' | 'Reward';
+export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
 
 export interface SearchItem {
   readonly title: string;
