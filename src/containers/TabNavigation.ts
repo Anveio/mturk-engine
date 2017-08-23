@@ -19,5 +19,3 @@ const mapDispatch = (dispatch: Dispatch<ChangeTab>): Handlers => ({
 });
 
 export default connect(mapState, mapDispatch)(TabNavigation);
-
-

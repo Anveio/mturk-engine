@@ -1,10 +1,7 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../types';
 import { FormAction, toggleForm } from '../actions/form';
-import SearchOptions, {
-  Props,
-  Handlers
-} from '../components/SearchOptions/SearchOptions';
+import SearchBar, { Props, Handlers } from '../components/SearchBar/SearchBar';
 import { queryMturkAndTOpticon, FetchAction } from '../requests/fetchData';
 
 const mapState = (state: RootState): Props => ({
@@ -21,4 +18,4 @@ const mapDispatch = (dispatch: Dispatch<SearchFormAction>): Handlers => ({
   onFetch: queryMturkAndTOpticon(dispatch)
 });
 
-export default connect(mapState, mapDispatch)(SearchOptions);
+export default connect(mapState, mapDispatch)(SearchBar);

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Card, FormLayout, DisplayText, Caption } from '@shopify/polaris';
 import { SearchOptions } from '../../types';
-import SearchForm from '../../containers/SearchForm';
+import SearchSettings from '../../containers/SearchSettings';
 import SearchButtons from './SearchButtons';
 
 export interface Handlers {
@@ -14,7 +14,7 @@ export interface Props {
   readonly options: SearchOptions;
 }
 
-const SearchOptionsForm = (props: Props & Handlers) => {
+const SearchBar = (props: Props & Handlers) => {
   const { active, options, onToggle, onFetch } = props;
 
   const handleSearch = () => {
@@ -24,12 +24,14 @@ const SearchOptionsForm = (props: Props & Handlers) => {
   return active ? (
     <Card sectioned>
       <FormLayout>
-        <DisplayText size="small">Edit search settings.</DisplayText>
-        <Caption>
-          Changes are saved as you type and will apply on your next search.
-        </Caption>
-        <SearchForm />
-        <SearchButtons onToggle={onToggle} active onFetch={handleSearch} />
+
+          <DisplayText size="small">Edit search settings.</DisplayText>
+          <Caption>
+            Changes are saved as you type and will apply on your next search.
+          </Caption>
+          <SearchSettings />
+          <SearchButtons onToggle={onToggle} active onFetch={handleSearch} />
+
       </FormLayout>
     </Card>
   ) : (
@@ -39,4 +41,4 @@ const SearchOptionsForm = (props: Props & Handlers) => {
   );
 };
 
-export default SearchOptionsForm;
+export default SearchBar;

@@ -14,7 +14,7 @@ export interface Handlers {
   readonly onChange: (field: keyof SearchOptions, value: string | boolean) => void;
 }
 
-const SearchOptionsForm = (props: SearchOptions & Handlers) => {
+const SearchSettings = (props: SearchOptions & Handlers) => {
   const { delay, minReward, sortType, qualified, onChange } = props;
 
   const updateField = (field: keyof SearchOptions) => (value: string) => {
@@ -39,4 +39,4 @@ const SearchOptionsForm = (props: SearchOptions & Handlers) => {
   );
 };
 
-export default SearchOptionsForm;
+export default SearchSettings;

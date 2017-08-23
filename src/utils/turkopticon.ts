@@ -33,7 +33,6 @@ export const selectRequesterId = (hit: SearchItem) => hit.requesterId;
 export const invalidGroupId = (hit: SearchItem) =>
   !hit.groupId.startsWith('[Error:groupId]-');
 
-
 /**
  * Returns the requesterIds of a SearchMap that correspond to a search result 
  * with no T.O.

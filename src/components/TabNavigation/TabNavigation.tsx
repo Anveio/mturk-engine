@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Tabs, Layout } from '@shopify/polaris';
 import SearchTable from '../../containers/SearchTable';
 import QueueTable from '../../containers/QueueTable';
-// import SearchContainer from '../../containers/SearchContainer';
 import { generateTabs } from '../../utils/tabs';
 
 export interface Props {

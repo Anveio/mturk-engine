@@ -3,7 +3,7 @@ import { SearchItem, SearchMap, RequesterMap, SortingOption } from '../../types'
 import { Stack, Card, ResourceList } from '@shopify/polaris';
 import SearchCard from './SearchCard';
 import SortingForm from './SortingOptions/SortingForm';
-import SearchOptions from '../../containers/SearchOptions';
+import SearchBar from '../../containers/SearchBar';
 import EmptyHitTable from '../../containers/EmptySearchTable';
 import { sortBy } from '../../utils/sorting';
 
@@ -27,12 +27,12 @@ const HitTable = (props: Props & Handlers) => {
 
   return hits.isEmpty() ? (
     <Stack vertical>
-      <SearchOptions />
+      <SearchBar />
       <EmptyHitTable />
     </Stack>
   ) : (
     <Stack vertical>
-      <SearchOptions />
+      <SearchBar />
       <Card>
         <SortingForm onChange={onChangeSort} value={sortingOption} />
         <ResourceList
