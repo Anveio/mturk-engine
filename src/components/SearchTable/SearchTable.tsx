@@ -57,7 +57,10 @@ const HitTable = (props: Props & Handlers) => {
   ) : (
     <Stack vertical>
       <SearchBar />
-      <Card title={`${displayedHits.length} HITs found.`}>
+      <Card
+        title={`${hits.size} results. ${hits.size -
+          displayedHits.length} hidden.`}
+      >
         <SortingForm onChange={onChangeSort} value={sortingOption} />
         <ResourceList
           items={displayedHits}
