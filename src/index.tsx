@@ -8,7 +8,7 @@ import {
   createRootDiv,
   importPolarisStylesheet,
   importToastrStylesheet
-} from './utils/production';
+} from './utils/config';
 
 import App from './containers/App';
 import '@shopify/polaris/styles.css';
