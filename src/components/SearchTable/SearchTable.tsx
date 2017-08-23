@@ -40,8 +40,8 @@ const HitTable = (props: Props & Handlers) => {
     onChangeSort
   } = props;
 
-  const filterBlockedHits = (hits: SearchMap) =>
-    hits.filter(
+  const filterBlockedHits = (unfilteredHits: SearchMap) =>
+    unfilteredHits.filter(
       (hit: SearchItem) => !blockedHits.get(hit.groupId)
     ) as SearchMap;
 
