@@ -48,6 +48,12 @@ export type CHANGE_SELECTED_TAB = typeof CHANGE_SELECTED_TAB;
 export const CHANGE_SORTING_OPTION = 'CHANGE_SORTING_OPTION';
 export type CHANGE_SORTING_OPTION = typeof CHANGE_SORTING_OPTION;
 
+export const BLOCK_HIT_GROUP = 'BLOCK_HIT_GROUP';
+export type BLOCK_HIT_GROUP = typeof BLOCK_HIT_GROUP;
+
+export const UNBLOCK_HIT_GROUP = 'UNBLOCK_HIT_GROUP';
+export type UNBLOCK_HIT_GROUP = typeof UNBLOCK_HIT_GROUP;
+
 export const API_URL = configureApiRoot();
 /**
  * The string to be passed to querySelector in order to find the table containing all fetched HITs.

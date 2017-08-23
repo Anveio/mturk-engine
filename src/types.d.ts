@@ -16,7 +16,7 @@ export interface RootState {
 export type SearchMap = Immutable.Map<string, SearchItem>;
 export type QueueMap = Immutable.Map<string, QueueItem>;
 export type RequesterMap = Immutable.Map<string, Requester>;
-export type HitBlocklistMap = Immutable.Map<string, BlocklistItem>;
+export type HitBlocklistMap = Immutable.Map<string, BlockedHit>;
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {
@@ -48,7 +48,7 @@ export interface QueueItem {
   readonly timeLeft: string;
 }
 
-export interface BlocklistItem {
+export interface BlockedHit {
   readonly dateBlocked: Date;
   readonly requesterName: string;
 }
