@@ -1,9 +1,9 @@
 import { BLOCK_HIT_GROUP, UNBLOCK_HIT_GROUP } from '../constants';
-import { HitBlocklistMap } from '../types';
+import { HitBlockMap } from '../types';
 
 export interface BlockHitGroup {
   type: BLOCK_HIT_GROUP;
-  data: HitBlocklistMap;
+  data: HitBlockMap;
 }
 
 export interface UnblockHitGroup {
@@ -13,7 +13,7 @@ export interface UnblockHitGroup {
 
 export type BlockAction = BlockHitGroup | UnblockHitGroup;
 
-export const blockHitGroup = (data: HitBlocklistMap): BlockHitGroup => ({
+export const blockHitGroup = (data: HitBlockMap): BlockHitGroup => ({
   type: BLOCK_HIT_GROUP,
   data
 });
