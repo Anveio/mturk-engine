@@ -12,7 +12,8 @@ import { sendAcceptRequest } from '../dispatch/acceptHit';
 const mapState = (state: RootState): Props => ({
   hits: state.search,
   requesters: state.requesters,
-  sortingOption: state.sortingOption
+  sortingOption: state.sortingOption,
+  blockedHits: state.hitBlocklist
 });
 
 type SearchTableAction = AcceptAction | ChangeSorting | BlockAction;

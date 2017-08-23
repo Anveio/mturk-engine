@@ -3,6 +3,7 @@ import {
   SearchItem,
   SearchMap,
   BlockedHit,
+  HitBlockMap,
   RequesterMap,
   SortingOption
 } from '../../types';
@@ -17,6 +18,7 @@ export interface Props {
   readonly hits: SearchMap;
   readonly requesters: RequesterMap;
   readonly sortingOption: SortingOption;
+  readonly blockedHits: HitBlockMap;
 }
 
 export interface Handlers {
@@ -31,6 +33,7 @@ const HitTable = (props: Props & Handlers) => {
   const {
     hits,
     requesters,
+    blockedHits,
     sortingOption,
     onAccept,
     onHide,
@@ -38,7 +41,15 @@ const HitTable = (props: Props & Handlers) => {
   } = props;
 
   const sortByOption = (unsortedHits: SearchMap) =>
-    unsortedHits.sort(sortBy(sortingOption)).toArray();
+    unsortedHits.sort(sortBy(sortingOption));
+
+  const filterBlockedHits = (hits: SearchMap) =>
+    hits.filter(
+      (hit: SearchItem) => !blockedHits.get(hit.groupId)
+    ) as SearchMap;
+
+  const searchResultsToArray = (hits: SearchMap) =>
+    sortByOption(filterBlockedHits(hits)).toArray();
 
   return hits.isEmpty() ? (
     <Stack vertical>
@@ -51,7 +62,7 @@ const HitTable = (props: Props & Handlers) => {
       <Card>
         <SortingForm onChange={onChangeSort} value={sortingOption} />
         <ResourceList
-          items={sortByOption(hits)}
+          items={searchResultsToArray(hits)}
           renderItem={(hit: SearchItem) => (
             <SearchCard
               hit={hit}
