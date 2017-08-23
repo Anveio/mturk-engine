@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, FormLayout, DisplayText, Caption } from '@shopify/polaris';
+import { Card, Stack, DisplayText, Caption } from '@shopify/polaris';
 import { SearchOptions } from '../../types';
 import SearchSettings from '../../containers/SearchSettings';
 import SearchButtons from './SearchButtons';
@@ -31,14 +31,14 @@ const SearchBar = (props: Props & Handlers) => {
   return active ? (
     <Card sectioned>
       <div onKeyPress={watchForEnter}>
-        <FormLayout>
+        <Stack vertical>
           <DisplayText size="small">Edit search settings.</DisplayText>
           <Caption>
             Changes are saved as you type and will apply on your next search.
           </Caption>
           <SearchSettings />
           <SearchButtons onToggle={onToggle} active onFetch={handleSearch} />
-        </FormLayout>
+        </Stack>
       </div>
     </Card>
   ) : (
