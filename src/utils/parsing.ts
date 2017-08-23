@@ -124,7 +124,6 @@ export const parseQueuePage = (html: string): QueueMap => {
 };
 
 export const parseHitIdQueue = (input: HTMLTableElement): string => {
-  // const groupIdElem = input.querySelector('a[href*="groupId="]');
   const hitIdElem = input.querySelector(hitIdAnchor);
   if (hitIdElem) {
     const href = hitIdElem.getAttribute('href') as string;

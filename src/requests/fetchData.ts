@@ -11,7 +11,7 @@ import {
   fetchTOpticonSuccess,
   fetchTOpticonFailure
 } from '../actions/turkopticon';
-import { batchFetchTOpticon, hitMapToRequesterIdsArray } from '../utils/turkopticon';
+import { batchFetchTOpticon, requesterIdsWithNoTO } from '../utils/turkopticon';
 import { batchFetchHits } from '../utils/fetchHits';
 import { generateSearchToast } from '../utils/toastr';
 
@@ -55,7 +55,7 @@ export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async 
          */
         return Map<string, Requester>();
       }
-      const requesterIds = hitMapToRequesterIdsArray(hits);
+      const requesterIds = requesterIdsWithNoTO(hits);
       return await batchFetchTOpticon(requesterIds);
     } catch (e) {
       dispatch(fetchTOpticonFailure());

@@ -32,7 +32,14 @@ export const noTurkopticon = (hit: SearchItem) => !hit.turkopticon;
 export const selectRequesterId = (hit: SearchItem) => hit.requesterId;
 export const invalidGroupId = (hit: SearchItem) =>
   !hit.groupId.startsWith('[Error:groupId]-');
-export const hitMapToRequesterIdsArray = (hits: SearchMap) => {
+
+
+/**
+ * Returns the requesterIds of a SearchMap that correspond to a search result 
+ * with no T.O.
+ * @param hits 
+ */
+export const requesterIdsWithNoTO = (hits: SearchMap) => {
   return hits
     .filter(noTurkopticon)
     .filter(invalidGroupId)
