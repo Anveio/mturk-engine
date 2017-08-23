@@ -3,15 +3,15 @@ import { Stack, DisplayText, Caption } from '@shopify/polaris';
 
 interface Props {
   reward: string;
-  batchSize: number;
+  timeLeft: string;
 }
 
-const InfoContainer = ({ reward, batchSize }: Props) => {
+const QueueItemInfo = ({ reward, timeLeft }: Props) => {
   return (
-    <Stack vertical={false} spacing={'tight'}>
-      <Caption>{batchSize} available</Caption>
+    <Stack vertical={false} spacing={'tight'} alignment="center">
+      <Caption>{timeLeft}</Caption>
       <DisplayText size="small">${reward}</DisplayText>
     </Stack>
   );
 };
-export default InfoContainer;
+export default QueueItemInfo;

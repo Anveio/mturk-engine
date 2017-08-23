@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { QueueItem } from '../../types';
 import { ResourceList } from '@shopify/polaris';
+import QueueItemInfo from './QueueItemInfo';
 import { generateItemProps } from '../../utils/queueItem';
 
 export interface Props {
@@ -28,7 +29,13 @@ const QueueCard = ({ hit, onReturn }: Props) => {
     }
   ];
 
-  return <ResourceList.Item actions={actions} {...generateItemProps(hit)} />;
+  return (
+    <ResourceList.Item
+      actions={actions}
+      {...generateItemProps(hit)}
+      attributeThree={<QueueItemInfo reward={hit.reward} timeLeft={hit.timeLeft} />}
+    />
+  );
 };
 
 export default QueueCard;
