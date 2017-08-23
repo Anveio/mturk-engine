@@ -21,18 +21,25 @@ const SearchBar = (props: Props & Handlers) => {
     onFetch(options);
   };
 
+  const watchForEnter = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.charCode === 13) {
+      event.preventDefault();
+      onFetch(options);
+    }
+  };
+
   return active ? (
     <Card sectioned>
-      <FormLayout>
-
+      <div onKeyPress={watchForEnter}>
+        <FormLayout>
           <DisplayText size="small">Edit search settings.</DisplayText>
           <Caption>
             Changes are saved as you type and will apply on your next search.
           </Caption>
           <SearchSettings />
           <SearchButtons onToggle={onToggle} active onFetch={handleSearch} />
-
-      </FormLayout>
+        </FormLayout>
+      </div>
     </Card>
   ) : (
     <Card sectioned>
