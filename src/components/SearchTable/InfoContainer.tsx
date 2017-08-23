@@ -8,7 +8,7 @@ interface Props {
 
 const InfoContainer = ({ reward, batchSize }: Props) => {
   return (
-    <Stack vertical={false} spacing={'tight'}>
+    <Stack vertical={false} spacing={'tight'} alignment="baseline">
       <Caption>{batchSize} available</Caption>
       <DisplayText size="small">${reward}</DisplayText>
     </Stack>

@@ -13,8 +13,8 @@ const buttonText = (active: boolean) => {
 
 const SearchButtons = ({ onFetch, onToggle, active }: Props) => {
   return (
-    <ButtonGroup>
-      <Button primary onClick={onFetch}>
+    <ButtonGroup segmented>
+      <Button primary icon="search" onClick={onFetch}>
         Search HITs
       </Button>
       <Button onClick={onToggle}>{buttonText(active)}</Button>

@@ -8,7 +8,7 @@ interface Props {
 
 const QueueItemInfo = ({ reward, timeLeft }: Props) => {
   return (
-    <Stack vertical={false} spacing={'tight'} alignment="center">
+    <Stack vertical={false} spacing={'tight'} alignment="baseline">
       <Caption>{timeLeft}</Caption>
       <DisplayText size="small">${reward}</DisplayText>
     </Stack>
