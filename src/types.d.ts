@@ -43,6 +43,7 @@ export interface QueueItem {
   readonly requesterName: string;
   readonly hitId: string;
   readonly reward: string;
+  readonly timeLeft: string;
 }
 
 export interface TOpticonResponse {
