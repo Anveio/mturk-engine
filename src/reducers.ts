@@ -20,5 +20,5 @@ export const rootReducer = combineReducers<RootState>({
   hitBlocklist,
   searchOptions,
   searchFormActive,
-  sortingOption,
+  sortingOption
 });

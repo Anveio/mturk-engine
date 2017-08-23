@@ -2,7 +2,7 @@ import { connect, Dispatch } from 'react-redux';
 import App, { Props, Handlers } from '../components/App';
 import { RootState } from '../types';
 import { ChangeTab, changeTab } from '../actions/tab';
-import { queryMturkAndTOpticon, FetchAction } from '../requests/fetchData';
+import { queryMturkAndTOpticon, FetchAction } from '../dispatch/fetchData';
 
 type AppAction = FetchAction | ChangeTab;
 

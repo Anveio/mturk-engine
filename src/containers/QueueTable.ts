@@ -2,8 +2,8 @@ import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../types';
 import { QueueAction } from '../actions/queue';
 import QueueTable, { Props, Handlers } from '../components/Queue/QueueTable';
-import { fetchQueue } from '../requests/fetchQueue';
-import { returnHit } from '../requests/returnHit';
+import { fetchQueue } from '../dispatch/fetchQueue';
+import { returnHit } from '../dispatch/returnHit';
 
 const mapState = (state: RootState): Props => ({
   queue: state.queue

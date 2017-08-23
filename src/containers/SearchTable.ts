@@ -3,7 +3,7 @@ import { RootState, SortingOption } from '../types';
 import HitTable, { Props, Handlers } from '../components/SearchTable/SearchTable';
 import { AcceptAction } from '../actions/accept';
 import { ChangeSorting, changeSorting } from '../actions/sorting';
-import { sendAcceptRequest } from '../requests/acceptHit';
+import { sendAcceptRequest } from '../dispatch/acceptHit';
 
 const mapState = (state: RootState): Props => ({
   hits: state.search,

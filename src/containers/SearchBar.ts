@@ -2,7 +2,7 @@ import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../types';
 import { FormAction, toggleForm } from '../actions/form';
 import SearchBar, { Props, Handlers } from '../components/SearchBar/SearchBar';
-import { queryMturkAndTOpticon, FetchAction } from '../requests/fetchData';
+import { queryMturkAndTOpticon, FetchAction } from '../dispatch/fetchData';
 
 const mapState = (state: RootState): Props => ({
   active: state.searchFormActive,

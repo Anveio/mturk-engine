@@ -4,7 +4,7 @@ import EmptySearchTable, {
   Props,
   Handlers
 } from '../components/SearchTable/EmptySearchTable';
-import { queryMturkAndTOpticon, FetchAction } from '../requests/fetchData';
+import { queryMturkAndTOpticon, FetchAction } from '../dispatch/fetchData';
 
 const mapState = (state: RootState): Props => ({
   options: state.searchOptions
