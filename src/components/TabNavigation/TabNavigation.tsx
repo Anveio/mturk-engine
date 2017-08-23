@@ -6,7 +6,6 @@ import { generateTabs } from '../../utils/tabs';
 
 export interface Props {
   readonly selected: number;
-  readonly searchSize: number;
   readonly queueSize: number;
 }
 
@@ -15,8 +14,8 @@ export interface Handlers {
 }
 
 const TabNavigation = (props: Props & Handlers) => {
-  const { searchSize, queueSize, onSelectTab, selected } = props;
-  const tabs = generateTabs({ searchSize, queueSize });
+  const { queueSize, onSelectTab, selected } = props;
+  const tabs = generateTabs({ queueSize });
 
   const displaySelectedTab = {
     0: () => {

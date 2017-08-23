@@ -7,15 +7,14 @@ interface TabDescriptor {
 }
 
 interface TabSizes {
-  searchSize: number;
   queueSize: number;
 }
 
-export const generateTabs = ({ searchSize, queueSize }: TabSizes): TabDescriptor[] => {
+export const generateTabs = ({ queueSize }: TabSizes): TabDescriptor[] => {
   return [
     {
       id: 'Search',
-      title: `Search (${searchSize})`,
+      title: `Search`,
       panelID: 'search',
       accessibilityLabel: 'Search tab'
     },
