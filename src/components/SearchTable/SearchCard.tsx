@@ -1,23 +1,33 @@
 import * as React from 'react';
 // import { DisableableAction } from '@shopify/polaris/types/';
-import { SearchItem, Requester } from '../../types';
+import { SearchItem, BlockedHit, Requester } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
 import { truncate } from '../../utils/formatting';
 import { qualException } from '../../utils/exceptions';
 import { generateBadges } from '../../utils/badges';
+import { searchItemToBlockedHit } from '../../utils/blockHit';
 
 export interface Props {
   readonly hit: SearchItem;
   readonly requester?: Requester;
   readonly onClick: (hit: SearchItem) => void;
+  readonly onHide: (hit: BlockedHit) => void;
 }
 
-const SearchCard = ({ hit, requester, onClick }: Props) => {
+const SearchCard = ({ hit, requester, onClick, onHide }: Props) => {
   const { requesterName, groupId, title, qualified } = hit;
-  const handleClick = () => onClick(hit);
+  const handleAccept = () => onClick(hit);
+  const handleHide = () => onHide(searchItemToBlockedHit(hit));
 
   const actions = [
+    {
+      content: 'Hide',
+      accessibilityLabel: 'Hide',
+      icon: 'disable',
+      destructive: true,
+      onClick: handleHide
+    },
     {
       content: 'Preview',
       accessibilityLabel: 'Preview',
@@ -37,7 +47,7 @@ const SearchCard = ({ hit, requester, onClick }: Props) => {
       accessibilityLabel: 'Add',
       icon: 'add',
       primary: true,
-      onClick: handleClick
+      onClick: handleAccept
     }
   ];
 

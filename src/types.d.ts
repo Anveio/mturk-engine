@@ -48,10 +48,8 @@ export interface QueueItem {
   readonly timeLeft: string;
 }
 
-export interface BlockedHit {
+export interface BlockedHit extends SearchItem {
   readonly dateBlocked: Date;
-  readonly requesterName: string;
-  readonly title: string;
 }
 
 export interface TOpticonResponse {

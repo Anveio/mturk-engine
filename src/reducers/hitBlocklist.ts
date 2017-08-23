@@ -8,7 +8,7 @@ const initial: HitBlockMap = Map<string, BlockedHit>();
 export default (state = initial, action: BlockAction): HitBlockMap => {
   switch (action.type) {
     case BLOCK_HIT_GROUP:
-      return state.merge(action.data);
+      return state.set(action.data.groupId, action.data);
     case UNBLOCK_HIT_GROUP:
       return state.delete(action.groupId);
     default:

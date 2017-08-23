@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { SearchItem, SearchMap, RequesterMap, SortingOption } from '../../types';
+import {
+  SearchItem,
+  SearchMap,
+  BlockedHit,
+  RequesterMap,
+  SortingOption
+} from '../../types';
 import { Stack, Card, ResourceList } from '@shopify/polaris';
 import SearchCard from './SearchCard';
 import SortingForm from './SortingOptions/SortingForm';
@@ -15,14 +21,23 @@ export interface Props {
 
 export interface Handlers {
   readonly onAccept: (hit: SearchItem) => void;
+  readonly onHide: (hit: BlockedHit) => void;
   readonly onChangeSort: (option: SortingOption) => void;
 }
 
 // const random = (x: string) => console.log(x);
 
 const HitTable = (props: Props & Handlers) => {
-  const { hits, requesters, sortingOption, onAccept, onChangeSort } = props;
-  const sortedHits = (unsortedHits: SearchMap) =>
+  const {
+    hits,
+    requesters,
+    sortingOption,
+    onAccept,
+    onHide,
+    onChangeSort
+  } = props;
+
+  const sortByOption = (unsortedHits: SearchMap) =>
     unsortedHits.sort(sortBy(sortingOption)).toArray();
 
   return hits.isEmpty() ? (
@@ -36,12 +51,13 @@ const HitTable = (props: Props & Handlers) => {
       <Card>
         <SortingForm onChange={onChangeSort} value={sortingOption} />
         <ResourceList
-          items={sortedHits(hits)}
+          items={sortByOption(hits)}
           renderItem={(hit: SearchItem) => (
             <SearchCard
               hit={hit}
               requester={requesters.get(hit.requesterId)}
               onClick={onAccept}
+              onHide={onHide}
             />
           )}
         />
