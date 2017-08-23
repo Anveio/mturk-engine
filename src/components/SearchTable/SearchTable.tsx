@@ -40,16 +40,14 @@ const HitTable = (props: Props & Handlers) => {
     onChangeSort
   } = props;
 
-  const sortByOption = (unsortedHits: SearchMap) =>
-    unsortedHits.sort(sortBy(sortingOption));
-
   const filterBlockedHits = (hits: SearchMap) =>
     hits.filter(
       (hit: SearchItem) => !blockedHits.get(hit.groupId)
     ) as SearchMap;
 
-  const searchResultsToArray = (hits: SearchMap) =>
-    sortByOption(filterBlockedHits(hits)).toArray();
+  const displayedHits = filterBlockedHits(hits)
+    .sort(sortBy(sortingOption))
+    .toArray();
 
   return hits.isEmpty() ? (
     <Stack vertical>
@@ -59,10 +57,10 @@ const HitTable = (props: Props & Handlers) => {
   ) : (
     <Stack vertical>
       <SearchBar />
-      <Card>
+      <Card title={`${displayedHits.length} HITs found.`}>
         <SortingForm onChange={onChangeSort} value={sortingOption} />
         <ResourceList
-          items={searchResultsToArray(hits)}
+          items={displayedHits}
           renderItem={(hit: SearchItem) => (
             <SearchCard
               hit={hit}
