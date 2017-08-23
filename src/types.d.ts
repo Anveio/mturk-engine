@@ -51,6 +51,7 @@ export interface QueueItem {
 export interface BlockedHit {
   readonly dateBlocked: Date;
   readonly requesterName: string;
+  readonly title: string;
 }
 
 export interface TOpticonResponse {
