@@ -55,6 +55,10 @@ export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async 
          */
         return Map<string, Requester>();
       }
+      /**
+       * Because the incoming search results are fresh and have no TO applied,
+       * the requesterIdsWithNoTO will always be equal to the searchResults..
+       */
       const requesterIds = requesterIdsWithNoTO(hits);
       return await batchFetchTOpticon(requesterIds);
     } catch (e) {
