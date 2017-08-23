@@ -3,7 +3,8 @@ import {
   hitTableIdentifier,
   requesterIdAnchor,
   groupIdAnchor,
-  hitIdAnchor
+  hitIdAnchor,
+  timeLeftSelector
 } from '../constants';
 import { Map } from 'immutable';
 import { v4 } from 'uuid';
@@ -133,11 +134,21 @@ export const parseHitIdQueue = (input: HTMLTableElement): string => {
   }
 };
 
+export const parseTimeLeft = (input: HTMLTableElement): string => {
+  const timeLeftElem = input.querySelector(timeLeftSelector);
+  if (timeLeftElem) {
+    return (timeLeftElem as HTMLTableCellElement).innerText.trim();
+  } else {
+    return '[Error:timeLeft]';
+  }
+};
+
 export const createQueueItem = (input: HTMLTableElement): QueueItem => ({
   title: parseTitle(input),
   hitId: parseHitIdQueue(input),
   requesterName: parseRequesterName(input),
-  reward: parseReward(input)
+  reward: parseReward(input),
+  timeLeft: parseTimeLeft(input)
 });
 
 export const tabulateQueueData = (input: HTMLTableElement[]): QueueMap =>
