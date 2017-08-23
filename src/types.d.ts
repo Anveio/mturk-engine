@@ -10,11 +10,13 @@ export interface RootState {
   readonly searchOptions: SearchOptions;
   readonly searchFormActive: boolean;
   readonly sortingOption: SortingOption;
+  readonly hitBlocklist: HitBlocklistMap;
 }
 
 export type SearchMap = Immutable.Map<string, SearchItem>;
 export type QueueMap = Immutable.Map<string, QueueItem>;
 export type RequesterMap = Immutable.Map<string, Requester>;
+export type HitBlocklistMap = Immutable.Map<string, BlocklistItem>;
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {
@@ -44,6 +46,11 @@ export interface QueueItem {
   readonly hitId: string;
   readonly reward: string;
   readonly timeLeft: string;
+}
+
+export interface BlocklistItem {
+  readonly dateBlocked: Date;
+  readonly requesterName: string;
 }
 
 export interface TOpticonResponse {
