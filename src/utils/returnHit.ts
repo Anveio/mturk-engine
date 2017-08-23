@@ -18,7 +18,13 @@ export type HitReturnStatus = 'repeat' | 'success' | 'error';
 
 const validateHitReturn = (html: string): HitReturnStatus => {
   const table = stringToDomElement(html);
-  const alertBox = table.querySelector('#alertboxHeader')
+  const noAssignedHitsContainer = table.querySelector('td.error_title');
+
+  if (!!noAssignedHitsContainer) {
+    return 'success';
+  }
+
+  const alertBox = table.querySelector('#alertboxHeader');
   return !!alertBox ? validateAlertBoxText(alertBox) : 'error';
 };
 
