@@ -1,5 +1,5 @@
 import { Dispatch } from 'react-redux';
-import { SearchItem, TOpticonResponse, SearchOptions } from '../types';
+import { SearchItem, Requester, SearchOptions } from '../types';
 import { Map } from 'immutable';
 import {
   SearchAction,
@@ -55,7 +55,7 @@ export const queryMturkAndTOpticon = (
          * Immediately exit without sending network request 
          * and return an empty map to simply function signature.
          */
-        return Map<string, TOpticonResponse>();
+        return Map<string, Requester>();
       }
       /**
        * Because the incoming search results are fresh and have no TO applied,
@@ -65,7 +65,7 @@ export const queryMturkAndTOpticon = (
       return await batchFetchTOpticon(requesterIds);
     } catch (e) {
       dispatch(fetchTOpticonFailure());
-      return Map<string, TOpticonResponse>();
+      return Map<string, Requester>();
     }
   })();
 

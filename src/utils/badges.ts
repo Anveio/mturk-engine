@@ -1,4 +1,4 @@
-import { TOpticonResponse, RequesterScores } from '../types';
+import { Requester, RequesterScores } from '../types';
 import { calculateAverageScore } from './turkopticon';
 
 type Status = 'success' | 'info' | 'attention' | 'warning';
@@ -9,7 +9,7 @@ interface BadgeDescriptor {
 }
 
 export const generateBadges = (
-  requester: TOpticonResponse | undefined
+  requester: Requester | undefined
 ): BadgeDescriptor[] => {
   if (!requester) {
     return [];

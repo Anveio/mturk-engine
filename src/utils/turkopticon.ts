@@ -3,7 +3,7 @@ import {
   SearchMap,
   RequesterMap,
   RequesterScores,
-  TOpticonResponse
+  Requester
 } from '../types';
 import { turkopticonApiMulti } from '../constants';
 import { Map } from 'immutable';
@@ -20,7 +20,7 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
     const response = await axios.get(turkopticonApiMulti + requesterIds);
     // tslint:disable-next-line:no-console
     console.log('Time to fetch TO: ' + (performance.now() - t0));
-    const data: TOpticonResponse = response.data;
+    const data: Requester = response.data;
     return mapFromTO(data);
   } catch (e) {
     throw Error('Problem fetching data from TO');
@@ -72,8 +72,8 @@ export const filterCategories = (scores: RequesterScores) =>
     {}
   );
 
-export const mapFromTO = (data: TOpticonResponse): RequesterMap =>
+export const mapFromTO = (data: Requester): RequesterMap =>
   Object.keys(data).reduce(
     (acc, id: string): RequesterMap => (data[id] ? acc.set(id, data[id]) : acc),
-    Map<string, TOpticonResponse>()
+    Map<string, Requester>()
   );

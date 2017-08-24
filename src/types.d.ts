@@ -15,7 +15,7 @@ export interface RootState {
 
 export type SearchMap = Immutable.Map<string, SearchItem>;
 export type QueueMap = Immutable.Map<string, QueueItem>;
-export type RequesterMap = Immutable.Map<string, TOpticonResponse>;
+export type RequesterMap = Immutable.Map<string, Requester>;
 export type HitBlockMap = Immutable.Map<string, BlockedHit>;
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
@@ -35,7 +35,7 @@ export interface SearchItem {
   readonly reward: string;
   readonly groupId: string;
   readonly batchSize: number;
-  readonly turkopticon?: TOpticonResponse;
+  readonly turkopticon?: Requester;
   readonly time: number;
   readonly qualified: boolean;
 }
@@ -52,7 +52,7 @@ export interface BlockedHit extends SearchItem {
   readonly dateBlocked: Date;
 }
 
-export interface TOpticonResponse {
+export interface Requester {
   readonly name: string;
   readonly attrs: RequesterScores;
   readonly reviews: number;
