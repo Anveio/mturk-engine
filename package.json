@@ -12,7 +12,6 @@
     "react-redux": "^5.0.5",
     "react-redux-toastr": "^7.1.5",
     "redux": "^3.7.2",
-    "redux-persist": "^4.9.1",
     "uuid": "^3.1.0"
   },
   "homepage": "https://www.mturk.com/mturk/findhits?match=true?mturkengine",
