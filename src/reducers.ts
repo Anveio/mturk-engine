@@ -1,5 +1,4 @@
 import { RootState } from './types';
-
 import { combineReducers } from 'redux';
 import { reducer as toastr } from 'react-redux-toastr';
 import { default as tab } from './reducers/tab';
