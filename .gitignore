@@ -18,6 +18,7 @@ node_modules
 .env.production.local
 
 example.js
+example2.js
 cookie.js
 development_notes.txt
 

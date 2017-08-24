@@ -43,7 +43,11 @@ const SearchBar = (props: Props & Handlers) => {
     </Card>
   ) : (
     <Card sectioned>
-      <SearchButtons onToggle={onToggle} active={false} onFetch={handleSearch} />
+      <SearchButtons
+        onToggle={onToggle}
+        active={false}
+        onFetch={handleSearch}
+      />
     </Card>
   );
 };

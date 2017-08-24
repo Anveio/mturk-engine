@@ -27,8 +27,6 @@ export interface Handlers {
   readonly onChangeSort: (option: SortingOption) => void;
 }
 
-// const random = (x: string) => console.log(x);
-
 const HitTable = (props: Props & Handlers) => {
   const {
     hits,

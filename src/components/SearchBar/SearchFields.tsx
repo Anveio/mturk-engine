@@ -35,6 +35,7 @@ const MinimumRewardField = ({ value, onChange }: Props) => {
       label="Minimum Reward"
       type="number"
       min={0}
+      step={0.1}
       prefix="$"
       autoComplete={false}
       value={value}
@@ -58,7 +59,9 @@ const SortTypeField = ({ value, options, onChange }: SortTypeProps) => {
 };
 
 const QualifiedBox = ({ checked, onChange }: CheckBoxProps) => {
-  return <Checkbox label="Qualified only" checked={checked} onChange={onChange} />;
+  return (
+    <Checkbox label="Qualified only" checked={checked} onChange={onChange} />
+  );
 };
 
 export { SearchDelayField, MinimumRewardField, SortTypeField, QualifiedBox };
