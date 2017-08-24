@@ -1,10 +1,10 @@
-import { Requester } from '../types';
+import { TOpticonResponse } from '../types';
 import { Map } from 'immutable';
 import * as constants from '../constants';
 
 export interface FetchTOpticonSuccess {
   type: constants.FETCH_TURKOPTICON_SUCCESS;
-  data: Map<string, Requester>;
+  data: Map<string, TOpticonResponse>;
 }
 
 export interface FetchTOpticonFailure {
@@ -14,7 +14,7 @@ export interface FetchTOpticonFailure {
 export type TOpticonAction = FetchTOpticonSuccess | FetchTOpticonFailure;
 
 export const fetchTOpticonSuccess = (
-  data: Map<string, Requester>
+  data: Map<string, TOpticonResponse>
 ): FetchTOpticonSuccess => ({
   type: constants.FETCH_TURKOPTICON_SUCCESS,
   data

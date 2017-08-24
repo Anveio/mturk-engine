@@ -1,7 +1,6 @@
 import {
   SearchItem,
   SearchMap,
-  Requester,
   RequesterMap,
   RequesterScores,
   TOpticonResponse
@@ -46,7 +45,9 @@ export const requesterIdsWithNoTO = (hits: SearchMap) => {
     .toArray();
 };
 
-export const calculateAverageScore = (scores: RequesterScores): number | null => {
+export const calculateAverageScore = (
+  scores: RequesterScores
+): number | null => {
   const categories = filterCategories(scores);
   const total = Object.keys(categories).reduce(
     (acc, category: string) => acc + parseFloat(categories[category]),
@@ -65,13 +66,14 @@ export const calculateAverageScore = (scores: RequesterScores): number | null =>
 export const filterCategories = (scores: RequesterScores) =>
   Object.keys(scores).reduce(
     (acc: Object, category: string) =>
-      scores[category] !== '0.00' ? { ...acc, [category]: scores[category] } : acc,
+      scores[category] !== '0.00'
+        ? { ...acc, [category]: scores[category] }
+        : acc,
     {}
   );
 
 export const mapFromTO = (data: TOpticonResponse): RequesterMap =>
   Object.keys(data).reduce(
-    (acc, requester: string): RequesterMap =>
-      data[requester] ? acc.set(requester, data[requester]) : acc,
-    Map<string, Requester>()
+    (acc, id: string): RequesterMap => (data[id] ? acc.set(id, data[id]) : acc),
+    Map<string, TOpticonResponse>()
   );

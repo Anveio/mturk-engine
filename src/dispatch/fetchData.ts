@@ -1,5 +1,5 @@
 import { Dispatch } from 'react-redux';
-import { SearchItem, Requester, SearchOptions } from '../types';
+import { SearchItem, TOpticonResponse, SearchOptions } from '../types';
 import { Map } from 'immutable';
 import {
   SearchAction,
@@ -17,9 +17,9 @@ import { generateSearchToast } from '../utils/toastr';
 
 export type FetchAction = SearchAction | TOpticonAction;
 
-export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async (
-  options: SearchOptions
-) => {
+export const queryMturkAndTOpticon = (
+  dispatch: Dispatch<FetchAction>
+) => async (options: SearchOptions) => {
   /**
    * Credit to: https://www.bignerdranch.com/blog/cross-stitching-elegant-concurrency-patterns-for-javascript/
    */
@@ -28,7 +28,9 @@ export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async 
       const hitData = await batchFetchHits(options);
       const empty = hitData.isEmpty();
       generateSearchToast(!empty);
-      empty ? dispatch(fetchSearchFailure()) : dispatch(fetchSearchSuccess(hitData));
+      empty
+        ? dispatch(fetchSearchFailure())
+        : dispatch(fetchSearchSuccess(hitData));
       return hitData;
     } catch (e) {
       /**
@@ -53,7 +55,7 @@ export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async 
          * Immediately exit without sending network request 
          * and return an empty map to simply function signature.
          */
-        return Map<string, Requester>();
+        return Map<string, TOpticonResponse>();
       }
       /**
        * Because the incoming search results are fresh and have no TO applied,
@@ -63,7 +65,7 @@ export const queryMturkAndTOpticon = (dispatch: Dispatch<FetchAction>) => async 
       return await batchFetchTOpticon(requesterIds);
     } catch (e) {
       dispatch(fetchTOpticonFailure());
-      return Map<string, Requester>();
+      return Map<string, TOpticonResponse>();
     }
   })();
 

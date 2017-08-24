@@ -15,7 +15,7 @@ export interface RootState {
 
 export type SearchMap = Immutable.Map<string, SearchItem>;
 export type QueueMap = Immutable.Map<string, QueueItem>;
-export type RequesterMap = Immutable.Map<string, Requester>;
+export type RequesterMap = Immutable.Map<string, TOpticonResponse>;
 export type HitBlockMap = Immutable.Map<string, BlockedHit>;
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
@@ -35,7 +35,7 @@ export interface SearchItem {
   readonly reward: string;
   readonly groupId: string;
   readonly batchSize: number;
-  readonly turkopticon?: Requester;
+  readonly turkopticon?: TOpticonResponse;
   readonly time: number;
   readonly qualified: boolean;
 }
@@ -64,11 +64,4 @@ export interface RequesterScores {
   readonly pay?: string;
   readonly fair?: string;
   readonly fast?: string;
-}
-
-/**
- * Each string should be parseFloat()-able into a number.
- */
-export interface Requester extends TOpticonResponse {
-  readonly id?: string;
 }
