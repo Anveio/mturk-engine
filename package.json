@@ -12,6 +12,7 @@
     "react-redux": "^5.0.5",
     "react-redux-toastr": "^7.1.5",
     "redux": "^3.7.2",
+    "redux-immutable": "^4.0.0",
     "uuid": "^3.1.0"
   },
   "homepage": "https://www.mturk.com/mturk/findhits?match=true?mturkengine",
@@ -22,6 +23,7 @@
     "@types/react-dom": "^15.5.1",
     "@types/react-redux": "^4.4.47",
     "@types/react-redux-toastr": "^7.0.0",
+    "@types/redux-immutable": "^3.0.35",
     "@types/uuid": "^3.4.0",
     "react-scripts-ts": "2.3.2"
   },

@@ -1,5 +1,5 @@
 import { RootState } from './types';
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux-immutable';
 import { reducer as toastr } from 'react-redux-toastr';
 import { default as tab } from './reducers/tab';
 import { default as search } from './reducers/search';
