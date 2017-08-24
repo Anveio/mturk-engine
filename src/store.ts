@@ -10,6 +10,4 @@ const devtools: any = window['devToolsExtension']
 
 const store = createStore<RootState>(rootReducer, compose(devtools()));
 
-console.log(store.getState());
-
 export default store;
