@@ -5,7 +5,7 @@ export interface RootState {
   readonly tab: number;
   readonly queue: QueueMap;
   readonly toastr: ToastrState;
-  readonly search: SearchMap;
+  readonly search: SearchResults;
   readonly requesters: RequesterMap;
   readonly searchOptions: SearchOptions;
   readonly searchFormActive: boolean;
@@ -13,7 +13,7 @@ export interface RootState {
   readonly hitBlocklist: HitBlockMap;
 }
 
-export type SearchMap = Immutable.Map<string, SearchItem>;
+export type SearchResults = Immutable.Map<string, SearchItem>;
 export type QueueMap = Immutable.Map<string, QueueItem>;
 export type RequesterMap = Immutable.Map<string, Requester>;
 export type HitBlockMap = Immutable.Map<string, BlockedHit>;

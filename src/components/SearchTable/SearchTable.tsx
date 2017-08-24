@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   SearchItem,
-  SearchMap,
+  SearchResults,
   BlockedHit,
   HitBlockMap,
   RequesterMap,
@@ -15,7 +15,7 @@ import EmptyHitTable from '../../containers/EmptySearchTable';
 import { sortBy } from '../../utils/sorting';
 
 export interface Props {
-  readonly hits: SearchMap;
+  readonly hits: SearchResults;
   readonly requesters: RequesterMap;
   readonly sortingOption: SortingOption;
   readonly blockedHits: HitBlockMap;
@@ -38,10 +38,10 @@ const HitTable = (props: Props & Handlers) => {
     onChangeSort
   } = props;
 
-  const filterBlockedHits = (unfilteredHits: SearchMap) =>
+  const filterBlockedHits = (unfilteredHits: SearchResults) =>
     unfilteredHits.filter(
       (hit: SearchItem) => !blockedHits.get(hit.groupId)
-    ) as SearchMap;
+    ) as SearchResults;
 
   const displayedHits = filterBlockedHits(hits)
     .sort(sortBy(sortingOption))

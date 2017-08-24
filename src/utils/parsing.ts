@@ -1,4 +1,4 @@
-import { SearchItem, SearchMap, QueueItem, QueueMap } from '../types';
+import { SearchItem, SearchResults, QueueItem, QueueMap } from '../types';
 import {
   hitTableIdentifier,
   requesterIdAnchor,
@@ -24,9 +24,9 @@ export const selectHitContainers = (el: HTMLTableElement): HTMLTableElement[] =>
     HTMLTableElement
   >);
 
-export const tabulateSearchData = (input: HTMLTableElement[]): SearchMap =>
+export const tabulateSearchData = (input: HTMLTableElement[]): SearchResults =>
   input.reduce(
-    (map: SearchMap, hit: HTMLTableElement) =>
+    (map: SearchResults, hit: HTMLTableElement) =>
       map.set(parseGroupId(hit), createSearchItem(hit)),
     Map<string, SearchItem>()
   );
@@ -110,7 +110,7 @@ export const parseQualified = (input: HTMLTableElement): boolean => {
   return !input.querySelector('a[href^="/mturk/requestqualification?"]');
 };
 
-export const parseSearchPage = (html: string): SearchMap => {
+export const parseSearchPage = (html: string): SearchResults => {
   const table = stringToDomElement(html);
   const hitContainers = selectHitContainers(table);
   const hitData = tabulateSearchData(hitContainers);

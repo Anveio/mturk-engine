@@ -1,9 +1,9 @@
 import * as constants from '../constants';
-import { SearchMap } from '../types';
+import { SearchResults } from '../types';
 
 export interface SearchSuccess {
   type: constants.FETCH_HIT_PAGE_SUCCESS;
-  data: SearchMap;
+  data: SearchResults;
 }
 
 export interface SearchFailure {
@@ -12,7 +12,7 @@ export interface SearchFailure {
 
 export type SearchAction = SearchSuccess | SearchFailure;
 
-export const fetchSearchSuccess = (data: SearchMap): SearchSuccess => ({
+export const fetchSearchSuccess = (data: SearchResults): SearchSuccess => ({
   type: constants.FETCH_HIT_PAGE_SUCCESS,
   data
 });

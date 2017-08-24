@@ -1,6 +1,6 @@
 import {
   SearchItem,
-  SearchMap,
+  SearchResults,
   RequesterMap,
   RequesterScores,
   Requester
@@ -37,7 +37,7 @@ export const invalidGroupId = (hit: SearchItem) =>
  * with no T.O.
  * @param hits 
  */
-export const requesterIdsWithNoTO = (hits: SearchMap) => {
+export const requesterIdsWithNoTO = (hits: SearchResults) => {
   return hits
     .filter(noTurkopticon)
     .filter(invalidGroupId)
