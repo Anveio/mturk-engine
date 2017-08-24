@@ -37,7 +37,9 @@ const SearchBar = (props: Props & Handlers) => {
             Changes are saved as you type and will apply on your next search.
           </Caption>
           <SearchSettings />
-          <SearchButtons onToggle={onToggle} active onFetch={handleSearch} />
+          <Stack vertical={false}>
+            <SearchButtons onToggle={onToggle} active onFetch={handleSearch} />
+          </Stack>
         </Stack>
       </div>
     </Card>

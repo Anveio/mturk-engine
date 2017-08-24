@@ -64,4 +64,24 @@ const QualifiedBox = ({ checked, onChange }: CheckBoxProps) => {
   );
 };
 
-export { SearchDelayField, MinimumRewardField, SortTypeField, QualifiedBox };
+const CustomSearch = ({ value, onChange }: Props) => {
+  return (
+    <TextField
+      labelHidden
+      label="Custom search"
+      name="Custom Search"
+      id="custom-search"
+      placeholder="Custom search"
+      value={value}
+      onChange={onChange}
+    />
+  );
+};
+
+export {
+  SearchDelayField,
+  MinimumRewardField,
+  SortTypeField,
+  QualifiedBox,
+  CustomSearch
+};
