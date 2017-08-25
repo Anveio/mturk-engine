@@ -1,6 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { SearchItem } from '../types';
-import { Map } from 'immutable';
+import { SearchResults } from '../types';
 import {
   SearchRequest,
   SearchFailure,
@@ -17,10 +16,7 @@ import { generateSearchToast } from '../utils/toastr';
 
 export function* fetchSearch(action: SearchRequest) {
   try {
-    const hitData: Map<string, SearchItem> = yield call(
-      batchFetchHits,
-      action.options
-    );
+    const hitData: SearchResults = yield call(batchFetchHits, action.options);
 
     const empty = hitData.isEmpty();
     generateSearchToast(!empty);

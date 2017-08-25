@@ -15,10 +15,10 @@ export function* returnHit(action: ReturnHitRequest) {
     generateReturnToast(status);
     switch (status) {
       case 'error':
-        put<ReturnHitFailure>(returnHitFailure());
+        yield put<ReturnHitFailure>(returnHitFailure());
         break;
       case 'repeat':
-        put<ReturnHitFailure>(returnHitFailure());
+        yield put<ReturnHitFailure>(returnHitFailure());
         break;
       case 'success':
         yield put<ReturnHitSuccess>(returnHitSuccess(action.hitId));

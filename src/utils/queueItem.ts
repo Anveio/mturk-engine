@@ -10,6 +10,13 @@ export const generateItemProps = (hit: QueueItem): ItemProps => {
   };
 };
 
+/**
+ * Creates a QueueItem from a SearchItem, setting the hitId to undetermined, and
+ * using the SearchItem's timeAlloted property to set the QueueItem's timeLeft
+ * property. Both of these properties should be updated when the queue is 
+ * refreshed.
+ * @param hit 
+ */
 export const searchItemToQueueItem = (hit: SearchItem): QueueItem => {
   const { requesterName, reward, timeAllotted, title } = hit;
   return {
