@@ -39,7 +39,7 @@ export const createSearchItem = (input: HTMLTableElement): SearchItem => ({
   reward: parseReward(input),
   groupId: parseGroupId(input),
   time: Date.now(),
-  timeAlloted: parseTimeAlloted(input),
+  timeAllotted: parseTimeAllotted(input),
   batchSize: parseBatchSize(input),
   qualified: parseQualified(input)
 });
@@ -95,7 +95,7 @@ export const parseGroupId = (input: HTMLTableElement): string => {
   }
 };
 
-export const parseTimeAlloted = (input: HTMLTableElement): string => {
+export const parseTimeAllotted = (input: HTMLTableElement): string => {
   const timeAllotedElem = input.querySelector(timeAllotedSelector);
   return timeAllotedElem && timeAllotedElem.textContent
     ? timeAllotedElem.textContent.trim()
