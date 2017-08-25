@@ -1,5 +1,5 @@
 // import { Dispatch } from 'react-redux';
-import { SearchItem } from '../types';
+import { QueueItem } from '../types';
 import { Map } from 'immutable';
 // import { fetchQueueSuccess, fetchQueueFailure, QueueAction } from '../actions/queue';
 import { getQueuePage } from '../utils/fetchQueue';
@@ -24,6 +24,6 @@ export const fetchQueue = async () => {
     const queueData = await getQueuePage();
     return queueData;
   } catch (e) {
-    return Map<string, SearchItem>();
+    return Promise.resolve(Map<string, QueueItem>());
   }
 };
