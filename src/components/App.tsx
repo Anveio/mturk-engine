@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Page, Layout } from '@shopify/polaris';
-import { SearchOptions } from '../types';
 import ReduxToastr from 'react-redux-toastr';
 import TabNavigation from '../containers/TabNavigation';
 
@@ -9,7 +8,6 @@ export interface Props {
 }
 
 export interface Handlers {
-  readonly onFetch: (options: SearchOptions) => void;
   readonly onSelectTab: (selectedTabIndex: number) => void;
 }
 
