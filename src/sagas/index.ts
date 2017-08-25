@@ -19,6 +19,5 @@ export default function* rootSaga() {
   yield takeLatest<QueueAction>(FETCH_QUEUE_REQUEST, fetchUserQueue);
   yield takeLatest<ReturnAction>(RETURN_HIT_REQUEST, returnHit);
   yield takeLatest<SearchAction>(SEARCH_REQUEST, fetchSearch);
-  yield takeLatest<SearchAction>(SEARCH_REQUEST, fetchSearch);
   yield takeLatest<AcceptAction>(ACCEPT_HIT_REQUEST, acceptHit);
 }
