@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { SearchOptions } from '../../types';
-import { FormLayout } from '@shopify/polaris';
+import { FormLayout, DisplayText, Caption } from '@shopify/polaris';
 import {
   MinimumRewardField,
   SearchDelayField,
@@ -11,7 +11,10 @@ import {
 const sortingOptions: string[] = [ 'Latest', 'Batch Size', 'Reward' ];
 
 export interface Handlers {
-  readonly onChange: (field: keyof SearchOptions, value: string | boolean) => void;
+  readonly onChange: (
+    field: keyof SearchOptions,
+    value: string | boolean
+  ) => void;
 }
 
 const SearchSettings = (props: SearchOptions & Handlers) => {
@@ -27,8 +30,15 @@ const SearchSettings = (props: SearchOptions & Handlers) => {
 
   return (
     <FormLayout>
+      <DisplayText size="small">Edit search settings.</DisplayText>
+      <Caption>
+        Changes are saved as you type and will apply on your next search.
+      </Caption>
       <SearchDelayField onChange={updateField('delay')} value={delay} />
-      <MinimumRewardField onChange={updateField('minReward')} value={minReward} />
+      <MinimumRewardField
+        onChange={updateField('minReward')}
+        value={minReward}
+      />
       <SortTypeField
         onChange={updateField('sortType')}
         value={sortType}
