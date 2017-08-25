@@ -27,6 +27,9 @@ export type FETCH_QUEUE_REQUEST = typeof FETCH_QUEUE_REQUEST;
 export const FETCH_QUEUE_FAILURE = 'FETCH_QUEUE_FAILURE';
 export type FETCH_QUEUE_FAILURE = typeof FETCH_QUEUE_FAILURE;
 
+export const ACCEPT_HIT_REQUEST = 'ACCEPT_HIT_REQUEST';
+export type ACCEPT_HIT_REQUEST = typeof ACCEPT_HIT_REQUEST;
+
 export const ACCEPT_HIT_SUCCESS = 'ACCEPT_HIT_SUCCESS';
 export type ACCEPT_HIT_SUCCESS = typeof ACCEPT_HIT_SUCCESS;
 
@@ -84,3 +87,6 @@ export const timeLeftSelector = `tbody > tr > td:nth-child(3) > table > tbody > 
 export const turkopticonApiMulti = `https://turkopticon.ucsd.edu/api/multi-attrs.php?ids=`;
 
 export const tutkopticonBaseUrl = `https://turkopticon.ucsd.edu/`;
+
+export const timeAllotedSelector =
+  'tr > td:nth-child(2) > table > tbody > tr:nth-child(2) > td.capsule_field_text';

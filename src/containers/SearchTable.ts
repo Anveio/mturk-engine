@@ -1,13 +1,12 @@
 import { connect, Dispatch } from 'react-redux';
-import { RootState, SortingOption, BlockedHit } from '../types';
+import { RootState, SortingOption, BlockedHit, SearchItem } from '../types';
 import HitTable, {
   Props,
   Handlers
 } from '../components/SearchTable/SearchTable';
-import { AcceptAction } from '../actions/accept';
+import { AcceptAction, acceptHitRequest } from '../actions/accept';
 import { BlockAction, blockHitGroup } from '../actions/blocklist';
 import { ChangeSorting, changeSorting } from '../actions/sorting';
-import { sendAcceptRequest } from '../dispatch/acceptHit';
 
 const mapState = (state: RootState): Props => ({
   hits: state.search,
@@ -19,7 +18,9 @@ const mapState = (state: RootState): Props => ({
 type SearchTableAction = AcceptAction | ChangeSorting | BlockAction;
 
 const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
-  onAccept: sendAcceptRequest(dispatch),
+  onAccept: (hit: SearchItem) => {
+    dispatch(acceptHitRequest(hit));
+  },
   onChangeSort: (option: SortingOption) => {
     dispatch(changeSorting(option));
   },

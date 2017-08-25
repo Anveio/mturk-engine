@@ -18,7 +18,10 @@ export interface FetchQueueFailure {
   type: FETCH_QUEUE_FAILURE;
 }
 
-export type QueueAction = FetchQueueSuccess | FetchQueueFailure;
+export type QueueAction =
+  | FetchQueueSuccess
+  | FetchQueueFailure
+  | FetchQueueRequest;
 
 export const fetchQueueRequest = (): FetchQueueRequest => ({
   type: FETCH_QUEUE_REQUEST

@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import {
+  FetchQueueRequest,
   FetchQueueFailure,
   fetchQueueFailure,
   FetchQueueSuccess,
@@ -8,9 +9,7 @@ import {
 import { getQueuePage } from '../utils/fetchQueue';
 import { generateQueueToast, failedQueueToast } from '../utils/toastr';
 
-type FetchQueueResolution = FetchQueueFailure | FetchQueueSuccess;
-
-export function* fetchUserQueue(action: FetchQueueResolution) {
+export function* fetchUserQueue(action: FetchQueueRequest) {
   try {
     const queueData = yield call(getQueuePage);
     const empty = !queueData.isEmpty();
