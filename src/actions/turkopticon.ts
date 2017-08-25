@@ -8,7 +8,7 @@ export interface FetchTOpticonSuccess {
 }
 
 export interface FetchTOpticonFailure {
-  type: constants.FETCH_HIT_PAGE_FAILURE;
+  type: constants.SEARCH_FAILURE;
 }
 
 export type TOpticonAction = FetchTOpticonSuccess | FetchTOpticonFailure;
@@ -21,5 +21,5 @@ export const fetchTOpticonSuccess = (
 });
 
 export const fetchTOpticonFailure = (): FetchTOpticonFailure => ({
-  type: constants.FETCH_HIT_PAGE_FAILURE
+  type: constants.SEARCH_FAILURE
 });

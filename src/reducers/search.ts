@@ -2,7 +2,7 @@ import { SearchItem, SearchResults } from '../types';
 import { SearchAction } from '../actions/search';
 import { TOpticonAction } from '../actions/turkopticon';
 import {
-  FETCH_HIT_PAGE_SUCCESS,
+  SEARCH_SUCCESS,
   FETCH_TURKOPTICON_SUCCESS
 } from '../constants';
 import { Map } from 'immutable';
@@ -16,7 +16,7 @@ export default (state = initial, action: FetchAction): SearchResults => {
   let partialState: SearchResults | undefined;
 
   switch (action.type) {
-    case FETCH_HIT_PAGE_SUCCESS:
+    case SEARCH_SUCCESS:
       partialState = action.data as SearchResults;
       break;
     case FETCH_TURKOPTICON_SUCCESS:

@@ -2,6 +2,8 @@ import axios from 'axios';
 import { API_URL } from '../constants';
 import { stringToDomElement } from './parsing';
 
+export type HitReturnStatus = 'repeat' | 'success' | 'error';
+
 export const sendReturnHitRequest = async (hitId: string) => {
   try {
     const response = await axios.get(
@@ -13,8 +15,6 @@ export const sendReturnHitRequest = async (hitId: string) => {
     return 'error';
   }
 };
-
-export type HitReturnStatus = 'repeat' | 'success' | 'error';
 
 const validateHitReturn = (html: string): HitReturnStatus => {
   const table = stringToDomElement(html);
