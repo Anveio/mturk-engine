@@ -4,7 +4,8 @@ import {
   requesterIdAnchor,
   groupIdAnchor,
   hitIdAnchor,
-  timeLeftSelector
+  timeLeftSelector,
+  timeAllotedSelector
 } from '../constants';
 import { Map } from 'immutable';
 import { v4 } from 'uuid';
@@ -38,6 +39,7 @@ export const createSearchItem = (input: HTMLTableElement): SearchItem => ({
   reward: parseReward(input),
   groupId: parseGroupId(input),
   time: Date.now(),
+  timeAlloted: parseTimeAlloted(input),
   batchSize: parseBatchSize(input),
   qualified: parseQualified(input)
 });
@@ -91,6 +93,13 @@ export const parseGroupId = (input: HTMLTableElement): string => {
   } else {
     return '[Error:groupId]-' + v4();
   }
+};
+
+export const parseTimeAlloted = (input: HTMLTableElement): string => {
+  const timeAllotedElem = input.querySelector(timeAllotedSelector);
+  return timeAllotedElem && timeAllotedElem.textContent
+    ? timeAllotedElem.textContent.trim()
+    : '[Error:reward]';
 };
 
 /**
