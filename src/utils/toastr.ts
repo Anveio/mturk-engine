@@ -70,8 +70,8 @@ const successfulSearchToast = () => {
 const failedSearchToast = () => {
   toastr.error(
     `Error`,
-    `Your search returned no results. Check your search settings and make sure you're logged in.`
-  );
+    `Your search returned no results. Make sure you're logged in and check your search settings.`
+  , { timeOut: 3000 });
 };
 
 const repeatReturnToast = () => {
