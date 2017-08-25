@@ -11,12 +11,12 @@ export const generateItemProps = (hit: QueueItem): ItemProps => {
 };
 
 export const searchItemToQueueItem = (hit: SearchItem): QueueItem => {
-  const { requesterName, reward, timeAlloted, title } = hit;
+  const { requesterName, reward, timeAllotted, title } = hit;
   return {
     hitId: 'Undetermined',
     requesterName,
     reward,
-    timeLeft: timeAlloted,
+    timeLeft: timeAllotted,
     title
   };
 };

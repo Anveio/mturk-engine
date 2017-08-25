@@ -38,7 +38,7 @@ export interface SearchItem {
   readonly turkopticon?: Requester;
   readonly time: number;
   readonly qualified: boolean;
-  readonly timeAlloted: string;
+  readonly timeAllotted: string;
 }
 
 export interface QueueItem {
