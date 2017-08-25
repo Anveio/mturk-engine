@@ -1,10 +1,15 @@
 import {
+  FETCH_QUEUE_REQUEST,
   FETCH_QUEUE_FAILURE,
   FETCH_QUEUE_SUCCESS,
   RETURN_HIT_FAILURE,
   RETURN_HIT_SUCCESS
 } from '../constants';
 import { QueueMap } from '../types';
+
+export interface FetchQueueRequest {
+  type: FETCH_QUEUE_REQUEST;
+}
 
 export interface FetchQueueSuccess {
   type: FETCH_QUEUE_SUCCESS;
@@ -26,6 +31,10 @@ export interface ReturnHitSuccess {
 
 export type QueueAction = FetchQueueSuccess | FetchQueueFailure;
 export type ReturnAction = ReturnHitFailure | ReturnHitSuccess;
+
+export const fetchQueueRequest = (): FetchQueueRequest => ({
+  type: FETCH_QUEUE_REQUEST
+});
 
 export const fetchQueueSuccess = (data: QueueMap): FetchQueueSuccess => ({
   type: FETCH_QUEUE_SUCCESS,
