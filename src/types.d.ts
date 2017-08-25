@@ -1,4 +1,4 @@
-import * as Immutable from 'immutable';
+import { Map } from 'immutable';
 import { ToastrState } from 'react-redux-toastr';
 
 export interface RootState {
@@ -13,10 +13,10 @@ export interface RootState {
   readonly hitBlocklist: HitBlockMap;
 }
 
-export type SearchResults = Immutable.Map<string, SearchItem>;
-export type QueueMap = Immutable.Map<string, QueueItem>;
-export type RequesterMap = Immutable.Map<string, Requester>;
-export type HitBlockMap = Immutable.Map<string, BlockedHit>;
+export type SearchResults = Map<string, SearchItem>;
+export type QueueMap = Map<string, QueueItem>;
+export type RequesterMap = Map<string, Requester>;
+export type HitBlockMap = Map<string, BlockedHit>;
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {
