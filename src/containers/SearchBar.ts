@@ -15,7 +15,9 @@ const mapDispatch = (dispatch: Dispatch<SearchFormAction>): Handlers => ({
   onToggle: () => {
     dispatch(toggleForm());
   },
-  onFetch: (options: SearchOptions) => dispatch(searchRequest(options))
+  onSearch: (options: SearchOptions) => {
+    dispatch(searchRequest(options));
+  }
 });
 
 export default connect(mapState, mapDispatch)(SearchBar);

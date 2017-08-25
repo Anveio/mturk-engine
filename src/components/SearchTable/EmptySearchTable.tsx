@@ -8,12 +8,12 @@ export interface Props {
 }
 
 export interface Handlers {
-  onFetch: (options: SearchOptions) => void;
+  onSearch: (options: SearchOptions) => void;
 }
 
-const EmptySearchTable = ({ onFetch, options }: Props & Handlers) => {
+const EmptySearchTable = ({ onSearch, options }: Props & Handlers) => {
   const onAction = () => {
-    onFetch(options);
+    onSearch(options);
   };
 
   return (

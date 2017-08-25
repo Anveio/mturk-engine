@@ -11,7 +11,7 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<SearchAction>): Handlers => ({
-  onFetch: (options: SearchOptions) => dispatch(searchRequest(options))
+  onSearch: (options: SearchOptions) => dispatch(searchRequest(options))
 });
 
 export default connect(mapState, mapDispatch)(EmptySearchTable);

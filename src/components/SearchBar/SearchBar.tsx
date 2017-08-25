@@ -6,7 +6,7 @@ import SearchButtons from './SearchButtons';
 
 export interface Handlers {
   readonly onToggle: () => void;
-  readonly onFetch: (options: SearchOptions) => void;
+  readonly onSearch: (options: SearchOptions) => void;
 }
 
 export interface Props {
@@ -15,16 +15,16 @@ export interface Props {
 }
 
 const SearchBar = (props: Props & Handlers) => {
-  const { active, options, onToggle, onFetch } = props;
+  const { active, options, onToggle, onSearch } = props;
 
   const handleSearch = () => {
-    onFetch(options);
+    onSearch(options);
   };
 
   const watchForEnter = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.charCode === 13) {
       event.preventDefault();
-      onFetch(options);
+      onSearch(options);
     }
   };
 
@@ -38,7 +38,7 @@ const SearchBar = (props: Props & Handlers) => {
           </Caption>
           <SearchSettings />
           <Stack vertical={false}>
-            <SearchButtons onToggle={onToggle} active onFetch={handleSearch} />
+            <SearchButtons onToggle={onToggle} active onSearch={handleSearch} />
           </Stack>
         </Stack>
       </div>
@@ -48,7 +48,7 @@ const SearchBar = (props: Props & Handlers) => {
       <SearchButtons
         onToggle={onToggle}
         active={false}
-        onFetch={handleSearch}
+        onSearch={handleSearch}
       />
     </Card>
   );
