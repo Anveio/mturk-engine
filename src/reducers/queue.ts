@@ -1,11 +1,15 @@
 import { QueueItem, QueueMap } from '../types';
-import { QueueAction, ReturnAction } from '../actions/queue';
+import { QueueAction } from '../actions/queue';
+import { ReturnAction } from '../actions/return';
+
 import { FETCH_QUEUE_SUCCESS, RETURN_HIT_SUCCESS } from '../constants';
 import { Map } from 'immutable';
 
 const initial: QueueMap = Map<string, QueueItem>();
 
-export default (state = initial, action: QueueAction | ReturnAction): QueueMap => {
+type QueueTableAction = QueueAction | ReturnAction;
+
+export default (state = initial, action: QueueTableAction): QueueMap => {
   let partialState: QueueMap | undefined;
 
   switch (action.type) {

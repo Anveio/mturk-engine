@@ -1,5 +1,9 @@
 import { Dispatch } from 'react-redux';
-import { ReturnAction, returnHitFailure, returnHitSuccess } from '../actions/queue';
+import {
+  ReturnAction,
+  returnHitFailure,
+  returnHitSuccess
+} from '../actions/return';
 import { sendReturnHitRequest } from '../utils/returnHit';
 import { generateReturnToast, errorReturnToast } from '../utils/toastr';
 

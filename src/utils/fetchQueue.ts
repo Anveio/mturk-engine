@@ -4,10 +4,8 @@ import { parseQueuePage } from './parsing';
 
 export const getQueuePage = async () => {
   try {
-    const t0 = performance.now();
     const response = await axios.get(`${API_URL}/mturk/myhits`);
     // tslint:disable-next-line:no-console
-    console.log('Time to fetch queue: ' + (performance.now() - t0));
     const rawHtml: string = response.data;
     return parseQueuePage(rawHtml);
   } catch (e) {
