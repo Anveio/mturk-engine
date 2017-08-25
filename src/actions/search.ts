@@ -1,22 +1,32 @@
-import * as constants from '../constants';
-import { SearchResults } from '../types';
+import { SEARCH_SUCCESS, SEARCH_FAILURE, SEARCH_REQUEST } from '../constants';
+import { SearchResults, SearchOptions } from '../types';
 
 export interface SearchSuccess {
-  type: constants.SEARCH_SUCCESS;
+  type: SEARCH_SUCCESS;
   data: SearchResults;
 }
 
 export interface SearchFailure {
-  type: constants.SEARCH_FAILURE;
+  type: SEARCH_FAILURE;
 }
 
-export type SearchAction = SearchSuccess | SearchFailure;
+export interface SearchRequest {
+  type: SEARCH_REQUEST;
+  options: SearchOptions;
+}
 
-export const fetchSearchSuccess = (data: SearchResults): SearchSuccess => ({
-  type: constants.SEARCH_SUCCESS,
+export type SearchAction = SearchSuccess | SearchFailure | SearchRequest;
+
+export const searchSuccess = (data: SearchResults): SearchSuccess => ({
+  type: SEARCH_SUCCESS,
   data
 });
 
-export const fetchSearchFailure = (): SearchFailure => ({
-  type: constants.SEARCH_FAILURE
+export const searchFailure = (): SearchFailure => ({
+  type: SEARCH_FAILURE
+});
+
+export const searchRequest = (options: SearchOptions): SearchRequest => ({
+  type: SEARCH_REQUEST,
+  options
 });

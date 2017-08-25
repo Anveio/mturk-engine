@@ -3,8 +3,8 @@ import { SearchItem, Requester, SearchOptions } from '../types';
 import { Map } from 'immutable';
 import {
   SearchAction,
-  fetchSearchSuccess,
-  fetchSearchFailure
+  searchSuccess,
+  searchFailure
 } from '../actions/search';
 import {
   TOpticonAction,
@@ -29,15 +29,15 @@ export const queryMturkAndTOpticon = (
       const empty = hitData.isEmpty();
       generateSearchToast(!empty);
       empty
-        ? dispatch(fetchSearchFailure())
-        : dispatch(fetchSearchSuccess(hitData));
+        ? dispatch(searchFailure())
+        : dispatch(searchSuccess(hitData));
       return hitData;
     } catch (e) {
       /**
        * Return an empty set on error to simplify function signature.
        */
       generateSearchToast(false);
-      dispatch(fetchSearchFailure());
+      dispatch(searchFailure());
       return Map<string, SearchItem>();
     }
   })();
