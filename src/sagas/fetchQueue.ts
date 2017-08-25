@@ -6,15 +6,18 @@ import {
   fetchQueueSuccess
 } from '../actions/queue';
 import { getQueuePage } from '../utils/fetchQueue';
+import { generateQueueToast, failedQueueToast } from '../utils/toastr';
 
 type FetchQueueResolution = FetchQueueFailure | FetchQueueSuccess;
 
 export function* fetchUserQueue(action: FetchQueueResolution) {
   try {
-    console.log('fetchUserQueue was invoked.');
     const queueData = yield call(getQueuePage);
+    const empty = !queueData.isEmpty();
+    generateQueueToast(empty);
     yield put<FetchQueueSuccess>(fetchQueueSuccess(queueData));
   } catch (e) {
+    failedQueueToast();
     yield put<FetchQueueFailure>(fetchQueueFailure());
   }
 }
