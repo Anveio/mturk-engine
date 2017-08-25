@@ -17,12 +17,15 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
    */
   try {
     const t0 = performance.now();
-    const response = await axios.get(turkopticonApiMulti + requesterIds);
+    const response = await axios.get(turkopticonApiMulti + requesterIds, {
+      responseType: 'json'
+    });
     // tslint:disable-next-line:no-console
     console.log('Time to fetch TO: ' + (performance.now() - t0));
     const data: Requester = response.data;
     return mapFromTO(data);
   } catch (e) {
+    console.log(e);
     throw Error('Problem fetching data from TO');
   }
 };
