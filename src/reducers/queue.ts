@@ -1,13 +1,17 @@
 import { QueueItem, QueueMap } from '../types';
 import { QueueAction } from '../actions/queue';
 import { ReturnAction } from '../actions/return';
-
-import { FETCH_QUEUE_SUCCESS, RETURN_HIT_SUCCESS } from '../constants';
+import { AcceptAction } from '../actions/accept';
+import {
+  FETCH_QUEUE_SUCCESS,
+  RETURN_HIT_SUCCESS,
+  ACCEPT_HIT_SUCCESS
+} from '../constants';
 import { Map } from 'immutable';
 
 const initial: QueueMap = Map<string, QueueItem>();
 
-type QueueTableAction = QueueAction | ReturnAction;
+type QueueTableAction = QueueAction | ReturnAction | AcceptAction;
 
 export default (state = initial, action: QueueTableAction): QueueMap => {
   let partialState: QueueMap | undefined;
@@ -18,6 +22,9 @@ export default (state = initial, action: QueueTableAction): QueueMap => {
       break;
     case RETURN_HIT_SUCCESS:
       partialState = state.delete(action.hitId);
+      break;
+    case ACCEPT_HIT_SUCCESS:
+      partialState = state.set(action.data.hitId, action.data);
       break;
     default:
       return state;
