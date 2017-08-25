@@ -25,7 +25,6 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
     const data: Requester = response.data;
     return mapFromTO(data);
   } catch (e) {
-    console.log(e);
     throw Error('Problem fetching data from TO');
   }
 };

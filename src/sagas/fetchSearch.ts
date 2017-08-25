@@ -15,7 +15,7 @@ import {
   fetchTOpticonFailure
 } from '../actions/turkopticon';
 import { batchFetchHits } from '../utils/fetchHits';
-import { batchFetchTOpticon, requesterIdsWithNoTO } from '../utils/turkopticon';
+import { batchFetchTOpticon, selectRequesterId } from '../utils/turkopticon';
 import { generateSearchToast } from '../utils/toastr';
 
 export function* fetchSearch(action: SearchRequest) {
@@ -32,12 +32,11 @@ export function* fetchSearch(action: SearchRequest) {
       : yield put<SearchSuccess>(searchSuccess(hitData));
 
     if (!empty) {
-      const requesterIds = requesterIdsWithNoTO(hitData);
+      const requesterIds = hitData.map(selectRequesterId).toArray();
       const topticonData = yield call(batchFetchTOpticon, requesterIds);
       yield put<FetchTOpticonSuccess>(fetchTOpticonSuccess(topticonData));
     }
   } catch (e) {
-    generateSearchToast(false);
     yield put<SearchFailure>(searchFailure());
     yield put<FetchTOpticonFailure>(fetchTOpticonFailure());
   }
