@@ -12,7 +12,7 @@ app.use('*', (req, res) => {
   /**
   * Credit to: https://blog.javascripting.com/2015/01/17/dont-hassle-with-cors/
   */
-  const url = 'https://worker.mturk.com' + req.originalUrl;
+  const url = 'https://www.mturk.com' + req.originalUrl;
   req.pipe(request(url)).pipe(res);
 });
 

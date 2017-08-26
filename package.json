@@ -25,7 +25,6 @@
     "@types/react-dom": "^15.5.1",
     "@types/react-redux": "^4.4.47",
     "@types/react-redux-toastr": "^7.0.0",
-    "@types/redux-immutable": "^3.0.35",
     "@types/uuid": "^3.4.0",
     "react-scripts-ts": "2.3.2"
   },

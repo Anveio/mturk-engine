@@ -7,7 +7,7 @@ export interface Props {
   readonly onUnblock: (groupId: string) => void;
 }
 
-const QueueCard = ({ item, onUnblock }: Props) => {
+const BlockListCard = ({ item, onUnblock }: Props) => {
   const { title, requesterName, dateBlocked } = item;
   const handleUnblock = () => {
     onUnblock(item.groupId);
@@ -31,4 +31,4 @@ const QueueCard = ({ item, onUnblock }: Props) => {
   );
 };
 
-export default QueueCard;
+export default BlockListCard;
