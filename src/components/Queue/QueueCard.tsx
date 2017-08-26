@@ -10,6 +10,7 @@ export interface Props {
 }
 
 const QueueCard = ({ hit, onReturn }: Props) => {
+  const { hitId, reward, timeLeft } = hit;
   const handleReturn = () => {
     onReturn(hit.hitId);
   };
@@ -25,7 +26,7 @@ const QueueCard = ({ hit, onReturn }: Props) => {
       external: true,
       content: 'Work',
       accessibilityLabel: 'Work',
-      url: `https://www.mturk.com/mturk/continue?hitId=${hit.hitId}`
+      url: `https://www.mturk.com/mturk/continue?hitId=${hitId}`
     }
   ];
 
@@ -33,7 +34,7 @@ const QueueCard = ({ hit, onReturn }: Props) => {
     <ResourceList.Item
       actions={actions}
       {...generateItemProps(hit)}
-      attributeThree={<QueueItemInfo reward={hit.reward} timeLeft={hit.timeLeft} />}
+      attributeThree={<QueueItemInfo reward={reward} timeLeft={timeLeft} />}
     />
   );
 };
