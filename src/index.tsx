@@ -6,21 +6,20 @@ import { API_URL } from './constants';
 import {
   clearDom,
   createRootDiv,
-  importPolarisStylesheet,
-  importToastrStylesheet
+  attachPolarisStyleSheet,
+  attachToastrStyles
 } from './utils/config';
 
 import App from './containers/App';
-import '@shopify/polaris/styles.css';
 
 // If not in development, kick off productions configurations.
 if (API_URL !== 'http://localhost:7777') {
   clearDom();
   createRootDiv();
-  importPolarisStylesheet();
 }
 
-importToastrStylesheet();
+attachPolarisStyleSheet();
+attachToastrStyles();
 
 ReactDOM.render(
   <Provider store={store}>

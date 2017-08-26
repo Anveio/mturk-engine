@@ -1,3 +1,6 @@
+import toastrStylesheet from './toastrStylesheet';
+import polarisStylesheet from './polarisStylesheet';
+
 /**
  * Uses the window.location.hostname to determine the base url of the environment the script is running in.
  */
@@ -48,5 +51,17 @@ export const importToastrStylesheet = (): void => {
   stylesheet.type = 'text/css';
   stylesheet.href =
     'https://diegoddox.github.io/react-redux-toastr/7.1/react-redux-toastr.min.css';
+  document.head.appendChild(stylesheet);
+};
+
+export const attachToastrStyles = (): void => {
+  const toastrStyles = document.createElement('style');
+  toastrStyles.innerHTML = toastrStylesheet;
+  document.head.appendChild(toastrStyles);
+};
+
+export const attachPolarisStyleSheet = (): void => {
+  const stylesheet = document.createElement('style');
+  stylesheet.innerHTML = polarisStylesheet;
   document.head.appendChild(stylesheet);
 };
