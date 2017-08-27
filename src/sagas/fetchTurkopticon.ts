@@ -6,7 +6,8 @@ import {
   fetchTOpticonSuccess,
   fetchTOpticonFailure
 } from '../actions/turkopticon';
-import { batchFetchTOpticon, selectRequesterId } from '../utils/turkopticon';
+import { selectRequesterId } from '../utils/turkopticon';
+import { batchFetchTOpticon } from '../api/turkopticon';
 
 export function* fetchTurkopticon(action: FetchTOpticonRequest) {
   try {

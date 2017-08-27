@@ -6,7 +6,7 @@ import {
   ReturnHitSuccess,
   returnHitSuccess
 } from '../actions/return';
-import { sendReturnHitRequest } from '../utils/returnHit';
+import { sendReturnHitRequest } from '../api/returnHit';
 import { generateReturnToast } from '../utils/toastr';
 
 export function* returnHit(action: ReturnHitRequest) {

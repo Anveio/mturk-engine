@@ -1,6 +1,6 @@
 import { toastr } from 'react-redux-toastr';
 import { truncate } from './formatting';
-import { HitReturnStatus } from './returnHit';
+import { HitReturnStatus } from '../api/returnHit';
 
 export const generateSearchToast = (successful: boolean) => {
   successful ? successfulSearchToast() : failedSearchToast();
@@ -70,8 +70,9 @@ const successfulSearchToast = () => {
 const failedSearchToast = () => {
   toastr.error(
     `Error`,
-    `Your search returned no results. Make sure you're logged in and check your search settings.`
-  , { timeOut: 3000 });
+    `Your search returned no results. Make sure you're logged in and check your search settings.`,
+    { timeOut: 3000 }
+  );
 };
 
 const repeatReturnToast = () => {
@@ -79,7 +80,10 @@ const repeatReturnToast = () => {
 };
 
 const successfulReturnToast = () => {
-  toastr.success('Return successful.', 'A HIT has been removed from your queue.');
+  toastr.success(
+    'Return successful.',
+    'A HIT has been removed from your queue.'
+  );
 };
 
 export const errorReturnToast = () => {

@@ -6,7 +6,7 @@ import {
   acceptHitSuccess,
   AcceptHitSuccess
 } from '../actions/accept';
-import { validateHitAcceptRequest } from '../utils/acceptHit';
+import { validateHitAcceptRequest } from '../api/acceptHit';
 import { searchItemToQueueItem } from '../utils/queueItem';
 import { generateAcceptHitToast } from '../utils/toastr';
 

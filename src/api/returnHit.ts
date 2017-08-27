@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import { stringToDomElement } from './parsing';
+import { stringToDomElement } from '../utils/parsing';
 
 export type HitReturnStatus = 'repeat' | 'success' | 'error';
 

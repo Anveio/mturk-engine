@@ -11,12 +11,12 @@ import {
   FetchTOpticonRequest,
   fetchTOpticonRequest
 } from '../actions/turkopticon';
-import { batchFetchHits } from '../utils/fetchHits';
+import { searchHits } from '../api/search';
 import { generateSearchToast } from '../utils/toastr';
 
 export function* fetchSearch(action: SearchRequest) {
   try {
-    const hitData: SearchResults = yield call(batchFetchHits, action.options);
+    const hitData: SearchResults = yield call(searchHits, action.options);
 
     const empty = hitData.isEmpty();
     generateSearchToast(!empty);

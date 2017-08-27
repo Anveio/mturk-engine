@@ -6,7 +6,7 @@ import {
   FetchQueueSuccess,
   fetchQueueSuccess
 } from '../actions/queue';
-import { getQueuePage } from '../utils/fetchQueue';
+import { getQueuePage } from '../api/queue';
 import { generateQueueToast, failedQueueToast } from '../utils/toastr';
 
 export function* fetchUserQueue(action: FetchQueueRequest) {

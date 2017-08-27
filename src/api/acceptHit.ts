@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import { validateHitAccept } from './parsing';
+import { validateHitAccept } from '../utils/parsing';
 
 export const validateHitAcceptRequest = async (groupId: string) => {
   try {

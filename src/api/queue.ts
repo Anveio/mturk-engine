@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import { parseQueuePage } from './parsing';
+import { parseQueuePage } from '../utils/parsing';
 
 export const getQueuePage = async () => {
   try {

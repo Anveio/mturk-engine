@@ -33,17 +33,20 @@ const SearchBar = (props: Props & Handlers) => {
       <div onKeyPress={watchForEnter}>
         <Stack vertical>
           <SearchSettings />
+
           <SearchButtons onToggle={onToggle} active onSearch={handleSearch} />
         </Stack>
       </div>
     </Card>
   ) : (
     <Card sectioned>
-      <SearchButtons
-        onToggle={onToggle}
-        active={false}
-        onSearch={handleSearch}
-      />
+      <Stack vertical={false} alignment="baseline">
+        <SearchButtons
+          onToggle={onToggle}
+          active={false}
+          onSearch={handleSearch}
+        />
+      </Stack>
     </Card>
   );
 };

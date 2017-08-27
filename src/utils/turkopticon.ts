@@ -5,30 +5,8 @@ import {
   RequesterScores,
   Requester
 } from '../types';
-import { turkopticonApiMulti } from '../constants';
+
 import { Map } from 'immutable';
-import axios from 'axios';
-
-export const batchFetchTOpticon = async (requesterIds: string[]) => {
-  /**
-   * Potentially unsafe: We're relying on javascript's built-in type coercion of 
-   * arrays to strings, which automatically appends a comma between array elements,
-   * to build our query string.
-   */
-  try {
-    const t0 = performance.now();
-    const response = await axios.get(turkopticonApiMulti + requesterIds, {
-      responseType: 'json'
-    });
-    // tslint:disable-next-line:no-console
-    console.log('Time to fetch TO: ' + (performance.now() - t0));
-    const data: Requester = response.data;
-    return mapFromTO(data);
-  } catch (e) {
-    throw Error('Problem fetching data from TO');
-  }
-};
-
 export const noTurkopticon = (hit: SearchItem) => !hit.turkopticon;
 export const selectRequesterId = (hit: SearchItem) => hit.requesterId;
 export const invalidGroupId = (hit: SearchItem) =>

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ButtonGroup, Button } from '@shopify/polaris';
+import { Stack, ButtonGroup, Button, Caption } from '@shopify/polaris';
 
 interface Props {
   readonly onToggle: () => void;
@@ -13,12 +13,15 @@ const buttonText = (active: boolean) => {
 
 const SearchButtons = ({ onSearch, onToggle, active }: Props) => {
   return (
-    <ButtonGroup segmented>
-      <Button primary icon="search" onClick={onSearch}>
-        Search HITs
-      </Button>
-      <Button onClick={onToggle}>{buttonText(active)}</Button>
-    </ButtonGroup>
+    <Stack vertical={false} alignment="baseline">
+      <ButtonGroup segmented>
+        <Button primary icon="search" onClick={onSearch}>
+          Search HITs
+        </Button>
+        <Button onClick={onToggle}>{buttonText(active)}</Button>
+      </ButtonGroup>
+      <Caption>Last Search: {new Date().toLocaleTimeString()}</Caption>
+    </Stack>
   );
 };
 
