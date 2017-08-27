@@ -21,6 +21,7 @@ const SearchDelayField = ({ value, onChange }: Props) => {
       label="Search Delay"
       type="number"
       suffix="seconds"
+      helpText="Time between searches. Minimum of 10 seconds."
       min={10}
       autoComplete={false}
       value={value}
