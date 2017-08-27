@@ -61,7 +61,13 @@ const SortTypeField = ({ value, options, onChange }: SortTypeProps) => {
 
 const QualifiedBox = ({ checked, onChange }: CheckBoxProps) => {
   return (
-    <Checkbox label="Qualified only" checked={checked} onChange={onChange} />
+    <Checkbox
+      label="Qualified only"
+      id="checkbox-qualified"
+      name="Qualfiied Only Checkbox"
+      checked={checked}
+      onChange={onChange}
+    />
   );
 };
 

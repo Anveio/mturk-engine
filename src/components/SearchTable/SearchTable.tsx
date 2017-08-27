@@ -66,7 +66,7 @@ const HitTable = (props: Props & Handlers) => {
             <SearchCard
               hit={hit}
               requester={requesters.get(hit.requesterId)}
-              onClick={onAccept}
+              onAccept={onAccept}
               onHide={onHide}
             />
           )}
