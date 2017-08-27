@@ -33,7 +33,6 @@ const SearchBar = (props: Props & Handlers) => {
       <div onKeyPress={watchForEnter}>
         <Stack vertical>
           <SearchSettings />
-
           <SearchButtons onToggle={onToggle} active onSearch={handleSearch} />
         </Stack>
       </div>
