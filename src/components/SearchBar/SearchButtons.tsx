@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Stack, ButtonGroup, Button, Caption } from '@shopify/polaris';
+import { Stack, ButtonGroup, Button } from '@shopify/polaris';
+import TimeLastSearch from './TimeLastSearch';
 
 interface Props {
   readonly onToggle: () => void;
@@ -20,7 +21,7 @@ const SearchButtons = ({ onSearch, onToggle, active }: Props) => {
         </Button>
         <Button onClick={onToggle}>{buttonText(active)}</Button>
       </ButtonGroup>
-      <Caption>Last Search: {new Date().toLocaleTimeString()}</Caption>
+      <TimeLastSearch />
     </Stack>
   );
 };
