@@ -9,6 +9,7 @@ import { default as searchOptions } from './reducers/searchOptions';
 import { default as searchFormActive } from './reducers/searchFormActive';
 import { default as sortingOption } from './reducers/sortingOption';
 import { default as hitBlocklist } from './reducers/hitBlocklist';
+import { default as timeLastSearch } from './reducers/timeLastSearch';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -19,5 +20,6 @@ export const rootReducer = combineReducers<RootState>({
   hitBlocklist,
   searchOptions,
   searchFormActive,
-  sortingOption
+  sortingOption,
+  timeLastSearch
 });
