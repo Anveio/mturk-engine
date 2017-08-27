@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, Stack } from '@shopify/polaris';
+import { Card, Collapsible } from '@shopify/polaris';
 import { SearchOptions } from '../../types';
 import SearchSettings from '../../containers/SearchSettings';
 import SearchButtons from './SearchButtons';
@@ -28,24 +28,22 @@ const SearchBar = (props: Props & Handlers) => {
     }
   };
 
-  return active ? (
-    <Card sectioned>
-      <div onKeyPress={watchForEnter}>
-        <Stack vertical>
-          <SearchSettings />
-          <SearchButtons onToggle={onToggle} active onSearch={handleSearch} />
-        </Stack>
-      </div>
-    </Card>
-  ) : (
-    <Card sectioned>
-      <Stack vertical={false} alignment="baseline">
+  return (
+    <Card>
+      <Card.Section>
         <SearchButtons
           onToggle={onToggle}
-          active={false}
+          active={active}
           onSearch={handleSearch}
         />
-      </Stack>
+      </Card.Section>
+      <Collapsible open={active}>
+        <Card.Section>
+          <div onKeyPress={watchForEnter}>
+            <SearchSettings />
+          </div>
+        </Card.Section>
+      </Collapsible>
     </Card>
   );
 };
