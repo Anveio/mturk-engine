@@ -10,7 +10,7 @@ import {
   attachToastrStyles
 } from './utils/config';
 
-import App from './containers/App';
+import App from './components/App';
 
 // If not in development, kick off productions configurations.
 if (API_URL !== 'http://localhost:7777') {

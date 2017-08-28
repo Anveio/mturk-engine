@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tabs, Layout } from '@shopify/polaris';
+import { Tabs} from '@shopify/polaris';
 import SearchTable from '../../containers/SearchTable';
 import QueueTable from '../../containers/QueueTable';
 import BlockList from '../../containers/BlockList';
@@ -31,11 +31,9 @@ const TabNavigation = (props: Props & Handlers) => {
   };
 
   return (
-    <Layout.Section>
       <Tabs selected={selected} tabs={tabs} onSelect={onSelectTab}>
         {displaySelectedTab[selected]()}
       </Tabs>
-    </Layout.Section>
   );
 };
 
