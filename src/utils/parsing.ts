@@ -14,25 +14,25 @@ import { v4 } from 'uuid';
  * Parses an HTML string into a table element.
  * @param htmlString 
  */
-export const stringToDomElement = (htmlString: string): HTMLTableElement => {
-  const el = document.createElement('table');
+export const stringToDomElement = (htmlString: string): HTMLDivElement => {
+  const el = document.createElement('div');
   el.innerHTML = htmlString;
   return el;
 };
 
-export const selectHitContainers = (el: HTMLTableElement): HTMLTableElement[] =>
+export const selectHitContainers = (el: HTMLDivElement): HTMLDivElement[] =>
   Array.from(el.querySelectorAll(hitTableIdentifier) as NodeListOf<
-    HTMLTableElement
+    HTMLDivElement
   >);
 
-export const tabulateSearchData = (input: HTMLTableElement[]): SearchResults =>
+export const tabulateSearchData = (input: HTMLDivElement[]): SearchResults =>
   input.reduce(
-    (map: SearchResults, hit: HTMLTableElement) =>
+    (map: SearchResults, hit: HTMLDivElement) =>
       map.set(parseGroupId(hit), createSearchItem(hit)),
     Map<string, SearchItem>()
   );
 
-export const createSearchItem = (input: HTMLTableElement): SearchItem => ({
+export const createSearchItem = (input: HTMLDivElement): SearchItem => ({
   title: parseTitle(input),
   requesterName: parseRequesterName(input),
   requesterId: parseRequesterId(input),
@@ -44,21 +44,21 @@ export const createSearchItem = (input: HTMLTableElement): SearchItem => ({
   qualified: parseQualified(input)
 });
 
-export const parseTitle = (input: HTMLTableElement): string => {
+export const parseTitle = (input: HTMLDivElement): string => {
   const hitTitleElem = input.querySelector('a.capsulelink');
   return hitTitleElem && hitTitleElem.textContent
     ? hitTitleElem.textContent.trim()
     : '[Error:title]';
 };
 
-export const parseRequesterName = (input: HTMLTableElement): string => {
+export const parseRequesterName = (input: HTMLDivElement): string => {
   const requesterNameElem = input.querySelector('span.requesterIdentity');
   return requesterNameElem && requesterNameElem.textContent
     ? requesterNameElem.textContent
     : '[Error:requesterName]';
 };
 
-export const parseRequesterId = (input: HTMLTableElement): string => {
+export const parseRequesterId = (input: HTMLDivElement): string => {
   const requesterIdElem = input.querySelector(requesterIdAnchor);
   if (requesterIdElem) {
     const href = requesterIdElem.getAttribute('href') as string;
@@ -71,7 +71,7 @@ export const parseRequesterId = (input: HTMLTableElement): string => {
   }
 };
 
-export const parseReward = (input: HTMLTableElement): string => {
+export const parseReward = (input: HTMLDivElement): string => {
   const hitRewardElem = input.querySelector('span.reward');
   return hitRewardElem && hitRewardElem.textContent
     ? hitRewardElem.textContent.replace('$', '')
@@ -84,7 +84,7 @@ export const parseReward = (input: HTMLTableElement): string => {
  * indexed in the HitMap.
  * @param input 
  */
-export const parseGroupId = (input: HTMLTableElement): string => {
+export const parseGroupId = (input: HTMLDivElement): string => {
   // const groupIdElem = input.querySelector('a[href*="groupId="]');
   const groupIdElem = input.querySelector(groupIdAnchor);
   if (groupIdElem) {
@@ -95,7 +95,7 @@ export const parseGroupId = (input: HTMLTableElement): string => {
   }
 };
 
-export const parseTimeAllotted = (input: HTMLTableElement): string => {
+export const parseTimeAllotted = (input: HTMLDivElement): string => {
   const timeAllotedElem = input.querySelector(timeAllotedSelector);
   return timeAllotedElem && timeAllotedElem.textContent
     ? timeAllotedElem.textContent.trim()
@@ -106,7 +106,7 @@ export const parseTimeAllotted = (input: HTMLTableElement): string => {
  * Parses the number of HITs available. Returns a default value of 1 if parsing fails.
  * @param input 
  */
-export const parseBatchSize = (input: HTMLTableElement): number => {
+export const parseBatchSize = (input: HTMLDivElement): number => {
   const batchSizeElem = input.querySelectorAll('td.capsule_field_text')[4];
   if (batchSizeElem && batchSizeElem.textContent) {
     return parseInt(batchSizeElem.textContent, 10);
@@ -115,7 +115,7 @@ export const parseBatchSize = (input: HTMLTableElement): number => {
   }
 };
 
-export const parseQualified = (input: HTMLTableElement): boolean => {
+export const parseQualified = (input: HTMLDivElement): boolean => {
   return !input.querySelector('a[href^="/mturk/requestqualification?"]');
 };
 
@@ -133,7 +133,7 @@ export const parseQueuePage = (html: string): QueueMap => {
   return hitData;
 };
 
-export const parseHitIdQueue = (input: HTMLTableElement): string => {
+export const parseHitIdQueue = (input: HTMLDivElement): string => {
   const hitIdElem = input.querySelector(hitIdAnchor);
   if (hitIdElem) {
     const href = hitIdElem.getAttribute('href') as string;
@@ -143,7 +143,7 @@ export const parseHitIdQueue = (input: HTMLTableElement): string => {
   }
 };
 
-export const parseTimeLeft = (input: HTMLTableElement): string => {
+export const parseTimeLeft = (input: HTMLDivElement): string => {
   const timeLeftElem = input.querySelector(timeLeftSelector);
   if (timeLeftElem) {
     return (timeLeftElem as HTMLTableCellElement).innerText.trim();
@@ -152,7 +152,7 @@ export const parseTimeLeft = (input: HTMLTableElement): string => {
   }
 };
 
-export const createQueueItem = (input: HTMLTableElement): QueueItem => ({
+export const createQueueItem = (input: HTMLDivElement): QueueItem => ({
   title: parseTitle(input),
   hitId: parseHitIdQueue(input),
   requesterName: parseRequesterName(input),
@@ -160,14 +160,14 @@ export const createQueueItem = (input: HTMLTableElement): QueueItem => ({
   timeLeft: parseTimeLeft(input)
 });
 
-export const tabulateQueueData = (input: HTMLTableElement[]): QueueMap =>
+export const tabulateQueueData = (input: HTMLDivElement[]): QueueMap =>
   input.reduce(
-    (map: QueueMap, hit: HTMLTableElement) =>
+    (map: QueueMap, hit: HTMLDivElement) =>
       map.set(parseHitIdQueue(hit), createQueueItem(hit)),
     Map<string, QueueItem>()
   );
 
-export const findHitForm = (input: HTMLTableElement) => {
+export const findHitForm = (input: HTMLDivElement) => {
   return input.querySelector('form[action="/mturk/submit"]');
 };
 
