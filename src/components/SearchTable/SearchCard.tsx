@@ -6,7 +6,7 @@ import InfoContainer from './InfoContainer';
 import { truncate } from '../../utils/formatting';
 import { qualException } from '../../utils/exceptions';
 import { generateBadges } from '../../utils/badges';
-import { searchItemToBlockedHit } from '../../utils/blockHit';
+import { blockedHitFactory } from '../../utils/blockHit';
 
 export interface Props {
   readonly hit: SearchItem;
@@ -81,7 +81,7 @@ class SearchCard extends React.PureComponent<Props, State> {
 
   private handleAccept = () => this.props.onAccept(this.props.hit);
   private handleHide = () =>
-    this.props.onHide(searchItemToBlockedHit(this.props.hit));
+    this.props.onHide(blockedHitFactory(this.props.hit));
 
   private onToggleFocus = () =>
     this.setState((prevState: Partial<State>): Partial<State> => ({

@@ -1,5 +1,5 @@
 import { SearchItem, BlockedHit } from '../types';
 
-export const searchItemToBlockedHit = (item: SearchItem): BlockedHit => {
+export const blockedHitFactory = (item: SearchItem): BlockedHit => {
   return Object.assign(item, { dateBlocked: new Date() });
 };
