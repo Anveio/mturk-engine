@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BlockedHit } from '../../types';
 import { ResourceList } from '@shopify/polaris';
+import { truncate } from '../../utils/formatting';
 
 export interface Props {
   readonly item: BlockedHit;
@@ -15,8 +16,8 @@ const BlockListCard = ({ item, onUnblock }: Props) => {
 
   const actions = [
     {
-      content: 'Return',
-      accessibilityLabel: 'Return',
+      content: 'Unblock',
+      accessibilityLabel: 'Unblock',
       onClick: handleUnblock
     }
   ];
@@ -24,8 +25,8 @@ const BlockListCard = ({ item, onUnblock }: Props) => {
   return (
     <ResourceList.Item
       actions={actions}
-      attributeOne={requesterName}
-      attributeTwo={title}
+      attributeOne={truncate(requesterName, 30)}
+      attributeTwo={truncate(title, 80)}
       attributeThree={`Blocked on: ${dateBlocked.toLocaleDateString()}`}
     />
   );
