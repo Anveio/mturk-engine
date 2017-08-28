@@ -5,10 +5,11 @@ import { validateHitAccept } from '../utils/parsing';
 export const validateHitAcceptRequest = async (groupId: string) => {
   try {
     const response = await axios.get(
-      `${API_URL}/mturk/previewandaccept?groupId=${groupId}`
+      `${API_URL}/mturk/previewandaccept?groupId=${groupId}`,
+      { responseType: 'document' }
     );
-    const rawHtml: string = response.data;
-    return validateHitAccept(rawHtml);
+    const html: Document = response.data;
+    return validateHitAccept(html);
   } catch (e) {
     return false;
   }

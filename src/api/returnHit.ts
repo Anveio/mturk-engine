@@ -1,30 +1,29 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import { stringToDomElement } from '../utils/parsing';
 
 export type HitReturnStatus = 'repeat' | 'success' | 'error';
 
 export const sendReturnHitRequest = async (hitId: string) => {
   try {
     const response = await axios.get(
-      `${API_URL}/mturk/return?hitId=${hitId}&inPipeline=false`
+      `${API_URL}/mturk/return?hitId=${hitId}&inPipeline=false`,
+      { responseType: 'document' }
     );
-    const rawHtml: string = response.data;
-    return validateHitReturn(rawHtml);
+    const html: Document = response.data;
+    return validateHitReturn(html);
   } catch (e) {
     return 'error';
   }
 };
 
-const validateHitReturn = (html: string): HitReturnStatus => {
-  const table = stringToDomElement(html);
-  const noAssignedHitsContainer = table.querySelector('td.error_title');
+const validateHitReturn = (html: Document): HitReturnStatus => {
+  const noAssignedHitsContainer = html.querySelector('td.error_title');
 
   if (!!noAssignedHitsContainer) {
     return 'success';
   }
 
-  const alertBox = table.querySelector('#alertboxHeader');
+  const alertBox = html.querySelector('#alertboxHeader');
   return !!alertBox ? validateAlertBoxText(alertBox) : 'error';
 };
 

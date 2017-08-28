@@ -10,17 +10,7 @@ import {
 import { Map } from 'immutable';
 import { v4 } from 'uuid';
 
-/**
- * Parses an HTML string into a table element.
- * @param htmlString 
- */
-export const stringToDomElement = (htmlString: string): HTMLDivElement => {
-  const el = document.createElement('div');
-  el.innerHTML = htmlString;
-  return el;
-};
-
-export const selectHitContainers = (el: HTMLDivElement): HTMLDivElement[] =>
+export const selectHitContainers = (el: Document): HTMLDivElement[] =>
   Array.from(el.querySelectorAll(hitTableIdentifier) as NodeListOf<
     HTMLDivElement
   >);
@@ -119,16 +109,14 @@ export const parseQualified = (input: HTMLDivElement): boolean => {
   return !input.querySelector('a[href^="/mturk/requestqualification?"]');
 };
 
-export const parseSearchPage = (html: string): SearchResults => {
-  const table = stringToDomElement(html);
-  const hitContainers = selectHitContainers(table);
+export const parseSearchPage = (html: Document): SearchResults => {
+  const hitContainers = selectHitContainers(html);
   const hitData = tabulateSearchData(hitContainers);
   return hitData;
 };
 
-export const parseQueuePage = (html: string): QueueMap => {
-  const table = stringToDomElement(html);
-  const hitContainers = selectHitContainers(table);
+export const parseQueuePage = (html: Document): QueueMap => {
+  const hitContainers = selectHitContainers(html);
   const hitData = tabulateQueueData(hitContainers);
   return hitData;
 };
@@ -167,11 +155,10 @@ export const tabulateQueueData = (input: HTMLDivElement[]): QueueMap =>
     Map<string, QueueItem>()
   );
 
-export const findHitForm = (input: HTMLDivElement) => {
+export const findHitForm = (input: Document) => {
   return input.querySelector('form[action="/mturk/submit"]');
 };
 
-export const validateHitAccept = (html: string): boolean => {
-  const table = stringToDomElement(html);
-  return !!findHitForm(table);
+export const validateHitAccept = (html: Document): boolean => {
+  return !!findHitForm(html);
 };
