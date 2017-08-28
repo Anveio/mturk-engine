@@ -75,6 +75,10 @@ class SearchCard extends React.PureComponent<Props, State> {
     this.state = { active: false };
   }
 
+  componentWillReceiveProps() {
+    this.setState((): Partial<State> => ({ active: false }));
+  }
+
   private handleAccept = () => this.props.onAccept(this.props.hit);
   private handleHide = () =>
     this.props.onHide(searchItemToBlockedHit(this.props.hit));
@@ -129,7 +133,8 @@ class SearchCard extends React.PureComponent<Props, State> {
           attributeOne={truncate(requesterName, 40)}
           attributeTwo={truncate(title, 80)}
           attributeThree={
-            <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
+            <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
+          }
         />
         <Collapsible open={this.state.active}>
           <Card.Section subdued>{hit.timeAllotted}</Card.Section>
