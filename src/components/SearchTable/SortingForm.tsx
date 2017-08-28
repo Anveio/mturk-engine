@@ -1,15 +1,18 @@
 import * as React from 'react';
 import { Card, Select } from '@shopify/polaris';
-import { SortingOption } from '../../../types';
+import { SortingOption } from '../../types';
 
-interface Props {
-  value: SortingOption;
-  onChange: (option: SortingOption) => void;
+export interface Props {
+  readonly value: SortingOption;
+}
+
+export interface Handlers {
+  readonly onChange: (option: SortingOption) => void;
 }
 
 const options: SortingOption[] = [ 'Reward', 'Batch Size', 'Latest' ];
 
-const SortingForm = ({ value, onChange }: Props) => {
+const SortingForm = ({ value, onChange }: Props & Handlers) => {
   return (
     <Card.Section>
       <Select

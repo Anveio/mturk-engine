@@ -9,7 +9,7 @@ import {
 } from '../../types';
 import { Stack, Card, ResourceList } from '@shopify/polaris';
 import SearchCard from './SearchCard';
-import SortingForm from './SortingOptions/SortingForm';
+import SortingForm from '../../containers/SortingForm';
 import SearchBar from '../../containers/SearchBar';
 import EmptyHitTable from '../../containers/EmptySearchTable';
 import { sortBy } from '../../utils/sorting';
@@ -24,7 +24,6 @@ export interface Props {
 export interface Handlers {
   readonly onAccept: (hit: SearchItem) => void;
   readonly onHide: (hit: BlockedHit) => void;
-  readonly onChangeSort: (option: SortingOption) => void;
 }
 
 const HitTable = (props: Props & Handlers) => {
@@ -34,8 +33,7 @@ const HitTable = (props: Props & Handlers) => {
     blockedHits,
     sortingOption,
     onAccept,
-    onHide,
-    onChangeSort
+    onHide
   } = props;
 
   const filterBlockedHits = (unfilteredHits: SearchResults) =>
@@ -59,7 +57,7 @@ const HitTable = (props: Props & Handlers) => {
         title={`${hits.size} results. ${hits.size -
           displayedHits.length} hidden.`}
       >
-        <SortingForm onChange={onChangeSort} value={sortingOption} />
+        <SortingForm />
         <ResourceList
           items={displayedHits}
           renderItem={(hit: SearchItem) => (
