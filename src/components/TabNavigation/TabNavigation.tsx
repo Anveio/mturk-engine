@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Tabs} from '@shopify/polaris';
-import SearchTable from '../../containers/SearchTable';
 import QueueTable from '../../containers/QueueTable';
+import SearchTab from './SearchTab';
 import BlockList from '../../containers/BlockList';
 import { generateTabs } from '../../utils/tabs';
 
@@ -20,7 +20,7 @@ const TabNavigation = (props: Props & Handlers) => {
 
   const displaySelectedTab = {
     0: () => {
-      return <SearchTable />;
+      return <SearchTab />;
     },
     1: () => {
       return <QueueTable />;

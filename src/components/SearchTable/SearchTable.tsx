@@ -7,10 +7,9 @@ import {
   RequesterMap,
   SortingOption
 } from '../../types';
-import { Stack, Card, ResourceList } from '@shopify/polaris';
+import { Card, ResourceList } from '@shopify/polaris';
 import SearchCard from './SearchCard';
 import SortingForm from '../../containers/SortingForm';
-import SearchBar from '../../containers/SearchBar';
 import EmptyHitTable from '../../containers/EmptySearchTable';
 import { sortBy } from '../../utils/sorting';
 
@@ -46,31 +45,25 @@ const HitTable = (props: Props & Handlers) => {
     .toArray();
 
   return hits.isEmpty() ? (
-    <Stack vertical>
-      <SearchBar />
-      <EmptyHitTable />
-    </Stack>
+    <EmptyHitTable />
   ) : (
-    <Stack vertical>
-      <SearchBar />
-      <Card
-        title={`${hits.size} results. ${hits.size -
-          displayedHits.length} hidden.`}
-      >
-        <SortingForm />
-        <ResourceList
-          items={displayedHits}
-          renderItem={(hit: SearchItem) => (
-            <SearchCard
-              hit={hit}
-              requester={requesters.get(hit.requesterId)}
-              onAccept={onAccept}
-              onHide={onHide}
-            />
-          )}
-        />
-      </Card>
-    </Stack>
+    <Card
+      title={`${hits.size} results. ${hits.size -
+        displayedHits.length} hidden.`}
+    >
+      <SortingForm />
+      <ResourceList
+        items={displayedHits}
+        renderItem={(hit: SearchItem) => (
+          <SearchCard
+            hit={hit}
+            requester={requesters.get(hit.requesterId)}
+            onAccept={onAccept}
+            onHide={onHide}
+          />
+        )}
+      />
+    </Card>
   );
 };
 
