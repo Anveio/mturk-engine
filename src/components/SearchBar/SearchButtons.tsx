@@ -10,8 +10,8 @@ export interface Props {
 }
 
 export interface Handlers {
-  readonly onToggle: () => void;
-  readonly onSearch: (options: SearchOptions) => void;
+  readonly onToggleSettings: () => void;
+  readonly onToggleSearch: (options: SearchOptions, active: boolean) => void;
 }
 
 const settingsButtonText = (active: boolean) => {
@@ -23,10 +23,16 @@ const searchButtonText = (active: boolean) => {
 };
 
 const SearchButtons = (props: Props & Handlers) => {
-  const { options, onSearch, onToggle, settingsActive, searchActive } = props;
+  const {
+    options,
+    onToggleSearch,
+    onToggleSettings,
+    settingsActive,
+    searchActive
+  } = props;
 
   const handleSearch = () => {
-    onSearch(options);
+    onToggleSearch(options, searchActive);
   };
 
   return (
@@ -35,7 +41,9 @@ const SearchButtons = (props: Props & Handlers) => {
         <Button primary icon="search" onClick={handleSearch}>
           {searchButtonText(searchActive)}
         </Button>
-        <Button onClick={onToggle}>{settingsButtonText(settingsActive)}</Button>
+        <Button onClick={onToggleSettings}>
+          {settingsButtonText(settingsActive)}
+        </Button>
       </ButtonGroup>
       <TimeLastSearch />
     </Stack>
