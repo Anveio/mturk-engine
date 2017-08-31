@@ -2,6 +2,7 @@ import { RootState } from './types';
 import { combineReducers } from 'redux';
 import { reducer as toastr } from 'react-redux-toastr';
 import { default as tab } from './reducers/tab';
+import { default as searchingActive } from './reducers/searchingActive';
 import { default as search } from './reducers/search';
 import { default as queue } from './reducers/queue';
 import { default as requesters } from './reducers/requesters';
@@ -19,7 +20,8 @@ export const rootReducer = combineReducers<RootState>({
   requesters,
   hitBlocklist,
   searchOptions,
-  searchFormActive,
   sortingOption,
-  timeLastSearch
+  timeLastSearch,
+  searchingActive,
+  searchFormActive
 });
