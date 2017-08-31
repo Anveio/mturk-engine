@@ -21,7 +21,7 @@ export interface Handlers {
     field: keyof SearchOptions,
     value: string | boolean
   ) => void;
-  readonly onSearch: (options: SearchOptions) => void;
+  readonly onSearch: () => void;
 }
 
 export interface Props {
@@ -40,7 +40,7 @@ const SearchSettings = (props: Props & Handlers) => {
   const watchForEnter = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.charCode === 13) {
       event.preventDefault();
-      onSearch(props.searchOptions);
+      onSearch();
     }
   };
 

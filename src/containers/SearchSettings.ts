@@ -23,8 +23,8 @@ const mapDispatch = (dispatch: Dispatch<SearchSettingsAction>): Handlers => ({
   onChange: (field: keyof SearchOptions, value: string | boolean) => {
     dispatch(updateForm(field, value));
   },
-  onSearch: (options: SearchOptions) => {
-    dispatch(searchRequest(options));
+  onSearch: () => {
+    dispatch(searchRequest());
   }
 });
 

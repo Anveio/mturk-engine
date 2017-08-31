@@ -1,17 +1,15 @@
 import * as React from 'react';
-import { SearchOptions } from '../../types';
 import { Stack, ButtonGroup, Button } from '@shopify/polaris';
 import TimeLastSearch from './TimeLastSearch';
 
 export interface Props {
-  readonly options: SearchOptions;
   readonly settingsActive: boolean;
   readonly searchActive: boolean;
 }
 
 export interface Handlers {
   readonly onToggleSettings: () => void;
-  readonly onToggleSearch: (options: SearchOptions, active: boolean) => void;
+  readonly onToggleSearch: (active: boolean) => void;
 }
 
 const settingsButtonText = (active: boolean) => {
@@ -24,7 +22,6 @@ const searchButtonText = (active: boolean) => {
 
 const SearchButtons = (props: Props & Handlers) => {
   const {
-    options,
     onToggleSearch,
     onToggleSettings,
     settingsActive,
@@ -32,7 +29,7 @@ const SearchButtons = (props: Props & Handlers) => {
   } = props;
 
   const handleSearch = () => {
-    onToggleSearch(options, searchActive);
+    onToggleSearch(searchActive);
   };
 
   return (

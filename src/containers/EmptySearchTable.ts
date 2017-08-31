@@ -1,17 +1,11 @@
 import { connect, Dispatch } from 'react-redux';
-import { RootState, SearchOptions } from '../types';
 import EmptySearchTable, {
-  Props,
   Handlers
 } from '../components/SearchTable/EmptySearchTable';
 import { SearchAction, searchRequest } from '../actions/search';
 
-const mapState = (state: RootState): Props => ({
-  options: state.searchOptions
-});
-
 const mapDispatch = (dispatch: Dispatch<SearchAction>): Handlers => ({
-  onSearch: (options: SearchOptions) => dispatch(searchRequest(options))
+  onSearch: () => dispatch(searchRequest())
 });
 
-export default connect(mapState, mapDispatch)(EmptySearchTable);
+export default connect(null, mapDispatch)(EmptySearchTable);

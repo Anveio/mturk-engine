@@ -1,27 +1,17 @@
 import * as React from 'react';
 import { EmptyState } from '@shopify/polaris';
-import { SearchOptions } from '../../types';
-
-export interface Props {
-  options: SearchOptions;
-  
-}
 
 export interface Handlers {
-  onSearch: (options: SearchOptions) => void;
+  onSearch: () => void;
 }
 
-const EmptySearchTable = ({ onSearch, options }: Props & Handlers) => {
-  const onAction = () => {
-    onSearch(options);
-  };
-
+const EmptySearchTable = ({ onSearch }: Handlers) => {
   return (
     <EmptyState
       heading="You search results are empty."
       action={{
         content: 'Search HITs',
-        onAction
+        onAction: onSearch
       }}
       image="https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg"
     >
