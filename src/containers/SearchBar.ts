@@ -5,14 +5,15 @@ import SearchBar, { Props, Handlers } from '../components/SearchBar/SearchBar';
 import { SearchAction, searchRequest } from '../actions/search';
 
 const mapState = (state: RootState): Props => ({
-  active: state.searchFormActive,
+  searchActive: state.searchingActive,
+  settingsActive: state.searchFormActive,
   options: state.searchOptions
 });
 
 type SearchFormAction = FormAction | SearchAction;
 
 const mapDispatch = (dispatch: Dispatch<SearchFormAction>): Handlers => ({
-  onToggle: () => {
+  onToggleSettings: () => {
     dispatch(toggleForm());
   },
   onSearch: (options: SearchOptions) => {

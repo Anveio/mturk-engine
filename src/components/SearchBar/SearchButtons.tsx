@@ -5,21 +5,27 @@ import TimeLastSearch from './TimeLastSearch';
 interface Props {
   readonly onToggle: () => void;
   readonly onSearch: () => void;
-  readonly active: boolean;
+  readonly settingsActive: boolean;
+  readonly searchActive: boolean;
 }
 
-const buttonText = (active: boolean) => {
+const settingsButtonText = (active: boolean) => {
   return active ? 'Hide search settings' : 'Edit search settings';
 };
 
-const SearchButtons = ({ onSearch, onToggle, active }: Props) => {
+const searchButtonText = (active: boolean) => {
+  return active ? 'Stop searching' : 'Start searching';
+};
+
+const SearchButtons = (props: Props) => {
+  const { onSearch, onToggle, settingsActive, searchActive } = props;
   return (
     <Stack vertical={false} alignment="baseline">
       <ButtonGroup segmented>
         <Button primary icon="search" onClick={onSearch}>
-          Search HITs
+          {searchButtonText(searchActive)}
         </Button>
-        <Button onClick={onToggle}>{buttonText(active)}</Button>
+        <Button onClick={onToggle}>{settingsButtonText(settingsActive)}</Button>
       </ButtonGroup>
       <TimeLastSearch />
     </Stack>

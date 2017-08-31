@@ -5,17 +5,24 @@ import SearchSettings from '../../containers/SearchSettings';
 import SearchButtons from './SearchButtons';
 
 export interface Handlers {
-  readonly onToggle: () => void;
+  readonly onToggleSettings: () => void;
   readonly onSearch: (options: SearchOptions) => void;
 }
 
 export interface Props {
-  readonly active: boolean;
+  readonly settingsActive: boolean;
+  readonly searchActive: boolean;
   readonly options: SearchOptions;
 }
 
 const SearchBar = (props: Props & Handlers) => {
-  const { active, options, onToggle, onSearch } = props;
+  const {
+    settingsActive,
+    searchActive,
+    options,
+    onToggleSettings,
+    onSearch
+  } = props;
 
   const handleSearch = () => {
     onSearch(options);
@@ -32,12 +39,13 @@ const SearchBar = (props: Props & Handlers) => {
     <Card>
       <Card.Section>
         <SearchButtons
-          onToggle={onToggle}
-          active={active}
+          onToggle={onToggleSettings}
+          settingsActive={settingsActive}
           onSearch={handleSearch}
+          searchActive={searchActive}
         />
       </Card.Section>
-      <Collapsible open={active}>
+      <Collapsible open={settingsActive}>
         <Card.Section>
           <div onKeyPress={watchForEnter}>
             <SearchSettings />
