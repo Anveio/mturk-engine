@@ -3,6 +3,7 @@ import { ToastrState } from 'react-redux-toastr';
 
 export interface RootState {
   readonly tab: number;
+  readonly searchingActive: boolean;
   readonly queue: QueueMap;
   readonly toastr: ToastrState;
   readonly search: SearchResults;
