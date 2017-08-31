@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Card, Collapsible } from '@shopify/polaris';
 import { SearchOptions } from '../../types';
 import SearchSettings from '../../containers/SearchSettings';
-import SearchButtons from './SearchButtons';
+import SearchButtons from '../../containers/SearchButtons';
 
 export interface Handlers {
   readonly onToggleSettings: () => void;
@@ -16,17 +16,7 @@ export interface Props {
 }
 
 const SearchBar = (props: Props & Handlers) => {
-  const {
-    settingsActive,
-    searchActive,
-    options,
-    onToggleSettings,
-    onSearch
-  } = props;
-
-  const handleSearch = () => {
-    onSearch(options);
-  };
+  const { settingsActive, options, onSearch } = props;
 
   const watchForEnter = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.charCode === 13) {
@@ -38,12 +28,7 @@ const SearchBar = (props: Props & Handlers) => {
   return (
     <Card>
       <Card.Section>
-        <SearchButtons
-          onToggle={onToggleSettings}
-          settingsActive={settingsActive}
-          onSearch={handleSearch}
-          searchActive={searchActive}
-        />
+        <SearchButtons />
       </Card.Section>
       <Collapsible open={settingsActive}>
         <Card.Section>
