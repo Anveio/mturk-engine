@@ -14,7 +14,7 @@ import {
 import { searchHits } from '../api/search';
 import { generateSearchToast } from '../utils/toastr';
 
-export function* fetchSearch(action: SearchRequest) {
+export function* fetchSearchResults(action: SearchRequest) {
   try {
     const hitData: SearchResults = yield call(searchHits, action.options);
 

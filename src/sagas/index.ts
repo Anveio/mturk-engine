@@ -13,7 +13,7 @@ import { AcceptHitRequest } from '../actions/accept';
 import { FetchTOpticonRequest } from '../actions/turkopticon';
 
 import { fetchUserQueue } from './fetchQueue';
-import { fetchSearch } from './fetchSearch';
+import { fetchSearchResults } from './fetchSearch';
 import { returnHit } from './returnHit';
 import { acceptHit } from './acceptHit';
 import { fetchTurkopticon } from './fetchTurkopticon';
@@ -21,7 +21,7 @@ import { fetchTurkopticon } from './fetchTurkopticon';
 export default function* rootSaga() {
   yield takeLatest<FetchQueueRequest>(FETCH_QUEUE_REQUEST, fetchUserQueue);
   yield takeLatest<ReturnHitRequest>(RETURN_HIT_REQUEST, returnHit);
-  yield takeLatest<SearchRequest>(SEARCH_REQUEST, fetchSearch);
+  yield takeLatest<SearchRequest>(SEARCH_REQUEST, fetchSearchResults);
   yield takeLatest<AcceptHitRequest>(ACCEPT_HIT_REQUEST, acceptHit);
   yield takeLatest<FetchTOpticonRequest>(
     FETCH_TURKOPTICON_REQUEST,
