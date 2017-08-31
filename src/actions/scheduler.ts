@@ -1,4 +1,4 @@
-import { TOGGLE_SEARCH_ACTIVITY } from '../constants'
+import { TOGGLE_SEARCH_ACTIVITY } from '../constants';
 
 export interface ToggleSearchActive {
   type: TOGGLE_SEARCH_ACTIVITY;
@@ -8,4 +8,4 @@ export interface ToggleSearchActive {
 export const toggleSearchActive = (active: boolean): ToggleSearchActive => ({
   type: TOGGLE_SEARCH_ACTIVITY,
   active
-})
+});
