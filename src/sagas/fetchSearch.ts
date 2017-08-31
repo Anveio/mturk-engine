@@ -1,5 +1,5 @@
-import { call, put } from 'redux-saga/effects';
-import { SearchResults } from '../types';
+import { call, put, select } from 'redux-saga/effects';
+import { RootState, SearchResults, SearchOptions } from '../types';
 import {
   SearchRequest,
   SearchFailure,
@@ -7,16 +7,21 @@ import {
   searchSuccess,
   SearchSuccess
 } from '../actions/search';
+import { ScheduleNextSearch, scheduleSearch } from '../actions/scheduler';
 import {
   FetchTOpticonRequest,
   fetchTOpticonRequest
 } from '../actions/turkopticon';
 import { searchHits } from '../api/search';
 import { generateSearchToast } from '../utils/toastr';
+import { calculateNextSearchTime } from '../utils/scheduler';
+
+export const getSearchOptions = (state: RootState) => state.searchOptions;
 
 export function* fetchSearchResults(action: SearchRequest) {
   try {
-    const hitData: SearchResults = yield call(searchHits, action.options);
+    const options: SearchOptions = yield select(getSearchOptions);
+    const hitData: SearchResults = yield call(searchHits, options);
 
     const empty = hitData.isEmpty();
     generateSearchToast(!empty);
@@ -27,6 +32,10 @@ export function* fetchSearchResults(action: SearchRequest) {
     if (!empty) {
       yield put<FetchTOpticonRequest>(fetchTOpticonRequest(hitData));
     }
+
+    yield put<ScheduleNextSearch>(
+      scheduleSearch(calculateNextSearchTime(+options.delay))
+    );
   } catch (e) {
     yield put<SearchFailure>(searchFailure());
   }

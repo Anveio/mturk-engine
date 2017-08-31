@@ -1,5 +1,5 @@
 import { SEARCH_SUCCESS, SEARCH_FAILURE, SEARCH_REQUEST } from '../constants';
-import { SearchResults, SearchOptions } from '../types';
+import { SearchResults } from '../types';
 
 export interface SearchSuccess {
   type: SEARCH_SUCCESS;
@@ -12,7 +12,6 @@ export interface SearchFailure {
 
 export interface SearchRequest {
   type: SEARCH_REQUEST;
-  options: SearchOptions;
 }
 
 export type SearchAction = SearchSuccess | SearchFailure | SearchRequest;
@@ -26,7 +25,6 @@ export const searchFailure = (): SearchFailure => ({
   type: SEARCH_FAILURE
 });
 
-export const searchRequest = (options: SearchOptions): SearchRequest => ({
-  type: SEARCH_REQUEST,
-  options
+export const searchRequest = (): SearchRequest => ({
+  type: SEARCH_REQUEST
 });
