@@ -1,18 +1,30 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState, SearchOptions } from '../types';
 import { FormAction, updateForm } from '../actions/form';
-import SearchForm, { Handlers } from '../components/SearchBar/SearchSettings';
+import SearchForm, {
+  Props,
+  Handlers
+} from '../components/SearchBar/SearchSettings';
+import { SearchAction, searchRequest } from '../actions/search';
 
-const mapState = (state: RootState): SearchOptions => ({
-  delay: state.searchOptions.delay,
-  minReward: state.searchOptions.minReward,
-  sortType: state.searchOptions.sortType,
-  qualified: state.searchOptions.qualified
+const mapState = (state: RootState): Props => ({
+  searchOptions: {
+    delay: state.searchOptions.delay,
+    minReward: state.searchOptions.minReward,
+    sortType: state.searchOptions.sortType,
+    qualified: state.searchOptions.qualified
+  },
+  formActive: state.searchFormActive
 });
 
-const mapDispatch = (dispatch: Dispatch<FormAction>): Handlers => ({
+type SearchSettingsAction = FormAction | SearchAction;
+
+const mapDispatch = (dispatch: Dispatch<SearchSettingsAction>): Handlers => ({
   onChange: (field: keyof SearchOptions, value: string | boolean) => {
     dispatch(updateForm(field, value));
+  },
+  onSearch: (options: SearchOptions) => {
+    dispatch(searchRequest(options));
   }
 });
 
