@@ -15,8 +15,10 @@ export function* acceptHit(action: AcceptHitRequest) {
   try {
     const successful: boolean = yield call(validateHitAcceptRequest, groupId);
     generateAcceptHitToast(successful, title);
-    const newQueueItem = searchItemToQueueItem(action.data);
-    yield put<AcceptHitSuccess>(acceptHitSuccess(newQueueItem));
+    if (successful) {
+      const newQueueItem = searchItemToQueueItem(action.data);
+      yield put<AcceptHitSuccess>(acceptHitSuccess(newQueueItem));
+    }
   } catch (e) {
     generateAcceptHitToast(false, title);
     yield put<AcceptHitFailure>(acceptHitFailure());
