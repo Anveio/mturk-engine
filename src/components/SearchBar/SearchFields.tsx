@@ -18,10 +18,9 @@ interface CheckBoxProps {
 const SearchDelayField = ({ value, onChange }: Props) => {
   return (
     <TextField
-      label="Search Delay"
+      label="Time Between Searches"
       type="number"
       suffix="seconds"
-      helpText="Time between searches. Minimum of 10 seconds."
       min={10}
       autoComplete={false}
       value={value}
@@ -48,7 +47,7 @@ const MinimumRewardField = ({ value, onChange }: Props) => {
 const SortTypeField = ({ value, options, onChange }: SortTypeProps) => {
   return (
     <Select
-      label="Sort By"
+      label="Search By"
       options={options.map((option: string) => ({
         label: option,
         value: option
