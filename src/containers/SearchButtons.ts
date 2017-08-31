@@ -21,7 +21,6 @@ const mapDispatch = (dispatch: Dispatch<SearchBarButtonAction>): Handlers => ({
     dispatch(toggleSearchActive());
 
     if (active) {
-      console.log('Cancelling Search');
       dispatch(cancelNextSearch());
     } else {
       dispatch(searchRequest());

@@ -35,7 +35,12 @@ const SearchButtons = (props: Props & Handlers) => {
   return (
     <Stack vertical={false} alignment="baseline">
       <ButtonGroup segmented>
-        <Button primary icon="search" onClick={handleSearch}>
+        <Button
+          primary
+          icon="search"
+          onClick={handleSearch}
+          destructive={searchActive}
+        >
           {searchButtonText(searchActive)}
         </Button>
         <Button onClick={onToggleSettings}>
