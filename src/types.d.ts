@@ -3,12 +3,13 @@ import { ToastrState } from 'react-redux-toastr';
 
 export interface RootState {
   readonly tab: number;
-  readonly searchingActive: boolean;
   readonly queue: QueueMap;
-  readonly toastr: ToastrState;
   readonly search: SearchResults;
+  readonly toastr: ToastrState;
+  readonly scheduler: ScheduleState;
   readonly requesters: RequesterMap;
   readonly searchOptions: SearchOptions;
+  readonly searchingActive: boolean;
   readonly searchFormActive: boolean;
   readonly sortingOption: SortingOption;
   readonly hitBlocklist: HitBlockMap;
@@ -26,6 +27,11 @@ export interface SearchOptions {
   readonly minReward: string;
   readonly sortType: SearchSort;
   readonly qualified: boolean;
+}
+
+export interface ScheduleState {
+  readonly nextSearch: Date | null;
+  readonly lastSearch: Date | null;
 }
 
 export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
