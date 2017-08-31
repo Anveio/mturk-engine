@@ -6,7 +6,6 @@ export interface RootState {
   readonly queue: QueueMap;
   readonly search: SearchResults;
   readonly toastr: ToastrState;
-  readonly scheduler: ScheduleState;
   readonly requesters: RequesterMap;
   readonly searchOptions: SearchOptions;
   readonly searchingActive: boolean;
@@ -27,11 +26,6 @@ export interface SearchOptions {
   readonly minReward: string;
   readonly sortType: SearchSort;
   readonly qualified: boolean;
-}
-
-export interface ScheduleState {
-  readonly nextSearch: Date | null;
-  readonly lastSearch: Date | null;
 }
 
 export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
