@@ -97,14 +97,6 @@ class SearchCard extends React.PureComponent<Props, State> {
       onClick: this.handleHide
     },
     {
-      content: 'Preview',
-      accessibilityLabel: 'Preview',
-      icon: 'external',
-      external: true,
-      url: `https://www.mturk.com/mturk/preview?groupId=${this.props.hit
-        .groupId}`
-    },
-    {
       content: 'Accept',
       accessibilityLabel: 'Accept',
       icon: 'external',
@@ -121,7 +113,7 @@ class SearchCard extends React.PureComponent<Props, State> {
     }
   ];
 
-  render() {
+  public render() {
     const { hit, requester } = this.props;
     const { qualified, requesterName, title } = hit;
     return (
