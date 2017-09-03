@@ -99,3 +99,6 @@ export const tutkopticonBaseUrl = `https://turkopticon.ucsd.edu/`;
 
 export const timeAllotedSelector =
   'tr > td:nth-child(2) > table > tbody > tr:nth-child(2) > td.capsule_field_text';
+
+export const descriptionSelector = 
+  `.capsuletarget > table:nth-child(1) > tbody > tr:nth-child(1) > td.capsule_field_text`;

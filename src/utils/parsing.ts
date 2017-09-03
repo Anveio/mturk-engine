@@ -5,7 +5,8 @@ import {
   groupIdAnchor,
   hitIdAnchor,
   timeLeftSelector,
-  timeAllotedSelector
+  timeAllotedSelector,
+  descriptionSelector
 } from '../constants';
 import { Map } from 'immutable';
 import { v4 } from 'uuid';
@@ -30,6 +31,7 @@ export const createSearchItem = (input: HTMLDivElement): SearchItem => ({
   groupId: parseGroupId(input),
   time: Date.now(),
   timeAllotted: parseTimeAllotted(input),
+  description: parseDescription(input),
   batchSize: parseBatchSize(input),
   qualified: parseQualified(input)
 });
@@ -137,6 +139,15 @@ export const parseTimeLeft = (input: HTMLDivElement): string => {
     return (timeLeftElem as HTMLTableCellElement).innerText.trim();
   } else {
     return '[Error:timeLeft]';
+  }
+};
+
+export const parseDescription = (input: HTMLDivElement): string => {
+  const descriptionElem = input.querySelector(descriptionSelector);
+  if (descriptionElem) {
+    return (descriptionElem as HTMLTableDataCellElement).innerText.trim();
+  } else {
+    return 'No description.';
   }
 };
 

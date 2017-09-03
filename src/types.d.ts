@@ -40,6 +40,7 @@ export interface SearchItem {
   readonly turkopticon?: Requester;
   readonly time: number;
   readonly qualified: boolean;
+  readonly description: string;
   readonly timeAllotted: string;
 }
 

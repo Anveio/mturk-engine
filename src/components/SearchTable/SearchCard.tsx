@@ -129,7 +129,10 @@ class SearchCard extends React.PureComponent<Props, State> {
           }
         />
         <Collapsible open={this.state.active}>
-          <Card.Section subdued>{hit.timeAllotted}</Card.Section>
+          <Card.Section subdued>
+            Description: {hit.description}
+            Time allotted: {hit.timeAllotted}
+          </Card.Section>
         </Collapsible>
       </div>
     );
