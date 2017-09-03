@@ -1,5 +1,5 @@
 import {
-  SearchItem,
+  SearchResult,
   SearchResults,
   RequesterMap,
   RequesterScores,
@@ -7,9 +7,9 @@ import {
 } from '../types';
 
 import { Map } from 'immutable';
-export const noTurkopticon = (hit: SearchItem) => !hit.turkopticon;
-export const selectRequesterId = (hit: SearchItem) => hit.requesterId;
-export const invalidGroupId = (hit: SearchItem) =>
+export const noTurkopticon = (hit: SearchResult) => !hit.turkopticon;
+export const selectRequesterId = (hit: SearchResult) => hit.requesterId;
+export const invalidGroupId = (hit: SearchResult) =>
   !hit.groupId.startsWith('[Error:groupId]-');
 
 /**

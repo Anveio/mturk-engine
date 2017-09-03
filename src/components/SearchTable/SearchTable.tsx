@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {
-  SearchItem,
+  SearchResult,
   SearchResults,
   BlockedHit,
   HitBlockMap,
@@ -21,7 +21,7 @@ export interface Props {
 }
 
 export interface Handlers {
-  readonly onAccept: (hit: SearchItem) => void;
+  readonly onAccept: (hit: SearchResult) => void;
   readonly onHide: (hit: BlockedHit) => void;
 }
 
@@ -37,7 +37,7 @@ const HitTable = (props: Props & Handlers) => {
 
   const filterBlockedHits = (unfilteredHits: SearchResults) =>
     unfilteredHits.filter(
-      (hit: SearchItem) => !blockedHits.get(hit.groupId)
+      (hit: SearchResult) => !blockedHits.get(hit.groupId)
     ) as SearchResults;
 
   const displayedHits = filterBlockedHits(hits)
@@ -54,7 +54,7 @@ const HitTable = (props: Props & Handlers) => {
       <SortingForm />
       <ResourceList
         items={displayedHits}
-        renderItem={(hit: SearchItem) => (
+        renderItem={(hit: SearchResult) => (
           <SearchCard
             hit={hit}
             requester={requesters.get(hit.requesterId)}

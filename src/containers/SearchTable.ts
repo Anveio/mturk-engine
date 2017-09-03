@@ -1,5 +1,5 @@
 import { connect, Dispatch } from 'react-redux';
-import { RootState, BlockedHit, SearchItem } from '../types';
+import { RootState, BlockedHit, SearchResult } from '../types';
 import HitTable, {
   Props,
   Handlers
@@ -17,7 +17,7 @@ const mapState = (state: RootState): Props => ({
 type SearchTableAction = AcceptAction | BlockAction;
 
 const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
-  onAccept: (hit: SearchItem) => {
+  onAccept: (hit: SearchResult) => {
     dispatch(acceptHitRequest(hit));
   },
   onHide: (hit: BlockedHit) => {

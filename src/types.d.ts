@@ -15,7 +15,7 @@ export interface RootState {
   readonly timeLastSearch: Date | null;
 }
 
-export type SearchResults = Map<string, SearchItem>;
+export type SearchResults = Map<string, SearchResult>;
 export type QueueMap = Map<string, QueueItem>;
 export type RequesterMap = Map<string, Requester>;
 export type HitBlockMap = Map<string, BlockedHit>;
@@ -30,7 +30,7 @@ export interface SearchOptions {
 
 export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
 
-export interface SearchItem {
+export interface SearchResult {
   readonly title: string;
   readonly requesterName: string;
   readonly requesterId: string;
@@ -52,7 +52,7 @@ export interface QueueItem {
   readonly timeLeft: string;
 }
 
-export interface BlockedHit extends SearchItem {
+export interface BlockedHit extends SearchResult {
   readonly dateBlocked: Date;
 }
 

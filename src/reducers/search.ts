@@ -1,4 +1,4 @@
-import { SearchItem, SearchResults } from '../types';
+import { SearchResult, SearchResults } from '../types';
 import { SearchAction } from '../actions/search';
 import { TOpticonAction } from '../actions/turkopticon';
 import {
@@ -8,7 +8,7 @@ import {
 import { Map } from 'immutable';
 // import sampleHits from '../utils/sampleHits';
 
-const initial: SearchResults = Map<string, SearchItem>();
+const initial: SearchResults = Map<string, SearchResult>();
 
 type FetchAction = SearchAction | TOpticonAction;
 
@@ -20,7 +20,7 @@ export default (state = initial, action: FetchAction): SearchResults => {
       partialState = action.data as SearchResults;
       break;
     case FETCH_TURKOPTICON_SUCCESS:
-      partialState = state.map((hit: SearchItem): SearchItem => ({
+      partialState = state.map((hit: SearchResult): SearchResult => ({
         ...hit,
         turkopticon: action.data.get(hit.requesterId)
       })) as SearchResults;

@@ -3,7 +3,7 @@ import {
   ACCEPT_HIT_FAILURE,
   ACCEPT_HIT_REQUEST
 } from '../constants';
-import { SearchItem, QueueItem } from '../types';
+import { SearchResult, QueueItem } from '../types';
 
 export interface AcceptHitSuccess {
   type: ACCEPT_HIT_SUCCESS;
@@ -15,7 +15,7 @@ export interface AcceptHitFailure {
 
 export interface AcceptHitRequest {
   type: ACCEPT_HIT_REQUEST;
-  data: SearchItem;
+  data: SearchResult;
 }
 
 export type AcceptAction =
@@ -32,7 +32,7 @@ export const acceptHitFailure = (): AcceptHitFailure => ({
   type: ACCEPT_HIT_FAILURE
 });
 
-export const acceptHitRequest = (data: SearchItem): AcceptHitRequest => ({
+export const acceptHitRequest = (data: SearchResult): AcceptHitRequest => ({
   type: ACCEPT_HIT_REQUEST,
   data
 });

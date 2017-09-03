@@ -1,4 +1,4 @@
-import { SearchItem, SortingOption } from '../types';
+import { SearchResult, SortingOption } from '../types';
 
 const optionsMap = {
   'Batch Size': 'batchSize',
@@ -9,5 +9,5 @@ const optionsMap = {
 
 export const sortBy = (option: SortingOption) => {
   const property = optionsMap[option] || optionsMap.default;
-  return (a: SearchItem, b: SearchItem) => +b[property] - +a[property];
+  return (a: SearchResult, b: SearchResult) => +b[property] - +a[property];
 };

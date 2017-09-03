@@ -1,4 +1,4 @@
-import { SearchItem, SearchResults, QueueItem, QueueMap } from '../types';
+import { SearchResult, SearchResults, QueueItem, QueueMap } from '../types';
 import {
   hitTableIdentifier,
   requesterIdAnchor,
@@ -20,10 +20,10 @@ export const tabulateSearchData = (input: HTMLDivElement[]): SearchResults =>
   input.reduce(
     (map: SearchResults, hit: HTMLDivElement) =>
       map.set(parseGroupId(hit), createSearchItem(hit)),
-    Map<string, SearchItem>()
+    Map<string, SearchResult>()
   );
 
-export const createSearchItem = (input: HTMLDivElement): SearchItem => ({
+export const createSearchItem = (input: HTMLDivElement): SearchResult => ({
   title: parseTitle(input),
   requesterName: parseRequesterName(input),
   requesterId: parseRequesterId(input),

@@ -1,6 +1,6 @@
 import * as React from 'react';
 // import { DisableableAction } from '@shopify/polaris/types/';
-import { SearchItem, BlockedHit, Requester } from '../../types';
+import { SearchResult, BlockedHit, Requester } from '../../types';
 import { ResourceList, Collapsible, Card } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
 import { truncate } from '../../utils/formatting';
@@ -9,9 +9,9 @@ import { generateBadges } from '../../utils/badges';
 import { blockedHitFactory } from '../../utils/blockHit';
 
 export interface Props {
-  readonly hit: SearchItem;
+  readonly hit: SearchResult;
   readonly requester?: Requester;
-  readonly onAccept: (hit: SearchItem) => void;
+  readonly onAccept: (hit: SearchResult) => void;
   readonly onHide: (hit: BlockedHit) => void;
 }
 
