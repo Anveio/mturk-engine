@@ -12,7 +12,7 @@ export interface RootState {
   readonly searchFormActive: boolean;
   readonly sortingOption: SortingOption;
   readonly hitBlocklist: HitBlockMap;
-  readonly timeLastSearch: Date;
+  readonly timeLastSearch: Date | null;
 }
 
 export type SearchResults = Map<string, SearchItem>;

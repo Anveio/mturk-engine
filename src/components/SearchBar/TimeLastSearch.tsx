@@ -4,7 +4,7 @@ import { RootState } from '../../types';
 import { Caption } from '@shopify/polaris';
 
 interface Props {
-  readonly timeLastSearch: Date;
+  readonly timeLastSearch: Date | null;
 }
 
 const mapState = (state: RootState): Props => ({
@@ -12,7 +12,11 @@ const mapState = (state: RootState): Props => ({
 });
 
 const TimeLastSearch = ({ timeLastSearch }: Props) => {
-  return <Caption>Last Search: {timeLastSearch.toLocaleTimeString()}</Caption>;
+  return timeLastSearch ? (
+    <Caption>Last Search: {timeLastSearch.toLocaleTimeString()}</Caption>
+  ) : (
+    <div />
+  );
 };
 
 export default connect(mapState)(TimeLastSearch);
