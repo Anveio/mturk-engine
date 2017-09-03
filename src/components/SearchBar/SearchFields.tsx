@@ -15,74 +15,84 @@ interface CheckBoxProps {
   readonly checked: boolean;
 }
 
-const SearchDelayField = ({ value, onChange }: Props) => {
-  return (
-    <TextField
-      label="Time Between Searches"
-      type="number"
-      suffix="seconds"
-      min={10}
-      autoComplete={false}
-      value={value}
-      onChange={onChange}
-    />
-  );
-};
+class SearchDelayField extends React.PureComponent<Props, never> {
+  public render() {
+    return (
+      <TextField
+        label="Time Between Searches"
+        type="number"
+        suffix="seconds"
+        min={10}
+        autoComplete={false}
+        value={this.props.value}
+        onChange={this.props.onChange}
+      />
+    );
+  }
+}
 
-const MinimumRewardField = ({ value, onChange }: Props) => {
-  return (
-    <TextField
-      label="Minimum Reward"
-      type="number"
-      min={0}
-      step={0.1}
-      prefix="$"
-      autoComplete={false}
-      value={value}
-      onChange={onChange}
-    />
-  );
-};
+class MinimumRewardField extends React.PureComponent<Props, never> {
+  public render() {
+    return (
+      <TextField
+        label="Minimum Reward"
+        type="number"
+        min={0}
+        step={0.1}
+        prefix="$"
+        autoComplete={false}
+        value={this.props.value}
+        onChange={this.props.onChange}
+      />
+    );
+  }
+}
 
-const SortTypeField = ({ value, options, onChange }: SortTypeProps) => {
-  return (
-    <Select
-      label="Search By"
-      options={options.map((option: string) => ({
-        label: option,
-        value: option
-      }))}
-      value={value}
-      onChange={onChange}
-    />
-  );
-};
+class SortTypeField extends React.PureComponent<SortTypeProps, never> {
+  public render() {
+    return (
+      <Select
+        label="Search By"
+        options={this.props.options.map((option: string) => ({
+          label: option,
+          value: option
+        }))}
+        value={this.props.value}
+        onChange={this.props.onChange}
+      />
+    );
+  }
+}
 
-const QualifiedBox = ({ checked, onChange }: CheckBoxProps) => {
-  return (
-    <Checkbox
-      label="Qualified only"
-      id="checkbox-qualified"
-      name="Qualfiied Only Checkbox"
-      checked={checked}
-      onChange={onChange}
-    />
-  );
-};
+class QualifiedBox extends React.PureComponent<CheckBoxProps, never> {
+  public render() {
+    return (
+      <Checkbox
+        label="Qualified only"
+        id="checkbox-qualified"
+        name="Qualfiied Only Checkbox"
+        checked={this.props.checked}
+        onChange={this.props.onChange}
+      />
+    );
+  }
+}
 
-const CustomSearch = ({ value, onChange }: Props) => {
-  return (
-    <TextField
-      labelHidden
-      label="Custom search"
-      name="Custom Search"
-      id="custom-search"
-      placeholder="Custom search"
-      value={value}
-      onChange={onChange}
-    />
-  );
-};
+class CustomSearch extends React.PureComponent<Props, never> {
+  public render() {
+    return (
+      <TextField
+        labelHidden
+        label="Custom search"
+        name="Custom Search"
+        id="custom-search"
+        placeholder="Custom search"
+        value={this.props.value}
+        onChange={this.props.onChange}
+      />
+    );
+  }
+}
 
 export {
   SearchDelayField,
