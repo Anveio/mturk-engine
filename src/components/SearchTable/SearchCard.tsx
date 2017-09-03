@@ -1,8 +1,9 @@
 import * as React from 'react';
 // import { DisableableAction } from '@shopify/polaris/types/';
 import { SearchResult, BlockedHit, Requester } from '../../types';
-import { ResourceList, Collapsible, Card } from '@shopify/polaris';
+import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
+import CollapsibleInfo from './CollapsibleInfo';
 import { truncate } from '../../utils/formatting';
 import { qualException } from '../../utils/exceptions';
 import { generateBadges } from '../../utils/badges';
@@ -15,57 +16,7 @@ export interface Props {
   readonly onHide: (hit: BlockedHit) => void;
 }
 
-// const SearchCard = ({ hit, requester, onAccept, onHide }: Props) => {
-//   const { requesterName, groupId, title, qualified } = hit;
-//   const handleAccept = () => onAccept(hit);
-//   const handleHide = () => onHide(searchItemToBlockedHit(hit));
-
-//   const actions = [
-//     {
-//       content: 'Hide',
-//       accessibilityLabel: 'Hide',
-//       icon: 'disable',
-//       destructive: true,
-//       onClick: handleHide
-//     },
-//     {
-//       content: 'Preview',
-//       accessibilityLabel: 'Preview',
-//       icon: 'external',
-//       external: true,
-//       url: `https://www.mturk.com/mturk/preview?groupId=${groupId}`
-//     },
-//     {
-//       content: 'Accept',
-//       accessibilityLabel: 'Accept',
-//       icon: 'external',
-//       external: true,
-//       url: `https://www.mturk.com/mturk/previewandaccept?groupId=${groupId}`
-//     },
-//     {
-//       content: 'Add',
-//       accessibilityLabel: 'Add',
-//       icon: 'add',
-//       primary: true,
-//       onClick: handleAccept
-//     }
-//   ];
-
-//   return (
-//       <ResourceList.Item
-//         actions={actions}
-//         exceptions={qualException(qualified)}
-//         badges={generateBadges(requester)}
-//         attributeOne={truncate(requesterName, 40)}
-//         attributeTwo={truncate(title, 80)}
-//         attributeThree={
-//           <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
-//         }
-//       />
-//   );
-// };
-
-interface State {
+export interface State {
   active: boolean;
 }
 
@@ -125,15 +76,13 @@ class SearchCard extends React.PureComponent<Props, State> {
           attributeOne={truncate(requesterName, 40)}
           attributeTwo={truncate(title, 80)}
           attributeThree={
-            <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
-          }
+            <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
         />
-        <Collapsible open={this.state.active}>
-          <Card.Section subdued>
-            Description: {hit.description}
-            Time allotted: {hit.timeAllotted}
-          </Card.Section>
-        </Collapsible>
+        <CollapsibleInfo
+          open={this.state.active}
+          description={this.props.hit.description}
+          timeAllotted={this.props.hit.timeAllotted}
+        />
       </div>
     );
   }
