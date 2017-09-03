@@ -11,12 +11,15 @@ const mapState = (state: RootState): Props => ({
   timeLastSearch: state.timeLastSearch
 });
 
-const TimeLastSearch = ({ timeLastSearch }: Props) => {
-  return timeLastSearch ? (
-    <Caption>Last Search: {timeLastSearch.toLocaleTimeString()}</Caption>
-  ) : (
-    <div />
-  );
-};
+class TimeLastSearch extends React.PureComponent<Props, never> {
+  public render() {
+    const { timeLastSearch } = this.props;
+    return timeLastSearch ? (
+      <Caption>Last Search: {timeLastSearch.toLocaleTimeString()}</Caption>
+    ) : (
+      <div />
+    );
+  }
+}
 
 export default connect(mapState)(TimeLastSearch);
