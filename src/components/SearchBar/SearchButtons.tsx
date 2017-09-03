@@ -12,44 +12,41 @@ export interface Handlers {
   readonly onToggleSearch: (active: boolean) => void;
 }
 
-const settingsButtonText = (active: boolean) => {
-  return active ? 'Hide search settings' : 'Edit search settings';
-};
-
-const searchButtonText = (active: boolean) => {
-  return active ? 'Stop searching' : 'Start searching';
-};
-
-const SearchButtons = (props: Props & Handlers) => {
-  const {
-    onToggleSearch,
-    onToggleSettings,
-    settingsActive,
-    searchActive
-  } = props;
-
-  const handleSearch = () => {
-    onToggleSearch(searchActive);
+class SearchButtons extends React.PureComponent<Props & Handlers, never> {
+  private handleSearch = () => {
+    this.props.onToggleSearch(this.props.searchActive);
   };
 
-  return (
-    <Stack vertical={false} alignment="baseline">
-      <ButtonGroup segmented>
-        <Button
-          primary
-          icon="search"
-          onClick={handleSearch}
-          destructive={searchActive}
-        >
-          {searchButtonText(searchActive)}
-        </Button>
-        <Button onClick={onToggleSettings}>
-          {settingsButtonText(settingsActive)}
-        </Button>
-      </ButtonGroup>
-      <TimeLastSearch />
-    </Stack>
-  );
-};
+  static searchButtonText = (active: boolean) => {
+    return active ? 'Stop searching' : 'Start searching';
+  };
+
+  static settingsButtonText = (active: boolean) => {
+    return active ? 'Hide search settings' : 'Edit search settings';
+  };
+
+  public render() {
+    const { onToggleSettings, settingsActive, searchActive } = this.props;
+
+    return (
+      <Stack vertical={false} alignment="baseline">
+        <ButtonGroup segmented>
+          <Button
+            primary
+            icon="search"
+            onClick={this.handleSearch}
+            destructive={searchActive}
+          >
+            {SearchButtons.searchButtonText(searchActive)}
+          </Button>
+          <Button onClick={onToggleSettings}>
+            {SearchButtons.settingsButtonText(settingsActive)}
+          </Button>
+        </ButtonGroup>
+        <TimeLastSearch />
+      </Stack>
+    );
+  }
+}
 
 export default SearchButtons;
