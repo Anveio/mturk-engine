@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Stack, ButtonGroup, Button } from '@shopify/polaris';
-import TimeLastSearch from './TimeLastSearch';
+import TimeNextSearch from './TimeNextSearch';
 
 export interface Props {
   readonly settingsActive: boolean;
@@ -43,7 +43,7 @@ class SearchButtons extends React.PureComponent<Props & Handlers, never> {
             {SearchButtons.settingsButtonText(settingsActive)}
           </Button>
         </ButtonGroup>
-        <TimeLastSearch />
+        <TimeNextSearch />
       </Stack>
     );
   }

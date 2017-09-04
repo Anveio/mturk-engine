@@ -25,8 +25,8 @@ class SearchCard extends React.PureComponent<Props, State> {
     this.state = { active: false };
   }
 
-  private infoIcon = (active: boolean) => {
-    return active ? 'caretDown' : 'caretUp';
+  static infoIcon = (active: boolean) => {
+    return active ? 'caretUp' : 'caretDown';
   };
 
   componentWillReceiveProps() {
@@ -42,28 +42,6 @@ class SearchCard extends React.PureComponent<Props, State> {
       active: !prevState.active
     }));
 
-  // private actions = [
-  //   {
-  //     content: 'Hide',
-  //     accessibilityLabel: 'Hide',
-  //     icon: 'disable',
-  //     destructive: true,
-  //     onClick: this.handleHide
-  //   },
-  //   {
-  //     content: 'Info',
-  //     onClick: this.onToggleFocus,
-  //     icon: this.infoIcon(this.state.active)
-  //   },
-  //   {
-  //     content: 'Add',
-  //     accessibilityLabel: 'Add',
-  //     icon: 'add',
-  //     primary: true,
-  //     onClick: this.handleAccept
-  //   }
-  // ];
-
   private generateActions = () => [
     {
       content: 'Hide',
@@ -75,7 +53,7 @@ class SearchCard extends React.PureComponent<Props, State> {
     {
       content: 'Info',
       onClick: this.onToggleFocus,
-      icon: this.infoIcon(this.state.active)
+      icon: SearchCard.infoIcon(this.state.active)
     },
     {
       content: 'Add',
