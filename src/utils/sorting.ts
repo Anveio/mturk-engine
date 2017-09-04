@@ -3,8 +3,8 @@ import { SearchResult, SortingOption } from '../types';
 const optionsMap = {
   'Batch Size': 'batchSize',
   Reward: 'reward',
-  Latest: 'time',
-  default: 'time'
+  Latest: 'index',
+  default: 'index'
 };
 
 export const sortBy = (option: SortingOption) => {

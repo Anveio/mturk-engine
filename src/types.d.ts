@@ -37,8 +37,8 @@ export interface SearchResult {
   readonly reward: string;
   readonly groupId: string;
   readonly batchSize: number;
+  readonly index: number;
   readonly turkopticon?: Requester;
-  readonly time: number;
   readonly qualified: boolean;
   readonly description: string;
   readonly timeAllotted: string;
