@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { DisableableAction } from '@shopify/polaris/types/';
 import { SearchResult, BlockedHit, Requester } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
@@ -26,6 +25,10 @@ class SearchCard extends React.PureComponent<Props, State> {
     this.state = { active: false };
   }
 
+  private infoIcon = (active: boolean) => {
+    return active ? 'caretDown' : 'caretUp';
+  };
+
   componentWillReceiveProps() {
     this.setState((): Partial<State> => ({ active: false }));
   }
@@ -39,7 +42,29 @@ class SearchCard extends React.PureComponent<Props, State> {
       active: !prevState.active
     }));
 
-  private actions = [
+  // private actions = [
+  //   {
+  //     content: 'Hide',
+  //     accessibilityLabel: 'Hide',
+  //     icon: 'disable',
+  //     destructive: true,
+  //     onClick: this.handleHide
+  //   },
+  //   {
+  //     content: 'Info',
+  //     onClick: this.onToggleFocus,
+  //     icon: this.infoIcon(this.state.active)
+  //   },
+  //   {
+  //     content: 'Add',
+  //     accessibilityLabel: 'Add',
+  //     icon: 'add',
+  //     primary: true,
+  //     onClick: this.handleAccept
+  //   }
+  // ];
+
+  private generateActions = () => [
     {
       content: 'Hide',
       accessibilityLabel: 'Hide',
@@ -48,12 +73,9 @@ class SearchCard extends React.PureComponent<Props, State> {
       onClick: this.handleHide
     },
     {
-      content: 'Accept',
-      accessibilityLabel: 'Accept',
-      icon: 'external',
-      external: true,
-      url: `https://www.mturk.com/mturk/previewandaccept?groupId=${this.props
-        .hit.groupId}`
+      content: 'Info',
+      onClick: this.onToggleFocus,
+      icon: this.infoIcon(this.state.active)
     },
     {
       content: 'Add',
@@ -68,9 +90,9 @@ class SearchCard extends React.PureComponent<Props, State> {
     const { hit, requester } = this.props;
     const { qualified, requesterName, title } = hit;
     return (
-      <div onClick={this.onToggleFocus}>
+      <div>
         <ResourceList.Item
-          actions={this.actions}
+          actions={this.generateActions()}
           exceptions={qualException(qualified)}
           badges={generateBadges(requester)}
           attributeOne={truncate(requesterName, 40)}

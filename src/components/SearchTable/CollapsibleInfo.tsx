@@ -15,12 +15,10 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
     return (
       <Collapsible open={this.props.open}>
         <Card.Section subdued>
-          <Stack vertical={false} distribution="equalSpacing">
-            <Stack vertical spacing="tight">
-              <TextStyle variation="subdued">{` ${description}`}</TextStyle>
-              Time allotted:
-              <TextStyle variation="subdued">{` ${timeAllotted}`}</TextStyle>
-            </Stack>
+          <Stack vertical spacing="loose" distribution="equalSpacing">
+            <TextStyle variation="subdued">{` ${description}`}</TextStyle>
+            Time allotted:
+            <TextStyle variation="subdued">{` ${timeAllotted}`}</TextStyle>
             <SearchCardInfoButtons
               groupId={groupId}
               requesterId={requesterId}
