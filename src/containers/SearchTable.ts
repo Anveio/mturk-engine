@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState, BlockedHit, SearchResult } from '../types';
-import HitTable, {
+import SearchTable, {
   Props,
   Handlers
 } from '../components/SearchTable/SearchTable';
@@ -25,4 +25,4 @@ const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(HitTable);
+export default connect(mapState, mapDispatch)(SearchTable);
