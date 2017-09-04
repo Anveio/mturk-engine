@@ -13,7 +13,6 @@ import {
   fetchTOpticonRequest
 } from '../actions/turkopticon';
 import { searchHits } from '../api/search';
-import { generateSearchToast } from '../utils/toastr';
 import { calculateNextSearchTime } from '../utils/scheduler';
 
 export const getSearchOptions = (state: RootState) => state.searchOptions;
@@ -24,7 +23,7 @@ export function* fetchSearchResults(action: SearchRequest) {
     const hitData: SearchResults = yield call(searchHits, options);
 
     const empty = hitData.isEmpty();
-    generateSearchToast(!empty);
+
     empty
       ? yield put<SearchFailure>(searchFailure())
       : yield put<SearchSuccess>(searchSuccess(hitData));
