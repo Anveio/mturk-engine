@@ -39,7 +39,7 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
     const filterBlockedHits = (unfilteredHits: SearchResults) =>
       unfilteredHits.filter(
         (hit: SearchResult) => !blockedHits.get(hit.groupId)
-      ) as SearchResults;
+      );
 
     const displayedHits = filterBlockedHits(hits)
       .sort(sortBy(sortingOption))
