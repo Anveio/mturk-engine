@@ -7,7 +7,7 @@ import {
   RequesterMap,
   SortingOption
 } from '../../types';
-import { Card, ResourceList } from '@shopify/polaris';
+import { Card } from '@shopify/polaris';
 import SearchCard from './SearchCard';
 import SortingForm from '../../containers/SortingForm';
 import EmptyHitTable from '../../containers/EmptySearchTable';
@@ -44,6 +44,10 @@ const HitTable = (props: Props & Handlers) => {
     .sort(sortBy(sortingOption))
     .toArray();
 
+  const displayedHitsFilter = filterBlockedHits(hits)
+    .sort(sortBy(sortingOption))
+    .toList();
+
   return hits.isEmpty() ? (
     <EmptyHitTable />
   ) : (
@@ -52,17 +56,17 @@ const HitTable = (props: Props & Handlers) => {
         displayedHits.length} hidden.`}
     >
       <SortingForm />
-      <ResourceList
-        items={displayedHits}
-        renderItem={(hit: SearchResult) => (
+      {displayedHitsFilter.map((hit: SearchResult) => {
+        return (
           <SearchCard
+            key={hit.groupId}
             hit={hit}
             requester={requesters.get(hit.requesterId)}
             onAccept={onAccept}
             onHide={onHide}
           />
-        )}
-      />
+        );
+      })}
     </Card>
   );
 };
