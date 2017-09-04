@@ -76,13 +76,10 @@ class SearchCard extends React.PureComponent<Props, State> {
           attributeOne={truncate(requesterName, 40)}
           attributeTwo={truncate(title, 80)}
           attributeThree={
-            <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
+            <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
+          }
         />
-        <CollapsibleInfo
-          open={this.state.active}
-          description={this.props.hit.description}
-          timeAllotted={this.props.hit.timeAllotted}
-        />
+        <CollapsibleInfo open={this.state.active} hit={this.props.hit} />
       </div>
     );
   }
