@@ -73,11 +73,10 @@ export const UNBLOCK_HIT_GROUP = 'UNBLOCK_HIT_GROUP';
 export type UNBLOCK_HIT_GROUP = typeof UNBLOCK_HIT_GROUP;
 
 export const API_URL = configureApiRoot();
-/**
- * The string to be passed to querySelector in order to find the table containing all fetched HITs.
- * Credit to: L697 https://greasyfork.org/en/scripts/21815-hit-finder-beta/code#n697
- */
-export const hitTableIdentifier = `table[cellpadding="0"][cellspacing="0"][border="0"][width="100%"][height="100%"]`;
+
+export const hitTableBody = `body > div:nth-child(9) > table:nth-child(3) > tbody`;
+
+export const hitContainerTableCell = `table[cellpadding="0"][cellspacing="0"][border="0"][width="100%"][height="100%"]`;
 
 /**
  * The string to be passed to querySelector in order to find the anchor HTML Element containing the requesterID.
@@ -100,5 +99,4 @@ export const tutkopticonBaseUrl = `https://turkopticon.ucsd.edu/`;
 export const timeAllotedSelector =
   'tr > td:nth-child(2) > table > tbody > tr:nth-child(2) > td.capsule_field_text';
 
-export const descriptionSelector = 
-  `.capsuletarget > table:nth-child(1) > tbody > tr:nth-child(1) > td.capsule_field_text`;
+export const descriptionSelector = `.capsuletarget > table:nth-child(1) > tbody > tr:nth-child(1) > td.capsule_field_text`;

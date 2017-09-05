@@ -1,6 +1,6 @@
 import { SearchResult, SearchResults, QueueItem, QueueMap } from '../types';
 import {
-  hitTableIdentifier,
+  hitContainerTableCell,
   requesterIdAnchor,
   groupIdAnchor,
   hitIdAnchor,
@@ -9,10 +9,10 @@ import {
   descriptionSelector
 } from '../constants';
 import { Map } from 'immutable';
-import { v4 } from 'uuid';
+import * as v4 from 'uuid/v4';
 
 export const selectHitContainers = (el: Document): HTMLDivElement[] =>
-  Array.from(el.querySelectorAll(hitTableIdentifier) as NodeListOf<
+  Array.from(el.querySelectorAll(hitContainerTableCell) as NodeListOf<
     HTMLDivElement
   >);
 
