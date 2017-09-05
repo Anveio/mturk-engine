@@ -17,7 +17,7 @@ const mapState = (state: RootState): Props => ({
   searchingActive: state.searchingActive
 });
 
-class TimeNextSearch extends React.PureComponent<Props, State> {
+class SearchTimer extends React.PureComponent<Props, State> {
   public readonly state = { timeUntilNextSearch: null };
   static readonly tickRate: number = 16.67;
   private timerId: number;
@@ -45,7 +45,7 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
   private startTimer = () => {
     this.timerId = window.setInterval(
       () => this.tick(),
-      TimeNextSearch.tickRate
+      SearchTimer.tickRate
     );
   };
 
@@ -56,7 +56,7 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
   private tick = () => {
     if (this.props.timeNextSearch && this.props.searchingActive) {
       this.setState({
-        timeUntilNextSearch: TimeNextSearch.calculateTimeUntilNextSearch(
+        timeUntilNextSearch: SearchTimer.calculateTimeUntilNextSearch(
           this.dateNumNextSearch
         )
       });
@@ -73,4 +73,4 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
   }
 }
 
-export default connect(mapState)(TimeNextSearch);
+export default connect(mapState)(SearchTimer);
