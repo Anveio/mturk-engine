@@ -12,6 +12,7 @@ export interface SearchFailure {
 
 export interface SearchRequest {
   type: SEARCH_REQUEST;
+  continuous: boolean;
 }
 
 export type SearchAction = SearchSuccess | SearchFailure | SearchRequest;
@@ -25,6 +26,17 @@ export const searchFailure = (): SearchFailure => ({
   type: SEARCH_FAILURE
 });
 
-export const searchRequest = (): SearchRequest => ({
-  type: SEARCH_REQUEST
+export const searchRequest = (continuous: boolean): SearchRequest => ({
+  type: SEARCH_REQUEST,
+  continuous
+});
+
+export const searchRequestContinuous = (): SearchRequest => ({
+  type: SEARCH_REQUEST,
+  continuous: true
+});
+
+export const searchRequestSingular = (): SearchRequest => ({
+  type: SEARCH_REQUEST,
+  continuous: false
 });

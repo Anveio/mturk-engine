@@ -32,9 +32,11 @@ export function* fetchSearchResults(action: SearchRequest) {
       yield put<FetchTOpticonRequest>(fetchTOpticonRequest(hitData));
     }
 
-    yield put<ScheduleNextSearch>(
-      scheduleSearch(calculateNextSearchTime(+options.delay))
-    );
+    if (action.continuous) {
+      yield put<ScheduleNextSearch>(
+        scheduleSearch(calculateNextSearchTime(+options.delay))
+      );
+    }
   } catch (e) {
     yield put<SearchFailure>(searchFailure());
   }

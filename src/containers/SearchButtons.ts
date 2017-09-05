@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../types';
-import { SearchAction, searchRequest } from '../actions/search';
+import { SearchAction, searchRequestContinuous } from '../actions/search';
 import { ScheduleAction, cancelNextSearch } from '../actions/scheduler';
 import { toggleSearchActive } from '../actions/searchActivity';
 import { FormAction, toggleForm } from '../actions/form';
@@ -23,7 +23,7 @@ const mapDispatch = (dispatch: Dispatch<SearchBarButtonAction>): Handlers => ({
     if (active) {
       dispatch(cancelNextSearch());
     } else {
-      dispatch(searchRequest());
+      dispatch(searchRequestContinuous());
     }
   },
   onToggleSettings: () => dispatch(toggleForm())

@@ -1,7 +1,7 @@
 import { delay } from 'redux-saga';
 import { put, select } from 'redux-saga/effects';
 import { RootState } from '../types';
-import { SearchRequest, searchRequest } from '../actions/search';
+import { SearchRequest, searchRequestContinuous } from '../actions/search';
 import { ScheduleNextSearch } from '../actions/scheduler';
 
 export function* searchAfterDelay(action: ScheduleNextSearch) {
@@ -11,6 +11,6 @@ export function* searchAfterDelay(action: ScheduleNextSearch) {
   );
 
   if (searchingActive) {
-    yield put<SearchRequest>(searchRequest());
+    yield put<SearchRequest>(searchRequestContinuous());
   }
 }

@@ -5,7 +5,7 @@ import SearchForm, {
   Props,
   Handlers
 } from '../components/SearchBar/SearchSettings';
-import { SearchAction, searchRequest } from '../actions/search';
+import { SearchAction, searchRequestSingular } from '../actions/search';
 
 const mapState = (state: RootState): Props => ({
   searchOptions: {
@@ -24,7 +24,7 @@ const mapDispatch = (dispatch: Dispatch<SearchSettingsAction>): Handlers => ({
     dispatch(updateForm(field, value));
   },
   onSearch: () => {
-    dispatch(searchRequest());
+    dispatch(searchRequestSingular());
   }
 });
 
