@@ -5,7 +5,7 @@ import { Caption } from '@shopify/polaris';
 
 interface Props {
   readonly timeNextSearch: Date | null;
-  readonly searchingActive: boolean;
+  readonly waitingForMturk: boolean;
 }
 
 interface State {
@@ -14,17 +14,17 @@ interface State {
 
 const mapState = (state: RootState): Props => ({
   timeNextSearch: state.timeNextSearch,
-  searchingActive: state.searchingActive
+  waitingForMturk: state.waitingForMturk
 });
 
 class SearchTimer extends React.PureComponent<Props, State> {
   public readonly state = { timeUntilNextSearch: null };
-  static readonly tickRate: number = 16.67;
+  static readonly tickRate: number = 40;
   private timerId: number;
   private dateNumNextSearch: number;
 
   componentDidMount() {
-    if (this.props.timeNextSearch && this.props.searchingActive) {
+    if (this.props.timeNextSearch) {
       this.dateNumNextSearch = this.props.timeNextSearch.valueOf();
       this.startTimer();
     }
@@ -43,10 +43,7 @@ class SearchTimer extends React.PureComponent<Props, State> {
   }
 
   private startTimer = () => {
-    this.timerId = window.setInterval(
-      () => this.tick(),
-      SearchTimer.tickRate
-    );
+    this.timerId = window.setInterval(() => this.tick(), SearchTimer.tickRate);
   };
 
   static calculateTimeUntilNextSearch = (nextSearch: number): number => {
@@ -54,7 +51,7 @@ class SearchTimer extends React.PureComponent<Props, State> {
   };
 
   private tick = () => {
-    if (this.props.timeNextSearch && this.props.searchingActive) {
+    if (this.props.timeNextSearch) {
       this.setState({
         timeUntilNextSearch: SearchTimer.calculateTimeUntilNextSearch(
           this.dateNumNextSearch
@@ -64,11 +61,11 @@ class SearchTimer extends React.PureComponent<Props, State> {
   };
 
   public render() {
-    const { timeNextSearch, searchingActive } = this.props;
-    return timeNextSearch && searchingActive ? (
+    const { timeNextSearch, waitingForMturk } = this.props;
+    return timeNextSearch && !waitingForMturk ? (
       <Caption>Next search in: {this.state.timeUntilNextSearch}</Caption>
     ) : (
-      <div />
+      <Caption>Waiting for Mturk response...</Caption>
     );
   }
 }
