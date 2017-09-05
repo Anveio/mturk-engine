@@ -5,6 +5,7 @@ import { Caption } from '@shopify/polaris';
 
 interface Props {
   readonly timeNextSearch: Date | null;
+  readonly searchingActive: boolean;
 }
 
 interface State {
@@ -12,12 +13,13 @@ interface State {
 }
 
 const mapState = (state: RootState): Props => ({
-  timeNextSearch: state.timeNextSearch
+  timeNextSearch: state.timeNextSearch,
+  searchingActive: state.searchingActive
 });
 
 class TimeNextSearch extends React.PureComponent<Props, State> {
   state = { timeUntilNextSearch: null };
-  private tickRate: number = 16.67;
+  private tickRate: number = 100;
   private timerId: number;
   private dateNumNextSearch: number;
 
@@ -52,8 +54,8 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
   };
 
   public render() {
-    const { timeNextSearch } = this.props;
-    return timeNextSearch ? (
+    const { timeNextSearch, searchingActive } = this.props;
+    return timeNextSearch && searchingActive ? (
       <Caption>Next search in: {this.state.timeUntilNextSearch}</Caption>
     ) : (
       <div />
