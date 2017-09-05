@@ -24,7 +24,10 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
   private dateNumNextSearch: number;
 
   componentDidMount() {
-    this.startTimer();
+    if (this.props.timeNextSearch && this.props.searchingActive) {
+      this.dateNumNextSearch = this.props.timeNextSearch.valueOf();
+      this.startTimer();
+    }
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -33,6 +36,10 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
       this.dateNumNextSearch = nextProps.timeNextSearch.valueOf();
       this.startTimer();
     }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerId);
   }
 
   private startTimer = () => {
@@ -47,7 +54,7 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
   };
 
   private tick = () => {
-    if (this.props.timeNextSearch) {
+    if (this.props.timeNextSearch && this.props.searchingActive) {
       this.setState({
         timeUntilNextSearch: TimeNextSearch.calculateTimeUntilNextSearch(
           this.dateNumNextSearch
@@ -61,16 +68,7 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
     return timeNextSearch && searchingActive ? (
       <Caption>Next search in: {this.state.timeUntilNextSearch}</Caption>
     ) : (
-      <svg viewBox="0 0 100 100">
-        <path
-          className="pt-spinner-track"
-          d="M 50,50 m 0,-44.5 a 44.5,44.5 0 1 1 0,89 a 44.5,44.5 0 1 1 0,-89"
-        />
-        <path
-          className="pt-spinner-head"
-          d="M 94.5 50 A 44.5 44.5 0 0 0 50 5.5"
-        />
-      </svg>
+      <div />
     );
   }
 }
