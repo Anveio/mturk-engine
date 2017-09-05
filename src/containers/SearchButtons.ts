@@ -1,8 +1,9 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../types';
-import { SearchAction, searchRequestContinuous } from '../actions/search';
-import { ScheduleAction, cancelNextSearch } from '../actions/scheduler';
-import { toggleSearchActive } from '../actions/searchActivity';
+import {
+  toggleSearchActive,
+  ToggleSearchActive
+} from '../actions/searchActivity';
 import { FormAction, toggleForm } from '../actions/form';
 import SearchButtons, {
   Props,
@@ -14,17 +15,11 @@ const mapState = (state: RootState): Props => ({
   settingsActive: state.searchFormActive
 });
 
-type SearchBarButtonAction = FormAction | SearchAction | ScheduleAction;
+type SearchBarButtonAction = FormAction | ToggleSearchActive;
 
 const mapDispatch = (dispatch: Dispatch<SearchBarButtonAction>): Handlers => ({
-  onToggleSearch: (active: boolean) => {
+  onToggleSearch: () => {
     dispatch(toggleSearchActive());
-
-    if (active) {
-      dispatch(cancelNextSearch());
-    } else {
-      dispatch(searchRequestContinuous());
-    }
   },
   onToggleSettings: () => dispatch(toggleForm())
 });

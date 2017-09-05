@@ -5,7 +5,8 @@ import {
   RETURN_HIT_REQUEST,
   SEARCH_REQUEST,
   ACCEPT_HIT_REQUEST,
-  SCHEDULE_NEXT_SEARCH
+  SCHEDULE_NEXT_SEARCH,
+  TOGGLE_SEARCH_ACTIVITY
 } from '../constants';
 import { FetchQueueRequest } from '../actions/queue';
 import { ReturnHitRequest } from '../actions/return';
@@ -13,6 +14,7 @@ import { SearchRequest } from '../actions/search';
 import { ScheduleNextSearch } from '../actions/scheduler';
 import { AcceptHitRequest } from '../actions/accept';
 import { FetchTOpticonRequest } from '../actions/turkopticon';
+import { ToggleSearchActive } from '../actions/searchActivity';
 
 import { fetchUserQueue } from './fetchQueue';
 import { fetchSearchResults } from './fetchSearch';
@@ -20,6 +22,7 @@ import { returnHit } from './returnHit';
 import { searchAfterDelay } from './scheduleSearch';
 import { acceptHit } from './acceptHit';
 import { fetchTurkopticon } from './fetchTurkopticon';
+import { toggleSearchActive } from './toggleSearchActive';
 
 export default function* rootSaga() {
   yield takeLatest<FetchQueueRequest>(FETCH_QUEUE_REQUEST, fetchUserQueue);
@@ -30,5 +33,9 @@ export default function* rootSaga() {
   yield takeLatest<FetchTOpticonRequest>(
     FETCH_TURKOPTICON_REQUEST,
     fetchTurkopticon
+  );
+  yield takeLatest<ToggleSearchActive>(
+    TOGGLE_SEARCH_ACTIVITY,
+    toggleSearchActive
   );
 }
