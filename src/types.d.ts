@@ -7,12 +7,13 @@ export interface RootState {
   readonly search: SearchResults;
   readonly toastr: ToastrState;
   readonly requesters: RequesterMap;
-  readonly searchOptions: SearchOptions;
   readonly searchingActive: boolean;
+  readonly waitingForMturk: boolean;
   readonly searchFormActive: boolean;
-  readonly sortingOption: SortingOption;
   readonly hitBlocklist: HitBlockMap;
   readonly timeNextSearch: Date | null;
+  readonly searchOptions: SearchOptions;
+  readonly sortingOption: SortingOption;
 }
 
 export type SearchResults = Map<string, SearchResult>;
