@@ -17,8 +17,9 @@ const mapState = (state: RootState): Props => ({
 
 class TimeNextSearch extends React.PureComponent<Props, State> {
   state = { timeUntilNextSearch: null };
-  private tickRate: number = 1000;
+  private tickRate: number = 16.67;
   private timerId: number;
+  private dateNumNextSearch: number;
 
   componentDidMount() {
     this.startTimer();
@@ -27,6 +28,7 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.timeNextSearch) {
       clearInterval(this.timerId);
+      this.dateNumNextSearch = nextProps.timeNextSearch.valueOf();
       this.startTimer();
     }
   }
@@ -35,15 +37,15 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
     this.timerId = window.setInterval(() => this.tick(), this.tickRate);
   };
 
-  private calculateTimeUntilNextSearch = (nextSearch: Date): number => {
-    return Math.max(nextSearch.valueOf() - Date.now(), 0);
+  static calculateTimeUntilNextSearch = (nextSearch: number): number => {
+    return Math.max(nextSearch - Date.now(), 0);
   };
 
   private tick = () => {
     if (this.props.timeNextSearch) {
       this.setState({
-        timeUntilNextSearch: this.calculateTimeUntilNextSearch(
-          this.props.timeNextSearch
+        timeUntilNextSearch: TimeNextSearch.calculateTimeUntilNextSearch(
+          this.dateNumNextSearch
         )
       });
     }
