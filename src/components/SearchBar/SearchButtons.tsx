@@ -9,12 +9,12 @@ export interface Props {
 
 export interface Handlers {
   readonly onToggleSettings: () => void;
-  readonly onToggleSearch: (active: boolean) => void;
+  readonly onToggleSearch: () => void;
 }
 
 class SearchButtons extends React.PureComponent<Props & Handlers, never> {
   private handleSearch = () => {
-    this.props.onToggleSearch(this.props.searchActive);
+    this.props.onToggleSearch();
   };
 
   static searchButtonText = (active: boolean) => {

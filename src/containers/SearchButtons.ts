@@ -18,9 +18,7 @@ const mapState = (state: RootState): Props => ({
 type SearchBarButtonAction = FormAction | ToggleSearchActive;
 
 const mapDispatch = (dispatch: Dispatch<SearchBarButtonAction>): Handlers => ({
-  onToggleSearch: () => {
-    dispatch(toggleSearchActive());
-  },
+  onToggleSearch: () => dispatch(toggleSearchActive()),
   onToggleSettings: () => dispatch(toggleForm())
 });
 
