@@ -34,6 +34,7 @@ class SearchButtons extends React.PureComponent<Props & Handlers, never> {
           <Button
             primary
             icon="search"
+            accessibilityLabel="Toggle Search Button"
             onClick={this.handleSearch}
             destructive={searchActive}
           >
