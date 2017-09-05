@@ -44,7 +44,7 @@ class SearchButtons extends React.PureComponent<Props & Handlers, never> {
             {SearchButtons.settingsButtonText(settingsActive)}
           </Button>
         </ButtonGroup>
-        <SearchTimer />
+        {this.props.searchActive ? <SearchTimer /> : () => {}}
       </Stack>
     );
   }
