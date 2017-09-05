@@ -18,8 +18,8 @@ const mapState = (state: RootState): Props => ({
 });
 
 class TimeNextSearch extends React.PureComponent<Props, State> {
-  state = { timeUntilNextSearch: null };
-  private tickRate: number = 100;
+  public readonly state = { timeUntilNextSearch: null };
+  static readonly tickRate: number = 16.67;
   private timerId: number;
   private dateNumNextSearch: number;
 
@@ -36,7 +36,10 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
   }
 
   private startTimer = () => {
-    this.timerId = window.setInterval(() => this.tick(), this.tickRate);
+    this.timerId = window.setInterval(
+      () => this.tick(),
+      TimeNextSearch.tickRate
+    );
   };
 
   static calculateTimeUntilNextSearch = (nextSearch: number): number => {
@@ -58,7 +61,16 @@ class TimeNextSearch extends React.PureComponent<Props, State> {
     return timeNextSearch && searchingActive ? (
       <Caption>Next search in: {this.state.timeUntilNextSearch}</Caption>
     ) : (
-      <div />
+      <svg viewBox="0 0 100 100">
+        <path
+          className="pt-spinner-track"
+          d="M 50,50 m 0,-44.5 a 44.5,44.5 0 1 1 0,89 a 44.5,44.5 0 1 1 0,-89"
+        />
+        <path
+          className="pt-spinner-head"
+          d="M 94.5 50 A 44.5 44.5 0 0 0 50 5.5"
+        />
+      </svg>
     );
   }
 }
