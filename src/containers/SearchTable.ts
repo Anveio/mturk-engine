@@ -6,6 +6,10 @@ import SearchTable, {
 } from '../components/SearchTable/SearchTable';
 import { AcceptAction, acceptHitRequest } from '../actions/accept';
 import { BlockAction, blockHitGroup } from '../actions/blocklist';
+import {
+  ExpandAction,
+  toggleSearchResultExpand
+} from '../actions/toggleExpand';
 
 const mapState = (state: RootState): Props => ({
   hits: state.search,
@@ -14,7 +18,7 @@ const mapState = (state: RootState): Props => ({
   blockedHits: state.hitBlocklist
 });
 
-type SearchTableAction = AcceptAction | BlockAction;
+type SearchTableAction = AcceptAction | BlockAction | ExpandAction;
 
 const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   onAccept: (hit: SearchResult) => {
@@ -22,6 +26,9 @@ const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   },
   onHide: (hit: BlockedHit) => {
     dispatch(blockHitGroup(hit));
+  },
+  onToggleExpand: (hit: SearchResult) => {
+    dispatch(toggleSearchResultExpand(hit));
   }
 });
 

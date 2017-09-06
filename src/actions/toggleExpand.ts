@@ -6,7 +6,11 @@ export interface ToggleSearchResultExpand {
   hit: SearchResult;
 }
 
-export const toggleSearchResultExpand = (hit: SearchResult) => ({
+export type ExpandAction = ToggleSearchResultExpand;
+
+export const toggleSearchResultExpand = (
+  hit: SearchResult
+): ToggleSearchResultExpand => ({
   type: TOGGLE_SEARCH_RESULT_EXPAND,
   hit
 });

@@ -11,20 +11,15 @@ import { blockedHitFactory } from '../../utils/blockHit';
 export interface Props {
   readonly hit: SearchResult;
   readonly requester?: Requester;
+}
+
+export interface Handlers {
   readonly onAccept: (hit: SearchResult) => void;
+  readonly onToggleExpand: (hit: SearchResult) => void;
   readonly onHide: (hit: BlockedHit) => void;
 }
 
-export interface State {
-  active: boolean;
-}
-
-class SearchCard extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = { active: false };
-  }
-
+class SearchCard extends React.PureComponent<Props & Handlers, never> {
   static infoIcon = (active: boolean) => {
     return active ? 'caretUp' : 'caretDown';
   };
@@ -33,18 +28,12 @@ class SearchCard extends React.PureComponent<Props, State> {
     return active ? 'Show Less' : 'Show More';
   };
 
-  componentWillReceiveProps() {
-    this.setState((): Partial<State> => ({ active: false }));
-  }
-
   private handleAccept = () => this.props.onAccept(this.props.hit);
   private handleHide = () =>
     this.props.onHide(blockedHitFactory(this.props.hit));
-
-  private onToggleFocus = () =>
-    this.setState((prevState: Partial<State>): Partial<State> => ({
-      active: !prevState.active
-    }));
+  private handleExpand = () => {
+    this.props.onToggleExpand(this.props.hit);
+  };
 
   private generateActions = () => [
     {
@@ -55,9 +44,9 @@ class SearchCard extends React.PureComponent<Props, State> {
       onClick: this.handleHide
     },
     {
-      content: SearchCard.infoText(this.state.active),
-      onClick: this.onToggleFocus,
-      icon: SearchCard.infoIcon(this.state.active)
+      content: SearchCard.infoText(!!this.props.hit.expanded),
+      onClick: this.handleExpand,
+      icon: SearchCard.infoIcon(!!this.props.hit.expanded)
     },
     {
       content: 'Add',
@@ -83,7 +72,7 @@ class SearchCard extends React.PureComponent<Props, State> {
             <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
           }
         />
-        <CollapsibleInfo open={this.state.active} hit={this.props.hit} />
+        <CollapsibleInfo open={!!hit.expanded} hit={this.props.hit} />
       </div>
     );
   }

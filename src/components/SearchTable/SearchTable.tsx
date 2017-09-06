@@ -2,13 +2,12 @@ import * as React from 'react';
 import {
   SearchResult,
   SearchResults,
-  BlockedHit,
   HitBlockMap,
   RequesterMap,
   SortingOption
 } from '../../types';
 import { Card } from '@shopify/polaris';
-import SearchCard from './SearchCard';
+import SearchCard, { Handlers as SearchCardHandlers } from './SearchCard';
 import SortingForm from '../../containers/SortingForm';
 import EmptySearchTable from '../../containers/EmptySearchTable';
 import { sortBy } from '../../utils/sorting';
@@ -20,10 +19,7 @@ export interface Props {
   readonly blockedHits: HitBlockMap;
 }
 
-export interface Handlers {
-  readonly onAccept: (hit: SearchResult) => void;
-  readonly onHide: (hit: BlockedHit) => void;
-}
+export interface Handlers extends SearchCardHandlers {}
 
 class SearchTable extends React.PureComponent<Props & Handlers, never> {
   private filterBlockedHits = (unfilteredHits: SearchResults) =>
@@ -32,7 +28,14 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
     );
 
   public render() {
-    const { hits, sortingOption, requesters, onAccept, onHide } = this.props;
+    const {
+      hits,
+      sortingOption,
+      requesters,
+      onAccept,
+      onHide,
+      onToggleExpand
+    } = this.props;
 
     const displayedHits = this.filterBlockedHits(hits)
       .toList()
@@ -54,6 +57,7 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
               requester={requesters.get(hit.requesterId)}
               onAccept={onAccept}
               onHide={onHide}
+              onToggleExpand={onToggleExpand}
             />
           );
         })}
