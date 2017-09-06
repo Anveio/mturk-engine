@@ -18,10 +18,14 @@ const mapState = (state: RootState): Props => ({
 });
 
 class SearchTimer extends React.PureComponent<Props, State> {
-  public readonly state = { timeUntilNextSearch: null };
-  static readonly tickRate: number = 40;
+  static readonly tickRate: number = 50;
   private timerId: number;
   private dateNumNextSearch: number;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = { timeUntilNextSearch: null };
+  }
 
   componentDidMount() {
     if (this.props.timeNextSearch) {
@@ -42,12 +46,16 @@ class SearchTimer extends React.PureComponent<Props, State> {
     clearInterval(this.timerId);
   }
 
-  private startTimer = () => {
-    this.timerId = window.setInterval(() => this.tick(), SearchTimer.tickRate);
-  };
-
   static calculateTimeUntilNextSearch = (nextSearch: number): number => {
     return Math.max(nextSearch - Date.now(), 0);
+  };
+
+  static formatAsSeconds = (milliseconds: number, sigFigs = 2): string => {
+    return (milliseconds / 1000).toFixed(sigFigs);
+  };
+  
+  private startTimer = () => {
+    this.timerId = window.setInterval(() => this.tick(), SearchTimer.tickRate);
   };
 
   private tick = () => {
@@ -64,8 +72,15 @@ class SearchTimer extends React.PureComponent<Props, State> {
     const { waitingForMturk, timeNextSearch } = this.props;
     if (waitingForMturk) {
       return <Caption>Waiting for Mturk response...</Caption>;
-    } else if (timeNextSearch) {
-      return <Caption>Next search in {this.state.timeUntilNextSearch}</Caption>;
+    } else if (this.dateNumNextSearch && timeNextSearch) {
+      return (
+        <Caption>
+          Next search in{' '}
+          {SearchTimer.formatAsSeconds(this.state
+            .timeUntilNextSearch as number)}{' '}
+          seconds.
+        </Caption>
+      );
     } else {
       return <div />;
     }
