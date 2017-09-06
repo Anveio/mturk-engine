@@ -60,13 +60,19 @@ class SearchTimer extends React.PureComponent<Props, State> {
     }
   };
 
+  private generateCaptionText = () => {
+    const { waitingForMturk, timeNextSearch } = this.props;
+    if (waitingForMturk) {
+      return <Caption>Waiting for Mturk response...</Caption>;
+    } else if (timeNextSearch) {
+      return <Caption>Next search in {this.state.timeUntilNextSearch}</Caption>;
+    } else {
+      return <div />;
+    }
+  };
+
   public render() {
-    const { timeNextSearch, waitingForMturk } = this.props;
-    return timeNextSearch && !waitingForMturk ? (
-      <Caption>Next search in: {this.state.timeUntilNextSearch}</Caption>
-    ) : (
-      <Caption>Waiting for Mturk response...</Caption>
-    );
+    return this.generateCaptionText();
   }
 }
 
