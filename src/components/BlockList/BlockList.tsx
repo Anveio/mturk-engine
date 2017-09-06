@@ -13,9 +13,6 @@ export interface Handlers {
 
 class BlockList extends React.PureComponent<Props & Handlers, never> {
   public render() {
-    this.props.blockList.map((el: BlockedHit) => {
-      console.log('props: ' + el.title);
-    });
     return (
       <Card>
         {this.props.blockList.toList().map((el: BlockedHit) => {
