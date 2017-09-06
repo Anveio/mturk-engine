@@ -26,24 +26,17 @@ export interface Handlers {
 }
 
 class SearchTable extends React.PureComponent<Props & Handlers, never> {
+  private filterBlockedHits = (unfilteredHits: SearchResults) =>
+    unfilteredHits.filter(
+      (hit: SearchResult) => !this.props.blockedHits.get(hit.groupId)
+    );
+
   public render() {
-    const {
-      blockedHits,
-      hits,
-      sortingOption,
-      requesters,
-      onAccept,
-      onHide
-    } = this.props;
+    const { hits, sortingOption, requesters, onAccept, onHide } = this.props;
 
-    const filterBlockedHits = (unfilteredHits: SearchResults) =>
-      unfilteredHits.filter(
-        (hit: SearchResult) => !blockedHits.get(hit.groupId)
-      );
-
-    const displayedHits = filterBlockedHits(hits)
-      .sort(sortBy(sortingOption))
-      .toList();
+    const displayedHits = this.filterBlockedHits(hits)
+      .toList()
+      .sort(sortBy(sortingOption));
 
     return hits.isEmpty() ? (
       <EmptySearchTable />
