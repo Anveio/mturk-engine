@@ -20,7 +20,14 @@ type SearchResultAction =
 export default (state = initial, action: SearchResultAction): SearchResults => {
   switch (action.type) {
     case SEARCH_SUCCESS:
-      return action.data as SearchResults;
+      return (state.filter(
+        (_: SearchResult, groupId: string) => !!action.data.get(groupId)
+      ) as SearchResults).mergeWith(
+        (oldResult: SearchResult, newResult: SearchResult) => {
+          return { ...oldResult, index: newResult.index };
+        },
+        action.data
+      );
     case FETCH_TURKOPTICON_SUCCESS:
       return state.map((hit: SearchResult): SearchResult => ({
         ...hit,
