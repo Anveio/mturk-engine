@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@shopify/polaris": "^1.5.1",
+    "@types/redux-persist": "^4.3.1",
     "axios": "^0.16.2",
     "immutable": "^3.8.1",
     "localforage": "^1.5.0",
@@ -13,6 +14,8 @@
     "react-redux": "^5.0.6",
     "react-redux-toastr": "^7.1.5",
     "redux": "^3.7.2",
+    "redux-persist": "^4.9.1",
+    "redux-persist-transform-immutable": "^4.3.0",
     "redux-saga": "^0.15.6",
     "uuid": "^3.1.0"
   },
