@@ -31,18 +31,22 @@ export interface SearchOptions {
 
 export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
 
-export interface SearchResult {
+export interface HumanIntelligenceTask {
   readonly title: string;
   readonly requesterName: string;
   readonly requesterId: string;
   readonly reward: string;
   readonly groupId: string;
   readonly batchSize: number;
-  readonly index: number;
   readonly turkopticon?: Requester;
   readonly qualified: boolean;
   readonly description: string;
   readonly timeAllotted: string;
+}
+
+export interface SearchResult extends HumanIntelligenceTask {
+  readonly index: number;
+  readonly expanded?: boolean;
 }
 
 export interface QueueItem {
@@ -53,7 +57,7 @@ export interface QueueItem {
   readonly timeLeft: string;
 }
 
-export interface BlockedHit extends SearchResult {
+export interface BlockedHit extends HumanIntelligenceTask {
   readonly dateBlocked: Date;
 }
 
