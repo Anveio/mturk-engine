@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { HitBlockMap } from '../../types';
-import { Card, ResourceList, Stack } from '@shopify/polaris';
+import { HitBlockMap, BlockedHit } from '../../types';
+import { Card } from '@shopify/polaris';
 import BlockListCard from './BlockListCard';
 
 export interface Props {
@@ -11,17 +11,22 @@ export interface Handlers {
   readonly onUnblock: (groupId: string) => void;
 }
 
-const BlockList = ({ blockList, onUnblock }: Props & Handlers) => {
-  return (
-    <Stack vertical>
+class BlockList extends React.PureComponent<Props & Handlers, never> {
+  public render() {
+    return (
       <Card>
-        <ResourceList
-          items={blockList.toArray()}
-          renderItem={hit => <BlockListCard item={hit} onUnblock={onUnblock} />}
-        />
+        {this.props.blockList.toList().map((el: BlockedHit) => {
+          return (
+            <BlockListCard
+              key={el.groupId}
+              item={el}
+              onUnblock={this.props.onUnblock}
+            />
+          );
+        })}
       </Card>
-    </Stack>
-  );
-};
+    );
+  }
+}
 
 export default BlockList;
