@@ -11,7 +11,7 @@ import { Map } from 'immutable';
 import {
   updateTurkopticon,
   innerJoinSearchResults,
-  conflictsUpdateOnlyIndexes
+  conflictsUseOldExpandedProp
 } from '../utils/search';
 // import sampleHits from '../utils/sampleHits';
 
@@ -27,7 +27,7 @@ export default (state = initial, action: SearchResultAction): SearchResults => {
     case SEARCH_SUCCESS:
       return (state.filter(
         innerJoinSearchResults(action)
-      ) as SearchResults).mergeWith(conflictsUpdateOnlyIndexes, action.data);
+      ) as SearchResults).mergeWith(conflictsUseOldExpandedProp, action.data);
     case FETCH_TURKOPTICON_SUCCESS:
       return state.map(updateTurkopticon(action)) as SearchResults;
     case TOGGLE_SEARCH_RESULT_EXPAND:

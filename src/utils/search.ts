@@ -20,3 +20,10 @@ export const conflictsUpdateOnlyIndexes = (
 ): SearchResult => {
   return { ...oldResult, index: newResult.index };
 };
+
+export const conflictsUseOldExpandedProp = (
+  oldResult: SearchResult,
+  newResult: SearchResult
+): SearchResult => {
+  return { ...newResult, expanded: oldResult.expanded };
+};
