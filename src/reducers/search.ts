@@ -8,6 +8,11 @@ import {
   TOGGLE_SEARCH_RESULT_EXPAND
 } from '../constants';
 import { Map } from 'immutable';
+import {
+  updateTurkopticon,
+  innerJoinSearchResults,
+  conflictsUpdateOnlyIndexes
+} from '../utils/search';
 // import sampleHits from '../utils/sampleHits';
 
 const initial: SearchResults = Map<string, SearchResult>();
@@ -21,18 +26,10 @@ export default (state = initial, action: SearchResultAction): SearchResults => {
   switch (action.type) {
     case SEARCH_SUCCESS:
       return (state.filter(
-        (_: SearchResult, groupId: string) => !!action.data.get(groupId)
-      ) as SearchResults).mergeWith(
-        (oldResult: SearchResult, newResult: SearchResult) => {
-          return { ...oldResult, index: newResult.index };
-        },
-        action.data
-      );
+        innerJoinSearchResults(action)
+      ) as SearchResults).mergeWith(conflictsUpdateOnlyIndexes, action.data);
     case FETCH_TURKOPTICON_SUCCESS:
-      return state.map((hit: SearchResult): SearchResult => ({
-        ...hit,
-        turkopticon: action.data.get(hit.requesterId)
-      })) as SearchResults;
+      return state.map(updateTurkopticon(action)) as SearchResults;
     case TOGGLE_SEARCH_RESULT_EXPAND:
       return state.update(action.hit.groupId, hit => ({
         ...hit,
