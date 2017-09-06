@@ -29,6 +29,10 @@ class SearchCard extends React.PureComponent<Props, State> {
     return active ? 'caretUp' : 'caretDown';
   };
 
+  static infoText = (active: boolean) => {
+    return active ? 'Show Less' : 'Show More';
+  };
+
   componentWillReceiveProps() {
     this.setState((): Partial<State> => ({ active: false }));
   }
@@ -51,7 +55,7 @@ class SearchCard extends React.PureComponent<Props, State> {
       onClick: this.handleHide
     },
     {
-      content: 'Info',
+      content: SearchCard.infoText(this.state.active),
       onClick: this.onToggleFocus,
       icon: SearchCard.infoIcon(this.state.active)
     },
