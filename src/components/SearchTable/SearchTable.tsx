@@ -22,10 +22,8 @@ export interface Props {
 export interface Handlers extends SearchCardHandlers {}
 
 class SearchTable extends React.PureComponent<Props & Handlers, never> {
-  private filterBlockedHits = (unfilteredHits: SearchResults) =>
-    unfilteredHits.filter(
-      (hit: SearchResult) => !this.props.blockedHits.get(hit.groupId)
-    );
+  private rejectBlockedHits = (hit: SearchResult) =>
+    !this.props.blockedHits.get(hit.groupId);
 
   public render() {
     const {
@@ -37,7 +35,8 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
       onToggleExpand
     } = this.props;
 
-    const displayedHits = this.filterBlockedHits(hits)
+    const displayedHits = this.props.hits
+      .filter(this.rejectBlockedHits)
       .toList()
       .sort(sortBy(sortingOption));
 
