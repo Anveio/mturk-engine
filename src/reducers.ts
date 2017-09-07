@@ -12,7 +12,7 @@ import { default as sortingOption } from './reducers/sortingOption';
 import { default as hitBlocklist } from './reducers/hitBlocklist';
 import { default as timeNextSearch } from './reducers/timeNextSearch';
 import { default as waitingForMturk } from './reducers/waitingForMturk';
-import { default as requesterBlockList } from './reducers/requesterBlockList';
+import { default as requesterBlocklist } from './reducers/requesterBlocklist';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -27,5 +27,5 @@ export const rootReducer = combineReducers<RootState>({
   waitingForMturk,
   searchingActive,
   searchFormActive,
-  requesterBlockList
+  requesterBlocklist
 });
