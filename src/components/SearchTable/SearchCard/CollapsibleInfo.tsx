@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Collapsible, Card, Stack, TextStyle } from '@shopify/polaris';
 import { SearchResult } from '../../../types';
-import SearchCardInfoButtons from './MiscActionsPopover';
+import MiscActionsPopover from './MiscActionsPopover';
 
 export interface Props {
   open: boolean;
@@ -19,10 +19,7 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
             <TextStyle variation="subdued">{` ${description}`}</TextStyle>
             Time allotted:
             <TextStyle variation="subdued">{` ${timeAllotted}`}</TextStyle>
-            <SearchCardInfoButtons
-              groupId={groupId}
-              requesterId={requesterId}
-            />
+            <MiscActionsPopover groupId={groupId} requesterId={requesterId} />
           </Stack>
         </Card.Section>
       </Collapsible>
