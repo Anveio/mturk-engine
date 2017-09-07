@@ -1,14 +1,14 @@
-import { TOpticonData, TurkopticonMap } from '../types';
+import { Requester, RequesterMap } from '../types';
 import { TOpticonAction } from '../actions/turkopticon';
 import { FETCH_TURKOPTICON_SUCCESS } from '../constants';
 import { Map } from 'immutable';
 
 // import sampleRequesters from '../utils/sampleRequesters';
 
-const initial: TurkopticonMap = Map<string, TOpticonData>();
+const initial: RequesterMap = Map<string, Requester>();
 
-export default (state = initial, action: TOpticonAction): TurkopticonMap => {
-  let partialState: TurkopticonMap | undefined;
+export default (state = initial, action: TOpticonAction): RequesterMap => {
+  let partialState: RequesterMap | undefined;
 
   switch (action.type) {
     case FETCH_TURKOPTICON_SUCCESS:
