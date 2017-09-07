@@ -6,7 +6,7 @@ export interface RootState {
   readonly queue: QueueMap;
   readonly search: SearchResults;
   readonly toastr: ToastrState;
-  readonly requesters: RequesterMap;
+  readonly requesters: TurkopticonMap;
   readonly searchingActive: boolean;
   readonly waitingForMturk: boolean;
   readonly searchFormActive: boolean;
@@ -19,9 +19,9 @@ export interface RootState {
 
 export type SearchResults = Map<string, SearchResult>;
 export type QueueMap = Map<string, QueueItem>;
-export type RequesterMap = Map<string, Requester>;
+export type TurkopticonMap = Map<string, TOpticonData>;
 export type HitBlockMap = Map<string, BlockedHit>;
-export type RequesterBlockMap = Map<string, Requester>
+export type RequesterBlockMap = Map<string, TOpticonData>
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {
@@ -40,7 +40,7 @@ export interface HumanIntelligenceTask {
   readonly reward: string;
   readonly groupId: string;
   readonly batchSize: number;
-  readonly turkopticon?: Requester;
+  readonly turkopticon?: TOpticonData;
   readonly qualified: boolean;
   readonly description: string;
   readonly timeAllotted: string;
@@ -63,7 +63,7 @@ export interface BlockedHit extends HumanIntelligenceTask {
   readonly dateBlocked: Date;
 }
 
-export interface Requester {
+export interface TOpticonData {
   readonly name: string;
   readonly attrs: RequesterScores;
   readonly reviews: number;
@@ -76,3 +76,4 @@ export interface RequesterScores {
   readonly fair?: string;
   readonly fast?: string;
 }
+

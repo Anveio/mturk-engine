@@ -3,7 +3,7 @@ import {
   SearchResult,
   SearchResults,
   HitBlockMap,
-  RequesterMap,
+  TurkopticonMap,
   SortingOption
 } from '../../types';
 import { Card } from '@shopify/polaris';
@@ -14,7 +14,7 @@ import { sortBy } from '../../utils/sorting';
 
 export interface Props {
   readonly hits: SearchResults;
-  readonly requesters: RequesterMap;
+  readonly requesters: TurkopticonMap;
   readonly sortingOption: SortingOption;
   readonly blockedHits: HitBlockMap;
 }

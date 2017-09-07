@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SearchResult, BlockedHit, Requester } from '../../types';
+import { SearchResult, BlockedHit, TOpticonData } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
@@ -10,7 +10,7 @@ import { blockedHitFactory } from '../../utils/blockHit';
 
 export interface Props {
   readonly hit: SearchResult;
-  readonly requester?: Requester;
+  readonly requester?: TOpticonData;
 }
 
 export interface Handlers {
