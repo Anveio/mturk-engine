@@ -6,7 +6,7 @@ import {
   TurkopticonMap,
   SortingOption
 } from '../../types';
-import { Card } from '@shopify/polaris';
+import { ResourceList, Card } from '@shopify/polaris';
 import SearchCard, { Handlers as SearchCardHandlers } from './SearchCard';
 import SortingForm from '../../containers/SortingForm';
 import EmptySearchTable from '../../containers/EmptySearchTable';
@@ -49,18 +49,21 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
           displayedHits.size} hidden.`}
       >
         <SortingForm />
-        {displayedHits.map((hit: SearchResult) => {
-          return (
-            <SearchCard
-              key={hit.groupId}
-              hit={hit}
-              requester={requesters.get(hit.requesterId)}
-              onAccept={onAccept}
-              onHide={onHide}
-              onToggleExpand={onToggleExpand}
-            />
-          );
-        })}
+        <ResourceList
+          items={displayedHits.toArray()}
+          renderItem={(hit: SearchResult) => {
+            return (
+              <SearchCard
+                key={hit.groupId}
+                hit={hit}
+                requester={requesters.get(hit.requesterId)}
+                onAccept={onAccept}
+                onHide={onHide}
+                onToggleExpand={onToggleExpand}
+              />
+            );
+          }}
+        />
       </Card>
     );
   }
