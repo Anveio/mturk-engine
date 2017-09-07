@@ -18,9 +18,10 @@ export function* acceptHit(action: AcceptHitRequest) {
     if (successful) {
       const newQueueItem = searchItemToQueueItem(action.data);
       yield put<AcceptHitSuccess>(acceptHitSuccess(newQueueItem));
+    } else {
+      yield put<AcceptHitFailure>(acceptHitFailure());
     }
   } catch (e) {
-    generateAcceptHitToast(false, title);
     yield put<AcceptHitFailure>(acceptHitFailure());
   }
 }

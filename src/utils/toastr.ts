@@ -36,7 +36,7 @@ const successfulAcceptToast = (title: string) => {
 
 const failedAcceptToast = (title: string) => {
   toastr.warning(
-    `Problem enqueing hit.`,
+    `HIT was not added to your queue.`,
     `You may not be qualified, or no HITs may be available, or you may need to solve a CAPTCHA.`,
     { timeOut: 5000 }
   );
@@ -76,7 +76,7 @@ const failedSearchToast = () => {
 };
 
 const repeatReturnToast = () => {
-  toastr.light('Couldn\'t return HIT', 'You\'ve already returned this HIT.');
+  toastr.light("Couldn't return HIT", "You've already returned this HIT.");
 };
 
 const successfulReturnToast = () => {
