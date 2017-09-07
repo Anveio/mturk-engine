@@ -14,14 +14,14 @@ export interface RootState {
   readonly searchOptions: SearchOptions;
   readonly sortingOption: SortingOption;
   readonly hitBlocklist: HitBlockMap;
-  readonly requesterBlockList: RequesterBlockMap
+  readonly requesterBlockList: RequesterBlockMap;
 }
 
 export type SearchResults = Map<string, SearchResult>;
 export type QueueMap = Map<string, QueueItem>;
 export type TurkopticonMap = Map<string, TOpticonData>;
 export type HitBlockMap = Map<string, BlockedHit>;
-export type RequesterBlockMap = Map<string, TOpticonData>
+export type RequesterBlockMap = Map<string, TOpticonData>;
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {
