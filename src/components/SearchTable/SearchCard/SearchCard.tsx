@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { SearchResult, BlockedHit, TOpticonData } from '../../types';
+import { SearchResult, BlockedHit, TOpticonData } from '../../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
-import { truncate } from '../../utils/formatting';
-import { qualException } from '../../utils/exceptions';
-import { generateBadges } from '../../utils/badges';
-import { blockedHitFactory } from '../../utils/blockHit';
+import { truncate } from '../../../utils/formatting';
+import { qualException } from '../../../utils/exceptions';
+import { generateBadges } from '../../../utils/badges';
+import { blockedHitFactory } from '../../../utils/blockHit';
 
 export interface Props {
   readonly hit: SearchResult;
@@ -69,8 +69,7 @@ class SearchCard extends React.PureComponent<Props & Handlers, never> {
           attributeOne={truncate(requesterName, 40)}
           attributeTwo={truncate(title, 80)}
           attributeThree={
-            <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
-          }
+            <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
         />
         <CollapsibleInfo open={!!hit.expanded} hit={this.props.hit} />
       </div>

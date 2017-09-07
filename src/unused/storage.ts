@@ -1,6 +1,6 @@
 import * as localForage from 'localforage';
 import { fromJS } from 'immutable';
-import { RootState } from './types';
+import { RootState } from '../types';
 
 /**
  * Asynchronously loads some slice of RootState from localForage storage.

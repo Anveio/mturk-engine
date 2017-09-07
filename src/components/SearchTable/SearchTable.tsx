@@ -7,7 +7,9 @@ import {
   SortingOption
 } from '../../types';
 import { ResourceList, Card } from '@shopify/polaris';
-import SearchCard, { Handlers as SearchCardHandlers } from './SearchCard';
+import SearchCard, {
+  Handlers as SearchCardHandlers
+} from './SearchCard/SearchCard';
 import SortingForm from '../../containers/SortingForm';
 import EmptySearchTable from '../../containers/EmptySearchTable';
 import { sortBy } from '../../utils/sorting';

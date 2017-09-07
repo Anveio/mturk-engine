@@ -21,7 +21,7 @@ export type SearchResults = Map<string, SearchResult>;
 export type QueueMap = Map<string, QueueItem>;
 export type RequesterMap = Map<string, Requester>;
 export type HitBlockMap = Map<string, BlockedHit>;
-export type RequesterBlockMap = Map<string, TOpticonData>;
+export type RequesterBlockMap = Map<string, BlockedRequester>;
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {
@@ -65,6 +65,10 @@ export interface BlockedHit extends HumanIntelligenceTask {
 
 export interface Requester extends TOpticonData {
   readonly id: string;
+}
+
+export interface BlockedRequester extends Requester {
+  readonly dateBlocked: Date;
 }
 
 export interface TOpticonData {

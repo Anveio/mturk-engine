@@ -6,7 +6,6 @@ import { default as searchingActive } from './reducers/searchingActive';
 import { default as search } from './reducers/search';
 import { default as queue } from './reducers/queue';
 import { default as requesters } from './reducers/requesters';
-// import { default as scheduler } from './reducers/scheduler';
 import { default as searchOptions } from './reducers/searchOptions';
 import { default as searchFormActive } from './reducers/searchFormActive';
 import { default as sortingOption } from './reducers/sortingOption';

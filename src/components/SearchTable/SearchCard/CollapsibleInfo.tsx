@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Collapsible, Card, Stack, TextStyle } from '@shopify/polaris';
-import { SearchResult } from '../../types';
-import SearchCardInfoButtons from './SearchCardInfoButtons';
+import { SearchResult } from '../../../types';
+import SearchCardInfoButtons from './MiscActionsPopover';
 
 export interface Props {
   open: boolean;
