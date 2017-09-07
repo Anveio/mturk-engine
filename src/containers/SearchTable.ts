@@ -1,11 +1,20 @@
 import { connect, Dispatch } from 'react-redux';
-import { RootState, BlockedHit, SearchResult } from '../types';
+import {
+  RootState,
+  BlockedHit,
+  SearchResult,
+  BlockedRequester
+} from '../types';
 import SearchTable, {
   Props,
   Handlers
 } from '../components/SearchTable/SearchTable';
 import { AcceptAction, acceptHitRequest } from '../actions/accept';
 import { BlockHitAction, blockHitGroup } from '../actions/blockHitGroup';
+import {
+  BlockRequesterAction,
+  blockRequester
+} from '../actions/blockRequester';
 import {
   ExpandAction,
   toggleSearchResultExpand
@@ -18,7 +27,11 @@ const mapState = (state: RootState): Props => ({
   blockedHits: state.hitBlocklist
 });
 
-type SearchTableAction = AcceptAction | BlockHitAction | ExpandAction;
+type SearchTableAction =
+  | AcceptAction
+  | BlockHitAction
+  | ExpandAction
+  | BlockRequesterAction;
 
 const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   onAccept: (hit: SearchResult) => {
@@ -29,6 +42,9 @@ const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   },
   onToggleExpand: (hit: SearchResult) => {
     dispatch(toggleSearchResultExpand(hit));
+  },
+  onBlockRequester: (requester: BlockedRequester) => {
+    dispatch(blockRequester(requester));
   }
 });
 

@@ -1,22 +1,31 @@
 import * as React from 'react';
-import { SearchResult, BlockedHit, TOpticonData } from '../../../types';
+import {
+  SearchResult,
+  BlockedHit,
+  Requester,
+  BlockedRequester
+} from '../../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
 import { truncate } from '../../../utils/formatting';
 import { qualException } from '../../../utils/exceptions';
 import { generateBadges } from '../../../utils/badges';
-import { blockedHitFactory } from '../../../utils/blockHit';
+import {
+  blockedHitFactory,
+  blockedRequesterFactory
+} from '../../../utils/blocklist';
 
 export interface Props {
   readonly hit: SearchResult;
-  readonly requester?: TOpticonData;
+  readonly requester: Requester;
 }
 
 export interface Handlers {
   readonly onAccept: (hit: SearchResult) => void;
   readonly onToggleExpand: (hit: SearchResult) => void;
   readonly onHide: (hit: BlockedHit) => void;
+  readonly onBlockRequester: (requester: BlockedRequester) => void;
 }
 
 class SearchCard extends React.PureComponent<Props & Handlers, never> {
@@ -31,9 +40,10 @@ class SearchCard extends React.PureComponent<Props & Handlers, never> {
   private handleAccept = () => this.props.onAccept(this.props.hit);
   private handleHide = () =>
     this.props.onHide(blockedHitFactory(this.props.hit));
-  private handleExpand = () => {
-    this.props.onToggleExpand(this.props.hit);
-  };
+  private handleExpand = () => this.props.onToggleExpand(this.props.hit);
+
+  private handleBlockRequester = () =>
+    this.props.onBlockRequester(blockedRequesterFactory(this.props.requester));
 
   private generateActions = () => [
     {
@@ -71,7 +81,11 @@ class SearchCard extends React.PureComponent<Props & Handlers, never> {
           attributeThree={
             <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
         />
-        <CollapsibleInfo open={!!hit.expanded} hit={this.props.hit} />
+        <CollapsibleInfo
+          open={!!hit.expanded}
+          hit={this.props.hit}
+          onBlockRequester={this.handleBlockRequester}
+        />
       </div>
     );
   }

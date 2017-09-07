@@ -14,7 +14,7 @@ export interface RootState {
   readonly searchOptions: SearchOptions;
   readonly sortingOption: SortingOption;
   readonly hitBlocklist: HitBlockMap;
-  readonly requesterBlockList: RequesterBlockMap;
+  readonly requesterBlocklist: RequesterBlockMap;
 }
 
 export type SearchResults = Map<string, SearchResult>;
@@ -59,7 +59,7 @@ export interface QueueItem {
   readonly timeLeft: string;
 }
 
-export interface BlockedHit extends HumanIntelligenceTask {
+export interface BlockedHit extends SearchResult {
   readonly dateBlocked: Date;
 }
 

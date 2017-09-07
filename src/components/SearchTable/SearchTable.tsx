@@ -34,7 +34,8 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
       requesters,
       onAccept,
       onHide,
-      onToggleExpand
+      onToggleExpand,
+      onBlockRequester
     } = this.props;
 
     const displayedHits = this.props.hits
@@ -61,6 +62,7 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
                 onAccept={onAccept}
                 onHide={onHide}
                 onToggleExpand={onToggleExpand}
+                onBlockRequester={onBlockRequester}
               />
             );
           }}
