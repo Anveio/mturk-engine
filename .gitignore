@@ -34,3 +34,6 @@ build/*
 
 build/static/
 !build/static/
+
+build/static/js
+!build/static/js/
