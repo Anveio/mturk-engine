@@ -6,37 +6,41 @@ import { generateItemProps } from '../../utils/queueItem';
 
 export interface Props {
   readonly hit: QueueItem;
+}
+
+export interface Handlers {
   readonly onReturn: (hitID: string) => void;
 }
 
-const QueueCard = ({ hit, onReturn }: Props) => {
-  const { hitId, reward, timeLeft } = hit;
-  const handleReturn = () => {
-    onReturn(hit.hitId);
+class QueueCard extends React.PureComponent<Props & Handlers, never> {
+  private handleReturn = () => {
+    this.props.onReturn(this.props.hit.hitId);
   };
 
-  const actions = [
-    {
-      content: 'Return',
-      accessibilityLabel: 'Return',
-      onClick: handleReturn
-    },
-    {
-      primary: true,
-      external: true,
-      content: 'Work',
-      accessibilityLabel: 'Work',
-      url: `https://www.mturk.com/mturk/continue?hitId=${hitId}`
-    }
-  ];
+  public render() {
+    const { hitId, reward, timeLeft } = this.props.hit;
+    const actions = [
+      {
+        content: 'Return',
+        accessibilityLabel: 'Return',
+        onClick: this.handleReturn
+      },
+      {
+        external: true,
+        content: 'Work',
+        accessibilityLabel: 'Work',
+        url: `https://www.mturk.com/mturk/continue?hitId=${hitId}`
+      }
+    ];
 
-  return (
-    <ResourceList.Item
-      actions={actions}
-      {...generateItemProps(hit)}
-      attributeThree={<QueueItemInfo reward={reward} timeLeft={timeLeft} />}
-    />
-  );
-};
+    return (
+      <ResourceList.Item
+        actions={actions}
+        {...generateItemProps(this.props.hit)}
+        attributeThree={<QueueItemInfo reward={reward} timeLeft={timeLeft} />}
+      />
+    );
+  }
+}
 
 export default QueueCard;
