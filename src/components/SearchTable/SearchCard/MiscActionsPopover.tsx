@@ -11,7 +11,7 @@ export interface State {
   readonly active: boolean;
 }
 
-class SearchCardInfoButtons extends React.PureComponent<Props, State> {
+class MiscActionsPopOver extends React.PureComponent<Props, State> {
   public readonly state = { active: false };
 
   private handleClick = () =>
@@ -64,11 +64,7 @@ class SearchCardInfoButtons extends React.PureComponent<Props, State> {
     return (
       <Popover
         active={this.state.active}
-        activator={
-          <Button onClick={this.handleClick} icon="horizontalDots">
-            Actions
-          </Button>
-        }
+        activator={<Button onClick={this.handleClick} icon="horizontalDots" />}
         onClose={() => {}}
         sectioned
       >
@@ -78,4 +74,4 @@ class SearchCardInfoButtons extends React.PureComponent<Props, State> {
   }
 }
 
-export default SearchCardInfoButtons;
+export default MiscActionsPopOver;

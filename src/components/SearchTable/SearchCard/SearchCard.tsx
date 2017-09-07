@@ -18,7 +18,7 @@ import {
 
 export interface Props {
   readonly hit: SearchResult;
-  readonly requester: Requester;
+  readonly requester?: Requester;
 }
 
 export interface Handlers {
@@ -42,8 +42,13 @@ class SearchCard extends React.PureComponent<Props & Handlers, never> {
     this.props.onHide(blockedHitFactory(this.props.hit));
   private handleExpand = () => this.props.onToggleExpand(this.props.hit);
 
-  private handleBlockRequester = () =>
-    this.props.onBlockRequester(blockedRequesterFactory(this.props.requester));
+  private handleBlockRequester = () => {
+    if (this.props.requester) {
+      this.props.onBlockRequester(
+        blockedRequesterFactory(this.props.requester)
+      );
+    }
+  };
 
   private generateActions = () => [
     {
@@ -79,7 +84,8 @@ class SearchCard extends React.PureComponent<Props & Handlers, never> {
           attributeOne={truncate(requesterName, 40)}
           attributeTwo={truncate(title, 80)}
           attributeThree={
-            <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
+            <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
+          }
         />
         <CollapsibleInfo
           open={!!hit.expanded}

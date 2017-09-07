@@ -1,7 +1,14 @@
 import * as React from 'react';
-import { Collapsible, Card, Stack, TextStyle } from '@shopify/polaris';
+import {
+  Collapsible,
+  Card,
+  Stack,
+  TextStyle,
+  ButtonGroup
+} from '@shopify/polaris';
 import { SearchResult } from '../../../types';
 import MiscActionsPopover from './MiscActionsPopover';
+import BlockActionsPopover from './BlockActionsPopover';
 
 export interface Props {
   readonly open: boolean;
@@ -18,21 +25,19 @@ class CollapsibleInfo extends React.PureComponent<Props & Handlers, never> {
 
     return (
       <Collapsible open={this.props.open}>
-        <Card
-          sectioned
-          subdued
-          primaryFooterAction={{
-            content: 'Block Requester',
-            onAction: this.props.onBlockRequester
-          }}
-        >
+        <Card.Section subdued>
           <Stack vertical spacing="loose" distribution="equalSpacing">
             <TextStyle variation="subdued">{` ${description}`}</TextStyle>
             Time allotted:
             <TextStyle variation="subdued">{` ${timeAllotted}`}</TextStyle>
-            <MiscActionsPopover groupId={groupId} requesterId={requesterId} />
+            <ButtonGroup>
+              <MiscActionsPopover groupId={groupId} requesterId={requesterId} />
+              <BlockActionsPopover
+                onBlockRequester={this.props.onBlockRequester}
+              />
+            </ButtonGroup>
           </Stack>
-        </Card>
+        </Card.Section>
       </Collapsible>
     );
   }
