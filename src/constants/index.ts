@@ -75,6 +75,12 @@ export type BLOCK_HIT_GROUP = typeof BLOCK_HIT_GROUP;
 export const UNBLOCK_HIT_GROUP = 'UNBLOCK_HIT_GROUP';
 export type UNBLOCK_HIT_GROUP = typeof UNBLOCK_HIT_GROUP;
 
+export const BLOCK_REQUESTER = 'BLOCK_REQUESTER';
+export type BLOCK_REQUESTER = typeof BLOCK_REQUESTER;
+
+export const UNBLOCK_REQUESTER = 'UNBLOCK_REQUESTER';
+export type UNBLOCK_REQUESTER = typeof UNBLOCK_REQUESTER;
+
 export const API_URL = configureApiRoot();
 
 export const hitTableBody = `body > div:nth-child(9) > table:nth-child(3) > tbody`;
