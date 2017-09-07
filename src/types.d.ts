@@ -70,6 +70,10 @@ export interface TOpticonData {
   readonly tos_flags: number;
 }
 
+export interface TOpticonResponse {
+  [id: string]: TOpticonData
+}
+
 export interface RequesterScores {
   readonly comm?: string;
   readonly pay?: string;
@@ -77,3 +81,7 @@ export interface RequesterScores {
   readonly fast?: string;
 }
 
+export interface Requester {
+  readonly id: string;
+  readonly name: string;
+}

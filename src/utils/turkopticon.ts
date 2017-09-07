@@ -3,7 +3,8 @@ import {
   SearchResults,
   TurkopticonMap,
   RequesterScores,
-  TOpticonData
+  TOpticonData,
+  TOpticonResponse
 } from '../types';
 
 import { Map } from 'immutable';
@@ -52,8 +53,9 @@ export const filterCategories = (scores: RequesterScores) =>
     {}
   );
 
-export const mapFromTO = (data: TOpticonData): TurkopticonMap =>
+export const mapFromTO = (data: TOpticonResponse): TurkopticonMap =>
   Object.keys(data).reduce(
-    (acc, id: string): TurkopticonMap => (data[id] ? acc.set(id, data[id]) : acc),
+    (acc, id: string): TurkopticonMap =>
+      data[id] ? acc.set(id, data[id]) : acc,
     Map<string, TOpticonData>()
   );
