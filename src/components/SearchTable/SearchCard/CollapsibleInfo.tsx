@@ -37,7 +37,10 @@ class CollapsibleInfo extends React.PureComponent<Props & Handlers, never> {
               <TextStyle variation="subdued">{` ${timeAllotted}`}</TextStyle>
             </Caption>
             <ButtonGroup>
-              <MiscActionsPopover groupId={groupId} requesterId={requester.id} />
+              <MiscActionsPopover
+                groupId={groupId}
+                requesterId={requester.id}
+              />
               <BlockActionsPopover
                 onBlockRequester={this.props.onBlockRequester}
               />
