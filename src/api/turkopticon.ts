@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { TOpticonResponse } from '../types';
 import { turkopticonApiMulti } from '../constants';
-import { mapFromTO } from '../utils/turkopticon';
+import { topticonMapFromTO } from '../utils/turkopticon';
 
 export const batchFetchTOpticon = async (requesterIds: string[]) => {
   /**
@@ -17,7 +17,7 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
     // tslint:disable-next-line:no-console
     console.log('Time to fetch TO: ' + (performance.now() - t0));
     const data: TOpticonResponse = response.data;
-    return mapFromTO(data);
+    return topticonMapFromTO(data);
   } catch (e) {
     throw Error('Problem fetching data from TO');
   }

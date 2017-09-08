@@ -1,5 +1,5 @@
 import { call, put } from 'redux-saga/effects';
-import { RequesterMap } from '../types';
+import { TOpticonMap } from '../types';
 import {
   FetchTOpticonRequest,
   FetchTOpticonSuccess,
@@ -13,7 +13,7 @@ import { batchFetchTOpticon } from '../api/turkopticon';
 export function* fetchTurkopticon(action: FetchTOpticonRequest) {
   try {
     const requesterIds = action.data.map(selectRequesterId).toArray();
-    const topticonData: RequesterMap = yield call(
+    const topticonData: TOpticonMap = yield call(
       batchFetchTOpticon,
       requesterIds
     );

@@ -1,15 +1,13 @@
-import { SearchResult, Requester } from '../types';
+import { SearchResult, TOpticonMap } from '../types';
 import { SearchSuccess } from '../actions/search';
-import { Map } from 'immutable';
 
-export const updateTurkopticon = (data: Map<string, Requester>) => (
+export const updateTurkopticon = (data: TOpticonMap) => (
   hit: SearchResult
 ): SearchResult => ({
   ...hit,
   requester: {
     ...hit.requester,
-    turkopticon:
-      data.get(hit.requester.id) && data.get(hit.requester.id).turkopticon
+    turkopticon: data.get(hit.requester.id)
   }
 });
 

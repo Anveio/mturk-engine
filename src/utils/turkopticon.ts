@@ -2,10 +2,11 @@ import {
   SearchResult,
   SearchResults,
   RequesterScores,
-  TOpticonData,
   TOpticonResponse,
+  TOpticonData,
+  Requester,
   RequesterMap,
-  Requester
+  TOpticonMap
 } from '../types';
 
 import { Map } from 'immutable';
@@ -54,10 +55,16 @@ export const filterCategories = (scores: RequesterScores) =>
     {}
   );
 
-export const mapFromTO = (data: TOpticonResponse): RequesterMap =>
+export const topticonMapFromTO = (data: TOpticonResponse): TOpticonMap =>
   Object.keys(data).reduce(
-    (acc, id: string) =>
-      data[id] ? acc.set(id, createRequester(data[id], id)) : acc,
+    (acc, id: string) => (data[id] ? acc.set(id, data[id]) : acc),
+    Map<string, TOpticonData>()
+  );
+
+export const requesterMapFromTO = (data: TOpticonMap): RequesterMap =>
+  data.reduce(
+    (acc: RequesterMap, value: TOpticonData, key: string): RequesterMap =>
+      acc.set(key, createRequester(data.get(key), key)),
     Map<string, Requester>()
   );
 
@@ -65,4 +72,11 @@ export const createRequester = (data: TOpticonData, id: string): Requester => ({
   id,
   name: data.name,
   turkopticon: data
+});
+
+export const updateRequesterTOpticonData = (data: TOpticonMap) => (
+  requester: Requester
+): Requester => ({
+  ...requester,
+  turkopticon: data.get(requester.id)
 });
