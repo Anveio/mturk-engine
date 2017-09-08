@@ -11,7 +11,7 @@ const initial: RequesterMap = Map<string, Requester>();
 export default (state = initial, action: TOpticonAction): RequesterMap => {
   switch (action.type) {
     case FETCH_TURKOPTICON_SUCCESS:
-      return requesterMapFromTO(action.data);
+      return state.merge(requesterMapFromTO(action.data));
     default:
       return state;
   }
