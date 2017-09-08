@@ -64,7 +64,13 @@ class MiscActionsPopOver extends React.PureComponent<Props, State> {
     return (
       <Popover
         active={this.state.active}
-        activator={<Button onClick={this.handleClick} icon="horizontalDots" />}
+        activator={
+          <Button
+            size="slim"
+            onClick={this.handleClick}
+            icon="horizontalDots"
+          />
+        }
         onClose={() => {}}
         sectioned
       >

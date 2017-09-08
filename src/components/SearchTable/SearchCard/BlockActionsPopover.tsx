@@ -8,7 +8,7 @@ export interface Handlers {
 class BlockActionsPopover extends React.PureComponent<Handlers, never> {
   public render() {
     return (
-      <Button destructive onClick={this.props.onBlockRequester}>
+      <Button destructive size="slim" onClick={this.props.onBlockRequester}>
         Block Requester
       </Button>
     );
