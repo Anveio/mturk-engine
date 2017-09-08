@@ -2,6 +2,7 @@ import * as React from 'react';
 import { HitBlockMap, BlockedHit } from '../../types';
 import { Card } from '@shopify/polaris';
 import BlockListCard from './BlockListCard';
+import EmptyBlockList from './EmptyBlockList';
 
 export interface Props {
   readonly blockList: HitBlockMap;
@@ -13,7 +14,9 @@ export interface Handlers {
 
 class BlockList extends React.PureComponent<Props & Handlers, never> {
   public render() {
-    return (
+    return this.props.blockList.isEmpty() ? (
+      <EmptyBlockList />
+    ) : (
       <Card>
         {this.props.blockList.toList().map((el: BlockedHit) => {
           return (
