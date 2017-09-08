@@ -23,9 +23,18 @@ const store = createStore<any>(
 sagaMiddleware.run(rootSaga);
 
 persistStore(store, {
-  whitelist: [ 'hitBlocklist' ],
+  whitelist: [
+    'hitBlocklist',
+    'requesterBlocklist',
+    'searchFormActive',
+    'tab',
+    'sortingOption',
+    'searchOptions'
+  ],
   storage: localForage,
-  transforms: [ immutableTransform({ whitelist: [ 'hitBlocklist' ] }) ]
+  transforms: [
+    immutableTransform({ whitelist: [ 'hitBlocklist', 'requesterBlocklist' ] })
+  ]
 });
 
 export default store;
