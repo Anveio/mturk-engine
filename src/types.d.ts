@@ -35,12 +35,10 @@ export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
 
 export interface HumanIntelligenceTask {
   readonly title: string;
-  readonly requesterName: string;
-  readonly requesterId: string;
+  readonly requester: Requester;
   readonly reward: string;
   readonly groupId: string;
   readonly batchSize: number;
-  readonly turkopticon?: TOpticonData;
   readonly qualified: boolean;
   readonly description: string;
   readonly timeAllotted: string;
@@ -63,8 +61,10 @@ export interface BlockedHit extends SearchResult {
   readonly dateBlocked: Date;
 }
 
-export interface Requester extends TOpticonData {
+export interface Requester {
   readonly id: string;
+  readonly name: string;
+  readonly turkopticon?: TOpticonData;
 }
 
 export interface BlockedRequester extends Requester {

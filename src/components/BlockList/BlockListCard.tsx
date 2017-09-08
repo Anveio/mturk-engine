@@ -9,7 +9,7 @@ export interface Props {
 }
 
 const BlockListCard = ({ item, onUnblock }: Props) => {
-  const { title, requesterName, dateBlocked } = item;
+  const { title, requester, dateBlocked } = item;
   const handleUnblock = () => {
     onUnblock(item.groupId);
   };
@@ -25,7 +25,7 @@ const BlockListCard = ({ item, onUnblock }: Props) => {
   return (
     <ResourceList.Item
       actions={actions}
-      attributeOne={truncate(requesterName, 30)}
+      attributeOne={truncate(requester.name, 30)}
       attributeTwo={truncate(title, 80)}
       attributeThree={`Blocked on: ${dateBlocked.toLocaleDateString()}`}
     />

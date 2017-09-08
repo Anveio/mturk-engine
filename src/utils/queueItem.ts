@@ -18,10 +18,10 @@ export const generateItemProps = (hit: QueueItem): ItemProps => {
  * @param hit 
  */
 export const searchItemToQueueItem = (hit: SearchResult): QueueItem => {
-  const { requesterName, reward, timeAllotted, title } = hit;
+  const { requester, reward, timeAllotted, title } = hit;
   return {
     hitId: 'Undetermined',
-    requesterName,
+    requesterName: requester.name,
     reward,
     timeLeft: timeAllotted,
     title

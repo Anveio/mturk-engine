@@ -1,10 +1,5 @@
 import * as React from 'react';
-import {
-  SearchResult,
-  BlockedHit,
-  Requester,
-  BlockedRequester
-} from '../../../types';
+import { SearchResult, BlockedHit, BlockedRequester } from '../../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
@@ -18,7 +13,6 @@ import {
 
 export interface Props {
   readonly hit: SearchResult;
-  readonly requester?: Requester;
 }
 
 export interface Handlers {
@@ -43,11 +37,9 @@ class SearchCard extends React.PureComponent<Props & Handlers, never> {
   private handleExpand = () => this.props.onToggleExpand(this.props.hit);
 
   private handleBlockRequester = () => {
-    if (this.props.requester) {
-      this.props.onBlockRequester(
-        blockedRequesterFactory(this.props.requester)
-      );
-    }
+    this.props.onBlockRequester(
+      blockedRequesterFactory(this.props.hit.requester)
+    );
   };
 
   private generateActions = () => [
@@ -73,15 +65,15 @@ class SearchCard extends React.PureComponent<Props & Handlers, never> {
   ];
 
   public render() {
-    const { hit, requester } = this.props;
-    const { qualified, requesterName, title } = hit;
+    const { hit } = this.props;
+    const { qualified, title, requester } = hit;
     return (
       <div>
         <ResourceList.Item
           actions={this.generateActions()}
           exceptions={qualException(qualified)}
-          badges={generateBadges(requester)}
-          attributeOne={truncate(requesterName, 40)}
+          badges={generateBadges(requester.turkopticon)}
+          attributeOne={truncate(requester.name, 40)}
           attributeTwo={truncate(title, 80)}
           attributeThree={
             <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />

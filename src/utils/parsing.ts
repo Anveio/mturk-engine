@@ -29,8 +29,10 @@ export const createSearchItem = (
 ): SearchResult => ({
   index,
   title: parseTitle(input),
-  requesterName: parseRequesterName(input),
-  requesterId: parseRequesterId(input),
+  requester: {
+    name: parseRequesterName(input),
+    id: parseRequesterId(input)
+  },
   reward: parseReward(input),
   groupId: parseGroupId(input),
   timeAllotted: parseTimeAllotted(input),

@@ -30,13 +30,12 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
     !this.props.blockedHits.get(hit.groupId);
 
   private hideBlockedRequesters = (hit: SearchResult) =>
-    !this.props.blockedRequesters.get(hit.requesterId);
+    !this.props.blockedRequesters.get(hit.requester.id);
 
   public render() {
     const {
       hits,
       sortingOption,
-      requesters,
       onAccept,
       onHide,
       onToggleExpand,
@@ -64,7 +63,6 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
               <SearchCard
                 key={hit.groupId}
                 hit={hit}
-                requester={requesters.get(hit.requesterId)}
                 onAccept={onAccept}
                 onHide={onHide}
                 onToggleExpand={onToggleExpand}

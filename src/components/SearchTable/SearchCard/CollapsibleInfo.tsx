@@ -22,7 +22,7 @@ export interface Handlers {
 
 class CollapsibleInfo extends React.PureComponent<Props & Handlers, never> {
   public render() {
-    const { description, timeAllotted, groupId, requesterId } = this.props.hit;
+    const { description, timeAllotted, groupId, requester } = this.props.hit;
 
     return (
       <Collapsible open={this.props.open}>
@@ -37,7 +37,7 @@ class CollapsibleInfo extends React.PureComponent<Props & Handlers, never> {
               <TextStyle variation="subdued">{` ${timeAllotted}`}</TextStyle>
             </Caption>
             <ButtonGroup>
-              <MiscActionsPopover groupId={groupId} requesterId={requesterId} />
+              <MiscActionsPopover groupId={groupId} requesterId={requester.id} />
               <BlockActionsPopover
                 onBlockRequester={this.props.onBlockRequester}
               />

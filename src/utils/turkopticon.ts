@@ -9,8 +9,8 @@ import {
 } from '../types';
 
 import { Map } from 'immutable';
-export const noTurkopticon = (hit: SearchResult) => !hit.turkopticon;
-export const selectRequesterId = (hit: SearchResult) => hit.requesterId;
+export const noTurkopticon = (hit: SearchResult) => !hit.requester.turkopticon;
+export const selectRequesterId = (hit: SearchResult) => hit.requester.id;
 export const invalidGroupId = (hit: SearchResult) =>
   !hit.groupId.startsWith('[Error:groupId]-');
 
@@ -62,6 +62,7 @@ export const mapFromTO = (data: TOpticonResponse): RequesterMap =>
   );
 
 export const createRequester = (data: TOpticonData, id: string): Requester => ({
-  ...data,
-  id
+  id,
+  name: data.name,
+  turkopticon: data
 });
