@@ -24,7 +24,8 @@ const mapState = (state: RootState): Props => ({
   hits: state.search,
   requesters: state.requesters,
   sortingOption: state.sortingOption,
-  blockedHits: state.hitBlocklist
+  blockedHits: state.hitBlocklist,
+  blockedRequesters: state.requesterBlocklist
 });
 
 type SearchTableAction =

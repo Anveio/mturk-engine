@@ -3,6 +3,7 @@ import {
   SearchResult,
   SearchResults,
   HitBlockMap,
+  RequesterBlockMap,
   RequesterMap,
   SortingOption
 } from '../../types';
@@ -19,13 +20,17 @@ export interface Props {
   readonly requesters: RequesterMap;
   readonly sortingOption: SortingOption;
   readonly blockedHits: HitBlockMap;
+  readonly blockedRequesters: RequesterBlockMap;
 }
 
 export interface Handlers extends SearchCardHandlers {}
 
 class SearchTable extends React.PureComponent<Props & Handlers, never> {
-  private rejectBlockedHits = (hit: SearchResult) =>
+  private hideBlockedHits = (hit: SearchResult) =>
     !this.props.blockedHits.get(hit.groupId);
+
+  private hideBlockedRequesters = (hit: SearchResult) =>
+    !this.props.blockedRequesters.get(hit.requesterId);
 
   public render() {
     const {
@@ -39,7 +44,8 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
     } = this.props;
 
     const displayedHits = this.props.hits
-      .filter(this.rejectBlockedHits)
+      .filter(this.hideBlockedRequesters)
+      .filter(this.hideBlockedHits)
       .toList()
       .sort(sortBy(sortingOption));
 
