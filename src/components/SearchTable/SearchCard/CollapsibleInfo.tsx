@@ -4,6 +4,7 @@ import {
   Card,
   Stack,
   TextStyle,
+  Caption,
   ButtonGroup
 } from '@shopify/polaris';
 import { SearchResult } from '../../../types';
@@ -27,9 +28,14 @@ class CollapsibleInfo extends React.PureComponent<Props & Handlers, never> {
       <Collapsible open={this.props.open}>
         <Card.Section subdued>
           <Stack vertical spacing="loose" distribution="equalSpacing">
-            <TextStyle variation="subdued">{` ${description}`}</TextStyle>
-            Time allotted:
-            <TextStyle variation="subdued">{` ${timeAllotted}`}</TextStyle>
+            <Caption>
+              Description:
+              <TextStyle variation="subdued">{` ${description}`}</TextStyle>
+            </Caption>
+            <Caption>
+              Time allotted:
+              <TextStyle variation="subdued">{` ${timeAllotted}`}</TextStyle>
+            </Caption>
             <ButtonGroup>
               <MiscActionsPopover groupId={groupId} requesterId={requesterId} />
               <BlockActionsPopover
