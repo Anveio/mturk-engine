@@ -3,6 +3,7 @@ import { SearchResult, BlockedHit, BlockedRequester } from '../../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
+
 import { truncate } from '../../../utils/formatting';
 import { qualException } from '../../../utils/exceptions';
 import { generateBadges } from '../../../utils/badges';
@@ -15,6 +16,10 @@ export interface Props {
   readonly hit: SearchResult;
 }
 
+export interface OwnProps {
+  readonly groupId: string;
+}
+
 export interface Handlers {
   readonly onAccept: (hit: SearchResult) => void;
   readonly onToggleExpand: (hit: SearchResult) => void;
@@ -22,7 +27,10 @@ export interface Handlers {
   readonly onBlockRequester: (requester: BlockedRequester) => void;
 }
 
-class SearchCard extends React.PureComponent<Props & Handlers, never> {
+class SearchCard extends React.PureComponent<
+  Props & OwnProps & Handlers,
+  never
+> {
   static infoIcon = (active: boolean) => {
     return active ? 'caretUp' : 'caretDown';
   };

@@ -7,9 +7,7 @@ import {
   SortingOption
 } from '../../types';
 import { ResourceList, Card } from '@shopify/polaris';
-import SearchCard, {
-  Handlers as SearchCardHandlers
-} from './SearchCard/SearchCard';
+import SearchCard from '../../containers/SearchCard';
 import SortingForm from '../../containers/SortingForm';
 import EmptySearchTable from './EmptySearchTable';
 import { sortBy } from '../../utils/sorting';
@@ -21,9 +19,7 @@ export interface Props {
   readonly blockedRequesters: RequesterBlockMap;
 }
 
-export interface Handlers extends SearchCardHandlers {}
-
-class SearchTable extends React.PureComponent<Props & Handlers, never> {
+class SearchTable extends React.PureComponent<Props, never> {
   private hideBlockedHits = (hit: SearchResult) =>
     !this.props.blockedHits.get(hit.groupId);
 
@@ -31,14 +27,7 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
     !this.props.blockedRequesters.get(hit.requester.id);
 
   public render() {
-    const {
-      hits,
-      sortingOption,
-      onAccept,
-      onHide,
-      onToggleExpand,
-      onBlockRequester
-    } = this.props;
+    const { hits, sortingOption } = this.props;
 
     const displayedHits = this.props.hits
       .filter(this.hideBlockedRequesters)
@@ -57,16 +46,7 @@ class SearchTable extends React.PureComponent<Props & Handlers, never> {
         <ResourceList
           items={displayedHits.toArray()}
           renderItem={(hit: SearchResult) => {
-            return (
-              <SearchCard
-                key={hit.groupId}
-                hit={hit}
-                onAccept={onAccept}
-                onHide={onHide}
-                onToggleExpand={onToggleExpand}
-                onBlockRequester={onBlockRequester}
-              />
-            );
+            return <SearchCard key={hit.groupId} groupId={hit.groupId} />;
           }}
         />
       </Card>
