@@ -9,18 +9,14 @@ import {
 } from '@shopify/polaris';
 import { SearchResult } from '../../../types';
 import MiscActionsPopover from './MiscActionsPopover';
-import BlockActionsPopover from './BlockActionsPopover';
+import BlockActionsPopover from '../../../containers/BlockActionsPopover';
 
 export interface Props {
   readonly open: boolean;
   readonly hit: SearchResult;
 }
 
-export interface Handlers {
-  readonly onBlockRequester: () => void;
-}
-
-class CollapsibleInfo extends React.PureComponent<Props & Handlers, never> {
+class CollapsibleInfo extends React.PureComponent<Props, never> {
   public render() {
     const { description, timeAllotted, groupId, requester } = this.props.hit;
 
@@ -41,9 +37,7 @@ class CollapsibleInfo extends React.PureComponent<Props & Handlers, never> {
                 groupId={groupId}
                 requesterId={requester.id}
               />
-              <BlockActionsPopover
-                onBlockRequester={this.props.onBlockRequester}
-              />
+              <BlockActionsPopover requester={requester} />
             </ButtonGroup>
           </Stack>
         </Card.Section>

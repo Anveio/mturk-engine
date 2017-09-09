@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SearchResult, BlockedHit, BlockedRequester } from '../../../types';
+import { SearchResult, BlockedHit } from '../../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
@@ -7,10 +7,7 @@ import CollapsibleInfo from './CollapsibleInfo';
 import { truncate } from '../../../utils/formatting';
 import { qualException } from '../../../utils/exceptions';
 import { generateBadges } from '../../../utils/badges';
-import {
-  blockedHitFactory,
-  blockedRequesterFactory
-} from '../../../utils/blocklist';
+import { blockedHitFactory } from '../../../utils/blocklist';
 
 export interface Props {
   readonly hit: SearchResult;
@@ -24,7 +21,6 @@ export interface Handlers {
   readonly onAccept: (hit: SearchResult) => void;
   readonly onToggleExpand: (hit: SearchResult) => void;
   readonly onHide: (hit: BlockedHit) => void;
-  readonly onBlockRequester: (requester: BlockedRequester) => void;
 }
 
 class SearchCard extends React.PureComponent<
@@ -43,12 +39,6 @@ class SearchCard extends React.PureComponent<
   private handleHide = () =>
     this.props.onHide(blockedHitFactory(this.props.hit));
   private handleExpand = () => this.props.onToggleExpand(this.props.hit);
-
-  private handleBlockRequester = () => {
-    this.props.onBlockRequester(
-      blockedRequesterFactory(this.props.hit.requester)
-    );
-  };
 
   private generateActions = () => [
     {
@@ -79,14 +69,12 @@ class SearchCard extends React.PureComponent<
             attributeOne={truncate(requester.name, 40)}
             attributeTwo={truncate(title, 80)}
             attributeThree={
-              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
-            }
+              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
           />
         </div>
         <CollapsibleInfo
           open={!!hit.expanded}
           hit={this.props.hit}
-          onBlockRequester={this.handleBlockRequester}
         />
       </div>
     );
