@@ -1,9 +1,9 @@
-import { TOpticonMap, SearchResults } from '../types';
+import { TOpticonMap, Requester } from '../types';
 import * as constants from '../constants';
 
 export interface FetchTOpticonRequest {
   type: constants.FETCH_TURKOPTICON_REQUEST;
-  data: SearchResults;
+  data: Requester[];
 }
 
 export interface FetchTOpticonSuccess {
@@ -29,7 +29,7 @@ export const fetchTOpticonFailure = (): FetchTOpticonFailure => ({
 });
 
 export const fetchTOpticonRequest = (
-  data: SearchResults
+  data: Requester[]
 ): FetchTOpticonRequest => ({
   type: constants.FETCH_TURKOPTICON_REQUEST,
   data

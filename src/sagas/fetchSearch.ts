@@ -13,6 +13,7 @@ import {
   fetchTOpticonRequest
 } from '../actions/turkopticon';
 import { searchHits } from '../api/search';
+import { selectHitRequester } from '../utils/turkopticon';
 import { calculateNextSearchTime } from '../utils/scheduler';
 
 export const getSearchOptions = (state: RootState) => state.searchOptions;
@@ -29,7 +30,9 @@ export function* fetchSearchResults(action: SearchRequest) {
       : yield put<SearchSuccess>(searchSuccess(hitData));
 
     if (!empty) {
-      yield put<FetchTOpticonRequest>(fetchTOpticonRequest(hitData));
+      yield put<FetchTOpticonRequest>(
+        fetchTOpticonRequest(hitData.map(selectHitRequester).toArray())
+      );
     }
 
     if (action.continuous) {

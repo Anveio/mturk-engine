@@ -12,7 +12,7 @@ import { batchFetchTOpticon } from '../api/turkopticon';
 
 export function* fetchTurkopticon(action: FetchTOpticonRequest) {
   try {
-    const requesterIds = action.data.map(selectRequesterId).toArray();
+    const requesterIds = action.data.map(selectRequesterId)
     const topticonData: TOpticonMap = yield call(
       batchFetchTOpticon,
       requesterIds

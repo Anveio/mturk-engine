@@ -11,7 +11,8 @@ import {
 
 import { Map } from 'immutable';
 export const noTurkopticon = (hit: SearchResult) => !hit.requester.turkopticon;
-export const selectRequesterId = (hit: SearchResult) => hit.requester.id;
+export const selectHitRequester = (hit: SearchResult) => hit.requester;
+export const selectRequesterId = (requester: Requester) => requester.id;
 export const invalidGroupId = (hit: SearchResult) =>
   !hit.groupId.startsWith('[Error:groupId]-');
 
@@ -24,7 +25,7 @@ export const requesterIdsWithNoTO = (hits: SearchResults) => {
   return hits
     .filter(noTurkopticon)
     .filter(invalidGroupId)
-    .map(selectRequesterId)
+    .map(selectHitRequester)
     .toArray();
 };
 
