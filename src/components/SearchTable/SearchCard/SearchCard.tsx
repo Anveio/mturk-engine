@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { SearchResult, BlockedHit, BlockedRequester } from '../../../types';
 import { ResourceList } from '@shopify/polaris';
-// import Item from './CustomResourceListItem';
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
 import { truncate } from '../../../utils/formatting';

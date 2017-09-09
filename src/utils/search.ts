@@ -20,12 +20,20 @@ export const conflictsUpdateOnlyIndexes = (
   oldResult: SearchResult,
   newResult: SearchResult
 ): SearchResult => {
-  return { ...oldResult, index: newResult.index };
+  return {
+    ...oldResult,
+    index: newResult.index,
+    requester: oldResult.requester
+  };
 };
 
 export const conflictsUseOldExpandedProp = (
   oldResult: SearchResult,
   newResult: SearchResult
 ): SearchResult => {
-  return { ...newResult, expanded: oldResult.expanded };
+  return {
+    ...newResult,
+    expanded: oldResult.expanded,
+    requester: oldResult.requester
+  };
 };

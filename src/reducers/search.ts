@@ -13,6 +13,7 @@ import {
   innerJoinSearchResults,
   conflictsUseOldExpandedProp
 } from '../utils/search';
+import { noTurkopticon } from '../utils/turkopticon';
 // import sampleHits from '../utils/sampleHits';
 
 const initial: SearchResults = Map<string, SearchResult>();
@@ -29,9 +30,11 @@ export default (state = initial, action: SearchResultAction): SearchResults => {
         innerJoinSearchResults(action)
       ) as SearchResults).mergeWith(conflictsUseOldExpandedProp, action.data);
     case FETCH_TURKOPTICON_SUCCESS:
-      return state.map(updateTurkopticon(action.data)) as SearchResults;
+      return state.merge(state
+        .filter(noTurkopticon)
+        .map(updateTurkopticon(action.data)) as SearchResults);
     case TOGGLE_SEARCH_RESULT_EXPAND:
-      return state.update(action.hit.groupId, hit => ({
+      return state.update(action.hit.groupId, (hit) => ({
         ...hit,
         expanded: !action.hit.expanded
       }));
