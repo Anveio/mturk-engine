@@ -15,7 +15,7 @@ const hitBlocklistSelector = (state: RootState) => state.hitBlocklist;
 const requesterBlocklistSelector = (state: RootState) =>
   state.requesterBlocklist;
 
-export const hideBlockedHitsSelector = createSelector(
+export const hideBlockedHits = createSelector(
   [ searchResultSelector, hitBlocklistSelector ],
   (hits: SearchResults, blockedHits: HitBlockMap) =>
     hits.filter(
@@ -23,7 +23,7 @@ export const hideBlockedHitsSelector = createSelector(
     ) as SearchResults
 );
 
-export const hideBlockedRequestersSelector = createSelector(
+export const hideBlockedRequesters = createSelector(
   [ searchResultSelector, requesterBlocklistSelector ],
   (hits: SearchResults, blockedRequesters: RequesterBlockMap) =>
     hits.filter(
@@ -31,8 +31,8 @@ export const hideBlockedRequestersSelector = createSelector(
     ) as SearchResults
 );
 
-export const hideUnwantedResultsSelector = createSelector(
-  [ hideBlockedHitsSelector, hideBlockedRequestersSelector ],
+export const hideUnwantedResults = createSelector(
+  [ hideBlockedHits, hideBlockedRequesters ],
   (
     resultsFilteredByBlockedIds: SearchResults,
     resultsFilteredByBlockedRequesters: SearchResults
@@ -43,14 +43,14 @@ export const hideUnwantedResultsSelector = createSelector(
     ) as SearchResults
 );
 
-export const filteredAndSortedResultsSelector = createSelector(
-  [ hideUnwantedResultsSelector, sortOptionSelector ],
+export const filteredAndSortedResults = createSelector(
+  [ hideUnwantedResults, sortOptionSelector ],
   (hits: SearchResults, sortingOption: SortingOption) =>
     hits.sort(sortBy(sortingOption)) as SearchResults
 );
 
-export const filteredResultsGroupIdSelector = createSelector(
-  [ filteredAndSortedResultsSelector ],
+export const filteredResultsGroupId = createSelector(
+  [ filteredAndSortedResults ],
   (hits: SearchResults) =>
     hits.map((hit: SearchResult) => hit.groupId).toArray()
 );
