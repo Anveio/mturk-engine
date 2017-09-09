@@ -12,7 +12,7 @@ import SearchCard, {
   Handlers as SearchCardHandlers
 } from './SearchCard/SearchCard';
 import SortingForm from '../../containers/SortingForm';
-import EmptySearchTable from '../../containers/EmptySearchTable';
+import EmptySearchTable from './EmptySearchTable';
 import { sortBy } from '../../utils/sorting';
 
 export interface Props {
