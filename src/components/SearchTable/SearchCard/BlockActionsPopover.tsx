@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from '@shopify/polaris';
+import { Button, Tooltip } from '@shopify/polaris';
 
 export interface Handlers {
   readonly onBlockRequester: () => void;
@@ -8,9 +8,11 @@ export interface Handlers {
 class BlockActionsPopover extends React.PureComponent<Handlers, never> {
   public render() {
     return (
-      <Button destructive size="slim" onClick={this.props.onBlockRequester}>
-        Block Requester
-      </Button>
+      <Tooltip content="You can manage your blocked requesters in the Blocklist tab. ">
+        <Button destructive size="slim" onClick={this.props.onBlockRequester}>
+          Block Requester
+        </Button>
+      </Tooltip>
     );
   }
 }
