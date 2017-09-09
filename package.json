@@ -1,5 +1,5 @@
 {
-  "name": "mturkhitfinder",
+  "name": "mturk-engine",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -15,6 +15,7 @@
     "redux-persist": "^4.9.1",
     "redux-persist-transform-immutable": "^4.3.0",
     "redux-saga": "^0.15.6",
+    "reselect": "^3.0.1",
     "uuid": "^3.1.0"
   },
   "homepage": "https://www.mturk.com/mturk/findhits?match=true?mturkengine",
@@ -24,9 +25,9 @@
     "@types/qs": "^6.5.0",
     "@types/react": "^16.0.5",
     "@types/react-dom": "^15.5.4",
-    "@types/redux-persist": "^4.3.1",
     "@types/react-redux": "^5.0.6",
     "@types/react-redux-toastr": "^7.0.2",
+    "@types/redux-persist": "^4.3.1",
     "@types/uuid": "^3.4.1",
     "react-scripts-ts": "^2.6.0"
   },
