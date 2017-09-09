@@ -22,7 +22,7 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
 
     return (
       <Collapsible open={this.props.open}>
-        <Card.Section subdued>
+        <Card.Section >
           <Stack vertical spacing="loose" distribution="equalSpacing">
             <Caption>
               Description:
