@@ -1,21 +1,32 @@
 import * as React from 'react';
-import { TextField, Select, Checkbox } from '@shopify/polaris';
+import { connect, Dispatch } from 'react-redux';
+import { RootState, SearchOptions, SortingOption } from '../../types';
+import { FormAction, updateForm } from '../../actions/form';
+import { TextField, Select } from '@shopify/polaris';
 
 interface Props {
   readonly value: string;
+}
+
+interface Handlers {
   readonly onChange: (value: string) => void;
 }
 
-interface SortTypeProps extends Props {
-  readonly options: string[];
-}
+const createMapDispatchFn = (field: keyof SearchOptions) => (
+  dispatch: Dispatch<FormAction>
+): Handlers => ({
+  onChange: (value: string | boolean) => {
+    dispatch(updateForm(field, value));
+  }
+});
 
-interface CheckBoxProps {
-  readonly onChange: (value: boolean) => void;
-  readonly checked: boolean;
-}
+const createMapStateFn = (field: keyof SearchOptions) => (
+  state: RootState
+) => ({
+  value: state.searchOptions[field]
+});
 
-class SearchDelayField extends React.PureComponent<Props, never> {
+class SearchDelayField extends React.PureComponent<Props & Handlers, never> {
   public render() {
     return (
       <TextField
@@ -31,7 +42,7 @@ class SearchDelayField extends React.PureComponent<Props, never> {
   }
 }
 
-class MinimumRewardField extends React.PureComponent<Props, never> {
+class MinimumRewardField extends React.PureComponent<Props & Handlers, never> {
   public render() {
     return (
       <TextField
@@ -48,12 +59,14 @@ class MinimumRewardField extends React.PureComponent<Props, never> {
   }
 }
 
-class SortTypeField extends React.PureComponent<SortTypeProps, never> {
+class SortTypeField extends React.PureComponent<Props & Handlers, never> {
+  static options: SortingOption[] = [ 'Latest', 'Batch Size', 'Reward' ];
+
   public render() {
     return (
       <Select
         label="Search By"
-        options={this.props.options.map((option: string) => ({
+        options={SortTypeField.options.map((option: string) => ({
           label: option,
           value: option
         }))}
@@ -64,21 +77,7 @@ class SortTypeField extends React.PureComponent<SortTypeProps, never> {
   }
 }
 
-class QualifiedBox extends React.PureComponent<CheckBoxProps, never> {
-  public render() {
-    return (
-      <Checkbox
-        label="Qualified only"
-        id="checkbox-qualified"
-        name="Qualfiied Only Checkbox"
-        checked={this.props.checked}
-        onChange={this.props.onChange}
-      />
-    );
-  }
-}
-
-class CustomSearch extends React.PureComponent<Props, never> {
+class CustomSearch extends React.PureComponent<Props & Handlers, never> {
   public render() {
     return (
       <TextField
@@ -94,10 +93,24 @@ class CustomSearch extends React.PureComponent<Props, never> {
   }
 }
 
+const ConnectedSearchDelayField = connect(
+  createMapStateFn('delay'),
+  createMapDispatchFn('delay')
+)(SearchDelayField);
+
+const ConnectedMinRewardField = connect(
+  createMapStateFn('minReward'),
+  createMapDispatchFn('minReward')
+)(MinimumRewardField);
+
+const ConnectedSortTypeField = connect(
+  createMapStateFn('sortType'),
+  createMapDispatchFn('sortType')
+)(SortTypeField);
+
 export {
-  SearchDelayField,
-  MinimumRewardField,
-  SortTypeField,
-  QualifiedBox,
+  ConnectedSearchDelayField,
+  ConnectedMinRewardField,
+  ConnectedSortTypeField,
   CustomSearch
 };
