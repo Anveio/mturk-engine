@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Stack, DisplayText, Caption } from '@shopify/polaris';
 
 interface Props {
-  reward: string;
-  timeLeft: string;
+  readonly reward: string;
+  readonly timeLeft: string;
 }
 
 const QueueItemInfo = ({ reward, timeLeft }: Props) => {
