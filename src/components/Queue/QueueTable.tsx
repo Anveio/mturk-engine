@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { QueueMap } from '../../types';
 import { Card, ResourceList, Stack, Button } from '@shopify/polaris';
 import EmptyQueue from './EmptyQueue';
-import QueueCard from './QueueCard';
+import QueueCard from '../../containers/QueueItemCard';
 
 export interface Props {
-  readonly queue: QueueMap;
+  readonly queueItemIds: string[];
 }
 
 export interface Handlers {
   readonly onRefresh: () => void;
-  readonly onReturn: (hitId: string) => void;
 }
 
 class QueueTable extends React.PureComponent<Props & Handlers, never> {
@@ -19,9 +17,9 @@ class QueueTable extends React.PureComponent<Props & Handlers, never> {
   }
 
   render() {
-    const { queue, onRefresh, onReturn } = this.props;
+    const { queueItemIds, onRefresh } = this.props;
 
-    return queue.isEmpty() ? (
+    return queueItemIds.length === 0 ? (
       <EmptyQueue onRefresh={onRefresh} />
     ) : (
       <Stack vertical>
@@ -30,8 +28,8 @@ class QueueTable extends React.PureComponent<Props & Handlers, never> {
         </Card>
         <Card>
           <ResourceList
-            items={queue.toArray()}
-            renderItem={hit => <QueueCard hit={hit} onReturn={onReturn} />}
+            items={queueItemIds}
+            renderItem={(hitId: string) => <QueueCard hitId={hitId} />}
           />
         </Card>
       </Stack>
