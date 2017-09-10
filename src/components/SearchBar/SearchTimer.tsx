@@ -53,7 +53,7 @@ class SearchTimer extends React.PureComponent<Props, State> {
   static formatAsSeconds = (milliseconds: number, sigFigs = 2): string => {
     return (milliseconds / 1000).toFixed(sigFigs);
   };
-  
+
   private startTimer = () => {
     this.timerId = window.setInterval(() => this.tick(), SearchTimer.tickRate);
   };
