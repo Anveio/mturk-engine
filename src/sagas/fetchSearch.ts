@@ -15,6 +15,7 @@ import {
 import { searchHits } from '../api/search';
 import { selectHitRequester } from '../utils/turkopticon';
 import { calculateNextSearchTime } from '../utils/scheduler';
+import { generateSearchToast } from '../utils/toastr';
 
 export const getSearchOptions = (state: RootState) => state.searchOptions;
 
@@ -33,6 +34,8 @@ export function* fetchSearchResults(action: SearchRequest) {
       yield put<FetchTOpticonRequest>(
         fetchTOpticonRequest(hitData.map(selectHitRequester).toArray())
       );
+    } else {
+      generateSearchToast(false);
     }
 
     if (action.continuous) {
