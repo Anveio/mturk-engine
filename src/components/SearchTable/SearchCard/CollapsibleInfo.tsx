@@ -1,14 +1,8 @@
 import * as React from 'react';
-import {
-  Collapsible,
-  Card,
-  Stack,
-  TextStyle,
-  Caption,
-  ButtonGroup
-} from '@shopify/polaris';
+import { Collapsible, Card, Stack, TextStyle, Caption } from '@shopify/polaris';
 import { SearchResult } from '../../../types';
 import MiscActionsPopover from './MiscActionsPopover';
+import ExternalPlainButtons from './ExternalPlainButtons';
 import BlockActionsPopover from '../../../containers/BlockActionsPopover';
 
 export interface Props {
@@ -22,7 +16,7 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
 
     return (
       <Collapsible open={this.props.open}>
-        <Card.Section >
+        <Card.Section>
           <Stack vertical spacing="loose" distribution="equalSpacing">
             <Caption>
               Description:
@@ -32,13 +26,14 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
               Time allotted:
               <TextStyle variation="subdued">{` ${timeAllotted}`}</TextStyle>
             </Caption>
-            <ButtonGroup>
-              <MiscActionsPopover
+            <Stack vertical={false} alignment="center">
+              <MiscActionsPopover />
+              <BlockActionsPopover requester={requester} />
+              <ExternalPlainButtons
                 groupId={groupId}
                 requesterId={requester.id}
               />
-              <BlockActionsPopover requester={requester} />
-            </ButtonGroup>
+            </Stack>
           </Stack>
         </Card.Section>
       </Collapsible>

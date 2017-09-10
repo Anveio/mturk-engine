@@ -2,17 +2,29 @@ import * as React from 'react';
 import { Popover, ActionList, ComplexAction, Button } from '@shopify/polaris';
 import { Section } from '@shopify/polaris/types/components/ActionList/ActionList';
 
-export interface Props {
-  readonly groupId: string;
-  readonly requesterId: string;
-}
-
 export interface State {
   readonly active: boolean;
 }
 
-class MiscActionsPopOver extends React.PureComponent<Props, State> {
+class MiscActionsPopOver extends React.PureComponent<{}, State> {
   public readonly state = { active: false };
+
+  private exportActions: ComplexAction[] = [
+    {
+      content: 'MTurk Crowd',
+      icon: 'export'
+    }
+  ];
+
+  /**
+   * @TODO: Copy export to user's clipboard.
+   */
+  private sections: Section[] = [
+    {
+      title: 'Export Options',
+      items: this.exportActions
+    }
+  ];
 
   private handleClick = () =>
     this.setState((prevState: State): Partial<State> => ({
@@ -20,47 +32,6 @@ class MiscActionsPopOver extends React.PureComponent<Props, State> {
     }));
 
   public render() {
-    const hitActions: ComplexAction[] = [
-      {
-        content: 'Accept',
-        url: `https://www.mturk.com/mturk/previewandaccept?groupId=${this.props
-          .groupId}`,
-        icon: 'checkmark'
-      },
-      {
-        content: 'Preview',
-        url: `https://www.mturk.com/mturk/preview?groupId=${this.props
-          .groupId}`,
-        icon: 'view'
-      },
-      {
-        content: 'T.O. Page',
-        url: `https://turkopticon.ucsd.edu/${this.props.requesterId}`,
-        icon: 'notes'
-      }
-    ];
-
-    const exportActions: ComplexAction[] = [
-      {
-        content: 'MTurk Crowd',
-        icon: 'export'
-      }
-    ];
-
-    /**
-     * @TODO: Copy export to user's clipboard.
-     */
-    const sections: Section[] = [
-      {
-        title: 'Links',
-        items: hitActions
-      },
-      {
-        title: 'Export Options',
-        items: exportActions
-      }
-    ];
-
     return (
       <Popover
         active={this.state.active}
@@ -74,7 +45,7 @@ class MiscActionsPopOver extends React.PureComponent<Props, State> {
         onClose={() => {}}
         sectioned
       >
-        <ActionList sections={sections} />
+        <ActionList sections={this.sections} />
       </Popover>
     );
   }
