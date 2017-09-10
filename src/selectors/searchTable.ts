@@ -7,11 +7,11 @@ import {
   RequesterBlockMap,
   SortingOption
 } from '../types';
+import { hitBlocklistSelector } from './hitBlocklist'
 import { sortBy } from '../utils/sorting';
 
 const searchResultSelector = (state: RootState) => state.search;
 const sortOptionSelector = (state: RootState) => state.sortingOption;
-const hitBlocklistSelector = (state: RootState) => state.hitBlocklist;
 const requesterBlocklistSelector = (state: RootState) =>
   state.requesterBlocklist;
 
