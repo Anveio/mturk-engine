@@ -37,14 +37,13 @@ export const hideBlockedRequesters = createSelector(
 );
 
 export const hideUnwantedResults = createSelector(
-  [ hideBlockedHits, hideBlockedRequesters ],
+  [ hideBlockedHits, requesterBlocklistSelector ],
   (
     resultsFilteredByBlockedIds: SearchResults,
-    resultsFilteredByBlockedRequesters: SearchResults
+    blockedRequesters: RequesterBlockMap
   ) =>
     resultsFilteredByBlockedIds.filter(
-      (result: SearchResult) =>
-        !!resultsFilteredByBlockedRequesters.get(result.groupId)
+      (result: SearchResult) => !blockedRequesters.get(result.requester.id)
     ) as SearchResults
 );
 
