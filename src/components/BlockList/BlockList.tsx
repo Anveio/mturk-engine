@@ -1,32 +1,24 @@
 import * as React from 'react';
-import { HitBlockMap, BlockedHit } from '../../types';
-import { Card } from '@shopify/polaris';
-import BlockListCard from './BlockListCard';
+import { Card, ResourceList } from '@shopify/polaris';
+import BlockedHitCard from '../../containers/BlockedHitCard';
 import EmptyBlockList from './EmptyBlockList';
 
 export interface Props {
-  readonly blockList: HitBlockMap;
+  readonly blockedHitIds: string[];
 }
 
-export interface Handlers {
-  readonly onUnblock: (groupId: string) => void;
-}
-
-class BlockList extends React.PureComponent<Props & Handlers, never> {
+class BlockList extends React.PureComponent<Props, never> {
   public render() {
-    return this.props.blockList.isEmpty() ? (
+    return this.props.blockedHitIds.length === 0 ? (
       <EmptyBlockList />
     ) : (
       <Card>
-        {this.props.blockList.toList().map((el: BlockedHit) => {
-          return (
-            <BlockListCard
-              key={el.groupId}
-              item={el}
-              onUnblock={this.props.onUnblock}
-            />
-          );
-        })}
+        <ResourceList
+          items={this.props.blockedHitIds}
+          renderItem={(id: string) => (
+            <BlockedHitCard key={id} blockedHitId={id} />
+          )}
+        />
       </Card>
     );
   }
