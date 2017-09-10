@@ -6,15 +6,21 @@ import EmptySearchTable from './EmptySearchTable';
 
 export interface Props {
   readonly resultsIds: string[];
+  readonly rawResultsSize: number;
 }
 
 class SearchTable extends React.PureComponent<Props, never> {
   public render() {
-    const { resultsIds } = this.props;
-    return resultsIds.length === 0 ? (
+    const { resultsIds, rawResultsSize } = this.props;
+    const numResults = resultsIds.length;
+    const numHiddenResults = rawResultsSize - resultsIds.length;
+
+    return numResults === 0 ? (
       <EmptySearchTable />
     ) : (
-      <Card>
+      <Card
+        title={`Showing ${numResults} results. (${numHiddenResults} hidden)`}
+      >
         <SortingForm />
         <ResourceList
           items={resultsIds}

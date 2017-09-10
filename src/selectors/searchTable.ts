@@ -7,13 +7,18 @@ import {
   RequesterBlockMap,
   SortingOption
 } from '../types';
-import { hitBlocklistSelector } from './hitBlocklist'
+import { hitBlocklistSelector } from './hitBlocklist';
 import { sortBy } from '../utils/sorting';
 
 const searchResultSelector = (state: RootState) => state.search;
 const sortOptionSelector = (state: RootState) => state.sortingOption;
 const requesterBlocklistSelector = (state: RootState) =>
   state.requesterBlocklist;
+
+export const resultsLengthSelector = createSelector(
+  [ searchResultSelector ],
+  (searchResults: SearchResults) => searchResults.size
+);
 
 export const hideBlockedHits = createSelector(
   [ searchResultSelector, hitBlocklistSelector ],

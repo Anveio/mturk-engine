@@ -17,7 +17,7 @@ import { selectHitRequester } from '../utils/turkopticon';
 import { calculateNextSearchTime } from '../utils/scheduler';
 import { generateSearchToast } from '../utils/toastr';
 
-export const getSearchOptions = (state: RootState) => state.searchOptions;
+const getSearchOptions = (state: RootState) => state.searchOptions;
 
 export function* fetchSearchResults(action: SearchRequest) {
   try {
