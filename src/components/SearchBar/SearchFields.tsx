@@ -33,7 +33,6 @@ class SearchDelayField extends React.PureComponent<Props & Handlers, never> {
         label="Time Between Searches"
         type="number"
         suffix="seconds"
-        min={10}
         autoComplete={false}
         value={this.props.value}
         onChange={this.props.onChange}
@@ -48,7 +47,6 @@ class MinimumRewardField extends React.PureComponent<Props & Handlers, never> {
       <TextField
         label="Minimum Reward"
         type="number"
-        min={0}
         step={0.1}
         prefix="$"
         autoComplete={false}
