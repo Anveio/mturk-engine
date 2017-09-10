@@ -1,14 +1,10 @@
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState } from '../types';
-import { BlockHitAction, unblockHitGroup } from '../actions/blockHitGroup';
-import BlockList, { Props, Handlers } from '../components/BlockList/BlockList';
+import BlockList, { Props } from '../components/BlockList/BlockList';
+import { hitBlocklistGroupIds } from '../selectors/hitBlocklist'
 
 const mapState = (state: RootState): Props => ({
-  blockList: state.hitBlocklist
+  blockedHitIds:  hitBlocklistGroupIds(state)
 });
 
-const mapDispatch = (dispatch: Dispatch<BlockHitAction>): Handlers => ({
-  onUnblock: (groupId: string) => dispatch(unblockHitGroup(groupId))
-});
-
-export default connect(mapState, mapDispatch)(BlockList);
+export default connect(mapState)(BlockList);
