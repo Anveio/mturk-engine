@@ -29,6 +29,12 @@ export const generateTabs = ({ queueSize }: TabSizes): TabDescriptor[] => {
       title: 'Blocklist',
       panelID: 'blocklist',
       accessibilityLabel: 'Blocklist tab'
+    },
+    {
+      id: 'Turkopticon',
+      title: 'Turkopticon',
+      panelID: 'turkopticon',
+      accessibilityLabel: 'Turkopticon tab'
     }
   ];
 };

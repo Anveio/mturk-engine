@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { RootState, TOpticonSettings } from '../../../types';
-import { FormAction, updateForm } from '../../../actions/form';
+import { RootState, TOpticonSettings } from '../../types';
+import { FormAction, updateForm } from '../../actions/form';
 import { TextField } from '@shopify/polaris';
 
 interface Props {

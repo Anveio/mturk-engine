@@ -27,12 +27,14 @@ class QualifiedBox extends React.PureComponent<Props & Handlers> {
 }
 
 const mapState = (state: RootState): Props => ({
-  value: state.searchOptions.qualified
+  value: state.searchOptions.qualifiedOnly
 });
 
 const mapDispatch = (dispatch: Dispatch<FormToggle>): Handlers => ({
   onChange: (value: boolean) => {
-    dispatch(updateForm<SearchOptions>('searchOptions', 'qualified', value));
+    dispatch(
+      updateForm<SearchOptions>('searchOptions', 'qualifiedOnly', value)
+    );
   }
 });
 

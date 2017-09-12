@@ -10,7 +10,7 @@ export interface MturkSearchParams {
 }
 
 export const generateParams = (options: SearchOptions): MturkSearchParams => {
-  const { sortType, minReward, qualified } = options;
+  const { sortType, minReward, qualifiedOnly } = options;
 
   return {
     selectedSearchType: 'hitgroups',
@@ -18,7 +18,7 @@ export const generateParams = (options: SearchOptions): MturkSearchParams => {
     searchWords: '',
     pageSize: '100',
     minReward,
-    qualifiedFor: qualifiedParam(qualified)
+    qualifiedFor: qualifiedParam(qualifiedOnly)
   };
 };
 

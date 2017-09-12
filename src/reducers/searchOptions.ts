@@ -6,7 +6,7 @@ const initial: SearchOptions = {
   delay: '10',
   minReward: '0',
   sortType: 'Latest',
-  qualified: true
+  qualifiedOnly: true
 };
 
 export default (

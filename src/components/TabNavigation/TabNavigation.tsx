@@ -4,6 +4,7 @@ import QueueTable from '../../containers/QueueTable';
 import SearchTab from './SearchTab';
 import BlockList from '../../containers/BlockList';
 import { generateTabs } from '../../utils/tabs';
+import TurkopticonTab from './TurkopticonTab';
 
 export interface Props {
   readonly selected: number;
@@ -27,6 +28,9 @@ const TabNavigation = (props: Props & Handlers) => {
     },
     2: () => {
       return <BlockList />;
+    },
+    3: () => {
+      return <TurkopticonTab />;
     }
   };
 

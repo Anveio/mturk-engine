@@ -32,7 +32,7 @@ export interface SearchOptions {
   readonly delay: string;
   readonly minReward: string;
   readonly sortType: SearchSort;
-  readonly qualified: boolean;
+  readonly qualifiedOnly: boolean;
 }
 
 export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
@@ -94,10 +94,10 @@ export interface RequesterScores {
 }
 
 export interface TOpticonSettings {
-  hideBelowThresholdEnabled: boolean;
-  minimumWeightedTO: number;
-  payWeight: number;
-  fairWeight: number;
-  commWeight: number;
-  fastWeight: number;
+  readonly hideBelowThresholdEnabled: boolean;
+  readonly minimumWeightedTO: number;
+  readonly payWeight: number;
+  readonly fairWeight: number;
+  readonly commWeight: number;
+  readonly fastWeight: number;
 }
