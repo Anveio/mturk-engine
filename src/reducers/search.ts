@@ -10,7 +10,7 @@ import {
 import { Map } from 'immutable';
 import {
   updateTurkopticon,
-  innerJoinSearchResults,
+  resultsThatAppearInBoth,
   conflictsUseOldExpandedProp
 } from '../utils/search';
 import { noTurkopticon } from '../utils/turkopticon';
@@ -27,7 +27,7 @@ export default (state = initial, action: SearchResultAction): SearchResults => {
   switch (action.type) {
     case SEARCH_SUCCESS:
       return (state.filter(
-        innerJoinSearchResults(action)
+        resultsThatAppearInBoth(action)
       ) as SearchResults).mergeWith(conflictsUseOldExpandedProp, action.data);
     case FETCH_TURKOPTICON_SUCCESS:
       return state.merge(state

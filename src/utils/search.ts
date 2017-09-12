@@ -11,10 +11,14 @@ export const updateTurkopticon = (data: TOpticonMap) => (
   }
 });
 
-export const innerJoinSearchResults = (action: SearchSuccess) => (
-  _: SearchResult,
-  groupId: string
-): boolean => !!action.data.get(groupId);
+/**
+ * Returns true if a search result in a successful search has an entry that 
+ * exists in prevSearchResult. 
+ * @param action 
+ */
+export const resultsThatAppearInBoth = (action: SearchSuccess) => (
+  prevSearchResult: SearchResult
+): boolean => action.data.has(prevSearchResult.groupId);
 
 export const conflictsUpdateOnlyIndexes = (
   oldResult: SearchResult,
