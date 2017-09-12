@@ -14,7 +14,7 @@ import {
 } from './TOWeightFields';
 
 class TurkopticonWeightForm extends React.PureComponent<{}, never> {
-  static scoreWeightDescription = 'A higher number given to a trait means that trait will matter more when calculating the average T.O. of a requester.';
+  static scoreWeightDescription = 'A higher number means that trait will matter more when calculating the average T.O. of a requester.';
 
   public render() {
     return (
@@ -22,7 +22,7 @@ class TurkopticonWeightForm extends React.PureComponent<{}, never> {
         title="Edit Turkopticon score weights"
         description={TurkopticonWeightForm.scoreWeightDescription}
       >
-        <Card sectioned title="Edit weights of Turkopticon requester traits">
+        <Card sectioned title="Requester score weights">
           <FormLayout>
             <ConnectedCommWeightField />
             <ConnectedFastWeightField />

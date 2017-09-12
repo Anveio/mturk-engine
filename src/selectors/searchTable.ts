@@ -10,9 +10,9 @@ import {
 import { hitBlocklistSelector } from './hitBlocklist';
 import { sortBy } from '../utils/sorting';
 
-const searchResultSelector = (state: RootState) => state.search;
-const sortOptionSelector = (state: RootState) => state.sortingOption;
-const requesterBlocklistSelector = (state: RootState) =>
+export const searchResultSelector = (state: RootState) => state.search;
+export const sortOptionSelector = (state: RootState) => state.sortingOption;
+export const requesterBlocklistSelector = (state: RootState) =>
   state.requesterBlocklist;
 
 export const resultsLengthSelector = createSelector(
@@ -36,7 +36,7 @@ export const hideBlockedRequesters = createSelector(
     ) as SearchResults
 );
 
-export const hideUnwantedResults = createSelector(
+export const hideBlockedRequestersAndHits = createSelector(
   [ hideBlockedHits, requesterBlocklistSelector ],
   (
     resultsFilteredByBlockedIds: SearchResults,
@@ -48,7 +48,7 @@ export const hideUnwantedResults = createSelector(
 );
 
 export const filteredAndSortedResults = createSelector(
-  [ hideUnwantedResults, sortOptionSelector ],
+  [ hideBlockedRequestersAndHits, sortOptionSelector ],
   (hits: SearchResults, sortingOption: SortingOption) =>
     hits.sort(sortBy(sortingOption)) as SearchResults
 );
