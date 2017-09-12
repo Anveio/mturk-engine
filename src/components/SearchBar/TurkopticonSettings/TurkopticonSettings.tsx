@@ -3,49 +3,34 @@ import {
   Collapsible,
   Card,
   FormLayout,
-  DisplayText,
-  Caption
+  Stack,
+  DisplayText
 } from '@shopify/polaris';
 import {
-  ConnectedMinRewardField,
-  ConnectedSearchDelayField,
-  ConnectedSortTypeField
-} from './SearchFields';
-import ConnectedQualifiedBox from './QualifiedCheckBox';
-
-export interface Handlers {
-  readonly onSearch: () => void;
-}
+  ConnectedCommWeightField,
+  ConnectedFastWeightField,
+  ConnectedFairWeightField,
+  ConnectedPayWeightField
+} from './TOWeightFields';
 
 export interface Props {
   readonly formActive: boolean;
 }
 
-class SearchSettings extends React.PureComponent<Props & Handlers, never> {
-  private watchForEnter = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.charCode === 13) {
-      event.preventDefault();
-      this.props.onSearch();
-    }
-  };
-
+class SearchSettings extends React.PureComponent<Props, never> {
   public render() {
     return (
       <Collapsible open={this.props.formActive}>
         <Card.Section>
-          <div onKeyPress={this.watchForEnter}>
+          <DisplayText size="small">Edit Turkopticon settings.</DisplayText>
+          <Stack vertical>
             <FormLayout>
-              <DisplayText size="small">Edit search settings.</DisplayText>
-              <Caption>
-                Changes are saved as you type and will apply on your next
-                search.
-              </Caption>
-              <ConnectedSearchDelayField />
-              <ConnectedMinRewardField />
-              <ConnectedSortTypeField />
-              <ConnectedQualifiedBox />
+              <ConnectedCommWeightField />
+              <ConnectedFastWeightField />
+              <ConnectedFairWeightField />
+              <ConnectedPayWeightField />
             </FormLayout>
-          </div>
+          </Stack>
         </Card.Section>
       </Collapsible>
     );

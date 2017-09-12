@@ -15,17 +15,18 @@ export default (
   state = initial,
   action: FormUpdate<TOpticonSettings>
 ): TOpticonSettings => {
-  let partialState: TOpticonSettings | undefined;
-
   switch (action.type) {
     case UPDATE_FIELD:
-      partialState = {
-        ...state,
-        [action.field]: ''
-      };
+      if (action.form === 'topticonSettings') {
+        return {
+          ...state,
+          [action.field]: action.value
+        };
+      }
       break;
     default:
       return state;
   }
-  return { ...state, ...partialState };
+
+  return state;
 };
