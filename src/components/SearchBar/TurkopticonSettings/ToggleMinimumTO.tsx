@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { RootState, SearchOptions } from '../../types';
-import { FormToggle, updateForm } from '../../actions/form';
+import { RootState } from '../../../types';
+import { FormAction, updateForm } from '../../../actions/form';
 import { Checkbox } from '@shopify/polaris';
 
 interface Props {
@@ -27,12 +27,12 @@ class QualifiedBox extends React.PureComponent<Props & Handlers> {
 }
 
 const mapState = (state: RootState): Props => ({
-  value: state.searchOptions.qualified
+  value: state.topticonSettings.hideBelowThresholdEnabled
 });
 
-const mapDispatch = (dispatch: Dispatch<FormToggle>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch<FormAction>): Handlers => ({
   onChange: (value: boolean) => {
-    dispatch(updateForm<SearchOptions>('searchOptions', 'qualified', value));
+    dispatch(updateForm('', value));
   }
 });
 

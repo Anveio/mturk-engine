@@ -4,7 +4,7 @@ import {
   toggleSearchActive,
   ToggleSearchActive
 } from '../actions/searchActivity';
-import { FormAction, toggleForm } from '../actions/form';
+import { FormToggle, toggleForm } from '../actions/form';
 import SearchButtons, {
   Props,
   Handlers
@@ -15,7 +15,7 @@ const mapState = (state: RootState): Props => ({
   settingsActive: state.searchFormActive
 });
 
-type SearchBarButtonAction = FormAction | ToggleSearchActive;
+type SearchBarButtonAction = FormToggle | ToggleSearchActive;
 
 const mapDispatch = (dispatch: Dispatch<SearchBarButtonAction>): Handlers => ({
   onToggleSearch: () => dispatch(toggleSearchActive()),

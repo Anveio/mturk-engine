@@ -25,6 +25,8 @@ export type HitBlockMap = Map<string, BlockedHit>;
 export type RequesterBlockMap = Map<string, BlockedRequester>;
 export type TOpticonMap = Map<string, TOpticonData>;
 
+export type FormTarget = 'searchOptions' | 'topticonSettings';
+
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {
   readonly delay: string;

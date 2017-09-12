@@ -11,14 +11,17 @@ const initial: TOpticonSettings = {
   fastWeight: 1.0
 };
 
-export default (state = initial, action: FormUpdate): TOpticonSettings => {
+export default (
+  state = initial,
+  action: FormUpdate<TOpticonSettings>
+): TOpticonSettings => {
   let partialState: TOpticonSettings | undefined;
 
   switch (action.type) {
     case UPDATE_FIELD:
       partialState = {
         ...state,
-        [action.field]: action.value
+        [action.field]: ''
       };
       break;
     default:

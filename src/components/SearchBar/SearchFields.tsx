@@ -13,10 +13,10 @@ interface Handlers {
 }
 
 const createMapDispatchFn = (field: keyof SearchOptions) => (
-  dispatch: Dispatch<FormAction>
+  dispatch: Dispatch<FormAction<SearchOptions>>
 ): Handlers => ({
   onChange: (value: string | boolean) => {
-    dispatch(updateForm(field, value));
+    dispatch(updateForm<SearchOptions>('searchOptions', field, value));
   }
 });
 

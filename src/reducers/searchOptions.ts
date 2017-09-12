@@ -9,18 +9,21 @@ const initial: SearchOptions = {
   qualified: true
 };
 
-export default (state = initial, action: FormUpdate): SearchOptions => {
-  let partialState: SearchOptions | undefined;
-
+export default (
+  state = initial,
+  action: FormUpdate<SearchOptions>
+): SearchOptions => {
   switch (action.type) {
     case UPDATE_FIELD:
-      partialState = {
-        ...state,
-        [action.field]: action.value
-      };
+      if (action.form === 'searchOptions') {
+        return {
+          ...state,
+          [action.field]: action.value
+        };
+      }
       break;
     default:
       return state;
   }
-  return { ...state, ...partialState };
+  return state;
 };
