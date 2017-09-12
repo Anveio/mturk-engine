@@ -17,16 +17,17 @@ export const selectHitContainers = (el: Document): HTMLDivElement[] =>
   >);
 
 export const tabulateSearchData = (input: HTMLDivElement[]): SearchResults =>
-  input.reduce(
-    (map: SearchResults, hit: HTMLDivElement, index: number) =>
-      map.set(parseGroupId(hit), createSearchItem(hit, index)),
-    Map<string, SearchResult>()
-  );
+  input.reduce((map: SearchResults, hit: HTMLDivElement, index: number) => {
+    const groupId = parseGroupId(hit);
+    return map.set(groupId, createSearchItem(hit, groupId, index));
+  }, Map<string, SearchResult>());
 
 export const createSearchItem = (
   input: HTMLDivElement,
+  groupId: string,
   index: number
 ): SearchResult => ({
+  groupId,
   index,
   title: parseTitle(input),
   requester: {
@@ -34,7 +35,6 @@ export const createSearchItem = (
     id: parseRequesterId(input)
   },
   reward: parseReward(input),
-  groupId: parseGroupId(input),
   timeAllotted: parseTimeAllotted(input),
   description: parseDescription(input),
   batchSize: parseBatchSize(input),
