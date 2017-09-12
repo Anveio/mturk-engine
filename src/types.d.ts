@@ -13,6 +13,7 @@ export interface RootState {
   readonly timeNextSearch: Date | null;
   readonly searchOptions: SearchOptions;
   readonly sortingOption: SortingOption;
+  readonly topticonSettings: TOpticonSettings;
   readonly hitBlocklist: HitBlockMap;
   readonly requesterBlocklist: RequesterBlockMap;
 }
@@ -88,4 +89,13 @@ export interface RequesterScores {
   readonly pay?: string;
   readonly fair?: string;
   readonly fast?: string;
+}
+
+export interface TOpticonSettings {
+  hideBelowThresholdEnabled: boolean;
+  minimumWeightedTO: number;
+  payWeight: number;
+  fairWeight: number;
+  commWeight: number;
+  fastWeight: number;
 }
