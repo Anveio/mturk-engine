@@ -8,6 +8,7 @@ import {
   SortingOption
 } from '../types';
 import { hitBlocklistSelector } from './hitBlocklist';
+import { filterBelowTOThreshold } from './turkopticon';
 import { sortBy } from '../utils/sorting';
 
 export const searchResultSelector = (state: RootState) => state.search;
@@ -48,9 +49,15 @@ export const hideBlockedRequestersAndHits = createSelector(
 );
 
 export const filteredAndSortedResults = createSelector(
-  [ hideBlockedRequestersAndHits, sortOptionSelector ],
-  (hits: SearchResults, sortingOption: SortingOption) =>
-    hits.sort(sortBy(sortingOption)) as SearchResults
+  [ hideBlockedRequestersAndHits, filterBelowTOThreshold, sortOptionSelector ],
+  (
+    hits: SearchResults,
+    aboveThreshold: SearchResults,
+    sortingOption: SortingOption
+  ) =>
+    hits
+      .filter((hit: SearchResult) => aboveThreshold.has(hit.groupId))
+      .sort(sortBy(sortingOption)) as SearchResults
 );
 
 export const filteredResultsGroupId = createSelector(

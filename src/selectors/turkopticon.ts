@@ -1,21 +1,21 @@
 import { createSelector } from 'reselect';
 import { RootState, SearchResults, SearchResult } from '../types';
-import { hideBlockedRequestersAndHits } from './searchTable';
+// import { searchResultSelector } from './searchTable';
 import { calculateAverageScore } from '../utils/turkopticon';
 
-const minTopticonScoreEnabled = (state: RootState) =>
+export const minTopticonScoreEnabled = (state: RootState) =>
   state.topticonSettings.hideBelowThresholdEnabled;
 
-const minWeightedTopticonScore = (state: RootState) =>
+export const minWeightedTopticonScore = (state: RootState) =>
   state.topticonSettings.minimumWeightedTO;
 
 /**
  * Keeps HITs that don't have any scores.
  */
 export const filterBelowTOThreshold = createSelector(
-  [ hideBlockedRequestersAndHits, minWeightedTopticonScore ],
+  [ (state: RootState) => state.search, minWeightedTopticonScore ],
   (hits: SearchResults, minScore: number) =>
-    hits.filter((hit: SearchResult) => {
+    hits.filter((hit: SearchResult): boolean => {
       if (!hit.requester.turkopticon) {
         return true;
       } else {
