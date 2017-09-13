@@ -42,7 +42,7 @@ class EditMinTO extends React.PureComponent<Props & Handlers, never> {
     return (
       <TextField
         disabled={!this.props.enabled}
-        label="Minimum T.O"
+        label="Minimum T.O."
         helpText={EditMinTO.generateHelpText(this.props.enabled)}
         type="number"
         step={0.1}

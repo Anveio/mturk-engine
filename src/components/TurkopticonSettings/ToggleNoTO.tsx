@@ -30,7 +30,7 @@ class ToggleNoTO extends React.PureComponent<Props & Handlers> {
         }}
         enabled={value}
       >
-        Requesters that have no T.O score are{' '}
+        Requesters that have no T.O. score are{' '}
         {ToggleNoTO.calculateBodyContent(value)} being hidden.
       </SettingToggle>
     );
