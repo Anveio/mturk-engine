@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { Stack } from '@shopify/polaris';
 
-import TurkopticonWeightForm from '../TurkopticonSettings/TurkopticonWeightForm';
-import EnableMinimumTO from '../TurkopticonSettings/EnableMinimumTO';
+import TurkopticonSettings from '../TurkopticonSettings/TurkopticonSettings';
 
 const SearchTab = () => {
   return (
     <Stack vertical>
-      <EnableMinimumTO />
-      <TurkopticonWeightForm />
+      <TurkopticonSettings />
     </Stack>
   );
 };

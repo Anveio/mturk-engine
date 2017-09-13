@@ -2,9 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, TOpticonSettings } from '../../types';
 import { FormUpdate, updateForm } from '../../actions/form';
-import { Layout, Card, SettingToggle, TextStyle } from '@shopify/polaris';
-
-import EditMinTO from './EditMinTO';
+import { SettingToggle, TextStyle } from '@shopify/polaris';
 
 interface Props {
   readonly value: boolean;
@@ -25,26 +23,16 @@ class EnableMinimumTO extends React.PureComponent<Props & Handlers> {
     const { value, onChange } = this.props;
 
     return (
-      <Layout.AnnotatedSection
-        title="Enable Turkopticon Filtering"
-        description="You can hide HITs by requesters that fall below a certain score or from requesters that have no score."
+      <SettingToggle
+        action={{
+          content: EnableMinimumTO.calculateButtonContent(value),
+          onAction: () => onChange(!value)
+        }}
+        enabled={value}
       >
-        <Card>
-          <SettingToggle
-            action={{
-              content: EnableMinimumTO.calculateButtonContent(value),
-              onAction: () => onChange(!value)
-            }}
-            enabled={value}
-          >
-            Requesters below the minimum T.O score are{' '}
-            {EnableMinimumTO.calculateBodyContent(value)} being hidden.
-          </SettingToggle>
-          <Card.Section>
-            <EditMinTO />
-          </Card.Section>
-        </Card>
-      </Layout.AnnotatedSection>
+        Requesters below the minimum T.O score are{' '}
+        {EnableMinimumTO.calculateBodyContent(value)} being hidden.
+      </SettingToggle>
     );
   }
 }

@@ -36,7 +36,7 @@ class EditMinTO extends React.PureComponent<Props & Handlers, never> {
   static generateHelpText = (active: boolean) =>
     active
       ? 'Requesters with scores below this number will not have their HITs shown.'
-      : 'Enable this setting to edit this field.';
+      : 'The value of this field is not affecting your results.';
 
   public render() {
     return (
