@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Layout, Card } from '@shopify/polaris';
-import TurkopticonWeightForm from './TurkopticonWeightForm';
+// import TurkopticonWeightForm from './TurkopticonWeightForm';
 
 import ToggleNoTO from './ToggleNoTO';
 import EditMinTO from './EditMinTO';
@@ -26,7 +26,7 @@ const TurkopticonSettings = () => {
           </Card.Section>
         </Card>
       </Layout.AnnotatedSection>
-      <TurkopticonWeightForm />
+      {/* <TurkopticonWeightForm /> */}
     </div>
   );
 };
