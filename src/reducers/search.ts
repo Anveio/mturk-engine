@@ -14,9 +14,9 @@ import {
   conflictsUseOldExpandedProp
 } from '../utils/search';
 import { noTurkopticon } from '../utils/turkopticon';
-import sampleHits from '../utils/sampleHits';
+// import sampleHits from '../utils/sampleHits';
 
-const initial: SearchResults = Map<string, SearchResult>(sampleHits);
+const initial: SearchResults = Map<string, SearchResult>();
 
 type SearchResultAction =
   | SearchAction
