@@ -95,6 +95,7 @@ export interface RequesterScores {
 
 export interface TOpticonSettings {
   readonly hideBelowThresholdEnabled: boolean;
+  readonly hideNoToEnabled: boolean;
   readonly minimumWeightedTO: number;
   readonly payWeight: number;
   readonly fairWeight: number;

@@ -3,6 +3,7 @@ import { FormUpdate } from '../actions/form';
 import { UPDATE_FIELD } from '../constants';
 
 const initial: TOpticonSettings = {
+  hideNoToEnabled: false,
   hideBelowThresholdEnabled: false,
   minimumWeightedTO: 2.0,
   commWeight: 1.0,
