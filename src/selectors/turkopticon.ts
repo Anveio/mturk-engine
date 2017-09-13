@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { RootState, SearchResults, SearchResult } from '../types';
-import { calculateAverageScore } from '../utils/turkopticon';
+import { calculateAverageScore, hasValidScores } from '../utils/turkopticon';
 
 const searchResultSelector = (state: RootState) => state.search;
 
@@ -17,7 +17,11 @@ export const filterNoTO = createSelector(
   [ searchResultSelector, hideNoToEnabled ],
   (hits: SearchResults, enabled: boolean) => {
     return enabled
-      ? hits.filter((hit: SearchResult) => !!hit.requester.turkopticon)
+      ? hits.filter(
+          (hit: SearchResult) =>
+            !!hit.requester.turkopticon &&
+            hasValidScores(hit.requester.turkopticon.attrs)
+        )
       : hits;
   }
 );

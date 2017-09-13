@@ -42,12 +42,17 @@ export const calculateAverageScore = (
     : null;
 };
 
+export const hasValidScores = (scores: RequesterScores): boolean => 
+  Object.keys(scores).every((category) => scores[category] !== '0.00')
+
 /**
  * Takes a RequesterScores object and returns a new object in which none of the  
  * keys correspond to the string '0.00'.
  * @param scores 
  */
-export const filterCategories = (scores: RequesterScores) =>
+export const filterCategories = (
+  scores: RequesterScores
+): Partial<RequesterScores> =>
   Object.keys(scores).reduce(
     (acc: Object, category: string) =>
       scores[category] !== '0.00'
