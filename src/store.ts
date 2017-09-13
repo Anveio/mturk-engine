@@ -29,7 +29,8 @@ persistStore(store, {
     'searchFormActive',
     'tab',
     'sortingOption',
-    'searchOptions'
+    'searchOptions',
+    'topticonSettings'
   ],
   storage: localForage,
   transforms: [
