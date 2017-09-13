@@ -105,8 +105,8 @@
     redux "^3.6.0"
 
 "@types/react-redux@^5.0.6":
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-5.0.7.tgz#01a5181ff6757724a4b59c13852ee6c49f65c101"
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-5.0.8.tgz#fb08d5c8188a96fbd9942c711a17aed5dc736752"
   dependencies:
     "@types/react" "*"
     redux "^3.6.0"
