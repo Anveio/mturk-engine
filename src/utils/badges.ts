@@ -1,31 +1,29 @@
 import { TOpticonData, RequesterScores } from '../types';
+import { BadgeDescriptor } from '@shopify/polaris/types/components/ResourceList/Item';
 import { calculateAverageScore } from './turkopticon';
 import { Status } from '@shopify/polaris/types/components/Badge/Badge';
 
-interface BadgeDescriptor {
-  status: Status;
-  content: string;
-}
+const noTOBadge: BadgeDescriptor = {
+  content: 'No T.O.',
+  status: '' as Status
+};
 
 export const generateBadges = (
-  requester: TOpticonData | undefined
+  turkopticon?: TOpticonData
 ): BadgeDescriptor[] => {
-  if (!requester) {
-    return [];
+  if (!turkopticon) {
+    return [ noTOBadge ];
   }
 
-  const allBadges: (BadgeDescriptor | null)[] = [
-    calculateScoreBadge(requester.attrs)
-  ];
-
-  return allBadges.filter((el) => el !== null).slice(0, 3) as BadgeDescriptor[];
+  return [ calculateScoreBadge(turkopticon.attrs) ];
 };
 
 export const calculateScoreBadge = (
   scores: RequesterScores
 ): BadgeDescriptor => {
   const average = calculateAverageScore(scores);
-  const status = assignScoreColor(average);
+  const status = assignScoreColor(average) as Status;
+
   return {
     status,
     content: generateContentString(average)
@@ -33,12 +31,12 @@ export const calculateScoreBadge = (
 };
 
 const generateContentString = (average: number | null) => {
-  return average === null ? 'No T.O.' : `${average.toFixed(2)} T.O.`;
+  return !average ? 'No T.O.' : `${average.toFixed(2)} T.O.`;
 };
 
-const assignScoreColor = (score: number | null): Status => {
+const assignScoreColor = (score: number | null): Status | null => {
   if (score === null) {
-    return 'info';
+    return null;
   }
 
   if (score < 2) {

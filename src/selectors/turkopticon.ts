@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { RootState, SearchResults, SearchResult } from '../types';
-import { calculateAverageScore, hasValidScores } from '../utils/turkopticon';
+import { calculateAverageScore, hasAValidScore } from '../utils/turkopticon';
 
 const searchResultSelector = (state: RootState) => state.search;
 
@@ -20,7 +20,7 @@ export const filterNoTO = createSelector(
       ? hits.filter(
           (hit: SearchResult) =>
             !!hit.requester.turkopticon &&
-            hasValidScores(hit.requester.turkopticon.attrs)
+            hasAValidScore(hit.requester.turkopticon.attrs)
         )
       : hits;
   }

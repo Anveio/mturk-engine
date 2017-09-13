@@ -17,7 +17,7 @@ const TurkopticonSettings = () => {
       </Layout.AnnotatedSection>
       <Layout.AnnotatedSection
         title="Enable minimum Turkopticon score"
-        description="You can hide HITs by requesters that fall below a certain score or from requesters that have no score."
+        description="You can hide HITs by requesters that fall below a certain score or those that have no score."
       >
         <Card>
           <ToggleMinimumTO />

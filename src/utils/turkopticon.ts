@@ -32,18 +32,20 @@ export const requesterIdsWithNoTO = (hits: SearchResults) => {
 export const calculateAverageScore = (
   scores: RequesterScores
 ): number | null => {
+  if (!hasAValidScore(scores)) {
+    return null;
+  }
   const categories = filterCategories(scores);
   const total = Object.keys(categories).reduce(
     (acc, category: string) => acc + parseFloat(categories[category]),
     0
   );
-  return Object.keys(categories).length > 0
-    ? total / Object.keys(categories).length
-    : null;
+
+  return total / Object.keys(categories).length;
 };
 
-export const hasValidScores = (scores: RequesterScores): boolean => 
-  Object.keys(scores).every((category) => scores[category] !== '0.00')
+export const hasAValidScore = (scores: RequesterScores): boolean =>
+  !Object.keys(scores).every((category) => scores[category] === '0.00');
 
 /**
  * Takes a RequesterScores object and returns a new object in which none of the  
