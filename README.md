@@ -1,5 +1,9 @@
 # Mturk Engine
 
+[Download](https://github.com/Anveio/mturk-engine/raw/master/build/static/js/mturk-engine-1.0.0rc.user.js)
+
+[Homepage](https://www.mturk.com/mturk/findhits?mturkengine) (You must have downloaded and installed Mturk Engine first.)
+
 ## Preview
 
 <img src="https://i.imgur.com/Z5UEVbs.gif" alt="Animated GIF showing the normal flow of searching for HITs, hiding HITs, blocking requesters, accepting HITs, viewing your queue, and returning a HIT."/>
