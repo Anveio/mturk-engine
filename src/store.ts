@@ -28,13 +28,16 @@ persistStore(store, {
     'requesterBlocklist',
     'searchFormActive',
     'tab',
+    'queue',
     'sortingOption',
     'searchOptions',
     'topticonSettings'
   ],
   storage: localForage,
   transforms: [
-    immutableTransform({ whitelist: [ 'hitBlocklist', 'requesterBlocklist' ] })
+    immutableTransform({
+      whitelist: [ 'hitBlocklist', 'requesterBlocklist', 'queue' ]
+    })
   ]
 });
 
