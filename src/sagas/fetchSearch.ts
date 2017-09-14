@@ -44,6 +44,7 @@ export function* fetchSearchResults(action: SearchRequest) {
       );
     }
   } catch (e) {
+    generateSearchToast(false);
     yield put<SearchFailure>(searchFailure());
   }
 }

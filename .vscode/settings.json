@@ -1,11 +1,11 @@
 {
   "eslint.enable": false,
   "files.exclude": {
-    "**/public": false,
+    "**/public": true,
     "**/server": false,
     "**/.vscode/": true,
     "**/*.bundle.js": true,
-    "**/build": false,
+    "**/build": true,
     "**/node_modules": true,
     "**/yarn.lock": true
   }
