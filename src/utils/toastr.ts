@@ -76,6 +76,7 @@ const failedSearchToast = () => {
 };
 
 const repeatReturnToast = () => {
+  // tslint:disable-next-line:quotemark
   toastr.light("Couldn't return HIT", "You've already returned this HIT.");
 };
 
