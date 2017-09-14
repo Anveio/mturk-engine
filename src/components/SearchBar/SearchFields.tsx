@@ -83,7 +83,7 @@ class CustomSearch extends React.PureComponent<Props & Handlers, never> {
         label="Custom search"
         name="Custom Search"
         id="custom-search"
-        placeholder="Custom search"
+        placeholder="Custom search term. Title, requester name, keywords, etc..."
         value={this.props.value}
         onChange={this.props.onChange}
       />
@@ -106,9 +106,14 @@ const ConnectedSortTypeField = connect(
   createMapDispatchFn('sortType')
 )(SortTypeField);
 
+const ConnectedCustomSearchField = connect(
+  createMapStateFn('searchTerm'),
+  createMapDispatchFn('searchTerm')
+)(CustomSearch);
+
 export {
   ConnectedSearchDelayField,
   ConnectedMinRewardField,
   ConnectedSortTypeField,
-  CustomSearch
+  ConnectedCustomSearchField
 };

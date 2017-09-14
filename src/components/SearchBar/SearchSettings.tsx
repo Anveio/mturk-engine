@@ -9,7 +9,8 @@ import {
 import {
   ConnectedMinRewardField,
   ConnectedSearchDelayField,
-  ConnectedSortTypeField
+  ConnectedSortTypeField,
+  ConnectedCustomSearchField
 } from './SearchFields';
 import ConnectedQualifiedBox from './QualifiedCheckBox';
 
@@ -42,6 +43,7 @@ class SearchSettings extends React.PureComponent<Props & Handlers, never> {
               </Caption>
               <ConnectedSearchDelayField />
               <ConnectedMinRewardField />
+              <ConnectedCustomSearchField />
               <ConnectedSortTypeField />
               <ConnectedQualifiedBox />
             </FormLayout>
