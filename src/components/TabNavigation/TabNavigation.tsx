@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Tabs } from '@shopify/polaris';
 import QueueTable from '../../containers/QueueTable';
 import SearchTab from './SearchTab';
-import BlockList from '../../containers/BlockList';
+import BlockLists from '../BlockList/BlockLists';
 import { generateTabs } from '../../utils/tabs';
 import TurkopticonTab from './TurkopticonTab';
 
@@ -27,7 +27,7 @@ const TabNavigation = (props: Props & Handlers) => {
       return <QueueTable />;
     },
     2: () => {
-      return <BlockList />;
+      return <BlockLists />;
     },
     3: () => {
       return <TurkopticonTab />;
