@@ -3,6 +3,7 @@ import { FormUpdate } from '../actions/form';
 import { UPDATE_FIELD } from '../constants';
 
 const initial: SearchOptions = {
+  searchTerm: '',
   delay: '10',
   minReward: '0',
   sortType: 'Latest',

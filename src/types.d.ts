@@ -29,6 +29,7 @@ export type FormTarget = 'searchOptions' | 'topticonSettings';
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {
+  readonly searchTerm: string;
   readonly delay: string;
   readonly minReward: string;
   readonly sortType: SearchSort;

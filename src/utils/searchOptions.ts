@@ -15,7 +15,7 @@ export const generateParams = (options: SearchOptions): MturkSearchParams => {
   return {
     selectedSearchType: 'hitgroups',
     sortType: sortParam(sortType),
-    searchWords: '',
+    searchWords: options.searchTerm,
     pageSize: '100',
     minReward,
     qualifiedFor: qualifiedParam(qualifiedOnly)
