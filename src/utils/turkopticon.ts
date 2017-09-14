@@ -45,7 +45,7 @@ export const calculateAverageScore = (
 };
 
 export const hasAValidScore = (scores: RequesterScores): boolean =>
-  !Object.keys(scores).every((category) => scores[category] === '0.00');
+  Object.keys(scores).some((category) => scores[category] !== '0.00');
 
 /**
  * Takes a RequesterScores object and returns a new object in which none of the  
