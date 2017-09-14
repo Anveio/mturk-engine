@@ -36,17 +36,14 @@ const successfulAcceptToast = (title: string) => {
 
 const failedAcceptToast = (title: string) => {
   toastr.warning(
-    `HIT was not added to your queue.`,
+    `${title} was not added to your queue.`,
     `You may not be qualified, or no HITs may be available, or you may need to solve a CAPTCHA.`,
     { timeOut: 5000 }
   );
 };
 
 const successfulQueueToast = () => {
-  toastr.success(
-    'Refreshed queue',
-    `Last checked: ${new Date().toLocaleTimeString()}`
-  );
+  toastr.success('Refreshed queue', new Date().toLocaleTimeString());
 };
 
 export const failedQueueToast = () => {
@@ -54,17 +51,11 @@ export const failedQueueToast = () => {
 };
 
 const emptyQueueToast = () => {
-  toastr.info(
-    'Your queue is empty.',
-    `Last checked: ${new Date().toLocaleTimeString()}`
-  );
+  toastr.info('Your queue is empty.', new Date().toLocaleTimeString());
 };
 
 const successfulSearchToast = () => {
-  toastr.success(
-    `Search successful`,
-    `Last checked: ${new Date().toLocaleTimeString()}`
-  );
+  toastr.success(`Search successful`, new Date().toLocaleTimeString());
 };
 
 const failedSearchToast = () => {
