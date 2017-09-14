@@ -8,6 +8,7 @@ import { truncate } from '../../../utils/formatting';
 import { qualException } from '../../../utils/exceptions';
 import { generateBadges } from '../../../utils/badges';
 import { blockedHitFactory } from '../../../utils/blocklist';
+import { clickDidNotOccurOnActionButton } from '../../../utils/searchCard';
 
 export interface Props {
   readonly hit: SearchResult;
@@ -27,18 +28,14 @@ class SearchCard extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
-  static infoIcon = (active: boolean) => {
-    return active ? 'caretUp' : 'caretDown';
-  };
-
-  static infoText = (active: boolean) => {
-    return active ? 'Show Less' : 'Show More';
-  };
-
   private handleAccept = () => this.props.onAccept(this.props.hit);
   private handleHide = () =>
     this.props.onHide(blockedHitFactory(this.props.hit));
-  private handleExpand = () => this.props.onToggleExpand(this.props.hit);
+  private handleExpand = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (clickDidNotOccurOnActionButton(e)) {
+      this.props.onToggleExpand(this.props.hit);
+    }
+  };
 
   private generateActions = () => [
     {
@@ -69,8 +66,7 @@ class SearchCard extends React.PureComponent<
             attributeOne={truncate(requester.name, 40)}
             attributeTwo={truncate(title, 80)}
             attributeThree={
-              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
-            }
+              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
           />
         </div>
         <CollapsibleInfo open={!!hit.expanded} hit={this.props.hit} />
