@@ -110,3 +110,7 @@ export const timeAllotedSelector =
 
 export const descriptionSelector =
   '.capsuletarget > table:nth-child(1) > tbody > tr:nth-child(1) > td.capsule_field_text';
+
+export const acceptBaseUrl = 'https://www.mturk.com/mturk/previewandaccept?groupId=';
+
+export const previewBaseUrl = 'https://www.mturk.com/mturk/preview?groupId=';

@@ -2,18 +2,15 @@ import * as React from 'react';
 import { ButtonGroup, Button } from '@shopify/polaris';
 import { SearchResult } from '../../../types';
 import TOpticonButton from './TOpticonButton';
+import { acceptBaseUrl, previewBaseUrl } from '../../../constants';
 
 export interface Props {
   readonly hit: SearchResult;
 }
 
 class MiscActionsPopOver extends React.PureComponent<Props, never> {
-  static readonly acceptBaseUrl = 'https://www.mturk.com/mturk/previewandaccept?groupId=';
-  static readonly previewBaseUrl = 'https://www.mturk.com/mturk/preview?groupId=';
-
   public render() {
     const { hit: { groupId, requester } } = this.props;
-    const { acceptBaseUrl, previewBaseUrl } = MiscActionsPopOver;
 
     return (
       <ButtonGroup>
