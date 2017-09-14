@@ -1,6 +1,6 @@
 # Mturk Engine
 
-<img src="https://i.imgur.com/Z5UEVbs.gif"/>
+<img src="https://i.imgur.com/Z5UEVbs.gif" alt="Animated GIF showing the normal flow of searching for HITs, hiding HITs, blocking requesters, accepting HITs, viewing your queue, and returning a HIT."/>
 
 ## Why use Mturk Engine?
 
@@ -14,4 +14,21 @@ MTurk Engine brings all of the things that make for an efficient workflow into a
 
 2. [Download Mturk Engine here.](https://github.com/Anveio/mturk-engine/raw/master/build/static/js/mturk-engine-1.0.0rc.user.js) Your userscript manager should prompt you to install the script.
 
-3. Navigate to https://www.mturk.com/mturk/findhits?mturkengine with your Amazon Mechanical Turk account to begin using Mturk Engine.
+3. Navigate to https://www.mturk.com/mturk/findhits?mturkengine with your Amazon Mechanical Turk account to begin using Mturk Engine. It's a good idea to bookmark this link if you intend on using it frequently.
+
+## Features
+
+* Search for HITs periodically without waiting for full page reloads.
+* Click on each search result to see additional info.
+* Block requesters (you can unblock them later).
+* Get instant feedback on whether a HIT you accepted was added to your queue.
+* Hide unwanted HITs easily.
+* Monitor your queue in the 'Queue' tab and refresh it instantly.
+* Return HITs instantly.
+
+## Roadmap (tentative)
+
+* Working HIT export to MTC and other forums.
+* Watchers for continually accepting HITs and snagging rare ones.
+* Integration with your dashboard and data visualization of income over time, your highest $/hr time of day, earning streaks etc.
+
