@@ -19,8 +19,8 @@ class BlockLists extends React.PureComponent<Props, never> {
       <Layout>
         <Layout.Section>
           <Banner status="info">
-            Requester and HITs are blocked with a unique ID so you don't have to
-            worry about accidentally hiding search results you don't mean to.
+            Requesters and HITs are blocked with a unique ID so you don't have
+            to worry about accidentally hiding search results you don't mean to.
           </Banner>
         </Layout.Section>
         <Layout.Section>
