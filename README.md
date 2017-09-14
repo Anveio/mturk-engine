@@ -1,5 +1,7 @@
 # Mturk Engine
 
+## Preview
+
 <img src="https://i.imgur.com/Z5UEVbs.gif" alt="Animated GIF showing the normal flow of searching for HITs, hiding HITs, blocking requesters, accepting HITs, viewing your queue, and returning a HIT."/>
 
 ## Why use Mturk Engine?
