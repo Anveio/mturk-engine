@@ -103,7 +103,7 @@ export const timeLeftSelector = `tbody > tr > td:nth-child(3) > table > tbody > 
  */
 export const turkopticonApiMulti = `https://turkopticon.ucsd.edu/api/multi-attrs.php?ids=`;
 
-export const tutkopticonBaseUrl = `https://turkopticon.ucsd.edu/`;
+export const turkopticonBaseUrl = `https://turkopticon.ucsd.edu/`;
 
 export const timeAllotedSelector =
   'tr > td:nth-child(2) > table > tbody > tr:nth-child(2) > td.capsule_field_text';

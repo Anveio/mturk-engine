@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Tooltip, Button } from '@shopify/polaris';
 import { TOpticonData, RequesterScores } from '../../../types';
+import { turkopticonBaseUrl } from '../../../constants';
 
 export interface Props {
   readonly requesterId: string;
@@ -8,7 +9,6 @@ export interface Props {
 }
 
 class TOpticonButton extends React.PureComponent<Props, never> {
-  static readonly topticonBaseUrl = 'https://turkopticon.ucsd.edu/';
   static generateTooltipContent = (scores: RequesterScores) =>
     `Pay: ${scores.pay}.
     Comm: ${scores.comm}. 
@@ -22,21 +22,12 @@ class TOpticonButton extends React.PureComponent<Props, never> {
       <Tooltip
         content={TOpticonButton.generateTooltipContent(turkopticon.attrs)}
       >
-        <Button
-          plain
-          external
-          url={TOpticonButton.topticonBaseUrl + requesterId}
-        >
+        <Button plain external url={turkopticonBaseUrl + requesterId}>
           T.O. Page
         </Button>
       </Tooltip>
     ) : (
-      <Button
-        plain
-        disabled
-        external
-        url={TOpticonButton.topticonBaseUrl + requesterId}
-      >
+      <Button plain disabled external url={turkopticonBaseUrl + requesterId}>
         No T.O. data.
       </Button>
     );
