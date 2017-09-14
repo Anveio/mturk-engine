@@ -1,19 +1,31 @@
 import * as React from 'react';
-import { Stack } from '@shopify/polaris';
+import { connect } from 'react-redux';
+import { Layout } from '@shopify/polaris';
+import { RootState } from '../../types';
 import HitBlockList from '../../containers/HitBlockList';
 import RequesterBlockList from '../../containers/RequesterBlockList';
+import EmptyBlockList from './EmptyBlockList';
+import { blockListsAreEmpty } from '../../selectors/blocklist';
 
-export interface Props {}
+export interface Props {
+  readonly empty: boolean;
+}
 
 class BlockLists extends React.PureComponent<Props, never> {
   public render() {
-    return (
-      <Stack vertical>
+    return this.props.empty ? (
+      <EmptyBlockList />
+    ) : (
+      <Layout>
         <RequesterBlockList />
         <HitBlockList />
-      </Stack>
+      </Layout>
     );
   }
 }
 
-export default BlockLists;
+const mapState = (state: RootState): Props => ({
+  empty: blockListsAreEmpty(state)
+});
+
+export default connect(mapState)(BlockLists);
