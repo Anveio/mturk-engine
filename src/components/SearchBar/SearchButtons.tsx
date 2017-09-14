@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Stack, ButtonGroup, Button } from '@shopify/polaris';
+import { Card, Stack, ButtonGroup, Button } from '@shopify/polaris';
 import SearchTimer from './SearchTimer';
 
 export interface Props {
@@ -29,23 +29,25 @@ class SearchButtons extends React.PureComponent<Props & Handlers, never> {
     const { onToggleSettings, settingsActive, searchActive } = this.props;
 
     return (
-      <Stack vertical={false} alignment="baseline">
-        <ButtonGroup segmented>
-          <Button
-            primary
-            icon="search"
-            accessibilityLabel="Toggle Search Button"
-            onClick={this.handleSearch}
-            destructive={searchActive}
-          >
-            {SearchButtons.searchButtonText(searchActive)}
-          </Button>
-          <Button onClick={onToggleSettings}>
-            {SearchButtons.settingsButtonText(settingsActive)}
-          </Button>
-        </ButtonGroup>
-        <SearchTimer />
-      </Stack>
+      <Card.Section>
+        <Stack vertical={false} alignment="baseline">
+          <ButtonGroup segmented>
+            <Button
+              primary
+              icon="search"
+              accessibilityLabel="Toggle Search Button"
+              onClick={this.handleSearch}
+              destructive={searchActive}
+            >
+              {SearchButtons.searchButtonText(searchActive)}
+            </Button>
+            <Button onClick={onToggleSettings}>
+              {SearchButtons.settingsButtonText(settingsActive)}
+            </Button>
+          </ButtonGroup>
+          <SearchTimer />
+        </Stack>
+      </Card.Section>
     );
   }
 }
