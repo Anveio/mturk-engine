@@ -7,14 +7,15 @@ export interface Props {
   readonly blockedHitIds: string[];
 }
 
-class BlockList extends React.PureComponent<Props, never> {
+class HitBlockList extends React.PureComponent<Props, never> {
   public render() {
     return this.props.blockedHitIds.length === 0 ? (
       <EmptyBlockList />
     ) : (
-      <Card>
+      <Card title="Recently blocked HITs">
         <ResourceList
           items={this.props.blockedHitIds}
+          
           renderItem={(id: string) => (
             <BlockedHitCard key={id} blockedHitId={id} />
           )}
@@ -24,4 +25,4 @@ class BlockList extends React.PureComponent<Props, never> {
   }
 }
 
-export default BlockList;
+export default HitBlockList;

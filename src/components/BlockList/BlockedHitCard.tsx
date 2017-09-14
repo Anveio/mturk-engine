@@ -28,7 +28,7 @@ class BlockedHitCard extends React.PureComponent<
     const actions = [
       {
         content: 'Unblock',
-        accessibilityLabel: 'Unblock',
+        accessibilityLabel: 'Unblock this HIT',
         onClick: this.handleUnblock
       }
     ];
