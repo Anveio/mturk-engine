@@ -4,8 +4,8 @@ import { RootState, RequesterBlockMap, BlockedRequester } from '../types';
 export const requesterBlocklistSelector = (state: RootState) =>
   state.requesterBlocklist;
 
-export const requesterBlocklistGroupIds = createSelector(
+export const recentlyBlockedRequesterIds = createSelector(
   [ requesterBlocklistSelector ],
   (blockedHit: RequesterBlockMap) =>
-    blockedHit.map((el: BlockedRequester) => el.id).toArray()
+    blockedHit.map((el: BlockedRequester) => el.id).slice(0,30).toArray()
 );
