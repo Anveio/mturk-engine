@@ -5,10 +5,8 @@ import SearchButtons from '../../containers/SearchButtons';
 
 const SearchBar = () => {
   return (
-    <Card>
-      <Card.Section>
-        <SearchButtons />
-      </Card.Section>
+    <Card sectioned>
+      <SearchButtons />
       <SearchSettings />
     </Card>
   );
