@@ -2,7 +2,8 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, TOpticonSettings } from '../../types';
 import { FormAction, updateForm } from '../../actions/form';
-import { TextField } from '@shopify/polaris';
+import { Slider } from '@blueprintjs/core';
+import { Stack } from '@shopify/polaris';
 
 interface Props {
   readonly value: string;
@@ -38,18 +39,38 @@ class EditMinTO extends React.PureComponent<Props & Handlers, never> {
       ? 'Requesters with scores below this number will not have their HITs shown.'
       : 'The value of this field is not affecting your results.';
 
+  // public render() {
+  //   return (
+  //     <TextField
+  //       disabled={!this.props.enabled}
+  //       label="Minimum T.O."
+  //       helpText={EditMinTO.generateHelpText(this.props.enabled)}
+  //       type="number"
+  //       step={0.1}
+  //       autoComplete={false}
+  //       value={this.props.value}
+  //       onChange={this.props.onChange}
+  //     />
+  //   );
+  // }
+
+  private handleChange = (value: number) =>
+    this.props.onChange(value.toFixed(2));
+
   public render() {
     return (
-      <TextField
-        disabled={!this.props.enabled}
-        label="Minimum T.O."
-        helpText={EditMinTO.generateHelpText(this.props.enabled)}
-        type="number"
-        step={0.1}
-        autoComplete={false}
-        value={this.props.value}
-        onChange={this.props.onChange}
-      />
+      <Stack vertical spacing="loose">
+        <Slider
+          disabled={!this.props.enabled}
+          renderLabel={true}
+          value={+this.props.value}
+          max={5}
+          min={0}
+          onChange={this.handleChange}
+          stepSize={0.05}
+        />
+        <p>{EditMinTO.generateHelpText(this.props.enabled)}</p>
+      </Stack>
     );
   }
 }

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Layout, Card } from '@shopify/polaris';
-// import TurkopticonWeightForm from './TurkopticonWeightForm';
 
 import ToggleNoTO from './ToggleNoTO';
 import EditMinTO from './EditMinTO';
@@ -17,7 +16,7 @@ const TurkopticonSettings = () => {
       </Layout.AnnotatedSection>
       <Layout.AnnotatedSection
         title="Enable minimum Turkopticon score"
-        description="You can hide HITs by requesters that fall below a certain score or those that have no score."
+        description="You can hide HITs by requesters that fall below a certain score."
       >
         <Card>
           <ToggleMinimumTO />
@@ -26,7 +25,6 @@ const TurkopticonSettings = () => {
           </Card.Section>
         </Card>
       </Layout.AnnotatedSection>
-      {/* <TurkopticonWeightForm /> */}
     </div>
   );
 };
