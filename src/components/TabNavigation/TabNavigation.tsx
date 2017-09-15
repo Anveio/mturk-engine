@@ -27,9 +27,12 @@ const TabNavigation = (props: Props & Handlers) => {
       return <QueueTable />;
     },
     2: () => {
-      return <BlockLists />;
+      return <div />;
     },
     3: () => {
+      return <BlockLists />;
+    },
+    4: () => {
       return <TurkopticonTab />;
     }
   };

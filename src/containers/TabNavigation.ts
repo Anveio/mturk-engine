@@ -14,7 +14,11 @@ const mapState = (state: RootState): Props => ({
 const mapDispatch = (dispatch: Dispatch<ChangeTab>): Handlers => ({
   onSelectTab: (selectedTabIndex: number) => {
     dispatch(changeTab(selectedTabIndex));
-    window.setTimeout(() => scrollTo(0, 0));
+    {
+      if (selectedTabIndex === 0) {
+        window.setTimeout(() => scrollTo(0, 0));
+      }
+    }
   }
 });
 
