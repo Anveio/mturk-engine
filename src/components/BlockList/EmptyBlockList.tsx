@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { ChangeTab, changeTab } from '../../actions/tab';
-import { EmptyState } from '@shopify/polaris';
+import { NonIdealState, Button } from '@blueprintjs/core';
+// import { Button } from '@shopify/polaris';
 
 export interface Handlers {
   onChangeTab: () => void;
@@ -9,19 +10,25 @@ export interface Handlers {
 
 const EmptyQueue = ({ onChangeTab }: Handlers) => {
   return (
-    <EmptyState
-      heading="Your block lists are empty."
-      action={{
-        content: 'Switch to search tab',
-        onAction: onChangeTab
-      }}
-      image="https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg"
-    >
-      <p>
-        You can manage your block lists here once you've blocked a HIT or a
-        requester.
-      </p>
-    </EmptyState>
+    <NonIdealState
+      title="Your blocklists are empty."
+      description="You can manage your block lists here once you've blocked a HIT or a requester."
+      visual="add-to-folder"
+      action={<Button onClick={onChangeTab}>Refresh</Button>}
+    />
+    // <EmptyState
+    //   heading="Your block lists are empty."
+    //   action={{
+    //     content: 'Switch to search tab',
+    //     onAction: onChangeTab
+    //   }}
+    //   image="https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg"
+    // >
+    //   <p>
+    // You can manage your block lists here once you've blocked a HIT or a
+    // requester.
+    //   </p>
+    // </EmptyState>
   );
 };
 
