@@ -69,7 +69,11 @@ class EditMinTO extends React.PureComponent<Props & Handlers, never> {
           onChange={this.handleChange}
           stepSize={0.05}
         />
-        <p>{EditMinTO.generateHelpText(this.props.enabled)}</p>
+        <label className="pt-label .pt-inline">
+          <span className="pt-text-muted">
+            {EditMinTO.generateHelpText(this.props.enabled)}
+          </span>
+        </label>
       </Stack>
     );
   }
