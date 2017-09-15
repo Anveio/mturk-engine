@@ -32,9 +32,11 @@
     "@types/react-redux-toastr": "^7.0.2",
     "@types/redux-persist": "^4.3.1",
     "@types/uuid": "^3.4.1",
-    "react-scripts-ts": "^2.6.0"
+    "react-scripts-ts": "^2.6.0",
+    "source-map-explorer": "^1.4.0"
   },
   "scripts": {
+    "analyze": "source-map-explorer build/static/js/*.js",
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
