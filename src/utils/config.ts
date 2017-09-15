@@ -34,27 +34,23 @@ export const createRootDiv = (): void => {
   document.body.appendChild(div);
 };
 
-/**
- * Production config. Appends a link to Shopify Polaris's stylesheet to the head of the present document.
- */
-export const importPolarisStylesheet = (): void => {
+export const importBlueprintStyleSheet = (): void => {
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
   stylesheet.type = 'text/css';
-  stylesheet.href = 'https://sdks.shopifycdn.com/polaris/1.3.1/polaris.min.css';
+  stylesheet.href = 'https://unpkg.com/@blueprintjs/core@^1.11.0/dist/blueprint.css';
   document.head.appendChild(stylesheet);
 };
 
-export const importToastrStylesheet = (): void => {
+export const importNormalizrStyleSheet = (): void => {
   const stylesheet = document.createElement('link');
   stylesheet.rel = 'stylesheet';
   stylesheet.type = 'text/css';
-  stylesheet.href =
-    'https://diegoddox.github.io/react-redux-toastr/7.1/react-redux-toastr.min.css';
+  stylesheet.href = 'https://unpkg.com/normalize.css@^4.1.1';
   document.head.appendChild(stylesheet);
 };
 
-export const attachToastrStyles = (): void => {
+export const attachToastrStylesSheet = (): void => {
   const toastrStyles = document.createElement('style');
   toastrStyles.innerHTML = toastrStylesheet;
   document.head.appendChild(toastrStyles);

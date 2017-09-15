@@ -6,8 +6,10 @@ import { API_URL } from './constants';
 import {
   clearDom,
   createRootDiv,
+  importBlueprintStyleSheet,
+  importNormalizrStyleSheet,
   attachPolarisStyleSheet,
-  attachToastrStyles
+  attachToastrStylesSheet
 } from './utils/config';
 
 import App from './components/App';
@@ -18,8 +20,11 @@ if (API_URL !== 'http://localhost:7777') {
   createRootDiv();
 }
 
+importBlueprintStyleSheet();
+importNormalizrStyleSheet();
+
 attachPolarisStyleSheet();
-attachToastrStyles();
+attachToastrStylesSheet();
 
 ReactDOM.render(
   <Provider store={store}>
