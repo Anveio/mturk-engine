@@ -21,7 +21,7 @@ export const tabulateSearchData = (input: HTMLDivElement[]): SearchResults =>
   input.reduce((map: SearchResults, hit: HTMLDivElement, index: number) => {
     const groupId = parseGroupId(hit);
     return map.set(groupId, createSearchItem(hit, groupId, index));
-  }, Map<string, SearchResult>());
+  },           Map<string, SearchResult>());
 
 export const createSearchItem = (
   input: HTMLDivElement,
@@ -133,13 +133,29 @@ export const parseQualsRequired = (input: HTMLDivElement): string[] => {
 
 const parseSingleQualification = (input: Element): string => {
   if (input && input.children) {
-    const qualText = input.querySelector('td > div > div');
-    if (qualText && qualText.textContent) {
-      return qualText.textContent.trim();
+    const qualDivs = input.querySelectorAll('td > div > div');
+    if (qualDivs.length > 1) {
+      return handleMultipeQualChildDivs(qualDivs);
+    } else {
+      const qualText = qualDivs[0];
+      if (qualText && qualText.textContent) {
+        return qualText.textContent.trim();
+      }
     }
   }
 
   return '[Error:qualification';
+};
+
+const handleMultipeQualChildDivs = (input: NodeListOf<Element>): string => {
+  let ret: string[] = [];
+  for(let i = 0; i < input.length; i++) {
+    const partialQualText = input[i];
+    if (partialQualText && partialQualText.textContent) {
+      ret.push(partialQualText.textContent.trim());
+    }
+  }
+  return ret.join(' ');
 };
 
 export const parseSearchPage = (html: Document): SearchResults => {
