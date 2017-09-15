@@ -5,6 +5,7 @@ import SearchTab from './SearchTab';
 import BlockLists from '../BlockList/BlockLists';
 import { generateTabs } from '../../utils/tabs';
 import TurkopticonTab from './TurkopticonTab';
+import Watchers from '../Watchers/Watchers';
 
 export interface Props {
   readonly selected: number;
@@ -27,7 +28,7 @@ const TabNavigation = (props: Props & Handlers) => {
       return <QueueTable />;
     },
     2: () => {
-      return <div />;
+      return <Watchers />;
     },
     3: () => {
       return <BlockLists />;
