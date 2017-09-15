@@ -81,6 +81,12 @@ export type BLOCK_REQUESTER = typeof BLOCK_REQUESTER;
 export const UNBLOCK_REQUESTER = 'UNBLOCK_REQUESTER';
 export type UNBLOCK_REQUESTER = typeof UNBLOCK_REQUESTER;
 
+export const ADD_WATCHER = 'ADD_WATCHER';
+export type ADD_WATCHER = typeof ADD_WATCHER;
+
+export const DELETE_WATCHER = 'DELETE_WATCHER';
+export type DELETE_WATCHER = typeof DELETE_WATCHER;
+
 export const API_URL = configureApiRoot();
 
 export const hitTableBody = `body > div:nth-child(9) > table:nth-child(3) > tbody`;
