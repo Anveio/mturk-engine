@@ -99,7 +99,8 @@ export const hitIdAnchor = `a[href^="/mturk/continue?hitId="]`;
 
 export const timeLeftSelector = `tbody > tr > td:nth-child(3) > table > tbody > tr > td.capsule_field_text`;
 
-export const qualsRequiredSelector = '.capsuletarget > table:nth-child(2) > tbody > tr > td[align="left"]'
+export const qualsRequiredSelector =
+  '.capsuletarget > table:nth-child(2) > tbody > tr > td > table > tbody > tr';
 /**
  * The root URL for querying the attributes of multiple requesters simultaneously
  */
@@ -113,10 +114,11 @@ export const timeAllotedSelector =
 export const descriptionSelector =
   '.capsuletarget > table:nth-child(1) > tbody > tr:nth-child(1) > td.capsule_field_text';
 
-export const acceptBaseUrl = 'https://www.mturk.com/mturk/previewandaccept?groupId=';
+export const acceptBaseUrl =
+  'https://www.mturk.com/mturk/previewandaccept?groupId=';
 
 export const previewBaseUrl = 'https://www.mturk.com/mturk/preview?groupId=';
 
-export const baseTaskUrlWorker = 'https://worker.mturk.com/projects/'
+export const baseTaskUrlWorker = 'https://worker.mturk.com/projects/';
 
-export const baseRequeserUrlWorker = 'https://worker.mturk.com/requesters/'
+export const baseRequeserUrlWorker = 'https://worker.mturk.com/requesters/';

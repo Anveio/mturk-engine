@@ -118,16 +118,28 @@ export const parseQualified = (input: HTMLDivElement): boolean =>
   !input.querySelector('a[href^="/mturk/requestqualification?"]');
 
 export const parseQualsRequired = (input: HTMLDivElement): string[] => {
-  const qualsRequiredElem = input.querySelector(qualsRequiredSelector);
-  if (qualsRequiredElem && qualsRequiredElem.children) {
-    console.log(qualsRequiredElem.children[0]);
-    const qualText = qualsRequiredElem.querySelector(
-      'tbody > tr:nth-child(2) > td > div > div'
-    );
+  const qualsRequiredContainer = input.querySelectorAll(qualsRequiredSelector);
+  let qualTextArray: string[] = [];
+
+  /**
+   * The first child of qualsRequiredChildren will just contain the text 
+   * 'Qualifications required', so start at 1 instead of 0.
+   */
+  for (let i = 1; i < qualsRequiredContainer.length; i++) {
+    qualTextArray.push(parseSingleQualification(qualsRequiredContainer[i]));
+  }
+  return qualTextArray;
+};
+
+const parseSingleQualification = (input: Element): string => {
+  if (input && input.children) {
+    const qualText = input.querySelector('td > div > div');
     if (qualText && qualText.textContent) {
-      return [ qualText.textContent.trim() ];
-    } else return [ 'Nothing found.' ];
-  } else return [ 'Nothing found.' ];
+      return qualText.textContent.trim();
+    }
+  }
+
+  return '[Error:qualification';
 };
 
 export const parseSearchPage = (html: Document): SearchResults => {
