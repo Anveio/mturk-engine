@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Popover, ActionList, ComplexAction, Button } from '@shopify/polaris';
-import { Section } from '@shopify/polaris/types/components/ActionList/ActionList';
+import * as copy from 'copy-to-clipboard';
+// import { Section } from '@shopify/polaris/types/components/ActionList/ActionList';
 import { SearchResult } from '../../../types';
 import { generateMarkdownExport } from '../../../utils/export';
 
@@ -17,19 +18,9 @@ class MiscActionsPopOver extends React.PureComponent<Props, State> {
 
   private exportActions: ComplexAction[] = [
     {
-      content: 'MTurk Crowd',
+      content: 'Copy to Clipboard',
       icon: 'export',
-      onAction: () => console.log(generateMarkdownExport(this.props.hit))
-    }
-  ];
-
-  /**
-   * @TODO: Copy export to user's clipboard.
-   */
-  private sections: Section[] = [
-    {
-      title: 'Export Options',
-      items: this.exportActions
+      onAction: () => copy(generateMarkdownExport(this.props.hit))
     }
   ];
 
@@ -52,7 +43,7 @@ class MiscActionsPopOver extends React.PureComponent<Props, State> {
         onClose={() => {}}
         sectioned
       >
-        <ActionList sections={this.sections} />
+        <ActionList items={this.exportActions} />
       </Popover>
     );
   }
