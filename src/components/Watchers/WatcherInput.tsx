@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { AddWatcher, addWatcher } from '../../actions/addWatcher';
 import { FormLayout, TextField, Button } from '@shopify/polaris';
+import { pandaLinkValidators } from '../../utils/watchers';
 
 export interface Handlers {
   readonly onAddWatcher: (groupId: string) => void;
@@ -18,8 +19,44 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
     error: null
   };
 
+  static validateInputPandaLink = (input: string): boolean => {
+    try {
+      return pandaLinkValidators
+        .map((fn) => fn(input))
+        .every((el: boolean) => el === true);
+    } catch (e) {
+      return false;
+    }
+  };
+
+  static parseGroupId = (input: string): string => input.split('groupId=')[1];
+
+  static validateGroupId = (input: string): boolean => input.length === 30;
+
+  private handleSubmit = () => {
+    const input = this.state.value;
+
+    const isPandaLink = input.length > 30;
+    const valid = isPandaLink
+      ? WatcherInput.validateInputPandaLink(input)
+      : input.length === 30;
+
+    const groupId = isPandaLink ? WatcherInput.parseGroupId(input) : input;
+
+    if (valid) {
+      this.props.onAddWatcher(groupId);
+    } else {
+      this.displayError();
+    }
+  };
+
+  private displayError = () =>
+    this.setState((): Partial<State> => ({
+      error: 'That doesn\'t appear to be a valid group ID or pandA link.'
+    }));
+
   private handleInput = (value: string) =>
-    this.setState((): Partial<State> => ({ value: value }));
+    this.setState((): Partial<State> => ({ value: value, error: null }));
 
   public render() {
     return (
@@ -32,11 +69,7 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
           error={this.state.error || false}
           onChange={this.handleInput}
         />
-        <Button
-          icon="circlePlus"
-          primary
-          onClick={() => this.props.onAddWatcher(this.state.value)}
-        >
+        <Button icon="circlePlus" primary onClick={this.handleSubmit}>
           Add Watcher
         </Button>
       </FormLayout>

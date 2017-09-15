@@ -56,6 +56,7 @@ class SearchCard extends React.PureComponent<
   public render() {
     const { hit } = this.props;
     const { qualified, title, requester } = hit;
+
     return (
       <div>
         <div onClick={this.handleExpand}>
@@ -66,7 +67,8 @@ class SearchCard extends React.PureComponent<
             attributeOne={truncate(requester.name, 40)}
             attributeTwo={truncate(title, 80)}
             attributeThree={
-              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
+              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
+            }
           />
         </div>
         <CollapsibleInfo open={!!hit.expanded} hit={this.props.hit} />

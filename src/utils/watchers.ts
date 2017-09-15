@@ -8,3 +8,9 @@ export const watcherFromId = (groupId: string): WatcherMap =>
     active: false,
     createdOn: new Date()
   });
+
+export const pandaLinkValidators: Function[] = [
+  (input: string) => /groupId=/.test(input),
+  (input: string) => input.split('groupId=').length === 2,
+  (input: string) => input.split('groupId=')[1].length === 30
+];

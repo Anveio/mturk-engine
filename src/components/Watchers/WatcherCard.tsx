@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Card, Button } from '@shopify/polaris';
 import { Watcher } from '../../types';
 
+
 export interface OwnProps {
   readonly watcherId: string;
 }
@@ -18,6 +19,8 @@ class WatcherCard extends React.PureComponent<
   OwnProps & Props & Handlers,
   never
 > {
+
+
   public render() {
     return (
       <Card sectioned title={this.props.watcherId}>
