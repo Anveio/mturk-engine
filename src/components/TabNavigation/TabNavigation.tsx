@@ -5,7 +5,7 @@ import SearchTab from './SearchTab';
 import BlockLists from '../BlockList/BlockLists';
 import { generateTabs } from '../../utils/tabs';
 import TurkopticonTab from './TurkopticonTab';
-import Watchers from '../Watchers/Watchers';
+import Watchers from '../../containers/Watchers';
 
 export interface Props {
   readonly selected: number;
