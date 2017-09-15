@@ -3,22 +3,24 @@ import { Layout } from '@shopify/polaris';
 import WatcherInput from './WatcherInput';
 import WatcherCard from './WatcherCard';
 
+import { List } from 'immutable';
+
 export interface Props {
-  readonly watcherIds: string[];
+  readonly watcherIds: List<string>;
 }
 
 class Watchers extends React.PureComponent<Props, never> {
   static generateColumn = (number: number) => (
-    watcherIds: string[]
+    watcherIds: List<string>
   ): JSX.Element[] => {
-    if (watcherIds.length === 0) {
+    if (watcherIds.size === 0) {
       return [];
     }
 
     let column: JSX.Element[] = [];
 
-    for (let i = number; i < watcherIds.length; i += 3) {
-      const id = watcherIds[i];
+    for (let i = number; i < watcherIds.size; i += 3) {
+      const id = watcherIds.get(i);
       column.push(<WatcherCard watcher={id} key={id} />);
     }
 
