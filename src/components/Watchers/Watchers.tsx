@@ -8,15 +8,17 @@ export interface Props {
 }
 
 class Watchers extends React.PureComponent<Props, never> {
-  private generateColumn = (number: number): JSX.Element[] => {
-    if (this.props.watcherIds.length === 0) {
+  static generateColumn = (number: number) => (
+    watcherIds: string[]
+  ): JSX.Element[] => {
+    if (watcherIds.length === 0) {
       return [];
     }
 
     let column: JSX.Element[] = [];
 
-    for (let i = number; i < this.props.watcherIds.length; i += 3) {
-      const id = this.props.watcherIds[i];
+    for (let i = number; i < watcherIds.length; i += 3) {
+      const id = watcherIds[i];
       column.push(<WatcherCard watcher={id} key={id} />);
     }
 
@@ -24,6 +26,8 @@ class Watchers extends React.PureComponent<Props, never> {
   };
 
   public render() {
+    const { watcherIds } = this.props;
+
     return (
       <Layout>
         <Layout.AnnotatedSection
@@ -32,9 +36,15 @@ class Watchers extends React.PureComponent<Props, never> {
         >
           <WatcherInput />
         </Layout.AnnotatedSection>
-        <Layout.Section secondary>{this.generateColumn(0)}</Layout.Section>
-        <Layout.Section secondary>{this.generateColumn(1)}</Layout.Section>
-        <Layout.Section secondary>{this.generateColumn(2)}</Layout.Section>
+        <Layout.Section secondary>
+          {Watchers.generateColumn(0)(watcherIds)}
+        </Layout.Section>
+        <Layout.Section secondary>
+          {Watchers.generateColumn(1)(watcherIds)}
+        </Layout.Section>
+        <Layout.Section secondary>
+          {Watchers.generateColumn(2)(watcherIds)}
+        </Layout.Section>
       </Layout>
     );
   }
