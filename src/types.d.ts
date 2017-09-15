@@ -15,6 +15,7 @@ export interface RootState {
   readonly sortingOption: SortingOption;
   readonly topticonSettings: TOpticonSettings;
   readonly hitBlocklist: HitBlockMap;
+  readonly watchers: WatcherMap;
   readonly requesterBlocklist: RequesterBlockMap;
 }
 
@@ -24,6 +25,7 @@ export type RequesterMap = Map<string, Requester>;
 export type HitBlockMap = Map<string, BlockedHit>;
 export type RequesterBlockMap = Map<string, BlockedRequester>;
 export type TOpticonMap = Map<string, TOpticonData>;
+export type WatcherMap = Map<string, Watcher>;
 
 export type FormTarget = 'searchOptions' | 'topticonSettings';
 
@@ -103,4 +105,10 @@ export interface TOpticonSettings {
   readonly fairWeight: number;
   readonly commWeight: number;
   readonly fastWeight: number;
+}
+
+export interface Watcher {
+  readonly groupId: string;
+  readonly delay: number;
+  readonly active: boolean;
 }
