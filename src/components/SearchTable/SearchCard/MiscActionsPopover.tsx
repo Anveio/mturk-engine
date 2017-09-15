@@ -1,18 +1,25 @@
 import * as React from 'react';
 import { Popover, ActionList, ComplexAction, Button } from '@shopify/polaris';
 import { Section } from '@shopify/polaris/types/components/ActionList/ActionList';
+import { SearchResult } from '../../../types';
+import { generateMarkdownExport } from '../../../utils/export';
 
 export interface State {
   readonly active: boolean;
 }
 
-class MiscActionsPopOver extends React.PureComponent<{}, State> {
+export interface Props {
+  readonly hit: SearchResult;
+}
+
+class MiscActionsPopOver extends React.PureComponent<Props, State> {
   public readonly state = { active: false };
 
   private exportActions: ComplexAction[] = [
     {
       content: 'MTurk Crowd',
-      icon: 'export'
+      icon: 'export',
+      onAction: () => console.log(generateMarkdownExport(this.props.hit))
     }
   ];
 

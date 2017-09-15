@@ -47,6 +47,7 @@ export interface HumanIntelligenceTask {
   readonly qualified: boolean;
   readonly description: string;
   readonly timeAllotted: string;
+  readonly qualsRequired: string[];
 }
 
 export interface SearchResult extends HumanIntelligenceTask {

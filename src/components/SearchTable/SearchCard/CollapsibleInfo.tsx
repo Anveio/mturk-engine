@@ -12,10 +12,11 @@ export interface Props {
 
 class CollapsibleInfo extends React.PureComponent<Props, never> {
   public render() {
-    const { description, timeAllotted, requester } = this.props.hit;
+    const { open, hit } = this.props;
+    const { description, timeAllotted, requester } = hit;
 
     return (
-      <Collapsible open={this.props.open}>
+      <Collapsible open={open}>
         <Card.Section>
           <Stack vertical spacing="loose" distribution="equalSpacing">
             <Caption>
@@ -27,9 +28,9 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
               <TextStyle variation="subdued">{` ${timeAllotted}`}</TextStyle>
             </Caption>
             <Stack vertical={false} alignment="center">
-              <MiscActionsPopover />
+              <MiscActionsPopover hit={hit} />
               <BlockActionsPopover requester={requester} />
-              <ExternalPlainButtons hit={this.props.hit} />
+              <ExternalPlainButtons hit={hit} />
             </Stack>
           </Stack>
         </Card.Section>

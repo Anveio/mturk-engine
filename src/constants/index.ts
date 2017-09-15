@@ -98,6 +98,8 @@ export const groupIdAnchor = `a[href^="/mturk/preview?groupId="]`;
 export const hitIdAnchor = `a[href^="/mturk/continue?hitId="]`;
 
 export const timeLeftSelector = `tbody > tr > td:nth-child(3) > table > tbody > tr > td.capsule_field_text`;
+
+export const qualsRequiredSelector = '.capsuletarget > table:nth-child(2) > tbody > tr > td[align="left"]'
 /**
  * The root URL for querying the attributes of multiple requesters simultaneously
  */
@@ -114,3 +116,7 @@ export const descriptionSelector =
 export const acceptBaseUrl = 'https://www.mturk.com/mturk/previewandaccept?groupId=';
 
 export const previewBaseUrl = 'https://www.mturk.com/mturk/preview?groupId=';
+
+export const baseTaskUrlWorker = 'https://worker.mturk.com/projects/'
+
+export const baseRequeserUrlWorker = 'https://worker.mturk.com/requesters/'

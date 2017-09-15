@@ -6,7 +6,8 @@ import {
   hitIdAnchor,
   timeLeftSelector,
   timeAllotedSelector,
-  descriptionSelector
+  descriptionSelector,
+  qualsRequiredSelector
 } from '../constants';
 import { Map } from 'immutable';
 import * as v4 from 'uuid/v4';
@@ -38,7 +39,8 @@ export const createSearchItem = (
   timeAllotted: parseTimeAllotted(input),
   description: parseDescription(input),
   batchSize: parseBatchSize(input),
-  qualified: parseQualified(input)
+  qualified: parseQualified(input),
+  qualsRequired: parseQualsRequired(input)
 });
 
 export const parseTitle = (input: HTMLDivElement): string => {
@@ -112,8 +114,20 @@ export const parseBatchSize = (input: HTMLDivElement): number => {
   }
 };
 
-export const parseQualified = (input: HTMLDivElement): boolean => {
-  return !input.querySelector('a[href^="/mturk/requestqualification?"]');
+export const parseQualified = (input: HTMLDivElement): boolean =>
+  !input.querySelector('a[href^="/mturk/requestqualification?"]');
+
+export const parseQualsRequired = (input: HTMLDivElement): string[] => {
+  const qualsRequiredElem = input.querySelector(qualsRequiredSelector);
+  if (qualsRequiredElem && qualsRequiredElem.children) {
+    console.log(qualsRequiredElem.children[0]);
+    const qualText = qualsRequiredElem.querySelector(
+      'tbody > tr:nth-child(2) > td > div > div'
+    );
+    if (qualText && qualText.textContent) {
+      return [ qualText.textContent.trim() ];
+    } else return [ 'Nothing found.' ];
+  } else return [ 'Nothing found.' ];
 };
 
 export const parseSearchPage = (html: Document): SearchResults => {
