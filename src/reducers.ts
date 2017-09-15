@@ -14,12 +14,14 @@ import { default as timeNextSearch } from './reducers/timeNextSearch';
 import { default as waitingForMturk } from './reducers/waitingForMturk';
 import { default as topticonSettings } from './reducers/topticonSettings';
 import { default as requesterBlocklist } from './reducers/requesterBlocklist';
+import { default as watchers } from './reducers/watchers';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
   queue,
   search,
   toastr,
+  watchers,
   requesters,
   hitBlocklist,
   searchOptions,
