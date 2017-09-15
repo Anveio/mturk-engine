@@ -10,6 +10,10 @@ const contactBaseUrl = 'https://www.mturk.com/mturk/contact?requesterId=';
 const requesterSearchBaseUrl =
   'https://www.mturk.com/mturk/searchbar?requesterId=';
 
+const removExtraneousWhiteSpace = (el: string): string => {
+  return el.replace(/\s\s+/g, ' ');
+};
+
 export const generateMarkdownExport = (hit: SearchResult): string => {
   const {
     title,
@@ -21,6 +25,9 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     description,
     qualsRequired
   } = hit;
+
+  const quals = qualsRequired.length === 0 ? 'None' :
+  qualsRequired.map(removExtraneousWhiteSpace).join('; ');
 
   if (requester.turkopticon) {
     const {
@@ -38,7 +45,7 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     **Duration:** ${timeAllotted}  
     **Available:** ${batchSize}  
     **Description:** ${description}
-    **Requirements:** ${qualsRequired}`;
+    **Requirements:** ${quals}`;
     
   } else {
     return `> **Title:** [${title}](${acceptBaseUrl}${groupId})  
@@ -49,6 +56,6 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     **Duration:** ${timeAllotted}  
     **Available:** ${batchSize}  
     **Description:** ${description}
-    **Requirements:** ${qualsRequired}`;
+    **Requirements:** ${quals}`;
   }
 };
