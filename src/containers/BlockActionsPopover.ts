@@ -2,7 +2,7 @@ import { connect, Dispatch } from 'react-redux';
 import { BlockedRequester } from '../types';
 import BlockActionsPopover, {
   Handlers
-} from '../components/SearchTable/SearchCard/BlockActionsPopover';
+} from '../components/SearchCard/BlockActionsPopover';
 import {
   BlockRequesterAction,
   blockRequester

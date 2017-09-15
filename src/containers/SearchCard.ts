@@ -3,7 +3,7 @@ import SearchCard, {
   Props,
   OwnProps,
   Handlers
-} from '../components/SearchTable/SearchCard/SearchCard';
+} from '../components/SearchCard/SearchCard';
 import { SearchResult, BlockedHit, RootState } from '../types';
 import { AcceptAction, acceptHitRequest } from '../actions/accept';
 import { BlockHitAction, blockHitGroup } from '../actions/blockHitGroup';

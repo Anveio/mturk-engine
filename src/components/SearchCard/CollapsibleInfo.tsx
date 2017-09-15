@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Collapsible, Card, Stack, TextStyle, Caption } from '@shopify/polaris';
-import { SearchResult } from '../../../types';
+import { SearchResult } from '../../types';
 import MiscActionsPopover from './MiscActionsPopover';
 import ExternalPlainButtons from './ExternalPlainButtons';
-import BlockActionsPopover from '../../../containers/BlockActionsPopover';
+import BlockActionsPopover from '../../containers/BlockActionsPopover';
 
 export interface Props {
   readonly open: boolean;

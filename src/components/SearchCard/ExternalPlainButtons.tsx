@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ButtonGroup, Button } from '@shopify/polaris';
-import { SearchResult } from '../../../types';
+import { SearchResult } from '../../types';
 import TOpticonButton from './TOpticonButton';
-import { acceptBaseUrl, previewBaseUrl } from '../../../constants';
+import { acceptBaseUrl, previewBaseUrl } from '../../constants';
 
 export interface Props {
   readonly hit: SearchResult;

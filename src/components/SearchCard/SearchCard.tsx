@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { SearchResult, BlockedHit } from '../../../types';
+import { SearchResult, BlockedHit } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
 
-import { truncate } from '../../../utils/formatting';
-import { qualException } from '../../../utils/exceptions';
-import { generateBadges } from '../../../utils/badges';
-import { blockedHitFactory } from '../../../utils/blocklist';
-import { clickDidNotOccurOnActionButton } from '../../../utils/searchCard';
+import { truncate } from '../../utils/formatting';
+import { qualException } from '../../utils/exceptions';
+import { generateBadges } from '../../utils/badges';
+import { blockedHitFactory } from '../../utils/blocklist';
+import { clickDidNotOccurOnActionButton } from '../../utils/searchCard';
 
 export interface Props {
   readonly hit: SearchResult;

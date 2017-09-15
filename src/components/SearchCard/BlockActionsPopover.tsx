@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Requester, BlockedRequester } from '../../../types';
+import { Requester, BlockedRequester } from '../../types';
 import { Button, Tooltip } from '@shopify/polaris';
-import { blockedRequesterFactory } from '../../../utils/blocklist';
+import { blockedRequesterFactory } from '../../utils/blocklist';
 
 export interface OwnProps {
   readonly requester: Requester;

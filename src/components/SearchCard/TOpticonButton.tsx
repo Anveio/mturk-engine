@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Tooltip, Button } from '@shopify/polaris';
-import { TOpticonData, RequesterScores } from '../../../types';
-import { turkopticonBaseUrl } from '../../../constants';
+import { TOpticonData, RequesterScores } from '../../types';
+import { turkopticonBaseUrl } from '../../constants';
 
 export interface Props {
   readonly requesterId: string;

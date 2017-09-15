@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { Popover, ActionList, ComplexAction, Button } from '@shopify/polaris';
-import * as copy from 'copy-to-clipboard';
+// import * as copy from 'copy-to-clipboard';
 // import { Section } from '@shopify/polaris/types/components/ActionList/ActionList';
-import { SearchResult } from '../../../types';
-import { generateMarkdownExport } from '../../../utils/export';
+import { SearchResult } from '../../types';
+import { generateMarkdownExport } from '../../utils/export';
 
 export interface State {
   readonly active: boolean;
@@ -20,7 +20,7 @@ class MiscActionsPopOver extends React.PureComponent<Props, State> {
     {
       content: 'Copy to Clipboard',
       icon: 'export',
-      onAction: () => copy(generateMarkdownExport(this.props.hit))
+      onAction: () => generateMarkdownExport(this.props.hit)
     }
   ];
 
