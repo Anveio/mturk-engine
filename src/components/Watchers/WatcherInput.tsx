@@ -1,14 +1,18 @@
 import * as React from 'react';
-import { TextField } from '@shopify/polaris';
+import { connect, Dispatch } from 'react-redux';
+import { AddWatcher, addWatcher } from '../../actions/addWatcher';
+import { FormLayout, TextField, Button } from '@shopify/polaris';
 
-export interface Props {}
+export interface Handlers {
+  readonly onAddWatcher: (groupId: string) => void;
+}
 
 export interface State {
   readonly value: string;
   readonly error: string | null;
 }
 
-class WatcherInput extends React.PureComponent<Props, State> {
+class WatcherInput extends React.PureComponent<Handlers, State> {
   state = {
     value: '',
     error: null
@@ -19,14 +23,29 @@ class WatcherInput extends React.PureComponent<Props, State> {
 
   public render() {
     return (
-      <TextField
-        label="Add watcher"
-        value={this.state.value}
-        error={this.state.error || false}
-        onChange={this.handleInput}
-      />
+      <FormLayout>
+        <TextField
+          label="Add watcher"
+          labelHidden
+          placeholder="Valid pandA link or a groupID of a HIT"
+          value={this.state.value}
+          error={this.state.error || false}
+          onChange={this.handleInput}
+        />
+        <Button
+          icon="circlePlus"
+          primary
+          onClick={() => this.props.onAddWatcher(this.state.value)}
+        >
+          Add Watcher
+        </Button>
+      </FormLayout>
     );
   }
 }
 
-export default WatcherInput;
+const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
+  onAddWatcher: (groupId: string) => dispatch(addWatcher(groupId))
+});
+
+export default connect(null, mapDispatch)(WatcherInput);
