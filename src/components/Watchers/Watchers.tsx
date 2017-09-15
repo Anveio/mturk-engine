@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Layout } from '@shopify/polaris';
 import WatcherInput from './WatcherInput';
-import WatcherCard from './WatcherCard';
+import WatcherCard from '../../containers/WatcherCard';
 
 import { List } from 'immutable';
 
@@ -21,7 +21,7 @@ class Watchers extends React.PureComponent<Props, never> {
 
     for (let i = number; i < watcherIds.size; i += 3) {
       const id = watcherIds.get(i);
-      column.push(<WatcherCard watcher={id} key={id} />);
+      column.push(<WatcherCard watcherId={id} key={id} />);
     }
 
     return column;
