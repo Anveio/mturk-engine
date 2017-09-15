@@ -5,5 +5,6 @@ export const watcherFromId = (groupId: string): WatcherMap =>
   Map<string, Watcher>().set(groupId, {
     groupId,
     delay: 10,
-    active: false
+    active: false,
+    createdOn: new Date()
   });

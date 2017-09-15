@@ -111,4 +111,5 @@ export interface Watcher {
   readonly groupId: string;
   readonly delay: number;
   readonly active: boolean;
+  readonly createdOn: Date;
 }
