@@ -65,7 +65,7 @@ class SearchCard extends React.PureComponent<
             exceptions={qualException(qualified)}
             badges={generateBadges(requester.turkopticon)}
             attributeOne={truncate(requester.name, 40)}
-            attributeTwo={truncate(title, 80)}
+            attributeTwo={truncate(title, 120)}
             attributeThree={
               <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
           />
