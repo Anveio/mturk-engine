@@ -6,7 +6,9 @@ import {
   SEARCH_REQUEST,
   ACCEPT_HIT_REQUEST,
   SCHEDULE_NEXT_SEARCH,
-  TOGGLE_SEARCH_ACTIVITY
+  SCHEDULE_NEXT_WATCHER_TICK,
+  TOGGLE_SEARCH_ACTIVITY,
+  TOGGLE_WATCHER_ACTIVE
 } from '../constants';
 import { FetchQueueRequest } from '../actions/queue';
 import { ReturnHitRequest } from '../actions/return';
@@ -15,6 +17,7 @@ import { ScheduleNextSearch } from '../actions/scheduler';
 import { AcceptHitRequest } from '../actions/accept';
 import { FetchTOpticonRequest } from '../actions/turkopticon';
 import { ToggleSearchActive } from '../actions/searchActivity';
+import { ToggleWatcherActivity, ScheduleWatcherTick } from '../actions/watcher';
 
 import { fetchUserQueue } from './fetchQueue';
 import { fetchSearchResults } from './fetchSearch';
@@ -23,6 +26,8 @@ import { searchAfterDelay } from './scheduleSearch';
 import { acceptHit } from './acceptHit';
 import { fetchTurkopticon } from './fetchTurkopticon';
 import { toggleSearchActive } from './toggleSearchActive';
+import { toggleWatcherActive } from './toggleWatcherActive';
+import { acceptAfterWatcherDelay } from './scheduleWatcher';
 
 export default function* rootSaga() {
   yield takeLatest<FetchQueueRequest>(FETCH_QUEUE_REQUEST, fetchUserQueue);
@@ -37,5 +42,13 @@ export default function* rootSaga() {
   yield takeLatest<ToggleSearchActive>(
     TOGGLE_SEARCH_ACTIVITY,
     toggleSearchActive
+  );
+  yield takeLatest<ToggleWatcherActivity>(
+    TOGGLE_WATCHER_ACTIVE,
+    toggleWatcherActive
+  );
+  yield takeLatest<ScheduleWatcherTick>(
+    SCHEDULE_NEXT_WATCHER_TICK,
+    acceptAfterWatcherDelay
   );
 }

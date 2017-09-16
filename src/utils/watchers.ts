@@ -6,7 +6,8 @@ export const watcherFromId = (groupId: string): WatcherMap =>
     groupId,
     delay: 10,
     active: false,
-    createdOn: new Date()
+    createdOn: new Date(),
+    timeNextAttempt: null
   });
 
 export const pandaLinkValidators: Function[] = [

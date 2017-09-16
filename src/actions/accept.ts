@@ -18,6 +18,7 @@ export interface AcceptHitRequest {
   groupId: string;
   fromWatcher: boolean;
   data?: SearchResult;
+  delay?: number;
 }
 
 export type AcceptAction =
@@ -41,4 +42,14 @@ export const acceptHitRequestfromSearch = (
   groupId: data.groupId,
   fromWatcher: false,
   data
+});
+
+export const acceptHitRequestFromWatcher = (
+  groupId: string,
+  delay: number
+): AcceptHitRequest => ({
+  type: ACCEPT_HIT_REQUEST,
+  groupId,
+  fromWatcher: true,
+  delay
 });

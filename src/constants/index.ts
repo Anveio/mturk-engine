@@ -90,6 +90,12 @@ export type DELETE_WATCHER = typeof DELETE_WATCHER;
 export const TOGGLE_WATCHER_ACTIVE = 'TOGGLE_WATCHER_ACTIVE';
 export type TOGGLE_WATCHER_ACTIVE = typeof TOGGLE_WATCHER_ACTIVE;
 
+export const CANCEL_NEXT_WATCHER_TICK = 'CANCEL_NEXT_WATCHER_TICK';
+export type CANCEL_NEXT_WATCHER_TICK = typeof CANCEL_NEXT_WATCHER_TICK;
+
+export const SCHEDULE_NEXT_WATCHER_TICK = 'SCHEDULE_NEXT_WATCHER_TICK';
+export type SCHEDULE_NEXT_WATCHER_TICK = typeof SCHEDULE_NEXT_WATCHER_TICK;
+
 export const API_URL = configureApiRoot();
 
 export const hitTableBody = `body > div:nth-child(9) > table:nth-child(3) > tbody`;
