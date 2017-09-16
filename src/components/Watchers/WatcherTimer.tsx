@@ -84,7 +84,6 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     if (this.delay && timeNextSearch) {
       return (
         <ProgressBar
-          className=""
           value={WatcherTimer.spinnerProgress(this.delay, this.state
             .timeUntilNextSearch as number)}
         />
