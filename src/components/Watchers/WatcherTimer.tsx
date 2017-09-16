@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../types';
-import { Caption } from '@shopify/polaris';
+// import { Caption } from '@shopify/polaris';
+import { ProgressBar } from '@blueprintjs/core';
 
 interface OwnProps {
   readonly groupId: string;
@@ -20,9 +21,10 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
 });
 
 class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
-  static readonly tickRate: number = 50;
+  static readonly tickRate: number = 150;
   private timerId: number;
   private dateNumNextSearch: number;
+  private delay: number;
 
   constructor() {
     super();
@@ -30,16 +32,23 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   }
 
   componentDidMount() {
-    if (this.props.timeNextSearch) {
-      this.dateNumNextSearch = this.props.timeNextSearch.valueOf();
+    const { timeNextSearch } = this.props;
+    if (timeNextSearch) {
+      this.dateNumNextSearch = timeNextSearch.valueOf();
+      this.delay = WatcherTimer.calculateTimeUntilNextSearch(
+        timeNextSearch.valueOf()
+      );
       this.startTimer();
     }
   }
 
   componentWillReceiveProps(nextProps: Props) {
+    clearInterval(this.timerId);
     if (nextProps.timeNextSearch) {
-      clearInterval(this.timerId);
       this.dateNumNextSearch = nextProps.timeNextSearch.valueOf();
+      this.delay = WatcherTimer.calculateTimeUntilNextSearch(
+        nextProps.timeNextSearch.valueOf()
+      );
       this.startTimer();
     }
   }
@@ -52,8 +61,8 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     return Math.max(nextSearch - Date.now(), 0);
   };
 
-  static formatAsSeconds = (milliseconds: number, sigFigs = 2): string => {
-    return (milliseconds / 1000).toFixed(sigFigs);
+  static spinnerProgress = (delay: number, timeLeft: number): number => {
+    return 1 - timeLeft / delay;
   };
 
   private startTimer = () => {
@@ -72,14 +81,13 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
 
   private generateCaptionText = () => {
     const { timeNextSearch } = this.props;
-    if (this.dateNumNextSearch && timeNextSearch) {
+    if (this.delay && timeNextSearch) {
       return (
-        <Caption>
-          Next search in{' '}
-          {WatcherTimer.formatAsSeconds(this.state
-            .timeUntilNextSearch as number)}{' '}
-          seconds.
-        </Caption>
+        <ProgressBar
+          className=""
+          value={WatcherTimer.spinnerProgress(this.delay, this.state
+            .timeUntilNextSearch as number)}
+        />
       );
     } else {
       return <div />;

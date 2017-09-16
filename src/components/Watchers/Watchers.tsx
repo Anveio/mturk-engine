@@ -11,7 +11,7 @@ export interface Props {
 }
 
 class Watchers extends React.PureComponent<Props, never> {
-  static generateColumn = (number: number) => (
+  static generateColumn = (offset: number) => (
     watcherIds: List<string>
   ): JSX.Element[] => {
     if (watcherIds.size === 0) {
@@ -20,7 +20,7 @@ class Watchers extends React.PureComponent<Props, never> {
 
     let column: JSX.Element[] = [];
 
-    for (let i = number; i < watcherIds.size; i += 3) {
+    for (let i = offset; i < watcherIds.size; i += 3) {
       const id = watcherIds.get(i);
       column.push(<WatcherCard watcherId={id} key={id} />);
     }

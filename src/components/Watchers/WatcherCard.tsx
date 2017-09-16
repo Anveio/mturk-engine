@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Card, Heading, Caption } from '@shopify/polaris';
+import { Card, Stack, Heading } from '@shopify/polaris';
 import { Button, EditableText } from '@blueprintjs/core';
 import { EditableField } from '../../actions/editWatcher';
 import { Watcher } from '../../types';
@@ -35,17 +35,14 @@ class WatcherCard extends React.PureComponent<
   private descriptionSection = (description: string) => {
     return (
       <Card.Section>
-        <Caption>
-          <EditableText
-            intent={0}
-            maxLength={140}
-            value={this.props.watcher.description}
-            selectAllOnFocus
-            onChange={(value: string) =>
-              this.props.onEdit(this.props.watcherId, 'description', value)}
-            defaultValue="Edit description"
-          />
-        </Caption>
+        <EditableText
+          maxLength={140}
+          value={this.props.watcher.description}
+          selectAllOnFocus
+          onChange={(value: string) =>
+            this.props.onEdit(this.props.watcherId, 'description', value)}
+          defaultValue="Edit description"
+        />
       </Card.Section>
     );
   };
@@ -53,17 +50,20 @@ class WatcherCard extends React.PureComponent<
   private headingSection = (title: string) => {
     return (
       <Card.Section>
-        <Heading>
-          <EditableText
-            intent={0}
-            maxLength={30}
-            value={title}
-            selectAllOnFocus
-            defaultValue="Edit title"
-            onChange={(value: string) =>
-              this.props.onEdit(this.props.watcherId, 'title', value)}
-          />
-        </Heading>
+        <Stack vertical spacing="tight">
+          <Heading>
+            <EditableText
+              intent={0}
+              maxLength={30}
+              value={title}
+              selectAllOnFocus
+              defaultValue="Edit title"
+              onChange={(value: string) =>
+                this.props.onEdit(this.props.watcherId, 'title', value)}
+            />
+          </Heading>
+          <WatcherTimer groupId={this.props.watcherId} />
+        </Stack>
       </Card.Section>
     );
   };
@@ -73,6 +73,7 @@ class WatcherCard extends React.PureComponent<
       <Card.Section>
         Delay:{' '}
         <EditableText
+          intent={0}
           maxLength={3}
           value={delay.toString()}
           selectAllOnFocus
@@ -90,6 +91,26 @@ class WatcherCard extends React.PureComponent<
     );
   };
 
+  private buttonSection = (watcher: Watcher) => {
+    return (
+      <Card.Section>
+        <Stack distribution="equalSpacing">
+          <Button
+            onClick={() => this.props.onToggle(watcher.groupId, watcher.active)}
+          >
+            {WatcherCard.generateButtonContent(watcher.active)}
+          </Button>
+
+          <Button
+            onClick={() => this.props.onDelete(watcher.groupId)}
+            intent={3}
+            iconName="delete"
+          />
+        </Stack>
+      </Card.Section>
+    );
+  };
+
   public render() {
     const { watcher } = this.props;
 
@@ -98,22 +119,7 @@ class WatcherCard extends React.PureComponent<
         {this.headingSection(watcher.title)}
         {this.descriptionSection(watcher.description)}
         {this.delaySection(watcher.delay)}
-
-        <Card.Section>
-          <div className=".pt-button-group .pt-minimal">
-            <Button
-              onClick={() =>
-                this.props.onToggle(watcher.groupId, watcher.active)}
-            >
-              {WatcherCard.generateButtonContent(watcher.active)}
-            </Button>
-
-            <Button onClick={() => this.props.onDelete(watcher.groupId)}>
-              Delete
-            </Button>
-          </div>
-          <WatcherTimer groupId={this.props.watcherId} />
-        </Card.Section>
+        {this.buttonSection(watcher)}
       </Card>
     );
   }
