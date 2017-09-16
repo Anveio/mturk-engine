@@ -1,16 +1,24 @@
-import { Watcher, WatcherMap } from '../types';
-import { Map } from 'immutable';
+import { Watcher, SearchResult } from '../types';
 
-export const watcherFromId = (groupId: string): WatcherMap =>
-  Map<string, Watcher>().set(groupId, {
-    title: 'Untitled',
-    description: 'No description',
-    groupId,
-    delay: 10,
-    active: false,
-    createdOn: new Date(),
-    timeNextAttempt: null
-  });
+export const watcherFromId = (groupId: string): Watcher => ({
+  title: 'Untitled',
+  description: 'No description',
+  groupId,
+  delay: 10,
+  active: false,
+  createdOn: new Date(),
+  timeNextAttempt: null
+});
+
+export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
+  title: hit.title,
+  description: hit.description,
+  groupId: hit.groupId,
+  delay: 10,
+  active: false,
+  createdOn: new Date(),
+  timeNextAttempt: null
+});
 
 export const pandaLinkValidators: Function[] = [
   (input: string) => /groupId=/.test(input),

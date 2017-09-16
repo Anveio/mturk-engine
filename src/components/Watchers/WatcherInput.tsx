@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { Card, FormLayout, TextField, Button } from '@shopify/polaris';
-import { pandaLinkValidators } from '../../utils/watchers';
+import { pandaLinkValidators, watcherFromId } from '../../utils/watchers';
 
 export interface Handlers {
   readonly onAddWatcher: (groupId: string) => void;
@@ -52,7 +52,7 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
 
   private displayError = () =>
     this.setState((): Partial<State> => ({
-      error: 'That doesn\'t appear to be a valid group ID or pandA link.'
+      error: "That doesn't appear to be a valid group ID or pandA link."
     }));
 
   private handleInput = (value: string) =>
@@ -89,7 +89,8 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
 }
 
 const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
-  onAddWatcher: (groupId: string) => dispatch(addWatcher(groupId))
+  onAddWatcher: (groupId: string) =>
+    dispatch(addWatcher(watcherFromId(groupId)))
 });
 
 export default connect(null, mapDispatch)(WatcherInput);

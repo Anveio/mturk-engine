@@ -6,9 +6,11 @@ import {
   CANCEL_NEXT_WATCHER_TICK
 } from '../constants';
 
+import { Watcher } from '../types';
+
 export interface AddWatcher {
   type: ADD_WATCHER;
-  groupId: string;
+  watcher: Watcher;
 }
 export interface DeleteWatcher {
   type: DELETE_WATCHER;
@@ -32,9 +34,9 @@ export interface CancelWatcherTick {
   groupId: string;
 }
 
-export const addWatcher = (groupId: string): AddWatcher => ({
+export const addWatcher = (watcher: Watcher): AddWatcher => ({
   type: ADD_WATCHER,
-  groupId
+  watcher
 });
 
 export const deleteWatcher = (groupId: string): DeleteWatcher => ({
