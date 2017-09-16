@@ -3,6 +3,7 @@ import { Card, Heading, Caption } from '@shopify/polaris';
 import { Button, EditableText } from '@blueprintjs/core';
 import { EditableField } from '../../actions/editWatcher';
 import { Watcher } from '../../types';
+import WatcherTimer from './WatcherTimer';
 
 export interface OwnProps {
   readonly watcherId: string;
@@ -111,6 +112,7 @@ class WatcherCard extends React.PureComponent<
               Delete
             </Button>
           </div>
+          <WatcherTimer groupId={this.props.watcherId} />
         </Card.Section>
       </Card>
     );

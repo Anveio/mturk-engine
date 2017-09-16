@@ -1,14 +1,17 @@
 import { put, select } from 'redux-saga/effects';
-import { RootState } from '../types';
+import { RootState, Watcher } from '../types';
 import {
   AcceptHitRequest,
   acceptHitRequestFromWatcher
 } from '../actions/accept';
-import { ToggleWatcherActivity } from '../actions/watcher';
-import { CancelNextSearch, cancelNextSearch } from '../actions/scheduler';
+import {
+  ToggleWatcherActivity,
+  CancelWatcherTick,
+  cancelNextWatcherTick
+} from '../actions/watcher';
 
 export function* toggleWatcherActive(action: ToggleWatcherActivity) {
-  const watcher = yield select((state: RootState) =>
+  const watcher: Watcher = yield select((state: RootState) =>
     state.watchers.get(action.groupId)
   );
 
@@ -17,6 +20,6 @@ export function* toggleWatcherActive(action: ToggleWatcherActivity) {
       acceptHitRequestFromWatcher(action.groupId, watcher.delay)
     );
   } else {
-    yield put<CancelNextSearch>(cancelNextSearch());
+    yield put<CancelWatcherTick>(cancelNextWatcherTick(watcher.groupId));
   }
 }
