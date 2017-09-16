@@ -31,12 +31,13 @@ persistStore(store, {
     'queue',
     'sortingOption',
     'searchOptions',
-    'topticonSettings'
+    'topticonSettings',
+    'watchers'
   ],
   storage: localForage,
   transforms: [
     immutableTransform({
-      whitelist: [ 'hitBlocklist', 'requesterBlocklist', 'queue' ]
+      whitelist: [ 'hitBlocklist', 'requesterBlocklist', 'queue', 'watchers' ]
     })
   ]
 });
