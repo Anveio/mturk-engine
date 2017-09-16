@@ -17,3 +17,11 @@ export const pandaLinkValidators: Function[] = [
   (input: string) => input.split('groupId=').length === 2,
   (input: string) => input.split('groupId=')[1].length === 30
 ];
+
+export const conflictsOnlyUseNewDateProp = (
+  oldWatcher: Watcher,
+  newWatcher: Watcher
+): Watcher => ({
+  ...oldWatcher,
+  createdOn: newWatcher.createdOn
+});
