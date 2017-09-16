@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { AddWatcher, addWatcher } from '../../actions/addWatcher';
+import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { FormLayout, TextField, Button } from '@shopify/polaris';
 import { pandaLinkValidators } from '../../utils/watchers';
 

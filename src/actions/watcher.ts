@@ -16,6 +16,7 @@ export interface DeleteWatcher {
 export interface ToggleWatcherActivity {
   type: TOGGLE_WATCHER_ACTIVE;
   groupId: string;
+  active: boolean;
 }
 
 export const addWatcher = (groupId: string): AddWatcher => ({
@@ -28,7 +29,11 @@ export const deleteWatcher = (groupId: string): DeleteWatcher => ({
   groupId
 });
 
-export const toggleWatcherActive = (id: string): ToggleWatcherActivity => ({
+export const toggleWatcherActive = (
+  groupId: string,
+  active: boolean
+): ToggleWatcherActivity => ({
   type: TOGGLE_WATCHER_ACTIVE,
-  groupId: id
+  groupId,
+  active
 });

@@ -22,8 +22,8 @@ const mapDispatch = (dispatch: Dispatch<DeleteWatcher>): Handlers => ({
   onDelete: (id: string) => {
     dispatch(deleteWatcher(id));
   },
-  onToggle: (id: string) => {
-    dispatch(toggleWatcherActive(id));
+  onToggle: (id: string, active: boolean) => {
+    dispatch(toggleWatcherActive(id, active));
   }
 });
 
