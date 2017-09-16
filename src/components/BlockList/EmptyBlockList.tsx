@@ -14,7 +14,7 @@ const EmptyQueue = ({ onChangeTab }: Handlers) => {
       title="Your blocklists are empty."
       description="You can manage your block lists here once you've blocked a HIT or a requester."
       visual="add-to-folder"
-      action={<Button onClick={onChangeTab}>Refresh</Button>}
+      action={<Button onClick={onChangeTab}>Switch to search tab</Button>}
     />
     // <EmptyState
     //   heading="Your block lists are empty."
