@@ -36,7 +36,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     if (timeNextSearch) {
       this.dateNumNextSearch = timeNextSearch.valueOf();
       this.delay = WatcherTimer.calculateTimeUntilNextSearch(
-        timeNextSearch.valueOf()
+        this.dateNumNextSearch
       );
       this.startTimer();
     }
@@ -47,7 +47,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     if (nextProps.timeNextSearch) {
       this.dateNumNextSearch = nextProps.timeNextSearch.valueOf();
       this.delay = WatcherTimer.calculateTimeUntilNextSearch(
-        nextProps.timeNextSearch.valueOf()
+        this.dateNumNextSearch
       );
       this.startTimer();
     }
