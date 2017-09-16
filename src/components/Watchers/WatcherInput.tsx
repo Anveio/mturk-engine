@@ -58,17 +58,26 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
   private handleInput = (value: string) =>
     this.setState((): Partial<State> => ({ value: value, error: null }));
 
+  private watchForEnter = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.charCode === 13) {
+      event.preventDefault();
+      this.handleSubmit();
+    }
+  };
+
   public render() {
     return (
       <FormLayout>
-        <TextField
-          label="Add watcher"
-          labelHidden
-          placeholder="Valid pandA link or a groupID of a HIT"
-          value={this.state.value}
-          error={this.state.error || false}
-          onChange={this.handleInput}
-        />
+        <div onKeyPress={this.watchForEnter}>
+          <TextField
+            label="Add watcher"
+            labelHidden
+            placeholder="Valid pandA link or a groupID of a HIT"
+            value={this.state.value}
+            error={this.state.error || false}
+            onChange={this.handleInput}
+          />
+        </div>
         <Button icon="circlePlus" primary onClick={this.handleSubmit}>
           Add Watcher
         </Button>
