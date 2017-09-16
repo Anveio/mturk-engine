@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Card, Stack, Heading } from '@shopify/polaris';
-import { Button, EditableText } from '@blueprintjs/core';
+import { Card, Stack, Tooltip, Heading, Button } from '@shopify/polaris';
+import { EditableText } from '@blueprintjs/core';
 import { EditableField } from '../../actions/editWatcher';
 import { Watcher } from '../../types';
 import WatcherTimer from './WatcherTimer';
@@ -101,11 +101,12 @@ class WatcherCard extends React.PureComponent<
             {WatcherCard.generateButtonContent(watcher.active)}
           </Button>
 
-          <Button
-            onClick={() => this.props.onDelete(watcher.groupId)}
-            intent={3}
-            iconName="delete"
-          />
+          <Tooltip content="Delete this watcher." >
+            <Button
+              onClick={() => this.props.onDelete(watcher.groupId)}
+              icon="delete"
+            />
+          </Tooltip>
         </Stack>
       </Card.Section>
     );
