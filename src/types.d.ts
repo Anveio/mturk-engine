@@ -108,9 +108,10 @@ export interface TOpticonSettings {
 }
 
 export interface Watcher {
-  readonly title: string;
   readonly groupId: string;
+  readonly title: string;
   readonly delay: number;
+  readonly description: string;
   readonly active: boolean;
   readonly createdOn: Date;
   readonly timeNextAttempt: Date | null;

@@ -12,8 +12,9 @@ import { generateQueueToast, failedQueueToast } from '../utils/toastr';
 export function* fetchUserQueue(action: FetchQueueRequest) {
   try {
     const queueData = yield call(getQueuePage);
-    const empty = !queueData.isEmpty();
-    generateQueueToast(empty);
+    if (queueData.isEmpty()) {
+      generateQueueToast(false);
+    }
     yield put<FetchQueueSuccess>(fetchQueueSuccess(queueData));
   } catch (e) {
     failedQueueToast();

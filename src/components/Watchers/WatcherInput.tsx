@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
-import { FormLayout, TextField, Button } from '@shopify/polaris';
+import { Card, FormLayout, TextField, Button } from '@shopify/polaris';
 import { pandaLinkValidators } from '../../utils/watchers';
 
 export interface Handlers {
@@ -52,7 +52,7 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
 
   private displayError = () =>
     this.setState((): Partial<State> => ({
-      error: 'That doesn\'t appear to be a valid group ID or pandA link.'
+      error: "That doesn't appear to be a valid group ID or pandA link."
     }));
 
   private handleInput = (value: string) =>
@@ -67,21 +67,23 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
 
   public render() {
     return (
-      <FormLayout>
-        <div onKeyPress={this.watchForEnter}>
-          <TextField
-            label="Add watcher"
-            labelHidden
-            placeholder="Valid pandA link or a groupID of a HIT"
-            value={this.state.value}
-            error={this.state.error || false}
-            onChange={this.handleInput}
-          />
-        </div>
-        <Button icon="circlePlus" primary onClick={this.handleSubmit}>
-          Add Watcher
-        </Button>
-      </FormLayout>
+      <Card sectioned subdued>
+        <FormLayout>
+          <div onKeyPress={this.watchForEnter}>
+            <TextField
+              label="Add watcher"
+              labelHidden
+              placeholder="Valid pandA link or a groupID of a HIT"
+              value={this.state.value}
+              error={this.state.error || false}
+              onChange={this.handleInput}
+            />
+          </div>
+          <Button icon="circlePlus" primary onClick={this.handleSubmit}>
+            Add Watcher
+          </Button>
+        </FormLayout>
+      </Card>
     );
   }
 }

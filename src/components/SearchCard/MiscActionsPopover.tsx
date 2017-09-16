@@ -40,7 +40,7 @@ class MiscActionsPopOver extends React.PureComponent<Props, State> {
             icon="horizontalDots"
           />
         }
-        onClose={() => {}}
+        onClose={() => ({})}
         sectioned
       >
         <ActionList items={this.exportActions} />

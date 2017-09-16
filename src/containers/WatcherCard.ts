@@ -4,14 +4,18 @@ import SearchCard, {
   Props,
   Handlers
 } from '../components/Watchers/WatcherCard';
-import { RootState, Watcher } from '../types';
+import { RootState } from '../types';
 import {
   DeleteWatcher,
   ToggleWatcherActivity,
   toggleWatcherActive,
   deleteWatcher
 } from '../actions/watcher';
-import { WatcherEdit, editWatcher } from '../actions/editWatcher';
+import {
+  EditableField,
+  WatcherEdit,
+  editWatcher
+} from '../actions/editWatcher';
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   watcher: state.watchers.get(ownProps.watcherId)
@@ -26,7 +30,7 @@ const mapDispatch = (dispatch: Dispatch<WatcherCardAction>): Handlers => ({
   onToggle: (id: string, active: boolean) => {
     dispatch(toggleWatcherActive(id, active));
   },
-  onEdit: (id: string, field: keyof Watcher, value: string | number) => {
+  onEdit: (id: string, field: EditableField, value: string | number) => {
     dispatch(editWatcher(id, field, value));
   }
 });
