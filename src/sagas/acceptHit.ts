@@ -21,7 +21,13 @@ export function* acceptHit(action: AcceptHitRequest) {
       ? searchItemToQueueItem(data)
       : blankQueueItem(groupId);
 
-    generateAcceptHitToast(successful, newQueueItem.title);
+    if (action.fromWatcher && !successful) {
+      // tslint:disable-next-line:no-console
+      console.log('Accepting HIT from watcher failed. Skipping toast.');
+    } else {
+      generateAcceptHitToast(successful, newQueueItem.title);
+    }
+
     if (successful) {
       yield put<AcceptHitSuccess>(acceptHitSuccess(newQueueItem));
     } else if (action.fromWatcher === false) {
