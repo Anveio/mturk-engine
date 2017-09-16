@@ -1,5 +1,5 @@
 import { WatcherMap, Watcher } from '../types';
-import { AddWatcher, DeleteWatcher } from '../actions/addWatcher';
+import { AddWatcher, DeleteWatcher } from '../actions/watcher';
 import { ADD_WATCHER, DELETE_WATCHER } from '../constants';
 import { Map } from 'immutable';
 import { watcherFromId } from '../utils/watchers';

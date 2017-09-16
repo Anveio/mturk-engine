@@ -87,6 +87,9 @@ export type ADD_WATCHER = typeof ADD_WATCHER;
 export const DELETE_WATCHER = 'DELETE_WATCHER';
 export type DELETE_WATCHER = typeof DELETE_WATCHER;
 
+export const TOGGLE_WATCHER_ACTIVE = 'TOGGLE_WATCHER_ACTIVE';
+export type TOGGLE_WATCHER_ACTIVE = typeof TOGGLE_WATCHER_ACTIVE;
+
 export const API_URL = configureApiRoot();
 
 export const hitTableBody = `body > div:nth-child(9) > table:nth-child(3) > tbody`;
