@@ -6,12 +6,14 @@ import {
   ScheduleWatcherTick,
   CancelWatcherTick
 } from '../actions/watcher';
+import { WatcherEdit } from '../actions/editWatcher';
 import {
   ADD_WATCHER,
   DELETE_WATCHER,
   TOGGLE_WATCHER_ACTIVE,
   SCHEDULE_NEXT_WATCHER_TICK,
-  CANCEL_NEXT_WATCHER_TICK
+  CANCEL_NEXT_WATCHER_TICK,
+  EDIT_WATCHER_FIELD
 } from '../constants';
 import { Map } from 'immutable';
 import { watcherFromId } from '../utils/watchers';
@@ -23,7 +25,8 @@ type WatcherAction =
   | AddWatcher
   | DeleteWatcher
   | ScheduleWatcherTick
-  | CancelWatcherTick;
+  | CancelWatcherTick
+  | WatcherEdit;
 
 export default (state = initial, action: WatcherAction) => {
   switch (action.type) {
@@ -45,6 +48,11 @@ export default (state = initial, action: WatcherAction) => {
       return state.update(action.groupId, (watcher): Watcher => ({
         ...watcher,
         timeNextAttempt: null
+      }));
+    case EDIT_WATCHER_FIELD:
+      return state.update(action.groupId, (watcher): Watcher => ({
+        ...watcher,
+        [action.field]: action.value
       }));
     default:
       return state;

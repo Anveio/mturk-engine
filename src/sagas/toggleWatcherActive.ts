@@ -8,13 +8,13 @@ import { ToggleWatcherActivity } from '../actions/watcher';
 import { CancelNextSearch, cancelNextSearch } from '../actions/scheduler';
 
 export function* toggleWatcherActive(action: ToggleWatcherActivity) {
-  const watcherDelay = yield select(
-    (state: RootState) => state.watchers.get(action.groupId).delay
+  const watcher = yield select((state: RootState) =>
+    state.watchers.get(action.groupId)
   );
 
-  if (action.active) {
+  if (watcher.active) {
     yield put<AcceptHitRequest>(
-      acceptHitRequestFromWatcher(action.groupId, watcherDelay)
+      acceptHitRequestFromWatcher(action.groupId, watcher.delay)
     );
   } else {
     yield put<CancelNextSearch>(cancelNextSearch());

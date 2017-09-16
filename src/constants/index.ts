@@ -96,6 +96,9 @@ export type CANCEL_NEXT_WATCHER_TICK = typeof CANCEL_NEXT_WATCHER_TICK;
 export const SCHEDULE_NEXT_WATCHER_TICK = 'SCHEDULE_NEXT_WATCHER_TICK';
 export type SCHEDULE_NEXT_WATCHER_TICK = typeof SCHEDULE_NEXT_WATCHER_TICK;
 
+export const EDIT_WATCHER_FIELD = 'EDIT_WATCHER_FIELD';
+export type EDIT_WATCHER_FIELD = typeof EDIT_WATCHER_FIELD;
+
 export const API_URL = configureApiRoot();
 
 export const hitTableBody = `body > div:nth-child(9) > table:nth-child(3) > tbody`;

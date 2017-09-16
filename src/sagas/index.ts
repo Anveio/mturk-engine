@@ -1,4 +1,4 @@
-import { takeLatest } from 'redux-saga/effects';
+import { takeLatest, takeEvery } from 'redux-saga/effects';
 import {
   FETCH_QUEUE_REQUEST,
   FETCH_TURKOPTICON_REQUEST,
@@ -43,11 +43,11 @@ export default function* rootSaga() {
     TOGGLE_SEARCH_ACTIVITY,
     toggleSearchActive
   );
-  yield takeLatest<ToggleWatcherActivity>(
+  yield takeEvery<ToggleWatcherActivity>(
     TOGGLE_WATCHER_ACTIVE,
     toggleWatcherActive
   );
-  yield takeLatest<ScheduleWatcherTick>(
+  yield takeEvery<ScheduleWatcherTick>(
     SCHEDULE_NEXT_WATCHER_TICK,
     acceptAfterWatcherDelay
   );
