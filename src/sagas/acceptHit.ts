@@ -34,7 +34,6 @@ export function* acceptHit(action: AcceptHitRequest) {
       );
     }
   } catch (e) {
-    console.log(e);
     yield put<AcceptHitFailure>(acceptHitFailure());
   }
 }

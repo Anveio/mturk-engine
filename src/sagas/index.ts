@@ -34,7 +34,7 @@ export default function* rootSaga() {
   yield takeLatest<ReturnHitRequest>(RETURN_HIT_REQUEST, returnHit);
   yield takeLatest<SearchRequest>(SEARCH_REQUEST, fetchSearchResults);
   yield takeLatest<ScheduleNextSearch>(SCHEDULE_NEXT_SEARCH, searchAfterDelay);
-  yield takeLatest<AcceptHitRequest>(ACCEPT_HIT_REQUEST, acceptHit);
+  yield takeEvery<AcceptHitRequest>(ACCEPT_HIT_REQUEST, acceptHit);
   yield takeLatest<FetchTOpticonRequest>(
     FETCH_TURKOPTICON_REQUEST,
     fetchTurkopticon
