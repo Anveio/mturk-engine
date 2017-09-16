@@ -28,18 +28,26 @@ export const generateReturnToast = (status: HitReturnStatus) => {
 };
 
 const successfulAcceptToast = (title: string) => {
-  toastr.success(
-    'Success!',
-    `Hit: "${truncate(title, 10)}" was added to your queue. `
-  );
+  title.startsWith('[Refresh Required]')
+    ? toastr.success('Success!', 'A HIT was added to your queue.')
+    : toastr.success(
+        'Success!',
+        `${truncate(title, 10)} was added to your queue. `
+      );
 };
 
-const failedAcceptToast = (title: string) => {
-  toastr.warning(
-    `${title} was not added to your queue.`,
-    `You may not be qualified, or no HITs may be available, or you may need to solve a CAPTCHA.`,
-    { timeOut: 5000 }
-  );
+const failedAcceptToast = (title: string = 'That HIT') => {
+  title.startsWith('[Refresh Required]')
+    ? toastr.warning(
+        `That HIT was not added to your queue.`,
+        `You may not be qualified, or no HITs may be available, or you may need to solve a CAPTCHA.`,
+        { timeOut: 5000 }
+      )
+    : toastr.warning(
+        `${title} was not added to your queue.`,
+        `You may not be qualified, or no HITs may be available, or you may need to solve a CAPTCHA.`,
+        { timeOut: 5000 }
+      );
 };
 
 const successfulQueueToast = () => {

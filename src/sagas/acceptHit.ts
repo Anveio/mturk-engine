@@ -7,16 +7,20 @@ import {
   AcceptHitSuccess
 } from '../actions/accept';
 import { validateHitAcceptRequest } from '../api/acceptHit';
-import { searchItemToQueueItem } from '../utils/queueItem';
+import { searchItemToQueueItem, blankQueueItem } from '../utils/queueItem';
 import { generateAcceptHitToast } from '../utils/toastr';
 
 export function* acceptHit(action: AcceptHitRequest) {
-  const { groupId, title } = action.data;
+  const { groupId, data } = action;
   try {
     const successful: boolean = yield call(validateHitAcceptRequest, groupId);
-    generateAcceptHitToast(successful, title);
+
+    const newQueueItem = data
+    ? searchItemToQueueItem(data)
+    : blankQueueItem(groupId);
+
+    generateAcceptHitToast(successful, newQueueItem.title);
     if (successful) {
-      const newQueueItem = searchItemToQueueItem(action.data);
       yield put<AcceptHitSuccess>(acceptHitSuccess(newQueueItem));
     } else {
       yield put<AcceptHitFailure>(acceptHitFailure());

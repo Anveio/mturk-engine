@@ -5,7 +5,7 @@ import SearchCard, {
   Handlers
 } from '../components/SearchCard/SearchCard';
 import { SearchResult, BlockedHit, RootState } from '../types';
-import { AcceptAction, acceptHitRequest } from '../actions/accept';
+import { AcceptAction, acceptHitRequestfromSearch } from '../actions/accept';
 import { BlockHitAction, blockHitGroup } from '../actions/blockHitGroup';
 import {
   ExpandAction,
@@ -20,7 +20,7 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
 
 const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   onAccept: (hit: SearchResult) => {
-    dispatch(acceptHitRequest(hit));
+    dispatch(acceptHitRequestfromSearch(hit));
   },
   onHide: (hit: BlockedHit) => {
     dispatch(blockHitGroup(hit));

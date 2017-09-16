@@ -15,7 +15,8 @@ export interface AcceptHitFailure {
 
 export interface AcceptHitRequest {
   type: ACCEPT_HIT_REQUEST;
-  data: SearchResult;
+  data?: SearchResult;
+  groupId: string;
 }
 
 export type AcceptAction =
@@ -32,7 +33,10 @@ export const acceptHitFailure = (): AcceptHitFailure => ({
   type: ACCEPT_HIT_FAILURE
 });
 
-export const acceptHitRequest = (data: SearchResult): AcceptHitRequest => ({
+export const acceptHitRequestfromSearch = (
+  data: SearchResult
+): AcceptHitRequest => ({
   type: ACCEPT_HIT_REQUEST,
+  groupId: data.groupId,
   data
 });
