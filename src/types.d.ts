@@ -108,6 +108,7 @@ export interface TOpticonSettings {
 }
 
 export interface Watcher {
+  readonly title: string;
   readonly groupId: string;
   readonly delay: number;
   readonly active: boolean;
