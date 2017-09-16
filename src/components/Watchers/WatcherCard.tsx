@@ -41,6 +41,7 @@ class WatcherCard extends React.PureComponent<
               intent={0}
               maxLength={30}
               value={watcher.title}
+              selectAllOnFocus
               onChange={(value: string) =>
                 this.props.onEdit(this.props.watcherId, 'title', value)}
               defaultValue="Edit title"
@@ -52,6 +53,7 @@ class WatcherCard extends React.PureComponent<
           <EditableText
             maxLength={3}
             value={watcher.delay.toString()}
+            selectAllOnFocus
             onChange={(value: string) =>
               this.props.onEdit(
                 this.props.watcherId,
