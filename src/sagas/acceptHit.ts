@@ -22,7 +22,7 @@ export function* acceptHit(action: AcceptHitRequest) {
     generateAcceptHitToast(successful, newQueueItem.title);
     if (successful) {
       yield put<AcceptHitSuccess>(acceptHitSuccess(newQueueItem));
-    } else {
+    } else if (action.fromWatcher === false){
       yield put<AcceptHitFailure>(acceptHitFailure());
     }
   } catch (e) {
