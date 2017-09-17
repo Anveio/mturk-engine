@@ -23,7 +23,7 @@ export function* acceptHit(action: AcceptHitRequest) {
 
     if (action.fromWatcher && !successful) {
       // tslint:disable-next-line:no-console
-      console.log('Accepting HIT from watcher failed. Skipping toast.');
+      yield put<AcceptHitFailure>(acceptHitFailure());
     } else {
       generateAcceptHitToast(successful, newQueueItem.title);
     }
