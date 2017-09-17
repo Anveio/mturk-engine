@@ -21,7 +21,7 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
 });
 
 class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
-  static readonly tickRate: number = 150;
+  static readonly tickRate: number = 100;
   private timerId: number;
   private dateNumNextSearch: number;
   private delay: number;
