@@ -8,6 +8,7 @@ import {
   acceptHitFailure,
   acceptHitRequestFromWatcher
 } from '../actions/accept';
+import { CancelWatcherTick, cancelNextWatcherTick } from '../actions/watcher';
 
 export function* acceptAfterWatcherDelay(action: ScheduleWatcherTick) {
   yield delay(action.time.valueOf() - Date.now());
@@ -24,8 +25,18 @@ export function* acceptAfterWatcherDelay(action: ScheduleWatcherTick) {
       yield put<AcceptHitRequest>(
         acceptHitRequestFromWatcher(watcher.groupId, watcher.delay)
       );
+    } else if (watcher && !watcher.active) {
+      yield put<CancelWatcherTick>(cancelNextWatcherTick(watcher.groupId));
+    } else {
+      throw new Error(
+        'Warning: Attempted to accept a HIT with a deleted watcher.'
+      );
     }
   } catch (e) {
+    console.warn(e);
+    if (watcher) {
+      yield put<CancelWatcherTick>(cancelNextWatcherTick(watcher.groupId));
+    }
     yield put<AcceptHitFailure>(acceptHitFailure());
   }
 }
