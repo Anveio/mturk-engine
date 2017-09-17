@@ -10,10 +10,10 @@ import { WatcherEdit } from '../actions/editWatcher';
 import {
   ADD_WATCHER,
   DELETE_WATCHER,
+  EDIT_WATCHER_FIELD,
   TOGGLE_WATCHER_ACTIVE,
-  SCHEDULE_NEXT_WATCHER_TICK,
   CANCEL_NEXT_WATCHER_TICK,
-  EDIT_WATCHER_FIELD
+  SCHEDULE_NEXT_WATCHER_TICK
 } from '../constants';
 import { Map } from 'immutable';
 // import { watcherFromId, conflictsOnlyUseNewDateProp } from '../utils/watchers';
@@ -21,12 +21,12 @@ import { Map } from 'immutable';
 const initial: WatcherMap = Map<string, Watcher>();
 
 type WatcherAction =
-  | ToggleWatcherActivity
   | AddWatcher
+  | WatcherEdit
   | DeleteWatcher
-  | ScheduleWatcherTick
   | CancelWatcherTick
-  | WatcherEdit;
+  | ScheduleWatcherTick
+  | ToggleWatcherActivity;
 
 export default (state = initial, action: WatcherAction) => {
   switch (action.type) {

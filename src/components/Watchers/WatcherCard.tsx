@@ -47,7 +47,10 @@ class WatcherCard extends React.PureComponent<
                 this.props.onEdit(this.props.watcherId, 'title', value)}
             />
           </Heading>
-          <WatcherTimer groupId={this.props.watcherId} />
+          <WatcherTimer
+            groupId={this.props.watcherId}
+            active={this.props.watcher.active}
+          />
         </Stack>
       </Card.Section>
     );
@@ -100,6 +103,7 @@ class WatcherCard extends React.PureComponent<
       <Card.Section>
         <Stack distribution="equalSpacing">
           <Button
+            destructive={watcher.active}
             onClick={() => this.props.onToggle(watcher.groupId, watcher.active)}
           >
             {WatcherCard.generateButtonContent(watcher.active)}
@@ -107,6 +111,7 @@ class WatcherCard extends React.PureComponent<
 
           <Tooltip content="Delete this watcher.">
             <Button
+              disabled={watcher.active}
               onClick={() => this.props.onDelete(watcher.groupId)}
               icon="delete"
             />

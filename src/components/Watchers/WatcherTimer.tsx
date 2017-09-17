@@ -6,6 +6,7 @@ import { ProgressBar } from '@blueprintjs/core';
 
 interface OwnProps {
   readonly groupId: string;
+  readonly active: boolean;
 }
 
 interface Props {
@@ -80,8 +81,8 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   };
 
   private generateCaptionText = () => {
-    const { timeNextSearch } = this.props;
-    if (this.delay && timeNextSearch) {
+    const { timeNextSearch, active } = this.props;
+    if (timeNextSearch && active) {
       return (
         <ProgressBar
           value={WatcherTimer.spinnerProgress(this.delay, this.state
