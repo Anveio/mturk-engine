@@ -6,7 +6,7 @@ import { SearchResult } from '../../types';
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../../types';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
-import { watcherFromSearchResult } from '../../utils/watchers';
+import { watcherFactoryFromSearchResult } from '../../utils/watchers';
 
 const mapState = (state: RootState, ownProps: Props): Props => ({
   hit: ownProps.hit
@@ -14,7 +14,7 @@ const mapState = (state: RootState, ownProps: Props): Props => ({
 
 const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
   onAddWatcher: (hit: SearchResult) =>
-    dispatch(addWatcher(watcherFromSearchResult(hit)))
+    dispatch(addWatcher(watcherFactoryFromSearchResult(hit)))
 });
 
 import { generateMarkdownExport } from '../../utils/export';

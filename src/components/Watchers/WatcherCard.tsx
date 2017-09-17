@@ -32,21 +32,6 @@ class WatcherCard extends React.PureComponent<
 
   static validateNumber = (value: string): boolean => /^\d+$/.test(value);
 
-  private descriptionSection = (description: string) => {
-    return (
-      <Card.Section>
-        <EditableText
-          maxLength={140}
-          value={this.props.watcher.description}
-          selectAllOnFocus
-          onChange={(value: string) =>
-            this.props.onEdit(this.props.watcherId, 'description', value)}
-          defaultValue="Edit description"
-        />
-      </Card.Section>
-    );
-  };
-
   private headingSection = (title: string) => {
     return (
       <Card.Section>
@@ -57,14 +42,33 @@ class WatcherCard extends React.PureComponent<
               maxLength={30}
               value={title}
               selectAllOnFocus
-              defaultValue="Edit title"
+              placeholder="Click to edit title"
               onChange={(value: string) =>
                 this.props.onEdit(this.props.watcherId, 'title', value)}
             />
           </Heading>
-
           <WatcherTimer groupId={this.props.watcherId} />
         </Stack>
+      </Card.Section>
+    );
+  };
+
+  private descriptionSection = (description: string) => {
+    return (
+      <Card.Section>
+        <EditableText
+          maxLength={140}
+          value={this.props.watcher.description}
+          maxLines={4}
+          multiline
+          selectAllOnFocus
+          onChange={(value: string) =>
+            this.props.onEdit(this.props.watcherId, 'description', value)}
+          placeholder={`ID starts with ${this.props.watcherId.slice(
+            0,
+            5
+          )}. Click to edit description`}
+        />
       </Card.Section>
     );
   };
@@ -84,7 +88,6 @@ class WatcherCard extends React.PureComponent<
               'delay',
               WatcherCard.validateNumber(value) || value === '' ? value : delay
             )}
-          defaultValue="Edit title"
           minWidth={10}
         />{' '}
         seconds
