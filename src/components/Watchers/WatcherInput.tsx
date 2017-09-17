@@ -52,7 +52,7 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
 
   private displayError = () =>
     this.setState((): Partial<State> => ({
-      error: "That doesn't appear to be a valid group ID or pandA link."
+      error: 'That doesn\'t appear to be a valid group ID or pandA link.'
     }));
 
   private handleInput = (value: string) =>

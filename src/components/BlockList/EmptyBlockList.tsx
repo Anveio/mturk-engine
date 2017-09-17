@@ -11,24 +11,12 @@ export interface Handlers {
 const EmptyQueue = ({ onChangeTab }: Handlers) => {
   return (
     <NonIdealState
+      className="Polaris-EmptyState__Section"
       title="Your blocklists are empty."
       description="You can manage your block lists here once you've blocked a HIT or a requester."
       visual="add-to-folder"
       action={<Button onClick={onChangeTab}>Switch to search tab</Button>}
     />
-    // <EmptyState
-    //   heading="Your block lists are empty."
-    //   action={{
-    //     content: 'Switch to search tab',
-    //     onAction: onChangeTab
-    //   }}
-    //   image="https://cdn.shopify.com/s/files/1/0757/9955/files/empty-state.svg"
-    // >
-    //   <p>
-    // You can manage your block lists here once you've blocked a HIT or a
-    // requester.
-    //   </p>
-    // </EmptyState>
   );
 };
 
