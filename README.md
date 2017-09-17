@@ -22,10 +22,10 @@ Mturk Engine is under active development so feel free to suggest features or sub
 
 ## Preview
 
-# Search for HITs and block requesters.
+### Search for HITs and block requesters.
 <img src="https://i.imgur.com/Z5UEVbs.gif" alt="Animated GIF showing the normal flow of searching for HITs, hiding HITs, blocking requesters, accepting HITs, viewing your queue, and returning a HIT."/>
 
-# Add watchers to automatically accept HITs
+### Add watchers to automatically accept HITs
 
 <img src="https://i.imgur.com/XRMcGtz.gif" alt="Animated GIF showing a search result being added as a watcher, switching to the watcher tab, starting the watcher to automatically accept the HIT periodically, edit the time between auto-accepts to 1 second, and add a custom description."/>
 
