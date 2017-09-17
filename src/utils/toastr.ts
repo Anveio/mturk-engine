@@ -1,4 +1,5 @@
 import { toastr } from 'react-redux-toastr';
+import { SearchResult } from '../types';
 import { truncate } from './formatting';
 import { HitReturnStatus } from '../api/returnHit';
 
@@ -88,5 +89,16 @@ export const errorReturnToast = () => {
   toastr.error(
     'Problem returning HIT.',
     'The error was probably on our end and that HIT is likely no longer in your queue.'
+  );
+};
+
+export const addWatcherToast = (hit: SearchResult) => {
+  toastr.info('Watcher added', `Look for ${hit.title} in the watchers tab.`);
+};
+
+export const copyMarkdownToast = (hit: SearchResult) => {
+  toastr.light(
+    'Copied to clipboard',
+    `${hit.title}'s markdown was added to your clipboard.`
   );
 };
