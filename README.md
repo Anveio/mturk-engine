@@ -1,6 +1,6 @@
 # Mturk Engine
 
-[Download](https://github.com/Anveio/mturk-engine/raw/master/build/static/js/mturk-engine@latest.user.js)
+[Download](https://raw.githubusercontent.com/Anveio/mturk-engine/master/build/mturk-engine.latest.user.js)
 
 [Homepage](https://www.mturk.com/mturk/findhits?mturkengine) (You must have downloaded and installed Mturk Engine first.)
 
