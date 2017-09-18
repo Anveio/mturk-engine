@@ -3,6 +3,7 @@ import { Layout } from '@shopify/polaris';
 // import { Tree, TreeNode, Tooltip } from '@blueprintjs/core';
 import WatcherInput from './WatcherInput';
 import WatcherCard from '../../containers/WatcherCard';
+import EmptyWatchers from './EmptyWatchers';
 
 import { List } from 'immutable';
 
@@ -31,7 +32,9 @@ class Watchers extends React.PureComponent<Props, never> {
   public render() {
     const { watcherIds } = this.props;
 
-    return (
+    return watcherIds.isEmpty() ? (
+      <EmptyWatchers />
+    ) : (
       <Layout>
         <Layout.AnnotatedSection
           title="Add a watcher"
