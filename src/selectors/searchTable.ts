@@ -73,6 +73,5 @@ export const newResultsGroupIds = createSelector(
 
 export const filteredResultsGroupId = createSelector(
   [ filteredAndSortedResults ],
-  (hits: SearchResults) =>
-    hits.map((hit: SearchResult) => hit.groupId).toArray()
+  (hits: SearchResults) => hits.map((hit: SearchResult) => hit.groupId).toList()
 );
