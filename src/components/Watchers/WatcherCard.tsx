@@ -39,7 +39,7 @@ class WatcherCard extends React.PureComponent<
           <Heading>
             <EditableText
               intent={0}
-              maxLength={30}
+              maxLength={80}
               value={title}
               selectAllOnFocus
               placeholder="Click to edit title"
