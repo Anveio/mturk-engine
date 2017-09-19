@@ -1,4 +1,7 @@
-import { TOGGLE_SEARCH_RESULT_EXPAND } from '../constants';
+import {
+  TOGGLE_SEARCH_RESULT_EXPAND,
+  COLLAPSE_ALL_SEARCH_RESULTS
+} from '../constants';
 import { SearchResult } from '../types';
 
 export interface ToggleSearchResultExpand {
@@ -6,11 +9,19 @@ export interface ToggleSearchResultExpand {
   hit: SearchResult;
 }
 
-export type ExpandAction = ToggleSearchResultExpand;
+export interface CollapseAllResults {
+  type: COLLAPSE_ALL_SEARCH_RESULTS;
+}
+
+export type ExpandAction = ToggleSearchResultExpand | CollapseAllResults;
 
 export const toggleSearchResultExpand = (
   hit: SearchResult
 ): ToggleSearchResultExpand => ({
   type: TOGGLE_SEARCH_RESULT_EXPAND,
   hit
+});
+
+export const collapseAllResults = (): CollapseAllResults => ({
+  type: COLLAPSE_ALL_SEARCH_RESULTS
 });
