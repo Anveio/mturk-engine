@@ -31,6 +31,9 @@ class SearchCard extends React.PureComponent<
   static generateAttributeOne = (name: string, markedAsRead?: boolean) =>
     markedAsRead ? truncate(name, 40) : `*NEW* ${truncate(name, 40)}`;
 
+  static generateStyle = (markedAsRead?: boolean) =>
+    markedAsRead ? {} : { backgroundColor: 'rgba(72, 175, 240, 0.1)' };
+
   private handleAccept = () => this.props.onAccept(this.props.hit);
   private handleHide = () =>
     this.props.onHide(blockedHitFactory(this.props.hit));
@@ -62,7 +65,10 @@ class SearchCard extends React.PureComponent<
 
     return (
       <div>
-        <div onClick={this.handleExpand}>
+        <div
+          onClick={this.handleExpand}
+          style={SearchCard.generateStyle(markedAsRead)}
+        >
           <ResourceList.Item
             actions={this.generateActions()}
             exceptions={qualException(qualified)}
