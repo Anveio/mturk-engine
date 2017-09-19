@@ -8,7 +8,8 @@ class EmptyWatchers extends React.PureComponent<Props, never> {
     return (
       <NonIdealState
         title="You have no watchers."
-        description="Watchers will periodically accept a HIT. They're useful for hoarding lots of HITs or snagging rare ones."
+        description={`Watchers will periodically accept a HIT. 
+        They're useful for hoarding lots of HITs or snagging rare ones.`}
         visual="pt-icon-folder-shared-open"
       />
     );
