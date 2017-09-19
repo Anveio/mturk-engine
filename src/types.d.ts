@@ -4,8 +4,10 @@ import { ToastrState } from 'react-redux-toastr';
 export interface RootState {
   readonly tab: number;
   readonly queue: QueueMap;
-  readonly search: SearchResults;
   readonly toastr: ToastrState;
+  readonly watchers: WatcherMap;
+  readonly search: SearchResults;
+  readonly newSearchResults: SearchResults;
   readonly requesters: RequesterMap;
   readonly searchingActive: boolean;
   readonly waitingForMturk: boolean;
@@ -15,7 +17,6 @@ export interface RootState {
   readonly sortingOption: SortingOption;
   readonly topticonSettings: TOpticonSettings;
   readonly hitBlocklist: HitBlockMap;
-  readonly watchers: WatcherMap;
   readonly requesterBlocklist: RequesterBlockMap;
 }
 
@@ -54,6 +55,7 @@ export interface HumanIntelligenceTask {
 
 export interface SearchResult extends HumanIntelligenceTask {
   readonly index: number;
+  readonly markedAsRead: boolean;
   readonly expanded?: boolean;
 }
 
