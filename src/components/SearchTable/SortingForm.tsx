@@ -18,7 +18,7 @@ const SortingForm = ({ value, onChange }: Props & Handlers) => {
     <Card.Section>
       <FormLayout>
         <Select
-          label="Sorting Options"
+          label="Sort Results By"
           id="select-sort-option"
           name="Sorting Options"
           options={options}
