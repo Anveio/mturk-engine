@@ -36,6 +36,7 @@ export default (state = initial, action: SearchResultAction): SearchResults => {
     case TOGGLE_SEARCH_RESULT_EXPAND:
       return state.update(action.hit.groupId, (hit) => ({
         ...hit,
+        markedAsRead: true,
         expanded: !action.hit.expanded
       }));
     default:

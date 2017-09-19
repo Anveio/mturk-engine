@@ -60,6 +60,17 @@ export const filteredAndSortedResults = createSelector(
       .sort(sortBy(sortingOption)) as SearchResults
 );
 
+export const newResults = createSelector(
+  [ filteredAndSortedResults ],
+  (hits: SearchResults) => hits.filter((hit: SearchResult) => !hit.markedAsRead)
+);
+
+export const newResultsGroupIds = createSelector(
+  [ newResults ],
+  (hits: SearchResults) =>
+    hits.map((hit: SearchResult) => hit.groupId).toArray()
+);
+
 export const filteredResultsGroupId = createSelector(
   [ filteredAndSortedResults ],
   (hits: SearchResults) =>

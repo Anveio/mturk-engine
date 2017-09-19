@@ -38,6 +38,7 @@ export const conflictsUseOldExpandedProp = (
   return {
     ...newResult,
     expanded: oldResult.expanded,
+    markedAsRead: oldResult.markedAsRead,
     requester: oldResult.requester
   };
 };
