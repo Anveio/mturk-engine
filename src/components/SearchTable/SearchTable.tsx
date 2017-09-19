@@ -11,9 +11,9 @@ export interface Props {
 }
 
 class SearchTable extends React.PureComponent<Props, never> {
-  // shouldComponentUpdate(nextProps: Props) {
-  //   return !this.props.resultsIds.
-  // }
+  shouldComponentUpdate(nextProps: Props) {
+    return !this.props.resultsIds.equals(nextProps.resultsIds);
+  }
 
   public render() {
     const { resultsIds, rawResultsSize } = this.props;
