@@ -6,7 +6,6 @@ import { API_URL } from './constants';
 import {
   clearDom,
   createRootDiv,
-  importBlueprintStyleSheet,
   importNormalizrStyleSheet,
   attachPolarisStyleSheet,
   attachToastrStylesSheet
@@ -20,7 +19,6 @@ if (API_URL !== 'http://localhost:7777') {
   createRootDiv();
 }
 
-importBlueprintStyleSheet();
 importNormalizrStyleSheet();
 
 attachPolarisStyleSheet();
