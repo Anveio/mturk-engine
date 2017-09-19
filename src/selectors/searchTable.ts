@@ -10,6 +10,9 @@ import {
 import { hitBlocklistSelector } from './hitBlocklist';
 import { filterBelowTOThreshold } from './turkopticon';
 import { sortBy } from '../utils/sorting';
+import { noTurkopticon } from '../utils/turkopticon';
+
+const selectGroupId = (hit: SearchResult) => hit.groupId;
 
 export const searchResultSelector = (state: RootState) => state.search;
 export const sortOptionSelector = (state: RootState) => state.sortingOption;
@@ -19,6 +22,13 @@ export const requesterBlocklistSelector = (state: RootState) =>
 export const resultsLengthSelector = createSelector(
   [ searchResultSelector ],
   (searchResults: SearchResults) => searchResults.size
+);
+
+export const hitIdsWithNoTO = createSelector(
+  [ searchResultSelector ],
+  (searchResults: SearchResults) => {
+    searchResults.filter(noTurkopticon).map(selectGroupId).toArray();
+  }
 );
 
 export const hideBlockedHits = createSelector(
@@ -67,11 +77,10 @@ export const newResults = createSelector(
 
 export const newResultsGroupIds = createSelector(
   [ newResults ],
-  (hits: SearchResults) =>
-    hits.map((hit: SearchResult) => hit.groupId).toArray()
+  (hits: SearchResults) => hits.map(selectGroupId).toArray()
 );
 
 export const filteredResultsGroupId = createSelector(
   [ filteredAndSortedResults ],
-  (hits: SearchResults) => hits.map((hit: SearchResult) => hit.groupId).toList()
+  (hits: SearchResults) => hits.map(selectGroupId).toList()
 );

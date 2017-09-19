@@ -1,5 +1,5 @@
-import { call, put } from 'redux-saga/effects';
-import { TOpticonMap } from '../types';
+import { call, put, select } from 'redux-saga/effects';
+import { RootState, SearchResult, TOpticonMap } from '../types';
 import {
   FetchTOpticonRequest,
   FetchTOpticonSuccess,
@@ -7,17 +7,26 @@ import {
   fetchTOpticonSuccess,
   fetchTOpticonFailure
 } from '../actions/turkopticon';
-import { selectRequesterId } from '../utils/turkopticon';
+// import { hitIdsWithNoTO } from '../selectors/searchTable';
+import { noTurkopticon } from '../utils/turkopticon';
 import { batchFetchTOpticon } from '../api/turkopticon';
 
 export function* fetchTurkopticon(action: FetchTOpticonRequest) {
   try {
-    const requesterIds = action.data.map(selectRequesterId);
-    const topticonData: TOpticonMap = yield call(
-      batchFetchTOpticon,
-      requesterIds
+    const requesterIds = yield select((state: RootState) =>
+      state.search
+        .filter(noTurkopticon)
+        .map((hit: SearchResult) => hit.requester.id)
+        .toArray()
     );
-    yield put<FetchTOpticonSuccess>(fetchTOpticonSuccess(topticonData));
+
+    if (requesterIds.length > 0) {
+      const topticonData: TOpticonMap = yield call(
+        batchFetchTOpticon,
+        requesterIds
+      );
+      yield put<FetchTOpticonSuccess>(fetchTOpticonSuccess(topticonData));
+    }
   } catch (e) {
     yield put<FetchTOpticonFailure>(fetchTOpticonFailure());
   }
