@@ -3,13 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import { API_URL } from './constants';
-import {
-  clearDom,
-  createRootDiv,
-  importNormalizrStyleSheet,
-  attachPolarisStyleSheet,
-  attachToastrStylesSheet
-} from './utils/config';
+import { clearDom, createRootDiv } from './utils/config';
 
 import App from './components/App';
 
@@ -18,11 +12,6 @@ if (API_URL !== 'http://localhost:7777') {
   clearDom();
   createRootDiv();
 }
-
-importNormalizrStyleSheet();
-
-attachPolarisStyleSheet();
-attachToastrStylesSheet();
 
 ReactDOM.render(
   <Provider store={store}>

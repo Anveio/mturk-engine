@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
+import toastrStylesheet from '../utils/toastrStylesheet';
+import polarisStylesheet from '../utils/polarisStylesheet';
 
 export interface Props {
   readonly numNewHits: number;
@@ -21,6 +23,8 @@ class CustomHead extends React.PureComponent<Props, never> {
           this.props.queueSize
         )}
       >
+        <style>{toastrStylesheet}</style>
+        <style>{polarisStylesheet}</style>
         <link
           rel="stylesheet"
           type="text/css"
