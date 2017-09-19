@@ -22,6 +22,7 @@ export interface Handlers {
   readonly onAccept: (hit: SearchResult) => void;
   readonly onToggleExpand: (hit: SearchResult) => void;
   readonly onHide: (hit: BlockedHit) => void;
+  readonly markHitAsRead: (groupId: string) => void;
 }
 
 class SearchCard extends React.PureComponent<
@@ -32,11 +33,8 @@ class SearchCard extends React.PureComponent<
     markedAsRead ? truncate(name, 40) : `*NEW* ${truncate(name, 40)}`;
 
   static generateStyle = (markedAsRead?: boolean) =>
-    markedAsRead ? {} : { backgroundColor: 'rgba(72, 175, 240, 0.1)' };
+    markedAsRead ? {} : { backgroundColor: 'rgba(72, 175, 240, 0.15)' };
 
-  private handleAccept = () => this.props.onAccept(this.props.hit);
-  private handleHide = () =>
-    this.props.onHide(blockedHitFactory(this.props.hit));
   private handleExpand = (e: React.MouseEvent<HTMLDivElement>) => {
     if (clickDidNotOccurOnActionButton(e)) {
       this.props.onToggleExpand(this.props.hit);
@@ -48,14 +46,14 @@ class SearchCard extends React.PureComponent<
       content: 'Hide',
       accessibilityLabel: 'Hide',
       icon: 'disable',
-      onClick: this.handleHide
+      onClick: () => this.props.onHide(blockedHitFactory(this.props.hit))
     },
     {
       content: 'Add',
       accessibilityLabel: 'Add',
       icon: 'add',
       primary: true,
-      onClick: this.handleAccept
+      onClick: () => this.props.onAccept(this.props.hit)
     }
   ];
 
@@ -64,7 +62,7 @@ class SearchCard extends React.PureComponent<
     const { qualified, title, requester, markedAsRead } = hit;
 
     return (
-      <div>
+      <div onMouseEnter={() => this.props.markHitAsRead(hit.groupId)}>
         <div
           onClick={this.handleExpand}
           style={SearchCard.generateStyle(markedAsRead)}
@@ -73,10 +71,7 @@ class SearchCard extends React.PureComponent<
             actions={this.generateActions()}
             exceptions={qualException(qualified)}
             badges={generateBadges(requester.turkopticon)}
-            attributeOne={SearchCard.generateAttributeOne(
-              requester.name,
-              markedAsRead
-            )}
+            attributeOne={truncate(name, 40)}
             attributeTwo={truncate(title, 120)}
             attributeThree={
               <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
