@@ -41,6 +41,12 @@ class SearchCard extends React.PureComponent<
     }
   };
 
+  private handleMouseOver = () => {
+    if (!this.props.hit.markedAsRead) {
+      this.props.markHitAsRead(this.props.hit.groupId);
+    }
+  };
+
   private generateActions = () => [
     {
       content: 'Hide',
@@ -62,7 +68,7 @@ class SearchCard extends React.PureComponent<
     const { qualified, title, requester, markedAsRead } = hit;
 
     return (
-      <div onMouseEnter={() => this.props.markHitAsRead(hit.groupId)}>
+      <div onMouseEnter={this.handleMouseOver}>
         <div
           onClick={this.handleExpand}
           style={SearchCard.generateStyle(markedAsRead)}
@@ -74,7 +80,8 @@ class SearchCard extends React.PureComponent<
             attributeOne={truncate(name, 40)}
             attributeTwo={truncate(title, 120)}
             attributeThree={
-              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
+              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
+            }
           />
         </div>
         <CollapsibleInfo open={!!hit.expanded} hit={this.props.hit} />
