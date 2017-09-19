@@ -7,7 +7,6 @@ export interface RootState {
   readonly toastr: ToastrState;
   readonly watchers: WatcherMap;
   readonly search: SearchResults;
-  readonly newSearchResults: SearchResults;
   readonly requesters: RequesterMap;
   readonly searchingActive: boolean;
   readonly waitingForMturk: boolean;
@@ -55,7 +54,7 @@ export interface HumanIntelligenceTask {
 
 export interface SearchResult extends HumanIntelligenceTask {
   readonly index: number;
-  readonly markedAsRead: boolean;
+  readonly markedAsRead?: boolean;
   readonly expanded?: boolean;
 }
 
