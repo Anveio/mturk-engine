@@ -28,6 +28,9 @@ class SearchCard extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
+  static generateAttributeOne = (name: string, markedAsRead?: boolean) =>
+    markedAsRead ? truncate(name, 40) : `*NEW* ${truncate(name, 40)}`;
+
   private handleAccept = () => this.props.onAccept(this.props.hit);
   private handleHide = () =>
     this.props.onHide(blockedHitFactory(this.props.hit));
@@ -55,7 +58,7 @@ class SearchCard extends React.PureComponent<
 
   public render() {
     const { hit } = this.props;
-    const { qualified, title, requester } = hit;
+    const { qualified, title, requester, markedAsRead } = hit;
 
     return (
       <div>
@@ -64,7 +67,10 @@ class SearchCard extends React.PureComponent<
             actions={this.generateActions()}
             exceptions={qualException(qualified)}
             badges={generateBadges(requester.turkopticon)}
-            attributeOne={truncate(requester.name, 40)}
+            attributeOne={SearchCard.generateAttributeOne(
+              requester.name,
+              markedAsRead
+            )}
             attributeTwo={truncate(title, 120)}
             attributeThree={
               <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
