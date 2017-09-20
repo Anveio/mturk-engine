@@ -8,6 +8,7 @@ import {
   Menu,
   MenuItem,
   MenuDivider,
+  Intent,
   Position
 } from '@blueprintjs/core';
 
@@ -20,10 +21,14 @@ export interface Handlers {
 }
 
 class SortingMenu extends React.PureComponent<Props & Handlers, never> {
+  private generateIntent = (option: SortingOption): Intent => {
+    return option !== this.props.value ? 0 : -1;
+  };
+
   public render() {
     const { value } = this.props;
     return (
-      <Popover position={Position.BOTTOM_LEFT}>
+      <Popover position={Position.BOTTOM_LEFT} canEscapeKeyClose>
         <Button plain disclosure>
           {`Sorted By: ${value}`}
         </Button>
@@ -32,17 +37,20 @@ class SortingMenu extends React.PureComponent<Props & Handlers, never> {
           <MenuItem
             shouldDismissPopover={false}
             iconName="time"
+            intent={this.generateIntent('Latest')}
             onClick={() => this.props.onChange('Latest')}
             text="Latest"
           />
           <MenuItem
             shouldDismissPopover={false}
             iconName="dollar"
+            intent={this.generateIntent('Reward')}
             onClick={() => this.props.onChange('Reward')}
             text="Reward"
           />
           <MenuItem
             shouldDismissPopover={false}
+            intent={this.generateIntent('Batch Size')}
             iconName="pt-icon-sort-numerical-desc"
             onClick={() => this.props.onChange('Batch Size')}
             text="Batch Size"
