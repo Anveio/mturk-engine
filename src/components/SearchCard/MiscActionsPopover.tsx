@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ComplexAction, Button } from '@shopify/polaris';
+import { Button } from '@shopify/polaris';
 import { Popover, Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as copy from 'copy-to-clipboard';
 import { SearchResult } from '../../types';
@@ -31,24 +31,6 @@ export interface Handlers {
 }
 
 class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
-  public exportActions: ComplexAction[] = [
-    {
-      content: 'Add as Watcher',
-      icon: 'duplicate',
-      onAction: () => {
-        this.props.onAddWatcher(this.props.hit);
-      }
-    },
-    {
-      content: 'Copy to Clipboard',
-      icon: 'export',
-      onAction: () => {
-        copy(generateMarkdownExport(this.props.hit));
-        copyMarkdownToast(this.props.hit);
-      }
-    }
-  ];
-
   public render() {
     return (
       <Popover>
@@ -63,7 +45,7 @@ class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
             text="Add as Watcher"
           />
           <MenuItem
-            iconName="share"
+            iconName="duplicate"
             onClick={() => {
               copy(generateMarkdownExport(this.props.hit));
               copyMarkdownToast(this.props.hit);
