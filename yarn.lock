@@ -3,8 +3,8 @@
 
 
 "@blueprintjs/core@^1.27.0":
-  version "1.27.0"
-  resolved "https://registry.yarnpkg.com/@blueprintjs/core/-/core-1.27.0.tgz#ba8e52af4456c1a5ecf09e67b30db3ed3c21a5ed"
+  version "1.28.0"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/core/-/core-1.28.0.tgz#673b70fe091292b532f52805a6b9195922ab1b9e"
   dependencies:
     "@types/dom4" "^1.5.20"
     "@types/tether" "^1.1.27"
@@ -37,8 +37,8 @@
     lodash-decorators "^4.3.5"
 
 "@shopify/polaris@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@shopify/polaris/-/polaris-1.5.1.tgz#22aa6fdb8c255e51ee18b0be4dadb42a3e5ace2c"
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@shopify/polaris/-/polaris-1.5.2.tgz#7ddf6883f908db0e9cb05d4a00caf1e92117e5a1"
   dependencies:
     "@shopify/images" "^1.1.0"
     "@shopify/javascript-utilities" "^2.0.0"
