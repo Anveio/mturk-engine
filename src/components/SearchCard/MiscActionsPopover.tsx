@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Popover, ActionList, ComplexAction, Button } from '@shopify/polaris';
+import { ComplexAction, Button } from '@shopify/polaris';
+import { Popover, Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as copy from 'copy-to-clipboard';
-// import { Section } from '@shopify/polaris/types/components/ActionList/ActionList';
 import { SearchResult } from '../../types';
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../../types';
@@ -22,28 +22,21 @@ const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
 
 import { generateMarkdownExport } from '../../utils/export';
 
-export interface State {
-  readonly active: boolean;
-}
-
 export interface Props {
   readonly hit: SearchResult;
 }
 
 export interface Handlers {
-  onAddWatcher: (hit: SearchResult) => void;
+  readonly onAddWatcher: (hit: SearchResult) => void;
 }
 
-class MiscActionsPopOver extends React.PureComponent<Props & Handlers, State> {
-  public readonly state = { active: false };
-
-  private exportActions: ComplexAction[] = [
+class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
+  public exportActions: ComplexAction[] = [
     {
       content: 'Add as Watcher',
       icon: 'duplicate',
       onAction: () => {
         this.props.onAddWatcher(this.props.hit);
-        this.closePopover();
       }
     },
     {
@@ -52,37 +45,32 @@ class MiscActionsPopOver extends React.PureComponent<Props & Handlers, State> {
       onAction: () => {
         copy(generateMarkdownExport(this.props.hit));
         copyMarkdownToast(this.props.hit);
-        this.closePopover();
       }
     }
   ];
 
-  private handleClick = () =>
-    this.setState((prevState: State): Partial<State> => ({
-      active: !prevState.active
-    }));
-
-  private closePopover = () =>
-    this.setState((): Partial<State> => ({
-      active: false
-    }));
-
   public render() {
     return (
-      <Popover
-        preventAutofocus
-        active={this.state.active}
-        activator={
-          <Button
-            size="slim"
-            onClick={this.handleClick}
-            icon="horizontalDots"
+      <Popover>
+        <Button size="slim" icon="horizontalDots" />
+        <Menu>
+          <MenuDivider title="HIT Actions" />
+          <MenuItem
+            iconName="new-object"
+            onClick={() => {
+              this.props.onAddWatcher(this.props.hit);
+            }}
+            text="Add as Watcher"
           />
-        }
-        onClose={() => ({})}
-        sectioned
-      >
-        <ActionList items={this.exportActions} />
+          <MenuItem
+            iconName="share"
+            onClick={() => {
+              copy(generateMarkdownExport(this.props.hit));
+              copyMarkdownToast(this.props.hit);
+            }}
+            text="Copy to Clipboard"
+          />
+        </Menu>
       </Popover>
     );
   }

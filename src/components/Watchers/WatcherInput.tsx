@@ -2,7 +2,10 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { Card, FormLayout, TextField, Button } from '@shopify/polaris';
-import { pandaLinkValidators, watcherFactoryFromId } from '../../utils/watchers';
+import {
+  pandaLinkValidators,
+  watcherFactoryFromId
+} from '../../utils/watchers';
 
 export interface Handlers {
   readonly onAddWatcher: (groupId: string) => void;
@@ -71,6 +74,7 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
         <FormLayout>
           <div onKeyPress={this.watchForEnter}>
             <TextField
+              autoFocus
               label="Add watcher"
               labelHidden
               placeholder="Valid pandA link or a groupID of a HIT"
