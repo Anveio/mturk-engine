@@ -23,23 +23,26 @@ class SortingMenu extends React.PureComponent<Props & Handlers, never> {
   public render() {
     const { value } = this.props;
     return (
-      <Popover position={Position.BOTTOM_RIGHT}>
+      <Popover position={Position.BOTTOM_LEFT}>
         <Button plain disclosure>
           {`Sorted By: ${value}`}
         </Button>
         <Menu>
           <MenuDivider title="Sorting Options" />
           <MenuItem
+            shouldDismissPopover={false}
             iconName="time"
             onClick={() => this.props.onChange('Latest')}
             text="Latest"
           />
           <MenuItem
+            shouldDismissPopover={false}
             iconName="dollar"
             onClick={() => this.props.onChange('Reward')}
             text="Reward"
           />
           <MenuItem
+            shouldDismissPopover={false}
             iconName="pt-icon-sort-numerical-desc"
             onClick={() => this.props.onChange('Batch Size')}
             text="Batch Size"
@@ -61,5 +64,3 @@ const mapState = (state: RootState): Props => ({
 });
 
 export default connect(mapState, mapDispatch)(SortingMenu);
-
-
