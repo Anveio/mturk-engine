@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { connect, Dispatch } from 'react-redux';
+import { ChangeSorting, changeSorting } from '../../actions/sorting';
+import { SortingOption, RootState } from '../../types';
 import { Button } from '@shopify/polaris';
 import {
   Popover,
@@ -7,7 +10,6 @@ import {
   MenuDivider,
   Position
 } from '@blueprintjs/core';
-import { SortingOption } from '../../types';
 
 export interface Props {
   readonly value: SortingOption;
@@ -17,7 +19,7 @@ export interface Handlers {
   readonly onChange: (option: SortingOption) => void;
 }
 
-class SortingForm extends React.PureComponent<Props & Handlers, never> {
+class SortingMenu extends React.PureComponent<Props & Handlers, never> {
   public render() {
     const { value } = this.props;
     return (
@@ -48,4 +50,16 @@ class SortingForm extends React.PureComponent<Props & Handlers, never> {
   }
 }
 
-export default SortingForm;
+const mapDispatch = (dispatch: Dispatch<ChangeSorting>): Handlers => ({
+  onChange: (option: SortingOption) => {
+    dispatch(changeSorting(option));
+  }
+});
+
+const mapState = (state: RootState): Props => ({
+  value: state.sortingOption
+});
+
+export default connect(mapState, mapDispatch)(SortingMenu);
+
+

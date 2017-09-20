@@ -5,7 +5,7 @@ import {
   CollapseAllResults,
   collapseAllResults
 } from '../../actions/toggleExpand';
-import SortingForm from '../../containers/SortingForm';
+import SortingMenu from './SortingMenu';
 import { Card, ButtonGroup, Button } from '@shopify/polaris';
 
 export interface Handlers {
@@ -18,7 +18,7 @@ class SearchTableButtons extends React.PureComponent<Handlers, never> {
     return (
       <Card.Section>
         <ButtonGroup>
-          <SortingForm />
+          <SortingMenu />
           <Button plain onClick={this.props.onMarkAllAsRead}>
             Mark all as read
           </Button>
