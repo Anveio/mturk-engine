@@ -20,17 +20,13 @@ class QueueItemCard extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
-  private handleReturn = () => {
-    this.props.onReturn(this.props.hitId);
-  };
-
   public render() {
     const { hitId, reward, timeLeft } = this.props.hit;
     const actions = [
       {
         content: 'Return',
         accessibilityLabel: 'Return',
-        onClick: this.handleReturn
+        onClick: () => this.props.onReturn(hitId)
       },
       {
         external: true,

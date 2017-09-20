@@ -16,7 +16,7 @@ class QueueTable extends React.PureComponent<Props & Handlers, never> {
     this.props.onRefresh();
   }
 
-  render() {
+  public render() {
     const { queueItemIds, onRefresh } = this.props;
 
     return queueItemIds.length === 0 ? (

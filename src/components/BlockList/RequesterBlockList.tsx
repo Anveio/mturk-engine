@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card, Stack } from '@shopify/polaris';
-import BlockedHitCard from '../../containers/BlockedRequesterTag';
+import BlockedRequesterTag from '../../containers/BlockedRequesterTag';
 
 export interface Props {
   readonly blockedRequesterIds: string[];
@@ -14,7 +14,7 @@ class RequesterBlockList extends React.PureComponent<Props, never> {
       <Card sectioned title="Recently blocked requesters">
         <Stack>
           {this.props.blockedRequesterIds.map((id: string) => (
-            <BlockedHitCard blockedRequesterId={id} key={id} />
+            <BlockedRequesterTag blockedRequesterId={id} key={id} />
           ))}
         </Stack>
       </Card>

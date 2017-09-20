@@ -19,17 +19,13 @@ class BlockedHitCard extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
-  private handleUnblock = () => {
-    this.props.onUnblock(this.props.blockedHit.groupId);
-  };
-
   public render() {
-    const { title, requester, dateBlocked } = this.props.blockedHit;
+    const { title, requester, dateBlocked, groupId } = this.props.blockedHit;
     const actions = [
       {
         content: 'Unblock',
         accessibilityLabel: 'Unblock this HIT',
-        onClick: this.handleUnblock
+        onClick: () => this.props.onUnblock(groupId)
       }
     ];
 

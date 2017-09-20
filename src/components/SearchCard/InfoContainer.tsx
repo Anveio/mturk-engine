@@ -2,8 +2,8 @@ import * as React from 'react';
 import { Stack, DisplayText, Caption } from '@shopify/polaris';
 
 interface Props {
-  reward: string;
-  batchSize: number;
+  readonly reward: string;
+  readonly batchSize: number;
 }
 
 const InfoContainer = ({ reward, batchSize }: Props) => {
