@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Card, Stack, ButtonGroup, Button } from '@shopify/polaris';
 import SearchTimer from './SearchTimer';
+import SearchSettings from '../../containers/SearchSettings';
 
 export interface Props {
-  readonly settingsActive: boolean;
   readonly searchActive: boolean;
 }
 
 export interface Handlers {
-  readonly onToggleSettings: () => void;
   readonly onToggleSearch: () => void;
 }
 
@@ -21,12 +20,8 @@ class SearchButtons extends React.PureComponent<Props & Handlers, never> {
     return active ? 'Stop searching' : 'Start searching';
   };
 
-  static settingsButtonText = (active: boolean) => {
-    return active ? 'Hide search settings' : 'Edit search settings';
-  };
-
   public render() {
-    const { onToggleSettings, settingsActive, searchActive } = this.props;
+    const { searchActive } = this.props;
 
     return (
       <Card.Section>
@@ -41,9 +36,7 @@ class SearchButtons extends React.PureComponent<Props & Handlers, never> {
             >
               {SearchButtons.searchButtonText(searchActive)}
             </Button>
-            <Button onClick={onToggleSettings}>
-              {SearchButtons.settingsButtonText(settingsActive)}
-            </Button>
+            <SearchSettings />
           </ButtonGroup>
           <SearchTimer />
         </Stack>

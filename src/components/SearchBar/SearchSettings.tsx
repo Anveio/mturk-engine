@@ -1,11 +1,12 @@
 import * as React from 'react';
 import {
-  Collapsible,
+  Button,
   Card,
   FormLayout,
   DisplayText,
   Caption
 } from '@shopify/polaris';
+import { Popover, Position } from '@blueprintjs/core';
 import {
   ConnectedMinRewardField,
   ConnectedSearchDelayField,
@@ -18,11 +19,7 @@ export interface Handlers {
   readonly onSearch: () => void;
 }
 
-export interface Props {
-  readonly formActive: boolean;
-}
-
-class SearchSettings extends React.PureComponent<Props & Handlers, never> {
+class SearchSettings extends React.PureComponent<Handlers, never> {
   private watchForEnter = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.charCode === 13) {
       event.preventDefault();
@@ -30,9 +27,14 @@ class SearchSettings extends React.PureComponent<Props & Handlers, never> {
     }
   };
 
+  static settingsButtonIcon = (active: boolean) => {
+    return active ? 'Hide search settings' : 'Edit search settings';
+  };
+
   public render() {
     return (
-      <Collapsible open={this.props.formActive}>
+      <Popover position={Position.BOTTOM} canEscapeKeyClose={true}>
+        <Button disclosure>Search Settings</Button>
         <Card.Section>
           <div onKeyPress={this.watchForEnter}>
             <FormLayout>
@@ -49,7 +51,7 @@ class SearchSettings extends React.PureComponent<Props & Handlers, never> {
             </FormLayout>
           </div>
         </Card.Section>
-      </Collapsible>
+      </Popover>
     );
   }
 }
