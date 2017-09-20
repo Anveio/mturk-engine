@@ -1,7 +1,13 @@
 import * as React from 'react';
-import { Card, FormLayout, Select } from '@shopify/polaris';
+import { Button } from '@shopify/polaris';
+import {
+  Popover,
+  Menu,
+  MenuItem,
+  MenuDivider,
+  Position
+} from '@blueprintjs/core';
 import { SortingOption } from '../../types';
-import SearchTableButtons from './SearchTableButtons';
 
 export interface Props {
   readonly value: SortingOption;
@@ -11,24 +17,35 @@ export interface Handlers {
   readonly onChange: (option: SortingOption) => void;
 }
 
-const options: SortingOption[] = [ 'Reward', 'Batch Size', 'Latest' ];
-
-const SortingForm = ({ value, onChange }: Props & Handlers) => {
-  return (
-    <Card.Section>
-      <FormLayout>
-        <Select
-          label="Sort Results By"
-          id="select-sort-option"
-          name="Sorting Options"
-          options={options}
-          value={value}
-          onChange={onChange}
-        />
-        <SearchTableButtons />
-      </FormLayout>
-    </Card.Section>
-  );
-};
+class SortingForm extends React.PureComponent<Props & Handlers, never> {
+  public render() {
+    const { value } = this.props;
+    return (
+      <Popover position={Position.BOTTOM_RIGHT}>
+        <Button plain disclosure>
+          {`Sorted By: ${value}`}
+        </Button>
+        <Menu>
+          <MenuDivider title="Sorting Options" />
+          <MenuItem
+            iconName="time"
+            onClick={() => this.props.onChange('Latest')}
+            text="Latest"
+          />
+          <MenuItem
+            iconName="dollar"
+            onClick={() => this.props.onChange('Reward')}
+            text="Reward"
+          />
+          <MenuItem
+            iconName="pt-icon-sort-numerical-desc"
+            onClick={() => this.props.onChange('Batch Size')}
+            text="Batch Size"
+          />
+        </Menu>
+      </Popover>
+    );
+  }
+}
 
 export default SortingForm;

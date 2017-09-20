@@ -5,7 +5,8 @@ import {
   CollapseAllResults,
   collapseAllResults
 } from '../../actions/toggleExpand';
-import { ButtonGroup, Button } from '@shopify/polaris';
+import SortingForm from '../../containers/SortingForm';
+import { Card, ButtonGroup, Button } from '@shopify/polaris';
 
 export interface Handlers {
   readonly onMarkAllAsRead: () => void;
@@ -15,14 +16,17 @@ export interface Handlers {
 class SearchTableButtons extends React.PureComponent<Handlers, never> {
   public render() {
     return (
-      <ButtonGroup>
-        <Button plain onClick={this.props.onMarkAllAsRead}>
-          Mark all as read
-        </Button>
-        <Button plain onClick={this.props.collapseAllResults}>
-          Collapse all
-        </Button>
-      </ButtonGroup>
+      <Card.Section>
+        <ButtonGroup>
+          <SortingForm />
+          <Button plain onClick={this.props.onMarkAllAsRead}>
+            Mark all as read
+          </Button>
+          <Button plain onClick={this.props.collapseAllResults}>
+            Collapse all
+          </Button>
+        </ButtonGroup>
+      </Card.Section>
     );
   }
 }

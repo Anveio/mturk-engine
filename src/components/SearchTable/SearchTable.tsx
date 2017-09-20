@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ResourceList, Card } from '@shopify/polaris';
 import SearchCard from '../../containers/SearchCard';
-import SortingForm from '../../containers/SortingForm';
 import SearchTableHeading from './SearchTableHeading';
+import SearchTableButtons from './SearchTableButtons';
 import EmptySearchTable from './EmptySearchTable';
 import { List } from 'immutable';
 
@@ -24,7 +24,7 @@ class SearchTable extends React.PureComponent<Props, never> {
     ) : (
       <Card>
         <SearchTableHeading displayedResultsSize={numResults} />
-        <SortingForm />
+        <SearchTableButtons />
         <ResourceList
           items={resultsIds.toArray()}
           renderItem={(id: string) => {
