@@ -17,13 +17,13 @@ export const selectHitContainers = (el: Document): HTMLDivElement[] =>
     HTMLDivElement
   >);
 
-export const tabulateSearchData = (input: HTMLDivElement[]): SearchResults =>
+const tabulateSearchData = (input: HTMLDivElement[]): SearchResults =>
   input.reduce((map: SearchResults, hit: HTMLDivElement, index: number) => {
     const groupId = parseGroupId(hit);
     return map.set(groupId, createSearchItem(hit, groupId, index));
   },           Map<string, SearchResult>());
 
-export const createSearchItem = (
+const createSearchItem = (
   input: HTMLDivElement,
   groupId: string,
   index: number
@@ -41,6 +41,38 @@ export const createSearchItem = (
   batchSize: parseBatchSize(input),
   qualified: parseQualified(input),
   qualsRequired: parseQualsRequired(input)
+});
+
+const tabulateFreshSearchData = (input: HTMLDivElement[]): SearchResults =>
+  input.reduce((map: SearchResults, hit: HTMLDivElement, index: number) => {
+    const groupId = parseGroupId(hit);
+    const memoizedDate = new Date();
+    return map.set(
+      groupId,
+      createReadSearchItem(hit, groupId, index, memoizedDate)
+    );
+  },           Map<string, SearchResult>());
+
+const createReadSearchItem = (
+  input: HTMLDivElement,
+  groupId: string,
+  index: number,
+  readDate: Date
+): SearchResult => ({
+  groupId,
+  index,
+  title: parseTitle(input),
+  requester: {
+    name: parseRequesterName(input),
+    id: parseRequesterId(input)
+  },
+  reward: parseReward(input),
+  timeAllotted: parseTimeAllotted(input),
+  description: parseDescription(input),
+  batchSize: parseBatchSize(input),
+  qualified: parseQualified(input),
+  qualsRequired: parseQualsRequired(input),
+  markedAsRead: readDate
 });
 
 export const parseTitle = (input: HTMLDivElement): string => {
@@ -158,9 +190,15 @@ const handleMultipeQualChildDivs = (input: NodeListOf<Element>): string => {
   return ret.join(' ');
 };
 
-export const parseSearchPage = (html: Document): SearchResults => {
+export const parseSearchPage = (
+  html: Document,
+  freshSearch?: boolean
+): SearchResults => {
   const hitContainers = selectHitContainers(html);
-  const hitData = tabulateSearchData(hitContainers);
+
+  const hitData = freshSearch
+    ? tabulateFreshSearchData(hitContainers)
+    : tabulateSearchData(hitContainers);
   return hitData;
 };
 
