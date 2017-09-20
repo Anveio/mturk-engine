@@ -16,6 +16,7 @@ export interface RootState {
   readonly topticonSettings: TOpticonSettings;
   readonly hitBlocklist: HitBlockMap;
   readonly requesterBlocklist: RequesterBlockMap;
+  readonly audioSettings: AudioSettings;
 }
 
 export type SearchResults = Map<string, SearchResult>;
@@ -116,4 +117,10 @@ export interface Watcher {
   readonly createdOn: Date;
   readonly timeNextAttempt: Date | null;
   readonly hit?: HumanIntelligenceTask;
+}
+
+export interface AudioSettings {
+  readonly unreadSearchResult: string;
+  readonly watcherAccept: string;
+  readonly volume: number;
 }
