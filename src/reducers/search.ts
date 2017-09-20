@@ -51,12 +51,13 @@ export default (state = initial, action: SearchResultAction): SearchResults => {
     case MARK_HIT_AS_READ:
       return state.update(action.groupId, (hit) => ({
         ...hit,
-        markedAsRead: true
+        markedAsRead: new Date()
       }));
     case MARK_ALL_HITS_AS_READ:
+      const memoizedDateObject = new Date();
       return state.map((hit: SearchResult) => ({
         ...hit,
-        markedAsRead: true
+        markedAsRead: memoizedDateObject
       })) as SearchResults;
 
     default:

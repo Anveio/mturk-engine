@@ -53,7 +53,7 @@ export interface HumanIntelligenceTask {
 
 export interface SearchResult extends HumanIntelligenceTask {
   readonly index: number;
-  readonly markedAsRead?: boolean;
+  readonly markedAsRead?: Date;
   readonly expanded?: boolean;
 }
 

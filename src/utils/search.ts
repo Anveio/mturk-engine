@@ -45,5 +45,5 @@ export const conflictsUseOldExpandedProp = (
 
 export const markAsRead = (hit: SearchResult): SearchResult => ({
   ...hit,
-  markedAsRead: true
+  markedAsRead: new Date()
 });
