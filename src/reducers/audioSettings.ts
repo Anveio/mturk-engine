@@ -3,10 +3,14 @@ import { AudioSettings } from '../types';
 import { EDIT_AUDIO_SOURCE } from '../constants';
 
 const initial: AudioSettings = {
-  unreadSearchResult:
-    'http://k003.kiwi6.com/hotlink/vnu75u0sif/file-sounds-765-tweet.ogg',
-  watcherAccept: 'http://k003.kiwi6.com/hotlink/85iq6xu5ul/coins.ogg',
-  volume: 0.5
+  enabled: true,
+  volume: 0.5,
+  audio1: new Audio(
+    'http://k003.kiwi6.com/hotlink/vnu75u0sif/file-sounds-765-tweet.ogg'
+  ),
+  audio2: new Audio(
+    'http://k003.kiwi6.com/hotlink/vnu75u0sif/file-sounds-765-tweet.ogg'
+  )
 };
 
 export default (state = initial, action: EditAudioSource) => {

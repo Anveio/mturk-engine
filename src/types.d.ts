@@ -16,7 +16,7 @@ export interface RootState {
   readonly topticonSettings: TOpticonSettings;
   readonly hitBlocklist: HitBlockMap;
   readonly requesterBlocklist: RequesterBlockMap;
-  readonly audioSettings: AudioSettings;
+  readonly audioSettingsV1: AudioSettings;
 }
 
 export type SearchResults = Map<string, SearchResult>;
@@ -120,7 +120,8 @@ export interface Watcher {
 }
 
 export interface AudioSettings {
-  readonly unreadSearchResult: string;
-  readonly watcherAccept: string;
+  readonly enabled: boolean;
   readonly volume: number;
+  readonly audio1: HTMLAudioElement;
+  readonly audio2: HTMLAudioElement;
 }
