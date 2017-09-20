@@ -41,7 +41,7 @@ class SearchCard extends React.PureComponent<
     }
   };
 
-  private handleMouseOver = () => {
+  private handleMarkingAsRead = () => {
     if (!this.props.hit.markedAsRead) {
       this.props.markHitAsRead(this.props.hit.groupId);
     }
@@ -53,6 +53,12 @@ class SearchCard extends React.PureComponent<
       accessibilityLabel: 'Hide',
       icon: 'disable',
       onClick: () => this.props.onHide(blockedHitFactory(this.props.hit))
+    },
+    {
+      content: 'Mark as read',
+      accessibilityLabel: 'Mark as Read',
+      icon: 'view',
+      onClick: this.handleMarkingAsRead
     },
     {
       content: 'Add',
@@ -68,7 +74,7 @@ class SearchCard extends React.PureComponent<
     const { qualified, title, requester, markedAsRead } = hit;
 
     return (
-      <div onMouseEnter={this.handleMouseOver}>
+      <div>
         <div
           onClick={this.handleExpand}
           style={SearchCard.generateStyle(!!markedAsRead)}
