@@ -2,12 +2,12 @@ import * as React from 'react';
 import { ResourceList, Card } from '@shopify/polaris';
 import SearchCard from '../../containers/SearchCard';
 import SortingForm from '../../containers/SortingForm';
+import SearchTableHeading from './SearchTableHeading';
 import EmptySearchTable from './EmptySearchTable';
 import { List } from 'immutable';
 
 export interface Props {
   readonly resultsIds: List<string>;
-  readonly rawResultsSize: number;
 }
 
 class SearchTable extends React.PureComponent<Props, never> {
@@ -16,16 +16,14 @@ class SearchTable extends React.PureComponent<Props, never> {
   }
 
   public render() {
-    const { resultsIds, rawResultsSize } = this.props;
+    const { resultsIds } = this.props;
     const numResults = resultsIds.size;
-    const numHiddenResults = rawResultsSize - resultsIds.size;
 
     return numResults === 0 ? (
       <EmptySearchTable />
     ) : (
-      <Card
-        title={`Showing ${numResults} results. (${numHiddenResults} hidden)`}
-      >
+      <Card>
+        <SearchTableHeading displayedResultsSize={numResults} />
         <SortingForm />
         <ResourceList
           items={resultsIds.toArray()}
