@@ -43,11 +43,11 @@ export const sortBy = (option: SortingOption) => {
 
 export const unreadFirst = (a: SearchResult, b: SearchResult): number => {
   if (a.markedAsRead && b.markedAsRead) {
-    return 0;
+    return +b.markedAsRead - +a.markedAsRead;
   } else if (a.markedAsRead && !b.markedAsRead) {
-    return -1;
-  } else if (!a.markedAsRead && b.markedAsRead) {
     return 1;
+  } else if (!a.markedAsRead && b.markedAsRead) {
+    return -1;
   } else {
     return 0;
   }
