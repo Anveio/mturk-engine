@@ -75,12 +75,23 @@ export const newResults = createSelector(
   (hits: SearchResults) => hits.filter((hit: SearchResult) => !hit.markedAsRead)
 );
 
+export const markedAsReadResults = createSelector(
+  [ filteredAndSortedResults ],
+  (hits: SearchResults) =>
+    hits.filter((hit: SearchResult) => !!hit.markedAsRead)
+);
+
 export const newResultsGroupIds = createSelector(
   [ newResults ],
   (hits: SearchResults) => hits.map(selectGroupId).toArray()
 );
 
+export const groupNewHitsBeforeOldHits = createSelector(
+  [ newResults, markedAsReadResults ],
+  (hits: SearchResults, readHits: SearchResults) => hits.concat(readHits)
+);
+
 export const filteredResultsGroupId = createSelector(
-  [ filteredAndSortedResults ],
+  [ groupNewHitsBeforeOldHits ],
   (hits: SearchResults) => hits.map(selectGroupId).toList()
 );
