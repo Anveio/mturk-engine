@@ -108,6 +108,9 @@ export type SCHEDULE_NEXT_WATCHER_TICK = typeof SCHEDULE_NEXT_WATCHER_TICK;
 export const EDIT_WATCHER_FIELD = 'EDIT_WATCHER_FIELD';
 export type EDIT_WATCHER_FIELD = typeof EDIT_WATCHER_FIELD;
 
+export const EDIT_AUDIO_SOURCE = 'EDIT_AUDIO_SOURCE';
+export type EDIT_AUDIO_SOURCE = typeof EDIT_AUDIO_SOURCE;
+
 export const API_URL = configureApiRoot();
 
 export const hitTableBody = `body > div:nth-child(9) > table:nth-child(3) > tbody`;
