@@ -67,7 +67,8 @@ export const filteredAndSortedResults = createSelector(
   ) =>
     hits
       .filter((hit: SearchResult) => aboveThreshold.has(hit.groupId))
-      .sort(sortBy(sortingOption)) as SearchResults
+      .sort(sortBy(sortingOption))
+  // .sort(unreadFirst) as SearchResults
 );
 
 export const newResults = createSelector(
@@ -92,6 +93,6 @@ export const groupNewHitsBeforeOldHits = createSelector(
 );
 
 export const filteredResultsGroupId = createSelector(
-  [ groupNewHitsBeforeOldHits ],
+  [ filteredAndSortedResults ],
   (hits: SearchResults) => hits.map(selectGroupId).toList()
 );
