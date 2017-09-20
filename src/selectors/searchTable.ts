@@ -93,6 +93,6 @@ export const groupNewHitsBeforeOldHits = createSelector(
 );
 
 export const filteredResultsGroupId = createSelector(
-  [ filteredAndSortedResults ],
+  [ groupNewHitsBeforeOldHits ],
   (hits: SearchResults) => hits.map(selectGroupId).toList()
 );
