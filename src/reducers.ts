@@ -14,6 +14,7 @@ import { default as timeNextSearch } from './reducers/timeNextSearch';
 import { default as waitingForMturk } from './reducers/waitingForMturk';
 import { default as topticonSettings } from './reducers/topticonSettings';
 import { default as requesterBlocklist } from './reducers/requesterBlocklist';
+import { default as audioSettings } from './reducers/audioSettings';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -25,6 +26,7 @@ export const rootReducer = combineReducers<RootState>({
   hitBlocklist,
   searchOptions,
   sortingOption,
+  audioSettings,
   timeNextSearch,
   waitingForMturk,
   searchingActive,
