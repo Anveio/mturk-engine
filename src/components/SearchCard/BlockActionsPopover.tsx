@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Requester, BlockedRequester } from '../../types';
-import { Button, Tooltip } from '@shopify/polaris';
+import { Button } from '@shopify/polaris';
+import { Tooltip, Position } from '@blueprintjs/core';
 import { blockedRequesterFactory } from '../../utils/blocklist';
 
 export interface OwnProps {
@@ -21,7 +22,10 @@ class BlockActionsPopover extends React.PureComponent<
 
   public render() {
     return (
-      <Tooltip content="You can manage your blocked requesters in the Blocklist tab. ">
+      <Tooltip
+        content="You can manage your blocked requesters in the Blocklist tab."
+        position={Position.TOP_LEFT}
+      >
         <Button destructive size="slim" onClick={this.handleBlockRequester}>
           Block Requester
         </Button>

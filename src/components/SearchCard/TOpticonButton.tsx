@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Tooltip, Button } from '@shopify/polaris';
+import { Button } from '@shopify/polaris';
+import { Tooltip } from '@blueprintjs/core';
 import { TOpticonData, RequesterScores } from '../../types';
 import { turkopticonBaseUrl } from '../../constants';
 
