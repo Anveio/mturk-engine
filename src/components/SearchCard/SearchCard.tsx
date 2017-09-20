@@ -47,18 +47,21 @@ class SearchCard extends React.PureComponent<
     }
   };
 
-  private generateActions = () => [
+  private unReadActions = () => [
+    {
+      content: 'Mark as Read',
+      accessibilityLabel: 'Mark as Read',
+      icon: 'view',
+      onClick: this.handleMarkingAsRead
+    }
+  ];
+
+  private readActions = () => [
     {
       content: 'Hide',
       accessibilityLabel: 'Hide',
       icon: 'disable',
       onClick: () => this.props.onHide(blockedHitFactory(this.props.hit))
-    },
-    {
-      content: 'Mark as read',
-      accessibilityLabel: 'Mark as Read',
-      icon: 'view',
-      onClick: this.handleMarkingAsRead
     },
     {
       content: 'Add',
@@ -68,6 +71,12 @@ class SearchCard extends React.PureComponent<
       onClick: () => this.props.onAccept(this.props.hit)
     }
   ];
+
+  private generateActions = (markedAsRead: boolean) => {
+    return markedAsRead
+      ? this.readActions()
+      : [ ...this.unReadActions(), ...this.readActions() ];
+  };
 
   public render() {
     const { hit } = this.props;
@@ -80,14 +89,13 @@ class SearchCard extends React.PureComponent<
           style={SearchCard.generateStyle(!!markedAsRead)}
         >
           <ResourceList.Item
-            actions={this.generateActions()}
+            actions={this.generateActions(!!markedAsRead)}
             exceptions={qualException(qualified)}
             badges={generateBadges(requester.turkopticon)}
             attributeOne={truncate(requester.name, 40)}
             attributeTwo={truncate(title, 120)}
             attributeThree={
-              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
-            }
+              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
           />
         </div>
         <CollapsibleInfo open={!!hit.expanded} hit={this.props.hit} />
