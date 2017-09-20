@@ -37,10 +37,10 @@ export const generateTabs = ({ queueSize }: TabSizes): TabDescriptor[] => {
       accessibilityLabel: 'Blocklist tab'
     },
     {
-      id: 'Turkopticon',
-      title: 'Turkopticon',
-      panelID: 'turkopticon',
-      accessibilityLabel: 'Turkopticon tab'
+      id: 'Settings',
+      title: 'Settings',
+      panelID: 'settings',
+      accessibilityLabel: 'Settings tab'
     }
   ];
 };

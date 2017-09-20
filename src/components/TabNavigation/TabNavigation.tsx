@@ -4,7 +4,7 @@ import QueueTable from '../../containers/QueueTable';
 import SearchTab from './SearchTab';
 import BlockLists from '../BlockList/BlockLists';
 import { generateTabs } from '../../utils/tabs';
-import TurkopticonTab from './TurkopticonTab';
+import SettingsTab from './SettingsTab';
 import Watchers from '../../containers/Watchers';
 
 export interface Props {
@@ -34,7 +34,7 @@ const TabNavigation = (props: Props & Handlers) => {
       return <BlockLists />;
     },
     4: () => {
-      return <TurkopticonTab />;
+      return <SettingsTab />;
     }
   };
 
