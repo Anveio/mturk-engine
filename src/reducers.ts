@@ -8,7 +8,6 @@ import { default as queue } from './reducers/queue';
 import { default as watchers } from './reducers/watchers';
 import { default as requesters } from './reducers/requesters';
 import { default as searchOptions } from './reducers/searchOptions';
-import { default as searchFormActive } from './reducers/searchFormActive';
 import { default as sortingOption } from './reducers/sortingOption';
 import { default as hitBlocklist } from './reducers/hitBlocklist';
 import { default as timeNextSearch } from './reducers/timeNextSearch';
@@ -29,7 +28,6 @@ export const rootReducer = combineReducers<RootState>({
   timeNextSearch,
   waitingForMturk,
   searchingActive,
-  searchFormActive,
   topticonSettings,
   requesterBlocklist
 });

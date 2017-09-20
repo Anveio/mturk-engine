@@ -10,7 +10,6 @@ export interface RootState {
   readonly requesters: RequesterMap;
   readonly searchingActive: boolean;
   readonly waitingForMturk: boolean;
-  readonly searchFormActive: boolean;
   readonly timeNextSearch: Date | null;
   readonly searchOptions: SearchOptions;
   readonly sortingOption: SortingOption;
