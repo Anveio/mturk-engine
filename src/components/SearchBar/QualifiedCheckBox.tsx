@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, SearchOptions } from '../../types';
-import { FormToggle, updateForm } from '../../actions/form';
+import { FormUpdate, updateForm } from '../../actions/form';
 import { Checkbox } from '@shopify/polaris';
 
 interface Props {
@@ -30,7 +30,9 @@ const mapState = (state: RootState): Props => ({
   value: state.searchOptions.qualifiedOnly
 });
 
-const mapDispatch = (dispatch: Dispatch<FormToggle>): Handlers => ({
+const mapDispatch = (
+  dispatch: Dispatch<FormUpdate<SearchOptions>>
+): Handlers => ({
   onChange: (value: boolean) => {
     dispatch(
       updateForm<SearchOptions>('searchOptions', 'qualifiedOnly', value)

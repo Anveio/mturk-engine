@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, TOpticonSettings } from '../../types';
-import { FormAction, updateForm } from '../../actions/form';
+import { FormUpdate, updateForm } from '../../actions/form';
 import { TextField } from '@shopify/polaris';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Handlers {
 }
 
 const createMapDispatchFn = (field: keyof TOpticonSettings) => (
-  dispatch: Dispatch<FormAction<TOpticonSettings>>
+  dispatch: Dispatch<FormUpdate<TOpticonSettings>>
 ): Handlers => ({
   onChange: (value: string) => {
     dispatch(updateForm<TOpticonSettings>('topticonSettings', field, value));

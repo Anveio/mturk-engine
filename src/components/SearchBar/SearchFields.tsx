@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, SearchOptions, SortingOption } from '../../types';
-import { FormAction, updateForm } from '../../actions/form';
+import { FormUpdate, updateForm } from '../../actions/form';
 import { TextField, Select } from '@shopify/polaris';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Handlers {
 }
 
 const createMapDispatchFn = (field: keyof SearchOptions) => (
-  dispatch: Dispatch<FormAction<SearchOptions>>
+  dispatch: Dispatch<FormUpdate<SearchOptions>>
 ): Handlers => ({
   onChange: (value: string | boolean) => {
     dispatch(updateForm<SearchOptions>('searchOptions', field, value));

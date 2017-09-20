@@ -3,7 +3,6 @@ import { SearchOptions, FormTarget, TOpticonSettings } from '../types';
 
 export type FormPayloads = SearchOptions | TOpticonSettings;
 
-export type FormAction<T extends FormPayloads> = FormUpdate<T> | FormToggle;
 export type FormValue = string | boolean;
 
 export interface FormUpdate<T> {
@@ -11,10 +10,6 @@ export interface FormUpdate<T> {
   form: FormTarget;
   field: keyof T;
   value: FormValue;
-}
-
-export interface FormToggle {
-  type: constants.TOGGLE_FORM;
 }
 
 export const updateForm = <T>(
@@ -27,5 +22,3 @@ export const updateForm = <T>(
   field,
   value
 });
-
-export const toggleForm = (): FormToggle => ({ type: constants.TOGGLE_FORM });

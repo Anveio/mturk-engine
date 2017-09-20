@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, TOpticonSettings } from '../../types';
-import { FormAction, updateForm } from '../../actions/form';
+import { FormUpdate, updateForm } from '../../actions/form';
 import { Slider } from '@blueprintjs/core';
 import { Stack } from '@shopify/polaris';
 
@@ -15,7 +15,7 @@ interface Handlers {
 }
 
 const mapDispatch = (
-  dispatch: Dispatch<FormAction<TOpticonSettings>>
+  dispatch: Dispatch<FormUpdate<TOpticonSettings>>
 ): Handlers => ({
   onChange: (value: string) => {
     dispatch(
