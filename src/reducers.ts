@@ -6,7 +6,6 @@ import { default as searchingActive } from './reducers/searchingActive';
 import { default as search } from './reducers/search';
 import { default as queue } from './reducers/queue';
 import { default as watchers } from './reducers/watchers';
-import { default as requesters } from './reducers/requesters';
 import { default as searchOptions } from './reducers/searchOptions';
 import { default as sortingOption } from './reducers/sortingOption';
 import { default as hitBlocklist } from './reducers/hitBlocklist';
@@ -22,7 +21,6 @@ export const rootReducer = combineReducers<RootState>({
   search,
   toastr,
   watchers,
-  requesters,
   hitBlocklist,
   searchOptions,
   sortingOption,

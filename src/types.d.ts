@@ -7,7 +7,6 @@ export interface RootState {
   readonly toastr: ToastrState;
   readonly watchers: WatcherMap;
   readonly search: SearchResults;
-  readonly requesters: RequesterMap;
   readonly searchingActive: boolean;
   readonly waitingForMturk: boolean;
   readonly timeNextSearch: Date | null;
