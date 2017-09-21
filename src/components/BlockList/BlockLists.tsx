@@ -16,14 +16,14 @@ class BlockLists extends React.PureComponent<Props, never> {
     return this.props.empty ? (
       <EmptyBlockList />
     ) : (
-      <Layout>
+      <div>
         <Layout.Section>
           <RequesterBlockList />
         </Layout.Section>
         <Layout.Section>
           <HitBlockList />
         </Layout.Section>
-      </Layout>
+      </div>
     );
   }
 }
