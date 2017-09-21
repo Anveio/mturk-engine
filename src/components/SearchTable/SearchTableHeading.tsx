@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { connect } from 'react-redux'
-import { RootState } from '../../types'
+import { connect } from 'react-redux';
+import { RootState } from '../../types';
 import { Card, Heading } from '@shopify/polaris';
-import {
-  resultsLengthSelector
-} from '../../selectors/searchTable';
+import { resultsLengthSelector } from '../../selectors/searchTable';
 
 export interface Props {
   readonly rawResultsSize: number;
@@ -31,8 +29,6 @@ class SearchTableHeading extends React.PureComponent<Props & OwnProps, never> {
 
 const mapState = (state: RootState): Props => ({
   rawResultsSize: resultsLengthSelector(state)
-}) 
-
-
+});
 
 export default connect(mapState)(SearchTableHeading);

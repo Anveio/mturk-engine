@@ -15,6 +15,6 @@ export function* playAudio(action: PlayAudio) {
       yield action.file.play();
     }
   } catch (e) {
-    console.log('Playing audio failed.');
+    console.warn('Playing audio failed.');
   }
 }

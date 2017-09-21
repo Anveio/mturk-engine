@@ -54,5 +54,5 @@ export default function* rootSaga() {
     SCHEDULE_NEXT_WATCHER_TICK,
     acceptAfterWatcherDelay
   );
-  yield takeEvery<PlayAudio>(PLAY_AUDIO, playAudio)
+  yield takeEvery<PlayAudio>(PLAY_AUDIO, playAudio);
 }
