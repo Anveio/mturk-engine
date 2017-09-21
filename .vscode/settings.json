@@ -5,7 +5,7 @@
     "**/server": false,
     "**/.vscode/": true,
     "**/*.bundle.js": true,
-    "**/build": true,
+    "**/build": false,
     "**/node_modules": true,
     "**/yarn.lock": true
   }
