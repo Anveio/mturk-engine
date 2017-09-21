@@ -5,10 +5,14 @@ import SearchBar from '../SearchBar/SearchBar';
 
 const SearchTab = () => {
   return (
-    <Layout.Section>
-      <SearchBar />
-      <SearchTable />
-    </Layout.Section>
+    <Layout>
+      <Layout.Section>
+        <SearchBar />
+      </Layout.Section>
+      <Layout.Section>
+        <SearchTable />
+      </Layout.Section>
+    </Layout>
   );
 };
 

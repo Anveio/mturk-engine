@@ -20,23 +20,27 @@ class QueueTable extends React.PureComponent<Props & Handlers, never> {
     const { queueItemIds, onRefresh } = this.props;
 
     return queueItemIds.length === 0 ? (
-      <Layout.Section>
-        <EmptyQueue onRefresh={onRefresh} />
-      </Layout.Section>
+      <Layout>
+        <Layout.Section>
+          <EmptyQueue onRefresh={onRefresh} />
+        </Layout.Section>
+      </Layout>
     ) : (
-      <Layout.Section>
-        <Stack vertical>
-          <Card sectioned>
-            <Button onClick={onRefresh}>Refresh queue.</Button>
-          </Card>
-          <Card>
-            <ResourceList
-              items={queueItemIds}
-              renderItem={(hitId: string) => <QueueCard hitId={hitId} />}
-            />
-          </Card>
-        </Stack>
-      </Layout.Section>
+      <Layout>
+        <Layout.Section>
+          <Stack vertical>
+            <Card sectioned>
+              <Button onClick={onRefresh}>Refresh queue.</Button>
+            </Card>
+            <Card>
+              <ResourceList
+                items={queueItemIds}
+                renderItem={(hitId: string) => <QueueCard hitId={hitId} />}
+              />
+            </Card>
+          </Stack>
+        </Layout.Section>
+      </Layout>
     );
   }
 }

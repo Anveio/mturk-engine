@@ -32,7 +32,8 @@ persistStore(store, {
     'sortingOption',
     'searchOptions',
     'topticonSettings',
-    'watchers'
+    'watchers',
+    'audioSettingsV1'
   ],
   storage: localForage,
   transforms: [

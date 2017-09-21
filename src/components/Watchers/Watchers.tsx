@@ -33,19 +33,21 @@ class Watchers extends React.PureComponent<Props, never> {
     const { watcherIds } = this.props;
 
     return watcherIds.isEmpty() ? (
-      <Layout.Section>
-        <Layout.AnnotatedSection
-          title="Add a watcher"
-          description="Enter a groupID or a pandA link."
-        >
-          <WatcherInput />
-        </Layout.AnnotatedSection>
+      <Layout>
         <Layout.Section>
-          <EmptyWatchers />
+          <Layout.AnnotatedSection
+            title="Add a watcher"
+            description="Enter a groupID or a pandA link."
+          >
+            <WatcherInput />
+          </Layout.AnnotatedSection>
+          <Layout.Section>
+            <EmptyWatchers />
+          </Layout.Section>
         </Layout.Section>
-      </Layout.Section>
+      </Layout>
     ) : (
-      <Layout.Section>
+      <Layout>
         <Layout.AnnotatedSection
           title="Add a watcher"
           description="Enter a groupID or a pandA link."
@@ -61,7 +63,7 @@ class Watchers extends React.PureComponent<Props, never> {
         <Layout.Section secondary>
           {Watchers.generateColumn(2)(watcherIds)}
         </Layout.Section>
-      </Layout.Section>
+      </Layout>
     );
   }
 }
