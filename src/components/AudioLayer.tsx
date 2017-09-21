@@ -28,7 +28,7 @@ class AudioLayer extends React.PureComponent<Props & Handlers, never> {
 
 const mapState = (state: RootState): Props => ({
   unreadResults: newResultsGroupIdsList(state),
-  audioNewSearch: state.audioSettingsV1.audioNewSearch
+  audioNewSearch: state.audioFiles.audioNewSearch
 });
 
 const mapDispatch = (dispatch: Dispatch<PlayAudio>): Handlers => ({

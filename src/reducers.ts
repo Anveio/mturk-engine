@@ -14,6 +14,7 @@ import { default as waitingForMturk } from './reducers/waitingForMturk';
 import { default as topticonSettings } from './reducers/topticonSettings';
 import { default as requesterBlocklist } from './reducers/requesterBlocklist';
 import { default as audioSettingsV1 } from './reducers/audioSettings';
+import { default as audioFiles } from './reducers/audioFiles';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -21,6 +22,7 @@ export const rootReducer = combineReducers<RootState>({
   search,
   toastr,
   watchers,
+  audioFiles,
   hitBlocklist,
   searchOptions,
   sortingOption,

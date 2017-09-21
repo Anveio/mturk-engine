@@ -16,6 +16,7 @@ export interface RootState {
   readonly hitBlocklist: HitBlockMap;
   readonly requesterBlocklist: RequesterBlockMap;
   readonly audioSettingsV1: AudioSettings;
+  readonly audioFiles: AudioFiles;
 }
 
 export type SearchResults = Map<string, SearchResult>;
@@ -121,5 +122,8 @@ export interface Watcher {
 export interface AudioSettings {
   readonly enabled: boolean;
   readonly volume: number;
+}
+
+export interface AudioFiles {
   readonly audioNewSearch: HTMLAudioElement;
 }

@@ -13,9 +13,6 @@ import {
 const initial: AudioSettings = {
   enabled: true,
   volume: 0.1,
-  audioNewSearch: new Audio(
-    'https://k003.kiwi6.com/hotlink/85iq6xu5ul/coins.ogg'
-  )
 };
 
 type AudioAction = EditAudioSource | ChangeVolume | ToggleAudioEnabled;
