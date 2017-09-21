@@ -29,7 +29,7 @@ class EditVolume extends React.PureComponent<Props & Handlers, never> {
   static generateHelpText = (active: boolean) =>
     active
       ? 'Sound notifications will play at this volume'
-      : 'No sounds are being played.';
+      : 'Audio notifications are globally disabled.';
 
   private handleChange = (value: number) =>
     this.props.onChange(value.toFixed(2));
