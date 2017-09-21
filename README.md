@@ -22,8 +22,13 @@ Mturk Engine is under active development so feel free to suggest features or sub
 
 ## Preview
 
-### Search for HITs and block requesters.
-<img src="https://i.imgur.com/Z5UEVbs.gif" alt="Animated GIF showing the normal flow of searching for HITs, hiding HITs, blocking requesters, accepting HITs, viewing your queue, and returning a HIT."/>
+###
+
+### The MTurk Engine UI
+<img src="https://i.imgur.com/JE0M8RB.png" alt="Still image showing the UI for searching for HITs, seeing unread HITS, hiding HITs, and blocking requesters."/>
+
+ ### Search for HITs and block requesters.
+<img src="https://i.imgur.com/Z5UEVbs.gif" alt="Animated GIF showing the normal flow of searching for HITs, hiding HITs, blocking requesters, accepting HITs, viewing your queue, and returning a HIT"/>
 
 ### Add watchers to automatically accept HITs
 
@@ -32,6 +37,8 @@ Mturk Engine is under active development so feel free to suggest features or sub
 ## Features
 
 * Search for HITs periodically without waiting for full page reloads.
+* New HITs are highlighted and grouped together at the top of your search results.
+* Optionally receive a sound alert when you find a new HIT.
 * Have TO data at your fingertips.
 * Use watchers to automatically accept HITs.
 * Add watchers manually or add them directly from search results.
@@ -46,7 +53,7 @@ Mturk Engine is under active development so feel free to suggest features or sub
 
 * Working HIT export to MTC and other forums. 
 * ~~Watchers for continually accepting HITs and snagging rare ones.~~ <~ Added in 1.1.0
-* Integration with your dashboard and data visualization of income over time, your highest $/hr time of day, earning streaks etc.
-* New HIT highlighting
+* Integration with your dashboard and data visualization of income over time, your highest $/hr time of day, earning streaks etc. 
+* ~~New HIT highlighting~~ <~ Added in 1.2.0
 * CAPTCHA detection
 
