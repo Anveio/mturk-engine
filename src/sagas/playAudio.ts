@@ -8,6 +8,10 @@ export function* playAudio(action: PlayAudio) {
       (state: RootState) => state.audioSettingsV1.enabled
     );
     if (audioEnabled) {
+      const volume: number = yield select(
+        (state: RootState) => state.audioSettingsV1.volume
+      );
+      yield (action.file.volume = volume);
       yield action.file.play();
     }
   } catch (e) {
