@@ -111,6 +111,9 @@ export type EDIT_WATCHER_FIELD = typeof EDIT_WATCHER_FIELD;
 export const PLAY_AUDIO = 'PLAY_AUDIO';
 export type PLAY_AUDIO = typeof PLAY_AUDIO;
 
+export const CHANGE_VOLUME = 'CHANGE_VOLUME';
+export type CHANGE_VOLUME = typeof CHANGE_VOLUME;
+
 export const EDIT_AUDIO_SOURCE = 'EDIT_AUDIO_SOURCE';
 export type EDIT_AUDIO_SOURCE = typeof EDIT_AUDIO_SOURCE;
 

@@ -8,9 +8,7 @@ const initial: AudioSettings = {
   audio1: new Audio(
     'http://k003.kiwi6.com/hotlink/vnu75u0sif/file-sounds-765-tweet.ogg'
   ),
-  audio2: new Audio(
-    'http://k003.kiwi6.com/hotlink/vnu75u0sif/file-sounds-765-tweet.ogg'
-  )
+  audio2: new Audio('http://k003.kiwi6.com/hotlink/85iq6xu5ul/coins.ogg')
 };
 
 export default (state = initial, action: EditAudioSource) => {
