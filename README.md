@@ -4,15 +4,19 @@
 
 [Download (Lite version)](https://greasyfork.org/en/scripts/33403-mturk-engine-lite)
 
-Download the Lite version if your browser or user script manager does not allow you to install the script with the main download link. The lite version simply inserts the main script into the MTurk page so it works exactly the same, but incurs a 300kb download.
+Download the Lite version if your browser or user script manager does not allow you to install the script with the main download link. The lite version inserts the main script into the MTurk page so it works exactly the same, but incurs a 300kb download.
 
-[Homepage](https://www.mturk.com/mturk/findhits?mturkengine) (You must have downloaded and installed Mturk Engine first.)
+[Homepage](https://www.mturk.com/mturk/findhits?mturkengine) (You must have installed Mturk Engine first.)
+
+This is a userscript. You must install it with a userscript manager (TamperMonkey for Chrome or Greasemonkey for FireFox).
+
+### MTurk Engine only works on this page: https://www.mturk.com/mturk/findhits?mturkengine
 
 ## Why use Mturk Engine?
 
-The average workflow on MTurk typically involves refreshing several different pages to find and accept new HITs as they're posted. This involves precious time being spent waiting for full page reloads and manually monitoring multiple things just to *begin* making money.
+Imagine setting up a watcher to automatically accept a rare HIT when it shows up while simultaneously being notified of any new HITs as they're posted. Imagine then quickly switching to a new HIT, clicking the accept button, and instantly being notified of wther or not your accept went through without having to wait for your browser to refresh or open a new tab. That's what MTurk Enging allows you to do. All in a single tab -- without any page refreshes.
 
-MTurk Engine brings all of the things that make for an efficient workflow into a single place. You can monitor new HITs in the background, have instant feedback as to whether your accept request went through, block requesters and HITs you're not interested in, and quickly check your queue when you need to, and never have to wait for your browser to refresh a full page.
+MTurk Engine brings all of the things that make for an efficient workflow into a single place. You can monitor new HITs in the background, have instant feedback as to whether your accept request went through, block requesters and HITs you're not interested in, set up watchers to automatically accept rare and high-paying HITs or hoard lots of the same HIT, and quickly check your queue when you need to, and never have to wait for your browser to refresh a full page.
 
 Mturk Engine is under active development so feel free to suggest features or submit changes, no matter how big or small.
 
