@@ -3,6 +3,11 @@ import { Requester, BlockedRequester } from '../../types';
 import { Button } from '@shopify/polaris';
 import { Tooltip, Position } from '@blueprintjs/core';
 import { blockedRequesterFactory } from '../../utils/blocklist';
+import { connect, Dispatch } from 'react-redux';
+import {
+  BlockRequesterAction,
+  blockRequester
+} from '../../actions/blockRequester';
 
 export interface OwnProps {
   readonly requester: Requester;
@@ -56,4 +61,10 @@ class BlockRequesterButton extends React.PureComponent<
   }
 }
 
-export default BlockRequesterButton;
+const mapDispatch = (dispatch: Dispatch<BlockRequesterAction>): Handlers => ({
+  onBlockRequester: (requester: BlockedRequester) => {
+    dispatch(blockRequester(requester));
+  }
+});
+
+export default connect(null, mapDispatch)(BlockRequesterButton);

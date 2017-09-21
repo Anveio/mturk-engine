@@ -3,7 +3,7 @@ import { Collapsible, Card, Stack, TextStyle, Caption } from '@shopify/polaris';
 import { SearchResult } from '../../types';
 import MiscActionsPopover from './MiscActionsPopover';
 import ExternalPlainButtons from './ExternalPlainButtons';
-import BlockRequesterButton from '../../containers/BlockRequesterButton';
+import BlockRequesterButton from './BlockRequesterButton';
 
 export interface Props {
   readonly open: boolean;
