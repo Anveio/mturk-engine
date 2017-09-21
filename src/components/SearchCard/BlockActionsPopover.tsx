@@ -12,12 +12,28 @@ export interface Handlers {
   readonly onBlockRequester: (requester: BlockedRequester) => void;
 }
 
+export interface State {
+  readonly hovering: boolean;
+}
+
 class BlockActionsPopover extends React.PureComponent<
   OwnProps & Handlers,
-  never
+  State
 > {
+  state: State = {
+    hovering: false
+  };
+
   private handleBlockRequester = () => {
     this.props.onBlockRequester(blockedRequesterFactory(this.props.requester));
+  };
+
+  private handleMouseEnter = () => {
+    this.setState((): Partial<State> => ({ hovering: true }));
+  };
+
+  private handleMouseLeave = () => {
+    this.setState((): Partial<State> => ({ hovering: false }));
   };
 
   public render() {
@@ -25,10 +41,16 @@ class BlockActionsPopover extends React.PureComponent<
       <Tooltip
         content="You can manage your blocked requesters in the Blocklist tab."
         position={Position.TOP_LEFT}
+        isOpen={this.state.hovering}
       >
-        <Button destructive size="slim" onClick={this.handleBlockRequester}>
-          Block Requester
-        </Button>
+        <div
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+        >
+          <Button destructive size="slim" onClick={this.handleBlockRequester}>
+            Block Requester
+          </Button>
+        </div>
       </Tooltip>
     );
   }
