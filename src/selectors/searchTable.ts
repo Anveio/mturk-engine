@@ -76,6 +76,11 @@ export const newResults = createSelector(
   (hits: SearchResults) => hits.filter((hit: SearchResult) => !hit.markedAsRead)
 );
 
+export const newResultsGroupIdsList = createSelector(
+  [ newResults ],
+  (hits: SearchResults) => hits.map(selectGroupId).toList()
+);
+
 export const markedAsReadResults = createSelector(
   [ filteredAndSortedResults ],
   (hits: SearchResults) =>
