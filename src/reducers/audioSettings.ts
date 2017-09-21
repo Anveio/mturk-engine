@@ -14,7 +14,7 @@ const initial: AudioSettings = {
   enabled: true,
   volume: 0.1,
   audioNewSearch: new Audio(
-    'http://k003.kiwi6.com/hotlink/85iq6xu5ul/coins.ogg'
+    'https://k003.kiwi6.com/hotlink/85iq6xu5ul/coins.ogg'
   )
 };
 
