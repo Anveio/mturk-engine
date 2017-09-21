@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, TOpticonSettings } from '../../types';
 import { FormUpdate, updateForm } from '../../actions/form';
-import { SettingToggle, TextStyle } from '@shopify/polaris';
+import { Layout, SettingToggle, TextStyle } from '@shopify/polaris';
 
 interface Props {
   readonly value: boolean;
@@ -23,16 +23,21 @@ class ToggleNoTO extends React.PureComponent<Props & Handlers> {
     const { value, onChange } = this.props;
 
     return (
-      <SettingToggle
-        action={{
-          content: ToggleNoTO.calculateButtonContent(value),
-          onAction: () => onChange(!value)
-        }}
-        enabled={value}
+      <Layout.AnnotatedSection
+        title="Hide requesters with no Turkopticon score"
+        description="Turning this setting on will hide HITs from requesters that have no Turkopticon reviews."
       >
-        Requesters that have no T.O. score are{' '}
-        {ToggleNoTO.calculateBodyContent(value)} being hidden.
-      </SettingToggle>
+        <SettingToggle
+          action={{
+            content: ToggleNoTO.calculateButtonContent(value),
+            onAction: () => onChange(!value)
+          }}
+          enabled={value}
+        >
+          Requesters that have no T.O. score are{' '}
+          {ToggleNoTO.calculateBodyContent(value)} being hidden.
+        </SettingToggle>
+      </Layout.AnnotatedSection>
     );
   }
 }
