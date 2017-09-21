@@ -1,6 +1,6 @@
-import { EditAudioSource } from '../actions/audio';
+import { EditAudioSource, ChangeVolume } from '../actions/audio';
 import { AudioSettings } from '../types';
-import { EDIT_AUDIO_SOURCE } from '../constants';
+import { EDIT_AUDIO_SOURCE, CHANGE_VOLUME } from '../constants';
 
 const initial: AudioSettings = {
   enabled: true,
@@ -11,13 +11,20 @@ const initial: AudioSettings = {
   audio2: new Audio('http://k003.kiwi6.com/hotlink/85iq6xu5ul/coins.ogg')
 };
 
-export default (state = initial, action: EditAudioSource) => {
+type AudioAction = EditAudioSource | ChangeVolume;
+
+export default (state = initial, action: AudioAction) => {
   let partialState: Partial<AudioSettings> | undefined;
 
   switch (action.type) {
     case EDIT_AUDIO_SOURCE:
       partialState = {
         [action.field]: action.value
+      };
+      break;
+    case CHANGE_VOLUME:
+      partialState = {
+        volume: action.value
       };
       break;
     default:
