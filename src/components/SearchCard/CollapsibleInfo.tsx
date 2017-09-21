@@ -3,7 +3,7 @@ import { Collapsible, Card, Stack, TextStyle, Caption } from '@shopify/polaris';
 import { SearchResult } from '../../types';
 import MiscActionsPopover from './MiscActionsPopover';
 import ExternalPlainButtons from './ExternalPlainButtons';
-import BlockActionsPopover from '../../containers/BlockActionsPopover';
+import BlockRequesterButton from '../../containers/BlockRequesterButton';
 
 export interface Props {
   readonly open: boolean;
@@ -29,7 +29,7 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
             </Caption>
             <Stack vertical={false} alignment="center">
               <MiscActionsPopover hit={hit} />
-              <BlockActionsPopover requester={requester} />
+              <BlockRequesterButton requester={requester} />
               <ExternalPlainButtons hit={hit} />
             </Stack>
           </Stack>

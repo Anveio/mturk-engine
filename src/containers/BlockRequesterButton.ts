@@ -1,8 +1,8 @@
 import { connect, Dispatch } from 'react-redux';
 import { BlockedRequester } from '../types';
-import BlockActionsPopover, {
+import BlockRequesterButton, {
   Handlers
-} from '../components/SearchCard/BlockActionsPopover';
+} from '../components/SearchCard/BlockRequesterButton';
 import {
   BlockRequesterAction,
   blockRequester
@@ -14,4 +14,4 @@ const mapDispatch = (dispatch: Dispatch<BlockRequesterAction>): Handlers => ({
   }
 });
 
-export default connect(null, mapDispatch)(BlockActionsPopover);
+export default connect(null, mapDispatch)(BlockRequesterButton);

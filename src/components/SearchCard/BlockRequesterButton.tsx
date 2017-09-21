@@ -16,7 +16,7 @@ export interface State {
   readonly hovering: boolean;
 }
 
-class BlockActionsPopover extends React.PureComponent<
+class BlockRequesterButton extends React.PureComponent<
   OwnProps & Handlers,
   State
 > {
@@ -29,11 +29,11 @@ class BlockActionsPopover extends React.PureComponent<
   };
 
   private handleMouseEnter = () => {
-    this.setState((): Partial<State> => ({ hovering: true }));
+    this.setState({ hovering: true });
   };
 
   private handleMouseLeave = () => {
-    this.setState((): Partial<State> => ({ hovering: false }));
+    this.setState({ hovering: false });
   };
 
   public render() {
@@ -56,4 +56,4 @@ class BlockActionsPopover extends React.PureComponent<
   }
 }
 
-export default BlockActionsPopover;
+export default BlockRequesterButton;
