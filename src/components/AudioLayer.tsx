@@ -6,7 +6,7 @@ import { PlayAudio, playAudio } from '../actions/audio';
 import { newResultsGroupIdsList } from '../selectors/searchTable';
 
 export interface Props {
-  readonly audio1: HTMLAudioElement;
+  readonly audioNewSearch: HTMLAudioElement;
   readonly unreadResults: List<string>;
 }
 
@@ -17,27 +17,18 @@ export interface Handlers {
 class AudioLayer extends React.PureComponent<Props & Handlers, never> {
   componentWillReceiveProps(nextProps: Props) {
     if (!nextProps.unreadResults.isSubset(this.props.unreadResults)) {
-      this.props.onNewSearchResult(this.props.audio1);
+      this.props.onNewSearchResult(this.props.audioNewSearch);
     }
   }
 
   public render() {
-    return (
-      <div id="audio-layer">
-        {/* <audio id="new-search-result-audio">
-          <source src={this.props.unreadSearchResultSrc} type="audio/ogg" />
-        </audio>
-        <audio id="watcher-accept-audio">
-          <source src={this.props.watcherAcceptSrc} type="audio/ogg" />
-        </audio> */}
-      </div>
-    );
+    return <div id="audio-layer" />;
   }
 }
 
 const mapState = (state: RootState): Props => ({
   unreadResults: newResultsGroupIdsList(state),
-  audio1: state.audioSettingsV1.audio2
+  audioNewSearch: state.audioSettingsV1.audioNewSearch
 });
 
 const mapDispatch = (dispatch: Dispatch<PlayAudio>): Handlers => ({

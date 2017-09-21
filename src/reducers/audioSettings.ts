@@ -13,10 +13,9 @@ import {
 const initial: AudioSettings = {
   enabled: true,
   volume: 0.1,
-  audio1: new Audio(
-    'http://k003.kiwi6.com/hotlink/vnu75u0sif/file-sounds-765-tweet.ogg'
-  ),
-  audio2: new Audio('http://k003.kiwi6.com/hotlink/85iq6xu5ul/coins.ogg')
+  audioNewSearch: new Audio(
+    'http://k003.kiwi6.com/hotlink/85iq6xu5ul/coins.ogg'
+  )
 };
 
 type AudioAction = EditAudioSource | ChangeVolume | ToggleAudioEnabled;

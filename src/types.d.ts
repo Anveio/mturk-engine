@@ -121,6 +121,5 @@ export interface Watcher {
 export interface AudioSettings {
   readonly enabled: boolean;
   readonly volume: number;
-  readonly audio1: HTMLAudioElement;
-  readonly audio2: HTMLAudioElement;
+  readonly audioNewSearch: HTMLAudioElement;
 }
