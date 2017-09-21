@@ -2,6 +2,10 @@
 
 [Download](https://raw.githubusercontent.com/Anveio/mturk-engine/master/build/mturk-engine.latest.user.js)
 
+[Download (Lite version)](https://greasyfork.org/en/scripts/33403-mturk-engine-lite)
+
+Download the Lite version if your browser or user script manager does not allow you to install the script with the main download link. The lite version simply inserts the main script into the MTurk page so it works exactly the same, but incurs a 300kb download.
+
 [Homepage](https://www.mturk.com/mturk/findhits?mturkengine) (You must have downloaded and installed Mturk Engine first.)
 
 ## Why use Mturk Engine?
@@ -17,6 +21,8 @@ Mturk Engine is under active development so feel free to suggest features or sub
 1. You'll need a userscript manager to use Mturk Engine. If you're using Chrome download [TamperMonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en). If you're using Firefox download [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/). If you already have a userscript manager you're good to move on to the next step.
 
 2. [Download Mturk Engine here.](https://raw.githubusercontent.com/Anveio/mturk-engine/master/build/mturk-engine.latest.user.js) Your userscript manager should prompt you to install the script.
+
+2a. If your userscript manager or browser is not letting you download the script, install the Lite version here: https://greasyfork.org/en/scripts/33403-mturk-engine-lite
 
 3. Navigate to https://www.mturk.com/mturk/findhits?mturkengine with your Amazon Mechanical Turk account to begin using Mturk Engine. It's a good idea to bookmark this link if you intend on using it frequently.
 
