@@ -1,4 +1,9 @@
-import { EDIT_AUDIO_SOURCE, PLAY_AUDIO, CHANGE_VOLUME } from '../constants';
+import {
+  EDIT_AUDIO_SOURCE,
+  PLAY_AUDIO,
+  CHANGE_VOLUME,
+  TOGGLE_AUDIO_ENABLED
+} from '../constants';
 import { AudioSettings } from '../types';
 
 export interface PlayAudio {
@@ -10,6 +15,10 @@ export interface EditAudioSource {
   type: EDIT_AUDIO_SOURCE;
   field: keyof AudioSettings;
   value: string;
+}
+
+export interface ToggleAudioEnabled {
+  type: TOGGLE_AUDIO_ENABLED;
 }
 
 export interface ChangeVolume {
@@ -34,4 +43,8 @@ export const playAudio = (file: HTMLAudioElement): PlayAudio => ({
 export const changeVolume = (value: number): ChangeVolume => ({
   type: CHANGE_VOLUME,
   value
+});
+
+export const toggleAudioEnabled = (): ToggleAudioEnabled => ({
+  type: TOGGLE_AUDIO_ENABLED
 });

@@ -1,6 +1,14 @@
-import { EditAudioSource, ChangeVolume } from '../actions/audio';
+import {
+  EditAudioSource,
+  ChangeVolume,
+  ToggleAudioEnabled
+} from '../actions/audio';
 import { AudioSettings } from '../types';
-import { EDIT_AUDIO_SOURCE, CHANGE_VOLUME } from '../constants';
+import {
+  EDIT_AUDIO_SOURCE,
+  CHANGE_VOLUME,
+  TOGGLE_AUDIO_ENABLED
+} from '../constants';
 
 const initial: AudioSettings = {
   enabled: true,
@@ -11,7 +19,7 @@ const initial: AudioSettings = {
   audio2: new Audio('http://k003.kiwi6.com/hotlink/85iq6xu5ul/coins.ogg')
 };
 
-type AudioAction = EditAudioSource | ChangeVolume;
+type AudioAction = EditAudioSource | ChangeVolume | ToggleAudioEnabled;
 
 export default (state = initial, action: AudioAction) => {
   let partialState: Partial<AudioSettings> | undefined;
@@ -25,6 +33,11 @@ export default (state = initial, action: AudioAction) => {
     case CHANGE_VOLUME:
       partialState = {
         volume: action.value
+      };
+      break;
+    case TOGGLE_AUDIO_ENABLED:
+      partialState = {
+        enabled: !state.enabled
       };
       break;
     default:
