@@ -12,7 +12,7 @@ import {
 
 const initial: AudioSettings = {
   enabled: true,
-  volume: 0.5,
+  volume: 0.1,
   audio1: new Audio(
     'http://k003.kiwi6.com/hotlink/vnu75u0sif/file-sounds-765-tweet.ogg'
   ),
