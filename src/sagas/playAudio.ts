@@ -21,7 +21,6 @@ export function* playAudio(action: PlayAudio) {
       const volume: number = yield select(
         (state: RootState) => state.audioSettingsV1.volume
       );
-      yield (action.file.volume = volume);
       yield call(playAudioFile, action.file, volume);
     }
   } catch (e) {
