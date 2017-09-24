@@ -34,16 +34,14 @@ class Watchers extends React.PureComponent<Props, never> {
 
     return watcherIds.isEmpty() ? (
       <Layout>
+        <Layout.AnnotatedSection
+          title="Add a watcher"
+          description="Enter a groupID or a pandA link."
+        >
+          <WatcherInput />
+        </Layout.AnnotatedSection>
         <Layout.Section>
-          <Layout.AnnotatedSection
-            title="Add a watcher"
-            description="Enter a groupID or a pandA link."
-          >
-            <WatcherInput />
-          </Layout.AnnotatedSection>
-          <Layout.Section>
-            <EmptyWatchers />
-          </Layout.Section>
+          <EmptyWatchers />
         </Layout.Section>
       </Layout>
     ) : (
