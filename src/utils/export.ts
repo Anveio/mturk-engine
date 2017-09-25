@@ -39,7 +39,7 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     } = requester.turkopticon;
 
     // tslint:disable:max-line-length
-    return `> **Title:** [${title}](${acceptBaseUrl}${groupId})  
+    return `**Title:** [${title}](${acceptBaseUrl}${groupId})  
     **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${baseTaskUrlWorker}${groupId}/tasks/accept_random) | [Requester](${baseRequeserUrlWorker}${requester.id}/projects)  
     **Requester:** [${requester.name}](${requesterSearchBaseUrl}${requester.id}) ([Contact](${contactBaseUrl}${requester.id}))  
     **[TO](${turkopticonBaseUrl}${requester.id}):** [Pay: ${pay}] [Fast: ${fast}] [Comm: ${comm}] [Fair: ${fair}] [Reviews: ${reviews}] [ToS: ${tos_flags}]  
@@ -49,7 +49,7 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     **Description:** ${description}
     **Requirements:** ${quals}`;
   } else {
-    return `> **Title:** [${title}](${acceptBaseUrl}${groupId})  
+    return `**Title:** [${title}](${acceptBaseUrl}${groupId})  
     **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${baseTaskUrlWorker}${groupId}/tasks/accept_random) | [Requester](${baseRequeserUrlWorker}${requester.id}/projects)  
     **Requester:** [${requester.name}](${requesterSearchBaseUrl}${requester.id}) [${requester.id}] ([Contact](${contactBaseUrl}${requester.id}))  
     **[TO](No data)]  

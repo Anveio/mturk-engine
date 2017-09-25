@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Tabs } from '@shopify/polaris';
 import QueueTable from '../../containers/QueueTable';
 import SearchTab from './SearchTab';
+import AccountTab from './AccountTab';
 import BlockLists from '../BlockList/BlockLists';
 import { generateTabs } from '../../utils/tabs';
 import SettingsTab from './SettingsTab';
@@ -34,6 +35,9 @@ const TabNavigation = (props: Props & Handlers) => {
       return <BlockLists />;
     },
     4: () => {
+      return <AccountTab />;
+    },
+    5: () => {
       return <SettingsTab />;
     }
   };

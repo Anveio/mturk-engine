@@ -37,6 +37,12 @@ export const generateTabs = ({ queueSize }: TabSizes): TabDescriptor[] => {
       accessibilityLabel: 'Blocklist tab'
     },
     {
+      id: 'Account',
+      title: 'Account',
+      panelID: 'account',
+      accessibilityLabel: 'Account tab'
+    },
+    {
       id: 'Settings',
       title: 'Settings',
       panelID: 'settings',
