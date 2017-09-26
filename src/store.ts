@@ -27,7 +27,6 @@ persistStore(store, {
     'hitBlocklist',
     'requesterBlocklist',
     'searchFormActive',
-    'tab',
     'queue',
     'sortingOption',
     'searchOptions',
