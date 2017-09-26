@@ -2,6 +2,7 @@ import { Map } from 'immutable';
 import { ToastrState } from 'react-redux-toastr';
 
 export interface RootState {
+  readonly account: AccountInfo;
   readonly tab: number;
   readonly queue: QueueMap;
   readonly toastr: ToastrState;
@@ -39,6 +40,10 @@ export interface SearchOptions {
 }
 
 export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
+
+export interface AccountInfo {
+  id: string;
+}
 
 export interface HumanIntelligenceTask {
   readonly title: string;
