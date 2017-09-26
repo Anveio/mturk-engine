@@ -8,7 +8,7 @@ import {
   timeAllotedSelector,
   descriptionSelector,
   qualsRequiredSelector
-} from '../constants';
+} from '../constants/querySelectors';
 import { Map } from 'immutable';
 import * as v4 from 'uuid/v4';
 

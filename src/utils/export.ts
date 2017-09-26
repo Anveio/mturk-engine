@@ -4,7 +4,7 @@ import {
   baseTaskUrlWorker,
   baseRequeserUrlWorker,
   turkopticonBaseUrl
-} from '../constants';
+} from '../constants/urls';
 
 const contactBaseUrl = 'https://www.mturk.com/mturk/contact?requesterId=';
 const requesterSearchBaseUrl =

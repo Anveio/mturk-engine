@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { TOpticonResponse } from '../types';
-import { turkopticonApiMulti } from '../constants';
+import { turkopticonApiMulti } from '../constants/urls';
 import { topticonMapFromTO } from '../utils/turkopticon';
 
 export const batchFetchTOpticon = async (requesterIds: string[]) => {
