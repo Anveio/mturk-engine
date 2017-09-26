@@ -2,7 +2,7 @@ import { Map } from 'immutable';
 import { ToastrState } from 'react-redux-toastr';
 
 export interface RootState {
-  readonly account: AccountInfo;
+  readonly account: AccountInfo | null;
   readonly tab: number;
   readonly queue: QueueMap;
   readonly toastr: ToastrState;
@@ -27,6 +27,8 @@ export type HitBlockMap = Map<string, BlockedHit>;
 export type RequesterBlockMap = Map<string, BlockedRequester>;
 export type TOpticonMap = Map<string, TOpticonData>;
 export type WatcherMap = Map<string, Watcher>;
+
+export type MaybeAccount = AccountInfo | null;
 
 export type FormTarget = 'searchOptions' | 'topticonSettings';
 
