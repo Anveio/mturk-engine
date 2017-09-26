@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button } from '@shopify/polaris';
 import { Tooltip } from '@blueprintjs/core';
 import { TOpticonData, RequesterScores } from '../../types';
-import { turkopticonBaseUrl } from '../../constants';
+import { turkopticonBaseUrl } from '../../constants/urls';
 
 export interface Props {
   readonly requesterId: string;
