@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { Layout } from '@shopify/polaris';
-
+import Account from '../Account/Account';
 export interface Props {}
 
 class AccountTab extends React.PureComponent<Props, never> {
   public render() {
-    return <Layout />;
+    return <Account />;
   }
 }
 
