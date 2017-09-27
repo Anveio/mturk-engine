@@ -13,6 +13,7 @@ export function* fetchAccountInfo(action: ConnectAccountRequest) {
     const accountData = yield call(fetchDashboard);
     yield put<ConnectAccountSuccess>(connectAccountSuccess(accountData));
   } catch (e) {
+    console.warn(e);
     yield put<ConnectAccountFailure>(connectAccountFailure());
   }
 }

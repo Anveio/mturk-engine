@@ -10,6 +10,6 @@ export const fetchDashboard = async () => {
     const documentResponse = response.data;
     return generateAccountInfo(documentResponse);
   } catch (e) {
-    throw Error('Problem fetching data from MTurk.');
+    throw Error('Problem fetching data from MTurk.' + e);
   }
 };
