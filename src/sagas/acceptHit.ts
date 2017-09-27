@@ -21,17 +21,14 @@ export function* acceptHit(action: AcceptHitRequest) {
       ? searchItemToQueueItem(data)
       : blankQueueItem(groupId);
 
-    if (action.fromWatcher && !successful) {
-      // tslint:disable-next-line:no-console
-      yield put<AcceptHitFailure>(acceptHitFailure());
-    } else {
-      generateAcceptHitToast(successful, newQueueItem.title);
-    }
-
     if (successful) {
+      generateAcceptHitToast(successful, newQueueItem.title);
       yield put<AcceptHitSuccess>(acceptHitSuccess(newQueueItem));
-    } else if (action.fromWatcher === false) {
+    } else if (action.fromWatcher && !successful) {
       yield put<AcceptHitFailure>(acceptHitFailure());
+    } else if (!action.fromWatcher && !successful) {
+      yield put<AcceptHitFailure>(acceptHitFailure());
+      generateAcceptHitToast(successful, newQueueItem.title);
     }
 
     if (action.fromWatcher && action.delay) {
