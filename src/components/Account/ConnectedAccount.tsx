@@ -3,12 +3,12 @@ import { AccountInfo } from '../../types';
 import { connect, Dispatch } from 'react-redux';
 import { Layout, AccountConnection } from '@shopify/polaris';
 import {
-  connectAccountRequest,
-  ConnectAccountRequest
+  disconnectAccount,
+  DisconnectAccount
 } from '../../actions/connectAccount';
 
 export interface Handlers {
-  readonly onConnect: () => void;
+  readonly onDisconnect: () => void;
 }
 
 export interface OwnProps {
@@ -26,7 +26,7 @@ class ConnectedAccount extends React.PureComponent<OwnProps & Handlers, never> {
           connected
           action={{
             content: 'Disconnect',
-            onAction: () => {}
+            onAction: this.props.onDisconnect
           }}
           accountName="Tom Ford"
           title={`Tom Ford`}
@@ -39,8 +39,8 @@ class ConnectedAccount extends React.PureComponent<OwnProps & Handlers, never> {
   }
 }
 
-const mapDispatch = (dispatch: Dispatch<ConnectAccountRequest>): Handlers => ({
-  onConnect: () => dispatch(connectAccountRequest())
+const mapDispatch = (dispatch: Dispatch<DisconnectAccount>): Handlers => ({
+  onDisconnect: () => dispatch(disconnectAccount())
 });
 
 export default connect(null, mapDispatch)(ConnectedAccount);

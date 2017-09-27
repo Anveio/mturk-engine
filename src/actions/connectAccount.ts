@@ -1,7 +1,8 @@
 import {
   CONNECT_ACCOUNT_REQUEST,
   CONNECT_ACCOUNT_SUCCESS,
-  CONNECT_ACCOUNT_FAILURE
+  CONNECT_ACCOUNT_FAILURE,
+  DISCONNECT_ACCOUNT
 } from '../constants';
 import { AccountInfo } from '../types';
 
@@ -13,12 +14,17 @@ export interface ConnectAccountFailure {
   type: CONNECT_ACCOUNT_FAILURE;
 }
 
+export interface DisconnectAccount {
+  type: DISCONNECT_ACCOUNT;
+}
+
 export interface ConnectAccountSuccess {
   type: CONNECT_ACCOUNT_SUCCESS;
   data: AccountInfo;
 }
 
 export type ConnectAccountAction =
+  | DisconnectAccount
   | ConnectAccountRequest
   | ConnectAccountSuccess;
 
@@ -35,4 +41,8 @@ export const connectAccountSuccess = (
 ): ConnectAccountSuccess => ({
   type: CONNECT_ACCOUNT_SUCCESS,
   data
+});
+
+export const disconnectAccount = (): DisconnectAccount => ({
+  type: DISCONNECT_ACCOUNT
 });
