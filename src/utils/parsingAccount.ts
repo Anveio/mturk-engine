@@ -4,7 +4,7 @@ import { workerIdSelector, userNameSpan } from '../constants/querySelectors';
 export const parseWorkerId = (input: Document): string => {
   const workerIDElem = input.querySelector(workerIdSelector);
   return workerIDElem && workerIDElem.textContent
-    ? workerIDElem.textContent.trim()
+    ? workerIDElem.textContent.split('ID: ')[1].trim()
     : '[Error:AccountID]';
 };
 
