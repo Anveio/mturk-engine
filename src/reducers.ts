@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { reducer as toastr } from 'react-redux-toastr';
 import { default as tab } from './reducers/tab';
 import { default as searchingActive } from './reducers/searchingActive';
+import { default as account } from './reducers/account';
 import { default as search } from './reducers/search';
 import { default as queue } from './reducers/queue';
 import { default as watchers } from './reducers/watchers';
@@ -21,6 +22,7 @@ export const rootReducer = combineReducers<RootState>({
   queue,
   search,
   toastr,
+  account,
   watchers,
   audioFiles,
   hitBlocklist,
