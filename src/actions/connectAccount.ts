@@ -1,8 +1,16 @@
-import { CONNECT_ACCOUNT_REQUEST, CONNECT_ACCOUNT_SUCCESS } from '../constants';
+import {
+  CONNECT_ACCOUNT_REQUEST,
+  CONNECT_ACCOUNT_SUCCESS,
+  CONNECT_ACCOUNT_FAILURE
+} from '../constants';
 import { AccountInfo } from '../types';
 
 export interface ConnectAccountRequest {
   type: CONNECT_ACCOUNT_REQUEST;
+}
+
+export interface ConnectAccountFailure {
+  type: CONNECT_ACCOUNT_FAILURE;
 }
 
 export interface ConnectAccountSuccess {
@@ -16,6 +24,10 @@ export type ConnectAccountAction =
 
 export const connectAccountRequest = (): ConnectAccountRequest => ({
   type: CONNECT_ACCOUNT_REQUEST
+});
+
+export const connectAccountFailure = (): ConnectAccountFailure => ({
+  type: CONNECT_ACCOUNT_FAILURE
 });
 
 export const connectAccountSuccess = (
