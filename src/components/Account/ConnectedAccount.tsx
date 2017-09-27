@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RootState, MaybeAccount } from '../../types';
+import { AccountInfo } from '../../types';
 import { connect, Dispatch } from 'react-redux';
 import { Layout, AccountConnection } from '@shopify/polaris';
 import {
@@ -11,11 +11,11 @@ export interface Handlers {
   readonly onConnect: () => void;
 }
 
-export interface Props {
-  readonly accountInfo: MaybeAccount;
+export interface OwnProps {
+  readonly accountInfo: AccountInfo;
 }
 
-class ConnectedAccount extends React.PureComponent<Props & Handlers, never> {
+class ConnectedAccount extends React.PureComponent<OwnProps & Handlers, never> {
   public render() {
     return this.props.accountInfo ? (
       <Layout.AnnotatedSection
@@ -39,12 +39,8 @@ class ConnectedAccount extends React.PureComponent<Props & Handlers, never> {
   }
 }
 
-const mapState = (state: RootState): Props => ({
-  accountInfo: state.account
-});
-
 const mapDispatch = (dispatch: Dispatch<ConnectAccountRequest>): Handlers => ({
   onConnect: () => dispatch(connectAccountRequest())
 });
 
-export default connect(mapState, mapDispatch)(ConnectedAccount);
+export default connect(null, mapDispatch)(ConnectedAccount);

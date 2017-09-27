@@ -11,7 +11,11 @@ export interface Props {
 
 class Account extends React.PureComponent<Props, never> {
   public render() {
-    return !this.props.account ? <DisconectedAccount /> : <ConnectedAccount />;
+    return !this.props.account ? (
+      <DisconectedAccount />
+    ) : (
+      <ConnectedAccount accountInfo={this.props.account} />
+    );
   }
 }
 
