@@ -26,13 +26,11 @@
   "devDependencies": {
     "@types/jest": "^20.0.8",
     "@types/node": "^8.0.26",
-    "@types/qs": "^6.5.0",
     "@types/react": "^16.0.5",
     "@types/react-dom": "^15.5.4",
     "@types/react-helmet": "^5.0.3",
     "@types/react-redux": "^5.0.6",
     "@types/react-redux-toastr": "^7.0.2",
-    "@types/redux-persist": "^4.3.1",
     "@types/uuid": "^3.4.1",
     "react-scripts-ts": "^2.6.0",
     "source-map-explorer": "^1.4.0"

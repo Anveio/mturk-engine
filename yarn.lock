@@ -98,10 +98,6 @@
   version "15.5.1"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.1.tgz#1ecf52621299e65b855374337fb11fd2d1066fc1"
 
-"@types/qs@^6.5.0":
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.5.0.tgz#14514e8ee24a4d0672c0c0da5e01a4f11da60d71"
-
 "@types/react-addons-transition-group@^0.14.19":
   version "0.14.19"
   resolved "https://registry.yarnpkg.com/@types/react-addons-transition-group/-/react-addons-transition-group-0.14.19.tgz#74053d3b1d30644644149343323e05570ccb9fd2"
@@ -151,12 +147,6 @@
 "@types/react@^16.0.5":
   version "16.0.7"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.7.tgz#f85b6c33c988a1631e2f32fedae71ec6d9718a0d"
-
-"@types/redux-persist@^4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@types/redux-persist/-/redux-persist-4.3.1.tgz#aa4c876859e0bea5155e5f7980e5b8c4699dc2e6"
-  dependencies:
-    redux-persist "*"
 
 "@types/tether@^1.1.27":
   version "1.4.3"
@@ -4832,14 +4822,6 @@ redux-persist-transform-immutable@^4.3.0:
   dependencies:
     transit-immutable-js "^0.7.0"
     transit-js "^0.8.846"
-
-redux-persist@*:
-  version "4.9.1"
-  resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-4.9.1.tgz#271fa31d1c782ebf9082fb5174e829db24faf59e"
-  dependencies:
-    json-stringify-safe "^5.0.1"
-    lodash "^4.17.4"
-    lodash-es "^4.17.4"
 
 redux-persist@^4.9.1:
   version "4.10.1"
