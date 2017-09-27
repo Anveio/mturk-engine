@@ -11,6 +11,9 @@ export const updateTurkopticon = (data: TOpticonMap) => (
   }
 });
 
+export const rejectInvalidGroupId = (hit: SearchResult) =>
+  !hit.groupId.startsWith('[Error:');
+
 /**
  * Returns true if a search result in a successful search has an entry that 
  * exists in prevSearchResult. 

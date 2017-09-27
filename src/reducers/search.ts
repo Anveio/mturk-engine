@@ -15,7 +15,8 @@ import { Map } from 'immutable';
 import {
   updateTurkopticon,
   resultsThatAppearInBoth,
-  conflictsUseOldExpandedProp
+  conflictsUseOldExpandedProp,
+  rejectInvalidGroupId
 } from '../utils/search';
 import { noTurkopticon } from '../utils/turkopticon';
 // import sampleHits from '../utils/sampleHits';
@@ -31,9 +32,9 @@ type SearchResultAction =
 export default (state = initial, action: SearchResultAction): SearchResults => {
   switch (action.type) {
     case SEARCH_SUCCESS:
-      return (state.filter(
-        resultsThatAppearInBoth(action)
-      ) as SearchResults).mergeWith(conflictsUseOldExpandedProp, action.data);
+      return (state.filter(resultsThatAppearInBoth(action)) as SearchResults)
+        .mergeWith(conflictsUseOldExpandedProp, action.data)
+        .filter(rejectInvalidGroupId) as SearchResults;
     case FETCH_TURKOPTICON_SUCCESS:
       return state.merge(state
         .filter(noTurkopticon)
