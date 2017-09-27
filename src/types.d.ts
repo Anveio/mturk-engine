@@ -45,6 +45,7 @@ export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
 
 export interface AccountInfo {
   id: string;
+  fullName: string;
 }
 
 export interface HumanIntelligenceTask {

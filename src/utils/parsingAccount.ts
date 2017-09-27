@@ -1,5 +1,5 @@
 import { AccountInfo } from '../types';
-import { workerIdSelector } from '../constants/querySelectors';
+import { workerIdSelector, userNameSpan } from '../constants/querySelectors';
 
 export const parseWorkerId = (input: Document): string => {
   const workerIDElem = input.querySelector(workerIdSelector);
@@ -8,6 +8,14 @@ export const parseWorkerId = (input: Document): string => {
     : '[Error:AccountID]';
 };
 
+export const parseFullName = (input: Document): string => {
+  const fullNameElem = input.querySelector(userNameSpan);
+  return fullNameElem && fullNameElem.textContent
+    ? fullNameElem.textContent.trim()
+    : '[Error:name]';
+};
+
 export const generateAccountInfo = (input: Document): AccountInfo => ({
-  id: parseWorkerId(input)
+  id: parseWorkerId(input),
+  fullName: parseFullName(input)
 });

@@ -28,9 +28,9 @@ class ConnectedAccount extends React.PureComponent<OwnProps & Handlers, never> {
             content: 'Disconnect',
             onAction: this.props.onDisconnect
           }}
-          accountName="Tom Ford"
-          title={`Tom Ford`}
-          details={'Account id: ' + this.props.accountInfo.id}
+          accountName={this.props.accountInfo.fullName}
+          title={this.props.accountInfo.fullName}
+          details={'Worker ID: ' + this.props.accountInfo.id}
         />
       </Layout.AnnotatedSection>
     ) : (

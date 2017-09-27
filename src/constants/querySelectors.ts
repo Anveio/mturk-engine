@@ -12,6 +12,8 @@ export const groupIdAnchor = `a[href^="/mturk/preview?groupId="]`;
 
 export const hitIdAnchor = `a[href^="/mturk/continue?hitId="]`;
 
+export const userNameSpan = `span#user_name_field`;
+
 export const timeLeftSelector = `tbody > tr > td:nth-child(3) > table > tbody > tr > td.capsule_field_text`;
 
 export const qualsRequiredSelector =
