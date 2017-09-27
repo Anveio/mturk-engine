@@ -110,17 +110,27 @@ export const parseReward = (input: HTMLDivElement): string => {
 };
 
 /**
- * Fetches the groupId of a Hit. If one cannot be found. return a string that 
- * starts with '[Error:groupId]-' then appends a v4 uuid so that it can be uniquely
- * indexed in the HitMap.
+ * Fetches the groupId of a Hit. If one cannot be found. assume it's because 
+ * MTurk is hiding the GroupID due to being unqualified. If a groupID is still 
+ * not found, return a string that starts with '[Error:groupId]-' then appends 
+ * a v4 uuid so that it can be uniquely indexed in the HitMap.
  * @param input 
  */
 export const parseGroupId = (input: HTMLDivElement): string => {
-  // const groupIdElem = input.querySelector('a[href*="groupId="]');
   const groupIdElem = input.querySelector(groupIdAnchor);
   if (groupIdElem) {
     const href = groupIdElem.getAttribute('href') as string;
     return href.split('=')[1];
+  } else {
+    return parseUnqualifiedGroupId(input);
+  }
+};
+
+const parseUnqualifiedGroupId = (input: HTMLDivElement): string => {
+  const groupIdElem = input.querySelector('a[href*="GroupId="]');
+  if (groupIdElem) {
+    const href = groupIdElem.getAttribute('href') as string;
+    return href.split('hitGroupId=')[1];
   } else {
     return '[Error:groupId]-' + v4();
   }
