@@ -20,7 +20,7 @@ class ConnectedAccount extends React.PureComponent<OwnProps & Handlers, never> {
     return this.props.accountInfo ? (
       <Layout.AnnotatedSection
         title="Account"
-        description="Disconnect your account from your Shopify store."
+        description="Disconnect Mturk Engine from your Amazon MTurk account."
       >
         <AccountConnection
           connected

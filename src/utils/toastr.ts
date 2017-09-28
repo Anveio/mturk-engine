@@ -102,3 +102,12 @@ export const copyMarkdownToast = (hit: SearchResult) => {
     `${hit.title}'s markdown was added to your clipboard.`
   );
 };
+
+export const accountConnectionFailedToast = () => {
+  toastr.error(
+    'Problem connecting your account',
+    `Connecting your account only works if you're currently logged into MTurk. 
+    Log in through the actual site and try again.`,
+    { timeOut: 5000 }
+  );
+};

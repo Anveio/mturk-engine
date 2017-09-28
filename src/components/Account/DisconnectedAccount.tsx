@@ -15,7 +15,7 @@ class DisconnectedAccount extends React.PureComponent<Handlers, never> {
     return (
       <Layout.AnnotatedSection
         title="Account"
-        description="Connect your account to your Shopify store."
+        description="Connect Mturk Engine to your Amazon MTurk account."
       >
         <AccountConnection
           action={{
