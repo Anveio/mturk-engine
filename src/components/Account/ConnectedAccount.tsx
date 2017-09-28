@@ -17,7 +17,7 @@ export interface OwnProps {
 
 class ConnectedAccount extends React.PureComponent<OwnProps & Handlers, never> {
   public render() {
-    return this.props.accountInfo ? (
+    return (
       <Layout.AnnotatedSection
         title="Account"
         description="Disconnect Mturk Engine from your Amazon MTurk account."
@@ -33,8 +33,6 @@ class ConnectedAccount extends React.PureComponent<OwnProps & Handlers, never> {
           details={'Worker ID: ' + this.props.accountInfo.id}
         />
       </Layout.AnnotatedSection>
-    ) : (
-      <div />
     );
   }
 }
