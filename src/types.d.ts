@@ -42,6 +42,7 @@ export interface SearchOptions {
 }
 
 export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
+export type HitStatus = 'Paid' | 'Rejected' | 'Pending';
 
 export interface AccountInfo {
   id: string;
@@ -53,17 +54,23 @@ export interface HumanIntelligenceTask {
   readonly requester: Requester;
   readonly reward: string;
   readonly groupId: string;
-  readonly batchSize: number;
-  readonly qualified: boolean;
   readonly description: string;
-  readonly timeAllotted: string;
-  readonly qualsRequired: string[];
 }
 
 export interface SearchResult extends HumanIntelligenceTask {
   readonly index: number;
   readonly markedAsRead?: Date;
   readonly expanded?: boolean;
+  readonly batchSize: number;
+  readonly qualified: boolean;
+  readonly timeAllotted: string;
+  readonly qualsRequired: string[];
+}
+
+export interface HitDatabaseEntry extends HumanIntelligenceTask {
+  readonly date: Date;
+  readonly status: HitStatus;
+  readonly feedback?: string;
 }
 
 export interface QueueItem {
