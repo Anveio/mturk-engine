@@ -27,3 +27,10 @@ export const descriptionSelector =
 
 export const workerIdSelector =
   'body > table:nth-child(8) > tbody > tr > td > span.orange_text_right';
+
+export const statusDate = '.statusDateColumnValue';
+export const statusSubmitted = '.statusSubmittedColumnValue';
+export const statusApproved = '.statusApprovedColumnValue';
+export const statusRejected = '.statusRejectedColumnValue';
+export const statusPending = '.statusPendingColumnValue';
+export const statusEarnings = '.statusEarningsColumnValue';
