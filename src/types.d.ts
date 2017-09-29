@@ -27,6 +27,7 @@ export type HitBlockMap = Map<string, BlockedHit>;
 export type RequesterBlockMap = Map<string, BlockedRequester>;
 export type TOpticonMap = Map<string, TOpticonData>;
 export type WatcherMap = Map<string, Watcher>;
+export type HitDatabaseMap = Map<string, HitDatabaseEntry>;
 
 export type MaybeAccount = AccountInfo | null;
 
@@ -42,7 +43,7 @@ export interface SearchOptions {
 }
 
 export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
-export type HitStatus = 'Paid' | 'Rejected' | 'Pending';
+export type HitStatus = 'Paid' | 'Approved' | 'Rejected' | 'Pending';
 
 export interface AccountInfo {
   id: string;
@@ -67,9 +68,14 @@ export interface SearchResult extends HumanIntelligenceTask {
   readonly qualsRequired: string[];
 }
 
-export interface HitDatabaseEntry extends HumanIntelligenceTask {
+export interface HitDatabaseEntry {
+  readonly id: string;
   readonly date: Date;
+  readonly title: string;
+  readonly reward: string;
   readonly status: HitStatus;
+  readonly requester: Requester;
+  readonly groupId?: string;
   readonly feedback?: string;
 }
 
