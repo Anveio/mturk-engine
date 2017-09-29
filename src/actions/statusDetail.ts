@@ -18,3 +18,19 @@ export interface FetchStatusDetailSuccess {
 export interface FetchStatusDetailFailure {
   readonly type: STATUS_DETAIL_FAILURE;
 }
+
+export const statusDetailRequest = (date: Date): FetchStatusDetailRequest => ({
+  type: STATUS_DETAIL_REQUEST,
+  date
+});
+
+export const statusDetailFailure = (): FetchStatusDetailFailure => ({
+  type: STATUS_DETAIL_FAILURE
+});
+
+export const statusDetailSuccess = (
+  data: HitDatabaseMap
+): FetchStatusDetailSuccess => ({
+  type: STATUS_DETAIL_SUCCESS,
+  data
+});
