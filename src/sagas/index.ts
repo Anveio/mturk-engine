@@ -6,6 +6,7 @@ import {
   RETURN_HIT_REQUEST,
   SEARCH_REQUEST,
   ACCEPT_HIT_REQUEST,
+  STATUS_DETAIL_REQUEST,
   SCHEDULE_NEXT_SEARCH,
   SCHEDULE_NEXT_WATCHER_TICK,
   TOGGLE_SEARCH_ACTIVITY,
@@ -21,6 +22,7 @@ import { AcceptHitRequest } from '../actions/accept';
 import { FetchTOpticonRequest } from '../actions/turkopticon';
 import { ToggleSearchActive } from '../actions/searchActivity';
 import { ToggleWatcherActivity, ScheduleWatcherTick } from '../actions/watcher';
+import { FetchStatusDetailRequest } from '../actions/statusDetail';
 import { PlayAudio } from '../actions/audio';
 
 import { fetchAccountInfo } from './connectAccount';
@@ -33,6 +35,7 @@ import { fetchTurkopticon } from './fetchTurkopticon';
 import { toggleSearchActive } from './toggleSearchActive';
 import { toggleWatcherActive } from './toggleWatcherActive';
 import { acceptAfterWatcherDelay } from './scheduleWatcher';
+import { handleStatusDetailRequest } from './statusDetail';
 import { playAudio } from './playAudio';
 
 export default function* rootSaga() {
@@ -44,6 +47,7 @@ export default function* rootSaga() {
   yield takeLatest<ReturnHitRequest>(RETURN_HIT_REQUEST, returnHit);
   yield takeLatest<SearchRequest>(SEARCH_REQUEST, fetchSearchResults);
   yield takeLatest<ScheduleNextSearch>(SCHEDULE_NEXT_SEARCH, searchAfterDelay);
+
   yield takeLatest<FetchTOpticonRequest>(
     FETCH_TURKOPTICON_REQUEST,
     fetchTurkopticon
@@ -52,8 +56,11 @@ export default function* rootSaga() {
     TOGGLE_SEARCH_ACTIVITY,
     toggleSearchActive
   );
-
   yield takeEvery<AcceptHitRequest>(ACCEPT_HIT_REQUEST, acceptHit);
+  yield takeEvery<FetchStatusDetailRequest>(
+    STATUS_DETAIL_REQUEST,
+    handleStatusDetailRequest
+  );
   yield takeEvery<ToggleWatcherActivity>(
     TOGGLE_WATCHER_ACTIVE,
     toggleWatcherActive
