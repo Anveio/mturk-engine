@@ -2,7 +2,7 @@ import { Map } from 'immutable';
 import { ToastrState } from 'react-redux-toastr';
 
 export interface RootState {
-  readonly account: AccountInfo | null;
+  readonly account: MaybeAccount;
   readonly tab: number;
   readonly queue: QueueMap;
   readonly toastr: ToastrState;
