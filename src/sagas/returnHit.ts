@@ -18,7 +18,7 @@ export function* returnHit(action: ReturnHitRequest) {
         yield put<ReturnHitFailure>(returnHitFailure());
         break;
       case 'repeat':
-        yield put<ReturnHitFailure>(returnHitFailure());
+        yield put<ReturnHitSuccess>(returnHitSuccess(action.hitId));
         break;
       case 'success':
         yield put<ReturnHitSuccess>(returnHitSuccess(action.hitId));
