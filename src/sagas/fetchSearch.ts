@@ -31,9 +31,7 @@ export function* fetchSearchResults(action: SearchRequest) {
       searchSize === 0
     );
 
-    const empty = hitData.isEmpty();
-
-    if (empty) {
+    if (hitData.isEmpty()) {
       yield put<SearchFailure>(searchFailure());
       generateSearchToast(false);
     } else {
