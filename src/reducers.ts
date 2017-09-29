@@ -16,6 +16,7 @@ import { default as topticonSettings } from './reducers/topticonSettings';
 import { default as requesterBlocklist } from './reducers/requesterBlocklist';
 import { default as audioSettingsV1 } from './reducers/audioSettings';
 import { default as audioFiles } from './reducers/audioFiles';
+import { default as hitDatabase } from './reducers/hitDatabase';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -25,6 +26,7 @@ export const rootReducer = combineReducers<RootState>({
   account,
   watchers,
   audioFiles,
+  hitDatabase,
   hitBlocklist,
   searchOptions,
   sortingOption,
