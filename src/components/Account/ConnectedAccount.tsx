@@ -6,6 +6,7 @@ import {
   disconnectAccount,
   DisconnectAccount
 } from '../../actions/connectAccount';
+import Data from './Data';
 
 export interface Handlers {
   readonly onDisconnect: () => void;
@@ -32,6 +33,7 @@ class ConnectedAccount extends React.PureComponent<OwnProps & Handlers, never> {
           title={this.props.accountInfo.fullName}
           details={'Worker ID: ' + this.props.accountInfo.id}
         />
+        <Data />
       </Layout.AnnotatedSection>
     );
   }
