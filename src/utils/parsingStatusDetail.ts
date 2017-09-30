@@ -4,18 +4,25 @@ import {
   Requester,
   HitStatus
 } from '../types';
-import { statusDetailHitLink } from '../constants/querySelectors';
 import { Map } from 'immutable';
 import * as v4 from 'uuid/v4';
+import {
+  statusDetailHitLink,
+  statusDetailMorePages
+} from '../constants/querySelectors';
+import { StatusDetailPageInfo } from '../api/statusDetail'
 
 interface AnchorElemInfo {
   requester: Requester;
   hitId: string;
 }
 
-export const parseStatusDetailPage = (html: Document): HitDatabaseMap => {
+export const parseStatusDetailPage = (html: Document): StatusDetailPageInfo => {
   const hitRows = selectHitRows(html);
-  return tabulateHitDbEntries(hitRows);
+  return {
+    morePages: detectMorePages(html),
+    data: tabulateHitDbEntries(hitRows)
+  };
 };
 
 const tabulateHitDbEntries = (input: HTMLTableRowElement[]): HitDatabaseMap =>
@@ -43,6 +50,10 @@ const generateHitDbEntry = (
     status: parseStatus(input),
     title: parseTitle(input)
   };
+};
+
+const detectMorePages = (html: Document): boolean => {
+  return !!html.querySelector(statusDetailMorePages);
 };
 
 const parseAnchorElem = (input: HTMLTableRowElement): AnchorElemInfo => {

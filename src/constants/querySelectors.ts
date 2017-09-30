@@ -34,7 +34,6 @@ export const statusApproved = '.statusApprovedColumnValue';
 export const statusRejected = '.statusRejectedColumnValue';
 export const statusPending = '.statusPendingColumnValue';
 export const statusEarnings = '.statusEarningsColumnValue';
-export const statusDetailHitLink = 'td.statusdetailRequesterColumnValue > a'
+export const statusDetailHitLink = 'td.statusdetailRequesterColumnValue > a';
 
 export const statusDetailMorePages = 'img[src="/media/right_dbl_arrow.gif"]';
-
