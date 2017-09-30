@@ -8,6 +8,7 @@ import { HitDatabaseMap } from '../types';
 export interface FetchStatusDetailRequest {
   readonly type: STATUS_DETAIL_REQUEST;
   readonly date: Date;
+  readonly page: number;
 }
 
 export interface FetchStatusDetailSuccess {
@@ -19,9 +20,13 @@ export interface FetchStatusDetailFailure {
   readonly type: STATUS_DETAIL_FAILURE;
 }
 
-export const statusDetailRequest = (date: Date): FetchStatusDetailRequest => ({
+export const statusDetailRequest = (
+  date: Date,
+  page: number = 1
+): FetchStatusDetailRequest => ({
   type: STATUS_DETAIL_REQUEST,
-  date
+  date,
+  page
 });
 
 export const statusDetailFailure = (): FetchStatusDetailFailure => ({
