@@ -7,6 +7,8 @@ import {
   SEARCH_REQUEST,
   ACCEPT_HIT_REQUEST,
   STATUS_DETAIL_REQUEST,
+  STATUS_SUMMARY_REQUEST,
+  STATUS_SUMMARY_SUCCESS,
   SCHEDULE_NEXT_SEARCH,
   SCHEDULE_NEXT_WATCHER_TICK,
   TOGGLE_SEARCH_ACTIVITY,
@@ -20,6 +22,10 @@ import { SearchRequest } from '../actions/search';
 import { ScheduleNextSearch } from '../actions/scheduler';
 import { AcceptHitRequest } from '../actions/accept';
 import { FetchTOpticonRequest } from '../actions/turkopticon';
+import {
+  FetchStatusSummaryRequest,
+  FetchStatusSummarySuccess
+} from '../actions/statusSummary';
 import { ToggleSearchActive } from '../actions/searchActivity';
 import { ToggleWatcherActivity, ScheduleWatcherTick } from '../actions/watcher';
 import { FetchStatusDetailRequest } from '../actions/statusDetail';
@@ -36,6 +42,8 @@ import { toggleSearchActive } from './toggleSearchActive';
 import { toggleWatcherActive } from './toggleWatcherActive';
 import { acceptAfterWatcherDelay } from './scheduleWatcher';
 import { handleStatusDetailRequest } from './statusDetail';
+import { handleStatusSummaryRequest } from './statusSummary';
+import { handleStatusSummarySuccess } from './refreshHitDb';
 import { playAudio } from './playAudio';
 
 export default function* rootSaga() {
@@ -55,6 +63,14 @@ export default function* rootSaga() {
   yield takeLatest<ToggleSearchActive>(
     TOGGLE_SEARCH_ACTIVITY,
     toggleSearchActive
+  );
+  yield takeLatest<FetchStatusSummaryRequest>(
+    STATUS_SUMMARY_REQUEST,
+    handleStatusSummaryRequest
+  );
+  yield takeLatest<FetchStatusSummarySuccess>(
+    STATUS_SUMMARY_SUCCESS,
+    handleStatusSummarySuccess
   );
   yield takeEvery<AcceptHitRequest>(ACCEPT_HIT_REQUEST, acceptHit);
   yield takeEvery<FetchStatusDetailRequest>(

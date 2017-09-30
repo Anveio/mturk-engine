@@ -14,14 +14,9 @@ import {
 
 export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
   try {
-    /**
-     * HARD CODED DATA: REPLACE THIS.
-     */
-    const encodedDateString = '09222017';
-
     const pageInfo: StatusDetailPageInfo = yield call(
       fetchStatusDetailPage,
-      encodedDateString
+      action.dateString
     );
     const { data, morePages } = pageInfo;
 
@@ -36,7 +31,7 @@ export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
      */
     if (morePages) {
       yield put<FetchStatusDetailRequest>(
-        statusDetailRequest(action.date, action.page + 1)
+        statusDetailRequest(action.dateString, action.page + 1)
       );
     }
   } catch (e) {
