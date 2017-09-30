@@ -9,11 +9,9 @@ export function* handleStatusSummarySuccess(action: FetchStatusSummarySuccess) {
   try {
     const { dateStrings } = action;
     yield all(
-      dateStrings
-        .map((dateString: string) =>
-          put<FetchStatusDetailRequest>(statusDetailRequest(dateString))
-        )
-        .toArray()
+      dateStrings.map((dateString: string) =>
+        put<FetchStatusDetailRequest>(statusDetailRequest(dateString))
+      )
     );
   } catch (e) {
     console.warn(e);

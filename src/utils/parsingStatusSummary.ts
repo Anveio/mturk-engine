@@ -1,23 +1,21 @@
 import { statusDate } from '../constants/querySelectors';
-import { List } from 'immutable';
 
 /**
- * Returns a list of Mturk's URL encoded date strings for each day that has
+ * Returns an array of Mturk's URL encoded date strings for each day that has
  * HIT data.
  * @param html 
  */
-export const parseStatusSummaryPage = (html: Document): List<string> => {
+export const parseStatusSummaryPage = (html: Document): string[] => {
   const dateCells = html.querySelectorAll(statusDate);
   if (dateCells) {
-    const unfilteredDates = Array.from(dateCells).reduce(
-      (listOfDates: List<string>, date: HTMLTableDataCellElement) =>
-        listOfDates.push(parseEncodedDateString(date)),
-      List()
+    const unfilteredDates = Array.from(dateCells).map(
+      (date: HTMLTableDataCellElement) => parseEncodedDateString(date),
+      []
     );
 
-    return unfilteredDates.filter((el: string) => el !== '') as List<string>;
+    return unfilteredDates.filter((el: string) => el !== '');
   } else {
-    return List();
+    return [];
   }
 };
 

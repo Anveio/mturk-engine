@@ -3,7 +3,6 @@ import {
   STATUS_SUMMARY_FAILURE,
   STATUS_SUMMARY_SUCCESS
 } from '../constants';
-import { List } from 'immutable';
 
 export interface FetchStatusSummaryRequest {
   readonly type: STATUS_SUMMARY_REQUEST;
@@ -11,7 +10,7 @@ export interface FetchStatusSummaryRequest {
 
 export interface FetchStatusSummarySuccess {
   readonly type: STATUS_SUMMARY_SUCCESS;
-  readonly dateStrings: List<string>;
+  readonly dateStrings: string[];
 }
 
 export interface FetchStatusSummaryFailure {
@@ -23,7 +22,7 @@ export const statusSummaryRequest = (): FetchStatusSummaryRequest => ({
 });
 
 export const statusSummarySuccess = (
-  dateStrings: List<string>
+  dateStrings: string[]
 ): FetchStatusSummarySuccess => ({
   type: STATUS_SUMMARY_SUCCESS,
   dateStrings

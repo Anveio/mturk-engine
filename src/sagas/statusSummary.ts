@@ -6,15 +6,14 @@ import {
   statusSummarySuccess,
   statusSummaryFailure
 } from '../actions/statusSummary';
-import { List } from 'immutable';
 import { fetchStatusSummaryPage } from '../api/statusSummary';
 import { emptySummaryPageToast } from '../utils/toastr';
 
 export function* handleStatusSummaryRequest(action: FetchStatusSummaryRequest) {
   try {
-    const dateStrings: List<string> = yield call(fetchStatusSummaryPage);
+    const dateStrings: string[] = yield call(fetchStatusSummaryPage);
 
-    if (dateStrings.isEmpty()) {
+    if (dateStrings.length === 0) {
       yield put<FetchStatusSummaryFailure>(statusSummaryFailure());
       emptySummaryPageToast();
     } else {
