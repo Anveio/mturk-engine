@@ -114,3 +114,11 @@ export const accountConnectionFailedToast = () => {
     { timeOut: 5000 }
   );
 };
+
+export const emptySummaryPageToast = () => {
+  toastr.error(
+    'Problem getting your recent HITs',
+    'Make sure you\'re logged in and have done a HIT in the past 45 days and try again.',
+    { timeOut: 5000 }
+  );
+};
