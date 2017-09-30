@@ -1,6 +1,3 @@
-import toastrStylesheet from './toastrStylesheet';
-import polarisStylesheet from './polarisStylesheet';
-
 /**
  * Uses the window.location.hostname to determine the base url of the environment the script is running in.
  */
@@ -32,32 +29,4 @@ export const createRootDiv = (): void => {
   const div = document.createElement('div');
   div.id = 'root';
   document.body.appendChild(div);
-};
-
-export const importBlueprintStyleSheet = (): void => {
-  const stylesheet = document.createElement('link');
-  stylesheet.rel = 'stylesheet';
-  stylesheet.type = 'text/css';
-  stylesheet.href = 'https://unpkg.com/@blueprintjs/core@^1.11.0/dist/blueprint.css';
-  document.head.appendChild(stylesheet);
-};
-
-export const importNormalizrStyleSheet = (): void => {
-  const stylesheet = document.createElement('link');
-  stylesheet.rel = 'stylesheet';
-  stylesheet.type = 'text/css';
-  stylesheet.href = 'https://unpkg.com/normalize.css@^4.1.1';
-  document.head.appendChild(stylesheet);
-};
-
-export const attachToastrStylesSheet = (): void => {
-  const toastrStyles = document.createElement('style');
-  toastrStyles.innerHTML = toastrStylesheet;
-  document.head.appendChild(toastrStyles);
-};
-
-export const attachPolarisStyleSheet = (): void => {
-  const stylesheet = document.createElement('style');
-  stylesheet.innerHTML = polarisStylesheet;
-  document.head.appendChild(stylesheet);
 };
