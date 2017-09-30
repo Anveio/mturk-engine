@@ -3,9 +3,9 @@ import { AccountInfo } from '../../types';
 import { connect, Dispatch } from 'react-redux';
 import { Layout, AccountConnection } from '@shopify/polaris';
 import {
-  disconnectAccount,
-  DisconnectAccount
-} from '../../actions/connectAccount';
+  FetchStatusDetailRequest,
+  statusDetailRequest
+} from '../../actions/statusDetail';
 import Data from './Data';
 
 export interface Handlers {
@@ -39,8 +39,10 @@ class ConnectedAccount extends React.PureComponent<OwnProps & Handlers, never> {
   }
 }
 
-const mapDispatch = (dispatch: Dispatch<DisconnectAccount>): Handlers => ({
-  onDisconnect: () => dispatch(disconnectAccount())
+const mapDispatch = (
+  dispatch: Dispatch<FetchStatusDetailRequest>
+): Handlers => ({
+  onDisconnect: () => dispatch(statusDetailRequest(new Date()))
 });
 
 export default connect(null, mapDispatch)(ConnectedAccount);
