@@ -8,7 +8,7 @@ import { parseStatusDetailPage } from '../utils/parsingStatusDetail';
  */
 export const fetchStatusDetailPage = async (encodedDateString: string) => {
   try {
-    const response = await axios.get(`${API_URL}/statusdetail`, {
+    const response = await axios.get(`${API_URL}/mturk/statusdetail`, {
       params: {
         encodedDate: encodedDateString
       },

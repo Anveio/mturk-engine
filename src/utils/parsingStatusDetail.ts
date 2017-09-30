@@ -20,12 +20,18 @@ export const parseStatusDetailPage = (html: Document): HitDatabaseMap => {
 
 const tabulateHitDbEntries = (input: HTMLTableRowElement[]): HitDatabaseMap =>
   input.reduce((map: HitDatabaseMap, hit: HTMLTableRowElement) => {
-    const hitId = parseAnchorElem(hit).hitId;
-    return map.set(hitId, generateHitDbEntry(hit));
-  },           Map<string, HitDatabaseEntry>());
+    const anchorElemInfo = parseAnchorElem(hit);
+    return map.set(
+      anchorElemInfo.hitId,
+      generateHitDbEntry(hit, anchorElemInfo)
+    );
+  }, Map<string, HitDatabaseEntry>());
 
-const generateHitDbEntry = (input: HTMLTableRowElement): HitDatabaseEntry => {
-  const { hitId, requester } = parseAnchorElem(input);
+const generateHitDbEntry = (
+  input: HTMLTableRowElement,
+  anchorElemInfo: AnchorElemInfo
+): HitDatabaseEntry => {
+  const { hitId, requester } = anchorElemInfo;
   return {
     id: hitId,
     requester: {
@@ -55,27 +61,35 @@ const parseAnchorElem = (input: HTMLTableRowElement): AnchorElemInfo => {
 const selectHitRows = (html: Document): HTMLTableRowElement[] => {
   const hitTable = html.querySelector('#dailyActivityTable > tbody');
   if (hitTable && hitTable.children) {
-    return Array.from(hitTable.children) as HTMLTableRowElement[];
+    /**
+     * .slice(1)?
+     * Because The first child will contain no data (just a gray header),
+     */
+    return Array.from(hitTable.children).slice(1) as HTMLTableRowElement[];
   } else {
     return [];
   }
 };
 
 const parseHitId = (input: HTMLAnchorElement): string => {
-  const href = input.getAttribute('href') as string;
-  const hitIdRegexResult = /hitId=(.*)&requesterName/g.exec(href);
-  /**
-   * Use verbose null checks because HitDatabaseEntries are indexed by HitId,
-   * and this function needs to never throw an error or a null result.
-   */
-  return hitIdRegexResult && hitIdRegexResult.length >= 2
-    ? hitIdRegexResult[1]
-    : '[Error:hitId]' + v4();
+  try {
+    const href = input.getAttribute('href') as string;
+    const hitIdRegexResult = /hitId=(.*)&requesterName/g.exec(href);
+    /**
+     * Use verbose null checks because HitDatabaseEntries are indexed by HitId,
+     * and this function needs to never throw an error or a null result.
+     */
+    return hitIdRegexResult && hitIdRegexResult.length >= 2
+      ? hitIdRegexResult[1]
+      : '[Error:hitId]' + v4();
+  } catch (e) {
+    return '[Error:hitId]' + v4();
+  }
 };
 
 const parseRequesterId = (input: HTMLAnchorElement): string => {
-  const href = input.getAttribute('href') as string;
   try {
+    const href = input.getAttribute('href') as string;
     return (/requesterId=(.*)&hitId/g.exec(href) as string[])[1];
   } catch (e) {
     return '[Error:requesterId]';
@@ -83,8 +97,8 @@ const parseRequesterId = (input: HTMLAnchorElement): string => {
 };
 
 const parseRequesterName = (input: HTMLAnchorElement): string => {
-  const href = input.getAttribute('href') as string;
   try {
+    const href = input.getAttribute('href') as string;
     return (/requesterName=(.*)&subject/g.exec(href) as string[])[1];
   } catch (e) {
     return '[Error:requesterName]';
