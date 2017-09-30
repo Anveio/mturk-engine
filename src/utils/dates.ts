@@ -14,3 +14,19 @@ export const encodedDateStringToDate = (encodedDate: string): Date => {
 
   return new Date(Date.parse(parseableDateString));
 };
+
+/**
+ * Converts Date objects to MTurk formatted date strings.
+ * (e.g. Date object for September 26th, 2017 would be converted to '09262017')
+ * @param date 
+ */
+export const dateToEncodedDateString = (date: Date): string => {
+  const day = padTwoDigits(date.getDay());
+  const month = padTwoDigits(date.getMonth());
+  const year = date.getFullYear().toString();
+  return month + day + year;
+};
+
+const padTwoDigits = (num: number): string => {
+  return num < 10 ? '0' + num.toString() : num.toString();
+};
