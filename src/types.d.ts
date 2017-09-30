@@ -13,6 +13,7 @@ export interface RootState {
   readonly timeNextSearch: Date | null;
   readonly searchOptions: SearchOptions;
   readonly sortingOption: SortingOption;
+  readonly hitDatabase: HitDatabaseMap;
   readonly topticonSettings: TOpticonSettings;
   readonly hitBlocklist: HitBlockMap;
   readonly requesterBlocklist: RequesterBlockMap;
