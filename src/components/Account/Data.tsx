@@ -12,7 +12,15 @@ class DataChart extends React.PureComponent<Props, never> {
     return (
       <Card>
         {this.props.data.map((el: HitDatabaseEntry) => {
-          return <Card.Section key={el.id}>{el.id}</Card.Section>;
+          return (
+            <Card.Section key={el.id}>
+              {el.id}
+              {el.title}
+              {el.status}
+              {el.reward}
+              {el.requester.name}
+            </Card.Section>
+          );
         })}
       </Card>
     );
