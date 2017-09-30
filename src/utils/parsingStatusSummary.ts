@@ -6,7 +6,7 @@ import { List } from 'immutable';
  * HIT data.
  * @param html 
  */
-export const parseStatusPage = (html: Document): List<string> => {
+export const parseStatusSummaryPage = (html: Document): List<string> => {
   const dateCells = html.querySelectorAll(statusDate);
   if (dateCells) {
     const unfilteredDates = Array.from(dateCells).reduce(
