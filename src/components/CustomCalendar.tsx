@@ -1,18 +1,8 @@
 import * as React from 'react';
 import { HeatMapValue } from '../types';
-// import * as v4 from 'uuid/v4';
-
-export function shiftDate(date: Date, numDays: number) {
-  const newDate = new Date(date);
-  newDate.setDate(newDate.getDate() + numDays);
-  return newDate;
-}
+import { convertToDate, shiftDate } from '../utils/dates';
 
 const range = (n: number): number[] => Array.from(Array(n).keys());
-
-export function convertToDate(obj: Date | string) {
-  return obj instanceof Date ? obj : new Date(obj);
-}
 
 export interface Props {
   readonly values: HeatMapValue[];
@@ -168,15 +158,15 @@ class CalendarHeatmap extends React.Component<Props, State> {
     const value = this.getValueForIndex(index);
 
     return (
-        <rect
-          key={index}
-          className={this.getClassNameForIndex(index)}
-          width={CalendarHeatmap.SQUARE_SIZE}
-          height={CalendarHeatmap.SQUARE_SIZE}
-          x={x}
-          y={y}
-          onClick={this.handleClick.bind(this, value)}
-        />
+      <rect
+        key={index}
+        className={this.getClassNameForIndex(index)}
+        width={CalendarHeatmap.SQUARE_SIZE}
+        height={CalendarHeatmap.SQUARE_SIZE}
+        x={x}
+        y={y}
+        onClick={this.handleClick.bind(this, value)}
+      />
     );
   };
 

@@ -30,3 +30,12 @@ export const dateToEncodedDateString = (date: Date): string => {
 const padTwoDigits = (num: number): string => {
   return num < 10 ? '0' + num.toString() : num.toString();
 };
+
+export const convertToDate = (obj: Date | string) =>
+  obj instanceof Date ? obj : new Date(obj);
+
+export const shiftDate = (date: Date, numDays: number) => {
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + numDays);
+  return newDate;
+};
