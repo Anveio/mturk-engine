@@ -10,33 +10,40 @@ import {
   statusDetailHitLink,
   statusDetailMorePages
 } from '../constants/querySelectors';
-import { StatusDetailPageInfo } from '../api/statusDetail'
+import { StatusDetailPageInfo } from '../api/statusDetail';
 
 interface AnchorElemInfo {
   requester: Requester;
   hitId: string;
 }
 
-export const parseStatusDetailPage = (html: Document): StatusDetailPageInfo => {
+export const parseStatusDetailPage = (
+  html: Document,
+  date: Date
+): StatusDetailPageInfo => {
   const hitRows = selectHitRows(html);
   return {
     morePages: detectMorePages(html),
-    data: tabulateHitDbEntries(hitRows)
+    data: tabulateHitDbEntries(hitRows, date)
   };
 };
 
-const tabulateHitDbEntries = (input: HTMLTableRowElement[]): HitDatabaseMap =>
+const tabulateHitDbEntries = (
+  input: HTMLTableRowElement[],
+  date: Date
+): HitDatabaseMap =>
   input.reduce((map: HitDatabaseMap, hit: HTMLTableRowElement) => {
     const anchorElemInfo = parseAnchorElem(hit);
     return map.set(
       anchorElemInfo.hitId,
-      generateHitDbEntry(hit, anchorElemInfo)
+      generateHitDbEntry(hit, anchorElemInfo, date)
     );
   }, Map<string, HitDatabaseEntry>());
 
 const generateHitDbEntry = (
   input: HTMLTableRowElement,
-  anchorElemInfo: AnchorElemInfo
+  anchorElemInfo: AnchorElemInfo,
+  date: Date
 ): HitDatabaseEntry => {
   const { hitId, requester } = anchorElemInfo;
   return {
@@ -45,7 +52,7 @@ const generateHitDbEntry = (
       id: requester.id,
       name: requester.name
     },
-    date: new Date(),
+    date,
     reward: parseReward(input),
     status: parseStatus(input),
     title: parseTitle(input)
@@ -128,13 +135,16 @@ const parseTitle = (input: HTMLTableRowElement): string => {
   }
 };
 
-const parseReward = (input: HTMLTableRowElement): string => {
+const parseReward = (input: HTMLTableRowElement): number => {
   const rewardElem = input.querySelector('td.statusdetailAmountColumnValue');
 
   if (rewardElem && rewardElem.textContent) {
-    return rewardElem.textContent.trim().slice(1);
+    /**
+     * .slice(1)? The first character is a dollar symbol.
+     */
+    return parseFloat(rewardElem.textContent.trim().slice(1));
   } else {
-    return '[Error:reward]';
+    return 0;
   }
 };
 
