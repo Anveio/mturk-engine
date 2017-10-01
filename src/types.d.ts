@@ -73,7 +73,7 @@ export interface HitDatabaseEntry {
   readonly id: string;
   readonly date: Date;
   readonly title: string;
-  readonly reward: string;
+  readonly reward: number;
   readonly status: HitStatus;
   readonly requester: Requester;
   readonly groupId?: string;
@@ -148,4 +148,9 @@ export interface AudioSettings {
 
 export interface AudioFiles {
   readonly audioNewSearch: HTMLAudioElement;
+}
+
+interface HeatMapValue {
+  readonly date: Date;
+  readonly count: number;
 }
