@@ -24,6 +24,7 @@ sagaMiddleware.run(rootSaga);
 
 persistStore(store, {
   whitelist: [
+    'tab',
     'hitBlocklist',
     'requesterBlocklist',
     'searchFormActive',
