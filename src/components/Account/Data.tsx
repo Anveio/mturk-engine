@@ -2,15 +2,17 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, HitDatabaseMap, HitDatabaseEntry } from '../../types';
 import { Card } from '@shopify/polaris';
+import { pendingEarnings } from '../../selectors/hitDatabase';
 
 export interface Props {
   readonly data: HitDatabaseMap;
+  readonly pending: number;
 }
 
 class DataChart extends React.PureComponent<Props, never> {
   public render() {
     return (
-      <Card>
+      <Card title={'$' + this.props.pending.toString()}>
         {this.props.data.map((el: HitDatabaseEntry) => {
           return (
             <Card.Section key={el.id}>
@@ -28,7 +30,8 @@ class DataChart extends React.PureComponent<Props, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  data: state.hitDatabase
+  data: state.hitDatabase,
+  pending: pendingEarnings(state)
 });
 
 export default connect(mapState)(DataChart);

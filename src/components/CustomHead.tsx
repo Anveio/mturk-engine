@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import toastrStylesheet from '../utils/toastrStylesheet';
 import polarisStylesheet from '../utils/polarisStylesheet';
+import calendarHeatMapStylesheet from '../utils/calendarHeatMapStylesheet';
 
 export interface Props {
   readonly numNewHits: number;
@@ -27,6 +28,7 @@ class CustomHead extends React.PureComponent<Props, never> {
 
         <style>{toastrStylesheet}</style>
         <style>{polarisStylesheet}</style>
+        <style>{calendarHeatMapStylesheet}</style>
         <link
           rel="stylesheet"
           type="text/css"
