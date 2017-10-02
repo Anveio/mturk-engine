@@ -15,6 +15,7 @@ import { default as waitingForMturk } from './reducers/waitingForMturk';
 import { default as topticonSettings } from './reducers/topticonSettings';
 import { default as requesterBlocklist } from './reducers/requesterBlocklist';
 import { default as audioSettingsV1 } from './reducers/audioSettings';
+import { default as selectedHitDbDate } from './reducers/selectedHitDbDate';
 import { default as audioFiles } from './reducers/audioFiles';
 import { default as hitDatabase } from './reducers/hitDatabase';
 
@@ -35,5 +36,6 @@ export const rootReducer = combineReducers<RootState>({
   waitingForMturk,
   searchingActive,
   topticonSettings,
+  selectedHitDbDate,
   requesterBlocklist
 });
