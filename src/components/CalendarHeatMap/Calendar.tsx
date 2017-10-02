@@ -12,10 +12,16 @@ interface Props {
 }
 
 class Calendar extends React.PureComponent<Props, never> {
+  static displayDates = (values: List<HeatMapValue>) => {
+    return values.get(0).date.toLocaleDateString() + ' - Today';
+  };
+
   public render() {
     return (
-      <Card>
-        <Card.Section title="HIT Database">
+      <Card
+        title={`HIT Database (${Calendar.displayDates(this.props.values)})`}
+      >
+        <Card.Section>
           <CalendarHeatMap
             endDate={new Date()}
             numDays={365}
