@@ -8,6 +8,7 @@ export interface Handlers {
   onChangeTab: () => void;
 }
 
+// tslint:disable:jsx-curly-spacing
 const EmptyQueue = ({ onChangeTab }: Handlers) => {
   return (
     <NonIdealState
