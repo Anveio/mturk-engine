@@ -2,6 +2,8 @@ import * as React from 'react';
 import { HeatMapValue } from '../types';
 import { convertToDate, shiftDate } from '../utils/dates';
 
+import CalendarDay from './CalendarDay';
+
 const range = (n: number): number[] => Array.from(Array(n).keys());
 
 export interface Props {
@@ -43,7 +45,7 @@ class CalendarHeatmap extends React.Component<Props, State> {
     'Dec'
   ];
 
-  static classForValue = (value?: HeatMapValue) =>
+  static classForValue = (value: HeatMapValue | null) =>
     value && value.count > 0 ? 'color-filled' : 'color-empty';
 
   componentWillReceiveProps(nextProps: Props) {
@@ -99,9 +101,9 @@ class CalendarHeatmap extends React.Component<Props, State> {
   private getHeight = () =>
     this.getWeekWidth() + (this.getMonthLabelSize() - this.props.gutterSize);
 
-  private getValueCache = (values: HeatMapValue[]) => {
-    return values.reduce((acc, value) => {
-      const date = convertToDate(value.date);
+  private getValueCache = (values: (HeatMapValue | null)[]) => {
+    return values.filter((value) => value !== null).reduce((acc, value) => {
+      const date = convertToDate((value as HeatMapValue).date);
       const index: number = Math.floor(
         (date.valueOf() - this.getStartDateWithEmptyDays().valueOf()) /
           CalendarHeatmap.MILLISECONDS_IN_ONE_DAY
@@ -113,12 +115,12 @@ class CalendarHeatmap extends React.Component<Props, State> {
     }, {});
   };
 
-  private getClassNameForIndex = (index: number): string => {
-    if (this.state.valueCache[index]) {
-      return this.state.valueCache[index].className;
-    }
-    return 'color-empty';
-  };
+  // private getClassNameForIndex = (index: number): string => {
+  //   if (this.state.valueCache[index]) {
+  //     return this.state.valueCache[index].className;
+  //   }
+  //   return 'color-empty';
+  // };
 
   private getValueForIndex = (index: number): null | HeatMapValue => {
     if (this.state.valueCache[index]) {
@@ -141,11 +143,11 @@ class CalendarHeatmap extends React.Component<Props, State> {
     this.getMonthLabelSize() - CalendarHeatmap.MONTH_LABEL_GUTTER_SIZE
   ];
 
-  private handleClick = (value: HeatMapValue) => {
-    if (this.props.onClick) {
-      this.props.onClick(value);
-    }
-  };
+  // private handleClick = (value: HeatMapValue) => {
+  //   if (this.props.onClick) {
+  //     this.props.onClick(value);
+  //   }
+  // };
 
   private renderSquare = (dayIndex: number, index: number) => {
     const indexOutOfRange =
@@ -158,14 +160,12 @@ class CalendarHeatmap extends React.Component<Props, State> {
     const value = this.getValueForIndex(index);
 
     return (
-      <rect
+      <CalendarDay
         key={index}
-        className={this.getClassNameForIndex(index)}
-        width={CalendarHeatmap.SQUARE_SIZE}
-        height={CalendarHeatmap.SQUARE_SIZE}
+        squareSize={CalendarHeatmap.SQUARE_SIZE}
         x={x}
         y={y}
-        onClick={this.handleClick.bind(this, value)}
+        value={value}
       />
     );
   };
