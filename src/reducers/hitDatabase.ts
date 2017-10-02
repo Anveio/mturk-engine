@@ -2,9 +2,9 @@ import { HitDatabaseEntry, HitDatabaseMap } from '../types';
 import { FetchStatusDetailSuccess } from '../actions/statusDetail';
 import { STATUS_DETAIL_SUCCESS } from '../constants';
 import { Map } from 'immutable';
-import sampleHitDB from '../utils/sampleHitDatabase';
+// import sampleHitDB from '../utils/sampleHitDatabase';
 
-const initial: HitDatabaseMap = Map<string, HitDatabaseEntry>(sampleHitDB);
+const initial: HitDatabaseMap = Map<string, HitDatabaseEntry>();
 
 export default (
   state = initial,
