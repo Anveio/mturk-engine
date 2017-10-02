@@ -1,3 +1,5 @@
+import { List } from 'immutable';
+
 /**
  * Expects a string in MTurk's URL encoded date format 
  * (e.g. '09262017' would be converted into a Date object for 
@@ -34,8 +36,32 @@ const padTwoDigits = (num: number): string => {
 export const convertToDate = (obj: Date | string) =>
   obj instanceof Date ? obj : new Date(obj);
 
+// returns a new date shifted a certain number of days (can be negative)
 export const shiftDate = (date: Date, numDays: number) => {
   const newDate = new Date(date);
   newDate.setDate(newDate.getDate() + numDays);
+
+  return flattenDate(newDate);
+};
+
+export const flattenDate = (date: Date): Date => {
+  const newDate = new Date(date);
+  newDate.setHours(0);
+  newDate.setMinutes(0);
+  newDate.setSeconds(0);
+  newDate.setMilliseconds(0);
   return newDate;
+};
+
+export const dateRange = (startDate: Date, numDays = 365): List<Date> =>
+  Array.from(Array(numDays).keys()).reduce(
+    (acc: List<Date>, index: number) => acc.push(shiftDate(startDate, index)),
+    List()
+  );
+
+export const convertToDateString = (date: Date): string => {
+  const day = padTwoDigits(date.getDay());
+  const month = padTwoDigits(date.getMonth());
+  const year = date.getFullYear().toString();
+  return year + month + day;
 };
