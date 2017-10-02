@@ -6,7 +6,7 @@ import {
   FetchStatusSummaryRequest,
   statusSummaryRequest
 } from '../../actions/statusSummary';
-import Data from './Data';
+// import Data from './Data';
 
 export interface Handlers {
   readonly onDisconnect: () => void;
@@ -33,7 +33,7 @@ class ConnectedAccount extends React.PureComponent<OwnProps & Handlers, never> {
           title={this.props.accountInfo.fullName}
           details={'Worker ID: ' + this.props.accountInfo.id}
         />
-        <Data />
+        {/* <Data /> */}
       </Layout.AnnotatedSection>
     );
   }
