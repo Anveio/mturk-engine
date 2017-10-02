@@ -150,4 +150,30 @@ export type STATUS_DETAIL_SUCCESS = typeof STATUS_DETAIL_SUCCESS;
 export const STATUS_DETAIL_FAILURE = 'STATUS_DETAIL_FAILURE';
 export type STATUS_DETAIL_FAILURE = typeof STATUS_DETAIL_FAILURE;
 
+export const SELECT_DATABASE_DATE = 'SELECT_DATABASE_DATE';
+export type SELECT_DATABASE_DATE = typeof SELECT_DATABASE_DATE;
+
 export const API_URL = configureApiRoot();
+
+export const SQUARE_SIZE = 10;
+export const MONTH_LABEL_GUTTER_SIZE = 4;
+export const MILLISECONDS_IN_ONE_DAY = 86400000;
+export const MONTH_LABEL_SIZE = SQUARE_SIZE + MONTH_LABEL_GUTTER_SIZE
+export const DAYS_IN_WEEK = 7;
+export const MONTH_LABELS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec'
+];
+
+export const DAY_LABELS = [ '', 'Mon', '', 'Wed', '', 'Fri', '' ];
+export const WEEKDAY_LABEL_SIZE = 30;
