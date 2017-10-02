@@ -4,6 +4,7 @@ import { Card } from '@shopify/polaris';
 import { connect } from 'react-redux';
 import { oneYearOfData } from '../../selectors/hitDatabase';
 import CalendarHeatMap from './CalendarHeatMap';
+import SelectedHitDate from './SelectedHitDate';
 import { List } from 'immutable';
 
 interface Props {
@@ -28,6 +29,9 @@ class Calendar extends React.PureComponent<Props, never> {
             values={this.props.values}
             gutterSize={1}
           />
+        </Card.Section>
+        <Card.Section>
+          <SelectedHitDate />
         </Card.Section>
       </Card>
     );

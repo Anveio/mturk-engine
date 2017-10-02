@@ -1,15 +1,21 @@
 import { createSelector } from 'reselect';
-import { RootState, HitDatabaseEntry, HeatMapValue } from '../types';
+import {
+  RootState,
+  HitDatabaseEntry,
+  HitDatabaseMap,
+  HeatMapValue
+} from '../types';
 import { shiftDate, dateRange } from '../utils/dates';
 import { Map, List } from 'immutable';
 
 const generateOneYearOfDates = () => {
   const startDate = shiftDate(new Date(), -365 + 1);
-  console.log(startDate);
   return dateRange(startDate);
 };
 
 export const hitDatabaseSelector = (state: RootState) => state.hitDatabase;
+export const selectedHitDbDateSelector = (state: RootState) =>
+  state.selectedHitDbDate;
 
 export const pendingEarnings = createSelector(
   [ hitDatabaseSelector ],
@@ -60,4 +66,20 @@ export const formatForCalendar = createSelector(
         count: Math.round(reward * 100) / 100
       }))
       .toArray()
+);
+
+export const hitsOnSelectedDate = createSelector(
+  [ hitDatabaseSelector, selectedHitDbDateSelector ],
+  (database: HitDatabaseMap, date: Date | null) => {
+    return date === null
+      ? Map<string, HitDatabaseEntry>()
+      : database.filter(
+          (entry: HitDatabaseEntry) => entry.date.valueOf() === date.valueOf()
+        ) as HitDatabaseMap;
+  }
+);
+
+export const hitsOnSelectedDateIds = createSelector(
+  [ hitsOnSelectedDate ],
+  (filteredHits) => filteredHits.map((el: HitDatabaseEntry) => el.id).toList()
 );
