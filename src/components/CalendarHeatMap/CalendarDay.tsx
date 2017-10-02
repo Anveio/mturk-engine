@@ -1,18 +1,27 @@
 import * as React from 'react';
+import { connect, Dispatch } from 'react-redux';
 import { HeatMapValue } from '../../types';
+import {
+  SelectDatabaseDate,
+  selectDatabaseDate
+} from '../../actions/selectDatabaseDate';
 
-export interface Props {
+export interface OwnProps {
   readonly x: number;
   readonly y: number;
   readonly value: HeatMapValue;
   readonly squareSize: number;
 }
 
+export interface Handlers {
+  readonly onSelect: (date: Date) => void;
+}
+
 export interface State {
   readonly hovering: boolean;
 }
 
-class CalendarDay extends React.PureComponent<Props, State> {
+class CalendarDay extends React.PureComponent<OwnProps & Handlers, State> {
   readonly state: State = { hovering: false };
 
   static calculateTooltipVisibility = (hovering: boolean) =>
@@ -55,17 +64,21 @@ class CalendarDay extends React.PureComponent<Props, State> {
 
     return (
       <rect
+        onClick={() => this.props.onSelect(this.props.value.date)}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         className={generateClassName(value)}
-        width={squareSize}
         height={squareSize}
+        width={squareSize}
         x={x}
         y={y}
-        onClick={() => console.log(value)}
       />
     );
   }
 }
 
-export default CalendarDay;
+const mapDispatch = (dispatch: Dispatch<SelectDatabaseDate>): Handlers => ({
+  onSelect: (date: Date) => dispatch(selectDatabaseDate(date))
+});
+
+export default connect(null, mapDispatch)(CalendarDay);
