@@ -16,6 +16,7 @@ export interface RootState {
   readonly hitDatabase: HitDatabaseMap;
   readonly topticonSettings: TOpticonSettings;
   readonly hitBlocklist: HitBlockMap;
+  readonly selectedHitDbDate: Date | null;
   readonly requesterBlocklist: RequesterBlockMap;
   readonly audioSettingsV1: AudioSettings;
   readonly audioFiles: AudioFiles;
