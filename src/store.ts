@@ -25,7 +25,9 @@ sagaMiddleware.run(rootSaga);
 persistStore(store, {
   whitelist: [
     'tab',
+    'account',
     'hitBlocklist',
+    'hitDatabase',
     'requesterBlocklist',
     'searchFormActive',
     'queue',
@@ -38,7 +40,13 @@ persistStore(store, {
   storage: localForage,
   transforms: [
     immutableTransform({
-      whitelist: [ 'hitBlocklist', 'requesterBlocklist', 'queue', 'watchers' ]
+      whitelist: [
+        'hitBlocklist',
+        'requesterBlocklist',
+        'queue',
+        'watchers',
+        'hitDatabase'
+      ]
     })
   ]
 });
