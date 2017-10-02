@@ -38,11 +38,8 @@ class CalendarDay extends React.PureComponent<Props, State> {
     }
   };
 
-  static titleForValue = (value: HeatMapValue) => {
-    // return value !== null
-    //   ? `$${value.count} earned on ${value.date.toLocaleDateString()}`
-    //   : null;
-  };
+  static titleForValue = (value: HeatMapValue) =>
+    `$${value.count} earned on ${value.date.toLocaleDateString()}`;
 
   private handleMouseEnter = () => {
     this.setState({ hovering: true });
@@ -54,28 +51,19 @@ class CalendarDay extends React.PureComponent<Props, State> {
 
   public render() {
     const { x, y, squareSize, value } = this.props;
+    const { generateClassName } = CalendarDay;
+
     return (
-      <g
+      <rect
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
-      >
-        <rect
-          className={CalendarDay.generateClassName(value)}
-          width={squareSize}
-          height={squareSize}
-          x={x}
-          y={y}
-          onClick={() => console.log(value)}
-        >
-          <text
-            style={{
-              visibility: CalendarDay.calculateTooltipVisibility(
-                this.state.hovering
-              )
-            }}
-          />
-        </rect>
-      </g>
+        className={generateClassName(value)}
+        width={squareSize}
+        height={squareSize}
+        x={x}
+        y={y}
+        onClick={() => console.log(value)}
+      />
     );
   }
 }
