@@ -10,8 +10,12 @@ export interface Props {
 
 class CalendarDay extends React.PureComponent<Props, never> {
   static calculateGrade = (count: number): string => {
-    if (count > 10) {
+    if (count >= 20) {
       return 'color-github-4';
+    } else if (count >= 10) {
+      return 'color-github-3';
+    } else if (count >= 5) {
+      return 'color-github-2';
     } else {
       return 'color-github-1';
     }
