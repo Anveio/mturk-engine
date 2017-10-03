@@ -36,6 +36,10 @@ class CalendarHeatMap extends React.Component<Props, never> {
     );
   }
 
+  shouldComponentUpdate(nextProps: Props) {
+    return !this.props.values.equals(nextProps.values);
+  }
+
   static calculateStartDate = (values: List<HeatMapValue>) => {
     return moment(values.get(0).date, DATE_FORMAT).toDate();
   };
