@@ -61,11 +61,8 @@ class CalendarDay extends React.PureComponent<OwnProps & Handlers, State> {
   public render() {
     const { x, y, value } = this.props;
     const { generateClassName } = CalendarDay;
-    
 
-    return value === undefined ? (
-      <div>hi{console.log(x, y)}</div>
-    ) : (
+    return (
       <rect
         onClick={() => this.props.onSelect(this.props.value.date)}
         onMouseEnter={this.handleMouseEnter}

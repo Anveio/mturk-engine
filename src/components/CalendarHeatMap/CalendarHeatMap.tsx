@@ -94,7 +94,7 @@ class CalendarHeatMap extends React.Component<Props, never> {
     }
 
     const [ x, y ] = this.getSquareCoordinates(dayIndex);
-    const value = this.props.values.get(index);
+    const value = this.props.values.get(index - 1);
     if (!value) {
       console.log('hi', index);
     }

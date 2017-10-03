@@ -10,7 +10,6 @@ import { Map, List } from 'immutable';
 
 const generateOneYearOfDates = () => {
   const startDate = todayFormatted();
-  console.log(startDate);
   return dateRange(startDate);
 };
 
