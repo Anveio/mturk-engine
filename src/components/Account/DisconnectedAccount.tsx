@@ -23,8 +23,7 @@ class DisconnectedAccount extends React.PureComponent<Handlers, never> {
         credentials and cannot log in for you.`}
           visual="user"
           action={
-            <Button onClick={this.props.onConnect}>Connect Account</Button>
-          }
+            <Button onClick={this.props.onConnect}>Connect Account</Button>}
         />
       </Layout.Section>
     );

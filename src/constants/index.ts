@@ -154,5 +154,3 @@ export const SELECT_DATABASE_DATE = 'SELECT_DATABASE_DATE';
 export type SELECT_DATABASE_DATE = typeof SELECT_DATABASE_DATE;
 
 export const API_URL = configureApiRoot();
-
-
