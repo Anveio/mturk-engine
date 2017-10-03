@@ -1,4 +1,7 @@
+import * as moment from 'moment';
 import { List } from 'immutable';
+import { DATE_FORMAT, MOMENT_LOCALE } from '../constants/misc';
+import { range } from './arrays';
 
 /**
  * Expects a string in MTurk's URL encoded date format 
@@ -44,6 +47,15 @@ export const shiftDate = (date: Date, numDays: number) => {
   return flattenDate(newDate);
 };
 
+export const shiftDateString = (dateString: string, numDays: number) => {
+  // console.log(
+  //   moment(dateString, DATE_FORMAT).subtract(numDays, 'days').format(DATE_FORMAT)
+  // );
+  return moment(dateString, DATE_FORMAT)
+    .subtract(numDays, 'days')
+    .format(DATE_FORMAT);
+};
+
 export const flattenDate = (date: Date): Date => {
   const newDate = new Date(date);
   newDate.setHours(0);
@@ -53,9 +65,10 @@ export const flattenDate = (date: Date): Date => {
   return newDate;
 };
 
-export const dateRange = (startDate: Date, numDays = 365): List<Date> =>
-  Array.from(Array(numDays).keys()).reduce(
-    (acc: List<Date>, index: number) => acc.push(shiftDate(startDate, index)),
+export const dateRange = (startDate: string, numDays = 365): List<string> =>
+  range(numDays).reduce(
+    (acc: List<string>, cur: number) =>
+      acc.unshift(shiftDateString(startDate, cur)),
     List()
   );
 
@@ -63,5 +76,10 @@ export const convertToDateString = (date: Date): string => {
   const day = padTwoDigits(date.getDay());
   const month = padTwoDigits(date.getMonth());
   const year = date.getFullYear().toString();
-  return year + month + day;
+  return month + day + year;
 };
+
+export const todayFormatted = (): string => moment().format(DATE_FORMAT);
+
+export const dateStringToLocaleDateString = (dateString: string): string =>
+  moment(dateString, DATE_FORMAT).format(MOMENT_LOCALE);

@@ -16,7 +16,7 @@ export interface RootState {
   readonly hitDatabase: HitDatabaseMap;
   readonly topticonSettings: TOpticonSettings;
   readonly hitBlocklist: HitBlockMap;
-  readonly selectedHitDbDate: Date | null;
+  readonly selectedHitDbDate: string | null;
   readonly requesterBlocklist: RequesterBlockMap;
   readonly audioSettingsV1: AudioSettings;
   readonly audioFiles: AudioFiles;
@@ -72,7 +72,7 @@ export interface SearchResult extends HumanIntelligenceTask {
 
 export interface HitDatabaseEntry {
   readonly id: string;
-  readonly date: Date;
+  readonly date: string;
   readonly title: string;
   readonly reward: number;
   readonly status: HitStatus;
@@ -152,6 +152,6 @@ export interface AudioFiles {
 }
 
 interface HeatMapValue {
-  readonly date: Date;
+  readonly date: string;
   readonly count: number;
 }

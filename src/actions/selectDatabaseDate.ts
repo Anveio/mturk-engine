@@ -2,10 +2,10 @@ import { SELECT_DATABASE_DATE } from '../constants';
 
 export interface SelectDatabaseDate {
   readonly type: SELECT_DATABASE_DATE;
-  readonly date: Date;
+  readonly dateString: string;
 }
 
-export const selectDatabaseDate = (date: Date): SelectDatabaseDate => ({
+export const selectDatabaseDate = (dateString: string): SelectDatabaseDate => ({
   type: SELECT_DATABASE_DATE,
-  date
+  dateString
 });

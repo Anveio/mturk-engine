@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { HeatMapValue } from '../../types';
+import { SQUARE_SIZE } from '../../constants/misc';
 import {
   SelectDatabaseDate,
   selectDatabaseDate
@@ -10,11 +11,10 @@ export interface OwnProps {
   readonly x: number;
   readonly y: number;
   readonly value: HeatMapValue;
-  readonly squareSize: number;
 }
 
 export interface Handlers {
-  readonly onSelect: (date: Date) => void;
+  readonly onSelect: (dateString: string) => void;
 }
 
 export interface State {
@@ -48,7 +48,7 @@ class CalendarDay extends React.PureComponent<OwnProps & Handlers, State> {
   };
 
   static titleForValue = (value: HeatMapValue) =>
-    `$${value.count} earned on ${value.date.toLocaleDateString()}`;
+    `$${value.count} earned on ${value.date}`;
 
   private handleMouseEnter = () => {
     this.setState({ hovering: true });
@@ -59,17 +59,20 @@ class CalendarDay extends React.PureComponent<OwnProps & Handlers, State> {
   };
 
   public render() {
-    const { x, y, squareSize, value } = this.props;
+    const { x, y, value } = this.props;
     const { generateClassName } = CalendarDay;
+    
 
-    return (
+    return value === undefined ? (
+      <div>hi{console.log(x, y)}</div>
+    ) : (
       <rect
         onClick={() => this.props.onSelect(this.props.value.date)}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         className={generateClassName(value)}
-        height={squareSize}
-        width={squareSize}
+        height={SQUARE_SIZE}
+        width={SQUARE_SIZE}
         x={x}
         y={y}
       />
@@ -78,7 +81,7 @@ class CalendarDay extends React.PureComponent<OwnProps & Handlers, State> {
 }
 
 const mapDispatch = (dispatch: Dispatch<SelectDatabaseDate>): Handlers => ({
-  onSelect: (date: Date) => dispatch(selectDatabaseDate(date))
+  onSelect: (date: string) => dispatch(selectDatabaseDate(date))
 });
 
 export default connect(null, mapDispatch)(CalendarDay);

@@ -5,11 +5,12 @@ import {
   HitDatabaseMap,
   HeatMapValue
 } from '../types';
-import { shiftDate, dateRange } from '../utils/dates';
+import { todayFormatted, dateRange } from '../utils/dates';
 import { Map, List } from 'immutable';
 
 const generateOneYearOfDates = () => {
-  const startDate = shiftDate(new Date(), -365 + 1);
+  const startDate = todayFormatted();
+  console.log(startDate);
   return dateRange(startDate);
 };
 
@@ -30,23 +31,21 @@ export const pendingEarnings = createSelector(
 // tslint:disable:align
 export const dateMoneyMap = createSelector(
   [ hitDatabaseSelector ],
-  (hitDatabase): Map<Date, number> =>
-    hitDatabase.reduce((acc: Map<Date, number>, el: HitDatabaseEntry) => {
+  (hitDatabase): Map<string, number> =>
+    hitDatabase.reduce((acc: Map<string, number>, el: HitDatabaseEntry) => {
       return acc.update(
         el.date,
         (reward: number) => (reward ? reward + el.reward : el.reward)
       );
-    }, Map<Date, number>())
+    }, Map<string, number>())
 );
 
 // tslint:disable:align
 export const oneYearOfData = createSelector(
-  [ dateMoneyMap, generateOneYearOfDates ],
-  (
-    moneyEarnedPerDay: Map<Date, number>,
-    oneYearOfDates
-  ): List<HeatMapValue> => {
-    return oneYearOfDates.reduce((acc: List<HeatMapValue>, date: Date) => {
+  [ dateMoneyMap ],
+  (moneyEarnedPerDay: Map<string, number>): List<HeatMapValue> => {
+    const oneYearOfDates = generateOneYearOfDates();
+    return oneYearOfDates.reduce((acc: List<HeatMapValue>, date: string) => {
       const count: number | undefined = moneyEarnedPerDay.get(date);
       const data = count
         ? { date, count: Math.round(count * 100) / 100 }
@@ -57,24 +56,13 @@ export const oneYearOfData = createSelector(
   }
 );
 
-export const formatForCalendar = createSelector(
-  [ dateMoneyMap ],
-  (moneyEarnedPerDay: Map<Date, number>) =>
-    moneyEarnedPerDay
-      .map((reward: number, date: Date): HeatMapValue => ({
-        date,
-        count: Math.round(reward * 100) / 100
-      }))
-      .toArray()
-);
-
 export const hitsOnSelectedDate = createSelector(
   [ hitDatabaseSelector, selectedHitDbDateSelector ],
-  (database: HitDatabaseMap, date: Date | null) => {
+  (database: HitDatabaseMap, date: string | null) => {
     return date === null
       ? Map<string, HitDatabaseEntry>()
       : database.filter(
-          (entry: HitDatabaseEntry) => entry.date.valueOf() === date.valueOf()
+          (entry: HitDatabaseEntry) => entry.date === date
         ) as HitDatabaseMap;
   }
 );

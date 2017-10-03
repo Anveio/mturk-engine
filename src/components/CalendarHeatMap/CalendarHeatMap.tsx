@@ -2,6 +2,7 @@ import * as React from 'react';
 import { List } from 'immutable';
 import { HeatMapValue } from '../../types';
 import { shiftDate } from '../../utils/dates';
+import { range } from '../../utils/arrays';
 import {
   DAYS_IN_WEEK,
   MONTH_LABEL_GUTTER_SIZE,
@@ -11,8 +12,6 @@ import {
 } from '../../constants/misc';
 
 import CalendarDay from './CalendarDay';
-
-const range = (n: number): number[] => Array.from(Array(n).keys());
 
 export interface Props {
   readonly values: List<HeatMapValue>;
@@ -96,16 +95,10 @@ class CalendarHeatMap extends React.Component<Props, never> {
 
     const [ x, y ] = this.getSquareCoordinates(dayIndex);
     const value = this.props.values.get(index);
-
-    return (
-      <CalendarDay
-        key={index}
-        squareSize={SQUARE_SIZE}
-        x={x}
-        y={y}
-        value={value}
-      />
-    );
+    if (!value) {
+      console.log('hi', index);
+    }
+    return <CalendarDay key={index} x={x} y={y} value={value} />;
   };
 
   private renderWeek = (weekIndex: number) => (
@@ -139,6 +132,7 @@ class CalendarHeatMap extends React.Component<Props, never> {
   }
 
   public render() {
+    console.log(this.props.values);
     return (
       <svg className="react-calendar-heatmap" viewBox={this.getViewBox()}>
         <g>{this.renderMonthLabels()}</g>

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { NonIdealState, Button } from '@blueprintjs/core';
+import { Layout } from '@shopify/polaris';
 import {
   connectAccountRequest,
   ConnectAccountRequest
@@ -13,15 +14,19 @@ export interface Handlers {
 class DisconnectedAccount extends React.PureComponent<Handlers, never> {
   public render() {
     return (
-      <NonIdealState
-        title="You can connect Mturk Engine to your Amazon MTurk account."
-        description={`Connecting your account let's you track your work. 
+      <Layout.Section>
+        <NonIdealState
+          title="You can connect Mturk Engine to your Amazon MTurk account."
+          description={`Connecting your account let's you track your work. 
         You will need to already be signed in to Mturk through Amazon for it to 
         work, however, because Mturk Engine does not store your log in 
         credentials and cannot log in for you.`}
-        visual="user"
-        action={<Button onClick={this.props.onConnect}>Connect Account</Button>}
-      />
+          visual="user"
+          action={
+            <Button onClick={this.props.onConnect}>Connect Account</Button>
+          }
+        />
+      </Layout.Section>
     );
   }
 }

@@ -19,31 +19,32 @@ interface AnchorElemInfo {
 
 export const parseStatusDetailPage = (
   html: Document,
-  date: Date
+  dateString: string
 ): StatusDetailPageInfo => {
   const hitRows = selectHitRows(html);
   return {
     morePages: detectMorePages(html),
-    data: tabulateHitDbEntries(hitRows, date)
+    data: tabulateHitDbEntries(hitRows, dateString)
   };
 };
 
 const tabulateHitDbEntries = (
   input: HTMLTableRowElement[],
-  date: Date
+  dateString: string
 ): HitDatabaseMap =>
   input.reduce((map: HitDatabaseMap, hit: HTMLTableRowElement) => {
     const anchorElemInfo = parseAnchorElem(hit);
     return map.set(
       anchorElemInfo.hitId,
-      generateHitDbEntry(hit, anchorElemInfo, date)
+      generateHitDbEntry(hit, anchorElemInfo, dateString)
     );
+    // tslint:disable-next-line:align
   }, Map<string, HitDatabaseEntry>());
 
 const generateHitDbEntry = (
   input: HTMLTableRowElement,
   anchorElemInfo: AnchorElemInfo,
-  date: Date
+  dateString: string
 ): HitDatabaseEntry => {
   const { hitId, requester } = anchorElemInfo;
   return {
@@ -52,7 +53,7 @@ const generateHitDbEntry = (
       id: requester.id,
       name: requester.name
     },
-    date,
+    date: dateString,
     reward: parseReward(input),
     status: parseStatus(input),
     title: parseTitle(input)

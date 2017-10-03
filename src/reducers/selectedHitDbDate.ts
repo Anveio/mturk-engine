@@ -4,7 +4,7 @@ import { SELECT_DATABASE_DATE } from '../constants';
 export default (state = null, action: SelectDatabaseDate) => {
   switch (action.type) {
     case SELECT_DATABASE_DATE:
-      return action.date;
+      return action.dateString;
     default:
       return state;
   }
