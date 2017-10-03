@@ -153,4 +153,7 @@ export type STATUS_DETAIL_FAILURE = typeof STATUS_DETAIL_FAILURE;
 export const SELECT_DATABASE_DATE = 'SELECT_DATABASE_DATE';
 export type SELECT_DATABASE_DATE = typeof SELECT_DATABASE_DATE;
 
+export const EDIT_BONUS = 'EDIT_BONUS';
+export type EDIT_BONUS = typeof EDIT_BONUS;
+
 export const API_URL = configureApiRoot();
