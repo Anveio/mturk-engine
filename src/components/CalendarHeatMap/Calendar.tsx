@@ -25,10 +25,7 @@ class Calendar extends React.PureComponent<Props, never> {
       >
         <Card.Section>
           <CalendarHeatMap
-            endDate={new Date()}
-            numDays={365}
             values={this.props.values}
-            gutterSize={1}
           />
         </Card.Section>
         <Card.Section>

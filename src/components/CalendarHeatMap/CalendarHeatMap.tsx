@@ -2,8 +2,11 @@ import * as React from 'react';
 import { List } from 'immutable';
 import { HeatMapValue } from '../../types';
 import { shiftDate } from '../../utils/dates';
+import * as moment from 'moment';
 import { range } from '../../utils/arrays';
 import {
+  GUTTER_SIZE,
+  DATE_FORMAT,
   DAYS_IN_WEEK,
   MONTH_LABEL_GUTTER_SIZE,
   MONTH_LABEL_SIZE,
@@ -15,61 +18,65 @@ import CalendarDay from './CalendarDay';
 
 export interface Props {
   readonly values: List<HeatMapValue>;
-  readonly numDays: number;
-  readonly endDate: Date;
-  readonly gutterSize: number;
-  readonly onClick?: () => void;
 }
 
 class CalendarHeatMap extends React.Component<Props, never> {
-  readonly startDate: Date;
+  private readonly startDate: Date;
+  private readonly endDate: Date;
+  private readonly numDays: number;
 
   constructor(props: Props) {
     super(props);
 
-    this.startDate = CalendarHeatMap.calculateStartDate(
-      props.endDate,
-      props.numDays
+    this.startDate = CalendarHeatMap.calculateStartDate(props.values);
+    this.endDate = CalendarHeatMap.calculateEndDate(props.values);
+    this.numDays = CalendarHeatMap.calculateNumDays(
+      this.startDate,
+      this.endDate
     );
   }
 
-  static calculateStartDate = (endDate: Date, numDays: number) => {
-    return shiftDate(endDate, -numDays);
+  static calculateStartDate = (values: List<HeatMapValue>) => {
+    return moment(values.get(0).date, DATE_FORMAT).toDate();
+  };
+  static calculateEndDate = (values: List<HeatMapValue>) => {
+    return moment(values.get(values.size - 1).date, DATE_FORMAT).toDate();
   };
 
-  private getSquareSizeWithGutter = () => SQUARE_SIZE + this.props.gutterSize;
+  static calculateNumDays = (startDate: Date, endDate: Date) =>
+    moment(endDate).diff(startDate, 'days');
+
+  static getSquareSizeWithGutter = () => SQUARE_SIZE + GUTTER_SIZE;
 
   private getStartDateWithEmptyDays = () => {
     return shiftDate(this.startDate, -this.startDate.getDay());
   };
 
   private getTransformForWeek = (weekIndex: number) =>
-    `translate(${weekIndex * this.getSquareSizeWithGutter()}, 0)`;
+    `translate(${weekIndex * CalendarHeatMap.getSquareSizeWithGutter()}, 0)`;
 
   private getTransformForAllWeeks = () => `translate(0, ${MONTH_LABEL_SIZE})`;
 
   private getNumEmptyDaysAtEnd = () => {
-    return DAYS_IN_WEEK - 1 - this.props.endDate.getDay();
+    return DAYS_IN_WEEK - 1 - this.endDate.getDay();
   };
 
   private getWeekCount = () => {
     const numDaysRoundedToWeek =
-      this.props.numDays +
-      this.startDate.getDay() +
-      this.getNumEmptyDaysAtEnd();
+      this.numDays + this.startDate.getDay() + this.getNumEmptyDaysAtEnd();
     return Math.ceil(numDaysRoundedToWeek / DAYS_IN_WEEK);
   };
 
   private getWeekWidth = () => {
-    return DAYS_IN_WEEK * this.getSquareSizeWithGutter();
+    return DAYS_IN_WEEK * CalendarHeatMap.getSquareSizeWithGutter();
   };
 
   private getWidth = () =>
-    this.getWeekCount() * this.getSquareSizeWithGutter() -
-    this.props.gutterSize;
+    this.getWeekCount() * CalendarHeatMap.getSquareSizeWithGutter() -
+    GUTTER_SIZE;
 
   private getHeight = () =>
-    this.getWeekWidth() + (MONTH_LABEL_SIZE - this.props.gutterSize);
+    this.getWeekWidth() + (MONTH_LABEL_SIZE - GUTTER_SIZE);
 
   private getViewBox = () => {
     return `0 0 ${this.getWidth()} ${this.getHeight()}`;
@@ -77,35 +84,33 @@ class CalendarHeatMap extends React.Component<Props, never> {
 
   private getSquareCoordinates = (dayIndex: number) => [
     0,
-    dayIndex * this.getSquareSizeWithGutter()
+    dayIndex * CalendarHeatMap.getSquareSizeWithGutter()
   ];
 
   private getMonthLabelCoordinates = (weekIndex: number) => [
-    weekIndex * this.getSquareSizeWithGutter(),
+    weekIndex * CalendarHeatMap.getSquareSizeWithGutter(),
     MONTH_LABEL_SIZE - MONTH_LABEL_GUTTER_SIZE
   ];
 
   private renderSquare = (dayIndex: number, index: number) => {
     const indexOutOfRange =
       index < this.startDate.getDay() ||
-      index >= this.startDate.getDay() + this.props.numDays;
+      index >= this.startDate.getDay() + this.numDays;
     if (indexOutOfRange) {
       return null;
     }
 
     const [ x, y ] = this.getSquareCoordinates(dayIndex);
+
     const value = this.props.values.get(index - 1);
-    if (!value) {
-      console.log('hi', index);
-    }
     return <CalendarDay key={index} x={x} y={y} value={value} />;
   };
 
   private renderWeek = (weekIndex: number) => (
     <g key={weekIndex} transform={this.getTransformForWeek(weekIndex)}>
-      {range(DAYS_IN_WEEK).map((dayIndex) =>
-        this.renderSquare(dayIndex, weekIndex * DAYS_IN_WEEK + dayIndex)
-      )}
+      {range(DAYS_IN_WEEK).map((dayIndex) => {
+        return this.renderSquare(dayIndex, weekIndex * DAYS_IN_WEEK + dayIndex);
+      })}
     </g>
   );
 
@@ -132,7 +137,6 @@ class CalendarHeatMap extends React.Component<Props, never> {
   }
 
   public render() {
-    console.log(this.props.values);
     return (
       <svg className="react-calendar-heatmap" viewBox={this.getViewBox()}>
         <g>{this.renderMonthLabels()}</g>
