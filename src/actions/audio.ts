@@ -7,23 +7,23 @@ import {
 import { AudioSettings } from '../types';
 
 export interface PlayAudio {
-  type: PLAY_AUDIO;
-  file: HTMLAudioElement;
+  readonly type: PLAY_AUDIO;
+  readonly file: HTMLAudioElement;
 }
 
 export interface EditAudioSource {
-  type: EDIT_AUDIO_SOURCE;
-  field: keyof AudioSettings;
-  value: string;
+  readonly type: EDIT_AUDIO_SOURCE;
+  readonly field: keyof AudioSettings;
+  readonly value: string;
 }
 
 export interface ToggleAudioEnabled {
-  type: TOGGLE_AUDIO_ENABLED;
+  readonly type: TOGGLE_AUDIO_ENABLED;
 }
 
 export interface ChangeVolume {
-  type: CHANGE_VOLUME;
-  value: number;
+  readonly type: CHANGE_VOLUME;
+  readonly value: number;
 }
 
 export const editAudioSrc = (

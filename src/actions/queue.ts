@@ -6,16 +6,16 @@ import {
 import { QueueMap } from '../types';
 
 export interface FetchQueueRequest {
-  type: FETCH_QUEUE_REQUEST;
+  readonly type: FETCH_QUEUE_REQUEST;
 }
 
 export interface FetchQueueSuccess {
-  type: FETCH_QUEUE_SUCCESS;
-  data: QueueMap;
+  readonly type: FETCH_QUEUE_SUCCESS;
+  readonly data: QueueMap;
 }
 
 export interface FetchQueueFailure {
-  type: FETCH_QUEUE_FAILURE;
+  readonly type: FETCH_QUEUE_FAILURE;
 }
 
 export type QueueAction =

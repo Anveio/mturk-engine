@@ -5,17 +5,17 @@ import {
 } from '../constants';
 
 export interface ReturnHitFailure {
-  type: RETURN_HIT_FAILURE;
+  readonly type: RETURN_HIT_FAILURE;
 }
 
 export interface ReturnHitSuccess {
-  type: RETURN_HIT_SUCCESS;
-  hitId: string;
+  readonly type: RETURN_HIT_SUCCESS;
+  readonly hitId: string;
 }
 
 export interface ReturnHitRequest {
-  type: RETURN_HIT_REQUEST;
-  hitId: string;
+  readonly type: RETURN_HIT_REQUEST;
+  readonly hitId: string;
 }
 
 export type ReturnAction =

@@ -1,12 +1,12 @@
 import { SCHEDULE_NEXT_SEARCH, CANCEL_NEXT_SEARCH } from '../constants';
 
 export interface ScheduleNextSearch {
-  type: SCHEDULE_NEXT_SEARCH;
-  time: Date;
+  readonly type: SCHEDULE_NEXT_SEARCH;
+  readonly time: Date;
 }
 
 export interface CancelNextSearch {
-  type: CANCEL_NEXT_SEARCH;
+  readonly type: CANCEL_NEXT_SEARCH;
 }
 
 export type ScheduleAction = ScheduleNextSearch | CancelNextSearch;

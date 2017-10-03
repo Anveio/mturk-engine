@@ -5,12 +5,12 @@ import {
 import { SearchResult } from '../types';
 
 export interface ToggleSearchResultExpand {
-  type: TOGGLE_SEARCH_RESULT_EXPAND;
-  hit: SearchResult;
+  readonly type: TOGGLE_SEARCH_RESULT_EXPAND;
+  readonly hit: SearchResult;
 }
 
 export interface CollapseAllResults {
-  type: COLLAPSE_ALL_SEARCH_RESULTS;
+  readonly type: COLLAPSE_ALL_SEARCH_RESULTS;
 }
 
 export type ExpandAction = ToggleSearchResultExpand | CollapseAllResults;

@@ -2,17 +2,17 @@ import { TOpticonMap, Requester } from '../types';
 import * as constants from '../constants';
 
 export interface FetchTOpticonRequest {
-  type: constants.FETCH_TURKOPTICON_REQUEST;
-  data: Requester[];
+  readonly type: constants.FETCH_TURKOPTICON_REQUEST;
+  readonly data: Requester[];
 }
 
 export interface FetchTOpticonSuccess {
-  type: constants.FETCH_TURKOPTICON_SUCCESS;
-  data: TOpticonMap;
+  readonly type: constants.FETCH_TURKOPTICON_SUCCESS;
+  readonly data: TOpticonMap;
 }
 
 export interface FetchTOpticonFailure {
-  type: constants.FETCH_TURKOPTICON_FAILURE;
+  readonly type: constants.FETCH_TURKOPTICON_FAILURE;
 }
 
 export type TOpticonAction = FetchTOpticonSuccess | FetchTOpticonFailure;

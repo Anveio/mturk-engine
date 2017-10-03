@@ -6,19 +6,19 @@ import {
 import { SearchResult, QueueItem } from '../types';
 
 export interface AcceptHitSuccess {
-  type: ACCEPT_HIT_SUCCESS;
-  data: QueueItem;
+  readonly type: ACCEPT_HIT_SUCCESS;
+  readonly data: QueueItem;
 }
 export interface AcceptHitFailure {
-  type: ACCEPT_HIT_FAILURE;
+  readonly type: ACCEPT_HIT_FAILURE;
 }
 
 export interface AcceptHitRequest {
-  type: ACCEPT_HIT_REQUEST;
-  groupId: string;
-  fromWatcher: boolean;
-  data?: SearchResult;
-  delay?: number;
+  readonly type: ACCEPT_HIT_REQUEST;
+  readonly groupId: string;
+  readonly fromWatcher: boolean;
+  readonly data?: SearchResult;
+  readonly delay?: number;
 }
 
 export type AcceptAction =

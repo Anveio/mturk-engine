@@ -9,29 +9,29 @@ import {
 import { Watcher } from '../types';
 
 export interface AddWatcher {
-  type: ADD_WATCHER;
-  watcher: Watcher;
+  readonly type: ADD_WATCHER;
+  readonly watcher: Watcher;
 }
 export interface DeleteWatcher {
-  type: DELETE_WATCHER;
-  groupId: string;
+  readonly type: DELETE_WATCHER;
+  readonly groupId: string;
 }
 
 export interface ToggleWatcherActivity {
-  type: TOGGLE_WATCHER_ACTIVE;
-  groupId: string;
-  active: boolean;
+  readonly type: TOGGLE_WATCHER_ACTIVE;
+  readonly groupId: string;
+  readonly active: boolean;
 }
 
 export interface ScheduleWatcherTick {
-  type: SCHEDULE_NEXT_WATCHER_TICK;
-  groupId: string;
-  time: Date;
+  readonly type: SCHEDULE_NEXT_WATCHER_TICK;
+  readonly groupId: string;
+  readonly time: Date;
 }
 
 export interface CancelWatcherTick {
-  type: CANCEL_NEXT_WATCHER_TICK;
-  groupId: string;
+  readonly type: CANCEL_NEXT_WATCHER_TICK;
+  readonly groupId: string;
 }
 
 export const addWatcher = (watcher: Watcher): AddWatcher => ({

@@ -7,20 +7,20 @@ import {
 import { AccountInfo } from '../types';
 
 export interface ConnectAccountRequest {
-  type: CONNECT_ACCOUNT_REQUEST;
+  readonly type: CONNECT_ACCOUNT_REQUEST;
 }
 
 export interface ConnectAccountFailure {
-  type: CONNECT_ACCOUNT_FAILURE;
+  readonly type: CONNECT_ACCOUNT_FAILURE;
 }
 
 export interface DisconnectAccount {
-  type: DISCONNECT_ACCOUNT;
+  readonly type: DISCONNECT_ACCOUNT;
 }
 
 export interface ConnectAccountSuccess {
-  type: CONNECT_ACCOUNT_SUCCESS;
-  data: AccountInfo;
+  readonly type: CONNECT_ACCOUNT_SUCCESS;
+  readonly data: AccountInfo;
 }
 
 export type ConnectAccountAction =

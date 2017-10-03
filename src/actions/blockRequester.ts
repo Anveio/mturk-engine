@@ -2,13 +2,13 @@ import { BLOCK_REQUESTER, UNBLOCK_REQUESTER } from '../constants';
 import { BlockedRequester } from '../types';
 
 export interface BlockRequester {
-  type: BLOCK_REQUESTER;
-  data: BlockedRequester;
+  readonly type: BLOCK_REQUESTER;
+  readonly data: BlockedRequester;
 }
 
 export interface UnblockRequester {
-  type: UNBLOCK_REQUESTER;
-  requesterId: string;
+  readonly type: UNBLOCK_REQUESTER;
+  readonly requesterId: string;
 }
 
 export type BlockRequesterAction = BlockRequester | UnblockRequester;

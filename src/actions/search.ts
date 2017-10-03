@@ -2,17 +2,17 @@ import { SEARCH_SUCCESS, SEARCH_FAILURE, SEARCH_REQUEST } from '../constants';
 import { SearchResults } from '../types';
 
 export interface SearchSuccess {
-  type: SEARCH_SUCCESS;
-  data: SearchResults;
+  readonly type: SEARCH_SUCCESS;
+  readonly data: SearchResults;
 }
 
 export interface SearchFailure {
-  type: SEARCH_FAILURE;
+  readonly type: SEARCH_FAILURE;
 }
 
 export interface SearchRequest {
-  type: SEARCH_REQUEST;
-  continuous: boolean;
+  readonly type: SEARCH_REQUEST;
+  readonly continuous: boolean;
 }
 
 export type SearchAction = SearchSuccess | SearchFailure | SearchRequest;

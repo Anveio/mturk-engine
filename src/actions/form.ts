@@ -6,10 +6,10 @@ export type FormPayloads = SearchOptions | TOpticonSettings;
 export type FormValue = string | boolean;
 
 export interface FormUpdate<T> {
-  type: constants.UPDATE_FIELD;
-  form: FormTarget;
-  field: keyof T;
-  value: FormValue;
+  readonly type: constants.UPDATE_FIELD;
+  readonly form: FormTarget;
+  readonly field: keyof T;
+  readonly value: FormValue;
 }
 
 export const updateForm = <T>(
