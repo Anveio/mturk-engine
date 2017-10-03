@@ -49,12 +49,13 @@ const generateHitDbEntry = (
   const { hitId, requester } = anchorElemInfo;
   return {
     id: hitId,
+    reward: parseReward(input),
+    bonus: 0,
     requester: {
       id: requester.id,
       name: requester.name
     },
     date: dateString,
-    reward: parseReward(input),
     status: parseStatus(input),
     title: parseTitle(input)
   };

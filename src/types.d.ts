@@ -75,6 +75,7 @@ export interface HitDatabaseEntry {
   readonly date: string;
   readonly title: string;
   readonly reward: number;
+  readonly bonus: number;
   readonly status: HitStatus;
   readonly requester: Requester;
   readonly groupId?: string;
