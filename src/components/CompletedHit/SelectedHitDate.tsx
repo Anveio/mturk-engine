@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { Stack } from '@shopify/polaris';
+import { Card } from '@shopify/polaris';
 import CompletedHitList from './CompletedHitList';
-import DateInfo from './DateInfo';
+import DateDisplay from './DateDisplay';
+import ActionBar from './ActionBar';
 
 class SelectedHitDate extends React.PureComponent<{}, never> {
   public render() {
     return (
-      <Stack vertical spacing="tight">
-        <DateInfo />
+      <Card>
+        <DateDisplay />
+        <ActionBar />
         <CompletedHitList />
-      </Stack>
+      </Card>
     );
   }
 }

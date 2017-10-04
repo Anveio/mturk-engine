@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { RootState } from '../../types';
 import { List } from 'immutable';
 import { ResourceList } from '@shopify/polaris';
-import { hitsOnSelectedDateIds } from '../../selectors/hitDatabase';
+import { hitsOnSelectedDateIds } from '../../selectors/hitDatabaseDay';
 import CompletedHitItem from './CompletedHitItem';
 
 export interface Props {

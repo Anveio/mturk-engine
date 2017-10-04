@@ -8,7 +8,7 @@ export interface Props {
   readonly selectedDate: string | null;
 }
 
-class SelectedHitDate extends React.PureComponent<Props, never> {
+class DateDisplay extends React.PureComponent<Props, never> {
   static generateTitle = (selectedDate: string | null) =>
     selectedDate
       ? `${dateStringToLocaleDateString(selectedDate)}`
@@ -19,7 +19,7 @@ class SelectedHitDate extends React.PureComponent<Props, never> {
     return (
       <Card.Section>
         <DisplayText size="small">
-          {SelectedHitDate.generateTitle(selectedDate)}
+          {DateDisplay.generateTitle(selectedDate)}
         </DisplayText>
       </Card.Section>
     );
@@ -30,4 +30,4 @@ const mapState = (state: RootState): Props => ({
   selectedDate: state.selectedHitDbDate
 });
 
-export default connect(mapState)(SelectedHitDate);
+export default connect(mapState)(DateDisplay);

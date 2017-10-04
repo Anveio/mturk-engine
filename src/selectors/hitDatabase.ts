@@ -2,15 +2,15 @@ import { createSelector } from 'reselect';
 import {
   RootState,
   HitDatabaseEntry,
-  HitDatabaseMap,
+  // HitDatabaseMap,
   HeatMapValue
 } from '../types';
 import { generateOneYearOfDates } from '../utils/dates';
+
+// import { selectedHitDbDateSelector } from './hitDatabaseDay';
 import { Map, List } from 'immutable';
 
 export const hitDatabaseSelector = (state: RootState) => state.hitDatabase;
-export const selectedHitDbDateSelector = (state: RootState) =>
-  state.selectedHitDbDate;
 
 export const pendingEarnings = createSelector(
   [ hitDatabaseSelector ],
@@ -50,18 +50,4 @@ export const oneYearOfData = createSelector(
   }
 );
 
-export const hitsOnSelectedDate = createSelector(
-  [ hitDatabaseSelector, selectedHitDbDateSelector ],
-  (database: HitDatabaseMap, date: string | null) => {
-    return date === null
-      ? Map<string, HitDatabaseEntry>()
-      : database.filter(
-          (entry: HitDatabaseEntry) => entry.date === date
-        ) as HitDatabaseMap;
-  }
-);
 
-export const hitsOnSelectedDateIds = createSelector(
-  [ hitsOnSelectedDate ],
-  (filteredHits) => filteredHits.map((el: HitDatabaseEntry) => el.id).toList()
-);

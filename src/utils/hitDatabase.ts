@@ -9,3 +9,6 @@ export const conflictsPreserveBonus = (
     bonus: oldEntry.bonus
   };
 };
+
+export const keepPaidOrApproved = (el: HitDatabaseEntry) =>
+  el.status === 'Paid' || el.status === 'Approved';
