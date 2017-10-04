@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { List } from 'immutable';
 import { oneYearOfData } from '../../selectors/hitDatabase';
 import CalendarHeatMap from './CalendarHeatMap';
-import SelectedHitDate from './SelectedHitDate';
+import SelectedHitDate from '../CompletedHit/SelectedHitDate';
 import { dateStringToLocaleDateString } from '../../utils/dates';
 
 interface Props {
