@@ -32,13 +32,6 @@ export const shiftDateString = (dateString: string, numDays: number) => {
     .format(DATE_FORMAT);
 };
 
-export const dateRange = (startDate: string, numDays = 365): List<string> =>
-  range(numDays).reduce(
-    (acc: List<string>, cur: number) =>
-      acc.unshift(shiftDateString(startDate, cur)),
-    List()
-  );
-
 export const todayFormatted = (): string => moment().format(DATE_FORMAT);
 
 export const dateStringToLocaleDateString = (dateString: string): string =>
@@ -46,5 +39,12 @@ export const dateStringToLocaleDateString = (dateString: string): string =>
 
 export const generateOneYearOfDates = () => {
   const startDate = moment();
-  return dateRange(startDate.format(DATE_FORMAT), 364 + startDate.day());
+  return dateRange(startDate.format(DATE_FORMAT), 365 + startDate.day());
 };
+
+export const dateRange = (startDate: string, numDays = 365): List<string> =>
+  range(numDays).reduce(
+    (acc: List<string>, cur: number) =>
+      acc.unshift(shiftDateString(startDate, cur)),
+    List()
+  );
