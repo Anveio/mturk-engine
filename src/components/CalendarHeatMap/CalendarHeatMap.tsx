@@ -148,7 +148,6 @@ class CalendarHeatMap extends React.Component<Props, never> {
   }
 
   public render() {
-    this.props.values.map((el) => console.log(el && el.date));
     return (
       <svg className="react-calendar-heatmap" viewBox={this.getViewBox()}>
         <g>{this.renderMonthLabels()}</g>
