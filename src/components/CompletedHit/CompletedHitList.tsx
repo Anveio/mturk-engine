@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { RootState } from '../../types';
 import { List } from 'immutable';
 import { ResourceList } from '@shopify/polaris';
-import { NonIdealState } from '@blueprintjs/core';
 import { hitsOnSelectedDateIds } from '../../selectors/hitDatabaseDay';
 import CompletedHitItem from './CompletedHitItem';
+import NoActivity from './NoActivity';
 
 export interface Props {
   readonly hitsOnSelectedDate: List<string>;
@@ -19,11 +19,7 @@ class CompletedHitList extends React.PureComponent<Props, never> {
         renderItem={(id: string) => <CompletedHitItem id={id} />}
       />
     ) : (
-      <NonIdealState
-        title="No activity recorded for this day."
-        description=""
-        visual="pt-icon-th-list"
-      />
+      <NoActivity />
     );
   }
 }

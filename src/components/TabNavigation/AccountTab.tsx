@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Layout } from '@shopify/polaris';
 import Account from '../Account/Account';
-import Calendar from '../CalendarHeatMap/Calendar';
-export interface Props {}
+import Calendar from '../Calendar/Calendar';
 
-class AccountTab extends React.PureComponent<Props, never> {
+class AccountTab extends React.PureComponent<{}, never> {
   public render() {
     return (
       <Layout>
