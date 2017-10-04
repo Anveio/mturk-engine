@@ -10,7 +10,6 @@ import { dateStringToLocaleDateString } from '../../utils/dates';
 
 interface Props {
   readonly values: List<HeatMapValue>;
-  readonly selectedDateData: {};
 }
 
 class Calendar extends React.PureComponent<Props, never> {
@@ -33,8 +32,7 @@ class Calendar extends React.PureComponent<Props, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  values: oneYearOfData(state),
-  selectedDateData: {}
+  values: oneYearOfData(state)
 });
 
 export default connect(mapState)(Calendar);
