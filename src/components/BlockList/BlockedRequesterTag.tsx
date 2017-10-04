@@ -19,11 +19,13 @@ class BlockedHitCard extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
-  public render() {
-    const { name, id } = this.props.requester;
+  private handleUnblock = () => this.props.onUnblock(this.props.requester.id);
 
+  public render() {
     return (
-      <Tag onRemove={() => this.props.onUnblock(id)}>{truncate(name, 30)}</Tag>
+      <Tag onRemove={this.handleUnblock}>
+        {truncate(this.props.requester.name, 30)}
+      </Tag>
     );
   }
 }

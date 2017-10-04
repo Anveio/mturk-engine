@@ -25,6 +25,9 @@ class SortingMenu extends React.PureComponent<Props & Handlers, never> {
     return option !== this.props.value ? 0 : -1;
   };
 
+  private handleChange = (option: SortingOption) => () =>
+    this.props.onChange(option);
+
   public render() {
     const { value } = this.props;
     return (
@@ -38,21 +41,21 @@ class SortingMenu extends React.PureComponent<Props & Handlers, never> {
             shouldDismissPopover={false}
             iconName="time"
             intent={this.generateIntent('Latest')}
-            onClick={() => this.props.onChange('Latest')}
+            onClick={this.handleChange('Latest')}
             text="Latest"
           />
           <MenuItem
             shouldDismissPopover={false}
             iconName="dollar"
             intent={this.generateIntent('Reward')}
-            onClick={() => this.props.onChange('Reward')}
+            onClick={this.handleChange('Reward')}
             text="Reward"
           />
           <MenuItem
             shouldDismissPopover={false}
             intent={this.generateIntent('Batch Size')}
             iconName="pt-icon-sort-numerical-desc"
-            onClick={() => this.props.onChange('Batch Size')}
+            onClick={this.handleChange('Batch Size')}
             text="Batch Size"
           />
         </Menu>

@@ -31,6 +31,15 @@ export interface Handlers {
 }
 
 class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
+  private handleAddWatcher = () => this.props.onAddWatcher(this.props.hit);
+
+  private handleCopyMarkDown = () => {
+    {
+      copy(generateMarkdownExport(this.props.hit));
+      copyMarkdownToast(this.props.hit);
+    }
+  };
+
   public render() {
     return (
       <Popover>
@@ -39,17 +48,12 @@ class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
           <MenuDivider title="HIT Actions" />
           <MenuItem
             iconName="new-object"
-            onClick={() => {
-              this.props.onAddWatcher(this.props.hit);
-            }}
+            onClick={this.handleAddWatcher}
             text="Add as Watcher"
           />
           <MenuItem
             iconName="duplicate"
-            onClick={() => {
-              copy(generateMarkdownExport(this.props.hit));
-              copyMarkdownToast(this.props.hit);
-            }}
+            onClick={this.handleCopyMarkDown}
             text="Copy to Clipboard"
           />
         </Menu>

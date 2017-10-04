@@ -32,6 +32,11 @@ class WatcherCard extends React.PureComponent<
 
   static validateNumber = (value: string): boolean => /^\d+$/.test(value);
 
+  private handleDelete = () => this.props.onDelete(this.props.watcher.groupId);
+
+  private handleToggle = () =>
+    this.props.onToggle(this.props.watcher.groupId, this.props.watcher.active);
+
   private headingSection = (title: string) => {
     return (
       <Card.Section>
@@ -102,17 +107,14 @@ class WatcherCard extends React.PureComponent<
     return (
       <Card.Section>
         <Stack distribution="equalSpacing">
-          <Button
-            destructive={watcher.active}
-            onClick={() => this.props.onToggle(watcher.groupId, watcher.active)}
-          >
+          <Button destructive={watcher.active} onClick={this.handleToggle}>
             {WatcherCard.generateButtonContent(watcher.active)}
           </Button>
 
           <Tooltip content="Delete this watcher.">
             <Button
               disabled={watcher.active}
-              onClick={() => this.props.onDelete(watcher.groupId)}
+              onClick={this.handleDelete}
               icon="delete"
             />
           </Tooltip>

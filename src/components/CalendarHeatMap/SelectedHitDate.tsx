@@ -1,30 +1,37 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { List } from 'immutable';
-import { Card } from '@shopify/polaris';
+import { Card, Stack, DisplayText } from '@shopify/polaris';
 import { RootState } from '../../types';
-import { hitsOnSelectedDateIds } from '../../selectors/hitDatabase';
+import { dateStringToLocaleDateString } from '../../utils/dates';
+import CompletedHitList from './CompletedHitList';
 
 export interface Props {
   readonly selectedDate: string | null;
-  readonly hitsOnSelectedDate: List<string>;
 }
 
 class SelectedHitDate extends React.PureComponent<Props, never> {
+  static generateTitle = (selectedDate: string | null) =>
+    selectedDate
+      ? `${dateStringToLocaleDateString(selectedDate)}`
+      : 'Select a date to see more information.';
+
   public render() {
-    // TODO: Separate into different components
-    // one should show the amount earned on that day through datMoneymap selector
+    const { selectedDate } = this.props;
     return (
-      <Card.Section>
-        {this.props.hitsOnSelectedDate.map((el) => <p key={el}>{el}</p>)}
-      </Card.Section>
+      <Card sectioned>
+        <Stack vertical spacing="tight">
+          <DisplayText size="small">
+            {SelectedHitDate.generateTitle(selectedDate)}
+          </DisplayText>
+          <CompletedHitList />
+        </Stack>
+      </Card>
     );
   }
 }
 
 const mapState = (state: RootState): Props => ({
-  selectedDate: state.selectedHitDbDate,
-  hitsOnSelectedDate: hitsOnSelectedDateIds(state)
+  selectedDate: state.selectedHitDbDate
 });
 
 export default connect(mapState)(SelectedHitDate);
