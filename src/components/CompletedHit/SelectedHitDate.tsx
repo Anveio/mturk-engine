@@ -1,37 +1,17 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { Card, Stack, DisplayText } from '@shopify/polaris';
-import { RootState } from '../../types';
-import { dateStringToLocaleDateString } from '../../utils/dates';
+import { Stack } from '@shopify/polaris';
 import CompletedHitList from './CompletedHitList';
+import DateInfo from './DateInfo';
 
-export interface Props {
-  readonly selectedDate: string | null;
-}
-
-class SelectedHitDate extends React.PureComponent<Props, never> {
-  static generateTitle = (selectedDate: string | null) =>
-    selectedDate
-      ? `${dateStringToLocaleDateString(selectedDate)}`
-      : 'Select a date to see more information.';
-
+class SelectedHitDate extends React.PureComponent<{}, never> {
   public render() {
-    const { selectedDate } = this.props;
     return (
-      <Card sectioned>
-        <Stack vertical spacing="tight">
-          <DisplayText size="small">
-            {SelectedHitDate.generateTitle(selectedDate)}
-          </DisplayText>
-          <CompletedHitList />
-        </Stack>
-      </Card>
+      <Stack vertical spacing="tight">
+        <DateInfo />
+        <CompletedHitList />
+      </Stack>
     );
   }
 }
 
-const mapState = (state: RootState): Props => ({
-  selectedDate: state.selectedHitDbDate
-});
-
-export default connect(mapState)(SelectedHitDate);
+export default SelectedHitDate;
