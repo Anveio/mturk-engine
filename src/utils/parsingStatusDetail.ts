@@ -117,10 +117,11 @@ const parseRequesterId = (input: HTMLAnchorElement): string => {
 };
 
 const parseRequesterName = (input: HTMLAnchorElement): string => {
-  try {
-    const href = input.getAttribute('href') as string;
-    return (/requesterName=(.*)&subject/g.exec(href) as string[])[1];
-  } catch (e) {
+  const nameSpan = input.querySelector('span');
+  // return (/requesterName=(.*)&subject/g.exec(href) as string[])[1];
+  if (nameSpan && nameSpan.textContent) {
+    return nameSpan.textContent.trim();
+  } else {
     return '[Error:requesterName]';
   }
 };
