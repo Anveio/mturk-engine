@@ -39,12 +39,15 @@ export const dateStringToLocaleDateString = (dateString: string): string =>
 
 export const generateOneYearOfDates = () => {
   const startDate = moment();
-  return dateRange(startDate.format(DATE_FORMAT), 365 + startDate.day());
+  return dateRange(startDate, 365 + startDate.day());
 };
 
-export const dateRange = (startDate: string, numDays = 365): List<string> =>
+export const dateRange = (
+  startDate: moment.Moment,
+  numDays = 365
+): List<string> =>
   range(numDays).reduce(
     (acc: List<string>, cur: number) =>
-      acc.unshift(shiftDateString(startDate, cur)),
+      acc.unshift(startDate.clone().subtract(cur, 'days').format(DATE_FORMAT)),
     List()
   );
