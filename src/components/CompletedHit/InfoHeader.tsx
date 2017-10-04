@@ -16,7 +16,7 @@ export interface Props {
   readonly earnings: number;
 }
 
-class ActionBar extends React.PureComponent<Props, never> {
+class InfoHeader extends React.PureComponent<Props, never> {
   static showPendingEarnings = (earningsPending: number) =>
     earningsPending > 0 ? `${formatAsCurrency(earningsPending)} pending. ` : '';
 
@@ -26,7 +26,7 @@ class ActionBar extends React.PureComponent<Props, never> {
       <Card.Section>
         <Heading>
           {numSubmitted} HITs submitted. {formatAsCurrency(earnings)} earned.{' '}
-          {ActionBar.showPendingEarnings(earningsPending)}
+          {InfoHeader.showPendingEarnings(earningsPending)}
         </Heading>
       </Card.Section>
     ) : (
@@ -41,4 +41,4 @@ const mapState = (state: RootState): Props => ({
   numSubmitted: hitsOnSelectedDateIds(state).size
 });
 
-export default connect(mapState)(ActionBar);
+export default connect(mapState)(InfoHeader);
