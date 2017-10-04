@@ -1,6 +1,7 @@
 import {
   SearchResult,
   SearchResults,
+  HitDatabaseEntry,
   RequesterScores,
   TOpticonResponse,
   TOpticonData,
@@ -8,6 +9,7 @@ import {
   RequesterMap,
   TOpticonMap
 } from '../types';
+import { turkopticonBaseUrl } from '../constants/urls';
 
 import { Map } from 'immutable';
 export const noTurkopticon = (hit: SearchResult) => !hit.requester.turkopticon;
@@ -88,3 +90,18 @@ export const updateRequesterTOpticonData = (data: TOpticonMap) => (
   ...requester,
   turkopticon: data.get(requester.id)
 });
+
+export const generateReviewLink = (
+  hit: HitDatabaseEntry | SearchResult
+): string => {
+  const { requester } = hit;
+  return (
+    turkopticonBaseUrl +
+    'report?requester[amzn_id]=' +
+    requester.id +
+    '&requester[amzn_name]=' +
+    requester.name +
+    '&report[hit_names]=' +
+    hit.title
+  );
+};

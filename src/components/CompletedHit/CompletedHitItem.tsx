@@ -3,6 +3,7 @@ import { RootState, HitDatabaseEntry } from '../../types';
 import { connect, Dispatch } from 'react-redux';
 import { EditBonus, editBonus } from '../../actions/bonus';
 import { ResourceList } from '@shopify/polaris';
+import { generateReviewLink } from '../../utils/turkopticon';
 
 export interface OwnProps {
   readonly id: string;
@@ -20,9 +21,23 @@ class CompletedHitItem extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
+  private generateActions = () => [
+    {
+      content: 'Leave Review',
+      url: generateReviewLink(this.props.hit),
+      external: true
+    }
+  ];
+
   public render() {
     const { hit } = this.props;
-    return <ResourceList.Item attributeOne={hit.title} />;
+    return (
+      <ResourceList.Item
+        persistActions
+        attributeOne={hit.title}
+        actions={this.generateActions()}
+      />
+    );
   }
 }
 
