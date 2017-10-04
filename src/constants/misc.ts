@@ -3,9 +3,9 @@ export const DATE_FORMAT = 'MMDDYYYY';
 /**
  * To be passed in as the argument for moment().format()
  * e.g. 'moment('10022017', 'MMDDYYYY').format('MOMENT_LOCALE')
- * yields 'Oct 2, 2017' when MOMENT_LOCALE === 'll'
+ * yields 'Monday, October 2nd 2017' when MOMENT_LOCALE === 'dddd, MMMM Do YYYY'
  */
-export const MOMENT_LOCALE = 'll';
+export const MOMENT_LOCALE = 'dddd, MMMM Do YYYY';
 
 export const SQUARE_SIZE = 10;
 export const MONTH_LABEL_GUTTER_SIZE = 4;
