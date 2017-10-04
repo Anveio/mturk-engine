@@ -43,3 +43,8 @@ export const todayFormatted = (): string => moment().format(DATE_FORMAT);
 
 export const dateStringToLocaleDateString = (dateString: string): string =>
   moment(dateString, DATE_FORMAT).format(MOMENT_LOCALE);
+
+export const generateOneYearOfDates = () => {
+  const startDate = moment();
+  return dateRange(startDate.format(DATE_FORMAT), 364 + startDate.day());
+};

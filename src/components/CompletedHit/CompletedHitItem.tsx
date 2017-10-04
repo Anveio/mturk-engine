@@ -4,6 +4,7 @@ import { connect, Dispatch } from 'react-redux';
 import { EditBonus, editBonus } from '../../actions/bonus';
 import { ResourceList } from '@shopify/polaris';
 import { generateReviewLink } from '../../utils/turkopticon';
+import { truncate } from '../../utils/formatting';
 
 export interface OwnProps {
   readonly id: string;
@@ -30,11 +31,12 @@ class CompletedHitItem extends React.PureComponent<
   ];
 
   public render() {
-    const { hit } = this.props;
+    const { hit: { title, requester } } = this.props;
     return (
       <ResourceList.Item
         persistActions
-        attributeOne={hit.title}
+        attributeOne={truncate(requester.name, 40)}
+        attributeTwo={truncate(title, 120)}
         actions={this.generateActions()}
       />
     );

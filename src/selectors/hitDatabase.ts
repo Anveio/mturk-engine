@@ -5,13 +5,8 @@ import {
   HitDatabaseMap,
   HeatMapValue
 } from '../types';
-import { todayFormatted, dateRange } from '../utils/dates';
+import { generateOneYearOfDates } from '../utils/dates';
 import { Map, List } from 'immutable';
-
-const generateOneYearOfDates = () => {
-  const startDate = todayFormatted();
-  return dateRange(startDate);
-};
 
 export const hitDatabaseSelector = (state: RootState) => state.hitDatabase;
 export const selectedHitDbDateSelector = (state: RootState) =>

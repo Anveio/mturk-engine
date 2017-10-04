@@ -78,6 +78,7 @@ const parseAnchorElem = (input: HTMLTableRowElement): AnchorElemInfo => {
   };
 };
 
+
 const selectHitRows = (html: Document): HTMLTableRowElement[] => {
   const hitTable = html.querySelector('#dailyActivityTable > tbody');
   if (hitTable && hitTable.children) {

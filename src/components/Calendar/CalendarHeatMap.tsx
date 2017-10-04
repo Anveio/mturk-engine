@@ -117,10 +117,7 @@ class CalendarHeatMap extends React.Component<Props, never> {
   private renderWeek = (weekIndex: number) => (
     <g key={weekIndex} transform={this.getTransformForWeek(weekIndex)}>
       {range(DAYS_IN_WEEK).map((dayIndex) => {
-        return this.renderSquare(
-          dayIndex,
-          weekIndex * DAYS_IN_WEEK + dayIndex - 1
-        );
+        return this.renderSquare(dayIndex, weekIndex * DAYS_IN_WEEK + dayIndex);
       })}
     </g>
   );
