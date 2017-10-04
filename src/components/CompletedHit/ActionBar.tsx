@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import { RootState } from '../../types';
 import { Card, Heading } from '@shopify/polaris';
 import { formatAsCurrency } from '../../utils/formatting';
-import { earningsOnDate } from '../../selectors/hitDatabaseDay';
+import {
+  earningsOnDate,
+  pendingEarningsOnDate
+} from '../../selectors/hitDatabaseDay';
 
 export interface Props {
   readonly numSubmitted: number;
@@ -14,7 +17,7 @@ export interface Props {
 
 class ActionBar extends React.PureComponent<Props, never> {
   static showPendingEarnings = (earningsPending: number) =>
-    earningsPending > 0 ? `${formatAsCurrency(earningsPending)} pending, ` : '';
+    earningsPending > 0 ? `${formatAsCurrency(earningsPending)} pending. ` : '';
 
   public render() {
     const { earnings, earningsPending } = this.props;
@@ -31,7 +34,7 @@ class ActionBar extends React.PureComponent<Props, never> {
 
 const mapState = (state: RootState): Props => ({
   earnings: earningsOnDate(state),
-  earningsPending: 0,
+  earningsPending: pendingEarningsOnDate(state),
   numAccepted: 0,
   numSubmitted: 0
 });

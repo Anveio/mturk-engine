@@ -1,7 +1,7 @@
 import { RootState, HitDatabaseMap, HitDatabaseEntry } from '../types';
 import { createSelector } from 'reselect';
 import { hitDatabaseSelector } from './hitDatabase';
-import { keepPaidOrApproved } from '../utils/hitDatabase';
+import { keepPaidOrApproved, keepPending } from '../utils/hitDatabase';
 import { Map } from 'immutable';
 
 export const selectedHitDbDateSelector = (state: RootState) =>
@@ -28,6 +28,18 @@ export const earningsOnDate = createSelector(
   (entry: HitDatabaseMap) =>
     entry
       .filter(keepPaidOrApproved)
+      .reduce(
+        (acc: number, cur: HitDatabaseEntry) =>
+          (acc += cur.reward + (cur.bonus || 0)),
+        0
+      )
+);
+
+export const pendingEarningsOnDate = createSelector(
+  [ hitsOnSelectedDate ],
+  (entry: HitDatabaseMap) =>
+    entry
+      .filter(keepPending)
       .reduce(
         (acc: number, cur: HitDatabaseEntry) =>
           (acc += cur.reward + (cur.bonus || 0)),
