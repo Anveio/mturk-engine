@@ -152,7 +152,13 @@ export interface AudioFiles {
   readonly audioNewSearch: HTMLAudioElement;
 }
 
-interface HeatMapValue {
+export interface HeatMapValue {
   readonly date: string;
   readonly count: number;
 }
+
+export type HitAcceptFailureReason =
+  | 'Group Empty'
+  | 'Unqualified'
+  | 'CAPTCHA'
+  | 'Unknown';

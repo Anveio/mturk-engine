@@ -1,4 +1,10 @@
-import { SearchResult, SearchResults, QueueItem, QueueMap } from '../types';
+import {
+  SearchResult,
+  SearchResults,
+  QueueItem,
+  QueueMap,
+  HitAcceptFailureReason
+} from '../types';
 import {
   hitContainerTableCell,
   requesterIdAnchor,
@@ -13,13 +19,24 @@ import { Map } from 'immutable';
 import * as v4 from 'uuid/v4';
 
 export const parseRateLimitError = (html: Document): boolean => {
-  const maybeRateLimitElem = document.querySelector('td.error_title');
+  const maybeRateLimitElem = html.querySelector('td.error_title');
   if (maybeRateLimitElem && maybeRateLimitElem.textContent) {
-    return /exceeded/.test(maybeRateLimitElem.textContent)
+    return /exceeded/.test(maybeRateLimitElem.textContent);
   } else {
     return false;
   }
-}
+};
+
+export const parseHitAcceptFailureReason = (
+  html: Document
+): HitAcceptFailureReason => {
+  const maybeReasonContainer = html.querySelector('div.message.warning');
+  if (maybeReasonContainer && maybeReasonContainer.textContent) {
+    return maybeReasonContainer.textContent as HitAcceptFailureReason;
+  } else {
+    return 'Unknown';
+  }
+};
 
 export const selectHitContainers = (el: Document): HTMLDivElement[] =>
   Array.from(el.querySelectorAll(hitContainerTableCell) as NodeListOf<
@@ -30,7 +47,7 @@ const tabulateSearchData = (input: HTMLDivElement[]): SearchResults =>
   input.reduce((map: SearchResults, hit: HTMLDivElement, index: number) => {
     const groupId = parseGroupId(hit);
     return map.set(groupId, createSearchItem(hit, groupId, index));
-  },           Map<string, SearchResult>());
+  }, Map<string, SearchResult>());
 
 const createSearchItem = (
   input: HTMLDivElement,
@@ -60,7 +77,7 @@ const tabulateFreshSearchData = (input: HTMLDivElement[]): SearchResults =>
       groupId,
       createReadSearchItem(hit, groupId, index, memoizedDate)
     );
-  },           Map<string, SearchResult>());
+  }, Map<string, SearchResult>());
 
 const createReadSearchItem = (
   input: HTMLDivElement,
