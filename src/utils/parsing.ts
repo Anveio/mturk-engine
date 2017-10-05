@@ -12,6 +12,15 @@ import {
 import { Map } from 'immutable';
 import * as v4 from 'uuid/v4';
 
+export const parseRateLimitError = (html: Document): boolean => {
+  const maybeRateLimitElem = document.querySelector('td.error_title');
+  if (maybeRateLimitElem && maybeRateLimitElem.textContent) {
+    return /exceeded/.test(maybeRateLimitElem.textContent)
+  } else {
+    return false;
+  }
+}
+
 export const selectHitContainers = (el: Document): HTMLDivElement[] =>
   Array.from(el.querySelectorAll(hitContainerTableCell) as NodeListOf<
     HTMLDivElement
