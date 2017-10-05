@@ -105,3 +105,19 @@ export const generateReviewLink = (
     hit.title
   );
 };
+
+export const generateContactLink = (hit: HitDatabaseEntry): string => {
+  const { requester, id, title } = hit;
+  return (
+    'https://www.mturk.com/mturk/contact?requesterId=' +
+    requester.id +
+    '&hitId=' +
+    id +
+    '&requesterName=' +
+    requester.name +
+    '&subject=Regarding Amazon Mechanical Turk HIT' +
+    id +
+    '&hitTitle=' +
+    title
+  );
+};

@@ -3,7 +3,10 @@ import { RootState, HitDatabaseEntry } from '../../types';
 import { connect, Dispatch } from 'react-redux';
 import { EditBonus, editBonus } from '../../actions/bonus';
 import { ResourceList } from '@shopify/polaris';
-import { generateReviewLink } from '../../utils/turkopticon';
+import {
+  generateReviewLink,
+  generateContactLink
+} from '../../utils/turkopticon';
 import { generateHitStatusBadge } from '../../utils/badges';
 import { truncate, formatAsCurrency } from '../../utils/formatting';
 
@@ -25,7 +28,12 @@ class CompletedHitItem extends React.PureComponent<
 > {
   private generateActions = () => [
     {
-      content: 'Leave Review',
+      content: 'Contact',
+      url: generateContactLink(this.props.hit),
+      external: true
+    },
+    {
+      content: 'Write Review',
       url: generateReviewLink(this.props.hit),
       external: true
     }
@@ -37,7 +45,7 @@ class CompletedHitItem extends React.PureComponent<
       <ResourceList.Item
         persistActions
         attributeOne={formatAsCurrency(reward)}
-        attributeTwo={truncate(title, 120)}
+        attributeTwo={truncate(title, 100)}
         badges={[ generateHitStatusBadge(status) ]}
         actions={this.generateActions()}
       />
