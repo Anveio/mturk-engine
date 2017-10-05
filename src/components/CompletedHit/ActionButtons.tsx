@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Button } from '@shopify/polaris';
-import { NonIdealState } from '@blueprintjs/core';
+import { Card, ButtonGroup, Button } from '@shopify/polaris';
 import { RootState } from '../../types';
 import {
   FetchStatusDetailRequest,
@@ -25,13 +24,13 @@ class ActionButtons extends React.PureComponent<Props & Handlers, never> {
 
   public render() {
     return (
-      <NonIdealState
-        title="No activity recorded for this day."
-        description="Gibberish"
-        visual="pt-icon-calendar"
-      >
-        <Button onClick={this.handleRefresh}> Refresh</Button>
-      </NonIdealState>
+      <Card.Section>
+        <ButtonGroup>
+          <Button plain onClick={this.handleRefresh} icon="refresh">
+            Refresh Date
+          </Button>
+        </ButtonGroup>
+      </Card.Section>
     );
   }
 }

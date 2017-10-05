@@ -78,7 +78,6 @@ const parseAnchorElem = (input: HTMLTableRowElement): AnchorElemInfo => {
   };
 };
 
-
 const selectHitRows = (html: Document): HTMLTableRowElement[] => {
   const hitTable = html.querySelector('#dailyActivityTable > tbody');
   if (hitTable && hitTable.children) {
@@ -156,7 +155,9 @@ const parseStatus = (input: HTMLTableRowElement): HitStatus => {
   const rewardElem = input.querySelector('td.statusdetailStatusColumnValue');
 
   if (rewardElem && rewardElem.textContent) {
-    return rewardElem.textContent.trim().split(' ')[0] as HitStatus;
+    return /Pending\sPayment/.test(rewardElem.textContent)
+      ? 'Pending Payment'
+      : rewardElem.textContent.trim() as HitStatus;
   } else {
     return 'Pending';
   }

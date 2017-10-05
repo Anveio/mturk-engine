@@ -45,7 +45,7 @@ export interface SearchOptions {
 }
 
 export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
-export type HitStatus = 'Paid' | 'Approved' | 'Rejected' | 'Pending';
+export type HitStatus = 'Paid' | 'Pending Payment' | 'Rejected' | 'Pending';
 
 export interface AccountInfo {
   id: string;

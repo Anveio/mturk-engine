@@ -11,6 +11,6 @@ export const conflictsPreserveBonus = (
 };
 
 export const keepPaidOrApproved = (el: HitDatabaseEntry) =>
-  el.status === 'Paid' || el.status === 'Approved';
+  el.status === 'Paid' || el.status === 'Pending Payment';
 
 export const keepPending = (el: HitDatabaseEntry) => el.status === 'Pending';

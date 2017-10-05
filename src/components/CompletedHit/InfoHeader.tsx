@@ -25,8 +25,9 @@ class InfoHeader extends React.PureComponent<Props, never> {
     return numSubmitted > 0 ? (
       <Card.Section>
         <Heading>
-          {numSubmitted} HITs submitted. {formatAsCurrency(earnings)} earned.{' '}
-          {InfoHeader.showPendingEarnings(earningsPending)}
+          {formatAsCurrency(earnings)} earned.{' '}
+          {InfoHeader.showPendingEarnings(earningsPending)} {numSubmitted} HITs
+          submitted.
         </Heading>
       </Card.Section>
     ) : (
