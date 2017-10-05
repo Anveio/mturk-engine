@@ -129,10 +129,10 @@ export const statusDetailToast = (dateStr: string, noDataFound: boolean) => {
     'Refreshed activity for ' + dateStringToLocaleDateString(dateStr);
 
   noDataFound
-    ? toastr.light(toastHeader, 'No activity was found for this day.', {
+    ? toastr.info(toastHeader, 'No activity was found for this day.', {
         timeOut: 3000
       })
-    : toastr.light(
+    : toastr.info(
         toastHeader,
         'Your database has been updated with any new information.',
         { timeOut: 5000 }
