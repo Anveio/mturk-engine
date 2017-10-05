@@ -144,6 +144,11 @@ class CalendarHeatMap extends React.Component<Props, never> {
   public render() {
     return (
       <svg className="react-calendar-heatmap" viewBox={this.getViewBox()}>
+        <title>Entries for your Hit Database in the past year.</title>
+        <desc>
+          A graphical representation of HITs you've completed in the past year.
+          Select a date to see more info or to fetch data for that date.
+        </desc>
         <g>{this.renderMonthLabels()}</g>
         <g transform={this.getTransformForAllWeeks()}>
           {this.renderAllWeeks()}

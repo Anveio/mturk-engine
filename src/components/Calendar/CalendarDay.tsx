@@ -6,6 +6,8 @@ import {
   SelectDatabaseDate,
   selectDatabaseDate
 } from '../../actions/selectDatabaseDate';
+import { dateStringToLocaleDateString } from '../../utils/dates';
+import { formatAsCurrency } from '../../utils/formatting';
 
 export interface OwnProps {
   readonly x: number;
@@ -26,6 +28,11 @@ class CalendarDay extends React.PureComponent<OwnProps & Handlers, State> {
 
   static calculateTooltipVisibility = (hovering: boolean) =>
     hovering ? 'visible' : 'hidden';
+
+  static generateAriaLabel = (value: HeatMapValue) =>
+    `${formatAsCurrency(value.count)} earned on ${dateStringToLocaleDateString(
+      value.date
+    )}`;
 
   static calculateGrade = (count: number): string => {
     if (count >= 20) {
@@ -67,16 +74,18 @@ class CalendarDay extends React.PureComponent<OwnProps & Handlers, State> {
     const { generateClassName } = CalendarDay;
 
     return (
-      <rect
-        onClick={this.handleSelect}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
-        className={generateClassName(value)}
-        height={SQUARE_SIZE}
-        width={SQUARE_SIZE}
-        x={x}
-        y={y}
-      />
+      <a onClick={this.handleSelect}>
+        <rect
+          aria-labelledby={CalendarDay.generateAriaLabel(value)}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+          className={generateClassName(value)}
+          height={SQUARE_SIZE}
+          width={SQUARE_SIZE}
+          x={x}
+          y={y}
+        />
+      </a>
     );
   }
 }
