@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Card, Stack, DisplayText, Button } from '@shopify/polaris';
+import { Card } from '@shopify/polaris';
+import { Tooltip, Button } from '@blueprintjs/core';
 import { RootState } from '../../types';
 import {
   FetchStatusDetailRequest,
@@ -28,18 +29,36 @@ class DateDisplay extends React.PureComponent<Props & Handlers, never> {
     }
   };
 
+  private dateSelectedMarkup = () => (
+    <Card.Section>
+      <Tooltip content="Click to refresh this day's data.">
+        <Button
+          intent={0}
+          rightIconName="refresh"
+          className="pt-button pt-minimal"
+          onClick={this.handleRefresh}
+        >
+          <span className="pt-ui-text-large">
+            {DateDisplay.generateTitle(this.props.selectedDate)}
+          </span>
+        </Button>
+      </Tooltip>
+    </Card.Section>
+  );
+
+  private noDateSelectedMarkup = () => (
+    <Card.Section>
+      <span className="pt-ui-text-large">
+        {DateDisplay.generateTitle(this.props.selectedDate)}
+      </span>
+    </Card.Section>
+  );
+
   public render() {
     const { selectedDate } = this.props;
-    return (
-      <Card.Section>
-        <Stack alignment="baseline">
-          <Button plain onClick={this.handleRefresh} icon="refresh" />
-          <DisplayText size="small">
-            {DateDisplay.generateTitle(selectedDate)}
-          </DisplayText>
-        </Stack>
-      </Card.Section>
-    );
+    return selectedDate
+      ? this.dateSelectedMarkup()
+      : this.noDateSelectedMarkup();
   }
 }
 
