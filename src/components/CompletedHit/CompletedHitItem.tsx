@@ -4,6 +4,7 @@ import { connect, Dispatch } from 'react-redux';
 import { EditBonus, editBonus } from '../../actions/bonus';
 import { ResourceList } from '@shopify/polaris';
 import { generateReviewLink } from '../../utils/turkopticon';
+import { generateHitStatusBadge } from '../../utils/badges';
 import { truncate, formatAsCurrency } from '../../utils/formatting';
 
 export interface OwnProps {
@@ -31,12 +32,13 @@ class CompletedHitItem extends React.PureComponent<
   ];
 
   public render() {
-    const { hit: { title, reward } } = this.props;
+    const { hit: { title, reward, status } } = this.props;
     return (
       <ResourceList.Item
         persistActions
         attributeOne={formatAsCurrency(reward)}
         attributeTwo={truncate(title, 120)}
+        badges={[ generateHitStatusBadge(status) ]}
         actions={this.generateActions()}
       />
     );

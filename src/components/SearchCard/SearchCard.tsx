@@ -6,7 +6,7 @@ import CollapsibleInfo from './CollapsibleInfo';
 
 import { truncate } from '../../utils/formatting';
 import { qualException } from '../../utils/exceptions';
-import { generateBadges } from '../../utils/badges';
+import { generateTOpticonBadge } from '../../utils/badges';
 import { blockedHitFactory } from '../../utils/blocklist';
 import { clickDidNotOccurOnActionButton } from '../../utils/searchCard';
 
@@ -91,7 +91,7 @@ class SearchCard extends React.PureComponent<
           <ResourceList.Item
             actions={this.generateActions(!!markedAsRead)}
             exceptions={qualException(qualified)}
-            badges={generateBadges(requester.turkopticon)}
+            badges={generateTOpticonBadge(requester.turkopticon)}
             attributeOne={truncate(requester.name, 40)}
             attributeTwo={truncate(title, 120)}
             attributeThree={

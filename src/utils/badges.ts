@@ -1,14 +1,15 @@
-import { TOpticonData, RequesterScores } from '../types';
+import { TOpticonData, RequesterScores, HitStatus } from '../types';
 import { BadgeDescriptor } from '@shopify/polaris/types/components/ResourceList/Item';
 import { calculateAverageScore } from './turkopticon';
 import { Status } from '@shopify/polaris/types/components/Badge/Badge';
+// import { BadgeProps } from '@shopify/polaris';
 
 const noTOBadge: BadgeDescriptor = {
   content: 'No T.O.',
   status: '' as Status
 };
 
-export const generateBadges = (
+export const generateTOpticonBadge = (
   turkopticon?: TOpticonData
 ): BadgeDescriptor[] => {
   if (!turkopticon) {
@@ -59,4 +60,19 @@ export const calculateReviewsBadge = (
   };
 
   return reviews < 4 ? fewReviewsBadge : null;
+};
+
+export const generateHitStatusBadge = (status: HitStatus): BadgeDescriptor => {
+  switch (status) {
+    case 'Paid':
+      return { content: 'Paid', status: 'success' };
+    case 'Pending Payment':
+      return { content: 'Approved', status: 'success' };
+    case 'Rejected':
+      return { content: 'Rejected', status: 'warning' };
+    case 'Pending':
+      return { content: 'Pending', status: 'attention' };
+    default:
+      return { content: 'Pending', status: 'attention' };
+  }
 };
