@@ -51,17 +51,6 @@ const assignScoreColor = (score: number | null): Status | null => {
   }
 };
 
-export const calculateReviewsBadge = (
-  reviews: number
-): BadgeDescriptor | null => {
-  const fewReviewsBadge: BadgeDescriptor = {
-    content: 'Few reviews',
-    status: 'attention'
-  };
-
-  return reviews < 4 ? fewReviewsBadge : null;
-};
-
 export const generateHitStatusBadge = (status: HitStatus): BadgeDescriptor => {
   switch (status) {
     case 'Paid':
