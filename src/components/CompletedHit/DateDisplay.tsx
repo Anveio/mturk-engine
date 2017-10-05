@@ -50,7 +50,8 @@ const mapState = (state: RootState): Props => ({
 const mapDispatch = (
   dispatch: Dispatch<FetchStatusDetailRequest>
 ): Handlers => ({
-  onRefresh: (dateString: string) => dispatch(statusDetailRequest(dateString))
+  onRefresh: (dateString: string) =>
+    dispatch(statusDetailRequest(dateString, 1, true))
 });
 
 export default connect(mapState, mapDispatch)(DateDisplay);

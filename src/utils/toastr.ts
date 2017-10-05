@@ -2,6 +2,7 @@ import { toastr } from 'react-redux-toastr';
 import { SearchResult } from '../types';
 import { truncate } from './formatting';
 import { HitReturnStatus } from '../api/returnHit';
+import { dateStringToLocaleDateString } from './dates';
 
 export const generateSearchToast = (successful: boolean) => {
   successful ? successfulSearchToast() : failedSearchToast();
@@ -76,8 +77,8 @@ const failedSearchToast = () => {
 const repeatReturnToast = () => {
   // tslint:disable-next-line:quotemark
   toastr.light(
-    'You\'ve already returned this HIT.',
-    'It\'s been removed from your queue.'
+    "You've already returned this HIT.",
+    "It's been removed from your queue."
   );
 };
 
@@ -118,7 +119,22 @@ export const accountConnectionFailedToast = () => {
 export const emptySummaryPageToast = () => {
   toastr.error(
     'Problem getting your recent HITs',
-    'Make sure you\'re logged in and have done a HIT in the past 45 days and try again.',
+    "Make sure you're logged in and have done a HIT in the past 45 days and try again.",
     { timeOut: 5000 }
   );
+};
+
+export const statusDetailToast = (dateStr: string, noDataFound: boolean) => {
+  const toastHeader =
+    'Refreshed activity for ' + dateStringToLocaleDateString(dateStr);
+
+  noDataFound
+    ? toastr.light(toastHeader, 'No activity was found for this day.', {
+        timeOut: 3000
+      })
+    : toastr.light(
+        toastHeader,
+        'Your database has been updated with any new information.',
+        { timeOut: 5000 }
+      );
 };

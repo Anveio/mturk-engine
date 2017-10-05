@@ -9,6 +9,7 @@ export interface FetchStatusDetailRequest {
   readonly type: STATUS_DETAIL_REQUEST;
   readonly dateString: string;
   readonly page: number;
+  readonly withToast: boolean;
 }
 
 export interface FetchStatusDetailSuccess {
@@ -22,11 +23,13 @@ export interface FetchStatusDetailFailure {
 
 export const statusDetailRequest = (
   dateString: string,
-  page: number = 1
+  page = 1,
+  withToast = false
 ): FetchStatusDetailRequest => ({
   type: STATUS_DETAIL_REQUEST,
   dateString,
-  page
+  page,
+  withToast
 });
 
 export const statusDetailFailure = (): FetchStatusDetailFailure => ({

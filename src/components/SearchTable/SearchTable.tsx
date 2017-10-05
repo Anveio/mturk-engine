@@ -10,7 +10,7 @@ export interface Props {
   readonly resultsIds: List<string>;
 }
 
-class SearchTable extends React.PureComponent<Props, never> {
+class SearchTable extends React.Component<Props, never> {
   shouldComponentUpdate(nextProps: Props) {
     return !this.props.resultsIds.equals(nextProps.resultsIds);
   }

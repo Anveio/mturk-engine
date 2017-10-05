@@ -1,3 +1,7 @@
+/**
+ * This code is adapted from https://github.com/patientslikeme/react-calendar-heatmap/blob/master/src/index.jsx
+ */
+
 import * as React from 'react';
 import { List } from 'immutable';
 import { HeatMapValue } from '../../types';
@@ -101,13 +105,6 @@ class CalendarHeatMap extends React.Component<Props, never> {
     if (!value) {
       return null;
     }
-
-    // const indexOutOfRange =
-    //   value.date < this.startDate.getday() ||
-    //   index >= this.startDate.getDay() + this.numDays;
-    // if (indexOutOfRange) {
-    //   return null;
-    // }
 
     const [ x, y ] = this.getSquareCoordinates(dayIndex);
 
