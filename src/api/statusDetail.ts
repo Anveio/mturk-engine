@@ -9,7 +9,7 @@ export interface StatusDetailPageInfo {
 }
 
 /**
- * @param encodedDateString E.g. '09222017'
+ * @param encodedDateString in 'MMDDYYYY' format.
  */
 export const fetchStatusDetailPage = async (
   encodedDateString: string,
