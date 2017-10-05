@@ -5,7 +5,6 @@ import { RootState } from '../../types';
 import CompletedHitList from './CompletedHitList';
 import DateDisplay from './DateDisplay';
 import InfoHeader from './InfoHeader';
-// import ActionButtons from './ActionButtons';
 
 export interface Props {
   readonly dateIsSelected: boolean;
@@ -16,7 +15,6 @@ class SelectedHitDate extends React.PureComponent<Props, never> {
     return this.props.dateIsSelected ? (
       <Card>
         <DateDisplay />
-        {/* <ActionButtons /> */}
         <InfoHeader />
         <CompletedHitList />
       </Card>
