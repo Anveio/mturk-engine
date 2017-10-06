@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { ButtonGroup, Button } from '@shopify/polaris';
+import { Tooltip, Button } from '@blueprintjs/core';
 import {
   FetchStatusSummaryRequest,
   statusSummaryRequest
@@ -11,11 +11,19 @@ export interface Handlers {
 }
 
 class CalendarButtons extends React.PureComponent<Handlers, never> {
+  static tooltipContent = `This will produce many requests to MTurk.`;
+
   public render() {
     return (
-      <ButtonGroup>
-        <Button onClick={this.props.onRefreshDb}>Refresh Database.</Button>
-      </ButtonGroup>
+      <Tooltip content={CalendarButtons.tooltipContent}>
+        <Button
+          iconName="pt-icon-database"
+          className="pt-button pt-minimal"
+          onClick={this.props.onRefreshDb}
+        >
+          Click to refresh your database.
+        </Button>
+      </Tooltip>
     );
   }
 }

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { List } from 'immutable';
 import { oneYearOfData } from '../../selectors/hitDatabase';
 import CalendarHeatMap from './CalendarHeatMap';
-// import CalendarButtons from './CalendarButtons';
+import CalendarButtons from './CalendarButtons';
 import SelectedHitDate from '../CompletedHit/SelectedHitDate';
 import { dateStringToLocaleDateString } from '../../utils/dates';
 
@@ -25,6 +25,7 @@ class Calendar extends React.PureComponent<Props, never> {
       >
         <Card.Section>
           <CalendarHeatMap values={this.props.values} />
+          <CalendarButtons />
         </Card.Section>
         <SelectedHitDate />
       </Card>

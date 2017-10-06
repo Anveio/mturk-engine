@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
-import { Layout,  AccountConnection } from '@shopify/polaris';
+import { Layout, Card } from '@shopify/polaris';
+import { pendingEarnings } from '../../selectors/hitDatabase';
 
 export interface Props {
   readonly accountInfo: MaybeAccount;
+  readonly pendingEarnings: number;
 }
 
 class UserInfo extends React.PureComponent<Props, never> {
@@ -13,11 +15,13 @@ class UserInfo extends React.PureComponent<Props, never> {
 
     return accountInfo ? (
       <Layout.Section secondary>
-        <AccountConnection
-          connected
-          title={accountInfo.fullName}
-          accountName={accountInfo.fullName}
-        />
+        <Card sectioned>
+          {accountInfo.availableEarnings}
+          {accountInfo.lifetimeHitEarnings}
+          {accountInfo.lifetimeBonusEarnings}
+          {accountInfo.availableEarnings}
+          {accountInfo.availableEarnings}
+        </Card>
       </Layout.Section>
     ) : (
       <div />
@@ -26,7 +30,8 @@ class UserInfo extends React.PureComponent<Props, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  accountInfo: state.account
+  accountInfo: state.account,
+  pendingEarnings: pendingEarnings(state)
 });
 
 export default connect(mapState)(UserInfo);
