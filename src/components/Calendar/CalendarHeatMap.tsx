@@ -24,7 +24,7 @@ export interface Props {
   readonly values: List<HeatMapValue>;
 }
 
-class CalendarHeatMap extends React.Component<Props, never> {
+class CalendarHeatMap extends React.PureComponent<Props, never> {
   private readonly startDate: Date;
   private readonly endDate: Date;
   private readonly numDays: number;
@@ -38,10 +38,6 @@ class CalendarHeatMap extends React.Component<Props, never> {
       this.startDate,
       this.endDate
     );
-  }
-
-  shouldComponentUpdate(nextProps: Props) {
-    return !this.props.values.equals(nextProps.values);
   }
 
   static calculateStartDate = (values: List<HeatMapValue>) => {
@@ -143,11 +139,14 @@ class CalendarHeatMap extends React.Component<Props, never> {
 
   public render() {
     return (
-      <svg className="react-calendar-heatmap" viewBox={this.getViewBox()}>
+      <svg
+        className="react-calendar-heatmap"
+        viewBox={this.getViewBox()}
+        role="group"
+      >
         <title>Entries for your Hit Database in the past year.</title>
         <desc>
           A graphical representation of HITs you've completed in the past year.
-          Select a date to see more info or to fetch data for that date.
         </desc>
         <g>{this.renderMonthLabels()}</g>
         <g transform={this.getTransformForAllWeeks()}>
