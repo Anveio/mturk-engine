@@ -77,8 +77,8 @@ const failedSearchToast = () => {
 const repeatReturnToast = () => {
   // tslint:disable-next-line:quotemark
   toastr.light(
-    "You've already returned this HIT.",
-    "It's been removed from your queue."
+    'You\'ve already returned this HIT.',
+    'It\'s been removed from your queue.'
   );
 };
 
@@ -119,14 +119,14 @@ export const accountConnectionFailedToast = () => {
 export const emptySummaryPageToast = () => {
   toastr.error(
     'Problem getting your recent HITs',
-    "Make sure you're logged in and have done a HIT in the past 45 days and try again.",
+    'Make sure you\'re logged in and have done a HIT in the past 45 days and try again.',
     { timeOut: 5000 }
   );
 };
 
 export const statusDetailToast = (dateStr: string, noDataFound: boolean) => {
   const toastHeader =
-    'Refreshed activity for ' + dateStringToLocaleDateString(dateStr);
+    'Refreshed HITs on' + dateStringToLocaleDateString(dateStr);
 
   noDataFound
     ? toastr.info(toastHeader, 'No activity was found for this day.', {
@@ -138,3 +138,10 @@ export const statusDetailToast = (dateStr: string, noDataFound: boolean) => {
         { timeOut: 5000 }
       );
 };
+
+export const statusDetailErrorToast = (dateStr: string) =>
+  toastr.error(
+    'Problem getting data for ' + dateStringToLocaleDateString(dateStr),
+    'This is most likely because you have been logged out of MTurk. Try logging in again.',
+    { timeOut: 5000 }
+  );

@@ -11,7 +11,7 @@ import {
   fetchStatusDetailPage,
   StatusDetailPageInfo
 } from '../api/statusDetail';
-import { statusDetailToast } from '../utils/toastr';
+import { statusDetailToast, statusDetailErrorToast } from '../utils/toastr';
 
 export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
   try {
@@ -38,7 +38,7 @@ export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
       );
     }
   } catch (e) {
-    conditionallyDisplayToast(action, true);
+    statusDetailErrorToast(action.dateString);
     yield put<FetchStatusDetailFailure>(statusDetailFailure());
   }
 }
