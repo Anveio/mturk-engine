@@ -39,6 +39,7 @@ export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
     }
   } catch (e) {
     statusDetailErrorToast(action.dateString);
+    console.warn(e);
     yield put<FetchStatusDetailFailure>(statusDetailFailure());
   }
 }

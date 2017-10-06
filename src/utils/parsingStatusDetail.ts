@@ -11,6 +11,7 @@ import {
   statusDetailMorePages
 } from '../constants/querySelectors';
 import { StatusDetailPageInfo } from '../api/statusDetail';
+import { pageErrorPresent } from './parsing';
 
 interface AnchorElemInfo {
   requester: Requester;
@@ -21,11 +22,18 @@ export const parseStatusDetailPage = (
   html: Document,
   dateString: string
 ): StatusDetailPageInfo => {
-  const hitRows = selectHitRows(html);
-  return {
-    morePages: detectMorePages(html),
-    data: tabulateHitDbEntries(hitRows, dateString)
-  };
+  if (!pageErrorPresent) {
+    return {
+      data: Map<string, HitDatabaseEntry>(),
+      morePages: false
+    };
+  } else {
+    const hitRows = selectHitRows(html);
+    return {
+      morePages: detectMorePages(html),
+      data: tabulateHitDbEntries(hitRows, dateString)
+    };
+  }
 };
 
 const tabulateHitDbEntries = (

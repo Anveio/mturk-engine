@@ -6,6 +6,7 @@ import {
   HitAcceptFailureReason
 } from '../types';
 import {
+  errorBanner,
   hitContainerTableCell,
   requesterIdAnchor,
   groupIdAnchor,
@@ -18,8 +19,11 @@ import {
 import { Map } from 'immutable';
 import * as v4 from 'uuid/v4';
 
-export const parseRateLimitError = (html: Document): boolean => {
-  const maybeRateLimitElem = html.querySelector('td.error_title');
+export const pageErrorPresent = (html: Document): boolean =>
+  !!html.querySelector(errorBanner);
+
+export const rateLimitErrorPresent = (html: Document): boolean => {
+  const maybeRateLimitElem = html.querySelector(errorBanner);
   if (maybeRateLimitElem && maybeRateLimitElem.textContent) {
     return /exceeded/.test(maybeRateLimitElem.textContent);
   } else {
