@@ -22,13 +22,13 @@ export const parseStatusDetailPage = (
   html: Document,
   dateString: string
 ): StatusDetailPageInfo => {
-  if (!pageErrorPresent) {
+  const hitRows = selectHitRows(html);
+  if (pageErrorPresent(html) || !activityPresent(hitRows)) {
     return {
       data: Map<string, HitDatabaseEntry>(),
       morePages: false
     };
   } else {
-    const hitRows = selectHitRows(html);
     return {
       morePages: detectMorePages(html),
       data: tabulateHitDbEntries(hitRows, dateString)
@@ -168,5 +168,14 @@ const parseStatus = (input: HTMLTableRowElement): HitStatus => {
       : rewardElem.textContent.trim() as HitStatus;
   } else {
     return 'Pending';
+  }
+};
+
+const activityPresent = (input: HTMLTableRowElement[]): boolean => {
+  const maybeNoActivityElem = input[0];
+  if (maybeNoActivityElem && maybeNoActivityElem.textContent) {
+    return !/no\sHIT\sactivity/.test(maybeNoActivityElem.textContent);
+  } else {
+    return true;
   }
 };

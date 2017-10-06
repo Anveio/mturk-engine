@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { Layout } from '@shopify/polaris';
-import Account from '../Account/Account';
+import UserInfo from './UserInfo';
 import Calendar from '../Calendar/Calendar';
 
-class AccountTab extends React.PureComponent<{}, never> {
+class ConnectedAccountLayout extends React.PureComponent<{}, never> {
   public render() {
     return (
       <Layout>
+        <UserInfo />
+        <UserInfo />
         <Layout.Section>
           <Calendar />
         </Layout.Section>
-        <Account />
       </Layout>
     );
   }
 }
 
-export default AccountTab;
+export default ConnectedAccountLayout;
