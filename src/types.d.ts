@@ -50,15 +50,14 @@ export type HitStatus = 'Paid' | 'Pending Payment' | 'Rejected' | 'Pending';
 export interface AccountInfo {
   readonly id: string;
   readonly fullName: string;
-  readonly lifetimeHitEarnings: number;
-  readonly lifetimeBonuses: number;
-  readonly lifetimeTotalEarnings: number;
-  readonly pendingEarnings: number;
   readonly availableEarnings: number;
+  readonly lifetimeHitEarnings: number;
+  readonly lifetimeBonusEarnings: number;
+  readonly lifetimeTotalEarnings: number;
   readonly lifetimeSubmitted: number;
   readonly lifetimeApproved: number;
   readonly lifetimeRejected: number;
-  readonly numHitsPending: number;
+  readonly numPending: number;
 }
 
 export interface HumanIntelligenceTask {
