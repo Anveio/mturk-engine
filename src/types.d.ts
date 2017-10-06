@@ -48,8 +48,17 @@ export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
 export type HitStatus = 'Paid' | 'Pending Payment' | 'Rejected' | 'Pending';
 
 export interface AccountInfo {
-  id: string;
-  fullName: string;
+  readonly id: string;
+  readonly fullName: string;
+  readonly lifetimeHitEarnings: number;
+  readonly lifetimeBonuses: number;
+  readonly lifetimeTotalEarnings: number;
+  readonly pendingEarnings: number;
+  readonly availableEarnings: number;
+  readonly lifetimeSubmitted: number;
+  readonly lifetimeApproved: number;
+  readonly lifetimeRejected: number;
+  readonly numHitsPending: number;
 }
 
 export interface HumanIntelligenceTask {
