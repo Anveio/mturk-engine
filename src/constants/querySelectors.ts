@@ -28,7 +28,7 @@ export const descriptionSelector =
 export const workerIdSelector =
   'body > table:nth-child(8) > tbody > tr > td > span.orange_text_right';
 
-export const errorBanner = 'td.error_title'
+export const errorBanner = 'td.error_title';
 
 export const statusDate = '.statusDateColumnValue';
 export const statusSubmitted = '.statusSubmittedColumnValue';
@@ -39,3 +39,26 @@ export const statusEarnings = '.statusEarningsColumnValue';
 export const statusDetailHitLink = 'td.statusdetailRequesterColumnValue > a';
 
 export const statusDetailMorePages = 'img[src="/media/right_dbl_arrow.gif"]';
+
+export const lifetimeHitEarnings =
+  'td#approved_hits_earnings_amount > span.reward';
+export const lifetimeBonusEarnings = 'td#bonus_earnings_amount > span.reward';
+export const lifetimeTotalEarnings = 'td#total_earnings_amount > span.reward';
+
+export const availableEarnings = 'td#transfer_earnings > span.reward';
+
+// tslint:disable-next-line:max-line-length
+export const lifetimeSubmitted =
+  'body > table:nth-child(12) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(2)';
+
+// tslint:disable-next-line:max-line-length
+export const lifetimeApproved =
+  'body > table:nth-child(12) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(3) > td:nth-child(2)';
+
+// tslint:disable-next-line:max-line-length
+export const lifetimeRejected =
+  'body > table:nth-child(12) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(4) > td:nth-child(2)';
+
+// tslint:disable-next-line:max-line-length
+export const numPending =
+  'body > table:nth-child(12) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(5) > td:nth-child(2)';
