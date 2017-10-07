@@ -1,6 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../types';
-import { changeTab, ChangeTab } from '../actions/tab';
+import { changeTab, ChangeTab } from '../actions/updateValue';
 import TabNavigation, {
   Props,
   Handlers
@@ -14,10 +14,8 @@ const mapState = (state: RootState): Props => ({
 const mapDispatch = (dispatch: Dispatch<ChangeTab>): Handlers => ({
   onSelectTab: (selectedTabIndex: number) => {
     dispatch(changeTab(selectedTabIndex));
-    {
-      if (selectedTabIndex === 0) {
-        window.setTimeout(() => scrollTo(0, 0));
-      }
+    if (selectedTabIndex === 0) {
+      window.setTimeout(() => scrollTo(0, 0));
     }
   }
 });

@@ -1,7 +1,7 @@
 import { put, select } from 'redux-saga/effects';
 import { RootState } from '../types';
 import { SearchRequest, searchRequestContinuous } from '../actions/search';
-import { ToggleSearchActive } from '../actions/searchActivity';
+import { ToggleSearchActive } from '../actions/updateValue';
 import { CancelNextSearch, cancelNextSearch } from '../actions/scheduler';
 
 export function* toggleSearchActive(action: ToggleSearchActive) {

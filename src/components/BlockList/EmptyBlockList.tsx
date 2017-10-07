@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { ChangeTab, changeTab } from '../../actions/tab';
+import { ChangeTab, changeTab } from '../../actions/updateValue';
 import { Button } from '@shopify/polaris';
 import { NonIdealState } from '@blueprintjs/core';
 

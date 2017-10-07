@@ -1,4 +1,4 @@
-import { ChangeTab } from '../actions/tab';
+import { ChangeTab } from '../actions/updateValue';
 import { CHANGE_SELECTED_TAB } from '../constants';
 
 export default (state = 0, action: ChangeTab) => {

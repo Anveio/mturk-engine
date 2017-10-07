@@ -1,5 +1,5 @@
 import { TOGGLE_SEARCH_ACTIVITY } from '../constants';
-import { ToggleSearchActive } from '../actions/searchActivity';
+import { ToggleSearchActive } from '../actions/updateValue';
 
 const initial = false;
 

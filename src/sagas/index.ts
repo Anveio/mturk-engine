@@ -26,7 +26,7 @@ import {
   FetchStatusSummaryRequest,
   FetchStatusSummarySuccess
 } from '../actions/statusSummary';
-import { ToggleSearchActive } from '../actions/searchActivity';
+import { ToggleSearchActive } from '../actions/updateValue';
 import { ToggleWatcherActivity, ScheduleWatcherTick } from '../actions/watcher';
 import { FetchStatusDetailRequest } from '../actions/statusDetail';
 import { PlayAudio } from '../actions/audio';

@@ -1,9 +1,6 @@
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../types';
-import {
-  toggleSearchActive,
-  ToggleSearchActive
-} from '../actions/searchActivity';
+import { toggleSearchActive, ToggleSearchActive } from '../actions/updateValue';
 
 import SearchButtons, {
   Props,
@@ -11,7 +8,7 @@ import SearchButtons, {
 } from '../components/SearchBar/SearchButtons';
 
 const mapState = (state: RootState): Props => ({
-  searchActive: state.searchingActive,
+  searchActive: state.searchingActive
 });
 
 const mapDispatch = (dispatch: Dispatch<ToggleSearchActive>): Handlers => ({
