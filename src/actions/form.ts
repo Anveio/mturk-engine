@@ -1,7 +1,5 @@
 import * as constants from '../constants';
-import { SearchOptions, FormTarget, TOpticonSettings } from '../types';
-
-export type FormPayloads = SearchOptions | TOpticonSettings;
+import { FormTarget } from '../types';
 
 export type FormValue = string | boolean;
 
