@@ -2,7 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Avatar, Stack, Card } from '@shopify/polaris';
-import { Popover, Position, Button } from '@blueprintjs/core';
+import { Popover, Position, Button, Toaster } from '@blueprintjs/core';
+import * as copy from 'copy-to-clipboard';
 
 import AccountStatisticsTable from './AccountStatisticsTable';
 
@@ -11,6 +12,18 @@ export interface Props {
 }
 
 class UserInfo extends React.PureComponent<Props, never> {
+  static CopyToaster = Toaster.create({
+    position: Position.BOTTOM_RIGHT
+  });
+
+  private handleIdClick = (id: string) => {
+    copy(id);
+    UserInfo.CopyToaster.show({
+      message: 'Worker ID copied to clipboard',
+      timeout: 2000
+    });
+  };
+
   public render() {
     const { accountInfo } = this.props;
 
@@ -38,7 +51,7 @@ class UserInfo extends React.PureComponent<Props, never> {
             <Button
               rightIconName="duplicate"
               className="pt-button pt-small pt-minimal"
-              onClick={() => console.log('hi')}
+              onClick={() => this.handleIdClick(accountInfo.id)}
             >
               {accountInfo.id}
             </Button>
