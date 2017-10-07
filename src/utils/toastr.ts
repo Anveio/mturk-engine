@@ -75,7 +75,7 @@ const failedSearchToast = () => {
 };
 
 const repeatReturnToast = () => {
-  // tslint:disable-next-line:quotemark
+  // tslint:disable:quotemark
   toastr.light(
     "You've already returned this HIT.",
     "It's been removed from your queue."

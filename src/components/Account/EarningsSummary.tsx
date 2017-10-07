@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
-import { Card, Stack, DisplayText, TextStyle, Caption } from '@shopify/polaris';
+import {
+  Card,
+  Stack,
+  DisplayText,
+  TextStyle,
+  Caption,
+  Button
+} from '@shopify/polaris';
 import { Variation } from '@shopify/polaris/types/components/TextStyle/TextStyle';
 import {
   pendingEarningsSelector,
@@ -23,7 +30,7 @@ class EarningsSummary extends React.PureComponent<Props, never> {
   ) => {
     return (
       <Stack vertical={false} alignment="baseline" spacing="tight">
-        <DisplayText size="large">
+        <DisplayText size="medium">
           <TextStyle variation={variation}>{formatAsCurrency(value)}</TextStyle>
         </DisplayText>
         <Caption>{fieldText}</Caption>
@@ -44,6 +51,14 @@ class EarningsSummary extends React.PureComponent<Props, never> {
           )}
           {generateField(projectedDailyEarnings, 'Projected for today')}
           {generateField(pendingEarnings, 'Pending')}
+          <Button
+            plain
+            external
+            url="https://www.mturk.com/mturk/transferearnings"
+            icon="arrowUp"
+          >
+            Transfer Earnings
+          </Button>
         </Stack>
       </Card>
     ) : (
