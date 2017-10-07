@@ -8,6 +8,7 @@ import { formatAsCurrency } from '../../utils/formatting';
 export interface Props {
   readonly accountInfo: MaybeAccount;
   readonly pendingEarnings: number;
+  readonly projectedDailyEarnings: number;
 }
 
 class ImportantInfo extends React.PureComponent<Props, never> {

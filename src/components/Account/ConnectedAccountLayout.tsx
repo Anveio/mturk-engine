@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Layout } from '@shopify/polaris';
 import UserInfo from './UserInfo';
 import Calendar from '../Calendar/Calendar';
-import ImportantInfo from './ImportantInfo';
+import EarningsSummary from './EarningsSummary';
 
 class ConnectedAccountLayout extends React.PureComponent<{}, never> {
   public render() {
@@ -10,7 +10,7 @@ class ConnectedAccountLayout extends React.PureComponent<{}, never> {
       <Layout>
         <UserInfo />
         <Layout.Section secondary>
-          <ImportantInfo />
+          <EarningsSummary />
         </Layout.Section>
         <Layout.Section>
           <Calendar />
