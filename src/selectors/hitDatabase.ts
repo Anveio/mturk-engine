@@ -2,10 +2,10 @@ import { createSelector } from 'reselect';
 import {
   RootState,
   HitDatabaseEntry,
-  // HitDatabaseMap,
+  HitDatabaseMap,
   HeatMapValue
 } from '../types';
-import { generateOneYearOfDates } from '../utils/dates';
+import { generateOneYearOfDates, todayFormatted } from '../utils/dates';
 
 // import { selectedHitDbDateSelector } from './hitDatabaseDay';
 import { Map, List } from 'immutable';
@@ -48,4 +48,21 @@ export const oneYearOfData = createSelector(
       return acc.push(data);
     }, List());
   }
+);
+
+export const hitsCompletedToday = createSelector(
+  [ hitDatabaseSelector ],
+  (hitDatabase): HitDatabaseMap =>
+    hitDatabase.filter(
+      (el: HitDatabaseEntry) => el.date === todayFormatted()
+    ) as HitDatabaseMap
+);
+
+export const todaysProjectedEarnings = createSelector(
+  [ hitsCompletedToday ],
+  (hits) =>
+    hits.reduce(
+      (acc: number, cur: HitDatabaseEntry) => acc + cur.bonus + cur.reward,
+      0
+    )
 );
