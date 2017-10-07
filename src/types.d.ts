@@ -63,7 +63,7 @@ export interface AccountInfo {
 export interface HumanIntelligenceTask {
   readonly title: string;
   readonly requester: Requester;
-  readonly reward: string;
+  readonly reward: number;
   readonly groupId: string;
   readonly description: string;
 }
@@ -94,7 +94,7 @@ export interface QueueItem {
   readonly title: string;
   readonly requesterName: string;
   readonly hitId: string;
-  readonly reward: string;
+  readonly reward: number;
   readonly timeLeft: string;
 }
 

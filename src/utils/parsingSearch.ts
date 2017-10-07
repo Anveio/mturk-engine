@@ -3,13 +3,18 @@ import { SearchResult, SearchResults } from '../types';
 import {
   hitTitleSelector,
   hitRequesterNameSelector,
+  hitRewardSelector,
   requesterIdAnchor,
   groupIdAnchor,
   timeAllotedSelector,
   descriptionSelector,
   qualsRequiredSelector
 } from '../constants/querySelectors';
-import { selectHitContainers, parseStringProperty } from './parsing';
+import {
+  selectHitContainers,
+  parseStringProperty,
+  parseCurrencyProperty
+} from './parsing';
 import * as v4 from 'uuid/v4';
 
 const tabulateSearchData = (input: HTMLDivElement[]): SearchResults =>
@@ -31,7 +36,7 @@ const createSearchItem = (
     name: parseStringProperty(hitRequesterNameSelector, 'requesterName')(input),
     id: parseRequesterId(input)
   },
-  reward: parseReward(input),
+  reward: parseCurrencyProperty(hitRewardSelector)(input),
   timeAllotted: parseStringProperty(timeAllotedSelector, 'timeAlloted')(input),
   description: parseStringProperty(descriptionSelector, 'description')(input),
   batchSize: parseBatchSize(input),
@@ -52,7 +57,7 @@ const createReadSearchItem = (
     name: parseStringProperty(hitRequesterNameSelector, 'requesterName')(input),
     id: parseRequesterId(input)
   },
-  reward: parseReward(input),
+  reward: parseCurrencyProperty(hitRewardSelector)(input),
   timeAllotted: parseStringProperty(timeAllotedSelector, 'timeAlloted')(input),
   description: parseStringProperty(descriptionSelector, 'description')(input),
   batchSize: parseBatchSize(input),
@@ -72,13 +77,6 @@ export const parseRequesterId = (input: HTMLDivElement): string => {
   } else {
     return '[Error:requesterId]';
   }
-};
-
-export const parseReward = (input: HTMLDivElement): string => {
-  const hitRewardElem = input.querySelector('span.reward');
-  return hitRewardElem && hitRewardElem.textContent
-    ? hitRewardElem.textContent.replace('$', '')
-    : '[Error:reward]';
 };
 
 /**

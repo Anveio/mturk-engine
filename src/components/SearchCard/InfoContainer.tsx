@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { Stack, DisplayText, Caption } from '@shopify/polaris';
+import { formatAsCurrency } from '../../utils/formatting';
 
 interface Props {
-  readonly reward: string;
+  readonly reward: number;
   readonly batchSize: number;
 }
 
@@ -10,7 +11,7 @@ const InfoContainer = ({ reward, batchSize }: Props) => {
   return (
     <Stack vertical={false} spacing={'tight'} alignment="baseline">
       <Caption>{batchSize} available</Caption>
-      <DisplayText size="small">${reward}</DisplayText>
+      <DisplayText size="small">{formatAsCurrency(reward)}</DisplayText>
     </Stack>
   );
 };

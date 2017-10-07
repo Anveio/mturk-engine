@@ -1,10 +1,15 @@
 import { Map } from 'immutable';
 import {} from '../constants/querySelectors';
 import { QueueItem, QueueMap } from '../types';
-import { selectHitContainers, parseStringProperty } from './parsing';
+import {
+  selectHitContainers,
+  parseStringProperty,
+  parseCurrencyProperty
+} from './parsing';
 import {
   hitIdAnchor,
   hitTitleSelector,
+  hitRewardSelector,
   hitRequesterNameSelector,
   timeLeftSelector
 } from '../constants/querySelectors';
@@ -32,16 +37,9 @@ export const createQueueItem = (input: HTMLDivElement): QueueItem => ({
   requesterName: parseStringProperty(hitRequesterNameSelector, 'requesterName')(
     input
   ),
-  reward: parseReward(input),
+  reward: parseCurrencyProperty(hitRewardSelector)(input),
   timeLeft: parseStringProperty(timeLeftSelector, 'timeLeft')(input)
 });
-
-export const parseReward = (input: HTMLDivElement): string => {
-  const hitRewardElem = input.querySelector('span.reward');
-  return hitRewardElem && hitRewardElem.textContent
-    ? hitRewardElem.textContent.replace('$', '')
-    : '[Error:reward]';
-};
 
 export const tabulateQueueData = (input: HTMLDivElement[]): QueueMap =>
   input.reduce(

@@ -38,7 +38,7 @@ export const blankQueueItem = (groupId: string): QueueItem => {
   return {
     hitId: '[Refresh Required]' + v4(),
     requesterName: '[Refresh Required]',
-    reward: '[Refresh Required]',
+    reward: 0,
     timeLeft: '[Refresh Required]',
     title: '[Refresh Required]'
   };

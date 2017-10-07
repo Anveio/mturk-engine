@@ -6,6 +6,8 @@ export const hitTitleSelector = 'a.capsulelink';
 
 export const hitRequesterNameSelector = 'span.requesterIdentity';
 
+export const hitRewardSelector = 'span.reward';
+
 /**
  * The string to be passed to querySelector in order to find the anchor HTML Element containing the requesterID.
  * Credit to: L704 https://greasyfork.org/en/scripts/21815-hit-finder-beta/code#n704
