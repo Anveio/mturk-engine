@@ -34,10 +34,7 @@ export type HitDatabaseMap = Map<string, HitDatabaseEntry>;
 
 export type MaybeAccount = AccountInfo | null;
 
-export type FormTarget =
-  | 'searchOptions'
-  | 'topticonSettings'
-  | 'dailyEarningsGoal';
+export type FormTarget = 'searchOptions' | 'topticonSettings';
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {

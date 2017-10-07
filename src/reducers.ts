@@ -18,6 +18,7 @@ import { default as audioSettingsV1 } from './reducers/audioSettings';
 import { default as selectedHitDbDate } from './reducers/selectedHitDbDate';
 import { default as audioFiles } from './reducers/audioFiles';
 import { default as hitDatabase } from './reducers/hitDatabase';
+import { default as dailyEarningsGoal } from './reducers/dailyEarningsGoal';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -36,6 +37,7 @@ export const rootReducer = combineReducers<RootState>({
   waitingForMturk,
   searchingActive,
   topticonSettings,
+  dailyEarningsGoal,
   selectedHitDbDate,
   requesterBlocklist
 });

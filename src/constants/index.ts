@@ -156,4 +156,7 @@ export type SELECT_DATABASE_DATE = typeof SELECT_DATABASE_DATE;
 export const EDIT_BONUS = 'EDIT_BONUS';
 export type EDIT_BONUS = typeof EDIT_BONUS;
 
+export const CHANGE_DAILY_GOAL = 'CHANGE_DAILY_GOAL';
+export type CHANGE_DAILY_GOAL = typeof CHANGE_DAILY_GOAL;
+
 export const API_URL = configureApiRoot();
