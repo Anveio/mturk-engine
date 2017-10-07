@@ -8,10 +8,14 @@ class ConnectedAccountLayout extends React.PureComponent<{}, never> {
   public render() {
     return (
       <Layout>
-        <UserInfo />
+        <Layout.Section secondary>
+          <UserInfo />
+        </Layout.Section>
+
         <Layout.Section secondary>
           <EarningsSummary />
         </Layout.Section>
+
         <Layout.Section>
           <Calendar />
         </Layout.Section>

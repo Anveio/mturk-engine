@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
-import { Layout, Avatar, Stack, Card } from '@shopify/polaris';
+import { Avatar, Stack, Card } from '@shopify/polaris';
 import { Popover, Position, Button } from '@blueprintjs/core';
 
 import AccountStatisticsTable from './AccountStatisticsTable';
@@ -15,39 +15,36 @@ class UserInfo extends React.PureComponent<Props, never> {
     const { accountInfo } = this.props;
 
     return accountInfo ? (
-      <Layout.Section secondary>
-        <Card sectioned>
-          <Stack vertical={false}>
-            <Avatar
-              customer
-              size="large"
-              name={accountInfo.fullName}
-              initials={accountInfo.fullName}
-            />
-            <Stack vertical spacing="tight">
-              <Popover position={Position.BOTTOM}>
-                <Button
-                  intent={0}
-                  className="pt-button pt-small pt-minimal"
-                  rightIconName="pt-icon-th-list"
-                >
-                  {accountInfo.fullName}
-                </Button>
-                <AccountStatisticsTable />
-              </Popover>
-
+      <Card sectioned>
+        <Stack vertical={false}>
+          <Avatar
+            customer
+            size="large"
+            name={accountInfo.fullName}
+            initials={accountInfo.fullName}
+          />
+          <Stack vertical spacing="tight">
+            <Popover position={Position.BOTTOM}>
               <Button
-                rightIconName="duplicate"
+                intent={0}
                 className="pt-button pt-small pt-minimal"
-                onClick={() => console.log('hi')}
+                rightIconName="pt-icon-th-list"
               >
-                {accountInfo.id}
+                {accountInfo.fullName}
               </Button>
-            </Stack>
+              <AccountStatisticsTable />
+            </Popover>
+
+            <Button
+              rightIconName="duplicate"
+              className="pt-button pt-small pt-minimal"
+              onClick={() => console.log('hi')}
+            >
+              {accountInfo.id}
+            </Button>
           </Stack>
-        </Card>
-        
-      </Layout.Section>
+        </Stack>
+      </Card>
     ) : (
       <div />
     );
