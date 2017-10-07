@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Card, TextStyle } from '@shopify/polaris';
 import { RootState, MaybeAccount } from '../../types';
-import { formatAsCurrency, formatNumWithCommas } from '../../utils/formatting';
+import { formatAsCurrency } from '../../utils/formatting';
 import { calculateAcceptanceRate } from '../../utils/hitDatabase';
 import { connect } from 'react-redux';
 
@@ -57,15 +57,15 @@ class AccountStatisticsTable extends React.PureComponent<Props, never> {
             <tbody>
               <tr>
                 <td>Submitted</td>
-                <td>{formatNumWithCommas(accountInfo.lifetimeSubmitted)}</td>
+                <td>{accountInfo.lifetimeSubmitted.toLocaleString()}</td>
               </tr>
               <tr>
                 <td>Approved</td>
-                <td>{formatNumWithCommas(accountInfo.lifetimeApproved)}</td>
+                <td>{accountInfo.lifetimeApproved.toLocaleString()}</td>
               </tr>
               <tr>
                 <td>Rejected</td>
-                <td>{formatNumWithCommas(accountInfo.lifetimeRejected)}</td>
+                <td>{accountInfo.lifetimeRejected.toLocaleString()}</td>
               </tr>
               <tr>
                 <td>Acceptance Rate</td>

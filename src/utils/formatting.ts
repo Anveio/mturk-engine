@@ -4,8 +4,6 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 2
 });
 
-const numberFormatter = new Intl.NumberFormat('en-US');
-
 /**
  * Trims leading and trailing whitespace and line terminators and replaces all 
  * characters after character 90 with an ellipsis.
@@ -28,8 +26,6 @@ export const rewardToVariation = (reward: string): Variation => {
 };
 
 export const formatAsCurrency = currencyFormatter.format;
-
-export const formatNumWithCommas = numberFormatter.format;
 
 export const removeCurrencyFormatting = (input: string) =>
   input.replace(/[^\d.]/g, '');
