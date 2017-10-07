@@ -2,6 +2,10 @@ export const hitTableBody = `body > div:nth-child(9) > table:nth-child(3) > tbod
 
 export const hitContainerTableCell = `table[cellpadding="0"][cellspacing="0"][border="0"][width="100%"][height="100%"]`;
 
+export const hitTitleSelector = 'a.capsulelink';
+
+export const hitRequesterNameSelector = 'span.requesterIdentity';
+
 /**
  * The string to be passed to querySelector in order to find the anchor HTML Element containing the requesterID.
  * Credit to: L704 https://greasyfork.org/en/scripts/21815-hit-finder-beta/code#n704

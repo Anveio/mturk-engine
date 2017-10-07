@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { SearchOptions } from '../types';
 import { API_URL } from '../constants';
-import { parseSearchPage } from '../utils/parsing';
+import { parseSearchPage } from '../utils/parsingSearch';
 import { generateParams } from '../utils/searchOptions';
 
 export const searchHits = async (options: SearchOptions, fresh?: boolean) => {

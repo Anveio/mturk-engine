@@ -11,19 +11,23 @@ import {
   lifetimeRejected,
   numPending
 } from '../constants/querySelectors';
-import { removeCurrencyFormatting } from './formatting';
+import {
+  parseStringProperty,
+  parseCurrencyProperty,
+  parseNumericProperty
+} from './parsing';
 
 export const generateAccountInfo = (input: Document): AccountInfo => ({
   id: parseWorkerId(input),
-  fullName: parseFullName(input),
-  availableEarnings: parseCurrencyAccountProp(availableEarnings)(input),
-  lifetimeBonusEarnings: parseCurrencyAccountProp(lifetimeBonusEarnings)(input),
-  lifetimeHitEarnings: parseCurrencyAccountProp(lifetimeHitEarnings)(input),
-  lifetimeTotalEarnings: parseCurrencyAccountProp(lifetimeTotalEarnings)(input),
-  lifetimeApproved: parseNumericAccountProp(lifetimeApproved)(input),
-  lifetimeRejected: parseNumericAccountProp(lifetimeRejected)(input),
-  lifetimeSubmitted: parseNumericAccountProp(lifetimeSubmitted)(input),
-  numPending: parseNumericAccountProp(numPending)(input)
+  fullName: parseStringProperty(userNameSpan, 'name')(input),
+  availableEarnings: parseCurrencyProperty(availableEarnings)(input),
+  lifetimeBonusEarnings: parseCurrencyProperty(lifetimeBonusEarnings)(input),
+  lifetimeHitEarnings: parseCurrencyProperty(lifetimeHitEarnings)(input),
+  lifetimeTotalEarnings: parseCurrencyProperty(lifetimeTotalEarnings)(input),
+  lifetimeApproved: parseNumericProperty(lifetimeApproved)(input),
+  lifetimeRejected: parseNumericProperty(lifetimeRejected)(input),
+  lifetimeSubmitted: parseNumericProperty(lifetimeSubmitted)(input),
+  numPending: parseNumericProperty(numPending)(input)
 });
 
 const parseWorkerId = (input: Document): string => {
@@ -31,29 +35,4 @@ const parseWorkerId = (input: Document): string => {
   return workerIDElem && workerIDElem.textContent
     ? workerIDElem.textContent.split('ID: ')[1].trim()
     : '[Error:AccountID]';
-};
-
-const parseFullName = (input: Document): string => {
-  const fullNameElem = input.querySelector(userNameSpan);
-  return fullNameElem && fullNameElem.textContent
-    ? fullNameElem.textContent.trim()
-    : '[Error:name]';
-};
-
-const parseNumericAccountProp = (queryString: string) => (
-  input: Document
-): number => {
-  const maybeElem = input.querySelector(queryString);
-  return maybeElem && maybeElem.textContent
-    ? parseFloat(maybeElem.textContent)
-    : 0;
-};
-
-const parseCurrencyAccountProp = (queryString: string) => (
-  input: Document
-): number => {
-  const maybeElem = input.querySelector(queryString);
-  return maybeElem && maybeElem.textContent
-    ? parseFloat(removeCurrencyFormatting(maybeElem.textContent))
-    : 0;
 };
