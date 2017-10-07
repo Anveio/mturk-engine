@@ -13,7 +13,7 @@ export const conflictsPreserveBonus = (
 export const keepPaidOrApproved = (el: HitDatabaseEntry) =>
   el.status === 'Paid' || el.status === 'Pending Payment';
 
-export const keepPending = (el: HitDatabaseEntry) => el.status === 'Pending';
+export const keepPending = (el: HitDatabaseEntry) => el.status === 'Pending Approval';
 
 export const calculateAcceptanceRate = (
   total: number,

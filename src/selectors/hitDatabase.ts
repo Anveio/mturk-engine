@@ -17,7 +17,7 @@ export const pendingEarningsSelector = createSelector(
   (hitDatabase) =>
     hitDatabase.reduce(
       (acc: number, hit: HitDatabaseEntry) =>
-        hit.status === 'Pending' ? acc + hit.reward : acc,
+        hit.status === 'Pending Approval' ? acc + hit.reward : acc,
       0
     )
 );

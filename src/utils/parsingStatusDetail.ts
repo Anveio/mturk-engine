@@ -167,7 +167,7 @@ const parseStatus = (input: HTMLTableRowElement): HitStatus => {
       ? 'Pending Payment'
       : rewardElem.textContent.trim() as HitStatus;
   } else {
-    return 'Pending';
+    return 'Pending Approval';
   }
 };
 

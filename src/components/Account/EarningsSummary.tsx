@@ -2,7 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Card, Stack, DisplayText, TextStyle, Caption } from '@shopify/polaris';
-import { pendingEarningsSelector } from '../../selectors/hitDatabase';
+import {
+  pendingEarningsSelector,
+  todaysProjectedEarnings
+} from '../../selectors/hitDatabase';
 import { formatAsCurrency } from '../../utils/formatting';
 
 export interface Props {
@@ -13,7 +16,7 @@ export interface Props {
 
 class ImportantInfo extends React.PureComponent<Props, never> {
   public render() {
-    const { accountInfo, pendingEarnings } = this.props;
+    const { accountInfo, pendingEarnings, projectedDailyEarnings } = this.props;
 
     return accountInfo ? (
       <Card sectioned title="Earnings Summary">
@@ -29,7 +32,7 @@ class ImportantInfo extends React.PureComponent<Props, never> {
             <Caption>Pending</Caption>
           </DisplayText>
           <DisplayText>
-            {formatAsCurrency(123)}
+            {formatAsCurrency(projectedDailyEarnings)}
             <Caption>Projected earnings for today</Caption>
           </DisplayText>
         </Stack>
@@ -42,7 +45,8 @@ class ImportantInfo extends React.PureComponent<Props, never> {
 
 const mapState = (state: RootState): Props => ({
   accountInfo: state.account,
-  pendingEarnings: pendingEarningsSelector(state)
+  pendingEarnings: pendingEarningsSelector(state),
+  projectedDailyEarnings: todaysProjectedEarnings(state)
 });
 
 export default connect(mapState)(ImportantInfo);
