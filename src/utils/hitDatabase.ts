@@ -14,3 +14,10 @@ export const keepPaidOrApproved = (el: HitDatabaseEntry) =>
   el.status === 'Paid' || el.status === 'Pending Payment';
 
 export const keepPending = (el: HitDatabaseEntry) => el.status === 'Pending';
+
+export const calculateAcceptanceRate = (
+  total: number,
+  rejected: number
+): number => {
+  return (total - rejected) / total * 100;
+};
