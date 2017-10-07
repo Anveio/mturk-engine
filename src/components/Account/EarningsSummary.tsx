@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Card, Stack, DisplayText, TextStyle, Caption } from '@shopify/polaris';
+import { Variation } from '@shopify/polaris/types/components/TextStyle/TextStyle';
 import {
   pendingEarningsSelector,
   todaysProjectedEarnings
@@ -14,27 +15,35 @@ export interface Props {
   readonly projectedDailyEarnings: number;
 }
 
-class ImportantInfo extends React.PureComponent<Props, never> {
+class EarningsSummary extends React.PureComponent<Props, never> {
+  static generateField = (
+    value: number,
+    fieldText: string,
+    variation?: Variation
+  ) => {
+    return (
+      <Stack vertical={false} alignment="baseline" spacing="tight">
+        <DisplayText size="large">
+          <TextStyle variation={variation}>{formatAsCurrency(value)}</TextStyle>
+        </DisplayText>
+        <Caption>{fieldText}</Caption>
+      </Stack>
+    );
+  };
+
   public render() {
     const { accountInfo, pendingEarnings, projectedDailyEarnings } = this.props;
-
+    const { generateField } = EarningsSummary;
     return accountInfo ? (
       <Card sectioned title="Earnings Summary">
         <Stack vertical>
-          <DisplayText>
-            <TextStyle variation="positive">
-              {formatAsCurrency(accountInfo.availableEarnings)}
-            </TextStyle>
-            <Caption>Availible for transfer</Caption>
-          </DisplayText>
-          <DisplayText>
-            <TextStyle>{formatAsCurrency(pendingEarnings)}</TextStyle>
-            <Caption>Pending</Caption>
-          </DisplayText>
-          <DisplayText>
-            {formatAsCurrency(projectedDailyEarnings)}
-            <Caption>Projected earnings for today</Caption>
-          </DisplayText>
+          {generateField(
+            accountInfo.availableEarnings,
+            'Available for transfer',
+            'positive'
+          )}
+          {generateField(projectedDailyEarnings, 'Projected for today')}
+          {generateField(pendingEarnings, 'Pending')}
         </Stack>
       </Card>
     ) : (
@@ -49,4 +58,4 @@ const mapState = (state: RootState): Props => ({
   projectedDailyEarnings: todaysProjectedEarnings(state)
 });
 
-export default connect(mapState)(ImportantInfo);
+export default connect(mapState)(EarningsSummary);
