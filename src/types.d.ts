@@ -8,6 +8,7 @@ export interface RootState {
   readonly toastr: ToastrState;
   readonly watchers: WatcherMap;
   readonly search: SearchResults;
+  readonly dailyEarningsGoal: number;
   readonly searchingActive: boolean;
   readonly waitingForMturk: boolean;
   readonly timeNextSearch: Date | null;
@@ -33,7 +34,10 @@ export type HitDatabaseMap = Map<string, HitDatabaseEntry>;
 
 export type MaybeAccount = AccountInfo | null;
 
-export type FormTarget = 'searchOptions' | 'topticonSettings';
+export type FormTarget =
+  | 'searchOptions'
+  | 'topticonSettings'
+  | 'dailyEarningsGoal';
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {
