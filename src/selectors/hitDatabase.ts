@@ -12,7 +12,7 @@ import { Map, List } from 'immutable';
 
 export const hitDatabaseSelector = (state: RootState) => state.hitDatabase;
 
-export const pendingEarnings = createSelector(
+export const pendingEarningsSelector = createSelector(
   [ hitDatabaseSelector ],
   (hitDatabase) =>
     hitDatabase.reduce(

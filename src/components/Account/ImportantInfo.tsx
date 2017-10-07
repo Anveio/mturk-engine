@@ -1,28 +1,38 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
-import { Layout, Card } from '@shopify/polaris';
-import { pendingEarnings } from '../../selectors/hitDatabase';
+import { Card, Stack, DisplayText, TextStyle, Caption } from '@shopify/polaris';
+import { pendingEarningsSelector } from '../../selectors/hitDatabase';
+import { formatAsCurrency } from '../../utils/formatting';
 
 export interface Props {
   readonly accountInfo: MaybeAccount;
   readonly pendingEarnings: number;
 }
 
-class UserInfo extends React.PureComponent<Props, never> {
+class ImportantInfo extends React.PureComponent<Props, never> {
   public render() {
-    const { accountInfo } = this.props;
+    const { accountInfo, pendingEarnings } = this.props;
 
     return accountInfo ? (
-      <Layout.Section secondary>
-        <Card sectioned>
-          {accountInfo.availableEarnings}
-          {accountInfo.lifetimeHitEarnings}
-          {accountInfo.lifetimeBonusEarnings}
-          {accountInfo.availableEarnings}
-          {accountInfo.availableEarnings}
-        </Card>
-      </Layout.Section>
+      <Card sectioned title="Earnings Summary">
+        <Stack vertical>
+          <DisplayText>
+            <TextStyle variation="positive">
+              {formatAsCurrency(accountInfo.availableEarnings)}
+            </TextStyle>
+            <Caption>Availible for transfer</Caption>
+          </DisplayText>
+          <DisplayText>
+            <TextStyle>{formatAsCurrency(pendingEarnings)}</TextStyle>
+            <Caption>Pending</Caption>
+          </DisplayText>
+          <DisplayText>
+            {formatAsCurrency(123)}
+            <Caption>Projected earnings for today</Caption>
+          </DisplayText>
+        </Stack>
+      </Card>
     ) : (
       <div />
     );
@@ -31,7 +41,7 @@ class UserInfo extends React.PureComponent<Props, never> {
 
 const mapState = (state: RootState): Props => ({
   accountInfo: state.account,
-  pendingEarnings: pendingEarnings(state)
+  pendingEarnings: pendingEarningsSelector(state)
 });
 
-export default connect(mapState)(UserInfo);
+export default connect(mapState)(ImportantInfo);
