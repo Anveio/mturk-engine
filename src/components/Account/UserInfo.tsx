@@ -1,9 +1,13 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Avatar, Stack, Card } from '@shopify/polaris';
 import { Popover, Position, Button, Toaster } from '@blueprintjs/core';
 import * as copy from 'copy-to-clipboard';
+import {
+  connectAccountRequest,
+  ConnectAccountRequest
+} from '../../actions/connectAccount';
 
 import AccountStatisticsTable from './AccountStatisticsTable';
 
@@ -11,7 +15,11 @@ export interface Props {
   readonly accountInfo: MaybeAccount;
 }
 
-class UserInfo extends React.PureComponent<Props, never> {
+export interface Handlers {
+  readonly onRefresh: () => void;
+}
+
+class UserInfo extends React.PureComponent<Props & Handlers, never> {
   static CopyToaster = Toaster.create({
     position: Position.BOTTOM_RIGHT
   });
@@ -25,10 +33,14 @@ class UserInfo extends React.PureComponent<Props, never> {
   };
 
   public render() {
-    const { accountInfo } = this.props;
+    const { accountInfo, onRefresh } = this.props;
 
     return accountInfo ? (
-      <Card sectioned>
+      <Card
+        sectioned
+        title={'Account Dashboard'}
+        actions={[ { content: 'Refresh dashboard', onAction: onRefresh } ]}
+      >
         <Stack vertical={false}>
           <Avatar
             customer
@@ -68,4 +80,8 @@ const mapState = (state: RootState): Props => ({
   accountInfo: state.account
 });
 
-export default connect(mapState)(UserInfo);
+const mapDispatch = (dispatch: Dispatch<ConnectAccountRequest>): Handlers => ({
+  onRefresh: () => dispatch(connectAccountRequest())
+});
+
+export default connect(mapState, mapDispatch)(UserInfo);
