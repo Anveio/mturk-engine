@@ -29,7 +29,10 @@ export const dateMoneyMap = createSelector(
     hitDatabase.reduce((acc: Map<string, number>, el: HitDatabaseEntry) => {
       return acc.update(
         el.date,
-        (reward: number) => (reward ? reward + el.reward : el.reward)
+        (reward: number) =>
+          reward
+            ? reward + el.reward + (el.bonus || 0)
+            : el.reward + (el.bonus || 0)
       );
     }, Map<string, number>())
 );

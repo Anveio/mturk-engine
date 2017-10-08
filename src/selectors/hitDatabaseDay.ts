@@ -40,9 +40,5 @@ export const pendingEarningsOnDate = createSelector(
   (entry: HitDatabaseMap) =>
     entry
       .filter(keepPending)
-      .reduce(
-        (acc: number, cur: HitDatabaseEntry) =>
-          (acc += cur.reward + (cur.bonus || 0)),
-        0
-      )
+      .reduce((acc: number, cur: HitDatabaseEntry) => (acc += cur.reward), 0)
 );
