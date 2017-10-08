@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Card, TextContainer } from '@shopify/polaris';
+import { Card, TextContainer, TextStyle } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
 import { RootState, AccountInfo } from '../../types';
 import { calculateThreshold } from '../../utils/hitDatabase';
@@ -59,8 +59,11 @@ class RejectionThreshold extends React.PureComponent<Props, State> {
               this.props.numSubmitted,
               this.state.minimumRate
             )}{' '}
-            more rejections. You currently have {this.props.numPending} HITs
-            pending
+             more rejections. You currently have{' '}
+            <TextStyle variation="strong">
+              {this.props.numPending}
+            </TextStyle>{' '}
+            HITs pending
           </TextContainer>
         </Card.Section>
       </Card>
