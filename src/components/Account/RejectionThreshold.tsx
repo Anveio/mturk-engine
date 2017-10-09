@@ -39,31 +39,27 @@ class RejectionThreshold extends React.PureComponent<Props, State> {
   };
 
   public render() {
+    const { numPending, numSubmitted } = this.props;
+    const { minimumRate } = this.state;
+
     return (
-      <Card>
+      <Card title="Approval Rate Calculator">
         <Card.Section>
           Enter a minimum acceptance rate: {' '}
           <EditableText
             intent={0}
             maxLength={3}
-            value={this.state.minimumRate.toString()}
+            value={minimumRate.toString()}
             selectAllOnFocus
             onChange={this.onChange}
           />
         </Card.Section>
         <Card.Section>
           <TextContainer>
-            To stay above {this.state.minimumRate}% acceptance rate, you can
-            receive {' '}
-            {calculateThreshold(
-              this.props.numSubmitted,
-              this.state.minimumRate
-            )}{' '}
-             more rejections. You currently have{' '}
-            <TextStyle variation="strong">
-              {this.props.numPending}
-            </TextStyle>{' '}
-            HITs pending
+            To stay above {minimumRate}% acceptance rate, you can receive {' '}
+            {calculateThreshold(numSubmitted, minimumRate)} more rejections. You
+            currently have{' '}
+            <TextStyle variation="strong">{numPending}</TextStyle> HITs pending
           </TextContainer>
         </Card.Section>
       </Card>
