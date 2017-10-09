@@ -2,14 +2,13 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Avatar, Stack, Card } from '@shopify/polaris';
-import { Popover, Position, Button, Toaster } from '@blueprintjs/core';
+import { Position, Button, Toaster } from '@blueprintjs/core';
 import * as copy from 'copy-to-clipboard';
 import {
   connectAccountRequest,
   ConnectAccountRequest
 } from '../../actions/connectAccount';
-
-import AccountStatisticsTable from './AccountStatisticsTable';
+import UsernameButton from './UsernameButton';
 
 export interface Props {
   readonly accountInfo: MaybeAccount;
@@ -49,16 +48,7 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
             initials={accountInfo.fullName}
           />
           <Stack vertical spacing="tight">
-            <Popover position={Position.BOTTOM}>
-              <Button
-                intent={0}
-                className="pt-button pt-small pt-minimal"
-                rightIconName="pt-icon-th-list"
-              >
-                {accountInfo.fullName}
-              </Button>
-              <AccountStatisticsTable />
-            </Popover>
+            <UsernameButton fullName={accountInfo.fullName} />
 
             <Button
               rightIconName="duplicate"
