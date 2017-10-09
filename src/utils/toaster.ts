@@ -1,4 +1,5 @@
 import { Toaster, Position } from '@blueprintjs/core';
+import { HitReturnStatus } from '../api/returnHit';
 import { truncate } from './formatting';
 // tslint:disable:max-line-length
 
@@ -40,6 +41,19 @@ export const failedQueueToast = () => {
   });
 };
 
+export const generateReturnToast = (status: HitReturnStatus) => {
+  switch (status) {
+    case 'error':
+      return errorReturnToast();
+    case 'repeat':
+      return repeatReturnToast();
+    case 'success':
+      return successfulReturnToast();
+    default:
+      return errorReturnToast();
+  }
+};
+
 const successfulAcceptToast = (title: string) => {
   title.startsWith('[Refresh Required]')
     ? TopRightToaster.show({
@@ -65,13 +79,37 @@ const failedAcceptToast = (title: string) => {
 const successfulQueueToast = () => {
   TopRightToaster.show({
     message: 'Refreshed queue on ' + new Date().toLocaleTimeString(),
-    intent: 1
+    intent: 0
   });
 };
 
 const emptyQueueToast = () => {
   TopRightToaster.show({
     message: 'Your queue is empty as of ' + new Date().toLocaleTimeString(),
+    intent: -1
+  });
+};
+
+const successfulReturnToast = () => {
+  TopRightToaster.show({
+    message: 'A HIT has been removed from your queue.',
+    intent: 0
+  });
+};
+
+const errorReturnToast = () => {
+  TopRightToaster.show({
+    message:
+      'Problem returning HIT. The HIT you attempted to return is likely no longer in your queue',
+    intent: 2
+  });
+};
+
+const repeatReturnToast = () => {
+  // tslint:disable:quotemark
+  TopRightToaster.show({
+    message:
+      "You've already returned this HIT. It's been removed from your queue.",
     intent: -1
   });
 };

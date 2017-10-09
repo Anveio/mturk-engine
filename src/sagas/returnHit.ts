@@ -7,7 +7,7 @@ import {
   returnHitSuccess
 } from '../actions/return';
 import { sendReturnHitRequest } from '../api/returnHit';
-import { generateReturnToast } from '../utils/toastr';
+import { generateReturnToast } from '../utils/toaster';
 
 export function* returnHit(action: ReturnHitRequest) {
   try {

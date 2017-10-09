@@ -1,42 +1,6 @@
 import { toastr } from 'react-redux-toastr';
 import { SearchResult } from '../types';
-import { HitReturnStatus } from '../api/returnHit';
 import { dateStringToLocaleDateString } from './dates';
-
-export const generateReturnToast = (status: HitReturnStatus) => {
-  switch (status) {
-    case 'error':
-      return errorReturnToast();
-    case 'repeat':
-      return repeatReturnToast();
-    case 'success':
-      return successfulReturnToast();
-    default:
-      return errorReturnToast();
-  }
-};
-
-const repeatReturnToast = () => {
-  // tslint:disable:quotemark
-  toastr.light(
-    "You've already returned this HIT.",
-    "It's been removed from your queue."
-  );
-};
-
-const successfulReturnToast = () => {
-  toastr.success(
-    'Return successful.',
-    'A HIT has been removed from your queue.'
-  );
-};
-
-export const errorReturnToast = () => {
-  toastr.error(
-    'Problem returning HIT.',
-    'The error was probably on our end and that HIT is likely no longer in your queue.'
-  );
-};
 
 export const addWatcherToast = (hit: SearchResult) => {
   toastr.info('Watcher added', `Look for ${hit.title} in the watchers tab.`);
