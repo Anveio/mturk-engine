@@ -13,6 +13,17 @@ export const copyIdToast = () =>
     timeout: 2000
   });
 
+export const copyMarkdownToast = (title: string) =>
+  TopRightToaster.show({
+    message: `${title}'s markdown was added to your clipboard.`
+  });
+
+export const addWatcherToast = (title: string) =>
+  TopRightToaster.show({
+    message: `Watcher added. Look for "${title}" in the watchers tab.`,
+    intent: 0
+  });
+
 export const failedSearchToast = () => {
   TopRightToaster.show({
     message: `Your search returned no results. Make sure you're logged in and check your search settings.`,
@@ -54,7 +65,7 @@ export const generateReturnToast = (status: HitReturnStatus) => {
   }
 };
 
-const successfulAcceptToast = (title: string) => {
+const successfulAcceptToast = (title: string) =>
   title.startsWith('[Refresh Required]')
     ? TopRightToaster.show({
         message: 'A HIT was added to your queue.',
@@ -64,9 +75,8 @@ const successfulAcceptToast = (title: string) => {
         message: `"${truncate(title, 45)}" was added to your queue.`,
         intent: 1
       });
-};
 
-const failedAcceptToast = (title: string) => {
+const failedAcceptToast = (title: string) =>
   TopRightToaster.show({
     message: `"${truncate(
       title,
@@ -74,42 +84,35 @@ const failedAcceptToast = (title: string) => {
     )}" was not added to your queue. You may not be qualified, or no HITs may be available, or you may need to solve a CAPTCHA.`,
     intent: 2
   });
-};
 
-const successfulQueueToast = () => {
+const successfulQueueToast = () =>
   TopRightToaster.show({
     message: 'Refreshed queue on ' + new Date().toLocaleTimeString(),
     intent: 0
   });
-};
 
-const emptyQueueToast = () => {
+const emptyQueueToast = () =>
   TopRightToaster.show({
-    message: 'Your queue is empty as of ' + new Date().toLocaleTimeString(),
-    intent: -1
+    message: 'Your queue is empty as of ' + new Date().toLocaleTimeString()
   });
-};
 
-const successfulReturnToast = () => {
+const successfulReturnToast = () =>
   TopRightToaster.show({
     message: 'A HIT has been removed from your queue.',
     intent: 0
   });
-};
 
-const errorReturnToast = () => {
+const errorReturnToast = () =>
   TopRightToaster.show({
     message:
       'Problem returning HIT. The HIT you attempted to return is likely no longer in your queue',
     intent: 2
   });
-};
 
-const repeatReturnToast = () => {
+const repeatReturnToast = () =>
   // tslint:disable:quotemark
   TopRightToaster.show({
     message:
       "You've already returned this HIT. It's been removed from your queue.",
     intent: -1
   });
-};

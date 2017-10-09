@@ -1,17 +1,5 @@
 import { toastr } from 'react-redux-toastr';
-import { SearchResult } from '../types';
 import { dateStringToLocaleDateString } from './dates';
-
-export const addWatcherToast = (hit: SearchResult) => {
-  toastr.info('Watcher added', `Look for ${hit.title} in the watchers tab.`);
-};
-
-export const copyMarkdownToast = (hit: SearchResult) => {
-  toastr.light(
-    'Copied to clipboard',
-    `${hit.title}'s markdown was added to your clipboard.`
-  );
-};
 
 export const accountConnectionFailedToast = () => {
   toastr.error(

@@ -5,7 +5,7 @@ import * as copy from 'copy-to-clipboard';
 import { SearchResult } from '../../types';
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../../types';
-import { addWatcherToast, copyMarkdownToast } from '../../utils/toastr';
+import { addWatcherToast, copyMarkdownToast } from '../../utils/toaster';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { watcherFactoryFromSearchResult } from '../../utils/watchers';
 
@@ -16,7 +16,7 @@ const mapState = (state: RootState, ownProps: Props): Props => ({
 const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
   onAddWatcher: (hit: SearchResult) => {
     dispatch(addWatcher(watcherFactoryFromSearchResult(hit)));
-    addWatcherToast(hit);
+    addWatcherToast(hit.title);
   }
 });
 
@@ -36,7 +36,7 @@ class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
   private handleCopyMarkDown = () => {
     {
       copy(generateMarkdownExport(this.props.hit));
-      copyMarkdownToast(this.props.hit);
+      copyMarkdownToast(this.props.hit.title);
     }
   };
 
