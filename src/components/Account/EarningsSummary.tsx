@@ -52,6 +52,7 @@ class EarningsSummary extends React.PureComponent<Props, never> {
             'positive'
           )}
         </Card.Section>
+        <Card.Section>{generateField(pendingEarnings, 'Pending')}</Card.Section>
         <Card.Section>
           <Stack vertical>
             {generateField(todaysEarnings, 'Projected for today')}
@@ -59,7 +60,6 @@ class EarningsSummary extends React.PureComponent<Props, never> {
             <EditDailyGoalButton />
           </Stack>
         </Card.Section>
-        <Card.Section>{generateField(pendingEarnings, 'Pending')}</Card.Section>
 
         <Card.Section>
           <Button
