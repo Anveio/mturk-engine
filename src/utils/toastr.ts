@@ -1,16 +1,7 @@
 import { toastr } from 'react-redux-toastr';
 import { SearchResult } from '../types';
-import { truncate } from './formatting';
 import { HitReturnStatus } from '../api/returnHit';
 import { dateStringToLocaleDateString } from './dates';
-
-export const generateSearchToast = (successful: boolean) => {
-  successful ? successfulSearchToast() : failedSearchToast();
-};
-
-export const generateAcceptHitToast = (successful: boolean, title: string) => {
-  successful ? successfulAcceptToast(title) : failedAcceptToast(title);
-};
 
 export const generateQueueToast = (notEmpty: boolean) => {
   notEmpty ? successfulQueueToast() : emptyQueueToast();
@@ -29,27 +20,6 @@ export const generateReturnToast = (status: HitReturnStatus) => {
   }
 };
 
-const successfulAcceptToast = (title: string) => {
-  title.startsWith('[Refresh Required]')
-    ? toastr.success('Success!', 'A HIT was added to your queue.')
-    : toastr.success(
-        'Success!',
-        `${truncate(title, 45)} was added to your queue. `
-      );
-};
-
-const failedAcceptToast = (title: string) => {
-  title.startsWith('[Refresh Required]')
-    ? toastr.warning(
-        `That HIT was not added to your queue.`,
-        `You may not be qualified, or no HITs may be available, or you may need to solve a CAPTCHA.`
-      )
-    : toastr.warning(
-        `${truncate(title, 45)} was not added to your queue.`,
-        `You may not be qualified, or no HITs may be available, or you may need to solve a CAPTCHA.`
-      );
-};
-
 const successfulQueueToast = () => {
   toastr.success('Refreshed queue', new Date().toLocaleTimeString());
 };
@@ -60,18 +30,6 @@ export const failedQueueToast = () => {
 
 const emptyQueueToast = () => {
   toastr.info('Your queue is empty.', new Date().toLocaleTimeString());
-};
-
-const successfulSearchToast = () => {
-  toastr.success(`Search successful`, new Date().toLocaleTimeString());
-};
-
-const failedSearchToast = () => {
-  toastr.error(
-    `Error`,
-    `Your search returned no results. Make sure you're logged in and check your search settings.`,
-    { timeOut: 3000 }
-  );
 };
 
 const repeatReturnToast = () => {

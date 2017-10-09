@@ -9,7 +9,7 @@ import {
 import { ScheduleWatcherTick, scheduleWatcher } from '../actions/watcher';
 import { validateHitAcceptRequest } from '../api/acceptHit';
 import { searchItemToQueueItem, blankQueueItem } from '../utils/queueItem';
-import { generateAcceptHitToast } from '../utils/toastr';
+import { generateAcceptHitToast } from '../utils/toaster';
 import { calculateTimeFromDelay } from '../utils/scheduler';
 
 export function* acceptHit(action: AcceptHitRequest) {
