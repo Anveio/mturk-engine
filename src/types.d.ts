@@ -5,7 +5,6 @@ export interface RootState {
   readonly account: MaybeAccount;
   readonly tab: number;
   readonly queue: QueueMap;
-  readonly toastr: ToastrState;
   readonly watchers: WatcherMap;
   readonly search: SearchResults;
   readonly dailyEarningsGoal: number;
