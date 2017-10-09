@@ -29,12 +29,16 @@ class EarningsSummary extends React.PureComponent<Props, never> {
     variation?: Variation
   ) => {
     return (
-      <Stack vertical={false} alignment="baseline" spacing="tight">
-        <DisplayText size="medium">
-          <TextStyle variation={variation}>{formatAsCurrency(value)}</TextStyle>
-        </DisplayText>
-        <Caption>{fieldText}</Caption>
-      </Stack>
+      <Card.Section>
+        <Stack vertical={false} alignment="baseline" spacing="tight">
+          <DisplayText size="medium">
+            <TextStyle variation={variation}>
+              {formatAsCurrency(value)}
+            </TextStyle>
+          </DisplayText>
+          <Caption>{fieldText}</Caption>
+        </Stack>
+      </Card.Section>
     );
   };
 
@@ -42,15 +46,15 @@ class EarningsSummary extends React.PureComponent<Props, never> {
     const { accountInfo, pendingEarnings, projectedDailyEarnings } = this.props;
     const { generateField } = EarningsSummary;
     return accountInfo ? (
-      <Card sectioned title="Earnings Summary">
-        <Stack vertical>
-          {generateField(
-            accountInfo.availableEarnings,
-            'Available for transfer',
-            'positive'
-          )}
-          {generateField(projectedDailyEarnings, 'Projected for today')}
-          {generateField(pendingEarnings, 'Pending')}
+      <Card title="Earnings Summary">
+        {generateField(
+          accountInfo.availableEarnings,
+          'Available for transfer',
+          'positive'
+        )}
+        {generateField(projectedDailyEarnings, 'Projected for today')}
+        {generateField(pendingEarnings, 'Pending')}
+        <Card.Section>
           <Button
             plain
             external
@@ -59,7 +63,7 @@ class EarningsSummary extends React.PureComponent<Props, never> {
           >
             Transfer Earnings
           </Button>
-        </Stack>
+        </Card.Section>
       </Card>
     ) : (
       <div />
