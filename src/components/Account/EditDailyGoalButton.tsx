@@ -88,6 +88,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
                 step={0.05}
                 prefix="$"
                 error={this.state.error}
+                helpText="Changes will apply after saving."
               />
               <PolarisButton onClick={this.handleSubmit}>Save</PolarisButton>
             </FormLayout>
