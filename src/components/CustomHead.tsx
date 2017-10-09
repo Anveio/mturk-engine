@@ -25,7 +25,10 @@ class CustomHead extends React.PureComponent<Props, never> {
         )}
       >
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="block-all-mixed-content"
+        />
         <style>{toastrStylesheet}</style>
         <style>{polarisStylesheet}</style>
         <style>{calendarHeatMapStylesheet}</style>
