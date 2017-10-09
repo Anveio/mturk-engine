@@ -15,7 +15,7 @@ import {
 import { searchHits } from '../api/search';
 import { selectHitRequester } from '../utils/turkopticon';
 import { calculateTimeFromDelay } from '../utils/scheduler';
-import { generateSearchToast } from '../utils/toastr';
+import { failedSearchToast } from '../utils/toaster';
 
 const getSearchOptions = (state: RootState) => state.searchOptions;
 const getSearchSize = (state: RootState) => state.search.size;
@@ -33,7 +33,7 @@ export function* fetchSearchResults(action: SearchRequest) {
 
     if (hitData.isEmpty()) {
       yield put<SearchFailure>(searchFailure());
-      generateSearchToast(false);
+      failedSearchToast();
     } else {
       yield put<SearchSuccess>(searchSuccess(hitData));
       yield put<FetchTOpticonRequest>(
@@ -47,7 +47,7 @@ export function* fetchSearchResults(action: SearchRequest) {
       );
     }
   } catch (e) {
-    generateSearchToast(false);
+    failedSearchToast();
     yield put<SearchFailure>(searchFailure());
   }
 }
