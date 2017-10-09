@@ -7,7 +7,7 @@ import {
   statusSummaryFailure
 } from '../actions/statusSummary';
 import { fetchStatusSummaryPage } from '../api/statusSummary';
-import { emptySummaryPageToast } from '../utils/toastr';
+import { emptySummaryPageToast } from '../utils/toaster';
 
 export function* handleStatusSummaryRequest(action: FetchStatusSummaryRequest) {
   try {
@@ -21,6 +21,7 @@ export function* handleStatusSummaryRequest(action: FetchStatusSummaryRequest) {
     }
   } catch (e) {
     console.warn(e);
+    emptySummaryPageToast();
     yield put<FetchStatusSummaryFailure>(statusSummaryFailure());
   }
 }

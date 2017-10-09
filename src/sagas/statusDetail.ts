@@ -11,7 +11,7 @@ import {
   fetchStatusDetailPage,
   StatusDetailPageInfo
 } from '../api/statusDetail';
-import { statusDetailToast, statusDetailErrorToast } from '../utils/toastr';
+import { statusDetailToast, statusDetailErrorToast } from '../utils/toaster';
 
 export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
   try {

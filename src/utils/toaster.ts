@@ -1,8 +1,15 @@
 import { Toaster, Position } from '@blueprintjs/core';
 import { HitReturnStatus } from '../api/returnHit';
 import { truncate } from './formatting';
+import { dateStringToLocaleDateString } from './dates';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
+
+const loginLink = {
+  href: 'https://www.mturk.com/mturk/beginsignin',
+  target: '_blank',
+  text: 'Login Page'
+};
 
 export const TopRightToaster = Toaster.create({
   position: Position.TOP_RIGHT
@@ -28,19 +35,14 @@ export const addWatcherToast = (title: string) =>
 export const failedSearchToast = () => {
   TopRightToaster.show({
     message: `Your search returned no results. Make sure you're logged in and check your search settings.`,
-    action: {
-      href: 'https://www.mturk.com/mturk/beginsignin',
-      target: '_blank',
-      text: 'Login Page'
-    },
+    action: loginLink,
     intent: 2,
     timeout: 3000
   });
 };
 
-export const generateAcceptHitToast = (successful: boolean, title: string) => {
+export const generateAcceptHitToast = (successful: boolean, title: string) =>
   successful ? successfulAcceptToast(title) : failedAcceptToast(title);
-};
 
 export const generateQueueToast = (notEmpty: boolean) => {
   notEmpty ? successfulQueueToast() : emptyQueueToast();
@@ -66,18 +68,49 @@ export const generateReturnToast = (status: HitReturnStatus) => {
   }
 };
 
+export const statusDetailToast = (dateStr: string, noDataFound: boolean) => {
+  const toastHeader = `Refreshed HITs for the day of 
+    ${dateStringToLocaleDateString(dateStr)} 
+    . `;
+
+  noDataFound
+    ? TopRightToaster.show({
+        message: toastHeader + 'No activity was found for this day.',
+        intent: 0
+      })
+    : TopRightToaster.show({
+        message:
+          toastHeader +
+          'Your database has been updated with any new information.',
+        intent: 1
+      });
+};
+
+export const statusDetailErrorToast = (dateStr: string) =>
+  TopRightToaster.show({
+    message: `Problem getting data for ${dateStringToLocaleDateString(
+      dateStr
+    )}. This is most likely because you have been logged out of MTurk. Try logging in again.`,
+    intent: 3
+  });
+
 export const accountConnectionFailedToast = () => {
   TopRightToaster.show({
     message:
       "Problem connecting your account. Connecting your account only works if you're currently logged into MTurk. Log in through the actual site and try again.",
-    action: {
-      href: 'https://www.mturk.com/mturk/beginsignin',
-      target: '_blank',
-      text: 'Login Page'
-    },
+    action: loginLink,
     intent: 2
   });
 };
+
+export const emptySummaryPageToast = () =>
+  TopRightToaster.show({
+    message:
+      "Problem getting your recent HITs. Make sure you're logged in and have done a HIT in the past 45 days and try again.",
+    intent: 2,
+    action: loginLink,
+    timeout: 5000
+  });
 
 const successfulAcceptToast = (title: string) =>
   title.startsWith('[Refresh Required]')
