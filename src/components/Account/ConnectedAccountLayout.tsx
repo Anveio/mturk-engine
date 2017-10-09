@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Layout, Stack } from '@shopify/polaris';
+import { Layout } from '@shopify/polaris';
 import UserInfo from './UserInfo';
 import Calendar from '../Calendar/Calendar';
 import EarningsSummary from './EarningsSummary';
@@ -16,11 +16,11 @@ class ConnectedAccountLayout extends React.PureComponent<{}, never> {
         <Layout.Section secondary>
           <EarningsSummary />
         </Layout.Section>
+
+        <InformationDisclaimer />
+
         <Layout.Section>
-          <Stack vertical>
-            <InformationDisclaimer />
-            <Calendar />
-          </Stack>
+          <Calendar />
         </Layout.Section>
       </Layout>
     );
