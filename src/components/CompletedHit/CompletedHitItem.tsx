@@ -19,7 +19,7 @@ export interface Props {
 }
 
 export interface Handlers {
-  readonly onEdit: (id: string, value: number) => void;
+  readonly onEditBonus: (id: string, value: number) => void;
 }
 
 class CompletedHitItem extends React.PureComponent<
@@ -28,12 +28,15 @@ class CompletedHitItem extends React.PureComponent<
 > {
   private generateActions = () => [
     {
+      content: 'Edit Bonus',
+    },
+    {
       content: 'Contact',
       url: generateContactLink(this.props.hit),
       external: true
     },
     {
-      content: 'Write Review',
+      content: 'Review',
       url: generateReviewLink(this.props.hit),
       external: true
     }
@@ -58,7 +61,7 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<EditBonus>): Handlers => ({
-  onEdit: (id: string, value: number) => dispatch(editBonus(id, value))
+  onEditBonus: (id: string, value: number) => dispatch(editBonus(id, value))
 });
 
 export default connect(mapState, mapDispatch)(CompletedHitItem);
