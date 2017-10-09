@@ -7,14 +7,14 @@ import {
   fetchQueueSuccess
 } from '../actions/queue';
 import { getQueuePage } from '../api/queue';
-import { generateQueueToast, failedQueueToast } from '../utils/toastr';
+import { generateQueueToast, failedQueueToast } from '../utils/toaster';
 
 export function* fetchUserQueue(action: FetchQueueRequest) {
   try {
     const queueData = yield call(getQueuePage);
-    if (queueData.isEmpty()) {
-      generateQueueToast(false);
-    }
+
+    generateQueueToast(!queueData.isEmpty());
+
     yield put<FetchQueueSuccess>(fetchQueueSuccess(queueData));
   } catch (e) {
     failedQueueToast();

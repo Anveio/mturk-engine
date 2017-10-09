@@ -29,6 +29,17 @@ export const generateAcceptHitToast = (successful: boolean, title: string) => {
   successful ? successfulAcceptToast(title) : failedAcceptToast(title);
 };
 
+export const generateQueueToast = (notEmpty: boolean) => {
+  notEmpty ? successfulQueueToast() : emptyQueueToast();
+};
+
+export const failedQueueToast = () => {
+  TopRightToaster.show({
+    message: 'There was a problem refreshing your queue.',
+    intent: 3
+  });
+};
+
 const successfulAcceptToast = (title: string) => {
   title.startsWith('[Refresh Required]')
     ? TopRightToaster.show({
@@ -48,5 +59,19 @@ const failedAcceptToast = (title: string) => {
       45
     )}" was not added to your queue. You may not be qualified, or no HITs may be available, or you may need to solve a CAPTCHA.`,
     intent: 2
+  });
+};
+
+const successfulQueueToast = () => {
+  TopRightToaster.show({
+    message: 'Refreshed queue on ' + new Date().toLocaleTimeString(),
+    intent: 1
+  });
+};
+
+const emptyQueueToast = () => {
+  TopRightToaster.show({
+    message: 'Your queue is empty as of ' + new Date().toLocaleTimeString(),
+    intent: -1
   });
 };

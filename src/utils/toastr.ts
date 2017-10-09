@@ -3,10 +3,6 @@ import { SearchResult } from '../types';
 import { HitReturnStatus } from '../api/returnHit';
 import { dateStringToLocaleDateString } from './dates';
 
-export const generateQueueToast = (notEmpty: boolean) => {
-  notEmpty ? successfulQueueToast() : emptyQueueToast();
-};
-
 export const generateReturnToast = (status: HitReturnStatus) => {
   switch (status) {
     case 'error':
@@ -18,18 +14,6 @@ export const generateReturnToast = (status: HitReturnStatus) => {
     default:
       return errorReturnToast();
   }
-};
-
-const successfulQueueToast = () => {
-  toastr.success('Refreshed queue', new Date().toLocaleTimeString());
-};
-
-export const failedQueueToast = () => {
-  toastr.warning('Error', `There was a problem refreshing your queue.`);
-};
-
-const emptyQueueToast = () => {
-  toastr.info('Your queue is empty.', new Date().toLocaleTimeString());
 };
 
 const repeatReturnToast = () => {
