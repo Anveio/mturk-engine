@@ -2,6 +2,7 @@ import { Toaster, Position } from '@blueprintjs/core';
 import { HitReturnStatus } from '../api/returnHit';
 import { truncate } from './formatting';
 // tslint:disable:max-line-length
+// tslint:disable:quotemark
 
 export const TopRightToaster = Toaster.create({
   position: Position.TOP_RIGHT
@@ -63,6 +64,19 @@ export const generateReturnToast = (status: HitReturnStatus) => {
     default:
       return errorReturnToast();
   }
+};
+
+export const accountConnectionFailedToast = () => {
+  TopRightToaster.show({
+    message:
+      "Problem connecting your account. Connecting your account only works if you're currently logged into MTurk. Log in through the actual site and try again.",
+    action: {
+      href: 'https://www.mturk.com/mturk/beginsignin',
+      target: '_blank',
+      text: 'Login Page'
+    },
+    intent: 2
+  });
 };
 
 const successfulAcceptToast = (title: string) =>

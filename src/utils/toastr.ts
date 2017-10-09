@@ -1,15 +1,6 @@
 import { toastr } from 'react-redux-toastr';
 import { dateStringToLocaleDateString } from './dates';
 
-export const accountConnectionFailedToast = () => {
-  toastr.error(
-    'Problem connecting your account',
-    `Connecting your account only works if you're currently logged into MTurk. 
-    Log in through the actual site and try again.`,
-    { timeOut: 5000 }
-  );
-};
-
 export const emptySummaryPageToast = () => {
   toastr.error(
     'Problem getting your recent HITs',

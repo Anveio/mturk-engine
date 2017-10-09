@@ -7,7 +7,7 @@ import {
   connectAccountSuccess
 } from '../actions/connectAccount';
 import { fetchDashboard } from '../api/dashboard';
-import { accountConnectionFailedToast } from '../utils/toastr';
+import { accountConnectionFailedToast } from '../utils/toaster';
 
 export function* fetchAccountInfo(action: ConnectAccountRequest) {
   try {
