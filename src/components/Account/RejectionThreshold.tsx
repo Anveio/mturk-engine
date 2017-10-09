@@ -43,7 +43,7 @@ class RejectionThreshold extends React.PureComponent<Props, State> {
     const { minimumRate } = this.state;
 
     return (
-      <Card title="Approval Rate Calculator">
+      <Card title="Acceptance Rate Calculator">
         <Card.Section>
           Enter a minimum acceptance rate: {' '}
           <EditableText
@@ -56,9 +56,19 @@ class RejectionThreshold extends React.PureComponent<Props, State> {
         </Card.Section>
         <Card.Section>
           <TextContainer>
-            To stay above {minimumRate}% acceptance rate, you can receive {' '}
-            {calculateThreshold(numSubmitted, minimumRate)} more rejections. You
-            currently have{' '}
+            To stay above {minimumRate}% acceptance rate
+          </TextContainer>
+          <TextContainer>
+            you can receive{' '}
+            <TextStyle variation="strong">
+              {calculateThreshold(numSubmitted, minimumRate)}
+            </TextStyle>{' '}
+            more rejections.
+          </TextContainer>
+        </Card.Section>
+        <Card.Section>
+          <TextContainer>As of last database refresh, you have </TextContainer>
+          <TextContainer>
             <TextStyle variation="strong">{numPending}</TextStyle> HITs pending
           </TextContainer>
         </Card.Section>

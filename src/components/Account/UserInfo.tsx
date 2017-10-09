@@ -2,13 +2,14 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Avatar, Stack, Card } from '@shopify/polaris';
-import { Button } from '@blueprintjs/core';
+import { Popover, Button, Position } from '@blueprintjs/core';
 import * as copy from 'copy-to-clipboard';
 import {
   connectAccountRequest,
   ConnectAccountRequest
 } from '../../actions/connectAccount';
 import UsernameButton from './UsernameButton';
+import RejectionThreshold from './RejectionThreshold';
 import { copyIdToast } from '../../utils/toaster';
 
 export interface Props {
@@ -20,7 +21,7 @@ export interface Handlers {
 }
 
 class UserInfo extends React.PureComponent<Props & Handlers, never> {
-  private handleIdClick = (id: string) => {
+  private handleIdClick = (id: string) => () => {
     copy(id);
     copyIdToast();
   };
@@ -47,10 +48,19 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
             <Button
               rightIconName="duplicate"
               className="pt-button pt-small pt-minimal"
-              onClick={() => this.handleIdClick(accountInfo.id)}
+              onClick={this.handleIdClick(accountInfo.id)}
             >
               {accountInfo.id}
             </Button>
+            <Popover position={Position.BOTTOM}>
+              <Button
+                rightIconName="calculator"
+                className="pt-button pt-small pt-minimal"
+              >
+                Acceptance Rate Calculator
+              </Button>
+              <RejectionThreshold />
+            </Popover>
           </Stack>
         </Stack>
       </Card>

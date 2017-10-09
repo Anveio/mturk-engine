@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Layout } from '@shopify/polaris';
 import UserInfo from './UserInfo';
-import RejectionThreshold from './RejectionThreshold';
 import Calendar from '../Calendar/Calendar';
 import EarningsSummary from './EarningsSummary';
 
@@ -11,7 +10,6 @@ class ConnectedAccountLayout extends React.PureComponent<{}, never> {
       <Layout>
         <Layout.Section secondary>
           <UserInfo />
-          <RejectionThreshold />
         </Layout.Section>
 
         <Layout.Section secondary>
