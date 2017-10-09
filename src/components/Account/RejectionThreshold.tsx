@@ -4,6 +4,7 @@ import { Card, TextContainer, TextStyle } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
 import { RootState, AccountInfo } from '../../types';
 import { calculateThreshold } from '../../utils/hitDatabase';
+import { validateRejectionThreshold } from '../../utils/validation';
 
 export interface Props {
   readonly numPending: number;
@@ -18,20 +19,8 @@ export interface State {
 class RejectionThreshold extends React.PureComponent<Props, State> {
   state: State = { minimumRate: 95 };
 
-  static validateInbounds = (value: string) => {
-    const num = parseFloat(value);
-    return num >= 0 && num <= 100;
-  };
-
-  static validateNumber = (value: string): boolean => /^\d+$/.test(value);
-
-  static validateInput = (value: string) => {
-    const { validateInbounds, validateNumber } = RejectionThreshold;
-    return (validateInbounds(value) && validateNumber(value)) || value === '';
-  };
-
   private onChange = (value: string) => {
-    if (RejectionThreshold.validateInput(value)) {
+    if (validateRejectionThreshold(value)) {
       this.setState((): Partial<State> => ({
         minimumRate: parseFloat(value) || 0
       }));

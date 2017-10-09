@@ -15,11 +15,13 @@ import {
   todaysProjectedEarnings
 } from '../../selectors/hitDatabase';
 import { formatAsCurrency } from '../../utils/formatting';
+import DailyEarningsProgressBar from './DailyEarningsProgressBar';
+import EditDailyGoalButton from './EditDailyGoalButton';
 
 export interface Props {
   readonly accountInfo: MaybeAccount;
   readonly pendingEarnings: number;
-  readonly projectedDailyEarnings: number;
+  readonly todaysEarnings: number;
 }
 
 class EarningsSummary extends React.PureComponent<Props, never> {
@@ -29,31 +31,36 @@ class EarningsSummary extends React.PureComponent<Props, never> {
     variation?: Variation
   ) => {
     return (
-      <Card.Section>
-        <Stack vertical={false} alignment="baseline" spacing="tight">
-          <DisplayText size="medium">
-            <TextStyle variation={variation}>
-              {formatAsCurrency(value)}
-            </TextStyle>
-          </DisplayText>
-          <Caption>{fieldText}</Caption>
-        </Stack>
-      </Card.Section>
+      <Stack vertical={false} alignment="baseline" spacing="tight">
+        <DisplayText size="medium">
+          <TextStyle variation={variation}>{formatAsCurrency(value)}</TextStyle>
+        </DisplayText>
+        <Caption>{fieldText}</Caption>
+      </Stack>
     );
   };
 
   public render() {
-    const { accountInfo, pendingEarnings, projectedDailyEarnings } = this.props;
+    const { accountInfo, pendingEarnings, todaysEarnings } = this.props;
     const { generateField } = EarningsSummary;
     return accountInfo ? (
       <Card title="Earnings Summary">
-        {generateField(
-          accountInfo.availableEarnings,
-          'Available for transfer',
-          'positive'
-        )}
-        {generateField(projectedDailyEarnings, 'Projected for today')}
-        {generateField(pendingEarnings, 'Pending')}
+        <Card.Section>
+          {generateField(
+            accountInfo.availableEarnings,
+            'Available for transfer',
+            'positive'
+          )}
+        </Card.Section>
+        <Card.Section>
+          <Stack vertical>
+            {generateField(todaysEarnings, 'Projected for today')}
+            <DailyEarningsProgressBar />
+            <EditDailyGoalButton />
+          </Stack>
+        </Card.Section>
+        <Card.Section>{generateField(pendingEarnings, 'Pending')}</Card.Section>
+
         <Card.Section>
           <Button
             plain
@@ -64,6 +71,13 @@ class EarningsSummary extends React.PureComponent<Props, never> {
             Transfer Earnings
           </Button>
         </Card.Section>
+        {/* <Card.Section>
+          <Caption>
+            Pending and projected earnings may not be accurate if your HIT
+            Database has not been recently refreshed. Refresh your HIT Database
+            regularly to see the most accurate information.
+          </Caption>
+        </Card.Section> */}
       </Card>
     ) : (
       <div />
@@ -74,7 +88,7 @@ class EarningsSummary extends React.PureComponent<Props, never> {
 const mapState = (state: RootState): Props => ({
   accountInfo: state.account,
   pendingEarnings: pendingEarningsSelector(state),
-  projectedDailyEarnings: todaysProjectedEarnings(state)
+  todaysEarnings: todaysProjectedEarnings(state)
 });
 
 export default connect(mapState)(EarningsSummary);

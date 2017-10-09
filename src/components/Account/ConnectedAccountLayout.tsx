@@ -4,6 +4,7 @@ import UserInfo from './UserInfo';
 import Calendar from '../Calendar/Calendar';
 import EarningsSummary from './EarningsSummary';
 
+
 class ConnectedAccountLayout extends React.PureComponent<{}, never> {
   public render() {
     return (
@@ -15,7 +16,6 @@ class ConnectedAccountLayout extends React.PureComponent<{}, never> {
         <Layout.Section secondary>
           <EarningsSummary />
         </Layout.Section>
-
         <Layout.Section>
           <Calendar />
         </Layout.Section>
