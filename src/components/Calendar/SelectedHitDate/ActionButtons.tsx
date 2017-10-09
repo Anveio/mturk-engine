@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Card, ButtonGroup, Button } from '@shopify/polaris';
-import { RootState } from '../../types';
+import { RootState } from '../../../types';
 import {
   FetchStatusDetailRequest,
   statusDetailRequest
-} from '../../actions/statusDetail';
+} from '../../../actions/statusDetail';
 
 interface Props {
   readonly selectedDate: string | null;

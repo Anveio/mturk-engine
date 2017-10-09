@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RootState } from '../../types';
+import { RootState } from '../../../types';
 import { List } from 'immutable';
 import { ResourceList } from '@shopify/polaris';
-import { hitsOnSelectedDateIds } from '../../selectors/hitDatabaseDay';
+import { hitsOnSelectedDateIds } from '../../../selectors/hitDatabaseDay';
 import CompletedHitItem from './CompletedHitItem';
 import NoActivity from './NoActivity';
 

@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { RootState, HitDatabaseEntry } from '../../types';
+import { RootState, HitDatabaseEntry } from '../../../types';
 import { connect, Dispatch } from 'react-redux';
-import { EditBonus, editBonus } from '../../actions/bonus';
+import { EditBonus, editBonus } from '../../../actions/bonus';
 import { ResourceList } from '@shopify/polaris';
 import {
   generateReviewLink,
   generateContactLink
-} from '../../utils/turkopticon';
-import { generateHitStatusBadge } from '../../utils/badges';
-import { truncate, formatAsCurrency } from '../../utils/formatting';
+} from '../../../utils/turkopticon';
+import { generateHitStatusBadge } from '../../../utils/badges';
+import { truncate, formatAsCurrency } from '../../../utils/formatting';
 
 export interface OwnProps {
   readonly id: string;

@@ -2,12 +2,12 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Card } from '@shopify/polaris';
 import { Tooltip, Button } from '@blueprintjs/core';
-import { RootState } from '../../types';
+import { RootState } from '../../../types';
 import {
   FetchStatusDetailRequest,
   statusDetailRequest
-} from '../../actions/statusDetail';
-import { dateStringToLocaleDateString } from '../../utils/dates';
+} from '../../../actions/statusDetail';
+import { dateStringToLocaleDateString } from '../../../utils/dates';
 
 export interface Props {
   readonly selectedDate: string | null;

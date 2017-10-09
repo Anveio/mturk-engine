@@ -6,7 +6,7 @@ import { List } from 'immutable';
 import { oneYearOfData } from '../../selectors/hitDatabase';
 import CalendarHeatMap from './CalendarHeatMap';
 import CalendarButtons from './CalendarButtons';
-import SelectedHitDate from '../CompletedHit/SelectedHitDate';
+import SelectedHitDate from './SelectedHitDate/SelectedHitDate';
 import { dateStringToLocaleDateString } from '../../utils/dates';
 
 interface Props {

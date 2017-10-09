@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RootState } from '../../types';
+import { RootState } from '../../../types';
 import { Card, Heading } from '@shopify/polaris';
 
-import { formatAsCurrency } from '../../utils/formatting';
+import { formatAsCurrency } from '../../../utils/formatting';
 import {
   earningsOnDate,
   pendingEarningsOnDate,
   hitsOnSelectedDateIds
-} from '../../selectors/hitDatabaseDay';
+} from '../../../selectors/hitDatabaseDay';
 
 export interface Props {
   readonly numSubmitted: number;

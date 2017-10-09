@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card } from '@shopify/polaris';
-import { RootState } from '../../types';
+import { RootState } from '../../../types';
 import CompletedHitList from './CompletedHitList';
 import DateDisplay from './DateDisplay';
 import InfoHeader from './InfoHeader';
