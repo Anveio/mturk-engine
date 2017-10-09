@@ -1,27 +1,16 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Card, TextStyle } from '@shopify/polaris';
-import { Tooltip } from '@blueprintjs/core';
 import { RootState, MaybeAccount } from '../../types';
 import { formatAsCurrency } from '../../utils/formatting';
-import { calculateAcceptanceRate } from '../../utils/hitDatabase';
-import { connect } from 'react-redux';
+
+import AcceptanceRateText from './AcceptanceRateText';
 
 export interface Props {
   readonly accountInfo: MaybeAccount;
 }
 
 class AccountStatisticsTable extends React.PureComponent<Props, never> {
-  static acceptanceRateText = (submitted: number, rejected: number) => {
-    const acceptanceRate = calculateAcceptanceRate(submitted, rejected);
-    return acceptanceRate > 99 ? (
-      <Tooltip content="It's best to keep your acceptance rate above 99%. Good job!">
-        <TextStyle variation="positive">{acceptanceRate.toFixed(3)}%</TextStyle>
-      </Tooltip>
-    ) : (
-      <span>{acceptanceRate.toFixed(3)}%</span>
-    );
-  };
-
   public render() {
     const { accountInfo } = this.props;
     if (!accountInfo) {
@@ -82,10 +71,7 @@ class AccountStatisticsTable extends React.PureComponent<Props, never> {
               <tr>
                 <td>Acceptance Rate</td>
                 <td>
-                  {AccountStatisticsTable.acceptanceRateText(
-                    accountInfo.lifetimeSubmitted,
-                    accountInfo.lifetimeRejected
-                  )}
+                  <AcceptanceRateText {...accountInfo} />
                 </td>
               </tr>
             </tbody>
