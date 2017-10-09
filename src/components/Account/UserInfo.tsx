@@ -2,13 +2,14 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Avatar, Stack, Card } from '@shopify/polaris';
-import { Position, Button, Toaster } from '@blueprintjs/core';
+import { Button } from '@blueprintjs/core';
 import * as copy from 'copy-to-clipboard';
 import {
   connectAccountRequest,
   ConnectAccountRequest
 } from '../../actions/connectAccount';
 import UsernameButton from './UsernameButton';
+import { copyIdToast } from '../../utils/toaster';
 
 export interface Props {
   readonly accountInfo: MaybeAccount;
@@ -19,16 +20,9 @@ export interface Handlers {
 }
 
 class UserInfo extends React.PureComponent<Props & Handlers, never> {
-  static CopyToaster = Toaster.create({
-    position: Position.BOTTOM_RIGHT
-  });
-
   private handleIdClick = (id: string) => {
     copy(id);
-    UserInfo.CopyToaster.show({
-      message: 'Worker ID copied to clipboard',
-      timeout: 2000
-    });
+    copyIdToast();
   };
 
   public render() {
