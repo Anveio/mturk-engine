@@ -56,7 +56,7 @@ class RejectionThreshold extends React.PureComponent<Props, State> {
           </TextContainer>
         </Card.Section>
         <Card.Section>
-          <TextContainer>As of last database refresh, you have </TextContainer>
+          <TextContainer>As of last dashboard refresh, you have </TextContainer>
           <TextContainer>
             <TextStyle variation="strong">{numPending}</TextStyle> HITs pending
           </TextContainer>
