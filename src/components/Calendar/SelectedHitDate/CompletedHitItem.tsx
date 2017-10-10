@@ -9,6 +9,7 @@ import {
 } from '../../../utils/turkopticon';
 import { generateHitStatusBadge } from '../../../utils/badges';
 import { truncate, formatAsCurrency } from '../../../utils/formatting';
+import HitDbEntryCollapsible from './HitDbEntryCollapsible';
 
 export interface OwnProps {
   readonly id: string;
@@ -18,17 +19,31 @@ export interface Props {
   readonly hit: HitDatabaseEntry;
 }
 
+interface State {
+  readonly expanded: boolean;
+}
+
 export interface Handlers {
   readonly onEditBonus: (id: string, value: number) => void;
 }
 
 class CompletedHitItem extends React.PureComponent<
   Props & OwnProps & Handlers,
-  never
+  State
 > {
+  state: State = { expanded: false };
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (nextProps.hit.id !== this.props.hit.id) {
+      this.setState((): Partial<State> => ({
+        expanded: false
+      }));
+    }
+  }
+
   private generateActions = () => [
     {
-      content: 'Edit Bonus',
+      content: 'Edit Bonus'
     },
     {
       content: 'Contact',
@@ -42,16 +57,30 @@ class CompletedHitItem extends React.PureComponent<
     }
   ];
 
+  private handleExpand = () => {
+    this.setState((prevState: State): Partial<State> => ({
+      expanded: !prevState.expanded
+    }));
+  };
+
   public render() {
     const { hit: { title, reward, status } } = this.props;
     return (
-      <ResourceList.Item
-        persistActions
-        attributeOne={formatAsCurrency(reward)}
-        attributeTwo={truncate(title, 100)}
-        badges={[ generateHitStatusBadge(status) ]}
-        actions={this.generateActions()}
-      />
+      <div>
+        <div onClick={this.handleExpand}>
+          <ResourceList.Item
+            persistActions
+            attributeOne={formatAsCurrency(reward)}
+            attributeTwo={truncate(title, 100)}
+            badges={[generateHitStatusBadge(status)]}
+            actions={this.generateActions()}
+          />
+          <HitDbEntryCollapsible
+            open={this.state.expanded}
+            hit={this.props.hit}
+          />
+        </div>
+      </div>
     );
   }
 }
