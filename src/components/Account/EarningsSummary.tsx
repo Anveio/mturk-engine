@@ -1,14 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
-import {
-  Card,
-  Stack,
-  DisplayText,
-  TextStyle,
-  Caption,
-  Button
-} from '@shopify/polaris';
+import { Card, Stack, DisplayText, TextStyle, Caption } from '@shopify/polaris';
+import { AnchorButton } from '@blueprintjs/core';
 import { Variation } from '@shopify/polaris/types/components/TextStyle/TextStyle';
 import {
   pendingEarningsSelector,
@@ -62,22 +56,16 @@ class EarningsSummary extends React.PureComponent<Props, never> {
         </Card.Section>
 
         <Card.Section>
-          <Button
-            plain
-            external
-            url="https://www.mturk.com/mturk/transferearnings"
-            icon="arrowUp"
+          <AnchorButton
+            intent={0}
+            className="pt-button pt-small pt-minimal"
+            iconName="credit-card"
+            target="_blank"
+            href="https://www.mturk.com/mturk/transferearnings"
           >
             Transfer Earnings
-          </Button>
+          </AnchorButton>
         </Card.Section>
-        {/* <Card.Section>
-          <Caption>
-            Pending and projected earnings may not be accurate if your HIT
-            Database has not been recently refreshed. Refresh your HIT Database
-            regularly to see the most accurate information.
-          </Caption>
-        </Card.Section> */}
       </Card>
     ) : (
       <div />
