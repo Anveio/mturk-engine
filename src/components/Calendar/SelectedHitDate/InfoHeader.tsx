@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../../types';
-import { Card, Heading } from '@shopify/polaris';
+import { Card, Stack, Heading } from '@shopify/polaris';
 
 import { formatAsCurrency } from '../../../utils/formatting';
 import {
@@ -9,6 +9,10 @@ import {
   pendingEarningsOnDate,
   hitsOnSelectedDateIds
 } from '../../../selectors/hitDatabaseDay';
+import CompletedHitListPagination, {
+  Handlers as PaginationHandlers,
+  Props as PaginationProps
+} from './CompletedHitListPagination';
 
 export interface Props {
   readonly numSubmitted: number;
@@ -16,23 +20,28 @@ export interface Props {
   readonly earnings: number;
 }
 
-class InfoHeader extends React.PureComponent<Props, never> {
+class InfoHeader extends React.PureComponent<
+  Props & PaginationHandlers & PaginationProps,
+  never
+> {
   static showPendingEarnings = (earningsPending: number) =>
     earningsPending > 0 ? `${formatAsCurrency(earningsPending)} pending. ` : '';
 
   public render() {
     const { numSubmitted, earnings, earningsPending } = this.props;
+
     return numSubmitted > 0 ? (
       <Card.Section>
-        <Heading>
-          {formatAsCurrency(earnings)} earned.{' '}
-          {InfoHeader.showPendingEarnings(earningsPending)} {numSubmitted} HITs
-          submitted.
-        </Heading>
+        <Stack vertical={false} spacing="tight" alignment="baseline">
+          <CompletedHitListPagination {...this.props} />
+          <Heading>
+            {formatAsCurrency(earnings)} earned.{' '}
+            {InfoHeader.showPendingEarnings(earningsPending)} {numSubmitted}{' '}
+            HITs submitted.
+          </Heading>
+        </Stack>
       </Card.Section>
-    ) : (
-      <div />
-    );
+    ) : null;
   }
 }
 

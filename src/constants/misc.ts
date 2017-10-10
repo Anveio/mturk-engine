@@ -28,5 +28,7 @@ export const MONTH_LABELS = [
 ];
 
 export const GUTTER_SIZE = 1;
-export const DAY_LABELS = [ '', 'Mon', '', 'Wed', '', 'Fri', '' ];
+export const DAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 export const WEEKDAY_LABEL_SIZE = 30;
+
+export const RESULTS_PER_PAGE = 25;
