@@ -124,8 +124,8 @@ export const refreshDbSuccessToast = (
   numNewResults: number
 ) =>
   TopRightToaster.show({
-    message: `Refreshed database across ${uniqueDates} unique dates. 
-    Found ${numNewResults} new results`,
+    message: `Refreshed database and found HITS across ${uniqueDates} unique dates. 
+    Found ${numNewResults} previously unfound HITS`,
     intent: 1,
     timeout: 5000
   });
