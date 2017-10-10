@@ -10,6 +10,7 @@ export interface RootState {
   readonly dailyEarningsGoal: number;
   readonly searchingActive: boolean;
   readonly waitingForMturk: boolean;
+  readonly waitingForHitDbRefresh: boolean;
   readonly timeNextSearch: Date | null;
   readonly searchOptions: SearchOptions;
   readonly sortingOption: SortingOption;

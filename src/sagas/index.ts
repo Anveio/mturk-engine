@@ -8,7 +8,7 @@ import {
   ACCEPT_HIT_REQUEST,
   STATUS_DETAIL_REQUEST,
   STATUS_SUMMARY_REQUEST,
-  STATUS_SUMMARY_SUCCESS,
+  REFRESH_DATABASE_REQUEST,
   SCHEDULE_NEXT_SEARCH,
   SCHEDULE_NEXT_WATCHER_TICK,
   TOGGLE_SEARCH_ACTIVITY,
@@ -22,10 +22,8 @@ import { SearchRequest } from '../actions/search';
 import { ScheduleNextSearch } from '../actions/scheduler';
 import { AcceptHitRequest } from '../actions/accept';
 import { FetchTOpticonRequest } from '../actions/turkopticon';
-import {
-  FetchStatusSummaryRequest,
-  FetchStatusSummarySuccess
-} from '../actions/statusSummary';
+import { FetchStatusSummaryRequest } from '../actions/statusSummary';
+import { RefreshDatabaseRequest } from '../actions/refreshDatabase';
 import { ToggleSearchActive } from '../actions/updateValue';
 import { ToggleWatcherActivity, ScheduleWatcherTick } from '../actions/watcher';
 import { FetchStatusDetailRequest } from '../actions/statusDetail';
@@ -68,8 +66,8 @@ export default function* rootSaga() {
     STATUS_SUMMARY_REQUEST,
     handleStatusSummaryRequest
   );
-  yield takeLatest<FetchStatusSummarySuccess>(
-    STATUS_SUMMARY_SUCCESS,
+  yield takeLatest<RefreshDatabaseRequest>(
+    REFRESH_DATABASE_REQUEST,
     handleStatusSummarySuccess
   );
   yield takeEvery<AcceptHitRequest>(ACCEPT_HIT_REQUEST, acceptHit);

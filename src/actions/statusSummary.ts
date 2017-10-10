@@ -10,7 +10,6 @@ export interface FetchStatusSummaryRequest {
 
 export interface FetchStatusSummarySuccess {
   readonly type: STATUS_SUMMARY_SUCCESS;
-  readonly dateStrings: string[];
 }
 
 export interface FetchStatusSummaryFailure {
@@ -21,11 +20,8 @@ export const statusSummaryRequest = (): FetchStatusSummaryRequest => ({
   type: STATUS_SUMMARY_REQUEST
 });
 
-export const statusSummarySuccess = (
-  dateStrings: string[]
-): FetchStatusSummarySuccess => ({
-  type: STATUS_SUMMARY_SUCCESS,
-  dateStrings
+export const statusSummarySuccess = (): FetchStatusSummarySuccess => ({
+  type: STATUS_SUMMARY_SUCCESS
 });
 
 export const statusSummaryFailure = (): FetchStatusSummaryFailure => ({

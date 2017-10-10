@@ -2,12 +2,17 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Tooltip, Button, Position, Collapse } from '@blueprintjs/core';
 import { Stack, Caption } from '@shopify/polaris';
+import { RootState } from '../../types';
 import {
   FetchStatusSummaryRequest,
   statusSummaryRequest
 } from '../../actions/statusSummary';
 import { statusDetailRequest } from '../../actions/statusDetail';
 import { todayFormatted } from '../../utils/dates';
+
+export interface Props {
+  readonly waitingForHitDbRefresh: boolean;
+}
 
 export interface Handlers {
   readonly onRefreshDb: () => void;
@@ -18,7 +23,7 @@ export interface State {
   readonly hovering: boolean;
 }
 
-class CalendarButtons extends React.PureComponent<Handlers, State> {
+class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
   readonly state: State = { hovering: false };
 
   static tooltipContent = `This will scan all HITs submitted in the last 45 days.`;
@@ -52,6 +57,7 @@ class CalendarButtons extends React.PureComponent<Handlers, State> {
         <div className="pt-button-group pt-minimal">
           <Tooltip content={tooltipContent} position={Position.TOP_LEFT}>
             <Button
+              loading={this.props.waitingForHitDbRefresh}
               iconName="pt-icon-database"
               onClick={this.props.onRefreshDb}
               onMouseEnter={this.handleMouseEnter}
@@ -75,6 +81,10 @@ class CalendarButtons extends React.PureComponent<Handlers, State> {
   }
 }
 
+const mapState = (state: RootState): Props => ({
+  waitingForHitDbRefresh: state.waitingForHitDbRefresh
+});
+
 const mapDispatch = (
   dispatch: Dispatch<FetchStatusSummaryRequest>
 ): Handlers => ({
@@ -82,4 +92,4 @@ const mapDispatch = (
   onRefreshToday: () => dispatch(statusDetailRequest(todayFormatted(), 1, true))
 });
 
-export default connect(null, mapDispatch)(CalendarButtons);
+export default connect(mapState, mapDispatch)(CalendarButtons);

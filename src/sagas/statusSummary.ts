@@ -6,6 +6,10 @@ import {
   statusSummarySuccess,
   statusSummaryFailure
 } from '../actions/statusSummary';
+import {
+  RefreshDatabaseRequest,
+  databaseRefreshRequest
+} from '../actions/refreshDatabase';
 import { fetchStatusSummaryPage } from '../api/statusSummary';
 import { emptySummaryPageToast } from '../utils/toaster';
 
@@ -14,13 +18,14 @@ export function* handleStatusSummaryRequest(action: FetchStatusSummaryRequest) {
     const dateStrings: string[] = yield call(fetchStatusSummaryPage);
 
     if (dateStrings.length === 0) {
-      yield put<FetchStatusSummaryFailure>(statusSummaryFailure());
       emptySummaryPageToast();
+      yield put<FetchStatusSummaryFailure>(statusSummaryFailure());
     } else {
-      yield put<FetchStatusSummarySuccess>(statusSummarySuccess(dateStrings));
+      yield put<FetchStatusSummarySuccess>(statusSummarySuccess());
     }
+
+    yield put<RefreshDatabaseRequest>(databaseRefreshRequest(dateStrings));
   } catch (e) {
-    console.warn(e);
     emptySummaryPageToast();
     yield put<FetchStatusSummaryFailure>(statusSummaryFailure());
   }

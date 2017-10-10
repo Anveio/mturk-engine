@@ -1,7 +1,7 @@
 import { put, all, select } from 'redux-saga/effects';
 import { HitDatabaseMap } from '../types';
-import { FetchStatusSummarySuccess } from '../actions/statusSummary';
 import {
+  RefreshDatabaseRequest,
   RefreshDatabaseFailure,
   RefreshDatabaseSuccess,
   databaseRefreshFailure,
@@ -15,7 +15,7 @@ import { refreshDbSuccessToast, refreshDbErrorToast } from '../utils/toaster';
 import { hitDatabaseSelector } from '../selectors/hitDatabase';
 import { handleStatusDetailRequest } from './statusDetail';
 
-export function* handleStatusSummarySuccess(action: FetchStatusSummarySuccess) {
+export function* handleStatusSummarySuccess(action: RefreshDatabaseRequest) {
   try {
     const { dateStrings } = action;
 
