@@ -24,6 +24,7 @@ export interface Handlers {
 export interface State {
   readonly value: string;
   readonly error?: string;
+  readonly isOpen: boolean;
 }
 
 class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
@@ -31,7 +32,8 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
     super(props);
 
     this.state = {
-      value: props.dailyEarningsGoal.toFixed(2)
+      value: props.dailyEarningsGoal.toFixed(2),
+      isOpen: false
     };
   }
 
@@ -40,6 +42,11 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
       this.handleSubmit();
     }
   };
+
+  private toggleOpen = () =>
+    this.setState((prevState: State): Partial<State> => ({
+      isOpen: !prevState.isOpen
+    }));
 
   private handleSubmit = () => {
     const { value } = this.state;
@@ -53,11 +60,15 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
 
   private handleSuccessfulSubmit = (value: string) => {
     this.props.onChange(parseFloat(value));
-    this.handleInput(value);
     TopRightToaster.show({
       message: `Daily goal of ${formatAsCurrency(parseFloat(value))} was set.`,
       timeout: 2000
     });
+    this.setState((): Partial<State> => ({
+      value,
+      isOpen: false,
+      error: undefined
+    }));
   };
 
   private handleInput = (value: string) => {
@@ -69,8 +80,9 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
 
   public render() {
     return (
-      <Popover>
+      <Popover isOpen={this.state.isOpen}>
         <Button
+          onClick={this.toggleOpen}
           intent={0}
           className="pt-button pt-small pt-minimal"
           iconName="manually-entered-data"
