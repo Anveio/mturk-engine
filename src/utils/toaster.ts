@@ -112,6 +112,24 @@ export const emptySummaryPageToast = () =>
     timeout: 5000
   });
 
+export const refreshDbSuccessToast = (
+  uniqueDates: number,
+  numNewResults: number
+) =>
+  TopRightToaster.show({
+    message: `Refreshed database across ${uniqueDates} unique dates. 
+    Found ${numNewResults} new results`,
+    intent: 1,
+    timeout: 5000
+  });
+
+export const refreshDbErrorToast = () =>
+  TopRightToaster.show({
+    message:
+      'There was an error while refreshing your database. You may have been logged out or lost connection while refreshing.',
+    intent: 2
+  });
+
 const successfulAcceptToast = (title: string) =>
   title.startsWith('[Refresh Required]')
     ? TopRightToaster.show({
