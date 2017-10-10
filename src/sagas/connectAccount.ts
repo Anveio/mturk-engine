@@ -7,11 +7,15 @@ import {
   connectAccountSuccess
 } from '../actions/connectAccount';
 import { fetchDashboard } from '../api/dashboard';
-import { accountConnectionFailedToast } from '../utils/toaster';
+import {
+  accountConnectionFailedToast,
+  accountConnectionSuccessfulToast
+} from '../utils/toaster';
 
 export function* fetchAccountInfo(action: ConnectAccountRequest) {
   try {
     const accountData = yield call(fetchDashboard);
+    accountConnectionSuccessfulToast();
     yield put<ConnectAccountSuccess>(connectAccountSuccess(accountData));
   } catch (e) {
     console.warn(e);

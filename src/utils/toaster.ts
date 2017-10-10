@@ -95,6 +95,12 @@ export const statusDetailErrorToast = (dateStr: string) =>
     intent: 3
   });
 
+export const accountConnectionSuccessfulToast = () => {
+  TopRightToaster.show({
+    message: 'Your dashboard was refreshed.',
+    intent: 0
+  });
+};
 export const accountConnectionFailedToast = () => {
   TopRightToaster.show({
     message:
