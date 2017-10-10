@@ -123,17 +123,14 @@ const parseQualified = (input: HTMLDivElement): boolean =>
   !input.querySelector('a[href^="/mturk/requestqualification?"]');
 
 const parseQualsRequired = (input: HTMLDivElement): string[] => {
-  const qualsRequiredContainer = input.querySelectorAll(qualsRequiredSelector);
-  let qualTextArray: string[] = [];
-
+  const qualsRequiredChildren = input.querySelectorAll(qualsRequiredSelector);
   /**
    * The first child of qualsRequiredChildren will just contain the text 
    * 'Qualifications required', so start at 1 instead of 0.
    */
-  for (let i = 1; i < qualsRequiredContainer.length; i++) {
-    qualTextArray.push(parseSingleQualification(qualsRequiredContainer[i]));
-  }
-  return qualTextArray;
+  return Array.from(qualsRequiredChildren)
+    .slice(1)
+    .map(el => parseSingleQualification(el));
 };
 
 const parseSingleQualification = (input: Element): string => {
