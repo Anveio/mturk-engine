@@ -33,7 +33,7 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
       <Card
         sectioned
         title={'Account Dashboard'}
-        actions={[ { content: 'Refresh dashboard', onAction: onRefresh } ]}
+        actions={[{ content: 'Refresh dashboard', onAction: onRefresh }]}
       >
         <Stack vertical={false}>
           <Avatar
@@ -52,7 +52,7 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
             >
               {accountInfo.id}
             </Button>
-            <Popover position={Position.BOTTOM}>
+            <Popover position={Position.BOTTOM_LEFT}>
               <Button
                 rightIconName="calculator"
                 className="pt-button pt-small pt-minimal"
