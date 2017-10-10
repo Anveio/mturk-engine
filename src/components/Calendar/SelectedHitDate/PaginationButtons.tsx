@@ -12,10 +12,7 @@ export interface Handlers {
   readonly onPrevious: () => void;
 }
 
-class CompletedHitListPagination extends React.PureComponent<
-  Props & Handlers,
-  never
-> {
+class PaginationButtons extends React.PureComponent<Props & Handlers, never> {
   public render() {
     const { hasNext, hasPrevious, onNext, onPrevious } = this.props;
     return (
@@ -31,4 +28,4 @@ class CompletedHitListPagination extends React.PureComponent<
   }
 }
 
-export default CompletedHitListPagination;
+export default PaginationButtons;

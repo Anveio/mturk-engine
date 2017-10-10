@@ -9,10 +9,10 @@ import {
   pendingEarningsOnDate,
   hitsOnSelectedDateIds
 } from '../../../selectors/hitDatabaseDay';
-import CompletedHitListPagination, {
+import PaginationButtons, {
   Handlers as PaginationHandlers,
   Props as PaginationProps
-} from './CompletedHitListPagination';
+} from './PaginationButtons';
 
 export interface Props {
   readonly numSubmitted: number;
@@ -33,7 +33,7 @@ class InfoHeader extends React.PureComponent<
     return numSubmitted > 0 ? (
       <Card.Section>
         <Stack vertical={false} spacing="tight" alignment="baseline">
-          <CompletedHitListPagination {...this.props} />
+          <PaginationButtons {...this.props} />
           <Heading>
             {formatAsCurrency(earnings)} earned.{' '}
             {InfoHeader.showPendingEarnings(earningsPending)} {numSubmitted}{' '}
