@@ -50,8 +50,9 @@ export const generateQueueToast = (notEmpty: boolean) => {
 
 export const failedQueueToast = () => {
   TopRightToaster.show({
-    message: 'There was a problem refreshing your queue.',
-    intent: 3
+    message: `There was a problem refreshing your queue. This is most likely because you've been logged out.`,
+    action: loginLink,
+    intent: 2
   });
 };
 
@@ -127,18 +128,21 @@ export const refreshDbErrorToast = () =>
   TopRightToaster.show({
     message:
       'There was an error while refreshing your database. You may have been logged out or lost connection while refreshing.',
-    intent: 2
+    intent: 2,
+    timeout: 5000
   });
 
 const successfulAcceptToast = (title: string) =>
   title.startsWith('[Refresh Required]')
     ? TopRightToaster.show({
         message: 'A HIT was added to your queue.',
-        intent: 1
+        intent: 1,
+        timeout: 5000
       })
     : TopRightToaster.show({
         message: `"${truncate(title, 45)}" was added to your queue.`,
-        intent: 1
+        intent: 1,
+        timeout: 5000
       });
 
 const failedAcceptToast = (title: string) =>
