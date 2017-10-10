@@ -12,7 +12,7 @@ export interface Handlers {
 }
 
 class QueueTable extends React.PureComponent<Props & Handlers, never> {
-  componentDidMount() {
+  componentWillMount() {
     this.props.onRefresh();
   }
 
