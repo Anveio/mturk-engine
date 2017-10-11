@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Card, Stack, DisplayText, TextStyle, Caption } from '@shopify/polaris';
-import { AnchorButton } from '@blueprintjs/core';
+import { Tooltip, AnchorButton } from '@blueprintjs/core';
 import { Variation } from '@shopify/polaris/types/components/TextStyle/TextStyle';
 import {
   pendingEarningsSelector,
@@ -46,7 +46,16 @@ class EarningsSummary extends React.PureComponent<Props, never> {
             'positive'
           )}
         </Card.Section>
-        <Card.Section>{generateField(pendingEarnings, 'Pending')}</Card.Section>
+
+        <Card.Section>
+          <Tooltip
+            useSmartPositioning
+            content="This includes earnings from HITs that have been approved but not yet paid out."
+          >
+            {generateField(pendingEarnings, 'Pending')}
+          </Tooltip>
+        </Card.Section>
+
         <Card.Section>
           <Stack vertical>
             {generateField(todaysEarnings, 'Projected for today')}
