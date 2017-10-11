@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Page } from '@shopify/polaris';
+import ErrorBoundary from './ErrorBoundary';
 import TabNavigation from '../containers/TabNavigation';
 import CustomHead from '../containers/CustomHead';
 import AudioLayer from './AudioLayer';
@@ -9,11 +10,13 @@ const App = () => {
   return (
     <main>
       <CustomHead />
-      <Page title="Mturk Engine">
-        <TabNavigation />
-        <Footer />
-      </Page>
-      <AudioLayer />
+      <ErrorBoundary>
+        <Page title="Mturk Engine">
+          <TabNavigation />
+          <Footer />
+        </Page>
+        <AudioLayer />
+      </ErrorBoundary>
     </main>
   );
 };
