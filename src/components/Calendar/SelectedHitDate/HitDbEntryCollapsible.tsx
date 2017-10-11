@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Collapsible, Card, Stack, TextStyle, Caption } from '@shopify/polaris';
 import { HitDatabaseEntry } from '../../../types';
-import EditBonus from './EditBonus';
+import EditBonusButton from './EditBonusButton';
 
 export interface Props {
   readonly open: boolean;
@@ -28,7 +28,7 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
                 {feedback || 'No feedback given.'}
               </TextStyle>
             </Caption>
-            <EditBonus hitId={id} bonus={bonus} />
+            <EditBonusButton hitId={id} bonus={bonus} />
           </Stack>
         </Card.Section>
       </Collapsible>
