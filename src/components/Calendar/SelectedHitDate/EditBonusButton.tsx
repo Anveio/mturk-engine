@@ -43,9 +43,9 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
     }
   };
 
-  private toggleOpen = () =>
-    this.setState((prevState: State): Partial<State> => ({
-      isOpen: !prevState.isOpen
+  private toggleOpen = (nextState: boolean) =>
+    this.setState((): Partial<State> => ({
+      isOpen: nextState
     }));
 
   private handleSubmit = () => {
@@ -82,9 +82,11 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
 
   public render() {
     return (
-      <Popover isOpen={this.state.isOpen}>
+      <Popover
+        isOpen={this.state.isOpen}
+        onInteraction={(nextState: boolean) => this.toggleOpen(nextState)}
+      >
         <Button
-          onClick={this.toggleOpen}
           intent={0}
           className="pt-button pt-small pt-minimal"
           iconName="manually-entered-data"
