@@ -16,15 +16,15 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
         <Card.Section>
           <Stack vertical spacing="loose" distribution="equalSpacing">
             <Caption>
-              Hit ID: <TextStyle variation="subdued">{id}</TextStyle>
+              Hit ID: <TextStyle variation="strong">{id}</TextStyle>
             </Caption>
             <Caption>
               Requester: {' '}
-              <TextStyle variation="subdued">{requester.name}</TextStyle>
+              <TextStyle variation="strong">{requester.name}</TextStyle>
             </Caption>
             <Caption>
               Feedback: {' '}
-              <TextStyle variation="subdued">
+              <TextStyle variation="strong">
                 {feedback || 'No feedback given.'}
               </TextStyle>
             </Caption>
