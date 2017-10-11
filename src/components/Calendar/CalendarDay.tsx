@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { HeatMapValue } from '../../types';
+import { RootState, HeatMapValue } from '../../types';
 import { SQUARE_SIZE } from '../../constants/misc';
 import {
   SelectDatabaseDate,
@@ -13,17 +13,18 @@ export interface OwnProps {
   readonly value: HeatMapValue;
 }
 
+export interface Props {
+  readonly selected: boolean;
+}
+
 export interface Handlers {
   readonly onSelect: (dateString: string) => void;
 }
 
-export interface State {
-  readonly hovering: boolean;
-}
-
-class CalendarDay extends React.PureComponent<OwnProps & Handlers, State> {
-  readonly state: State = { hovering: false };
-
+class CalendarDay extends React.PureComponent<
+  Props & OwnProps & Handlers,
+  never
+> {
   static calculateTooltipVisibility = (hovering: boolean) =>
     hovering ? 'visible' : 'hidden';
 
@@ -47,28 +48,27 @@ class CalendarDay extends React.PureComponent<OwnProps & Handlers, State> {
     }
   };
 
-  private handleMouseEnter = () => {
-    this.setState({ hovering: true });
-  };
-
-  private handleMouseLeave = () => {
-    this.setState({ hovering: false });
-  };
+  static generateStyle = (selected: boolean) =>
+    selected
+      ? {
+          stroke: '#555',
+          strokeWidth: '2px'
+        }
+      : {};
 
   private handleSelect = () => {
     this.props.onSelect(this.props.value.date);
   };
 
   public render() {
-    const { x, y, value } = this.props;
-    const { generateClassName } = CalendarDay;
+    const { x, y, value, selected } = this.props;
+    const { generateClassName, generateStyle } = CalendarDay;
 
     return (
       <rect
         onClick={this.handleSelect}
-        onMouseEnter={this.handleMouseEnter}
-        onMouseLeave={this.handleMouseLeave}
         className={generateClassName(value)}
+        style={generateStyle(selected)}
         height={SQUARE_SIZE}
         width={SQUARE_SIZE}
         x={x}
@@ -80,8 +80,12 @@ class CalendarDay extends React.PureComponent<OwnProps & Handlers, State> {
   }
 }
 
+const mapState = (state: RootState, ownProps: OwnProps): Props => ({
+  selected: ownProps.value.date === state.selectedHitDbDate
+});
+
 const mapDispatch = (dispatch: Dispatch<SelectDatabaseDate>): Handlers => ({
   onSelect: (date: string) => dispatch(selectDatabaseDate(date))
 });
 
-export default connect(null, mapDispatch)(CalendarDay);
+export default connect(mapState, mapDispatch)(CalendarDay);
