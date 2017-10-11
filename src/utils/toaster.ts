@@ -50,9 +50,10 @@ export const generateQueueToast = (notEmpty: boolean) => {
 
 export const failedQueueToast = () => {
   TopRightToaster.show({
-    message: `There was a problem refreshing your queue. This is most likely because you've been logged out.`,
+    message: `There was a problem refreshing your queue. Make sure you're still logged in.`,
     action: loginLink,
-    intent: 2
+    intent: 2,
+    timeout: 5000
   });
 };
 
@@ -92,12 +93,13 @@ export const statusDetailErrorToast = (dateStr: string) =>
     message: `Problem getting data for ${dateStringToLocaleDateString(
       dateStr
     )}. This is most likely because you have been logged out of MTurk. Try logging in again.`,
-    intent: 3
+    intent: 3,
+    timeout: 5000
   });
 
 export const accountConnectionSuccessfulToast = () => {
   TopRightToaster.show({
-    message: 'Your dashboard was refreshed.',
+    message: 'Your dashboard has been refreshed.',
     intent: 0
   });
 };
@@ -106,7 +108,8 @@ export const accountConnectionFailedToast = () => {
     message:
       "Problem connecting your account. Connecting your account only works if you're currently logged into MTurk. Log in through the actual site and try again.",
     action: loginLink,
-    intent: 2
+    intent: 2,
+    timeout: 5000
   });
 };
 
