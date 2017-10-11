@@ -94,6 +94,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
             <FormLayout>
               <TextField
                 label="Daily Goal"
+                min={0}
                 value={this.state.value}
                 type="number"
                 onChange={this.handleInput}
@@ -102,6 +103,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
                 error={this.state.error}
                 helpText="Changes will apply after saving."
                 autoComplete={false}
+                autoFocus
               />
               <PolarisButton onClick={this.handleSubmit}>Save</PolarisButton>
             </FormLayout>
