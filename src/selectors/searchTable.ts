@@ -87,11 +87,6 @@ export const markedAsReadResults = createSelector(
     hits.filter((hit: SearchResult) => !!hit.markedAsRead)
 );
 
-export const newResultsGroupIds = createSelector(
-  [ newResults ],
-  (hits: SearchResults) => hits.map(selectGroupId).toArray()
-);
-
 export const groupNewHitsBeforeOldHits = createSelector(
   [ newResults, markedAsReadResults ],
   (hits: SearchResults, readHits: SearchResults) => hits.concat(readHits)
