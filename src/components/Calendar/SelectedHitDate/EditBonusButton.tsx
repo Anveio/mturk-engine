@@ -91,7 +91,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
           className="pt-button pt-small pt-minimal"
           iconName="manually-entered-data"
         >
-          Edit bonus
+          Bonus: {formatAsCurrency(this.props.bonus)} (Edit)
         </Button>
         <Card sectioned title="Enter a new bonus.">
           <div onKeyPress={this.watchForEnter}>
