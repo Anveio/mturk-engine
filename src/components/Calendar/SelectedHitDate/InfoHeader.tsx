@@ -26,7 +26,7 @@ class InfoHeader extends React.PureComponent<
   static showPendingEarnings = (earningsPending: number) =>
     earningsPending > 0 ? `${formatAsCurrency(earningsPending)} pending. ` : '';
 
-  static earningsDisplay = (reward: number, bonus: number) =>
+  static showEarnings = (reward: number, bonus: number) =>
     bonus > 0
       ? `${formatAsCurrency(reward)} + ${formatAsCurrency(
           bonus
@@ -45,7 +45,7 @@ class InfoHeader extends React.PureComponent<
         <Stack vertical={false} spacing="tight" alignment="baseline">
           <PaginationButtons {...this.props} />
           <Heading>
-            {InfoHeader.earningsDisplay(reward, bonus)}
+            {InfoHeader.showEarnings(reward, bonus)}{' '}
             {InfoHeader.showPendingEarnings(earningsPending)} {numSubmitted}{' '}
             HITs submitted.
           </Heading>
