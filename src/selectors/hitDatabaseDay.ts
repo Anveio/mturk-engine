@@ -43,7 +43,7 @@ export const nonPendingResultsOnSelectedDate = createSelector(
 export const groupPendingHitsBeforeNonPending = createSelector(
   [pendingResultsOnSelectedDate, nonPendingResultsOnSelectedDate],
   (pending: HitDatabaseMap, nonPending: HitDatabaseMap) =>
-    pending.concat(nonPending)
+    nonPending.concat(pending)
 );
 
 export const hitsOnSelectedDateIds = createSelector(
