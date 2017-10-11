@@ -15,7 +15,8 @@ import {
   MONTH_LABEL_GUTTER_SIZE,
   MONTH_LABEL_SIZE,
   MONTH_LABELS,
-  SQUARE_SIZE
+  SQUARE_SIZE,
+  SQUARE_BORDER_RADIUS
 } from '../../constants/misc';
 
 import CalendarDay from './CalendarDay';
@@ -61,9 +62,7 @@ class CalendarHeatMap extends React.PureComponent<Props, never> {
 
   private getTransformForAllWeeks = () => `translate(0, ${MONTH_LABEL_SIZE})`;
 
-  private getNumEmptyDaysAtEnd = () => {
-    return DAYS_IN_WEEK - 1 - this.endDate.getDay();
-  };
+  private getNumEmptyDaysAtEnd = () => DAYS_IN_WEEK - 1 - this.endDate.getDay();
 
   private getWeekCount = () => {
     const numDaysRoundedToWeek =
@@ -71,9 +70,8 @@ class CalendarHeatMap extends React.PureComponent<Props, never> {
     return Math.ceil(numDaysRoundedToWeek / DAYS_IN_WEEK);
   };
 
-  private getWeekWidth = () => {
-    return DAYS_IN_WEEK * CalendarHeatMap.getSquareSizeWithGutter();
-  };
+  private getWeekWidth = () =>
+    DAYS_IN_WEEK * CalendarHeatMap.getSquareSizeWithGutter();
 
   private getWidth = () =>
     this.getWeekCount() * CalendarHeatMap.getSquareSizeWithGutter() -
@@ -82,9 +80,9 @@ class CalendarHeatMap extends React.PureComponent<Props, never> {
   private getHeight = () =>
     this.getWeekWidth() + (MONTH_LABEL_SIZE - GUTTER_SIZE);
 
-  private getViewBox = () => {
-    return `0 0 ${this.getWidth() + 2} ${this.getHeight() + 2}`;
-  };
+  private getViewBox = () =>
+    `0 0 ${this.getWidth() + SQUARE_BORDER_RADIUS} ${this.getHeight() +
+      SQUARE_BORDER_RADIUS}`;
 
   private getSquareCoordinates = (dayIndex: number) => [
     0,

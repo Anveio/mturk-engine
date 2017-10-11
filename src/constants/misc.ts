@@ -27,6 +27,8 @@ export const MONTH_LABELS = [
   'Dec'
 ];
 
+export const SQUARE_BORDER_RADIUS = 1;
+
 export const GUTTER_SIZE = 1;
 export const DAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 export const WEEKDAY_LABEL_SIZE = 30;

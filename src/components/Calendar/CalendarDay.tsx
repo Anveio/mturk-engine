@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, HeatMapValue } from '../../types';
-import { SQUARE_SIZE } from '../../constants/misc';
+import { SQUARE_SIZE, SQUARE_BORDER_RADIUS } from '../../constants/misc';
 import {
   SelectDatabaseDate,
   selectDatabaseDate
@@ -51,8 +51,8 @@ class CalendarDay extends React.PureComponent<
   static generateStyle = (selected: boolean) =>
     selected
       ? {
-          stroke: '#555',
-          strokeWidth: '2px'
+          stroke: '#111111',
+          strokeWidth: `${SQUARE_BORDER_RADIUS}px`
         }
       : {};
 
