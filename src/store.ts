@@ -24,13 +24,11 @@ sagaMiddleware.run(rootSaga);
 
 persistStore(store, {
   whitelist: [
-    'tab',
     'account',
     'hitBlocklist',
     'hitDatabase',
     'requesterBlocklist',
     'searchFormActive',
-    'queue',
     'sortingOption',
     'searchOptions',
     'topticonSettings',
@@ -43,7 +41,6 @@ persistStore(store, {
       whitelist: [
         'hitBlocklist',
         'requesterBlocklist',
-        'queue',
         'watchers',
         'hitDatabase'
       ]
