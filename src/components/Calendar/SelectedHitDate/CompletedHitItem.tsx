@@ -46,6 +46,11 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
     }
   ];
 
+  static displayEarnings = (reward: number, bonus: number) =>
+    bonus > 0
+      ? `${formatAsCurrency(reward)} + ${formatAsCurrency(bonus)}`
+      : `${formatAsCurrency(reward)}`;
+
   private handleExpand = () => {
     this.setState((prevState: State): Partial<State> => ({
       expanded: !prevState.expanded
@@ -53,13 +58,13 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
   };
 
   public render() {
-    const { hit: { title, reward, status } } = this.props;
+    const { hit: { title, reward, bonus, status } } = this.props;
     return (
       <div>
         <div onClick={this.handleExpand}>
           <ResourceList.Item
             persistActions
-            attributeOne={formatAsCurrency(reward)}
+            attributeOne={CompletedHitItem.displayEarnings(reward, bonus)}
             attributeTwo={truncate(title, 100)}
             badges={[generateHitStatusBadge(status)]}
             actions={this.generateActions()}

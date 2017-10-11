@@ -9,6 +9,8 @@ import { hitDatabaseSelector } from './hitDatabase';
 import { keepPaidOrApproved, keepPending } from '../utils/hitDatabase';
 import { Map } from 'immutable';
 
+// tslint:disable:align
+
 export const selectedHitDbDateSelector = (state: RootState) =>
   state.selectedHitDbDate;
 
