@@ -32,18 +32,20 @@ export const hitsOnSelectedDateSortedByPay = createSelector(
 
 export const pendingResultsOnSelectedDate = createSelector(
   [hitsOnSelectedDateSortedByPay],
-  hits => hits.filter((el: HitDatabaseEntry) => el.status === 'Pending Payment')
+  hits =>
+    hits.filter((el: HitDatabaseEntry) => el.status === 'Pending Approval')
 );
 
 export const nonPendingResultsOnSelectedDate = createSelector(
   [hitsOnSelectedDateSortedByPay],
-  hits => hits.filter((el: HitDatabaseEntry) => el.status !== 'Pending Payment')
+  hits =>
+    hits.filter((el: HitDatabaseEntry) => el.status !== 'Pending Approval')
 );
 
 export const groupPendingHitsBeforeNonPending = createSelector(
   [pendingResultsOnSelectedDate, nonPendingResultsOnSelectedDate],
   (pending: HitDatabaseMap, nonPending: HitDatabaseMap) =>
-    nonPending.concat(pending)
+    pending.concat(nonPending)
 );
 
 export const hitsOnSelectedDateIds = createSelector(
