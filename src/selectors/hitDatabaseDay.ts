@@ -1,4 +1,9 @@
-import { RootState, HitDatabaseMap, HitDatabaseEntry } from '../types';
+import {
+  RootState,
+  HitDatabaseMap,
+  HitDatabaseEntry,
+  DailyEarnings
+} from '../types';
 import { createSelector } from 'reselect';
 import { hitDatabaseSelector } from './hitDatabase';
 import { keepPaidOrApproved, keepPending } from '../utils/hitDatabase';
@@ -48,13 +53,17 @@ export const hitsOnSelectedDateIds = createSelector(
 export const earningsOnDate = createSelector(
   [hitsOnSelectedDate],
   (entry: HitDatabaseMap) =>
-    entry
-      .filter(keepPaidOrApproved)
-      .reduce(
-        (acc: number, cur: HitDatabaseEntry) =>
-          (acc += cur.reward + (cur.bonus || 0)),
-        0
-      )
+    entry.filter(keepPaidOrApproved).reduce((
+      acc: DailyEarnings,
+      cur: HitDatabaseEntry
+    ) => ({
+      reward: acc.reward + cur.reward,
+      bonus: acc.bonus + cur.bonus || 0
+    }),
+    {
+      reward: 0,
+      bonus: 0
+    })
 );
 
 export const pendingEarningsOnDate = createSelector(

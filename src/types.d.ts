@@ -170,6 +170,11 @@ export interface HeatMapValue {
   readonly count: number;
 }
 
+export interface DailyEarnings {
+  readonly reward: number;
+  readonly bonus: number;
+}
+
 export type HitAcceptFailureReason =
   | 'Group Empty'
   | 'Unqualified'

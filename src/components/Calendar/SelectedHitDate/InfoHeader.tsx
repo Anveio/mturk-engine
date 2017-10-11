@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RootState } from '../../../types';
+import { RootState, DailyEarnings } from '../../../types';
 import { Card, Stack, Heading } from '@shopify/polaris';
-
 import { formatAsCurrency } from '../../../utils/formatting';
 import {
   earningsOnDate,
@@ -17,7 +16,7 @@ import PaginationButtons, {
 export interface Props {
   readonly numSubmitted: number;
   readonly earningsPending: number;
-  readonly earnings: number;
+  readonly dailyEarnings: DailyEarnings;
 }
 
 class InfoHeader extends React.PureComponent<
@@ -28,14 +27,18 @@ class InfoHeader extends React.PureComponent<
     earningsPending > 0 ? `${formatAsCurrency(earningsPending)} pending. ` : '';
 
   public render() {
-    const { numSubmitted, earnings, earningsPending } = this.props;
+    const {
+      dailyEarnings: { reward, bonus },
+      numSubmitted,
+      earningsPending
+    } = this.props;
 
     return numSubmitted > 0 ? (
       <Card.Section>
         <Stack vertical={false} spacing="tight" alignment="baseline">
           <PaginationButtons {...this.props} />
           <Heading>
-            {formatAsCurrency(earnings)} earned.{' '}
+            {formatAsCurrency(reward + bonus)} earned.{' '}
             {InfoHeader.showPendingEarnings(earningsPending)} {numSubmitted}{' '}
             HITs submitted.
           </Heading>
@@ -46,7 +49,7 @@ class InfoHeader extends React.PureComponent<
 }
 
 const mapState = (state: RootState): Props => ({
-  earnings: earningsOnDate(state),
+  dailyEarnings: earningsOnDate(state),
   earningsPending: pendingEarningsOnDate(state),
   numSubmitted: hitsOnSelectedDateIds(state).size
 });
