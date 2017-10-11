@@ -7,7 +7,7 @@ import {
   TextField,
   Button as PolarisButton
 } from '@shopify/polaris';
-import { validateNumber } from '../../../utils/validation';
+import { validatePositiveNumber } from '../../../utils/validation';
 import { formatAsCurrency } from '../../../utils/formatting';
 import { EditBonus, editBonus } from '../../../actions/bonus';
 import { TopRightToaster } from '../../../utils/toaster';
@@ -50,11 +50,11 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
 
   private handleSubmit = () => {
     const { value } = this.state;
-    validateNumber(value)
+    validatePositiveNumber(value)
       ? this.handleSuccessfulSubmit(value)
       : this.setState((prevState: State): Partial<State> => ({
           value: prevState.value,
-          error: `That's not a valid number`
+          error: `That's not a valid bonus.`
         }));
   };
 

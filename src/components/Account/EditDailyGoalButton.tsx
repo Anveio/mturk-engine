@@ -10,7 +10,7 @@ import {
 import { RootState } from '../../types';
 import { ChangeDailyGoal, changeDailyGoal } from '../../actions/updateValue';
 import { formatAsCurrency } from '../../utils/formatting';
-import { validateNumber } from '../../utils/validation';
+import { validatePositiveNumber } from '../../utils/validation';
 import { TopRightToaster } from '../../utils/toaster';
 
 export interface Props {
@@ -50,7 +50,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
 
   private handleSubmit = () => {
     const { value } = this.state;
-    validateNumber(value)
+    validatePositiveNumber(value)
       ? this.handleSuccessfulSubmit(value)
       : this.setState((prevState: State): Partial<State> => ({
           value: prevState.value,
