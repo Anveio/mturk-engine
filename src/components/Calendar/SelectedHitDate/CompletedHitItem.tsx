@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { RootState, HitDatabaseEntry } from '../../../types';
-import { connect, Dispatch } from 'react-redux';
-import { EditBonus, editBonus } from '../../../actions/bonus';
+import { connect } from 'react-redux';
 import { ResourceList } from '@shopify/polaris';
 import {
   generateReviewLink,
@@ -23,14 +22,7 @@ interface State {
   readonly expanded: boolean;
 }
 
-export interface Handlers {
-  readonly onEditBonus: (id: string, value: number) => void;
-}
-
-class CompletedHitItem extends React.PureComponent<
-  Props & OwnProps & Handlers,
-  State
-> {
+class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
   state: State = { expanded: false };
 
   componentWillReceiveProps(nextProps: Props) {
@@ -75,11 +67,11 @@ class CompletedHitItem extends React.PureComponent<
             badges={[generateHitStatusBadge(status)]}
             actions={this.generateActions()}
           />
-          <HitDbEntryCollapsible
-            open={this.state.expanded}
-            hit={this.props.hit}
-          />
         </div>
+        <HitDbEntryCollapsible
+          open={this.state.expanded}
+          hit={this.props.hit}
+        />
       </div>
     );
   }
@@ -89,8 +81,4 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   hit: state.hitDatabase.get(ownProps.id)
 });
 
-const mapDispatch = (dispatch: Dispatch<EditBonus>): Handlers => ({
-  onEditBonus: (id: string, value: number) => dispatch(editBonus(id, value))
-});
-
-export default connect(mapState, mapDispatch)(CompletedHitItem);
+export default connect(mapState)(CompletedHitItem);
