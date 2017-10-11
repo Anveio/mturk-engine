@@ -35,9 +35,6 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
 
   private generateActions = () => [
     {
-      content: 'Edit Bonus'
-    },
-    {
       content: 'Contact',
       url: generateContactLink(this.props.hit),
       external: true

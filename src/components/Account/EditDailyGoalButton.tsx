@@ -101,6 +101,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
                 prefix="$"
                 error={this.state.error}
                 helpText="Changes will apply after saving."
+                autoComplete={false}
               />
               <PolarisButton onClick={this.handleSubmit}>Save</PolarisButton>
             </FormLayout>

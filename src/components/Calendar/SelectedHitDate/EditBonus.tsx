@@ -8,7 +8,9 @@ import {
   Button as PolarisButton
 } from '@shopify/polaris';
 import { validateNumber } from '../../../utils/validation';
+import { formatAsCurrency } from '../../../utils/formatting';
 import { EditBonus, editBonus } from '../../../actions/bonus';
+import { TopRightToaster } from '../../../utils/toaster';
 
 export interface OwnProps {
   readonly bonus: number;
@@ -22,6 +24,7 @@ export interface Handlers {
 export interface State {
   readonly value: string;
   readonly error?: string;
+  readonly isOpen: boolean;
 }
 
 class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
@@ -29,7 +32,8 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
     super(props);
 
     this.state = {
-      value: props.bonus.toFixed(2)
+      value: props.bonus.toFixed(2),
+      isOpen: false
     };
   }
 
@@ -39,10 +43,10 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
     }
   };
 
-  // private toggleOpen = () =>
-  //   this.setState((prevState: State): Partial<State> => ({
-  //     isOpen: !prevState.isOpen
-  //   }));
+  private toggleOpen = () =>
+    this.setState((prevState: State): Partial<State> => ({
+      isOpen: !prevState.isOpen
+    }));
 
   private handleSubmit = () => {
     const { value } = this.state;
@@ -56,9 +60,16 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
 
   private handleSuccessfulSubmit = (value: string) => {
     this.props.onEditBonus(this.props.hitId, parseFloat(value));
+    TopRightToaster.show({
+      message: `Bonus of ${formatAsCurrency(
+        parseFloat(value)
+      )} was set for this HIT.`,
+      timeout: 2000
+    });
     this.setState((): Partial<State> => ({
       value,
-      error: undefined
+      error: undefined,
+      isOpen: false
     }));
   };
 
@@ -71,8 +82,9 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
 
   public render() {
     return (
-      <Popover>
+      <Popover isOpen={this.state.isOpen}>
         <Button
+          onClick={this.toggleOpen}
           intent={0}
           className="pt-button pt-small pt-minimal"
           iconName="manually-entered-data"
@@ -91,6 +103,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
                 prefix="$"
                 error={this.state.error}
                 helpText="Changes will apply after saving."
+                autoComplete={false}
               />
               <PolarisButton onClick={this.handleSubmit}>Save</PolarisButton>
             </FormLayout>
