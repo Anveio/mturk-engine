@@ -83,7 +83,7 @@ class CalendarHeatMap extends React.PureComponent<Props, never> {
     this.getWeekWidth() + (MONTH_LABEL_SIZE - GUTTER_SIZE);
 
   private getViewBox = () => {
-    return `0 0 ${this.getWidth()} ${this.getHeight()}`;
+    return `0 0 ${this.getWidth() + 2} ${this.getHeight() + 2}`;
   };
 
   private getSquareCoordinates = (dayIndex: number) => [
@@ -102,33 +102,33 @@ class CalendarHeatMap extends React.PureComponent<Props, never> {
       return null;
     }
 
-    const [ x, y ] = this.getSquareCoordinates(dayIndex);
+    const [x, y] = this.getSquareCoordinates(dayIndex);
 
     return <CalendarDay key={index} x={x} y={y} value={value} />;
   };
 
   private renderWeek = (weekIndex: number) => (
     <g key={weekIndex} transform={this.getTransformForWeek(weekIndex)}>
-      {range(DAYS_IN_WEEK).map((dayIndex) => {
+      {range(DAYS_IN_WEEK).map(dayIndex => {
         return this.renderSquare(dayIndex, weekIndex * DAYS_IN_WEEK + dayIndex);
       })}
     </g>
   );
 
   private renderAllWeeks() {
-    return range(this.getWeekCount()).map((weekIndex) =>
+    return range(this.getWeekCount()).map(weekIndex =>
       this.renderWeek(weekIndex)
     );
   }
 
   private renderMonthLabels() {
     const weekRange = range(this.getWeekCount() - 1); // don't render for last week, because label will be cut off
-    return weekRange.map((weekIndex) => {
+    return weekRange.map(weekIndex => {
       const endOfWeek = shiftDate(
         this.getStartDateWithEmptyDays(),
         (weekIndex + 1) * DAYS_IN_WEEK
       );
-      const [ x, y ] = this.getMonthLabelCoordinates(weekIndex);
+      const [x, y] = this.getMonthLabelCoordinates(weekIndex);
       return endOfWeek.getDate() >= 1 && endOfWeek.getDate() <= DAYS_IN_WEEK ? (
         <text key={weekIndex} x={x} y={y}>
           {MONTH_LABELS[endOfWeek.getMonth()]}
