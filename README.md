@@ -14,13 +14,13 @@ This is a userscript. You must install it with a userscript manager (TamperMonke
 
 ## What is Mturk Engine?
 
-Mturk Engine is a user script that enables you to be more productive on Amazon's Mechanical Turk work platform. You install it with one of the download links above and then navigate to https://www.mturk.com/mturk/findhits?mturkengine while logged in to use it. Mturk Engine brings everything you do on Amazon's Mechanical Turk work platform into a single page. You can search for HITs, accept HITs, add HITs to be auto accepted, monitor your queue, and return HITs all in a single browser tab without ever having to wait for a to page reload.
+Mturk Engine is a user script for Chrome and Firefox that enables you to be more productive on Amazon's Mechanical Turk work platform. You install it with one of the download links above and then navigate to https://www.mturk.com/mturk/findhits?mturkengine while logged in to use it. Mturk Engine brings everything you do on Amazon's Mechanical Turk work platform into a single page. You can search for HITs, accept HITs, add HITs to be auto accepted, monitor your queue, monitor your dashboard, keep track of all the HITs you've submitted and their statuses, and return HITs all in a single browser tab without ever having to wait for a to page reload.
 
 Scroll down to the animated gifs and get a sense of what Mturk Engine looks like and what you can do with it.
 
 ## Why use Mturk Engine? What does it do that HitScraper/HitFinder & PandaCrazy don't?
 
-### TL;DR: Mturk Engine is a combination of HitFinder + PandaCrazy with queue monitoring, instant accepting of HITs and instant returning of HITs, wrapped in a high-performing, easy-to-use, and accessible UI.
+### TL;DR: Mturk Engine is a combination of HitFinder + PandaCrazy + Hit Database MKII with queue monitoring, instant accepting of HITs and instant returning of HITs, wrapped in a high-performing, easy-to-use, and accessible UI.
 
 Mturk Engine in its current state can be described as a combination of HitScraper + PandaCrazy, with a few extra features like adding a watcher directly from your search results (watchers automatically accept HITs for you). Scroll down to the "Preview" section to see what that looks like.
 
@@ -53,6 +53,9 @@ Mturk Engine is under active development so feel free to suggest features or sub
 ### The Mturk Engine UI
 <img src="https://i.imgur.com/JE0M8RB.png" alt="Still image showing the UI for searching for HITs, seeing unread HITS, hiding HITs, and blocking requesters."/>
 
+### Keep track of your work with the Account tab
+<img src="https://i.imgur.com/q764FG0.gif" alt="Animated Gif showing the usage of the account tab to monitor your dashboard, update your HIT database, and edit bonuses"/>
+
  ### Search for HITs and block requesters.
 <img src="https://i.imgur.com/Z5UEVbs.gif" alt="Animated GIF showing the normal flow of searching for HITs, hiding HITs, blocking requesters, accepting HITs, viewing your queue, and returning a HIT"/>
 
@@ -74,12 +77,14 @@ Mturk Engine is under active development so feel free to suggest features or sub
 * Hide unwanted HITs easily.
 * Monitor your queue in the 'Queue' tab and refresh it instantly.
 * Return HITs instantly.
+* Monitor all the information in your dashboard.
+* Keep track of your work over time with the HIT Database.
 
 ## Roadmap
 
-* Working HIT export to MTC and other forums. 
+* HIT export to MTC and other forums. 
 * ~~Watchers for continually accepting HITs and snagging rare ones.~~ <~ Added in 1.1.0
-* Integration with your dashboard and data visualization of income over time, your highest $/hr time of day, earning streaks etc. 
+* ~~Integration with your dashboard and data visualization of income over time, earning streaks etc.~~ <~ Added in 1.3.0
 * ~~New HIT highlighting~~ <~ Added in 1.2.0
-* CAPTCHA detection
+* CAPTCHA detection <~ Coming in 1.4.0!
 
