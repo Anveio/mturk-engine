@@ -3,7 +3,6 @@ import createSagaMiddleware from 'redux-saga';
 import * as immutableTransform from 'redux-persist-transform-immutable';
 import { autoRehydrate, persistStore } from 'redux-persist';
 import * as localForage from 'localforage';
-
 import { rootReducer } from './reducers';
 import rootSaga from './sagas';
 

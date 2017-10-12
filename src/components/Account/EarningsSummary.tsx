@@ -48,10 +48,7 @@ class EarningsSummary extends React.PureComponent<Props, never> {
         </Card.Section>
 
         <Card.Section>
-          <Tooltip
-            useSmartPositioning
-            content="This includes earnings from HITs that have been approved but not yet paid out."
-          >
+          <Tooltip content="This includes earnings from HITs that have been approved but not yet paid out.">
             {generateField(pendingEarnings, 'Pending')}
           </Tooltip>
         </Card.Section>

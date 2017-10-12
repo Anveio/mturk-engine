@@ -1,7 +1,9 @@
-import { Toaster, Position } from '@blueprintjs/core';
+import { TopRightToaster } from '../';
 import { HitReturnStatus } from '../api/returnHit';
 import { truncate } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
+import { formatAsCurrency } from './formatting';
+import { Toaster, Position } from '@blueprintjs/core';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
 
@@ -11,9 +13,10 @@ const loginLink = {
   text: 'Login Page'
 };
 
-export const TopRightToaster = Toaster.create({
-  position: Position.TOP_RIGHT
-});
+export const createToastLayer = () =>
+  Toaster.create({
+    position: Position.TOP_RIGHT
+  });
 
 export const copyIdToast = () =>
   TopRightToaster.show({
@@ -139,6 +142,27 @@ export const refreshDbErrorToast = () =>
       'There was an error while refreshing your database. You may have been logged out or lost connection while refreshing.',
     intent: 2,
     timeout: 5000
+  });
+
+export const successfulEditDailyGoalToast = (value: string) =>
+  TopRightToaster.show({
+    message: `Daily goal of ${formatAsCurrency(parseFloat(value))} was set.`,
+    timeout: 2000
+  });
+
+export const successfulEditBonusToast = (value: string) =>
+  TopRightToaster.show({
+    message: `Bonus of ${formatAsCurrency(
+      parseFloat(value)
+    )} was set for this HIT.`,
+    timeout: 2000
+  });
+
+export const deletePersistedStateToast = (key: string) =>
+  TopRightToaster.show({
+    message: `${key} deleted. Refresh the page to see if your issue was resolved.`,
+    timeout: 10000,
+    intent: 0
   });
 
 const successfulAcceptToast = (title: string) =>

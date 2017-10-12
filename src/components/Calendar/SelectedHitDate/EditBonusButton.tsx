@@ -10,7 +10,7 @@ import {
 import { validatePositiveNumber } from '../../../utils/validation';
 import { formatAsCurrency } from '../../../utils/formatting';
 import { EditBonus, editBonus } from '../../../actions/bonus';
-import { TopRightToaster } from '../../../utils/toaster';
+import { successfulEditBonusToast } from '../../../utils/toaster';
 
 export interface OwnProps {
   readonly bonus: number;
@@ -60,12 +60,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
 
   private handleSuccessfulSubmit = (value: string) => {
     this.props.onEditBonus(this.props.hitId, parseFloat(value));
-    TopRightToaster.show({
-      message: `Bonus of ${formatAsCurrency(
-        parseFloat(value)
-      )} was set for this HIT.`,
-      timeout: 2000
-    });
+    successfulEditBonusToast(value);
     this.setState((): Partial<State> => ({
       value,
       error: undefined,

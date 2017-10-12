@@ -49,6 +49,7 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
               rightIconName="duplicate"
               className="pt-button pt-small pt-minimal"
               onClick={this.handleIdClick(accountInfo.id)}
+              intent={-1}
             >
               {accountInfo.id}
             </Button>
@@ -56,6 +57,7 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
               <Button
                 rightIconName="calculator"
                 className="pt-button pt-small pt-minimal"
+                intent={-1}
               >
                 Acceptance Rate Calculator
               </Button>

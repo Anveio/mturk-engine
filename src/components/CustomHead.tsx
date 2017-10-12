@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import toastrStylesheet from '../utils/toastrStylesheet';
 import polarisStylesheet from '../utils/polarisStylesheet';
 import calendarHeatMapStylesheet from '../utils/calendarHeatMapStylesheet';
 
@@ -24,12 +23,6 @@ class CustomHead extends React.PureComponent<Props, never> {
           this.props.queueSize
         )}
       >
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-          httpEquiv="Content-Security-Policy"
-          content="block-all-mixed-content"
-        />
-        <style>{toastrStylesheet}</style>
         <style>{polarisStylesheet}</style>
         <style>{calendarHeatMapStylesheet}</style>
         <link

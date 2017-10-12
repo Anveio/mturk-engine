@@ -9,9 +9,9 @@ import {
 } from '@shopify/polaris';
 import { RootState } from '../../types';
 import { ChangeDailyGoal, changeDailyGoal } from '../../actions/updateValue';
-import { formatAsCurrency } from '../../utils/formatting';
+
 import { validatePositiveNumber } from '../../utils/validation';
-import { TopRightToaster } from '../../utils/toaster';
+import { successfulEditDailyGoalToast } from '../../utils/toaster';
 
 export interface Props {
   readonly dailyEarningsGoal: number;
@@ -60,10 +60,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
 
   private handleSuccessfulSubmit = (value: string) => {
     this.props.onChange(parseFloat(value));
-    TopRightToaster.show({
-      message: `Daily goal of ${formatAsCurrency(parseFloat(value))} was set.`,
-      timeout: 2000
-    });
+    successfulEditDailyGoalToast(value);
     this.setState((): Partial<State> => ({
       value,
       isOpen: false,

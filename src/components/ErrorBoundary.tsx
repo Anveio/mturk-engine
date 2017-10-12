@@ -8,7 +8,7 @@ import {
   Button
 } from '@shopify/polaris';
 import { NonIdealState, Collapse } from '@blueprintjs/core';
-import { TopRightToaster } from '../utils/toaster';
+import { deletePersistedStateToast } from '../utils/toaster';
 import * as localforage from 'localforage';
 
 interface State {
@@ -41,11 +41,7 @@ class ErrorBoundary extends React.PureComponent<Props, State> {
   private deletePersistedState = (key: ImmutablePersistedState) => async () => {
     try {
       await localforage.removeItem(`reduxPersist:${key}`);
-      TopRightToaster.show({
-        message: `${key} deleted. Refresh the page to see if your issue was resolved.`,
-        timeout: 10000,
-        intent: 0
-      });
+      deletePersistedStateToast(key);
     } catch (e) {
       console.warn(e);
     }

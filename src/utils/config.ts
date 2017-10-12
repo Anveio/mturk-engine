@@ -30,3 +30,7 @@ export const createRootDiv = (): void => {
   div.id = 'root';
   document.body.appendChild(div);
 };
+
+export const createToastLayer = (): void => {
+  
+}
