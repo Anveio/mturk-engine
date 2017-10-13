@@ -17,7 +17,8 @@ export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
   try {
     const pageInfo: StatusDetailPageInfo = yield call(
       fetchStatusDetailPage,
-      action.dateString
+      action.dateString,
+      action.page
     );
     const { data, morePages } = pageInfo;
 
