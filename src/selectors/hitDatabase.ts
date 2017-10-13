@@ -13,18 +13,20 @@ import { Map, List } from 'immutable';
 export const hitDatabaseSelector = (state: RootState) => state.hitDatabase;
 
 export const pendingEarningsSelector = createSelector(
-  [ hitDatabaseSelector ],
-  (hitDatabase) =>
+  [hitDatabaseSelector],
+  hitDatabase =>
     hitDatabase.reduce(
       (acc: number, hit: HitDatabaseEntry) =>
-        hit.status === 'Pending Approval' ? acc + hit.reward : acc,
+        hit.status === 'Pending Approval' || hit.status === 'Pending Payment'
+          ? acc + hit.reward
+          : acc,
       0
     )
 );
 
 // tslint:disable:align
 export const dateMoneyMap = createSelector(
-  [ hitDatabaseSelector ],
+  [hitDatabaseSelector],
   (hitDatabase): Map<string, number> =>
     hitDatabase.reduce((acc: Map<string, number>, el: HitDatabaseEntry) => {
       return acc.update(
@@ -39,7 +41,7 @@ export const dateMoneyMap = createSelector(
 
 // tslint:disable:align
 export const oneYearOfData = createSelector(
-  [ dateMoneyMap ],
+  [dateMoneyMap],
   (moneyEarnedPerDay: Map<string, number>): List<HeatMapValue> => {
     const oneYearOfDates = generateOneYearOfDates();
     return oneYearOfDates.reduce((acc: List<HeatMapValue>, date: string) => {
@@ -54,7 +56,7 @@ export const oneYearOfData = createSelector(
 );
 
 export const hitsCompletedToday = createSelector(
-  [ hitDatabaseSelector ],
+  [hitDatabaseSelector],
   (hitDatabase): HitDatabaseMap =>
     hitDatabase.filter(
       (el: HitDatabaseEntry) => el.date === todayFormatted()
@@ -62,8 +64,8 @@ export const hitsCompletedToday = createSelector(
 );
 
 export const todaysProjectedEarnings = createSelector(
-  [ hitsCompletedToday ],
-  (hits) =>
+  [hitsCompletedToday],
+  hits =>
     hits.reduce(
       (acc: number, cur: HitDatabaseEntry) => acc + cur.bonus + cur.reward,
       0
