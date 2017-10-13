@@ -28,15 +28,17 @@ export const pendingEarningsSelector = createSelector(
 export const dateMoneyMap = createSelector(
   [hitDatabaseSelector],
   (hitDatabase): Map<string, number> =>
-    hitDatabase.reduce((acc: Map<string, number>, el: HitDatabaseEntry) => {
-      return acc.update(
-        el.date,
-        (reward: number) =>
-          reward
-            ? reward + el.reward + (el.bonus || 0)
-            : el.reward + (el.bonus || 0)
-      );
-    }, Map<string, number>())
+    hitDatabase.reduce(
+      (acc: Map<string, number>, el: HitDatabaseEntry) =>
+        acc.update(
+          el.date,
+          (reward: number) =>
+            reward
+              ? reward + el.reward + (el.bonus || 0)
+              : el.reward + (el.bonus || 0)
+        ),
+      Map<string, number>()
+    )
 );
 
 // tslint:disable:align
