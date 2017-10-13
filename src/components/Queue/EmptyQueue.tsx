@@ -6,6 +6,7 @@ export interface Handlers {
   readonly onRefresh: () => void;
 }
 
+// tslint:disable:jsx-curly-spacing
 const EmptyQueue = ({ onRefresh }: Handlers) => {
   return (
     <NonIdealState
@@ -15,7 +16,8 @@ const EmptyQueue = ({ onRefresh }: Handlers) => {
       action={
         <Button primary onClick={onRefresh}>
           Refresh
-        </Button>}
+        </Button>
+      }
     />
   );
 };
