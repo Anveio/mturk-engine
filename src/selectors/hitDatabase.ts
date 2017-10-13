@@ -59,10 +59,12 @@ export const oneYearOfData = createSelector(
 
 export const hitsCompletedToday = createSelector(
   [hitDatabaseSelector],
-  (hitDatabase): HitDatabaseMap =>
-    hitDatabase.filter(
-      (el: HitDatabaseEntry) => el.date === todayFormatted()
-    ) as HitDatabaseMap
+  (hitDatabase): HitDatabaseMap => {
+    const todaysDateString = todayFormatted();
+    return hitDatabase.filter(
+      (el: HitDatabaseEntry) => el.date === todaysDateString
+    ) as HitDatabaseMap;
+  }
 );
 
 export const todaysProjectedEarnings = createSelector(
