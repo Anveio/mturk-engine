@@ -6,7 +6,12 @@ export const validateHitAcceptRequest = async (groupId: string) => {
   try {
     const response = await axios.get(
       `${API_URL}/mturk/previewandaccept?groupId=${groupId}`,
-      { responseType: 'document' }
+      {
+        params: {
+          groupId
+        },
+        responseType: 'document'
+      }
     );
     const html: Document = response.data;
     return validateHitAccept(html);
