@@ -8,6 +8,7 @@ import { Map } from 'immutable';
 import * as v4 from 'uuid/v4';
 import {
   statusDetailHitLink,
+  statusDetailFeedback,
   statusDetailMorePages
 } from '../constants/querySelectors';
 import { StatusDetailPageInfo } from '../api/statusDetail';
@@ -65,7 +66,8 @@ const generateHitDbEntry = (
     },
     date: dateString,
     status: parseStatus(input),
-    title: parseTitle(input)
+    title: parseTitle(input),
+    feedback: parseFeedback(input)
   };
 };
 
@@ -132,6 +134,15 @@ const parseRequesterName = (input: HTMLAnchorElement): string => {
   } else {
     return '[Error:requesterName]';
   }
+};
+
+const parseFeedback = (input: HTMLTableRowElement): string | undefined => {
+  const feedbackElem = input.querySelector(statusDetailFeedback);
+  return feedbackElem &&
+    feedbackElem.textContent &&
+    feedbackElem.textContent.length > 0
+    ? feedbackElem.textContent
+    : undefined;
 };
 
 const parseTitle = (input: HTMLTableRowElement): string => {

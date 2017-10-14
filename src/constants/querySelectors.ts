@@ -45,6 +45,8 @@ export const statusEarnings = '.statusEarningsColumnValue';
 export const statusDetailHitLink = 'td.statusdetailRequesterColumnValue > a';
 
 export const statusDetailMorePages = 'img[src="/media/right_dbl_arrow.gif"]';
+export const statusDetailFeedback =
+  '.statusdetailRequesterFeedbackColumnValue > div';
 
 export const lifetimeHitEarnings =
   'td#approved_hits_earnings_amount > span.reward';
