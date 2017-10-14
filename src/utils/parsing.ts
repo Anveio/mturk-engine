@@ -19,10 +19,9 @@ export const parseStringProperty = (queryString: string, fallback: string) => (
     : `[Error:${fallback}]`;
 };
 
-export const parseNumericProperty = (
-  queryString: string,
-  fallback = 0
-) => (input: Document | Element): number => {
+export const parseNumericProperty = (queryString: string, fallback = 0) => (
+  input: Document | Element
+): number => {
   const maybeElem = input.querySelector(queryString);
   return maybeElem && maybeElem.textContent
     ? parseFloat(maybeElem.textContent.trim())

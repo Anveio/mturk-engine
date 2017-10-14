@@ -50,7 +50,6 @@ export const oneYearOfData = createSelector(
       const data = count
         ? { date, count: Math.round(count * 100) / 100 }
         : { date, count: 0 };
-      // console.log(data);
       return acc.push(data);
     }, List());
   }
