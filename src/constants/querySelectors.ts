@@ -42,11 +42,16 @@ export const statusApproved = '.statusApprovedColumnValue';
 export const statusRejected = '.statusRejectedColumnValue';
 export const statusPending = '.statusPendingColumnValue';
 export const statusEarnings = '.statusEarningsColumnValue';
-export const statusDetailHitLink = 'td.statusdetailRequesterColumnValue > a';
 
-export const statusDetailMorePages = 'img[src="/media/right_dbl_arrow.gif"]';
+
+export const statusDetailHitRows = '#dailyActivityTable > tbody';
+export const statusDetailHitLink = 'td.statusdetailRequesterColumnValue > a';
+export const statusDetailHitTitle = 'td.statusdetailTitleColumnValue';
+export const statusDetailHitStatus = 'td.statusdetailStatusColumnValue';
+export const statusDetailHitReward = 'td.statusdetailAmountColumnValue';
 export const statusDetailFeedback =
   '.statusdetailRequesterFeedbackColumnValue > div';
+export const statusDetailMorePages = 'img[src="/media/right_dbl_arrow.gif"]';
 
 export const lifetimeHitEarnings =
   'td#approved_hits_earnings_amount > span.reward';

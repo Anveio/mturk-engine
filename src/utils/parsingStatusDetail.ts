@@ -7,12 +7,16 @@ import {
 import { Map } from 'immutable';
 import * as v4 from 'uuid/v4';
 import {
+  statusDetailHitRows,
   statusDetailHitLink,
+  statusDetailHitStatus,
+  statusDetailHitTitle,
+  statusDetailHitReward,
   statusDetailFeedback,
   statusDetailMorePages
 } from '../constants/querySelectors';
 import { StatusDetailPageInfo } from '../api/statusDetail';
-import { pageErrorPresent } from './parsing';
+import { pageErrorPresent, parseStringProperty } from './parsing';
 
 interface AnchorElemInfo {
   requester: Requester;
@@ -66,7 +70,7 @@ const generateHitDbEntry = (
     },
     date: dateString,
     status: parseStatus(input),
-    title: parseTitle(input),
+    title: parseStringProperty(statusDetailHitTitle, 'hitTitle')(input),
     feedback: parseFeedback(input)
   };
 };
@@ -83,13 +87,13 @@ const parseAnchorElem = (input: HTMLTableRowElement): AnchorElemInfo => {
     hitId: parseHitId(anchorElem),
     requester: {
       id: parseRequesterId(anchorElem),
-      name: parseRequesterName(anchorElem)
+      name: parseStringProperty('span', 'requesterName')(anchorElem)
     }
   };
 };
 
 const selectHitRows = (html: Document): HTMLTableRowElement[] => {
-  const hitTable = html.querySelector('#dailyActivityTable > tbody');
+  const hitTable = html.querySelector(statusDetailHitRows);
   if (hitTable && hitTable.children) {
     /**
      * .slice(1)?
@@ -126,16 +130,6 @@ const parseRequesterId = (input: HTMLAnchorElement): string => {
   }
 };
 
-const parseRequesterName = (input: HTMLAnchorElement): string => {
-  const nameSpan = input.querySelector('span');
-  // return (/requesterName=(.*)&subject/g.exec(href) as string[])[1];
-  if (nameSpan && nameSpan.textContent) {
-    return nameSpan.textContent.trim();
-  } else {
-    return '[Error:requesterName]';
-  }
-};
-
 const parseFeedback = (input: HTMLTableRowElement): string | undefined => {
   const feedbackElem = input.querySelector(statusDetailFeedback);
   return feedbackElem &&
@@ -145,20 +139,8 @@ const parseFeedback = (input: HTMLTableRowElement): string | undefined => {
     : undefined;
 };
 
-const parseTitle = (input: HTMLTableRowElement): string => {
-  const descriptionElem = input.querySelector(
-    'td.statusdetailTitleColumnValue'
-  );
-
-  if (descriptionElem && descriptionElem.textContent) {
-    return descriptionElem.textContent.trim();
-  } else {
-    return '[Error:description]';
-  }
-};
-
 const parseReward = (input: HTMLTableRowElement): number => {
-  const rewardElem = input.querySelector('td.statusdetailAmountColumnValue');
+  const rewardElem = input.querySelector(statusDetailHitReward);
 
   if (rewardElem && rewardElem.textContent) {
     /**
@@ -171,7 +153,7 @@ const parseReward = (input: HTMLTableRowElement): number => {
 };
 
 const parseStatus = (input: HTMLTableRowElement): HitStatus => {
-  const rewardElem = input.querySelector('td.statusdetailStatusColumnValue');
+  const rewardElem = input.querySelector(statusDetailHitStatus);
 
   if (rewardElem && rewardElem.textContent) {
     return /Pending\sPayment/.test(rewardElem.textContent)
