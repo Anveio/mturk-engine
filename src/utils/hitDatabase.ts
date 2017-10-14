@@ -21,3 +21,6 @@ export const calculateAcceptanceRate = (total: number, rejected: number) =>
 
 export const calculateThreshold = (total: number, minimumRate: number) =>
   Math.ceil((minimumRate * total / 100 - total) * -1);
+
+export const rewardAndBonus = (hit: HitDatabaseEntry) =>
+  hit.reward + (hit.bonus || 0);

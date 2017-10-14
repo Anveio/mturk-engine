@@ -6,6 +6,7 @@ import {
   HeatMapValue
 } from '../types';
 import { generateOneYearOfDates, todayFormatted } from '../utils/dates';
+import { rewardAndBonus } from '../utils/hitDatabase';
 
 // import { selectedHitDbDateSelector } from './hitDatabaseDay';
 import { Map, List } from 'immutable';
@@ -33,9 +34,7 @@ export const dateMoneyMap = createSelector(
         acc.update(
           el.date,
           (reward: number) =>
-            reward
-              ? reward + el.reward + (el.bonus || 0)
-              : el.reward + (el.bonus || 0)
+            reward ? reward + rewardAndBonus(el) : rewardAndBonus(el)
         ),
       Map<string, number>()
     )
@@ -71,7 +70,7 @@ export const todaysProjectedEarnings = createSelector(
   [hitsCompletedToday],
   hits =>
     hits.reduce(
-      (acc: number, cur: HitDatabaseEntry) => acc + cur.bonus + cur.reward,
+      (acc: number, cur: HitDatabaseEntry) => acc + rewardAndBonus(cur),
       0
     )
 );
