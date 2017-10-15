@@ -1,5 +1,8 @@
 import * as React from 'react';
+import { connect, Dispatch } from 'react-redux';
 import { Tabs2 as Tabs, Tab2 as Tab } from '@blueprintjs/core';
+import { RootState } from '../../types';
+import { changeTab, ChangeTab } from '../../actions/updateValue';
 import QueueTable from '../../containers/QueueTable';
 import SearchTab from './SearchTab';
 import Account from '../Account/Account';
@@ -40,4 +43,15 @@ const TabNavigation: React.SFC<Props & Handlers> = ({
   );
 };
 
-export default TabNavigation;
+const mapState = (state: RootState): Props => ({
+  selected: state.tab,
+  queueSize: state.queue.size
+});
+
+const mapDispatch = (dispatch: Dispatch<ChangeTab>): Handlers => ({
+  onSelectTab: (selectedTabIndex: number) => {
+    dispatch(changeTab(selectedTabIndex));
+  }
+});
+
+export default connect(mapState, mapDispatch)(TabNavigation);

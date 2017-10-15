@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Page } from '@shopify/polaris';
 import ErrorBoundary from './ErrorBoundary';
-import TabNavigation from '../containers/TabNavigation';
+import TabNavigation from './TabNavigation/TabNavigation';
 import CustomHead from '../containers/CustomHead';
 import AudioLayer from './AudioLayer';
 import Footer from './Footer';
