@@ -107,19 +107,16 @@ class CalendarHeatMap extends React.PureComponent<Props, never> {
 
   private renderWeek = (weekIndex: number) => (
     <g key={weekIndex} transform={this.getTransformForWeek(weekIndex)}>
-      {range(DAYS_IN_WEEK).map(dayIndex => {
-        return this.renderSquare(dayIndex, weekIndex * DAYS_IN_WEEK + dayIndex);
-      })}
+      {range(DAYS_IN_WEEK).map(dayIndex =>
+        this.renderSquare(dayIndex, weekIndex * DAYS_IN_WEEK + dayIndex)
+      )}
     </g>
   );
 
-  private renderAllWeeks() {
-    return range(this.getWeekCount()).map(weekIndex =>
-      this.renderWeek(weekIndex)
-    );
-  }
+  private renderAllWeeks = () =>
+    range(this.getWeekCount()).map(weekIndex => this.renderWeek(weekIndex));
 
-  private renderMonthLabels() {
+  private renderMonthLabels = () => {
     const weekRange = range(this.getWeekCount() - 1); // don't render for last week, because label will be cut off
     return weekRange.map(weekIndex => {
       const endOfWeek = shiftDate(
@@ -133,7 +130,7 @@ class CalendarHeatMap extends React.PureComponent<Props, never> {
         </text>
       ) : null;
     });
-  }
+  };
 
   public render() {
     return (
