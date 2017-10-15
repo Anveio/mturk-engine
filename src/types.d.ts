@@ -1,5 +1,4 @@
 import { Map } from 'immutable';
-import { ToastrState } from 'react-redux-toastr';
 
 export interface RootState {
   readonly account: MaybeAccount;
