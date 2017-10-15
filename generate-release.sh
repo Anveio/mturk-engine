@@ -3,11 +3,11 @@
 RELEASE_VERSION=$1
 
 # mv /build/*.js /build/mturk-engine.yeehaw.user.js}
-find . -name "main.*.js" -exec sh -c 'mv -T "$1" "./build/mturk-engine.latest.js"' _ {} \;
+find . -name "main.*.js" -exec sh -c 'mv -T "$1" "./build/mturk-engine.latest.user.js"' _ {} \;
 
 # Prepending stuff to a file is hard. Append instead and move text manually.
 
-echo "\n// ==UserScript==
+echo "// ==UserScript==
 // @name         Mturk Engine
 // @namespace    https://github.com/Anveio/mturk-engine/
 // @version      $RELEASE_VERSION
@@ -36,4 +36,4 @@ echo "\n// ==UserScript==
  * There you can post issues, submit changes, suggest features, and download the latest version.
  */" >> ./build/mturk-engine.latest.user.js
 
-# rm -rf ./build/static
+rm -rf ./build/static
