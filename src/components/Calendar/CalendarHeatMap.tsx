@@ -25,7 +25,7 @@ export interface Props {
   readonly values: List<HeatMapValue>;
 }
 
-class CalendarHeatMap extends React.PureComponent<Props, never> {
+class CalendarHeatMap extends React.Component<Props, never> {
   private readonly startDate: Date;
   private readonly endDate: Date;
   private readonly numDays: number;
@@ -39,6 +39,10 @@ class CalendarHeatMap extends React.PureComponent<Props, never> {
       this.startDate,
       this.endDate
     );
+  }
+
+  shouldComponentUpdate(nextProps: Props) {
+    return nextProps.values.equals(this.props.values);
   }
 
   static calculateStartDate = (values: List<HeatMapValue>) => {
