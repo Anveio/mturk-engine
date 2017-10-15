@@ -1,7 +1,5 @@
 # Developer Guide for Mturk Engine
 
-### Note: Mturk Engine ships with Redux DevTools enabled. Download Redux DevTools for your browser: [Chrome](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/remotedev/)
-
 This guide will walk you through the following:
 
 * Starting Mturk Engine in development.
@@ -21,23 +19,30 @@ You can find additional installation instructions if necessary on [npm's github 
 
 # Starting Mturk Engine in development.
 
-Getting Mturk Engine running in development involves just 2 commands. After cloning this repo, run the following:
+Getting Mturk Engine running in development involves just 2 commands. First clone this repo with 
+
+```shell
+git clone https://github.com/Anveio/mturk-engine.git
+cd mturk-engine
+```
+
+Then run the following:
 
 ```shell
 npm install
 npm start
 ```
 
-`npm install` will install all of Mturk Engine's dependencies. `npm start` will compile the depencies and the application's source code and launch a browser tab running the application. Any changes you save to files in the `/src` folder will cause the application to reload with your changes.
+`npm install` will install all of Mturk Engine's dependencies. `npm start` will compile the dependencies and the application's source code and launch a browser tab running the application. Any changes you save to files in the `/src` folder will cause the application to reload with your changes.
 
-## Sending authenticated requests to Mturk (the website)
+## Sending authenticated requests to Mturk.
 
 There are 2 things we need to do in order to send requests to Mturk:
 
-1. Bypass Mturk's CORS policy
+1. Satisfy Mturk's CORS policy
 2. Send authenticated requests (e.g. so we can accept and return HITs)
 
-### Bypassing Mturk's CORS policy.
+### Satisfying Mturk's CORS policy.
 
 Sending network requests to `https://www.mturk.com` from `localhost:8000` will not work because mturk's CORS policy blocks requests from origins that aren't 'www.mturk.com'. In order to bypass this, Mturk Engine uses a proxy server, located in the `server` folder, that will take network requests sent to it and pipe them to mturk with the proper headers.
 
@@ -49,9 +54,9 @@ We can send authenticated requests the same way we do in the browser: cookies. T
 touch ./server/cookies.js && echo "module.exports = " >> ./server/cookies.js
 ```
 
-## **IMPORTANT: It's important that the file be called `cookies.js` so that it's ignored by git (as specified in .gitignore). It will contain sensitive data so make sure you don't upload its contents to a repo somewhere.**
+**IMPORTANT: It's important that the file be called `cookies.js` so that it's ignored by git (as specified in .gitignore). It will contain sensitive data so make sure you don't upload its contents to a repo somewhere.**
 
-After the `module.exports = ` is where you'll be pasting in your cookies as a string (meaning it will be between quotes). After logging into Mturk, open the developer tools and switch to the "Network" tab (you may need to refresh the page). Examine the "Request Headers" section and copy the contents following "Cookie" and paste it between quotes after `module.exports = ` in your `./server/cokies.js` file. Ensure you didn't accidentally copy any new-line symbols as that will cause 'illegal character' errors.
+After logging into Mturk, open the developer tools with F12 and switch to the "Network" tab (you may need to refresh the page). Examine the "Request Headers" section and copy the contents following "Cookie" and paste it between quotes after `module.exports = ` in your `./server/cokies.js` file. Ensure you didn't accidentally copy any new-line symbols as that will cause 'illegal character' errors.
 
 Now you can start up the proxy server. Assuming you're in the project's top level directory:
 
@@ -98,7 +103,7 @@ Some of the technologies explained, briefly:
 * **TypeScript** is JavaScript with type annotations for functions, objects, and variables. It allows you to confidently make changes to one part of the application without worrying that your change is silently breaking another part of the application. 
 * **React** is used to declare UI components and to efficiently update the DOM.
 * **Redux** allows us to store the application's state (e.g. a user's search options) in a single global variable and assign slices of the application's state to components. Those components will then only update when the underlying data changes.
-* **Immutable**.js and immutable data structures pair well with redux because redux decides whether our application will update by comparing the current application state, to the application state after an action is dispatched. When supporting a state consisting of thousands of entries, computing whether two states are equal is an expensive process. So if the largest sets of data (blocklists, hitDatabase) are immutable, we can cheapen that calculation greatly.
+* **Immutable**.js and immutable data structures pair well with redux because redux decides whether our application will update by comparing the current application state to the application state after an action is dispatched. When supporting a state consisting of thousands of entries, computing whether two states are equal is an expensive process. So if the largest sets of data (blocklists, hitDatabase) are immutable, we can cheapen that calculation greatly.
 * **Redux-saga** is used to cleanly handle asynchronous and side-effect causing behavior. All network requests, for example are handled by redux-saga, as well as anything timing based, e.g. search delay and watchers.
 * **Reselect** allows us to efficiently manipulate data before it reaches our components. For example, every time our search returns results, we need to filter out HITs that don't have a high enough T.O., then we need to sort them according to the user's preference, and then we need to group the unread HITs before the read HITs. Reselect allows us to make that computation once, not recompute when the data doesn't change, and share the result across all the components that would need it.
 
@@ -125,7 +130,10 @@ Reducers are simple functions that check the type of each dispatched action and 
 Functions that describe how to manipulate data. E.g. sorting, filtering and grouping search results.
 
 ### `/api`
-These functions make network requests. If the network request is successful (and a document object is received), the api function also calls parsing functions to extract data from the received document. Otherwise, they throw an error. That error is propagated to a saga, which handles the error by dispatching the appropriate `SOME_API_FAILURE`.
+These async functions make network requests. If the network request is successful (and a document object is received), the api function also calls parsing functions to extract data from the received document. Otherwise, they throw an error. That error is propagated to a saga, which handles the error by dispatching the appropriate `SOME_API_FAILURE` action.
 
 ### `/sagas`
-These are the link between action dispatching functions and api functions. Sagas translate `SOME_API_REQUEST` into `SOME_API_SUCCESS` or `SOME_API_FAILURE`.
+These are the link between action dispatching functions and api functions. Sagas translate `SOME_API_REQUEST` actions into `SOME_API_SUCCESS` actions or `SOME_API_FAILURE` actions.
+
+
+### Note: Mturk Engine ships with Redux DevTools enabled. Download Redux DevTools for your browser: [Chrome](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/remotedev/)
