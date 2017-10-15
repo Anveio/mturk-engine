@@ -7,7 +7,7 @@ interface Props {
   readonly timeLeft: string;
 }
 
-const QueueItemInfo = ({ reward, timeLeft }: Props) => {
+const QueueItemInfo: React.SFC<Props> = ({ reward, timeLeft }) => {
   return (
     <Stack vertical={false} spacing={'tight'} alignment="baseline">
       <Caption>{timeLeft}</Caption>

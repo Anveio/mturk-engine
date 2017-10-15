@@ -7,12 +7,11 @@ interface Props {
   readonly batchSize: number;
 }
 
-const InfoContainer = ({ reward, batchSize }: Props) => {
-  return (
-    <Stack vertical={false} spacing={'tight'} alignment="baseline">
-      <Caption>{batchSize} available</Caption>
-      <DisplayText size="small">{formatAsCurrency(reward)}</DisplayText>
-    </Stack>
-  );
-};
+const InfoContainer: React.SFC<Props> = ({ reward, batchSize }) => (
+  <Stack vertical={false} spacing={'tight'} alignment="baseline">
+    <Caption>{batchSize} available</Caption>
+    <DisplayText size="small">{formatAsCurrency(reward)}</DisplayText>
+  </Stack>
+);
+
 export default InfoContainer;

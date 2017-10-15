@@ -6,7 +6,7 @@ import CustomHead from '../containers/CustomHead';
 import AudioLayer from './AudioLayer';
 import Footer from './Footer';
 
-const App = () => {
+const App: React.SFC<{}> = () => {
   return (
     <main>
       <CustomHead />

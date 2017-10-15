@@ -40,16 +40,6 @@ class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
     this.setState({ hovering: false });
   };
 
-  // static conditionallyRenderCaption = (hovering: boolean) => {
-  //   return hovering ? (
-  //     <Collapse isOpen={this.state.}>
-  //       <Caption>{CalendarButtons.captionContent}</Caption>
-  //     </Collapse>
-  //   ) : (
-  //     <div />
-  //   );
-  // };
-
   public render() {
     const { tooltipContent } = CalendarButtons;
     return (

@@ -24,7 +24,7 @@ class SearchButtons extends React.PureComponent<Props & Handlers, never> {
     const { searchActive } = this.props;
 
     return (
-      <Card.Section>
+      <Card sectioned>
         <Stack vertical={false} alignment="baseline">
           <ButtonGroup segmented>
             <Button
@@ -40,7 +40,7 @@ class SearchButtons extends React.PureComponent<Props & Handlers, never> {
           </ButtonGroup>
           <SearchTimer />
         </Stack>
-      </Card.Section>
+      </Card >
     );
   }
 }

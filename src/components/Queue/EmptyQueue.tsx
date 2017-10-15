@@ -7,7 +7,7 @@ export interface Handlers {
 }
 
 // tslint:disable:jsx-curly-spacing
-const EmptyQueue = ({ onRefresh }: Handlers) => {
+const EmptyQueue: React.SFC<Handlers> = ({ onRefresh }) => {
   return (
     <NonIdealState
       title="Your queue is empty"

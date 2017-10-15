@@ -4,7 +4,7 @@ import TurkopticonSettings from '../TurkopticonSettings/TurkopticonSettings';
 import AudioSettings from '../AudioSettings/AudioSettings';
 import ToggleNoTO from '../TurkopticonSettings/ToggleNoTO';
 
-const SearchTab = () => {
+const SearchTab: React.SFC<{}> = () => {
   return (
     <div>
       <AudioSettings />

@@ -12,7 +12,7 @@ const mapDispatch = (dispatch: Dispatch<SearchAction>): Handlers => ({
   onSearch: () => dispatch(searchRequestSingular())
 });
 
-const EmptySearchTable = ({ onSearch }: Handlers) => {
+const EmptySearchTable: React.SFC<Handlers> = ({ onSearch }) => {
   return (
     <EmptyState
       heading="You search results are empty."
