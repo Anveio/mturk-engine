@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { Tabs } from '@shopify/polaris';
+import { Tabs2 as Tabs, Tab2 as Tab } from '@blueprintjs/core';
 import QueueTable from '../../containers/QueueTable';
 import SearchTab from './SearchTab';
 import Account from '../Account/Account';
 import BlockLists from '../BlockList/BlockLists';
-import { generateTabs } from '../../utils/tabs';
 import SettingsTab from './SettingsTab';
 import Watchers from '../../containers/Watchers';
 
@@ -17,34 +16,26 @@ export interface Handlers {
   readonly onSelectTab: (selectedTabIndex: number) => void;
 }
 
-const TabNavigation = (props: Props & Handlers) => {
-  const { queueSize, onSelectTab, selected } = props;
-  const tabs = generateTabs({ queueSize });
-
-  const displaySelectedTab = {
-    0: () => {
-      return <SearchTab />;
-    },
-    1: () => {
-      return <QueueTable />;
-    },
-    2: () => {
-      return <Watchers />;
-    },
-    3: () => {
-      return <BlockLists />;
-    },
-    4: () => {
-      return <Account />;
-    },
-    5: () => {
-      return <SettingsTab />;
-    }
-  };
-
+const TabNavigation: React.SFC<Props & Handlers> = ({
+  onSelectTab,
+  queueSize,
+  selected
+}) => {
   return (
-    <Tabs selected={selected} tabs={tabs} onSelect={onSelectTab}>
-      {displaySelectedTab[selected]()}
+    <Tabs
+      id="mturk-engine-tab-navigation"
+      selectedTabId={selected}
+      onChange={onSelectTab}
+      animate={false}
+      renderActiveTabPanelOnly
+      large
+    >
+      <Tab id={0} title="Search" panel={<SearchTab />} />
+      <Tab id={1} title={`Queue (${queueSize})`} panel={<QueueTable />} />
+      <Tab id={2} title="Watchers" panel={<Watchers />} />
+      <Tab id={3} title="Blocklist" panel={<BlockLists />} />
+      <Tab id={4} title="Account" panel={<Account />} />
+      <Tab id={5} title="Settings" panel={<SettingsTab />} />
     </Tabs>
   );
 };
