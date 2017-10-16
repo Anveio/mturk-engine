@@ -48,15 +48,15 @@ Sending network requests to `https://www.mturk.com` from `localhost:8000` will n
 
 ### Sending authenticated requests
 
-We can send authenticated requests the same way we do in the browser: cookies. The proxy server will attach cookies to the request but we have to provide them. Create a file in the `server` folder called `cookies.js` with the following command:
+We can send authenticated requests the same way we do in the browser: cookies. The proxy server will attach cookies to the request but we have to provide them. Create a file in the `server` folder called `cookie.js` with the following command:
 
 ```shell
-touch ./server/cookies.js && echo "module.exports = " >> ./server/cookies.js
+touch ./server/cookie.js && echo "module.exports = " >> ./server/cookie.js
 ```
 
-**IMPORTANT: It's important that the file be called `cookies.js` so that it's ignored by git (as specified in .gitignore). It will contain sensitive data so make sure you don't upload its contents to a repo somewhere.**
+**IMPORTANT: It's important that the file be called `cookie.js` so that it's ignored by git (as specified in .gitignore). It will contain sensitive data so make sure you don't upload its contents to a repo somewhere.**
 
-After logging into Mturk, open the developer tools with F12 and switch to the "Network" tab (you may need to refresh the page). Examine the "Request Headers" section and copy the contents following "Cookie" and paste it between quotes after `module.exports = ` in your `./server/cokies.js` file. Ensure you didn't accidentally copy any new-line symbols as that will cause 'illegal character' errors.
+After logging into Mturk, open the developer tools with F12 and switch to the "Network" tab (you may need to refresh the page). Examine the "Request Headers" section and copy the contents following "Cookie" and paste it between quotes after `module.exports = ` in your `./server/cookie.js` file. Ensure you didn't accidentally copy any new-line symbols as that will cause 'illegal character' errors.
 
 Now you can start up the proxy server. Assuming you're in the project's top level directory:
 
