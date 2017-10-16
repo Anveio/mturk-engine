@@ -43,7 +43,6 @@ export const statusRejected = '.statusRejectedColumnValue';
 export const statusPending = '.statusPendingColumnValue';
 export const statusEarnings = '.statusEarningsColumnValue';
 
-
 export const statusDetailHitRows = '#dailyActivityTable > tbody';
 export const statusDetailHitLink = 'td.statusdetailRequesterColumnValue > a';
 export const statusDetailHitTitle = 'td.statusdetailTitleColumnValue';
