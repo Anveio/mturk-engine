@@ -24,7 +24,7 @@ class Calendar extends React.PureComponent<Props, never> {
         title={`HIT Database (${Calendar.displayDates(this.props.values)})`}
       >
         <Card.Section>
-          <CalendarHeatMap values={this.props.values} />
+          <CalendarHeatMap />
           <CalendarButtons />
         </Card.Section>
         <SelectedHitDate />
