@@ -31,7 +31,6 @@ const TabNavigation: React.SFC<Props & Handlers> = ({
       onChange={onSelectTab}
       animate={false}
       renderActiveTabPanelOnly
-      large
     >
       <Tab id={0} title="Search" panel={<SearchTab />} />
       <Tab id={1} title={`Queue (${queueSize})`} panel={<QueueTable />} />
