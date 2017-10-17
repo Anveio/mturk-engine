@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Button } from '@shopify/polaris';
+import { Button, Stack, TextContainer } from '@shopify/polaris';
 import { Tooltip } from '@blueprintjs/core';
-import { TOpticonData, RequesterScores } from '../../types';
+import { TOpticonData } from '../../types';
 import { turkopticonBaseUrl } from '../../constants/urls';
 
 export interface Props {
@@ -10,19 +10,25 @@ export interface Props {
 }
 
 class TOpticonButton extends React.PureComponent<Props, never> {
-  static generateTooltipContent = (scores: RequesterScores) =>
-    `Pay: ${scores.pay}.
-    Comm: ${scores.comm}. 
-    Fair: ${scores.fair}. 
-    Fast: ${scores.fast}.`;
+  static generateTooltipContent = (data: TOpticonData) => {
+    const { attrs: { pay, comm, fair, fast }, reviews, tos_flags } = data;
+
+    return (
+      <Stack vertical>
+        <TextContainer>
+          Pay: {pay}. Comm: {comm}. Fair: {fair}. Fast: {fast}.
+        </TextContainer>
+        <TextContainer>Calculated from {reviews} reviews.</TextContainer>
+        <TextContainer>{tos_flags} reported TOS violations.</TextContainer>
+      </Stack>
+    );
+  };
 
   public render() {
     const { requesterId, turkopticon } = this.props;
 
     return turkopticon ? (
-      <Tooltip
-        content={TOpticonButton.generateTooltipContent(turkopticon.attrs)}
-      >
+      <Tooltip content={TOpticonButton.generateTooltipContent(turkopticon)}>
         <Button plain external url={turkopticonBaseUrl + requesterId}>
           T.O. Page
         </Button>
