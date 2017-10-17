@@ -12,7 +12,7 @@ export interface Props {
 }
 
 class Watchers extends React.PureComponent<Props, never> {
-  static generateColumn = (offset: number) => (
+  private static generateColumn = (offset: number) => (
     watcherIds: List<string>
   ): JSX.Element[] => {
     if (watcherIds.size === 0) {

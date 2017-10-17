@@ -14,7 +14,7 @@ interface Props {
 }
 
 class Calendar extends React.PureComponent<Props, never> {
-  static displayDates = (values: List<HeatMapValue>) => {
+  private static displayDates = (values: List<HeatMapValue>) => {
     return dateStringToLocaleDateString(values.get(0).date) + ' - Today';
   };
 

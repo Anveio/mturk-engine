@@ -22,19 +22,18 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
     error: null
   };
 
-  static validateInputPandaLink = (input: string): boolean => {
+  private static validateInputPandaLink = (input: string): boolean => {
     try {
       return pandaLinkValidators
-        .map((fn) => fn(input))
+        .map(fn => fn(input))
         .every((el: boolean) => el === true);
     } catch (e) {
       return false;
     }
   };
 
-  static parseGroupId = (input: string): string => input.split('groupId=')[1];
-
-  static validateGroupId = (input: string): boolean => input.length === 30;
+  private static parseGroupId = (input: string): string =>
+    input.split('groupId=')[1];
 
   private handleSubmit = () => {
     const input = this.state.value;

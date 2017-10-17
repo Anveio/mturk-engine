@@ -18,7 +18,7 @@ const mapState = (state: RootState): Props => ({
 });
 
 class SearchTimer extends React.PureComponent<Props, State> {
-  static readonly tickRate: number = 50;
+  private static readonly tickRate: number = 50;
   private timerId: number;
   private dateNumNextSearch: number;
 
@@ -46,11 +46,16 @@ class SearchTimer extends React.PureComponent<Props, State> {
     clearInterval(this.timerId);
   }
 
-  static calculateTimeUntilNextSearch = (nextSearch: number): number => {
+  private static calculateTimeUntilNextSearch = (
+    nextSearch: number
+  ): number => {
     return Math.max(nextSearch - Date.now(), 0);
   };
 
-  static formatAsSeconds = (milliseconds: number, sigFigs = 2): string => {
+  private static formatAsSeconds = (
+    milliseconds: number,
+    sigFigs = 2
+  ): string => {
     return (milliseconds / 1000).toFixed(sigFigs);
   };
 

@@ -26,8 +26,8 @@ export interface State {
 class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
   readonly state: State = { hovering: false };
 
-  static tooltipContent = `This will scan all HITs submitted in the last 45 days.`;
-  static captionContent = `Refreshing your entire database more than once a minute may 
+  private static tooltipContent = `This will scan all HITs submitted in the last 45 days.`;
+  private static captionContent = `Refreshing your entire database more than once a minute may 
   temporarily prevent you from using MTurk for a few moments (at no other 
   penalty to your account). It's recommended you refresh your entire database 
   no more than once a minute and refresh just today's HITs as needed.`;

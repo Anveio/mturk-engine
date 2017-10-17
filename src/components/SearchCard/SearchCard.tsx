@@ -29,10 +29,7 @@ class SearchCard extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
-  static generateAttributeOne = (name: string, markedAsRead?: boolean) =>
-    markedAsRead ? truncate(name, 40) : `*NEW* ${truncate(name, 40)}`;
-
-  static generateStyle = (markedAsRead?: boolean) =>
+  private static generateStyle = (markedAsRead?: boolean) =>
     markedAsRead ? {} : { backgroundColor: 'rgba(72, 175, 240, 0.15)' };
 
   private handleExpand = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -75,7 +72,7 @@ class SearchCard extends React.PureComponent<
   private generateActions = (markedAsRead: boolean) => {
     return markedAsRead
       ? this.readActions()
-      : [ ...this.unReadActions(), ...this.readActions() ];
+      : [...this.unReadActions(), ...this.readActions()];
   };
 
   public render() {

@@ -14,7 +14,7 @@ export interface OwnProps {
 }
 
 class SearchTableHeading extends React.PureComponent<Props & OwnProps, never> {
-  static showNewResults = (numNew: number) =>
+  private static showNewResults = (numNew: number) =>
     numNew > 0 ? `${numNew} new, ` : '';
 
   public render() {

@@ -22,7 +22,7 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
 });
 
 class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
-  static readonly tickRate: number = 100;
+  private static readonly tickRate: number = 100;
   private timerId: number;
   private dateNumNextSearch: number;
   private delay: number;
@@ -58,11 +58,16 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     clearInterval(this.timerId);
   }
 
-  static calculateTimeUntilNextSearch = (nextSearch: number): number => {
+  private static calculateTimeUntilNextSearch = (
+    nextSearch: number
+  ): number => {
     return Math.max(nextSearch - Date.now(), 0);
   };
 
-  static spinnerProgress = (delay: number, timeLeft: number): number => {
+  private static spinnerProgress = (
+    delay: number,
+    timeLeft: number
+  ): number => {
     return 1 - timeLeft / delay;
   };
 

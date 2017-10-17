@@ -11,7 +11,7 @@ export interface Props {
 }
 
 class DailyEarningsProgressBar extends React.PureComponent<Props, never> {
-  static calculateProgress = (value: number, goal: number) => value / goal;
+  private static calculateProgress = (value: number, goal: number) => value / goal;
 
   public render() {
     const { dailyEarningsGoal, todaysEarnings } = this.props;

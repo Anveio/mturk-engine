@@ -9,7 +9,7 @@ export interface Props {
 }
 
 class AcceptanceRateText extends React.PureComponent<Props, never> {
-  static acceptanceRateText = (submitted: number, rejected: number) => {
+  private static acceptanceRateText = (submitted: number, rejected: number) => {
     const acceptanceRate = calculateAcceptanceRate(submitted, rejected);
     return acceptanceRate > 99 ? (
       <Tooltip content="It's best to keep your acceptance rate above 99%. Good job!">

@@ -13,10 +13,10 @@ interface Handlers {
 }
 
 class ToggleAudio extends React.PureComponent<Props & Handlers> {
-  static calculateButtonContent = (active: boolean) =>
+  private static calculateButtonContent = (active: boolean) =>
     active ? 'Disable' : 'Enable';
 
-  static calculateBodyContent = (active: boolean) =>
+  private static calculateBodyContent = (active: boolean) =>
     active ? '' : <TextStyle variation="strong">not</TextStyle>;
 
   public render() {

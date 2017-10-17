@@ -27,10 +27,6 @@ class SearchSettings extends React.PureComponent<Handlers, never> {
     }
   };
 
-  static settingsButtonIcon = (active: boolean) => {
-    return active ? 'Hide search settings' : 'Edit search settings';
-  };
-
   public render() {
     return (
       <Popover position={Position.BOTTOM} canEscapeKeyClose={true}>

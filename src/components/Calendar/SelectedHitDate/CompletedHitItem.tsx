@@ -33,6 +33,11 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
     }
   }
 
+  private static displayEarnings = (reward: number, bonus: number) =>
+  bonus > 0
+    ? `${formatAsCurrency(reward)} + ${formatAsCurrency(bonus)}`
+    : `${formatAsCurrency(reward)}`;
+
   private generateActions = () => [
     {
       content: 'Contact',
@@ -45,11 +50,6 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
       external: true
     }
   ];
-
-  static displayEarnings = (reward: number, bonus: number) =>
-    bonus > 0
-      ? `${formatAsCurrency(reward)} + ${formatAsCurrency(bonus)}`
-      : `${formatAsCurrency(reward)}`;
 
   private handleExpand = () => {
     this.setState((prevState: State): Partial<State> => ({

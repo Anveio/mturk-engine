@@ -19,7 +19,7 @@ export interface Props {
 }
 
 class EarningsSummary extends React.PureComponent<Props, never> {
-  static generateField = (
+  private static generateField = (
     value: number,
     fieldText: string,
     variation?: Variation

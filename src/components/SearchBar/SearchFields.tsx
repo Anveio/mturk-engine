@@ -58,7 +58,7 @@ class MinimumRewardField extends React.PureComponent<Props & Handlers, never> {
 }
 
 class SortTypeField extends React.PureComponent<Props & Handlers, never> {
-  static options: SortingOption[] = [ 'Latest', 'Batch Size', 'Reward' ];
+  private static options: SortingOption[] = [ 'Latest', 'Batch Size', 'Reward' ];
 
   public render() {
     return (

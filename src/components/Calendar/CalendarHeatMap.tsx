@@ -52,35 +52,35 @@ class CalendarHeatMap extends React.Component<Props, never> {
     return nextProps.values.equals(this.props.values);
   }
 
-  static calculateStartDate = (values: List<HeatMapValue>) =>
+  private static calculateStartDate = (values: List<HeatMapValue>) =>
     moment(values.get(0).date, DATE_FORMAT).toDate();
 
-  static calculateEndDate = (values: List<HeatMapValue>) =>
+  private static calculateEndDate = (values: List<HeatMapValue>) =>
     moment(values.get(values.size - 1).date, DATE_FORMAT).toDate();
 
-  static calculateNumDays = (startDate: Date, endDate: Date) =>
+  private static calculateNumDays = (startDate: Date, endDate: Date) =>
     moment(endDate).diff(startDate, 'days');
 
-  static getTransformForWeekdayLabels = () =>
+  private static getTransformForWeekdayLabels = () =>
     `translate(${SQUARE_SIZE}, ${MONTH_LABEL_SIZE})`;
 
-  static getTransformForMonthLabels = () =>
+  private static getTransformForMonthLabels = () =>
     `translate(${WEEKDAY_LABEL_SIZE}, 0)`;
 
-  static getWeekdayLabelCoordinates = (dayIndex: number) => [
+  private static getWeekdayLabelCoordinates = (dayIndex: number) => [
     0,
     (dayIndex + 1) * SQUARE_SIZE + dayIndex * GUTTER_SIZE - SQUARE_BORDER_RADIUS
   ];
 
-  static getTransformForWeek = (weekIndex: number) =>
+  private static getTransformForWeek = (weekIndex: number) =>
     `translate(${weekIndex * SQUARE_SIZE_WITH_GUTTER}, 0)`;
 
-  static getMonthLabelCoordinates = (weekIndex: number) => [
+  private static getMonthLabelCoordinates = (weekIndex: number) => [
     weekIndex * SQUARE_SIZE_WITH_GUTTER,
     MONTH_LABEL_SIZE - MONTH_LABEL_GUTTER_SIZE
   ];
 
-  static getTransformForAllWeeks = () =>
+  private static getTransformForAllWeeks = () =>
     `translate(${WEEKDAY_LABEL_SIZE}, ${MONTH_LABEL_SIZE})`;
 
   private getStartDateWithEmptyDays = () => {
@@ -100,8 +100,7 @@ class CalendarHeatMap extends React.Component<Props, never> {
     GUTTER_SIZE +
     WEEKDAY_LABEL_SIZE;
 
-  private getHeight = () =>
-    WEEK_WIDTH + (MONTH_LABEL_SIZE - GUTTER_SIZE + WEEKDAY_LABEL_SIZE);
+  private getHeight = () => WEEK_WIDTH + (MONTH_LABEL_SIZE - GUTTER_SIZE);
 
   private getViewBox = () =>
     `0 0 ${this.getWidth() + SQUARE_BORDER_RADIUS} ${this.getHeight() +

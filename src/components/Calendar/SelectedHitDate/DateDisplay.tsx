@@ -18,7 +18,7 @@ export interface Handlers {
 }
 
 class DateDisplay extends React.PureComponent<Props & Handlers, never> {
-  static generateTitle = (selectedDate: string | null) =>
+  private static generateTitle = (selectedDate: string | null) =>
     selectedDate
       ? `${dateStringToLocaleDateString(selectedDate)}`
       : 'Select a date to see more information.';

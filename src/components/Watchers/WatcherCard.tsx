@@ -27,10 +27,11 @@ class WatcherCard extends React.PureComponent<
   OwnProps & Props & Handlers,
   never
 > {
-  static generateButtonContent = (active: boolean) =>
+  private static generateButtonContent = (active: boolean) =>
     active ? 'Stop' : 'Start';
 
-  static validateNumber = (value: string): boolean => /^\d+$/.test(value);
+  private static validateNumber = (value: string): boolean =>
+    /^\d+$/.test(value);
 
   private handleDelete = () => this.props.onDelete(this.props.watcher.groupId);
 

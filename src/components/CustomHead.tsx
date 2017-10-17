@@ -9,11 +9,10 @@ export interface Props {
 }
 
 class CustomHead extends React.PureComponent<Props, never> {
-  static calculateTitle = (numNewHits: number, queueSize: number) => {
-    return numNewHits || queueSize > 0
-      ? `*${numNewHits}/${queueSize}* (Unread/Queue)`
+  private static calculateTitle = (numNewHits: number, queueSize: number) =>
+    numNewHits || queueSize > 0
+      ? `*${numNewHits}/${queueSize}* (Unread/Queue) - Mturk Engine`
       : 'Mturk Engine';
-  };
 
   public render() {
     return (

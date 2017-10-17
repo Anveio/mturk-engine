@@ -16,7 +16,7 @@ class SearchButtons extends React.PureComponent<Props & Handlers, never> {
     this.props.onToggleSearch();
   };
 
-  static searchButtonText = (active: boolean) => {
+  private static searchButtonText = (active: boolean) => {
     return active ? 'Stop searching' : 'Start searching';
   };
 

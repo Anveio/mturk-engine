@@ -26,7 +26,7 @@ const mapState = (state: RootState): Props => ({
 });
 
 class EditVolume extends React.PureComponent<Props & Handlers, never> {
-  static generateHelpText = (active: boolean) =>
+  private static generateHelpText = (active: boolean) =>
     active
       ? 'Sound notifications will play at this volume'
       : 'Audio notifications are globally disabled.';

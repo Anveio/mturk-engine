@@ -25,10 +25,7 @@ class CalendarDay extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
-  static calculateTooltipVisibility = (hovering: boolean) =>
-    hovering ? 'visible' : 'hidden';
-
-  static calculateGrade = (count: number): string => {
+  private static calculateGrade = (count: number): string => {
     if (count >= 20) {
       return 'color-github-4';
     } else if (count >= 10) {
@@ -40,7 +37,7 @@ class CalendarDay extends React.PureComponent<
     }
   };
 
-  static generateClassName = (value: HeatMapValue): string => {
+  private static generateClassName = (value: HeatMapValue): string => {
     if (value.count > 0) {
       return 'color-filled ' + CalendarDay.calculateGrade(value.count);
     } else {
@@ -48,7 +45,7 @@ class CalendarDay extends React.PureComponent<
     }
   };
 
-  static generateStyle = (selected: boolean) =>
+  private static generateStyle = (selected: boolean) =>
     selected
       ? {
           stroke: '#111111',

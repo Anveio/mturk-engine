@@ -23,10 +23,10 @@ class InfoHeader extends React.PureComponent<
   Props & PaginationHandlers & PaginationProps,
   never
 > {
-  static showPendingEarnings = (earningsPending: number) =>
+  private static showPendingEarnings = (earningsPending: number) =>
     earningsPending > 0 ? `${formatAsCurrency(earningsPending)} pending. ` : '';
 
-  static showEarnings = (reward: number, bonus: number) =>
+  private static showEarnings = (reward: number, bonus: number) =>
     bonus > 0
       ? `${formatAsCurrency(reward)} + ${formatAsCurrency(
           bonus

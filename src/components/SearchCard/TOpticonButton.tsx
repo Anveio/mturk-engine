@@ -10,7 +10,7 @@ export interface Props {
 }
 
 class TOpticonButton extends React.PureComponent<Props, never> {
-  static generateTooltipContent = (data: TOpticonData) => {
+  private static generateTooltipContent = (data: TOpticonData) => {
     const { attrs: { pay, comm, fair, fast }, reviews, tos_flags } = data;
 
     return (
