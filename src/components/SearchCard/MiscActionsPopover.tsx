@@ -8,6 +8,7 @@ import { RootState } from '../../types';
 import { addWatcherToast, copyMarkdownToast } from '../../utils/toaster';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { watcherFactoryFromSearchResult } from '../../utils/watchers';
+import { generateHwtfUrl } from '../../utils/export';
 
 const mapState = (state: RootState, ownProps: Props): Props => ({
   hit: ownProps.hit
@@ -45,11 +46,17 @@ class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
       <Popover>
         <Button size="slim" icon="horizontalDots" />
         <Menu>
-          <MenuDivider title="HIT Actions" />
+          <MenuDivider title="Share" />
           <MenuItem
             iconName="new-object"
             onClick={this.handleAddWatcher}
             text="Add as Watcher"
+          />
+          <MenuItem
+            iconName="share"
+            href={generateHwtfUrl(this.props.hit)}
+            target="_blank"
+            text="Post to HWTF"
           />
           <MenuItem
             iconName="duplicate"
