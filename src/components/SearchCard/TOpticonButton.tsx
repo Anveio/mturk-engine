@@ -15,11 +15,11 @@ class TOpticonButton extends React.PureComponent<Props, never> {
 
     return (
       <Stack vertical>
+        <TextContainer>{tos_flags} reported TOS violations.</TextContainer>
         <TextContainer>
           Pay: {pay}. Comm: {comm}. Fair: {fair}. Fast: {fast}.
         </TextContainer>
         <TextContainer>Calculated from {reviews} reviews.</TextContainer>
-        <TextContainer>{tos_flags} reported TOS violations.</TextContainer>
       </Stack>
     );
   };
