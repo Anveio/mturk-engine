@@ -55,7 +55,7 @@ class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
             target="_blank"
           />
           <MenuItem
-            iconName="people"
+            iconName="person"
             target="_blank"
             text="Contact Requester"
             href={generateContactLinkSearchResult(this.props.hit)}
