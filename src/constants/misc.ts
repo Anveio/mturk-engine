@@ -27,10 +27,12 @@ export const MONTH_LABELS = [
   'Dec'
 ];
 
+export const HEATMAP_CSS_PREFIX = `react-calendar-heatmap-`;
 export const SQUARE_BORDER_RADIUS = 1;
-
 export const GUTTER_SIZE = 1;
-export const DAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
+export const WEEKDAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 export const WEEKDAY_LABEL_SIZE = 30;
+export const SQUARE_SIZE_WITH_GUTTER = SQUARE_SIZE + GUTTER_SIZE;
+export const WEEK_WIDTH = DAYS_IN_WEEK * SQUARE_SIZE_WITH_GUTTER;
 
 export const RESULTS_PER_PAGE = 25;
