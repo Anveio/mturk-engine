@@ -47,7 +47,7 @@ export const calculateAverageScore = (
 };
 
 export const hasAValidScore = (scores: RequesterScores): boolean =>
-  Object.keys(scores).some((category) => scores[category] !== '0.00');
+  Object.keys(scores).some(category => scores[category] !== '0.00');
 
 /**
  * Takes a RequesterScores object and returns a new object in which none of the  
@@ -117,6 +117,20 @@ export const generateContactLink = (hit: HitDatabaseEntry): string => {
     requester.name +
     '&subject=Regarding Amazon Mechanical Turk HIT' +
     id +
+    '&hitTitle=' +
+    title
+  );
+};
+
+export const generateContactLinkSearchResult = (hit: SearchResult) => {
+  const { requester, groupId, title } = hit;
+  return (
+    'https://www.mturk.com/mturk/contact?requesterId=' +
+    requester.id +
+    '&requesterName=' +
+    requester.name +
+    '&subject=Regarding Amazon Mechanical Turk HIT of group ID ' +
+    groupId +
     '&hitTitle=' +
     title
   );

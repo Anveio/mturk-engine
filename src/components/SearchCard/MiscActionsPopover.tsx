@@ -9,6 +9,7 @@ import { addWatcherToast, copyMarkdownToast } from '../../utils/toaster';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { watcherFactoryFromSearchResult } from '../../utils/watchers';
 import { generateHwtfUrl } from '../../utils/export';
+import { generateContactLinkSearchResult } from '../../utils/turkopticon';
 
 const mapState = (state: RootState, ownProps: Props): Props => ({
   hit: ownProps.hit
@@ -46,12 +47,20 @@ class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
       <Popover>
         <Button size="slim" icon="horizontalDots" />
         <Menu>
-          <MenuDivider title="Share" />
+          <MenuDivider title="HIT Actions" />
           <MenuItem
             iconName="new-object"
             onClick={this.handleAddWatcher}
             text="Add as Watcher"
+            target="_blank"
           />
+          <MenuItem
+            iconName="people"
+            target="_blank"
+            text="Contact Requester"
+            href={generateContactLinkSearchResult(this.props.hit)}
+          />
+          <MenuDivider title="Share" />
           <MenuItem
             iconName="share"
             href={generateHwtfUrl(this.props.hit)}
