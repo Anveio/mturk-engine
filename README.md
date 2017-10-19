@@ -26,7 +26,7 @@ Mturk Engine in its current state can be described as a combination of HitScrape
 
 You can also accept HITs and know immediately if your accept went through without having to wait for a full page reload and being disappointed when it didn't. Mturk Engine is also super fast, and should handle 0 second delays between searches and 1 billion+ blocked requesters/HITs without slowing down. From what I've seen of the source code of other tools like HitScraper/HitFinder, they use regular expressions to block requesters/hits, meaning that performance will degrade quickly as your block lists get larger. This is not a worry with Mturk Engine.
 
-Mturk Engine uses [Immutable.s Maps](https://facebook.github.io/immutable-js/) under the hood to do blocklist lookups in O(log32n) time for each HIT, meaning that you don't have to worry that your blocklists are slowing things down and you can keep them growing infinitely. 
+Mturk Engine uses [Immutable.js Maps](https://facebook.github.io/immutable-js/) under the hood to do blocklist lookups in O(log32n) time for each HIT, meaning that you don't have to worry that your blocklists are slowing things down and you can keep them growing infinitely. 
 
 Mturk Engine uses React to update elements on the page, which means that rapidly updating pages in response to changes is faster than other tools. I spend a lot of time making sure Mturk Engine is performant, and [write about some performance related stuff on my blog](https://blog.shovonhasan.com/pattern-for-rendering-lists-of-connected-components-with-react-redux/).
 
@@ -45,6 +45,17 @@ Mturk Engine is under active development so feel free to suggest features or sub
 2a. If your userscript manager or browser is not letting you download the script, install the Lite version here: https://greasyfork.org/en/scripts/33403-mturk-engine-lite
 
 3. Navigate to https://www.mturk.com/mturk/findhits?mturkengine with your Amazon Mechanical Turk account to begin using Mturk Engine. It's a good idea to bookmark this link if you intend on using it frequently.
+
+## Developer Guide
+
+If you want to know more about any of the following:
+
+* Starting Mturk Engine in development.
+* Creating a build (single file) of Mturk Engine.
+* Technologies used in Mturk Engine.
+* Explanation of file structure.
+
+Check out the [Developer Guide](https://github.com/Anveio/mturk-engine/blob/master/DEVELOPERS.md).
 
 ## Preview
 
