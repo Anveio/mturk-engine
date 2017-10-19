@@ -27,10 +27,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   private dateNumNextSearch: number;
   private delay: number;
 
-  constructor() {
-    super();
-    this.state = { timeUntilNextSearch: null };
-  }
+  public readonly state: State = { timeUntilNextSearch: null };
 
   componentDidMount() {
     const { timeNextSearch } = this.props;
@@ -85,22 +82,14 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     }
   };
 
-  private generateCaptionText = () => {
-    const { timeNextSearch, active } = this.props;
-    if (timeNextSearch && active) {
-      return (
-        <ProgressBar
-          value={WatcherTimer.spinnerProgress(this.delay, this.state
-            .timeUntilNextSearch as number)}
-        />
-      );
-    } else {
-      return <div />;
-    }
-  };
-
   public render() {
-    return this.generateCaptionText();
+    const { timeNextSearch, active } = this.props;
+    return timeNextSearch && active ? (
+      <ProgressBar
+        value={WatcherTimer.spinnerProgress(this.delay, this.state
+          .timeUntilNextSearch as number)}
+      />
+    ) : null;
   }
 }
 
