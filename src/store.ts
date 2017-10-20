@@ -21,31 +21,43 @@ const store = createStore<any>(
 
 sagaMiddleware.run(rootSaga);
 
-persistStore(store, {
-  whitelist: [
-    'account',
-    'hitBlocklist',
-    'hitDatabase',
-    'requesterBlocklist',
-    'searchFormActive',
-    'sortingOption',
-    'searchOptions',
-    'topticonSettings',
-    'watchers',
-    'audioSettingsV1',
-    'dailyEarningsGoal'
-  ],
-  storage: localForage,
-  transforms: [
-    immutableTransform({
-      whitelist: [
-        'hitBlocklist',
-        'requesterBlocklist',
-        'watchers',
-        'hitDatabase'
-      ]
-    })
-  ]
-});
+persistStore(
+  store,
+  {
+    whitelist: [
+      'account',
+      'hitBlocklist',
+      'hitDatabase',
+      'requesterBlocklist',
+      'searchFormActive',
+      'sortingOption',
+      'searchOptions',
+      'topticonSettings',
+      'watchers',
+      'audioSettingsV1',
+      'dailyEarningsGoal'
+    ],
+    storage: localForage,
+    transforms: [
+      immutableTransform({
+        whitelist: [
+          'hitBlocklist',
+          'requesterBlocklist',
+          'watchers',
+          'hitDatabase'
+        ]
+      })
+    ]
+  },
+  err =>
+    err
+      ? console.warn(
+          `There was an issue retrieving your Mturk Engine settings. Error Log: ` +
+            err
+        )
+      : undefined
+);
+
+
 
 export default store;
