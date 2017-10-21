@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { Layout } from '@shopify/polaris';
-// import { Tree, TreeNode, Tooltip } from '@blueprintjs/core';
+import { RootState } from '../../types';
+import { connect } from 'react-redux';
 import WatcherInput from './WatcherInput';
 import WatcherCard from '../../containers/WatcherCard';
 import EmptyWatchers from './EmptyWatchers';
-
 import { List } from 'immutable';
+import { watcherIds } from '../../selectors/watchers';
 
 export interface Props {
   readonly watcherIds: List<string>;
@@ -13,16 +14,16 @@ export interface Props {
 
 class Watchers extends React.PureComponent<Props, never> {
   private static generateColumn = (offset: number) => (
-    watcherIds: List<string>
+    ids: List<string>
   ): JSX.Element[] => {
-    if (watcherIds.size === 0) {
+    if (ids.size === 0) {
       return [];
     }
 
     let column: JSX.Element[] = [];
 
-    for (let i = offset; i < watcherIds.size; i += 3) {
-      const id = watcherIds.get(i);
+    for (let i = offset; i < ids.size; i += 3) {
+      const id = ids.get(i);
       column.push(<WatcherCard watcherId={id} key={id} />);
     }
 
@@ -66,4 +67,8 @@ class Watchers extends React.PureComponent<Props, never> {
   }
 }
 
-export default Watchers;
+const mapState = (state: RootState): Props => ({
+  watcherIds: watcherIds(state)
+});
+
+export default connect(mapState)(Watchers);
