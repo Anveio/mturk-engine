@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card, Stack } from '@shopify/polaris';
-import BlockedRequesterTag from '../../containers/BlockedRequesterTag';
+import BlockedRequesterTag from './BlockedRequesterTag';
 
 export interface Props {
   readonly blockedRequesterIds: string[];

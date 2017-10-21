@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Card, ResourceList } from '@shopify/polaris';
-import BlockedHitCard from '../../containers/BlockedHitCard';
+import BlockedHitCard from './BlockedHitCard';
 
 export interface Props {
   readonly blockedHitIds: string[];

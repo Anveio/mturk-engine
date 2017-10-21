@@ -1,6 +1,12 @@
 import * as React from 'react';
-import { BlockedRequester } from '../../types';
+import { connect, Dispatch } from 'react-redux';
+import { RootState, BlockedRequester } from '../../types';
 import { Tag } from '@shopify/polaris';
+import {
+  UnblockRequester,
+  unblockRequester
+} from '../../actions/blockRequester';
+
 import { truncate } from '../../utils/formatting';
 
 export interface Props {
@@ -30,4 +36,12 @@ class BlockedHitCard extends React.PureComponent<
   }
 }
 
-export default BlockedHitCard;
+const mapState = (state: RootState, ownProps: OwnProps): Props => ({
+  requester: state.requesterBlocklist.get(ownProps.blockedRequesterId)
+});
+
+const mapDispatch = (dispatch: Dispatch<UnblockRequester>): Handlers => ({
+  onUnblock: (id: string) => dispatch(unblockRequester(id))
+});
+
+export default connect(mapState, mapDispatch)(BlockedHitCard);
