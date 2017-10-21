@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { BlockedHit } from '../../types';
+import { connect, Dispatch } from 'react-redux';
+import { RootState, BlockedHit } from '../../types';
 import { ResourceList } from '@shopify/polaris';
+import { BlockHitAction, unblockHitGroup } from '../../actions/blockHitGroup';
 import { truncate } from '../../utils/formatting';
 
 export interface Props {
@@ -40,4 +42,12 @@ class BlockedHitCard extends React.PureComponent<
   }
 }
 
-export default BlockedHitCard;
+const mapState = (state: RootState, ownProps: OwnProps): Props => ({
+  blockedHit: state.hitBlocklist.get(ownProps.blockedHitId)
+});
+
+const mapDispatch = (dispatch: Dispatch<BlockHitAction>): Handlers => ({
+  onUnblock: (groupId: string) => dispatch(unblockHitGroup(groupId))
+});
+
+export default connect(mapState, mapDispatch)(BlockedHitCard);
