@@ -1,7 +1,10 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import { RootState } from '../types';
 import polarisStylesheet from '../utils/polarisStylesheet';
 import calendarHeatMapStylesheet from '../utils/calendarHeatMapStylesheet';
+import { newResults } from '../selectors/searchTable';
 
 export interface Props {
   readonly numNewHits: number;
@@ -39,4 +42,9 @@ class CustomHead extends React.PureComponent<Props, never> {
   }
 }
 
-export default CustomHead;
+const mapState = (state: RootState): Props => ({
+  numNewHits: newResults(state).size,
+  queueSize: state.queue.size
+});
+
+export default connect(mapState)(CustomHead);
