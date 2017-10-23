@@ -1,6 +1,9 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { RootState } from '../../types';
 import { Card, ResourceList } from '@shopify/polaris';
 import BlockedHitCard from './BlockedHitCard';
+import { recentlyBlockedHitIds } from '../../selectors/hitBlocklist';
 
 export interface Props {
   readonly blockedHitIds: string[];
@@ -23,4 +26,8 @@ class HitBlockList extends React.PureComponent<Props, never> {
   }
 }
 
-export default HitBlockList;
+const mapState = (state: RootState): Props => ({
+  blockedHitIds: recentlyBlockedHitIds(state)
+});
+
+export default connect(mapState)(HitBlockList);

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Layout } from '@shopify/polaris';
 import { RootState } from '../../types';
-import HitBlockList from '../../containers/HitBlockList';
+import HitBlockList from './HitBlockList';
 import RequesterBlockList from '../../containers/RequesterBlockList';
 import EmptyBlockList from './EmptyBlockList';
 import { blockListsAreEmpty } from '../../selectors/blocklist';
