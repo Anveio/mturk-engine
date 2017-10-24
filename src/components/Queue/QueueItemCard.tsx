@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { QueueItem } from '../../types';
+import { connect, Dispatch } from 'react-redux';
+import { RootState, QueueItem } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import QueueItemInfo from './QueueItemInfo';
+import { ReturnAction, returnHitRequest } from '../../actions/return';
 import { generateItemProps } from '../../utils/queueItem';
 
 export interface Props {
@@ -46,4 +48,12 @@ class QueueItemCard extends React.PureComponent<
   }
 }
 
-export default QueueItemCard;
+const mapState = (state: RootState, ownProps: OwnProps): Props => ({
+  hit: state.queue.get(ownProps.hitId)
+});
+
+const mapDispatch = (dispatch: Dispatch<ReturnAction>): Handlers => ({
+  onReturn: (hitId: string) => dispatch(returnHitRequest(hitId))
+});
+
+export default connect(mapState, mapDispatch)(QueueItemCard);

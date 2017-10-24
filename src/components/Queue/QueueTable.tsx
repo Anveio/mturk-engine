@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Layout, Card, ResourceList, Stack, Button } from '@shopify/polaris';
 import EmptyQueue from './EmptyQueue';
-import QueueCard from '../../containers/QueueItemCard';
+import QueueCard from './QueueItemCard';
 
 export interface Props {
   readonly queueItemIds: string[];
