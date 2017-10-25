@@ -3,7 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import { Tabs2 as Tabs, Tab2 as Tab } from '@blueprintjs/core';
 import { RootState } from '../../types';
 import { changeTab, ChangeTab } from '../../actions/updateValue';
-import QueueTable from '../../containers/QueueTable';
+import QueueTable from '../Queue/QueueTable';
 import SearchTab from './SearchTab';
 import Account from '../Account/Account';
 import BlockLists from '../BlockList/BlockLists';
