@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Layout } from '@shopify/polaris';
 import { RootState } from '../../types';
 import HitBlockList from './HitBlockList';
-import RequesterBlockList from '../../containers/RequesterBlockList';
+import RequesterBlockList from './RequesterBlockList';
 import EmptyBlockList from './EmptyBlockList';
 import { blockListsAreEmpty } from '../../selectors/blocklist';
 

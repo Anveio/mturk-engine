@@ -1,5 +1,8 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Card, Stack } from '@shopify/polaris';
+import { RootState } from '../../types';
+import { recentlyBlockedRequesterIds } from '../../selectors/requesterBlocklist';
 import BlockedRequesterTag from './BlockedRequesterTag';
 
 export interface Props {
@@ -22,4 +25,8 @@ class RequesterBlockList extends React.PureComponent<Props, never> {
   }
 }
 
-export default RequesterBlockList;
+const mapState = (state: RootState): Props => ({
+  blockedRequesterIds: recentlyBlockedRequesterIds(state)
+});
+
+export default connect(mapState)(RequesterBlockList);
