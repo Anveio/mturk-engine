@@ -1,9 +1,17 @@
 import * as React from 'react';
-import { SearchResult, BlockedHit } from '../../types';
+import { connect, Dispatch } from 'react-redux';
+import { SearchResult, BlockedHit, RootState } from '../../types';
 import { ResourceList } from '@shopify/polaris';
+import {  } from '../types';
+import { AcceptAction, acceptHitRequestfromSearch } from '../../actions/accept';
+import { MarkHitAsRead, markHitAsRead } from '../../actions/markAsRead';
+import { BlockHitAction, blockHitGroup } from '../../actions/blockHitGroup';
+import {
+  ExpandAction,
+  toggleSearchResultExpand
+} from '../../actions/toggleExpand';
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
-
 import { truncate } from '../../utils/formatting';
 import { qualException } from '../../utils/exceptions';
 import { generateTOpticonBadge } from '../../utils/badges';
@@ -101,4 +109,29 @@ class SearchCard extends React.PureComponent<
   }
 }
 
-export default SearchCard;
+type SearchTableAction =
+| AcceptAction
+| BlockHitAction
+| ExpandAction
+| MarkHitAsRead;
+
+const mapState = (state: RootState, ownProps: OwnProps): Props => ({
+  hit: state.search.get(ownProps.groupId)
+});
+
+const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
+  onAccept: (hit: SearchResult) => {
+    dispatch(acceptHitRequestfromSearch(hit));
+  },
+  onHide: (hit: BlockedHit) => {
+    dispatch(blockHitGroup(hit));
+  },
+  onToggleExpand: (hit: SearchResult) => {
+    dispatch(toggleSearchResultExpand(hit));
+  },
+  markHitAsRead: (groupId: string) => {
+    dispatch(markHitAsRead(groupId));
+  }
+});
+
+export default connect(mapState, mapDispatch)(SearchCard);

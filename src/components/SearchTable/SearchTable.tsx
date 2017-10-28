@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ResourceList, Card } from '@shopify/polaris';
-import SearchCard from '../../containers/SearchCard';
+import SearchCard from '../SearchCard/SearchCard';
 import SearchTableHeading from './SearchTableHeading';
 import SearchTableButtons from './SearchTableButtons';
 import EmptySearchTable from './EmptySearchTable';
