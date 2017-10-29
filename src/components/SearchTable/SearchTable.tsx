@@ -1,10 +1,13 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { ResourceList, Card } from '@shopify/polaris';
+import { RootState } from '../../types';
 import SearchCard from '../SearchCard/SearchCard';
 import SearchTableHeading from './SearchTableHeading';
 import SearchTableButtons from './SearchTableButtons';
 import EmptySearchTable from './EmptySearchTable';
 import { List } from 'immutable';
+import { filteredResultsGroupId } from '../../selectors/searchTable';
 
 export interface Props {
   readonly resultsIds: List<string>;
@@ -36,4 +39,8 @@ class SearchTable extends React.Component<Props, never> {
   }
 }
 
-export default SearchTable;
+const mapState = (state: RootState): Props => ({
+  resultsIds: filteredResultsGroupId(state)
+});
+
+export default connect(mapState)(SearchTable);
