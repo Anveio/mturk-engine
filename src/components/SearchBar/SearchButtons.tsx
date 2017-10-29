@@ -7,7 +7,7 @@ import {
 } from '../../actions/updateValue';
 import { RootState } from '../../types';
 import SearchTimer from './SearchTimer';
-import SearchSettings from '../../containers/SearchSettings';
+import SearchSettings from './SearchSettings';
 
 export interface Props {
   readonly searchActive: boolean;

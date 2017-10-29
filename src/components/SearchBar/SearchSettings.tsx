@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { connect, Dispatch } from 'react-redux';
 import {
   Button,
   Card,
@@ -7,6 +8,7 @@ import {
   Caption
 } from '@shopify/polaris';
 import { Popover, Position } from '@blueprintjs/core';
+import { SearchAction, searchRequestSingular } from '../../actions/search';
 import {
   ConnectedMinRewardField,
   ConnectedSearchDelayField,
@@ -52,4 +54,10 @@ class SearchSettings extends React.PureComponent<Handlers, never> {
   }
 }
 
-export default SearchSettings;
+const mapDispatch = (dispatch: Dispatch<SearchAction>): Handlers => ({
+  onSearch: () => {
+    dispatch(searchRequestSingular());
+  }
+});
+
+export default connect(null, mapDispatch)(SearchSettings);
