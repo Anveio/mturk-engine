@@ -3,7 +3,7 @@ import { Layout } from '@shopify/polaris';
 import { RootState } from '../../types';
 import { connect } from 'react-redux';
 import WatcherInput from './WatcherInput';
-import WatcherCard from '../../containers/WatcherCard';
+import WatcherCard from './WatcherCard';
 import EmptyWatchers from './EmptyWatchers';
 import { List } from 'immutable';
 import { watcherIds } from '../../selectors/watchers';

@@ -1,8 +1,19 @@
 import * as React from 'react';
+import { connect, Dispatch } from 'react-redux';
 import { Card, Stack, Tooltip, Heading, Button } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
-import { EditableField } from '../../actions/editWatcher';
-import { Watcher } from '../../types';
+import {
+  EditableField,
+  WatcherEdit,
+  editWatcher
+} from '../../actions/editWatcher';
+import { RootState, Watcher } from '../../types';
+import {
+  DeleteWatcher,
+  ToggleWatcherActivity,
+  toggleWatcherActive,
+  deleteWatcher
+} from '../../actions/watcher';
 import WatcherTimer from './WatcherTimer';
 
 export interface OwnProps {
@@ -138,4 +149,22 @@ class WatcherCard extends React.PureComponent<
   }
 }
 
-export default WatcherCard;
+const mapState = (state: RootState, ownProps: OwnProps): Props => ({
+  watcher: state.watchers.get(ownProps.watcherId)
+});
+
+type WatcherCardAction = ToggleWatcherActivity | DeleteWatcher | WatcherEdit;
+
+const mapDispatch = (dispatch: Dispatch<WatcherCardAction>): Handlers => ({
+  onDelete: (id: string) => {
+    dispatch(deleteWatcher(id));
+  },
+  onToggle: (id: string, active: boolean) => {
+    dispatch(toggleWatcherActive(id, active));
+  },
+  onEdit: (id: string, field: EditableField, value: string | number) => {
+    dispatch(editWatcher(id, field, value));
+  }
+});
+
+export default connect(mapState, mapDispatch)(WatcherCard);
