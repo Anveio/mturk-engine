@@ -124,7 +124,7 @@ export interface TOpticonData {
 }
 
 export interface TOpticonResponse {
-  [id: string]: TOpticonData;
+  readonly [id: string]: TOpticonData;
 }
 
 export interface RequesterScores {
