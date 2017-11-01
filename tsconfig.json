@@ -3,7 +3,7 @@
     "outDir": "build/dist",
     "module": "commonjs",
     "target": "es5",
-    "lib": [ "es2017", "dom" ],
+    "lib": ["es2017", "dom"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",
@@ -29,5 +29,5 @@
     "jest",
     "src/setupTests.ts"
   ],
-  "types": [ "typePatches" ]
+  "types": ["typePatches"]
 }

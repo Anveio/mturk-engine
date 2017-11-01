@@ -1,6 +1,5 @@
 import {
   SearchResult,
-  SearchResults,
   HitDatabaseEntry,
   RequesterScores,
   TOpticonResponse,
@@ -23,13 +22,13 @@ export const invalidGroupId = (hit: SearchResult) =>
  * with no T.O.
  * @param hits 
  */
-export const requesterIdsWithNoTO = (hits: SearchResults) => {
-  return hits
-    .filter(noTurkopticon)
-    .filter(invalidGroupId)
-    .map(selectHitRequester)
-    .toArray();
-};
+// export const requesterIdsWithNoTO = (hits: SearchResults) => {
+//   return hits
+//     .filter(noTurkopticon)
+//     .filter(invalidGroupId)
+//     .map(selectHitRequester)
+//     .toArray();
+// };
 
 export const calculateAverageScore = (
   scores: RequesterScores

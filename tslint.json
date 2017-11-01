@@ -1,21 +1,21 @@
 {
-  "extends": [ "tslint-react" ],
+  "extends": ["tslint-react"],
   "rules": {
-    "align": [ true, "parameters", "arguments", "statements" ],
+    "align": [true, "parameters", "arguments", "statements"],
     "ban": false,
     "class-name": true,
-    "comment-format": [ true, "check-space" ],
+    "comment-format": [true, "check-space"],
     "curly": true,
     "eofline": false,
     "forin": true,
-    "indent": [ true, "spaces" ],
-    "interface-name": [ true, "never-prefix" ],
+    "indent": [true, "spaces"],
+    "interface-name": [true, "never-prefix"],
     "jsdoc-format": true,
     "jsx-no-lambda": false,
     "jsx-no-multiline-js": false,
     "jsx-boolean-value": false,
     "label-position": true,
-    "max-line-length": [ true, 120 ],
+    "max-line-length": [true, 120],
     "no-any": true,
     "no-arg": true,
     "no-bitwise": true,
@@ -29,7 +29,7 @@
       "timeEnd",
       "trace"
     ],
-    "no-consecutive-blank-lines": [ true ],
+    "no-consecutive-blank-lines": [true],
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-variable": true,
@@ -48,14 +48,14 @@
       "check-open-brace",
       "check-whitespace"
     ],
-    "quotemark": [ true, "single", "jsx-double" ],
+    "quotemark": [true, "single", "jsx-double"],
     "radix": true,
-    "semicolon": [ true, "ignore-bound-class-methods" ],
+    "semicolon": [true],
     "switch-default": true,
 
-    "trailing-comma": [ false ],
-    "triple-equals": [ true, "allow-null-check" ],
-    "typedef": [ true, "parameter", "property-declaration" ],
+    "trailing-comma": [false],
+    "triple-equals": [true, "allow-null-check"],
+    "typedef": [true, "parameter", "property-declaration"],
     "typedef-whitespace": [
       true,
       {
@@ -83,6 +83,6 @@
       "check-type",
       "check-typecast"
     ],
-    "cyclomatic-complexity": [ true, 20 ]
+    "cyclomatic-complexity": [true, 20]
   }
 }

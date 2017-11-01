@@ -9,7 +9,7 @@ export const parseStatusSummaryPage = (html: Document): string[] => {
   const dateCells = html.querySelectorAll(statusDate);
   if (dateCells) {
     const unfilteredDates = Array.from(dateCells).map(
-      (date: HTMLTableDataCellElement) => parseEncodedDateString(date),
+      (date: Element) => parseEncodedDateString(date),
       []
     );
 
@@ -19,7 +19,7 @@ export const parseStatusSummaryPage = (html: Document): string[] => {
   }
 };
 
-const parseEncodedDateString = (input: HTMLTableDataCellElement): string => {
+const parseEncodedDateString = (input: Element): string => {
   const anchorElem = input.querySelector('a');
   if (anchorElem && anchorElem.getAttribute('href')) {
     return (anchorElem.getAttribute('href') as string).split('encodedDate=')[1];

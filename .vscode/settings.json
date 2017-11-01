@@ -1,5 +1,4 @@
 {
-  "eslint.enable": false,
   "files.exclude": {
     "**/public": true,
     "**/server": false,
@@ -9,5 +8,5 @@
     "**/node_modules": true,
     "**/yarn.lock": true
   },
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "./node_modules/typescript/lib"
 }
