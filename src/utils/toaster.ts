@@ -109,7 +109,7 @@ export const accountConnectionSuccessfulToast = () => {
 export const accountConnectionFailedToast = () => {
   TopRightToaster.show({
     message:
-      "Problem connecting your account. Connecting your account only works if you're currently logged into MTurk. Log in through the actual site and try again.",
+      "Couldn't fetch your dashboard. Make sure you're logged into MTurk and try again.",
     action: loginLink,
     intent: 2,
     timeout: 5000
