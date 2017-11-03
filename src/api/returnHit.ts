@@ -15,7 +15,7 @@ export const sendReturnHitRequest = async (hitId: string) => {
     const html: Document = response.data;
     return validateHitReturn(html);
   } catch (e) {
-    return 'error';
+    throw new Error('Unknown problem with returning Hit.')
   }
 };
 
