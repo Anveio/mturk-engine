@@ -58,6 +58,4 @@ persistStore(
       : undefined
 );
 
-
-
 export default store;

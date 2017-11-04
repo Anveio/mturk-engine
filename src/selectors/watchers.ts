@@ -4,13 +4,13 @@ import { RootState, Watcher, WatcherMap } from '../types';
 export const watcherSelector = (state: RootState) => state.watchers;
 
 export const watchersSortedLatestFirst = createSelector(
-  [ watcherSelector ],
+  [watcherSelector],
   (watchers: WatcherMap) =>
     watchers.sort((a, b) => b.createdOn.valueOf() - a.createdOn.valueOf())
 );
 
-export const watcherIds = createSelector(
-  [ watchersSortedLatestFirst ],
+export const watcherIdsList = createSelector(
+  [watchersSortedLatestFirst],
   (watchers: WatcherMap) =>
     watchers.map((item: Watcher) => item.groupId).toList()
 );

@@ -6,7 +6,7 @@ import WatcherInput from './WatcherInput';
 import WatcherCard from './WatcherCard';
 import EmptyWatchers from './EmptyWatchers';
 import { List } from 'immutable';
-import { watcherIds } from '../../selectors/watchers';
+import { watcherIdsList } from '../../selectors/watchers';
 
 export interface Props {
   readonly watcherIds: List<string>;
@@ -68,7 +68,7 @@ class Watchers extends React.PureComponent<Props, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  watcherIds: watcherIds(state)
+  watcherIds: watcherIdsList(state)
 });
 
 export default connect(mapState)(Watchers);
