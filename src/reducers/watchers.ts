@@ -12,8 +12,6 @@ import {
   DELETE_WATCHER,
   EDIT_WATCHER_FIELD,
   TOGGLE_WATCHER_ACTIVE,
-  CANCEL_NEXT_WATCHER_TICK,
-  SCHEDULE_NEXT_WATCHER_TICK
 } from '../constants';
 import { Map } from 'immutable';
 // import { watcherFromId, conflictsOnlyUseNewDateProp } from '../utils/watchers';
@@ -38,16 +36,6 @@ export default (state = initial, action: WatcherAction) => {
       return state.update(action.groupId, (watcher): Watcher => ({
         ...watcher,
         active: !action.active
-      }));
-    case SCHEDULE_NEXT_WATCHER_TICK:
-      return state.update(action.groupId, (watcher): Watcher => ({
-        ...watcher,
-        timeNextAttempt: action.time
-      }));
-    case CANCEL_NEXT_WATCHER_TICK:
-      return state.update(action.groupId, (watcher): Watcher => ({
-        ...watcher,
-        timeNextAttempt: null
       }));
     case EDIT_WATCHER_FIELD:
       return state.update(action.groupId, (watcher): Watcher => ({

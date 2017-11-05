@@ -18,7 +18,7 @@ interface State {
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  timeNextSearch: state.watchers.get(ownProps.groupId).timeNextAttempt
+  timeNextSearch: state.watcherTimes.get(ownProps.groupId)
 });
 
 class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {

@@ -19,6 +19,7 @@ import { default as audioFiles } from './reducers/audioFiles';
 import { default as hitDatabase } from './reducers/hitDatabase';
 import { default as dailyEarningsGoal } from './reducers/dailyEarningsGoal';
 import { default as waitingForHitDbRefresh } from './reducers/waitingForHitDbRefresh';
+import { default as watcherTimes } from './reducers/watcherTimes';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -29,6 +30,7 @@ export const rootReducer = combineReducers<RootState>({
   audioFiles,
   hitDatabase,
   hitBlocklist,
+  watcherTimes,
   searchOptions,
   sortingOption,
   timeNextSearch,

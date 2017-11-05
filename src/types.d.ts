@@ -19,6 +19,7 @@ export interface RootState {
   readonly selectedHitDbDate: string | null;
   readonly requesterBlocklist: RequesterBlockMap;
   readonly audioSettingsV1: AudioSettings;
+  readonly watcherTimes: WatcherTimerMap;
   readonly audioFiles: AudioFiles;
 }
 
@@ -29,6 +30,7 @@ export type HitBlockMap = Map<string, BlockedHit>;
 export type RequesterBlockMap = Map<string, BlockedRequester>;
 export type TOpticonMap = Map<string, TOpticonData>;
 export type WatcherMap = Map<string, Watcher>;
+export type WatcherTimerMap = Map<string, Date | null>;
 export type HitDatabaseMap = Map<string, HitDatabaseEntry>;
 
 export type MaybeAccount = AccountInfo | null;
