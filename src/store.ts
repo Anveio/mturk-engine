@@ -25,6 +25,7 @@ persistStore(
   store,
   {
     whitelist: [
+      'tab',
       'account',
       'hitBlocklist',
       'hitDatabase',
