@@ -14,21 +14,14 @@ const initial: QueueMap = Map<string, QueueItem>();
 type QueueTableAction = QueueAction | ReturnAction | AcceptAction;
 
 export default (state = initial, action: QueueTableAction): QueueMap => {
-  let partialState: QueueMap | undefined;
-
   switch (action.type) {
     case FETCH_QUEUE_SUCCESS:
-      partialState = action.data;
-      break;
+      return action.data;
     case RETURN_HIT_SUCCESS:
-      partialState = state.delete(action.hitId);
-      break;
+      return state.delete(action.hitId);
     case ACCEPT_HIT_SUCCESS:
-      partialState = state.set(action.data.hitId, action.data);
-      break;
+      return state.set(action.data.hitId, action.data);
     default:
       return state;
   }
-
-  return partialState;
 };
