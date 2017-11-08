@@ -150,14 +150,15 @@ const parseSingleQualification = (input: Element): string => {
 };
 
 const handleMultipeQualChildDivs = (input: NodeListOf<Element>): string => {
-  let ret: string[] = [];
-  for (let i = 0; i < input.length; i++) {
-    const partialQualText = input[i];
-    if (partialQualText && partialQualText.textContent) {
-      ret.push(partialQualText.textContent.trim());
-    }
-  }
-  return ret.join(' ');
+  return Array.from(input)
+    .map(partialQualText => {
+      if (partialQualText && partialQualText.textContent) {
+        return partialQualText.textContent.trim();
+      } else {
+        return '[Error:qual]';
+      }
+    })
+    .join(' ');
 };
 
 export const parseSearchPage = (
