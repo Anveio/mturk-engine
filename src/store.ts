@@ -5,6 +5,10 @@ import { autoRehydrate, persistStore } from 'redux-persist';
 import * as localForage from 'localforage';
 import { rootReducer } from './reducers';
 import rootSaga from './sagas';
+import {
+  PERSISTED_SETTINGS_WHITELIST,
+  IMMUTABLE_PERSISTED_SETTINGS_WHITELIST
+} from './constants/settings';
 
 // tslint:disable:no-any
 // tslint:disable:no-string-literal
@@ -24,29 +28,11 @@ sagaMiddleware.run(rootSaga);
 persistStore(
   store,
   {
-    whitelist: [
-      'tab',
-      'account',
-      'hitBlocklist',
-      'hitDatabase',
-      'requesterBlocklist',
-      'searchFormActive',
-      'sortingOption',
-      'searchOptions',
-      'topticonSettings',
-      'watchers',
-      'audioSettingsV1',
-      'dailyEarningsGoal'
-    ],
+    whitelist: PERSISTED_SETTINGS_WHITELIST,
     storage: localForage,
     transforms: [
       immutableTransform({
-        whitelist: [
-          'hitBlocklist',
-          'requesterBlocklist',
-          'watchers',
-          'hitDatabase'
-        ]
+        whitelist: IMMUTABLE_PERSISTED_SETTINGS_WHITELIST
       })
     ]
   },
