@@ -4,18 +4,7 @@ import * as localforage from 'localforage';
 export interface Props {}
 
 class ExportUserSettings extends React.PureComponent<Props, never> {
-  static stringifyPersistedState = async () => {
-    try {
-      const localForageKeys: string[] = await localforage.keys();
-      return await Promise.all(
-        localForageKeys.map(
-          async key => `"${key}":` + (await localforage.getItem(key))
-        )
-      );
-    } catch (e) {
-      throw new Error('Failed to read user settings.');
-    }
-  };
+  static 
 
   private downloadDataAsFile = async () => {
     try {
