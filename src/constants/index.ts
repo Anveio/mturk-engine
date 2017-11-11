@@ -168,4 +168,7 @@ export type EDIT_BONUS = typeof EDIT_BONUS;
 export const CHANGE_DAILY_GOAL = 'CHANGE_DAILY_GOAL';
 export type CHANGE_DAILY_GOAL = typeof CHANGE_DAILY_GOAL;
 
+export const READ_PERSISTED_STATE = 'READ_PERSISTED_STATE';
+export type READ_PERSISTED_STATE = typeof READ_PERSISTED_STATE;
+
 export const API_URL = configureApiRoot();
