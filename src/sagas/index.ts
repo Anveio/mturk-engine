@@ -13,6 +13,7 @@ import {
   SCHEDULE_NEXT_WATCHER_TICK,
   TOGGLE_SEARCH_ACTIVITY,
   TOGGLE_WATCHER_ACTIVE,
+  READ_PERSISTED_STATE,
   PLAY_AUDIO
 } from '../constants';
 import { ConnectAccountRequest } from '../actions/connectAccount';
@@ -25,6 +26,7 @@ import { FetchTOpticonRequest } from '../actions/turkopticon';
 import { FetchStatusSummaryRequest } from '../actions/statusSummary';
 import { RefreshDatabaseRequest } from '../actions/refreshDatabase';
 import { ToggleSearchActive } from '../actions/updateValue';
+import { ReadPersistedState } from '../actions/backup';
 import { ToggleWatcherActivity, ScheduleWatcherTick } from '../actions/watcher';
 import { FetchStatusDetailRequest } from '../actions/statusDetail';
 import { PlayAudio } from '../actions/audio';
@@ -42,6 +44,7 @@ import { acceptAfterWatcherDelay } from './scheduleWatcher';
 import { handleStatusDetailRequest } from './statusDetail';
 import { handleStatusSummaryRequest } from './statusSummary';
 import { handleStatusSummarySuccess } from './refreshHitDb';
+import { downloadPersistedState } from './backup';
 import { playAudio } from './playAudio';
 
 export default function* rootSaga() {
@@ -84,4 +87,8 @@ export default function* rootSaga() {
     acceptAfterWatcherDelay
   );
   yield takeEvery<PlayAudio>(PLAY_AUDIO, playAudio);
+  yield takeEvery<ReadPersistedState>(
+    READ_PERSISTED_STATE,
+    downloadPersistedState
+  );
 }
