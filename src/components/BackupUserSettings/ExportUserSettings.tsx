@@ -1,29 +1,17 @@
 import * as React from 'react';
-import * as localforage from 'localforage';
-// import { Button } from '@blueprintjs/core';
+import { connect, Dispatch } from 'react-redux';
+import { ReadPersistedState, readPersistedState } from '../../actions/backup';
+
 export interface Props {}
 
-class ExportUserSettings extends React.PureComponent<Props, never> {
-  static 
+export interface Handlers {
+  readonly onExport: () => void;
+}
 
-  private downloadDataAsFile = async () => {
-    try {
-      const data = await ExportUserSettings.stringifyPersistedState();
-      console.log(data.join(''));
-    } catch (e) {}
-  };
-
-  // static uploadDataFromFile = (stringifedUserSettings: string[]) => {
-  //   const x = stringifedUserSettings.reduce((acc, cur: string) => {
-  //     const [key, value] = cur.split(/"reduxPersist:(.*?)"/).slice(1);
-  //     return { ...acc, [key]: value };
-  //   }, {});
-  //   console.log(x);
-  // };
-
+class ExportUserSettings extends React.PureComponent<Props & Handlers, never> {
   public render() {
     return (
-      <div className="pt-button-group .modifier">
+      <div className="pt-button-group">
         <a className="pt-button pt-icon-database" role="button">
           Queries
         </a>
@@ -33,7 +21,7 @@ class ExportUserSettings extends React.PureComponent<Props, never> {
         <a
           className="pt-button"
           role="button"
-          onClick={this.downloadDataAsFile}
+          onClick={this.props.onExport}
           download=""
         >
           Export{' '}
@@ -44,4 +32,8 @@ class ExportUserSettings extends React.PureComponent<Props, never> {
   }
 }
 
-export default ExportUserSettings;
+const mapDispatch = (dispatch: Dispatch<ReadPersistedState>): Handlers => ({
+  onExport: () => dispatch(readPersistedState())
+});
+
+export default connect(null, mapDispatch)(ExportUserSettings);
