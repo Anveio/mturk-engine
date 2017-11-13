@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Layout, Card } from '@shopify/polaris';
 import ExportUserSettings from './ExportUserSettings';
+import ImportUserSettings from './ImportUserSettings';
 
 class AudioSettings extends React.PureComponent<{}, never> {
   public render() {
@@ -13,6 +14,9 @@ class AudioSettings extends React.PureComponent<{}, never> {
         <Card>
           <Card.Section>
             <ExportUserSettings />
+          </Card.Section>
+          <Card.Section>
+            <ImportUserSettings />
           </Card.Section>
         </Card>
       </Layout.AnnotatedSection>

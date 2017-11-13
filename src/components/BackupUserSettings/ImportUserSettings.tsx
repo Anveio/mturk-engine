@@ -8,12 +8,13 @@ export interface Handlers {
   readonly onExport: () => void;
 }
 
-class ExportUserSettings extends React.Component<Props & Handlers, never> {
+class ImportUserSettings extends React.Component<Props & Handlers, never> {
   public render() {
     return (
-      <a className="pt-button" role="button" onClick={this.props.onExport}>
-        Export
-      </a>
+      <label className="pt-file-upload .modifier">
+        <input type="file" />
+        <span className="pt-file-upload-input">Choose file...</span>
+      </label>
     );
   }
 }
@@ -22,4 +23,4 @@ const mapDispatch = (dispatch: Dispatch<ReadPersistedState>): Handlers => ({
   onExport: () => dispatch(readPersistedState())
 });
 
-export default connect(null, mapDispatch)(ExportUserSettings);
+export default connect(null, mapDispatch)(ImportUserSettings);

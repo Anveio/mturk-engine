@@ -15,15 +15,8 @@ export const persistedStateToStringArray = async () => {
 
 export const generateBackupBlob = (stateStringArray: string[]): Blob =>
   new Blob([stateStringArray.join('')], {
-    type: 'application/json'
+    type: 'text/plain'
   });
-
-export const downloadDataAsFile = async () => {
-  try {
-    const data = await persistedStateToStringArray();
-    console.log(data.join(''));
-  } catch (e) {}
-};
 
 export const generateFileName = (): string =>
   `mturk-engine-backup-${new Date().toLocaleDateString()}.bak`;
@@ -37,9 +30,9 @@ export const generateFileName = (): string =>
 // };
 
 export const createTemporaryDownloadLink = (blob: Blob): HTMLAnchorElement => {
-  const url = window.URL.createObjectURL(blob);
+  const userSettingsBackup = window.URL.createObjectURL(blob);
   const temporaryAnchor = document.createElement('a');
-  temporaryAnchor.href = url;
+  temporaryAnchor.href = userSettingsBackup;
   temporaryAnchor.download = generateFileName();
   return temporaryAnchor;
 };
