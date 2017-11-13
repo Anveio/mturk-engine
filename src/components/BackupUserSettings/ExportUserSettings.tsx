@@ -12,12 +12,6 @@ class ExportUserSettings extends React.PureComponent<Props & Handlers, never> {
   public render() {
     return (
       <div className="pt-button-group">
-        <a className="pt-button pt-icon-database" role="button">
-          Queries
-        </a>
-        <a className="pt-button pt-icon-function" role="button">
-          Functions
-        </a>
         <a
           className="pt-button"
           role="button"
