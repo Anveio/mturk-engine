@@ -58,7 +58,7 @@ class MinimumRewardField extends React.PureComponent<Props & Handlers, never> {
 }
 
 class SortTypeField extends React.PureComponent<Props & Handlers, never> {
-  private static options: SortingOption[] = [ 'Latest', 'Batch Size', 'Reward' ];
+  private static options: SortingOption[] = ['Latest', 'Batch Size', 'Reward'];
 
   public render() {
     return (
@@ -79,11 +79,10 @@ class CustomSearch extends React.PureComponent<Props & Handlers, never> {
   public render() {
     return (
       <TextField
-        labelHidden
-        label="Custom search"
-        name="Custom Search"
-        id="custom-search"
-        placeholder="Custom search term. Title, requester name, keywords, etc..."
+        label="Search Term"
+        name="search-term"
+        id="search-term"
+        placeholder="Title, requester name, keywords, etc."
         value={this.props.value}
         onChange={this.props.onChange}
       />
