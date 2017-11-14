@@ -3,7 +3,7 @@ import { Layout, Card } from '@shopify/polaris';
 import ExportUserSettings from './ExportUserSettings';
 import ImportUserSettings from './ImportUserSettings';
 
-class AudioSettings extends React.PureComponent<{}, never> {
+class BackupUserSettings extends React.PureComponent<{}, never> {
   public render() {
     return (
       <Layout.AnnotatedSection
@@ -24,7 +24,7 @@ class AudioSettings extends React.PureComponent<{}, never> {
   }
 }
 
-export default AudioSettings;
+export default BackupUserSettings;
 
 /* description={`Backing up and restoring your settings is simple and fast. 
         Settings can be shared between browsers and devices.`} */
