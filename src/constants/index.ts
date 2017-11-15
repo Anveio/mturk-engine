@@ -171,4 +171,7 @@ export type CHANGE_DAILY_GOAL = typeof CHANGE_DAILY_GOAL;
 export const READ_PERSISTED_STATE = 'READ_PERSISTED_STATE';
 export type READ_PERSISTED_STATE = typeof READ_PERSISTED_STATE;
 
+export const READ_BACKUP_FILE = 'READ_BACKUP_FILE';
+export type READ_BACKUP_FILE = typeof READ_BACKUP_FILE;
+
 export const API_URL = configureApiRoot();
