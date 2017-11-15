@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { SearchResult, BlockedHit, RootState } from '../../types';
 import { ResourceList } from '@shopify/polaris';
-import {  } from '../types';
+import {} from '../types';
 import { AcceptAction, acceptHitRequestfromSearch } from '../../actions/accept';
 import { MarkHitAsRead, markHitAsRead } from '../../actions/markAsRead';
 import { BlockHitAction, blockHitGroup } from '../../actions/blockHitGroup';
@@ -16,7 +16,6 @@ import { truncate } from '../../utils/formatting';
 import { qualException } from '../../utils/exceptions';
 import { generateTOpticonBadge } from '../../utils/badges';
 import { blockedHitFactory } from '../../utils/blocklist';
-import { clickDidNotOccurOnActionButton } from '../../utils/searchCard';
 
 export interface Props {
   readonly hit: SearchResult;
@@ -40,8 +39,16 @@ class SearchCard extends React.PureComponent<
   private static generateStyle = (markedAsRead?: boolean) =>
     markedAsRead ? {} : { backgroundColor: 'rgba(72, 175, 240, 0.15)' };
 
+  static resourceListItemClass = 'Polaris-ResourceList__Item Polaris-ResourceList__Item--focused';
+
+  static clickDidNotOccurOnActionButton = (
+    e: React.MouseEvent<HTMLDivElement>
+  ): boolean =>
+    (e.target as Element).getAttribute('class') ===
+    SearchCard.resourceListItemClass;
+
   private handleExpand = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (clickDidNotOccurOnActionButton(e)) {
+    if (SearchCard.clickDidNotOccurOnActionButton(e)) {
       this.props.onToggleExpand(this.props.hit);
     }
   };
@@ -110,10 +117,10 @@ class SearchCard extends React.PureComponent<
 }
 
 type SearchTableAction =
-| AcceptAction
-| BlockHitAction
-| ExpandAction
-| MarkHitAsRead;
+  | AcceptAction
+  | BlockHitAction
+  | ExpandAction
+  | MarkHitAsRead;
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   hit: state.search.get(ownProps.groupId)
