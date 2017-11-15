@@ -174,4 +174,16 @@ export type READ_PERSISTED_STATE = typeof READ_PERSISTED_STATE;
 export const READ_BACKUP_FILE = 'READ_BACKUP_FILE';
 export type READ_BACKUP_FILE = typeof READ_BACKUP_FILE;
 
+export const UPLOAD_REQUEST = 'UPLOAD_REQUEST';
+export type UPLOAD_REQUEST = typeof UPLOAD_REQUEST;
+
+export const UPLOAD_PROGRESS = 'UPLOAD_PROGRESS';
+export type UPLOAD_PROGRESS = typeof UPLOAD_PROGRESS;
+
+export const UPLOAD_SUCCESS = 'UPLOAD_SUCCESS';
+export type UPLOAD_SUCCESS = typeof UPLOAD_SUCCESS;
+
+export const UPLOAD_FAILURE = 'UPLOAD_FAILURE';
+export type UPLOAD_FAILURE = typeof UPLOAD_FAILURE;
+
 export const API_URL = configureApiRoot();
