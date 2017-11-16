@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { ReadPersistedState, readPersistedState } from '../../actions/backup';
+import { UploadRequest, uploadRequest } from '../../actions/upload';
+// import { uploadDataFromFile } from '../../utils/backup';
 
 interface Props {}
 
 interface Handlers {
-  readonly onExport: () => void;
+  readonly onUpload: (file: File) => void;
 }
 
 interface State {
@@ -19,12 +20,19 @@ class ImportUserSettings extends React.Component<Props & Handlers, State> {
     return this.state.filename ? this.state.filename : 'Choose file...';
   };
 
-  private updateFileName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  private updateFileName = (file: File) => {
+    this.setState({
+      filename: file.name
+    });
+  };
+
+  private uploadFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
     const file = ImportUserSettings.validateFileUpload(event);
-    this.setState((): Partial<State> => {
-      return file ? { filename: file.name } : {};
-    });
+    if (file) {
+      this.updateFileName(file);
+      this.props.onUpload(file);
+    }
   };
 
   static validateFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,15 +47,15 @@ class ImportUserSettings extends React.Component<Props & Handlers, State> {
   public render() {
     return (
       <label className="pt-file-upload">
-        <input type="file" onChange={this.updateFileName} accept=".bak" />
+        <input type="file" onChange={this.uploadFile} accept=".bak" />
         <span className="pt-file-upload-input">{this.generateInputText()}</span>
       </label>
     );
   }
 }
 
-const mapDispatch = (dispatch: Dispatch<ReadPersistedState>): Handlers => ({
-  onExport: () => dispatch(readPersistedState())
+const mapDispatch = (dispatch: Dispatch<UploadRequest>): Handlers => ({
+  onUpload: (file: File) => dispatch(uploadRequest(file))
 });
 
 export default connect(null, mapDispatch)(ImportUserSettings);

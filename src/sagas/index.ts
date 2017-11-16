@@ -14,6 +14,7 @@ import {
   TOGGLE_SEARCH_ACTIVITY,
   TOGGLE_WATCHER_ACTIVE,
   READ_PERSISTED_STATE,
+  UPLOAD_REQUEST,
   PLAY_AUDIO
 } from '../constants';
 import { ConnectAccountRequest } from '../actions/connectAccount';
@@ -30,6 +31,7 @@ import { ReadPersistedState } from '../actions/backup';
 import { ToggleWatcherActivity, ScheduleWatcherTick } from '../actions/watcher';
 import { FetchStatusDetailRequest } from '../actions/statusDetail';
 import { PlayAudio } from '../actions/audio';
+import { UploadRequest } from '../actions/upload';
 
 import { fetchAccountInfo } from './connectAccount';
 import { fetchUserQueue } from './fetchQueue';
@@ -46,6 +48,7 @@ import { handleStatusSummaryRequest } from './statusSummary';
 import { handleStatusSummarySuccess } from './refreshHitDb';
 import { downloadPersistedState } from './backup';
 import { playAudio } from './playAudio';
+import { handleFileUploadRequest } from './uploadFile';
 
 export default function* rootSaga() {
   yield takeLatest<ConnectAccountRequest>(
@@ -91,4 +94,5 @@ export default function* rootSaga() {
     READ_PERSISTED_STATE,
     downloadPersistedState
   );
+  yield takeEvery<UploadRequest>(UPLOAD_REQUEST, handleFileUploadRequest);
 }

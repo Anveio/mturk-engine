@@ -21,8 +21,20 @@ export const generateBackupBlob = (stateStringArray: string[]): Blob =>
 export const generateFileName = (): string =>
   `mturk-engine-backup-${new Date().toLocaleDateString()}.bak`;
 
-export const uploadDataFromFile = (settingsFile: File) => {
-  BackupFileInput.readAsText(settingsFile);
+export const uploadDataFromFile = async (settingsFile: File) => {
+  const BackupFileReader = new FileReader();
+  BackupFileReader.onerror = err => {
+    BackupFileReader.abort();
+  };
+
+  BackupFileReader.onloadstart = e => {};
+
+  return new Promise((resolve, reject) => {
+    BackupFileReader.onload = () => {
+      resolve(BackupFileReader.result);
+    };
+    BackupFileReader.readAsText(settingsFile);
+  });
 };
 
 export const createTemporaryDownloadLink = (blob: Blob): HTMLAnchorElement => {
@@ -32,5 +44,3 @@ export const createTemporaryDownloadLink = (blob: Blob): HTMLAnchorElement => {
   temporaryAnchor.download = generateFileName();
   return temporaryAnchor;
 };
-
-export const BackupFileInput = new FileReader();

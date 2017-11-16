@@ -29,9 +29,6 @@ export interface UploadFailure {
   readonly type: UPLOAD_FAILURE;
   readonly payload: Error;
   readonly error: true;
-  readonly meta: {
-    file: File;
-  };
 }
 
 export const uploadRequest = (file: File): UploadRequest => ({
@@ -53,9 +50,8 @@ export const uploadSuccess = (file: File): UploadSuccess => ({
   meta: { file }
 });
 
-export const uploadFailure = (file: File, err: Error): UploadFailure => ({
+export const uploadFailure = (err: Error): UploadFailure => ({
   type: UPLOAD_FAILURE,
   payload: err,
-  error: true,
-  meta: { file }
+  error: true
 });
