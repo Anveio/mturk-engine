@@ -1,20 +1,22 @@
 import * as localforage from 'localforage';
 
-export const persistedStateToStringArray = async () => {
+export const persistedStateToJsonString = async () => {
   try {
     const localForageKeys: string[] = await localforage.keys();
-    return await Promise.all(
+    const stringArray = await Promise.all(
       localForageKeys.map(
         async key => `"${key}":` + (await localforage.getItem(key))
       )
     );
+
+    return '{' + stringArray.join(',') + '}';
   } catch (e) {
     throw new Error('Failed to read user settings.');
   }
 };
 
-export const generateBackupBlob = (stateStringArray: string[]): Blob =>
-  new Blob(['{' + stateStringArray.join(',') + '}'], {
+export const generateBackupBlob = (stateString: string): Blob =>
+  new Blob([stateString], {
     type: 'text/plain'
   });
 
