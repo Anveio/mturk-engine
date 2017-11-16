@@ -14,7 +14,7 @@ export const persistedStateToStringArray = async () => {
 };
 
 export const generateBackupBlob = (stateStringArray: string[]): Blob =>
-  new Blob([stateStringArray.join('')], {
+  new Blob(['{' + stateStringArray.join(',') + '}'], {
     type: 'text/plain'
   });
 
