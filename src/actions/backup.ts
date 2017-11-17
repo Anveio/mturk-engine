@@ -7,4 +7,3 @@ export interface ReadPersistedState {
 export const readPersistedState = (): ReadPersistedState => ({
   type: READ_PERSISTED_STATE
 });
-
