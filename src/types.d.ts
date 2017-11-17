@@ -21,6 +21,7 @@ export interface RootState {
   readonly audioSettingsV1: AudioSettings;
   readonly watcherTimes: WatcherTimerMap;
   readonly audioFiles: AudioFiles;
+  readonly uploadedBackup: PersistedState;
 }
 
 export type SearchResults = Map<string, SearchResult>;
@@ -32,6 +33,35 @@ export type TOpticonMap = Map<string, TOpticonData>;
 export type WatcherMap = Map<string, Watcher>;
 export type WatcherTimerMap = Map<string, Date | null>;
 export type HitDatabaseMap = Map<string, HitDatabaseEntry>;
+
+/**
+ * The keys of RootState that are persisted by redux-persist. 
+ * See `PERSISTED_SETTINGS_WHITELIST` in ./constants/settings
+ */
+export type PersistedStateKeys =
+  | 'tab'
+  | 'account'
+  | 'hitBlocklist'
+  | 'hitDatabase'
+  | 'requesterBlocklist'
+  | 'sortingOption'
+  | 'searchOptions'
+  | 'topticonSettings'
+  | 'watchers'
+  | 'audioSettingsV1'
+  | 'dailyEarningsGoal';
+
+export type ImmutablePersistedStateKeys =
+  | 'hitDatabase'
+  | 'hitBlocklist'
+  | 'watchers'
+  | 'requesterBlocklist';
+
+export type PersistedState = Pick<RootState, PersistedStateKeys>;
+export type ImmutablePersistedState = Pick<
+  RootState,
+  ImmutablePersistedStateKeys
+>;
 
 export type MaybeAccount = AccountInfo | null;
 

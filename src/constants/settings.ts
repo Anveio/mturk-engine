@@ -1,10 +1,11 @@
-export const PERSISTED_SETTINGS_WHITELIST = [
+import { PersistedStateKeys } from '../types';
+
+export const PERSISTED_SETTINGS_WHITELIST: PersistedStateKeys[] = [
   'tab',
   'account',
   'hitBlocklist',
   'hitDatabase',
   'requesterBlocklist',
-  'searchFormActive',
   'sortingOption',
   'searchOptions',
   'topticonSettings',
