@@ -4,6 +4,7 @@ import { truncate } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsCurrency } from './formatting';
 import { Toaster, Position } from '@blueprintjs/core';
+import { ImmutablePersistedStateKeys } from '../types';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
 
@@ -158,7 +159,7 @@ export const successfulEditBonusToast = (value: string) =>
     timeout: 2000
   });
 
-export const deletePersistedStateToast = (key: string) =>
+export const deletePersistedStateToast = (key: ImmutablePersistedStateKeys) =>
   TopRightToaster.show({
     message: `${key} deleted. Refresh the page to see if your issue was resolved.`,
     timeout: 10000,

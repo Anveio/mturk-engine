@@ -10,6 +10,7 @@ import {
 import { NonIdealState, Collapse } from '@blueprintjs/core';
 import { deletePersistedStateToast } from '../utils/toaster';
 import * as localforage from 'localforage';
+import { ImmutablePersistedStateKeys } from '../types';
 
 interface State {
   readonly error: boolean;
@@ -22,12 +23,6 @@ interface Props {
   readonly children: any;
 }
 
-type ImmutablePersistedState =
-  | 'hitDatabase'
-  | 'hitBlocklist'
-  | 'watchers'
-  | 'requesterBlocklist';
-
 class ErrorBoundary extends React.PureComponent<Props, State> {
   public readonly state: State = { error: false, collapseOpen: false };
 
@@ -38,7 +33,9 @@ class ErrorBoundary extends React.PureComponent<Props, State> {
     }));
   }
 
-  private deletePersistedState = (key: ImmutablePersistedState) => async () => {
+  private deletePersistedState = (
+    key: ImmutablePersistedStateKeys
+  ) => async () => {
     try {
       await localforage.removeItem(`reduxPersist:${key}`);
       deletePersistedStateToast(key);
