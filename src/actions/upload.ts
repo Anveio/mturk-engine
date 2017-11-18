@@ -4,6 +4,7 @@ import {
   UPLOAD_REQUEST,
   UPLOAD_SUCCESS
 } from '../constants';
+import { PersistedState } from '../types';
 
 export interface UploadRequest {
   readonly type: UPLOAD_REQUEST;
@@ -13,16 +14,12 @@ export interface UploadRequest {
 export interface UploadProgress {
   readonly type: UPLOAD_PROGRESS;
   readonly payload: number;
-  readonly meta: {
-    readonly file: File;
-  };
+  readonly file: File;
 }
 
 export interface UploadSuccess {
   readonly type: UPLOAD_SUCCESS;
-  readonly meta: {
-    readonly file: File;
-  };
+  readonly payload: Partial<PersistedState>;
 }
 
 export interface UploadFailure {
@@ -42,12 +39,14 @@ export const uploadProgress = (
 ): UploadProgress => ({
   type: UPLOAD_PROGRESS,
   payload: progress,
-  meta: { file }
+  file
 });
 
-export const uploadSuccess = (file: File): UploadSuccess => ({
+export const uploadSuccess = (
+  payload: Partial<PersistedState>
+): UploadSuccess => ({
   type: UPLOAD_SUCCESS,
-  meta: { file }
+  payload
 });
 
 export const uploadFailure = (err: Error): UploadFailure => ({

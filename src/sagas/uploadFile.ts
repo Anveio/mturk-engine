@@ -7,17 +7,20 @@ import {
   uploadSuccess
 } from '../actions/upload';
 import { uploadDataFromFile } from '../utils/backup';
+import { PersistedState } from '../types';
 
 export function* handleFileUploadRequest(action: UploadRequest) {
   try {
     const { payload } = action;
-    const data = yield call(uploadDataFromFile, payload);
-    // console.log('Data: ' + data);
-    data
-      ? yield put<UploadSuccess>(uploadSuccess(data))
-      : yield put<UploadFailure>(
-          uploadFailure(new Error('Failed to read data from file.'))
-        );
+    const data: string = yield call(uploadDataFromFile, payload);
+    if (!data) {
+      yield put<UploadFailure>(
+        uploadFailure(new Error('Failed to read data from file.'))
+      );
+    }
+    const parsedData: Partial<PersistedState> = JSON.parse(data);
+
+    yield put<UploadSuccess>(uploadSuccess(parsedData));
   } catch (e) {
     console.warn(e);
     yield put<UploadFailure>(uploadFailure(e));
