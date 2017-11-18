@@ -6,8 +6,8 @@ import * as localForage from 'localforage';
 import { rootReducer } from './reducers';
 import rootSaga from './sagas';
 import {
-  PERSISTED_SETTINGS_WHITELIST,
-  IMMUTABLE_PERSISTED_SETTINGS_WHITELIST
+  PERSISTED_STATE_WHITELIST,
+  IMMUTABLE_PERSISTED_STATE_WHITELIST
 } from './constants/settings';
 
 // tslint:disable:no-any
@@ -28,11 +28,11 @@ sagaMiddleware.run(rootSaga);
 persistStore(
   store,
   {
-    whitelist: PERSISTED_SETTINGS_WHITELIST,
+    whitelist: PERSISTED_STATE_WHITELIST,
     storage: localForage,
     transforms: [
       immutableTransform({
-        whitelist: IMMUTABLE_PERSISTED_SETTINGS_WHITELIST
+        whitelist: IMMUTABLE_PERSISTED_STATE_WHITELIST
       })
     ]
   },

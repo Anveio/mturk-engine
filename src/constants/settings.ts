@@ -1,6 +1,6 @@
-import { PersistedStateKeys } from '../types';
+import { PersistedStateKeys, ImmutablePersistedStateKeys } from '../types';
 
-export const PERSISTED_SETTINGS_WHITELIST: PersistedStateKeys[] = [
+export const PERSISTED_STATE_WHITELIST: PersistedStateKeys[] = [
   'tab',
   'account',
   'hitBlocklist',
@@ -14,7 +14,7 @@ export const PERSISTED_SETTINGS_WHITELIST: PersistedStateKeys[] = [
   'dailyEarningsGoal'
 ];
 
-export const IMMUTABLE_PERSISTED_SETTINGS_WHITELIST = [
+export const IMMUTABLE_PERSISTED_STATE_WHITELIST: ImmutablePersistedStateKeys[] = [
   'hitBlocklist',
   'requesterBlocklist',
   'watchers',

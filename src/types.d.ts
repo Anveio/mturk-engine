@@ -36,7 +36,7 @@ export type HitDatabaseMap = Map<string, HitDatabaseEntry>;
 
 /**
  * The keys of RootState that are persisted by redux-persist. 
- * See `PERSISTED_SETTINGS_WHITELIST` in ./constants/settings
+ * See `PERSISTED_STATE_WHITELIST` in ./constants/settings
  */
 export type PersistedStateKeys =
   | 'tab'

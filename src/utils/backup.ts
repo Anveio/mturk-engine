@@ -29,8 +29,6 @@ export const uploadDataFromFile = async (settingsFile: File) => {
     BackupFileReader.abort();
   };
 
-  BackupFileReader.onloadstart = e => {};
-
   return new Promise((resolve, reject) => {
     BackupFileReader.onload = () => {
       resolve(BackupFileReader.result);
