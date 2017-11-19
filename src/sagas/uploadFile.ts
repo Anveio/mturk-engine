@@ -19,7 +19,6 @@ export function* handleFileUploadRequest(action: UploadRequest) {
       );
     }
     const parsedData: Partial<PersistedState> = JSON.parse(data);
-
     yield put<UploadSuccess>(uploadSuccess(parsedData));
   } catch (e) {
     console.warn(e);

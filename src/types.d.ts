@@ -21,7 +21,7 @@ export interface RootState {
   readonly audioSettingsV1: AudioSettings;
   readonly watcherTimes: WatcherTimerMap;
   readonly audioFiles: AudioFiles;
-  readonly uploadedBackup: Partial<PersistedState>;
+  readonly uploadedState: Partial<PersistedState> | null;
 }
 
 export type SearchResults = Map<string, SearchResult>;
