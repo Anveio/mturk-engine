@@ -25,7 +25,6 @@ export interface UploadSuccess {
 export interface UploadFailure {
   readonly type: UPLOAD_FAILURE;
   readonly payload: Error;
-  readonly error: true;
 }
 
 export const uploadRequest = (file: File): UploadRequest => ({
@@ -51,6 +50,5 @@ export const uploadSuccess = (
 
 export const uploadFailure = (err: Error): UploadFailure => ({
   type: UPLOAD_FAILURE,
-  payload: err,
-  error: true
+  payload: err
 });
