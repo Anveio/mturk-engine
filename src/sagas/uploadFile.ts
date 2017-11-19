@@ -6,13 +6,13 @@ import {
   uploadFailure,
   uploadSuccess
 } from '../actions/upload';
-import { uploadDataFromFile } from '../utils/backup';
+import { readUploadedFileAsText } from '../utils/backup';
 import { PersistedState } from '../types';
 
 export function* handleFileUploadRequest(action: UploadRequest) {
   try {
     const { payload } = action;
-    const data: string = yield call(uploadDataFromFile, payload);
+    const data: string = yield call(readUploadedFileAsText, payload);
     if (!data) {
       yield put<UploadFailure>(
         uploadFailure(new Error('Failed to read data from file.'))

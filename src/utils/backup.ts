@@ -23,7 +23,7 @@ export const generateBackupBlob = (stateString: string): Blob =>
 export const generateFileName = (): string =>
   `mturk-engine-backup-${new Date().toLocaleDateString()}.bak`;
 
-export const uploadDataFromFile = async (settingsFile: File) => {
+export const readUploadedFileAsText = async (settingsFile: File) => {
   const BackupFileReader = new FileReader();
   BackupFileReader.onerror = err => {
     BackupFileReader.abort();
