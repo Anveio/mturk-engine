@@ -25,11 +25,16 @@ export const generateFileName = (): string =>
 
 export const readUploadedFileAsText = async (settingsFile: File) => {
   const BackupFileReader = new FileReader();
-  BackupFileReader.onerror = err => {
-    BackupFileReader.abort();
-  };
 
+  /**
+   * FileReader.readAsText is asynchronous but does not use Promises. We wrap it
+   * in a Promise here so we can await it elsewhere without blocking the main thread.
+   */
   return new Promise((resolve, reject) => {
+    BackupFileReader.onerror = () => {
+      reject('Failed to parse file.');
+    };
+
     BackupFileReader.onload = () => {
       resolve(BackupFileReader.result);
     };
