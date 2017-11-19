@@ -20,6 +20,7 @@ import { default as hitDatabase } from './reducers/hitDatabase';
 import { default as dailyEarningsGoal } from './reducers/dailyEarningsGoal';
 import { default as waitingForHitDbRefresh } from './reducers/waitingForHitDbRefresh';
 import { default as watcherTimes } from './reducers/watcherTimes';
+import { default as uploadedState } from './reducers/uploadedState';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -33,6 +34,7 @@ export const rootReducer = combineReducers<RootState>({
   watcherTimes,
   searchOptions,
   sortingOption,
+  uploadedState,
   timeNextSearch,
   audioSettingsV1,
   waitingForMturk,
