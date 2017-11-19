@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Layout, Card } from '@shopify/polaris';
 import ExportUserSettings from './ExportUserSettings';
 import ImportUserSettings from './ImportUserSettings';
+import UploadedSettingsDisplay from './UploadedSettingsDisplay';
 
 class BackupUserSettings extends React.PureComponent<{}, never> {
   public render() {
@@ -17,6 +18,9 @@ class BackupUserSettings extends React.PureComponent<{}, never> {
           </Card.Section>
           <Card.Section>
             <ImportUserSettings />
+          </Card.Section>
+          <Card.Section>
+            <UploadedSettingsDisplay />
           </Card.Section>
         </Card>
       </Layout.AnnotatedSection>
