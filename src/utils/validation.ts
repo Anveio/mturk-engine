@@ -13,3 +13,9 @@ export const validatePositiveNumber = (value: string): boolean =>
 
 export const validateRejectionThreshold = (value: string) =>
   (validateInbounds(value) && validateInteger(value)) || value === '';
+
+export const validatePersistedStateKey = (key: string) =>
+  key.startsWith('reduxPersist:') && !!/reduxPersist:(.*)/g.exec(key);
+
+export const selectReduxPersistStateKey = (key: string) =>
+  (/reduxPersist:(.*)/g.exec(key) as RegExpExecArray)[1];
