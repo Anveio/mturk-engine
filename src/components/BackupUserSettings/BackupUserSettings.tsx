@@ -19,9 +19,7 @@ class BackupUserSettings extends React.PureComponent<{}, never> {
           <Card.Section>
             <ImportUserSettings />
           </Card.Section>
-          <Card.Section>
-            <UploadedSettingsDisplay />
-          </Card.Section>
+          <UploadedSettingsDisplay />
         </Card>
       </Layout.AnnotatedSection>
     );

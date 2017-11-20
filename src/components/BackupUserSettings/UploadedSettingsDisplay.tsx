@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
+import { Card } from '@shopify/polaris';
 import { RootState, PersistedState } from '../../types';
 import { writePersistedState, WritePersistedState } from '../../actions/backup';
 
@@ -17,10 +18,8 @@ class UploadedSettingsDisplay extends React.Component<Props & Handlers, never> {
 
   public render() {
     return this.props.uploadedState ? (
-      this.displayKeys(this.props.uploadedState)
-    ) : (
-      <div>Nothing uploaded yet!</div>
-    );
+      <Card.Section>{this.displayKeys(this.props.uploadedState)}</Card.Section>
+    ) : null;
   }
 }
 
