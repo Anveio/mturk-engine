@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Card, FormLayout } from '@shopify/polaris';
+import { Card, FormLayout, Stack, Banner } from '@shopify/polaris';
 import { RootState, PersistedState, PersistedStateKeys } from '../../types';
 import { writePersistedState, WritePersistedState } from '../../actions/backup';
 import {
@@ -37,14 +37,33 @@ class UploadedSettingsDisplay extends React.Component<Props & Handlers, never> {
         />
       ))
     ) : (
-      <p>The uploaded file contains no valid data.</p>
+      <Banner
+        status="critical"
+        title="The uploaded file contains no valid data."
+      >
+        <p>
+          You won't be able to use this file to import any settings. Make sure
+          you uploaded a valid Mturk Engine backup file and try again.
+        </p>
+      </Banner>
     );
   };
 
   public render() {
     return this.props.uploadedState ? (
       <Card.Section>
-        <FormLayout>{this.displayKeys(this.props.uploadedState)}</FormLayout>
+        <Stack vertical>
+          <Banner
+            status="success"
+            title="Uploaded file contains valid settings."
+          >
+            <p>
+              You can choose which settings to import by checking the boxes
+              below.
+            </p>
+          </Banner>
+          <FormLayout>{this.displayKeys(this.props.uploadedState)}</FormLayout>
+        </Stack>
       </Card.Section>
     ) : null;
   }
