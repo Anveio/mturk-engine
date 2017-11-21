@@ -3,7 +3,6 @@ import { connect, Dispatch } from 'react-redux';
 import { Card, FormLayout, Stack, Banner } from '@shopify/polaris';
 import { RootState, PersistedState, PersistedStateKeys } from '../../types';
 import { writePersistedState, WritePersistedState } from '../../actions/backup';
-import { stateKeyMap } from '../../utils/backup';
 import StateKeyCheckbox from './StateKeyCheckbox';
 import { validUploadedState } from '../../selectors/uploadedState';
 
@@ -45,7 +44,8 @@ class UploadedSettingsDisplay extends React.Component<Props & Handlers, never> {
     Object.keys(uploadedState).map((stateKey: PersistedStateKeys) => (
       <StateKeyCheckbox
         key={stateKey}
-        label={stateKeyMap.get(stateKey) || 'Invalid Key'}
+        stateKey={stateKey}
+        stateValue={uploadedState[stateKey]}
         checked
       />
     ));

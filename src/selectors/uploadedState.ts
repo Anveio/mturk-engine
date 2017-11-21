@@ -5,18 +5,13 @@ import {
   selectReduxPersistStateKey
 } from '../utils/validation';
 
-// private displayKeys = (uploadedState: Partial<PersistedState>) => {
-// const stateKeys = Object.keys(uploadedState)
-//   .filter(validatePersistedStateKey)
-//   .map(selectReduxPersistStateKey);
-
 export const uploadedStateSelector = (state: RootState) => state.uploadedState;
 
 export const validUploadedState = createSelector(
   [uploadedStateSelector],
-  (uploadedState: Partial<PersistedState>) => {
+  (uploadedState: Object) => {
     if (!uploadedState) {
-      return uploadedState;
+      return null;
     }
 
     const stateKeys = Object.keys(uploadedState)
@@ -32,3 +27,4 @@ export const validUploadedState = createSelector(
     );
   }
 );
+

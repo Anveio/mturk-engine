@@ -1,17 +1,24 @@
 import * as React from 'react';
 import { Checkbox } from '@shopify/polaris';
+import { PersistedStateKeys } from '../../types';
+import { stateKeyMap } from '../../utils/backup';
 // import { PersistedState } from '../../types';
-// import { stateKeyMap } from '../../utils/backup';
 
 export interface Props {
-  readonly label: string;
+  readonly stateKey: PersistedStateKeys;
+  readonly stateValue: any;
   readonly checked: boolean;
 }
 
-class UploadedSettingsDisplay extends React.Component<Props, never> {
+class StateKeyCheckbox extends React.Component<Props, never> {
   public render() {
-    return <Checkbox {...this.props} />;
+    return (
+      <Checkbox
+        checked={this.props.checked}
+        label={stateKeyMap.get(this.props.stateKey) || 'Invalid Key'}
+      />
+    );
   }
 }
 
-export default UploadedSettingsDisplay;
+export default StateKeyCheckbox;
