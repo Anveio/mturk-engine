@@ -1,4 +1,5 @@
 import * as localforage from 'localforage';
+import { PersistedStateKeys } from '../types';
 
 export const persistedStateToJsonString = async () => {
   try {
@@ -53,16 +54,16 @@ export const createTemporaryDownloadLink = (blob: Blob): HTMLAnchorElement => {
 /**
  * Translates a persisted state key into UI text.
  */
-export const stateKeyMap = {
-  tab: 'Currently Selected Tab',
-  account: 'Account Details',
-  hitBlocklist: 'Blocked HITs',
-  hitDatabase: 'HIT Database',
-  requesterBlocklist: 'Blocked Requesters',
-  sortingOption: 'Search Sort Settings',
-  searchOptions: 'Search Settings',
-  topticonSettings: 'Turkopticon Settings',
-  watchers: 'Watchers',
-  audioSettingsV1: 'Audio Settings',
-  dailyEarningsGoal: 'Daily Earnings Goal'
-};
+export const stateKeyMap = new Map<PersistedStateKeys, string>([
+  ['tab', 'Currently Selected Tab'],
+  ['account', 'Account Details'],
+  ['hitBlocklist', 'Blocked HITs'],
+  ['hitDatabase', 'HIT Database'],
+  ['requesterBlocklist', 'Blocked Requesters'],
+  ['sortingOption', 'Search Sort Settings'],
+  ['searchOptions', 'Search Settings'],
+  ['topticonSettings', 'Turkopticon Settings'],
+  ['watchers', 'Watchers'],
+  ['audioSettingsV1', 'Audio Settings'],
+  ['dailyEarningsGoal', 'Daily Earnings Goal']
+]);

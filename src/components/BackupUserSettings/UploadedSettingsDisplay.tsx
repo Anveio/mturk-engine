@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Card, FormLayout } from '@shopify/polaris';
-import { Checkbox } from '@blueprintjs/core';
-import { RootState, PersistedState } from '../../types';
+import { RootState, PersistedState, PersistedStateKeys } from '../../types';
 import { writePersistedState, WritePersistedState } from '../../actions/backup';
 import {
   validatePersistedStateKey,
   selectReduxPersistStateKey
 } from '../../utils/validation';
 import { stateKeyMap } from '../../utils/backup';
+import StateKeyCheckbox from './StateKeyCheckbox';
 
 export interface Props {
   readonly uploadedState: Partial<PersistedState> | null;
@@ -18,6 +18,10 @@ export interface Handlers {
   readonly saveFromBackup: (payload: Partial<PersistedState>) => void;
 }
 
+export interface State {
+  readonly checkedStateKeys: Map<PersistedStateKeys, boolean>;
+}
+
 class UploadedSettingsDisplay extends React.Component<Props & Handlers, never> {
   private displayKeys = (uploadedState: Partial<PersistedState>) => {
     const stateKeys = Object.keys(uploadedState)
@@ -25,8 +29,12 @@ class UploadedSettingsDisplay extends React.Component<Props & Handlers, never> {
       .map(selectReduxPersistStateKey);
 
     return stateKeys.length > 0 ? (
-      stateKeys.map(stateKey => (
-        <Checkbox key={stateKey} label={stateKeyMap[stateKey]} checked />
+      stateKeys.map((stateKey: PersistedStateKeys) => (
+        <StateKeyCheckbox
+          key={stateKey}
+          label={stateKeyMap.get(stateKey) || 'Invalid Key'}
+          checked
+        />
       ))
     ) : (
       <p>The uploaded file contains no valid data.</p>
