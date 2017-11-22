@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Card, FormLayout, Stack, Banner } from '@shopify/polaris';
-import { RootState, PersistedState, PersistedStateKeys } from '../../types';
+import { Card, Stack, Banner } from '@shopify/polaris';
+import { RootState, PersistedState } from '../../types';
 import { writePersistedState, WritePersistedState } from '../../actions/backup';
-import StateKeyCheckbox from './StateKeyCheckbox';
+import StateKeyCheckboxList from './StateKeyCheckboxList';
+
 import { validUploadedState } from '../../selectors/uploadedState';
 
 export interface Props {
@@ -14,41 +15,21 @@ export interface Handlers {
   readonly saveFromBackup: (payload: Partial<PersistedState>) => void;
 }
 
-export interface State {
-  readonly checkedStateKeys: Map<PersistedStateKeys, boolean>;
-}
-
 class UploadedSettingsDisplay extends React.Component<Props & Handlers, never> {
   private displayKeys = (uploadedState: Partial<PersistedState>) => {
     return Object.keys(uploadedState).length !== 0 ? (
       <Stack vertical>
-        <FormLayout>
-          <Banner
-            status="success"
-            title="Uploaded file contains valid settings."
-          >
-            <p>
-              You can choose which settings to import by checking the boxes
-              below.
-            </p>
-          </Banner>
-          {this.checkBoxList(uploadedState)}
-        </FormLayout>
+        <Banner status="success" title="Uploaded file contains valid settings.">
+          <p>
+            You can choose which settings to import by checking the boxes below.
+          </p>
+        </Banner>
+        <StateKeyCheckboxList uploadedState={uploadedState} />
       </Stack>
     ) : (
       this.noValidKeysMarkup()
     );
   };
-
-  private checkBoxList = (uploadedState: Partial<PersistedState>) =>
-    Object.keys(uploadedState).map((stateKey: PersistedStateKeys) => (
-      <StateKeyCheckbox
-        key={stateKey}
-        stateKey={stateKey}
-        stateValue={uploadedState[stateKey]}
-        checked
-      />
-    ));
 
   private noValidKeysMarkup = () => (
     <Banner status="critical" title="The uploaded file contains no valid data.">
