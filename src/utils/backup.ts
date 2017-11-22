@@ -1,5 +1,5 @@
 import * as localforage from 'localforage';
-import { PersistedStateKeys } from '../types';
+import { PersistedStateKeys, PersistedState } from '../types';
 
 export const persistedStateToJsonString = async () => {
   try {
@@ -67,3 +67,13 @@ export const stateKeyMap = new Map<PersistedStateKeys, string>([
   ['audioSettingsV1', 'Audio Settings'],
   ['dailyEarningsGoal', 'Daily Earnings Goal']
 ]);
+
+export type CheckedStateKeyMap = Map<PersistedStateKeys, boolean>;
+
+export const generateCheckStateKeysMap = (
+  payload: Partial<PersistedState>
+): CheckedStateKeyMap =>
+  Object.keys(payload).reduce(
+    (acc: CheckedStateKeyMap, cur: PersistedStateKeys) => acc.set(cur, true),
+    new Map<PersistedStateKeys, boolean>()
+  );

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FormLayout } from '@shopify/polaris';
 import { PersistedState, PersistedStateKeys } from '../../types';
 import StateKeyCheckbox from './StateKeyCheckbox';
+import { generateCheckStateKeysMap } from '../../utils/backup';
 
 export interface Props {
   readonly uploadedState: Partial<PersistedState>;
@@ -16,9 +17,12 @@ export interface State {
 }
 
 class StateKeyCheckboxList extends React.PureComponent<Props, State> {
-  public readonly state: State = {
-    checkedStateKeysMap: new Map<PersistedStateKeys, boolean>()
-  };
+  constructor(props: Props & Handlers) {
+    super(props);
+    this.state = {
+      checkedStateKeysMap: generateCheckStateKeysMap(this.props.uploadedState)
+    };
+  }
 
   public render() {
     const { uploadedState } = this.props;
