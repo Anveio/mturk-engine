@@ -6,16 +6,22 @@ import { stateKeyMap } from '../../utils/backup';
 
 export interface Props {
   readonly stateKey: PersistedStateKeys;
-  readonly stateValue: any;
   readonly checked: boolean;
 }
 
-class StateKeyCheckbox extends React.Component<Props, never> {
+export interface Handlers {
+  // tslint:disable-next-line:no-any
+  readonly onClick: (key: PersistedStateKeys, value: any) => void;
+}
+
+class StateKeyCheckbox extends React.Component<Props & Handlers, never> {
   public render() {
+    const { onClick, checked, stateKey } = this.props;
     return (
       <Checkbox
-        checked={this.props.checked}
-        label={stateKeyMap.get(this.props.stateKey) || this.props.stateKey}
+        checked={checked}
+        label={stateKeyMap.get(stateKey) || stateKey}
+        onChange={() => onClick(stateKey, !checked)}
       />
     );
   }

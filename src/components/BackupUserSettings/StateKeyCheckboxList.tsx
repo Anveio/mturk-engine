@@ -24,6 +24,17 @@ class StateKeyCheckboxList extends React.PureComponent<Props, State> {
     };
   }
 
+  private handleClick = (key: PersistedStateKeys, value: boolean) => {
+    this.setState((prevState: State): Partial<State> => {
+      const newState = new Map<PersistedStateKeys, boolean>(
+        prevState.checkedStateKeysMap
+      );
+      return {
+        checkedStateKeysMap: newState.set(key, value)
+      };
+    });
+  };
+
   public render() {
     const { uploadedState } = this.props;
 
@@ -33,8 +44,8 @@ class StateKeyCheckboxList extends React.PureComponent<Props, State> {
           <StateKeyCheckbox
             key={stateKey}
             stateKey={stateKey}
-            stateValue={uploadedState[stateKey]}
             checked={this.state.checkedStateKeysMap.get(stateKey) || false}
+            onClick={this.handleClick}
           />
         ))}
       </FormLayout>
