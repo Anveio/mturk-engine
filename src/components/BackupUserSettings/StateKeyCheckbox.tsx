@@ -15,7 +15,7 @@ class StateKeyCheckbox extends React.Component<Props, never> {
     return (
       <Checkbox
         checked={this.props.checked}
-        label={stateKeyMap.get(this.props.stateKey) || 'Invalid Key'}
+        label={stateKeyMap.get(this.props.stateKey) || this.props.stateKey}
       />
     );
   }
