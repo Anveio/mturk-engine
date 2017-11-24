@@ -24,22 +24,22 @@ export const generateBackupBlob = (stateString: string): Blob =>
 export const generateFileName = (): string =>
   `mturk-engine-backup-${new Date().toLocaleDateString()}.bak`;
 
-export const readUploadedFileAsText = async (settingsFile: File) => {
-  const BackupFileReader = new FileReader();
+export const readUploadedFileAsText = (settingsFile: File) => {
+  const temporaryFileReader = new FileReader();
 
   /**
    * FileReader.readAsText is asynchronous but does not use Promises. We wrap it
    * in a Promise here so we can await it elsewhere without blocking the main thread.
    */
   return new Promise((resolve, reject) => {
-    BackupFileReader.onerror = () => {
-      reject('Failed to parse file.');
+    temporaryFileReader.onerror = () => {
+      reject(temporaryFileReader.error);
     };
 
-    BackupFileReader.onload = () => {
-      resolve(BackupFileReader.result);
+    temporaryFileReader.onload = () => {
+      resolve(temporaryFileReader.result);
     };
-    BackupFileReader.readAsText(settingsFile);
+    temporaryFileReader.readAsText(settingsFile);
   });
 };
 
