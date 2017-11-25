@@ -47,7 +47,7 @@ class ImportUserSettings extends React.Component<Props & Handlers, State> {
   public render() {
     return (
       <label className="pt-file-upload">
-        <input type="file" onChange={this.uploadFile} accept=".bak" />
+        <input type="file" onChange={this.uploadFile} accept=".json" />
         <span className="pt-file-upload-input">{this.generateInputText()}</span>
       </label>
     );

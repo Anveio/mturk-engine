@@ -18,13 +18,13 @@ export const persistedStateToJsonString = async () => {
 
 export const generateBackupBlob = (stateString: string): Blob =>
   new Blob([stateString], {
-    type: 'text/plain'
+    type: 'application/json'
   });
 
 export const generateFileName = (): string =>
-  `mturk-engine-backup-${new Date().toLocaleDateString()}.bak`;
+  `mturk-engine-backup-${new Date().toLocaleDateString()}.json`;
 
-export const readUploadedFileAsText = (settingsFile: File) => {
+export const readUploadedFileAsText = (settingsFile: File): Promise<string> => {
   const temporaryFileReader = new FileReader();
 
   /**
