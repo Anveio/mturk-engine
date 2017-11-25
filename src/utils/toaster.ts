@@ -97,7 +97,7 @@ export const statusDetailErrorToast = (dateStr: string) =>
     message: `Problem getting data for ${dateStringToLocaleDateString(
       dateStr
     )}. This is most likely because you have been logged out of MTurk. Try logging in again.`,
-    intent: 3,
+    intent: 2,
     timeout: 5000
   });
 
@@ -131,7 +131,9 @@ export const refreshDbSuccessToast = (
   numNewResults: number
 ) =>
   TopRightToaster.show({
-    message: `Refreshed database and found HITS across ${uniqueDates} unique dates. 
+    message: `Refreshed database and found HITS across ${
+      uniqueDates
+    } unique dates. 
     Found ${numNewResults} previously unfound HITS`,
     intent: 1,
     timeout: 5000
@@ -161,9 +163,19 @@ export const successfulEditBonusToast = (value: string) =>
 
 export const deletePersistedStateToast = (key: ImmutablePersistedStateKeys) =>
   TopRightToaster.show({
-    message: `${key} deleted. Refresh the page to see if your issue was resolved.`,
+    message: `${
+      key
+    } deleted. Refresh the page to see if your issue was resolved.`,
     timeout: 10000,
     intent: 0
+  });
+
+export const failedUploadToast = () =>
+  TopRightToaster.show({
+    message: `Couldn't read the uploaded file. Your settings have not changed. 
+    Make sure you've uploaded a valid Mturk Engine backup file and try again.`,
+    timeout: 5000,
+    intent: 3
   });
 
 const successfulAcceptToast = (title: string) =>

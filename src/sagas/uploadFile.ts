@@ -8,6 +8,7 @@ import {
 } from '../actions/upload';
 import { readUploadedFileAsText } from '../utils/backup';
 import { PersistedState } from '../types';
+import { failedUploadToast } from '../utils/toaster';
 
 export function* handleFileUploadRequest(action: UploadRequest) {
   try {
@@ -22,6 +23,7 @@ export function* handleFileUploadRequest(action: UploadRequest) {
     yield put<UploadSuccess>(uploadSuccess(parsedData));
   } catch (e) {
     console.warn(e);
+    failedUploadToast();
     yield put<UploadFailure>(uploadFailure(e));
   }
 }
