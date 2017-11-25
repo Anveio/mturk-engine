@@ -4,6 +4,7 @@ import { Card, Stack, Banner } from '@shopify/polaris';
 import { RootState, PersistedState } from '../../types';
 import { writePersistedState, WritePersistedState } from '../../actions/backup';
 import StateKeyCheckboxList from './StateKeyCheckboxList';
+import ConfirmImportButton from './ConfirmImportButton';
 
 import { validUploadedState } from '../../selectors/uploadedState';
 
@@ -25,6 +26,7 @@ class UploadedSettingsDisplay extends React.Component<Props & Handlers, never> {
           </p>
         </Banner>
         <StateKeyCheckboxList uploadedState={uploadedState} />
+        <ConfirmImportButton />
       </Stack>
     ) : (
       this.noValidKeysMarkup()
