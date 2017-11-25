@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormLayout } from '@shopify/polaris';
+import { FormLayout, Heading } from '@shopify/polaris';
 import { PersistedState, PersistedStateKeys } from '../../types';
 import StateKeyCheckbox from './StateKeyCheckbox';
 import { generateCheckStateKeysMap } from '../../utils/backup';
@@ -40,6 +40,7 @@ class StateKeyCheckboxList extends React.PureComponent<Props, State> {
 
     return (
       <FormLayout>
+        <Heading>Pick which settings you would like to import.</Heading>
         {Object.keys(uploadedState).map((stateKey: PersistedStateKeys) => (
           <StateKeyCheckbox
             key={stateKey}
