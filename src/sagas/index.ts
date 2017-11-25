@@ -15,7 +15,8 @@ import {
   TOGGLE_WATCHER_ACTIVE,
   READ_PERSISTED_STATE,
   UPLOAD_REQUEST,
-  PLAY_AUDIO
+  PLAY_AUDIO,
+  WRITE_PERSISTED_STATE
 } from '../constants';
 import { ConnectAccountRequest } from '../actions/connectAccount';
 import { FetchQueueRequest } from '../actions/queue';
@@ -27,7 +28,7 @@ import { FetchTOpticonRequest } from '../actions/turkopticon';
 import { FetchStatusSummaryRequest } from '../actions/statusSummary';
 import { RefreshDatabaseRequest } from '../actions/refreshDatabase';
 import { ToggleSearchActive } from '../actions/updateValue';
-import { ReadPersistedState } from '../actions/backup';
+import { ReadPersistedState, WritePersistedState } from '../actions/backup';
 import { ToggleWatcherActivity, ScheduleWatcherTick } from '../actions/watcher';
 import { FetchStatusDetailRequest } from '../actions/statusDetail';
 import { PlayAudio } from '../actions/audio';
@@ -46,7 +47,7 @@ import { acceptAfterWatcherDelay } from './scheduleWatcher';
 import { handleStatusDetailRequest } from './statusDetail';
 import { handleStatusSummaryRequest } from './statusSummary';
 import { handleStatusSummarySuccess } from './refreshHitDb';
-import { downloadPersistedState } from './backup';
+import { downloadPersistedState, importPersistedState } from './backup';
 import { playAudio } from './playAudio';
 import { handleFileUploadRequest } from './uploadFile';
 
@@ -93,6 +94,10 @@ export default function* rootSaga() {
   yield takeEvery<ReadPersistedState>(
     READ_PERSISTED_STATE,
     downloadPersistedState
+  );
+  yield takeEvery<WritePersistedState>(
+    WRITE_PERSISTED_STATE,
+    importPersistedState
   );
   yield takeEvery<UploadRequest>(UPLOAD_REQUEST, handleFileUploadRequest);
 }

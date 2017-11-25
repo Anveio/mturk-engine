@@ -1,9 +1,10 @@
 import { call } from 'redux-saga/effects';
-import { ReadPersistedState } from '../actions/backup';
+import { ReadPersistedState, WritePersistedState } from '../actions/backup';
 import {
   persistedStateToJsonString,
   generateBackupBlob,
-  createTemporaryDownloadLink
+  createTemporaryDownloadLink,
+  writeToPersistedState
 } from '../utils/backup';
 
 export function* downloadPersistedState(action: ReadPersistedState) {
@@ -13,6 +14,14 @@ export function* downloadPersistedState(action: ReadPersistedState) {
     const temporaryAnchor = createTemporaryDownloadLink(persistedStateBlob);
     temporaryAnchor.click();
   } catch (e) {
+    console.warn(e);
+  }
+}
+
+export function* importPersistedState(action: WritePersistedState) {
+  try {
+    yield call(writeToPersistedState, action.payload);
+  } catch(e) {
     console.warn(e);
   }
 }

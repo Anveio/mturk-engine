@@ -16,12 +16,12 @@ export const persistedStateToJsonString = async () => {
   }
 };
 
-export const writeToPersistedState = async (
-  data: Partial<PersistedStateKeys>
-) => {
+export const writeToPersistedState = async (data: Partial<PersistedState>) => {
   try {
-    return await Promise.all(
-      Object.keys(data).map(async key => localforage.setItem(key, data[key]))
+    await Promise.all(
+      Object.keys(data).map(
+        async key => await localforage.setItem(key, data[key])
+      )
     );
   } catch (e) {
     throw new Error('Failed to write to indexedDB.');
