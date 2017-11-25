@@ -16,6 +16,18 @@ export const persistedStateToJsonString = async () => {
   }
 };
 
+export const writeToPersistedState = async (
+  data: Partial<PersistedStateKeys>
+) => {
+  try {
+    return await Promise.all(
+      Object.keys(data).map(async key => localforage.setItem(key, data[key]))
+    );
+  } catch (e) {
+    throw new Error('Failed to write to indexedDB.');
+  }
+};
+
 export const generateBackupBlob = (stateString: string): Blob =>
   new Blob([stateString], {
     type: 'application/json'
