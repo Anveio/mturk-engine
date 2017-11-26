@@ -1,25 +1,14 @@
-import {
-  UPLOAD_FAILURE,
-  UPLOAD_PROGRESS,
-  UPLOAD_REQUEST,
-  UPLOAD_SUCCESS
-} from '../constants';
-import { PersistedState } from '../types';
+import { UPLOAD_FAILURE, UPLOAD_REQUEST, UPLOAD_SUCCESS } from '../constants';
+import { ReduxPersistObject } from '../types';
 
 export interface UploadRequest {
   readonly type: UPLOAD_REQUEST;
   readonly payload: File;
 }
 
-export interface UploadProgress {
-  readonly type: UPLOAD_PROGRESS;
-  readonly payload: number;
-  readonly file: File;
-}
-
 export interface UploadSuccess {
   readonly type: UPLOAD_SUCCESS;
-  readonly payload: Partial<PersistedState>;
+  readonly payload: ReduxPersistObject;
 }
 
 export interface UploadFailure {
@@ -32,18 +21,7 @@ export const uploadRequest = (file: File): UploadRequest => ({
   payload: file
 });
 
-export const uploadProgress = (
-  file: File,
-  progress: number
-): UploadProgress => ({
-  type: UPLOAD_PROGRESS,
-  payload: progress,
-  file
-});
-
-export const uploadSuccess = (
-  payload: Partial<PersistedState>
-): UploadSuccess => ({
+export const uploadSuccess = (payload: ReduxPersistObject): UploadSuccess => ({
   type: UPLOAD_SUCCESS,
   payload
 });

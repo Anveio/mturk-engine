@@ -1,5 +1,10 @@
 import * as localforage from 'localforage';
-import { PersistedStateKeys, PersistedState } from '../types';
+import {
+  PersistedStateKeys,
+  PersistedState,
+  ReduxPersistObject
+} from '../types';
+import * as transit from 'transit-immutable-js';
 
 export const persistedStateToJsonString = async () => {
   try {
@@ -9,7 +14,6 @@ export const persistedStateToJsonString = async () => {
         async key => `"${key}":` + (await localforage.getItem(key))
       )
     );
-
     return '{' + stringArray.join(',') + '}';
   } catch (e) {
     throw new Error('Failed to read user settings.');
@@ -28,15 +32,17 @@ export const writeToPersistedState = async (data: Partial<PersistedState>) => {
   }
 };
 
-export const generateBackupBlob = (stateString: string): Blob =>
-  new Blob([stateString], {
+export const generateBackupBlob = (stateObject: string): Blob =>
+  new Blob([stateObject], {
     type: 'application/json'
   });
 
 export const generateFileName = (): string =>
   `mturk-engine-backup-${new Date().toLocaleDateString()}.json`;
 
-export const readUploadedFileAsText = (settingsFile: File): Promise<string> => {
+export const readUploadedFileAsText = (
+  settingsFile: File
+): Promise<string | DOMException> => {
   const temporaryFileReader = new FileReader();
 
   /**
@@ -45,7 +51,8 @@ export const readUploadedFileAsText = (settingsFile: File): Promise<string> => {
    */
   return new Promise((resolve, reject) => {
     temporaryFileReader.onerror = () => {
-      reject(temporaryFileReader.error);
+      temporaryFileReader.abort();
+      reject(new DOMException('Problem parsing input file.'));
     };
 
     temporaryFileReader.onload = () => {
@@ -89,3 +96,21 @@ export const generateCheckStateKeysMap = (
     (acc: CheckedStateKeyMap, cur: PersistedStateKeys) => acc.set(cur, true),
     new Map<PersistedStateKeys, boolean>()
   );
+
+/**
+ * Parses the string contents of a JSON file, then converts any non values into
+ * strings and returns a Map containing the key-value pairs.
+ * @param data
+ */
+
+export const parseUploadedBackupFile = (data: string) => {
+  const parsedData = transit.fromJSON(data);
+  console.log(parsedData);
+  return Object.keys(parsedData).reduce(
+    (acc: ReduxPersistObject, key: string) => {
+      const value = parsedData[key];
+      return { ...acc, [key]: JSON.stringify(value) };
+    },
+    {}
+  );
+};

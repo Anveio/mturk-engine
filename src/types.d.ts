@@ -35,7 +35,7 @@ export type WatcherTimerMap = Map<string, Date | null>;
 export type HitDatabaseMap = Map<string, HitDatabaseEntry>;
 
 /**
- * The keys of RootState that are persisted by redux-persist. 
+ * The keys of RootState that are persisted by redux-persist.
  * See `PERSISTED_STATE_WHITELIST` in ./constants/settings
  */
 export type PersistedStateKeys =
@@ -211,3 +211,7 @@ export type HitAcceptFailureReason =
   | 'Unqualified'
   | 'CAPTCHA'
   | 'Unknown';
+
+export interface ReduxPersistObject {
+  readonly [key: string]: string;
+}
