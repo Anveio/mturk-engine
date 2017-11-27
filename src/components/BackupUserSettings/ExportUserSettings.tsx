@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
+import { Button } from '@shopify/polaris';
 import { ReadPersistedState, readPersistedState } from '../../actions/backup';
 
 export interface Props {}
@@ -11,9 +12,9 @@ export interface Handlers {
 class ExportUserSettings extends React.Component<Props & Handlers, never> {
   public render() {
     return (
-      <a className="pt-button" role="button" onClick={this.props.onExport}>
+      <Button icon="save" onClick={this.props.onExport}>
         Export
-      </a>
+      </Button>
     );
   }
 }
