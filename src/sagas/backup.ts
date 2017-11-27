@@ -21,6 +21,7 @@ export function* downloadPersistedState(action: ReadPersistedState) {
 export function* importPersistedState(action: WritePersistedState) {
   try {
     yield call(writeToPersistedState, action.payload);
+    location = location;
   } catch (e) {
     console.warn(e);
   }
