@@ -11,6 +11,7 @@ import {
   parseUploadedBackupFile
 } from '../utils/backup';
 import { failedUploadToast } from '../utils/toaster';
+import { PersistedState } from '../types';
 
 export function* handleFileUploadRequest(action: UploadRequest) {
   try {
@@ -21,7 +22,7 @@ export function* handleFileUploadRequest(action: UploadRequest) {
         uploadFailure(new Error('Failed to read data from file.'))
       );
     }
-    const parsedData = parseUploadedBackupFile(data);
+    const parsedData: Partial<PersistedState> = parseUploadedBackupFile(data);
     yield put<UploadSuccess>(uploadSuccess(parsedData));
     
   } catch (e) {

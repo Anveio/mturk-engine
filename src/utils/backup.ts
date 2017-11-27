@@ -1,9 +1,5 @@
 import * as localforage from 'localforage';
-import {
-  PersistedStateKeys,
-  PersistedState,
-  ReduxPersistObject
-} from '../types';
+import { PersistedStateKeys, PersistedState } from '../types';
 import * as transit from 'transit-immutable-js';
 
 export const persistedStateToJsonString = async () => {
@@ -24,7 +20,7 @@ export const writeToPersistedState = async (data: Partial<PersistedState>) => {
   try {
     await Promise.all(
       Object.keys(data).map(
-        async key => await localforage.setItem(key, data[key])
+        async key => await localforage.setItem(key, JSON.stringify(data[key]))
       )
     );
   } catch (e) {
@@ -97,20 +93,13 @@ export const generateCheckStateKeysMap = (
     new Map<PersistedStateKeys, boolean>()
   );
 
-/**
- * Parses the string contents of a JSON file, then converts any non values into
- * strings and returns a Map containing the key-value pairs.
- * @param data
- */
-
 export const parseUploadedBackupFile = (data: string) => {
   const parsedData = transit.fromJSON(data);
-  console.log(parsedData);
   return Object.keys(parsedData).reduce(
-    (acc: ReduxPersistObject, key: string) => {
-      const value = parsedData[key];
-      return { ...acc, [key]: JSON.stringify(value) };
-    },
+    (acc: Partial<PersistedState>, key: string) => ({
+      ...acc,
+      [key]: parsedData[key]
+    }),
     {}
   );
 };
