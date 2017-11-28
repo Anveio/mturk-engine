@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Button } from '@shopify/polaris';
+import { Stack, Button, TextContainer } from '@shopify/polaris';
 import { ReadPersistedState, readPersistedState } from '../../actions/backup';
 
 export interface Props {}
@@ -12,9 +12,16 @@ export interface Handlers {
 class ExportUserSettings extends React.Component<Props & Handlers, never> {
   public render() {
     return (
-      <Button icon="save" onClick={this.props.onExport}>
-        Export
-      </Button>
+      <Stack>
+        <Button icon="save" onClick={this.props.onExport}>
+          Save Backup
+        </Button>
+        <TextContainer>
+          Download all of your data, including your blocked HITs and your HIT
+          database, in a single file. You can share your backup across different
+          devices and browsers.
+        </TextContainer>
+      </Stack>
     );
   }
 }

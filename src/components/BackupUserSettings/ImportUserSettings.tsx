@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
+import { Stack, TextContainer } from '@shopify/polaris';
 import { UploadRequest, uploadRequest } from '../../actions/upload';
-// import { uploadDataFromFile } from '../../utils/backup';
 
 interface Props {}
 
@@ -46,10 +46,15 @@ class ImportUserSettings extends React.Component<Props & Handlers, State> {
 
   public render() {
     return (
-      <label className="pt-file-upload">
-        <input type="file" onChange={this.uploadFile} accept=".json" />
-        <span className="pt-file-upload-input">{this.generateInputText()}</span>
-      </label>
+      <Stack alignment="baseline">
+        <TextContainer>Upload Backup File</TextContainer>
+        <label className="pt-file-upload">
+          <input type="file" onChange={this.uploadFile} accept=".json" />
+          <span className="pt-file-upload-input">
+            {this.generateInputText()}
+          </span>
+        </label>
+      </Stack>
     );
   }
 }
