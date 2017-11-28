@@ -172,8 +172,30 @@ export const deletePersistedStateToast = (key: ImmutablePersistedStateKeys) =>
 
 export const failedUploadToast = () =>
   TopRightToaster.show({
-    message: `Couldn't read the uploaded file. Your settings have not changed. 
+    message: `There was a problem with the uploaded file. Your settings have not changed. 
     Make sure you've uploaded a valid Mturk Engine backup file and try again.`,
+    timeout: 5000,
+    intent: 3
+  });
+
+export const failedDownloadStateToast = () =>
+  TopRightToaster.show({
+    message: 'There was a problem retrieving your settings.',
+    timeout: 5000,
+    intent: 3
+  });
+
+export const successfulDownloadStateToast = () =>
+  TopRightToaster.show({
+    message:
+      'Your settings have been successfully copied and are ready for download.',
+    intent: 0
+  });
+
+export const failedImportPersistedState = () =>
+  TopRightToaster.show({
+    message:
+      'There was a problem importing the settins from your backup file. Make sure your backup file is valid and try again.',
     timeout: 5000,
     intent: 3
   });

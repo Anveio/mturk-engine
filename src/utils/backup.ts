@@ -66,6 +66,12 @@ export const createTemporaryDownloadLink = (blob: Blob): HTMLAnchorElement => {
   return temporaryAnchor;
 };
 
+export const downloadTemporaryAnchor = (anchor: HTMLAnchorElement) => {
+  document.body.appendChild(anchor);
+  anchor.click();
+  document.body.removeChild(anchor);
+};
+
 /**
  * Translates a persisted state key into UI text.
  */
