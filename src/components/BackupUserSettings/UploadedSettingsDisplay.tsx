@@ -16,7 +16,10 @@ class UploadedSettingsDisplay extends React.Component<Props, never> {
   ): JSX.Element => {
     return Object.keys(uploadedState).length !== 0 ? (
       <Stack vertical>
-        <Banner status="success" title="Uploaded file contains valid settings.">
+        <Banner
+          status="success"
+          title="The uploaded file contains valid settings."
+        >
           <p>
             You can upload the entire backup now or import only specific
             settings using the "Select Settings" button.
