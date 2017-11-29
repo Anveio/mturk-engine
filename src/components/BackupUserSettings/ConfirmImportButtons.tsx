@@ -3,9 +3,9 @@ import { connect, Dispatch } from 'react-redux';
 import { ButtonGroup, Button, Card } from '@shopify/polaris';
 import { Dialog } from '@blueprintjs/core';
 import { writePersistedState, WritePersistedState } from '../../actions/backup';
-import { PersistedState, RootState } from '../../types';
+import { PersistedState, RootState, PersistedStateKeys } from '../../types';
 import StateKeyCheckboxList from './StateKeyCheckboxList';
-import { validUploadedState } from '../../selectors/uploadedState';
+import { generateCheckStateKeysMap } from '../../utils/backup';
 
 interface Props {
   readonly uploadedState: Partial<PersistedState> | null;
@@ -17,10 +17,30 @@ interface Handlers {
 
 interface State {
   readonly modalOpen: boolean;
+  readonly checkedStateKeysMap: Map<PersistedStateKeys, boolean>;
 }
 
-class ConfirmImportButton extends React.PureComponent<Props & Handlers, State> {
-  public readonly state: State = { modalOpen: false };
+class ConfirmImportButtons extends React.PureComponent<Props & Handlers, State> {
+  constructor(props: Props & Handlers) {
+    super(props);
+    this.state = {
+      modalOpen: false,
+      checkedStateKeysMap: props.uploadedState
+        ? generateCheckStateKeysMap(props.uploadedState)
+        : new Map()
+    };
+  }
+
+  private handleClick = (key: PersistedStateKeys, value: boolean) => {
+    this.setState((prevState: State): Partial<State> => {
+      const newState = new Map<PersistedStateKeys, boolean>(
+        prevState.checkedStateKeysMap
+      );
+      return {
+        checkedStateKeysMap: newState.set(key, value)
+      };
+    });
+  };
 
   private toggleModal = () =>
     this.setState((prevState: State): Partial<State> => ({
@@ -44,7 +64,6 @@ class ConfirmImportButton extends React.PureComponent<Props & Handlers, State> {
           iconName="changes"
           title="Pick which settings you would like to import."
           onClose={this.toggleModal}
-          
         >
           <Card
             sectioned
@@ -53,7 +72,11 @@ class ConfirmImportButton extends React.PureComponent<Props & Handlers, State> {
               onAction: this.toggleModal
             }}
           >
-            <StateKeyCheckboxList uploadedState={uploadedState} />
+            <StateKeyCheckboxList
+              uploadedState={uploadedState}
+              checkedStateKeysMap={this.state.checkedStateKeysMap}
+              onClick={this.handleClick}
+            />
           </Card>
         </Dialog>
       </ButtonGroup>
@@ -62,7 +85,7 @@ class ConfirmImportButton extends React.PureComponent<Props & Handlers, State> {
 }
 
 const mapState = (state: RootState): Props => ({
-  uploadedState: validUploadedState(state)
+  uploadedState: state
 });
 
 const mapDispatch = (dispatch: Dispatch<WritePersistedState>): Handlers => ({
@@ -70,4 +93,4 @@ const mapDispatch = (dispatch: Dispatch<WritePersistedState>): Handlers => ({
     dispatch(writePersistedState(payload))
 });
 
-export default connect(mapState, mapDispatch)(ConfirmImportButton);
+export default connect(mapState, mapDispatch)(ConfirmImportButtons);
