@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { ButtonGroup, Button, Card } from '@shopify/polaris';
-import { Popover } from '@blueprintjs/core';
+import { Dialog } from '@blueprintjs/core';
 import { writePersistedState, WritePersistedState } from '../../actions/backup';
 import { PersistedState, RootState } from '../../types';
 import StateKeyCheckboxList from './StateKeyCheckboxList';
@@ -15,7 +15,18 @@ interface Handlers {
   readonly onClick: (payload: Partial<PersistedState>) => void;
 }
 
-class ConfirmImportButton extends React.PureComponent<Props & Handlers, never> {
+interface State {
+  readonly modalOpen: boolean;
+}
+
+class ConfirmImportButton extends React.PureComponent<Props & Handlers, State> {
+  public readonly state: State = { modalOpen: false };
+
+  private toggleModal = () =>
+    this.setState((prevState: State): Partial<State> => ({
+      modalOpen: !prevState.modalOpen
+    }));
+
   public render() {
     const { uploadedState } = this.props;
     return uploadedState ? (
@@ -27,12 +38,24 @@ class ConfirmImportButton extends React.PureComponent<Props & Handlers, never> {
         >
           Confirm Selection & Import
         </Button>
-        <Popover>
-          <Button>Select Settings</Button>
-          <Card sectioned>
+        <Button onClick={this.toggleModal}>Select Settings</Button>
+        <Dialog
+          isOpen={this.state.modalOpen}
+          iconName="changes"
+          title="Pick which settings you would like to import."
+          onClose={this.toggleModal}
+          
+        >
+          <Card
+            sectioned
+            primaryFooterAction={{
+              content: 'Close',
+              onAction: this.toggleModal
+            }}
+          >
             <StateKeyCheckboxList uploadedState={uploadedState} />
           </Card>
-        </Popover>
+        </Dialog>
       </ButtonGroup>
     ) : null;
   }
