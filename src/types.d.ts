@@ -211,7 +211,3 @@ export type HitAcceptFailureReason =
   | 'Unqualified'
   | 'CAPTCHA'
   | 'Unknown';
-
-export interface ReduxPersistObject {
-  readonly [key: string]: string;
-}
