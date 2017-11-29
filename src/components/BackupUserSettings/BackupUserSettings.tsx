@@ -19,7 +19,9 @@ class BackupUserSettings extends React.PureComponent<{}, never> {
           <Card.Section>
             <ImportUserSettings />
           </Card.Section>
-          <UploadedSettingsDisplay />
+          <Card.Section>
+            <UploadedSettingsDisplay />
+          </Card.Section>
         </Card>
       </Layout.AnnotatedSection>
     );
@@ -27,6 +29,3 @@ class BackupUserSettings extends React.PureComponent<{}, never> {
 }
 
 export default BackupUserSettings;
-
-/* description={`Backing up and restoring your settings is simple and fast. 
-        Settings can be shared between browsers and devices.`} */
