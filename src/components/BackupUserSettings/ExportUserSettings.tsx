@@ -3,13 +3,11 @@ import { connect, Dispatch } from 'react-redux';
 import { Stack, Button, TextContainer } from '@shopify/polaris';
 import { ReadPersistedState, readPersistedState } from '../../actions/backup';
 
-export interface Props {}
-
 export interface Handlers {
   readonly onExport: () => void;
 }
 
-class ExportUserSettings extends React.Component<Props & Handlers, never> {
+class ExportUserSettings extends React.Component<Handlers, never> {
   public render() {
     return (
       <Stack>
