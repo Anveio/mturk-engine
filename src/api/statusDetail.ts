@@ -9,21 +9,21 @@ export interface StatusDetailPageInfo {
 }
 
 /**
- * @param encodedDateString in 'MMDDYYYY' format.
+ * @param encodedDate in 'MMDDYYYY' format.
  */
-export const fetchStatusDetailPage = async (
-  encodedDateString: string,
-  page: number = 1
-) => {
+export const fetchStatusDetailPage = async (encodedDate: string, page = 1) => {
   try {
-    const response = await axios.get(`${API_URL}/mturk/statusdetail`, {
-      params: {
-        encodedDate: encodedDateString,
-        pageNumber: page
-      },
-      responseType: 'document'
-    });
-    return parseStatusDetailPage(response.data as Document, encodedDateString);
+    const response = await axios.get<Document>(
+      `${API_URL}/mturk/statusdetail`,
+      {
+        params: {
+          encodedDate: encodedDate,
+          pageNumber: page
+        },
+        responseType: 'document'
+      }
+    );
+    return parseStatusDetailPage(response.data, encodedDate);
   } catch (e) {
     throw Error('Problem fetching status detail: ' + e);
   }

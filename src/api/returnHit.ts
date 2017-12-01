@@ -5,15 +5,15 @@ export type HitReturnStatus = 'repeat' | 'success' | 'error';
 
 export const sendReturnHitRequest = async (hitId: string) => {
   try {
-    const response = await axios.get(`${API_URL}/mturk/return`, {
+    const response = await axios.get<Document>(`${API_URL}/mturk/return`, {
       params: {
         hitId,
         inPipeline: false
       },
       responseType: 'document'
     });
-    const html: Document = response.data;
-    return validateHitReturn(html);
+    const documentResponse = response.data;
+    return validateHitReturn(documentResponse);
   } catch (e) {
     throw new Error('Unknown problem with returning Hit.');
   }
