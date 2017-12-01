@@ -7,12 +7,12 @@ import BackupUserSettings from '../BackupUserSettings/BackupUserSettings';
 
 const SearchTab: React.SFC<{}> = () => {
   return (
-    <div>
+    <>
       <BackupUserSettings />
       <AudioSettings />
       <ToggleNoTO />
       <TurkopticonSettings />
-    </div>
+    </>
   );
 };
 
