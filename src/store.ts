@@ -1,48 +1,23 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import * as immutableTransform from 'redux-persist-transform-immutable';
 import { autoRehydrate, persistStore } from 'redux-persist';
-import * as localForage from 'localforage';
 import { rootReducer } from './reducers';
 import rootSaga from './sagas';
-import {
-  PERSISTED_STATE_WHITELIST,
-  IMMUTABLE_PERSISTED_STATE_WHITELIST
-} from './constants/settings';
-
-// tslint:disable:no-any
-// tslint:disable:no-string-literal
-const devtools: any = window['__REDUX_DEVTOOLS_EXTENSION__']
-  ? window['__REDUX_DEVTOOLS_EXTENSION__']()
-  : (f: any) => f;
+import { config } from './config';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore<any>(
   rootReducer,
-  compose(applyMiddleware(sagaMiddleware), autoRehydrate(), devtools)
+  compose(applyMiddleware(sagaMiddleware), autoRehydrate(), config.devtools)
 );
 
 sagaMiddleware.run(rootSaga);
 
 persistStore(
   store,
-  {
-    whitelist: PERSISTED_STATE_WHITELIST,
-    storage: localForage,
-    transforms: [
-      immutableTransform({
-        whitelist: IMMUTABLE_PERSISTED_STATE_WHITELIST
-      })
-    ]
-  },
-  err =>
-    err
-      ? console.warn(
-          `There was an issue retrieving your Mturk Engine settings. Error Log: ` +
-            err
-        )
-      : undefined
+  config.reduxPersistSettings,
+  config.reduxPersistErrorCallback
 );
 
 export default store;
