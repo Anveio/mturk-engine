@@ -1,44 +1,27 @@
-import {
-  EditAudioSource,
-  ChangeVolume,
-  ToggleAudioEnabled
-} from '../actions/audio';
+import { ChangeVolume, ToggleAudioEnabled } from '../actions/audio';
 import { AudioSettings } from '../types';
-import {
-  EDIT_AUDIO_SOURCE,
-  CHANGE_VOLUME,
-  TOGGLE_AUDIO_ENABLED
-} from '../constants';
+import { CHANGE_VOLUME, TOGGLE_AUDIO_ENABLED } from '../constants';
 
 const initial: AudioSettings = {
   enabled: true,
-  volume: 0.1,
+  volume: 0.1
 };
 
-type AudioAction = EditAudioSource | ChangeVolume | ToggleAudioEnabled;
+type AudioAction = ChangeVolume | ToggleAudioEnabled;
 
-export default (state = initial, action: AudioAction) => {
-  let partialState: Partial<AudioSettings> | undefined;
-
+export default (state = initial, action: AudioAction): AudioSettings => {
   switch (action.type) {
-    case EDIT_AUDIO_SOURCE:
-      partialState = {
-        [action.field]: action.value
-      };
-      break;
     case CHANGE_VOLUME:
-      partialState = {
+      return {
+        ...state,
         volume: action.value
       };
-      break;
     case TOGGLE_AUDIO_ENABLED:
-      partialState = {
-        enabled: !state.enabled
+      return {
+        ...state,
+        enabled: state.enabled
       };
-      break;
     default:
       return state;
   }
-
-  return { ...state, ...partialState };
 };
