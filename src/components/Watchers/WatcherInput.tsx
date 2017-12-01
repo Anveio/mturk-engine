@@ -6,6 +6,7 @@ import {
   pandaLinkValidators,
   watcherFactoryFromId
 } from '../../utils/watchers';
+import { watchForEnter } from '../../utils/watchForEnter';
 
 export interface Handlers {
   readonly onAddWatcher: (groupId: string) => void;
@@ -60,18 +61,15 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
   private handleInput = (value: string) =>
     this.setState((): Partial<State> => ({ value: value, error: null }));
 
-  private watchForEnter = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.charCode === 13) {
-      event.preventDefault();
-      this.handleSubmit();
-    }
-  };
+  private handleEnterKeyPress = watchForEnter<HTMLDivElement>(
+    this.handleSubmit
+  );
 
   public render() {
     return (
       <Card sectioned subdued>
         <FormLayout>
-          <div onKeyPress={this.watchForEnter}>
+          <div onKeyPress={this.handleEnterKeyPress}>
             <TextField
               autoFocus
               label="Add watcher"

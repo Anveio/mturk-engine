@@ -16,25 +16,21 @@ import {
   ConnectedCustomSearchField
 } from './SearchFields';
 import ConnectedQualifiedBox from './QualifiedCheckBox';
+import { watchForEnter } from '../../utils/watchForEnter';
 
 export interface Handlers {
   readonly onSearch: () => void;
 }
 
 class SearchSettings extends React.PureComponent<Handlers, never> {
-  private watchForEnter = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.charCode === 13) {
-      event.preventDefault();
-      this.props.onSearch();
-    }
-  };
+  private onEnter = watchForEnter<HTMLDivElement>(this.props.onSearch);
 
   public render() {
     return (
       <Popover position={Position.BOTTOM} canEscapeKeyClose={true}>
         <Button disclosure>Search Settings</Button>
         <Card.Section>
-          <div onKeyPress={this.watchForEnter}>
+          <div onKeyPress={this.onEnter}>
             <FormLayout>
               <DisplayText size="small">Edit search settings.</DisplayText>
               <Caption>

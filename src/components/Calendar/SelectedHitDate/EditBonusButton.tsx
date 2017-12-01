@@ -11,6 +11,7 @@ import { validatePositiveNumber } from '../../../utils/validation';
 import { formatAsCurrency } from '../../../utils/formatting';
 import { EditBonus, editBonus } from '../../../actions/bonus';
 import { successfulEditBonusToast } from '../../../utils/toaster';
+import { watchForEnter } from '../../../utils/watchForEnter';
 
 export interface OwnProps {
   readonly bonus: number;
@@ -36,12 +37,6 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
       isOpen: false
     };
   }
-
-  private watchForEnter = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.charCode === 13) {
-      this.handleSubmit();
-    }
-  };
 
   private toggleOpen = (nextState: boolean) =>
     this.setState((): Partial<State> => ({
@@ -75,6 +70,10 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
     }));
   };
 
+  private handleEnterKeyPress = watchForEnter<HTMLDivElement>(
+    this.handleSubmit
+  );
+
   public render() {
     return (
       <Popover
@@ -89,7 +88,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
           Bonus: {formatAsCurrency(this.props.bonus)} (Edit)
         </Button>
         <Card sectioned title="Enter a new bonus.">
-          <div onKeyPress={this.watchForEnter}>
+          <div onKeyPress={this.handleEnterKeyPress}>
             <FormLayout>
               <TextField
                 label="Bonus"

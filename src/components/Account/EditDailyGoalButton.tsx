@@ -12,6 +12,7 @@ import { ChangeDailyGoal, changeDailyGoal } from '../../actions/updateValue';
 
 import { validatePositiveNumber } from '../../utils/validation';
 import { successfulEditDailyGoalToast } from '../../utils/toaster';
+import { watchForEnter } from '../../utils/watchForEnter';
 
 export interface Props {
   readonly dailyEarningsGoal: number;
@@ -37,12 +38,6 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
     };
   }
 
-  private watchForEnter = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.charCode === 13) {
-      this.handleSubmit();
-    }
-  };
-
   private toggleOpen = (nextState: boolean) =>
     this.setState((): Partial<State> => ({
       isOpen: nextState
@@ -57,6 +52,10 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
           error: `That's not a valid number`
         }));
   };
+
+  private handleEnterKeyPress = watchForEnter<HTMLDivElement>(
+    this.handleSubmit
+  );
 
   private handleSuccessfulSubmit = (value: string) => {
     this.props.onChange(parseFloat(value));
@@ -89,7 +88,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
           Edit daily goal
         </Button>
         <Card sectioned title="Enter a new daily goal.">
-          <div onKeyPress={this.watchForEnter}>
+          <div onKeyPress={this.handleEnterKeyPress}>
             <FormLayout>
               <TextField
                 label="Daily Goal"
