@@ -1,5 +1,5 @@
 import { TopRightToaster } from '../';
-import { HitReturnStatus } from '../api/returnHit';
+import { HitReturnStatus } from './returnHit';
 import { truncate } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsCurrency } from './formatting';
