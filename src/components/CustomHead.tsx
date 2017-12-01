@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { RootState } from '../types';
-import polarisStylesheet from '../utils/polarisStylesheet';
 import calendarHeatMapStylesheet from '../utils/calendarHeatMapStylesheet';
 import { newResults } from '../selectors/searchTable';
 
@@ -25,8 +24,11 @@ class CustomHead extends React.PureComponent<Props, never> {
           this.props.queueSize
         )}
       >
-        <style>{polarisStylesheet}</style>
         <style>{calendarHeatMapStylesheet}</style>
+        <link
+          rel="stylesheet"
+          href="https://sdks.shopifycdn.com/polaris/1.8.3/polaris.min.css"
+        />
         <link
           rel="stylesheet"
           type="text/css"
