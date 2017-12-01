@@ -7,7 +7,7 @@ import { config } from './config';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore<any>(
+const store = createStore(
   rootReducer,
   compose(applyMiddleware(sagaMiddleware), autoRehydrate(), config.devtools)
 );
