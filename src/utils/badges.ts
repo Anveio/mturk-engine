@@ -13,10 +13,10 @@ export const generateTOpticonBadge = (
   turkopticon?: TOpticonData
 ): BadgeDescriptor[] => {
   if (!turkopticon) {
-    return [ noTOBadge ];
+    return [noTOBadge];
   }
 
-  return [ calculateScoreBadge(turkopticon.attrs) ];
+  return [calculateScoreBadge(turkopticon.attrs)];
 };
 
 export const calculateScoreBadge = (

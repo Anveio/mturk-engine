@@ -6,5 +6,5 @@ export interface ExceptionDescriptor {
 }
 
 export const qualException = (qualified: boolean): ExceptionDescriptor[] => {
-  return !qualified ? [ { status: 'warning', title: 'Not qualified.' } ] : [];
+  return !qualified ? [{ status: 'warning', title: 'Not qualified.' }] : [];
 };
