@@ -18,12 +18,7 @@ interface State {
   readonly collapseOpen: boolean;
 }
 
-interface Props {
-  // tslint:disable-next-line:no-any
-  readonly children: any;
-}
-
-class ErrorBoundary extends React.PureComponent<Props, State> {
+class ErrorBoundary extends React.PureComponent<{}, State> {
   public readonly state: State = { error: false, collapseOpen: false };
 
   componentDidCatch(errorDetails: Error) {
@@ -101,7 +96,7 @@ class ErrorBoundary extends React.PureComponent<Props, State> {
                 If Mturk Engine crashed while navigating to the Blocklist,
                 Watchers, or Account tab, it's possible that the crash was due
                 to data corruption. You can try deleting the data relevant to
-                the tab that caused the crash. {' '}
+                the tab that caused the crash.{' '}
                 <TextStyle variation="strong">
                   These actions are *NOT* reversable.
                 </TextStyle>
