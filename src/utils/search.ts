@@ -15,9 +15,9 @@ export const rejectInvalidGroupId = (hit: SearchResult) =>
   !hit.groupId.startsWith('[Error:');
 
 /**
- * Returns true if a search result in a successful search has an entry that 
- * exists in prevSearchResult. 
- * @param action 
+ * Returns true if a search result in a successful search has an entry that
+ * exists in prevSearchResult.
+ * @param action
  */
 export const resultsThatAppearInBoth = (action: SearchSuccess) => (
   prevSearchResult: SearchResult
@@ -26,25 +26,21 @@ export const resultsThatAppearInBoth = (action: SearchSuccess) => (
 export const conflictsUpdateOnlyIndexes = (
   oldResult: SearchResult,
   newResult: SearchResult
-): SearchResult => {
-  return {
-    ...oldResult,
-    index: newResult.index,
-    requester: oldResult.requester
-  };
-};
+): SearchResult => ({
+  ...oldResult,
+  index: newResult.index,
+  requester: oldResult.requester
+});
 
 export const conflictsUseOldExpandedProp = (
   oldResult: SearchResult,
   newResult: SearchResult
-): SearchResult => {
-  return {
-    ...newResult,
-    expanded: oldResult.expanded,
-    markedAsRead: oldResult.markedAsRead,
-    requester: oldResult.requester
-  };
-};
+): SearchResult => ({
+  ...newResult,
+  expanded: oldResult.expanded,
+  markedAsRead: oldResult.markedAsRead,
+  requester: oldResult.requester
+});
 
 export const markAsRead = (hit: SearchResult): SearchResult => ({
   ...hit,
