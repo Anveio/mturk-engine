@@ -31,7 +31,7 @@ class SearchButtons extends React.PureComponent<Props & Handlers, never> {
 
     return (
       <Card sectioned>
-        <Stack vertical={false} alignment="baseline">
+        <Stack vertical={false} alignment="center">
           <ButtonGroup segmented>
             <Button
               primary

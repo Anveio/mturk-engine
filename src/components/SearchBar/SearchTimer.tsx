@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../types';
-import { Caption } from '@shopify/polaris';
+import { TextContainer, Stack, Spinner } from '@shopify/polaris';
 
 interface Props {
   readonly timeNextSearch: Date | null;
@@ -11,11 +11,6 @@ interface Props {
 interface State {
   readonly timeUntilNextSearch: number | null;
 }
-
-const mapState = (state: RootState): Props => ({
-  timeNextSearch: state.timeNextSearch,
-  waitingForMturk: state.waitingForMturk
-});
 
 class SearchTimer extends React.PureComponent<Props, State> {
   private static readonly tickRate: number = 50;
@@ -73,21 +68,32 @@ class SearchTimer extends React.PureComponent<Props, State> {
     }
   };
 
+  static waitingForMturkMarkup = () => (
+    <Stack vertical={false} spacing="extraTight">
+      <Spinner size="small" />
+      <TextContainer>Waiting for Mturk response...</TextContainer>
+    </Stack>
+  );
+
+  static waitingForNextSearchMarkup = (timeUntilNextSearch: number) => (
+    <TextContainer>
+      Next search in {SearchTimer.formatAsSeconds(timeUntilNextSearch)} seconds.
+    </TextContainer>
+  );
+
   private generateCaptionText = () => {
     const { waitingForMturk, timeNextSearch } = this.props;
+    const { timeUntilNextSearch } = this.state;
     if (waitingForMturk) {
-      return <Caption>Waiting for Mturk response...</Caption>;
-    } else if (this.dateNumNextSearch && timeNextSearch) {
-      return (
-        <Caption>
-          Next search in{' '}
-          {SearchTimer.formatAsSeconds(this.state
-            .timeUntilNextSearch as number)}{' '}
-          seconds.
-        </Caption>
-      );
+      return SearchTimer.waitingForMturkMarkup();
+    } else if (
+      this.dateNumNextSearch &&
+      timeNextSearch &&
+      timeUntilNextSearch
+    ) {
+      return SearchTimer.waitingForNextSearchMarkup(timeUntilNextSearch);
     } else {
-      return <div />;
+      return null;
     }
   };
 
@@ -95,5 +101,10 @@ class SearchTimer extends React.PureComponent<Props, State> {
     return this.generateCaptionText();
   }
 }
+
+const mapState = (state: RootState): Props => ({
+  timeNextSearch: state.timeNextSearch,
+  waitingForMturk: state.waitingForMturk
+});
 
 export default connect(mapState)(SearchTimer);
