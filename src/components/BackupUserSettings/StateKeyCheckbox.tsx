@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { Checkbox } from '@shopify/polaris';
-import { PersistedStateKeys } from '../../types';
+import { PersistedStateKey } from '../../types';
 import { stateKeyMap } from '../../utils/backup';
 // import { PersistedState } from '../../types';
 
 export interface Props {
-  readonly stateKey: PersistedStateKeys;
+  readonly stateKey: PersistedStateKey;
   readonly checked: boolean;
 }
 
 export interface Handlers {
   // tslint:disable-next-line:no-any
-  readonly onClick: (key: PersistedStateKeys, value: any) => void;
+  readonly onClick: (key: PersistedStateKey, value: any) => void;
 }
 
 class StateKeyCheckbox extends React.Component<Props & Handlers, never> {

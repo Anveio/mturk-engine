@@ -38,7 +38,7 @@ export type HitDatabaseMap = Map<string, HitDatabaseEntry>;
  * The keys of RootState that are persisted by redux-persist.
  * See `PERSISTED_STATE_WHITELIST` in ./constants/settings
  */
-export type PersistedStateKeys =
+export type PersistedStateKey =
   | 'tab'
   | 'account'
   | 'hitBlocklist'
@@ -51,16 +51,16 @@ export type PersistedStateKeys =
   | 'audioSettingsV1'
   | 'dailyEarningsGoal';
 
-export type ImmutablePersistedStateKeys =
+export type ImmutablePersistedStateKey =
   | 'hitDatabase'
   | 'hitBlocklist'
   | 'watchers'
   | 'requesterBlocklist';
 
-export type PersistedState = Pick<RootState, PersistedStateKeys>;
+export type PersistedState = Pick<RootState, PersistedStateKey>;
 export type ImmutablePersistedState = Pick<
   RootState,
-  ImmutablePersistedStateKeys
+  ImmutablePersistedStateKey
 >;
 
 export type MaybeAccount = AccountInfo | null;

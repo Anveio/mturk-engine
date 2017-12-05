@@ -3,7 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import { ButtonGroup, Button, Card } from '@shopify/polaris';
 import { Dialog } from '@blueprintjs/core';
 import { writePersistedState, WritePersistedState } from '../../actions/backup';
-import { PersistedState, RootState, PersistedStateKeys } from '../../types';
+import { PersistedState, RootState, PersistedStateKey } from '../../types';
 import StateKeyCheckboxList from './StateKeyCheckboxList';
 import { generateCheckStateKeysMap } from '../../utils/backup';
 import { validUploadedState } from '../../selectors/uploadedState';
@@ -13,12 +13,12 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onClick: (payload: PersistedStateKeys[]) => void;
+  readonly onClick: (payload: PersistedStateKey[]) => void;
 }
 
 interface State {
   readonly modalOpen: boolean;
-  readonly checkedStateKeysMap: Map<PersistedStateKeys, boolean>;
+  readonly checkedStateKeysMap: Map<PersistedStateKey, boolean>;
 }
 
 class ConfirmImportButtons extends React.PureComponent<
@@ -35,9 +35,9 @@ class ConfirmImportButtons extends React.PureComponent<
     };
   }
 
-  private toggleCheckbox = (key: PersistedStateKeys, value: boolean) => {
+  private toggleCheckbox = (key: PersistedStateKey, value: boolean) => {
     this.setState((prevState: State): Partial<State> => {
-      const newState = new Map<PersistedStateKeys, boolean>(
+      const newState = new Map<PersistedStateKey, boolean>(
         prevState.checkedStateKeysMap
       );
       return {
@@ -46,10 +46,10 @@ class ConfirmImportButtons extends React.PureComponent<
     });
   };
 
-  private generateWhiteList = (): PersistedStateKeys[] => {
+  private generateWhiteList = (): PersistedStateKey[] => {
     const { checkedStateKeysMap } = this.state;
     return Array.from(checkedStateKeysMap.keys()).reduce(
-      (acc: PersistedStateKeys[], key: PersistedStateKeys) =>
+      (acc: PersistedStateKey[], key: PersistedStateKey) =>
         checkedStateKeysMap.get(key) ? [...acc, key] : acc,
       []
     );
@@ -101,7 +101,7 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<WritePersistedState>): Handlers => ({
-  onClick: (whiteList: PersistedStateKeys[]) =>
+  onClick: (whiteList: PersistedStateKey[]) =>
     dispatch(writePersistedState(whiteList))
 });
 

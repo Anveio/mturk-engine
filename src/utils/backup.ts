@@ -1,5 +1,5 @@
 import * as localforage from 'localforage';
-import { PersistedStateKeys, PersistedState } from '../types';
+import { PersistedStateKey, PersistedState } from '../types';
 import * as transit from 'transit-immutable-js';
 
 export const persistedStateToJsonString = async () => {
@@ -75,7 +75,7 @@ export const downloadTemporaryAnchor = (anchor: HTMLAnchorElement) => {
 /**
  * Translates a persisted state key into UI text.
  */
-export const stateKeyMap = new Map<PersistedStateKeys, string>([
+export const stateKeyMap = new Map<PersistedStateKey, string>([
   ['tab', 'Currently Selected Tab'],
   ['account', 'Account Details'],
   ['hitBlocklist', 'Blocked HITs'],
@@ -89,14 +89,14 @@ export const stateKeyMap = new Map<PersistedStateKeys, string>([
   ['dailyEarningsGoal', 'Daily Earnings Goal']
 ]);
 
-export type CheckedStateKeyMap = Map<PersistedStateKeys, boolean>;
+export type CheckedStateKeyMap = Map<PersistedStateKey, boolean>;
 
 export const generateCheckStateKeysMap = (
   payload: Partial<PersistedState>
 ): CheckedStateKeyMap =>
   Object.keys(payload).reduce(
-    (acc: CheckedStateKeyMap, cur: PersistedStateKeys) => acc.set(cur, true),
-    new Map<PersistedStateKeys, boolean>()
+    (acc: CheckedStateKeyMap, cur: PersistedStateKey) => acc.set(cur, true),
+    new Map<PersistedStateKey, boolean>()
   );
 
 export const parseUploadedBackupFile = (data: string) => {
@@ -110,12 +110,12 @@ export const parseUploadedBackupFile = (data: string) => {
   );
 };
 
-export const keepOnlyCheckedStateKeys = (whiteList: PersistedStateKeys[]) => (
+export const keepOnlyCheckedStateKeys = (whiteList: PersistedStateKey[]) => (
   uploadedState: Partial<PersistedState> | null
 ): Partial<PersistedState> => {
   return uploadedState
     ? whiteList.reduce(
-        (acc: Partial<PersistedState>, key: PersistedStateKeys) => ({
+        (acc: Partial<PersistedState>, key: PersistedStateKey) => ({
           [`reduxPersist:${key}`]: uploadedState[`reduxPersist:${key}`]
         }),
         {}
