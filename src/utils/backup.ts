@@ -116,6 +116,7 @@ export const keepOnlyCheckedStateKeys = (whiteList: PersistedStateKey[]) => (
   return uploadedState
     ? whiteList.reduce(
         (acc: Partial<PersistedState>, key: PersistedStateKey) => ({
+          ...acc,
           [`reduxPersist:${key}`]: uploadedState[`reduxPersist:${key}`]
         }),
         {}
