@@ -6,7 +6,7 @@ export const validateInbounds = (value: string) => {
 export const validateInteger = (value: string): boolean => /^\d+$/.test(value);
 
 export const validateNumber = (value: string): boolean =>
-  !isNaN(parseFloat(value)) && isFinite(parseFloat(value));
+  !Number.isNaN(parseFloat(value)) && isFinite(parseFloat(value));
 
 export const validatePositiveNumber = (value: string): boolean =>
   validateNumber(value) && parseFloat(value) >= 0;
