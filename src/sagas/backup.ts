@@ -1,17 +1,20 @@
-import { call } from 'redux-saga/effects';
+import { call, select } from 'redux-saga/effects';
 import { ReadPersistedState, WritePersistedState } from '../actions/backup';
 import {
   persistedStateToJsonString,
   generateBackupBlob,
   createTemporaryDownloadLink,
   writeToPersistedState,
-  downloadTemporaryAnchor
+  downloadTemporaryAnchor,
+  keepOnlyCheckedStateKeys
 } from '../utils/backup';
 import {
   failedImportPersistedState,
   failedDownloadStateToast,
   successfulDownloadStateToast
 } from '../utils/toaster';
+import { PersistedState } from '../types';
+import { uploadedStateSelector } from '../selectors/uploadedState';
 
 export function* downloadPersistedState(action: ReadPersistedState) {
   try {
@@ -28,7 +31,13 @@ export function* downloadPersistedState(action: ReadPersistedState) {
 
 export function* importPersistedState(action: WritePersistedState) {
   try {
-    yield call(writeToPersistedState, action.payload);
+    const uploadedState: Partial<PersistedState> | null = yield select(
+      uploadedStateSelector
+    );
+    const stateToImport: Partial<PersistedState> = keepOnlyCheckedStateKeys(
+      action.whiteList
+    )(uploadedState);
+    yield call(writeToPersistedState, stateToImport);
     location = location;
   } catch (e) {
     console.warn(e);

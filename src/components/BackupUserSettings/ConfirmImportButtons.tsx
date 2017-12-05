@@ -6,13 +6,14 @@ import { writePersistedState, WritePersistedState } from '../../actions/backup';
 import { PersistedState, RootState, PersistedStateKeys } from '../../types';
 import StateKeyCheckboxList from './StateKeyCheckboxList';
 import { generateCheckStateKeysMap } from '../../utils/backup';
+import { validUploadedState } from '../../selectors/uploadedState';
 
 interface Props {
   readonly uploadedState: Partial<PersistedState> | null;
 }
 
 interface Handlers {
-  readonly onClick: (payload: Partial<PersistedState>) => void;
+  readonly onClick: (payload: PersistedStateKeys[]) => void;
 }
 
 interface State {
@@ -20,7 +21,10 @@ interface State {
   readonly checkedStateKeysMap: Map<PersistedStateKeys, boolean>;
 }
 
-class ConfirmImportButtons extends React.PureComponent<Props & Handlers, State> {
+class ConfirmImportButtons extends React.PureComponent<
+  Props & Handlers,
+  State
+> {
   constructor(props: Props & Handlers) {
     super(props);
     this.state = {
@@ -31,7 +35,7 @@ class ConfirmImportButtons extends React.PureComponent<Props & Handlers, State> 
     };
   }
 
-  private handleClick = (key: PersistedStateKeys, value: boolean) => {
+  private toggleCheckbox = (key: PersistedStateKeys, value: boolean) => {
     this.setState((prevState: State): Partial<State> => {
       const newState = new Map<PersistedStateKeys, boolean>(
         prevState.checkedStateKeysMap
@@ -42,17 +46,26 @@ class ConfirmImportButtons extends React.PureComponent<Props & Handlers, State> 
     });
   };
 
+  private generateWhiteList = (): PersistedStateKeys[] => {
+    const { checkedStateKeysMap } = this.state;
+    return Array.from(checkedStateKeysMap.keys()).reduce(
+      (acc: PersistedStateKeys[], key: PersistedStateKeys) =>
+        checkedStateKeysMap.get(key) ? [...acc, key] : acc,
+      []
+    );
+  };
+
   private toggleModal = () =>
     this.setState((prevState: State): Partial<State> => ({
       modalOpen: !prevState.modalOpen
     }));
 
   public render() {
-    const { uploadedState } = this.props;
+    const { uploadedState, onClick } = this.props;
     return uploadedState ? (
       <ButtonGroup>
         <Button
-          onClick={() => this.props.onClick(uploadedState)}
+          onClick={() => onClick(this.generateWhiteList())}
           primary
           icon="import"
         >
@@ -73,9 +86,8 @@ class ConfirmImportButtons extends React.PureComponent<Props & Handlers, State> 
             }}
           >
             <StateKeyCheckboxList
-              uploadedState={uploadedState}
               checkedStateKeysMap={this.state.checkedStateKeysMap}
-              onClick={this.handleClick}
+              onClick={this.toggleCheckbox}
             />
           </Card>
         </Dialog>
@@ -85,12 +97,12 @@ class ConfirmImportButtons extends React.PureComponent<Props & Handlers, State> 
 }
 
 const mapState = (state: RootState): Props => ({
-  uploadedState: state
+  uploadedState: validUploadedState(state)
 });
 
 const mapDispatch = (dispatch: Dispatch<WritePersistedState>): Handlers => ({
-  onClick: (payload: Partial<PersistedState>) =>
-    dispatch(writePersistedState(payload))
+  onClick: (whiteList: PersistedStateKeys[]) =>
+    dispatch(writePersistedState(whiteList))
 });
 
 export default connect(mapState, mapDispatch)(ConfirmImportButtons);

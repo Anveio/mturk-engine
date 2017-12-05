@@ -31,7 +31,7 @@ export interface State {
 class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
   constructor(props: Props & Handlers) {
     super(props);
-
+    
     this.state = {
       value: props.dailyEarningsGoal.toFixed(2),
       isOpen: false

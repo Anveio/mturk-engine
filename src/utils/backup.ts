@@ -109,3 +109,16 @@ export const parseUploadedBackupFile = (data: string) => {
     {}
   );
 };
+
+export const keepOnlyCheckedStateKeys = (whiteList: PersistedStateKeys[]) => (
+  uploadedState: Partial<PersistedState> | null
+): Partial<PersistedState> => {
+  return uploadedState
+    ? whiteList.reduce(
+        (acc: Partial<PersistedState>, key: PersistedStateKeys) => ({
+          [`reduxPersist:${key}`]: uploadedState[`reduxPersist:${key}`]
+        }),
+        {}
+      )
+    : {};
+};

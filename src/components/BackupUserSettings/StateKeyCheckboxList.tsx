@@ -1,10 +1,15 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { FormLayout } from '@shopify/polaris';
-import { PersistedState, PersistedStateKeys } from '../../types';
+import { PersistedState, PersistedStateKeys, RootState } from '../../types';
 import StateKeyCheckbox from './StateKeyCheckbox';
+import { validUploadedState } from '../../selectors/uploadedState';
 
 export interface Props {
-  readonly uploadedState: Partial<PersistedState>;
+  readonly uploadedState: Partial<PersistedState> | null;
+}
+
+export interface OwnProps {
   readonly checkedStateKeysMap: Map<PersistedStateKeys, boolean>;
 }
 
@@ -13,11 +18,14 @@ export interface Handlers {
   readonly onClick: (key: PersistedStateKeys, value: any) => void;
 }
 
-class StateKeyCheckboxList extends React.Component<Props & Handlers, never> {
+class StateKeyCheckboxList extends React.Component<
+  Props & OwnProps & Handlers,
+  never
+> {
   public render() {
     const { uploadedState, checkedStateKeysMap, onClick } = this.props;
 
-    return (
+    return uploadedState ? (
       <FormLayout>
         {/* <Heading>Pick which settings you would like to import.</Heading> */}
         {Object.keys(uploadedState).map((stateKey: PersistedStateKeys) => (
@@ -29,8 +37,12 @@ class StateKeyCheckboxList extends React.Component<Props & Handlers, never> {
           />
         ))}
       </FormLayout>
-    );
+    ) : null;
   }
 }
 
-export default StateKeyCheckboxList;
+const mapState = (state: RootState): Props => ({
+  uploadedState: validUploadedState(state)
+});
+
+export default connect(mapState)(StateKeyCheckboxList);

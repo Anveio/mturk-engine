@@ -1,5 +1,5 @@
 import { READ_PERSISTED_STATE, WRITE_PERSISTED_STATE } from '../constants';
-import { PersistedState } from '../types';
+import { PersistedStateKeys } from '../types';
 
 export interface ReadPersistedState {
   readonly type: READ_PERSISTED_STATE;
@@ -7,7 +7,7 @@ export interface ReadPersistedState {
 
 export interface WritePersistedState {
   readonly type: WRITE_PERSISTED_STATE;
-  readonly payload: Partial<PersistedState>;
+  readonly whiteList: PersistedStateKeys[];
 }
 
 export const readPersistedState = (): ReadPersistedState => ({
@@ -15,8 +15,8 @@ export const readPersistedState = (): ReadPersistedState => ({
 });
 
 export const writePersistedState = (
-  payload: Partial<PersistedState>
+  whiteList: PersistedStateKeys[]
 ): WritePersistedState => ({
   type: WRITE_PERSISTED_STATE,
-  payload
+  whiteList
 });
