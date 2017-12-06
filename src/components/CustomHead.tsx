@@ -27,6 +27,7 @@ class CustomHead extends React.PureComponent<Props, never> {
         <style>{calendarHeatMapStylesheet}</style>
         <link
           rel="stylesheet"
+          type="text/css"
           href="https://sdks.shopifycdn.com/polaris/1.8.3/polaris.min.css"
         />
         <link
