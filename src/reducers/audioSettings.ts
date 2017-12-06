@@ -19,7 +19,7 @@ export default (state = initial, action: AudioAction): AudioSettings => {
     case TOGGLE_AUDIO_ENABLED:
       return {
         ...state,
-        enabled: state.enabled
+        enabled: !state.enabled
       };
     default:
       return state;
