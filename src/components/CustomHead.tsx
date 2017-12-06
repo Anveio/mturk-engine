@@ -28,7 +28,7 @@ class CustomHead extends React.PureComponent<Props, never> {
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://sdks.shopifycdn.com/polaris/1.8.3/polaris.min.css"
+          href="https://unpkg.com/normalize.css@^4.1.1"
         />
         <link
           rel="stylesheet"
@@ -38,7 +38,7 @@ class CustomHead extends React.PureComponent<Props, never> {
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://unpkg.com/normalize.css@^4.1.1"
+          href="https://sdks.shopifycdn.com/polaris/1.8.3/polaris.min.css"
         />
       </Helmet>
     );
