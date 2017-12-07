@@ -39,7 +39,7 @@ class SelectSettingsDialog extends React.PureComponent<
       >
         <Card
           sectioned
-          title="The following settings were found:"
+          title="Found the following settings..."
           primaryFooterAction={primaryAction}
           secondaryFooterAction={secondaryAction}
           actions={[

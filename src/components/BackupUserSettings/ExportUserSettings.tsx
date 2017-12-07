@@ -10,14 +10,12 @@ export interface Handlers {
 class ExportUserSettings extends React.Component<Handlers, never> {
   public render() {
     return (
-      <Stack>
+      <Stack alignment="baseline">
         <Button icon="save" onClick={this.props.onExport}>
           Save Backup
         </Button>
         <TextContainer>
-          Download all of your data, including your blocked HITs and your HIT
-          database, in a single file. You can share your backup across different
-          devices and browsers.
+          Download all of your data in a single, glorious file.
         </TextContainer>
       </Stack>
     );

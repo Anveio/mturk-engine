@@ -21,8 +21,9 @@ class BackupUserSettings extends React.PureComponent<Props, never> {
     return (
       <Layout.AnnotatedSection
         title="Backup Your Settings"
-        description={`You 
-      can download all of your settings as a single file to keep them backed up.`}
+        description={`Download all of your data, including your blocked HITs, watchers, and HIT
+        database, in a single file. Your backup can be shared across different
+        devices and browsers.`}
       >
         <Card sectioned>
           <ExportUserSettings />
