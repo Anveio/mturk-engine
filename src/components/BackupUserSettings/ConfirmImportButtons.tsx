@@ -30,10 +30,17 @@ class ConfirmImportButtons extends React.PureComponent<
     this.state = {
       modalOpen: false,
       checkedStateKeysMap: props.uploadedState
-        ? generateCheckStateKeysMap(props.uploadedState)
+        ? generateCheckStateKeysMap(true)(props.uploadedState)
         : new Map()
     };
   }
+
+  private toggleAllCheckboxes = (status: boolean) => (
+    uploadedState: Partial<PersistedState>
+  ) =>
+    this.setState({
+      checkedStateKeysMap: generateCheckStateKeysMap(status)(uploadedState)
+    });
 
   private toggleCheckbox = (key: PersistedStateKey, value: boolean) => {
     this.setState((prevState: State): Partial<State> => {
@@ -80,10 +87,21 @@ class ConfirmImportButtons extends React.PureComponent<
         >
           <Card
             sectioned
+            title="The following settings were found:"
             primaryFooterAction={{
               content: 'Close',
               onAction: this.toggleModal
             }}
+            actions={[
+              {
+                content: 'Uncheck all',
+                onAction: () => this.toggleAllCheckboxes(false)(uploadedState)
+              },
+              {
+                content: 'Check all',
+                onAction: () => this.toggleAllCheckboxes(true)(uploadedState)
+              }
+            ]}
           >
             <StateKeyCheckboxList
               checkedStateKeysMap={this.state.checkedStateKeysMap}

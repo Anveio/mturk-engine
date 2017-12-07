@@ -108,11 +108,11 @@ export const immutableStateKeyLookup = new Map<
 
 export type CheckedStateKeyMap = Map<PersistedStateKey, boolean>;
 
-export const generateCheckStateKeysMap = (
+export const generateCheckStateKeysMap = (status: boolean) => (
   payload: Partial<PersistedState>
 ): CheckedStateKeyMap =>
   Object.keys(payload).reduce(
-    (acc: CheckedStateKeyMap, cur: PersistedStateKey) => acc.set(cur, true),
+    (acc: CheckedStateKeyMap, cur: PersistedStateKey) => acc.set(cur, status),
     new Map<PersistedStateKey, boolean>()
   );
 
