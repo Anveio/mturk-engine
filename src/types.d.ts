@@ -57,6 +57,12 @@ export type ImmutablePersistedStateKey =
   | 'watchers'
   | 'requesterBlocklist';
 
+export type ImmutablePersistedDataType =
+  | HitBlockMap
+  | RequesterBlockMap
+  | WatcherMap
+  | HitDatabaseMap;
+
 export type PersistedState = Pick<RootState, PersistedStateKey>;
 export type ImmutablePersistedState = Pick<
   RootState,
