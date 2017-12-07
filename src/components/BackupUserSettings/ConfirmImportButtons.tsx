@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { ButtonGroup, Button, Card } from '@shopify/polaris';
-import { Dialog } from '@blueprintjs/core';
+import { ButtonGroup, Button } from '@shopify/polaris';
+import SelectSettingsDialog from './SelectSettingsDialog';
+import StateKeyCheckboxList from './StateKeyCheckboxList';
 import { writePersistedState, WritePersistedState } from '../../actions/backup';
 import { PersistedState, RootState, PersistedStateKey } from '../../types';
-import StateKeyCheckboxList from './StateKeyCheckboxList';
 import { generateCheckStateKeysMap } from '../../utils/backup';
 import { validUploadedState } from '../../selectors/uploadedState';
 
@@ -35,8 +35,8 @@ class ConfirmImportButtons extends React.PureComponent<
     };
   }
 
-  private toggleAllCheckboxes = (status: boolean) => (
-    uploadedState: Partial<PersistedState>
+  private toggleAllCheckboxes = (uploadedState: Partial<PersistedState>) => (
+    status: boolean
   ) =>
     this.setState({
       checkedStateKeysMap: generateCheckStateKeysMap(status)(uploadedState)
@@ -79,36 +79,16 @@ class ConfirmImportButtons extends React.PureComponent<
           Confirm Selection & Import
         </Button>
         <Button onClick={this.toggleModal}>Select Settings</Button>
-        <Dialog
-          isOpen={this.state.modalOpen}
-          iconName="changes"
-          title="Pick which settings you would like to import."
+        <SelectSettingsDialog
+          modalOpen={this.state.modalOpen}
           onClose={this.toggleModal}
+          onToggleAll={this.toggleAllCheckboxes(uploadedState)}
         >
-          <Card
-            sectioned
-            title="The following settings were found:"
-            primaryFooterAction={{
-              content: 'Close',
-              onAction: this.toggleModal
-            }}
-            actions={[
-              {
-                content: 'Uncheck all',
-                onAction: () => this.toggleAllCheckboxes(false)(uploadedState)
-              },
-              {
-                content: 'Check all',
-                onAction: () => this.toggleAllCheckboxes(true)(uploadedState)
-              }
-            ]}
-          >
-            <StateKeyCheckboxList
-              checkedStateKeysMap={this.state.checkedStateKeysMap}
-              onClick={this.toggleCheckbox}
-            />
-          </Card>
-        </Dialog>
+          <StateKeyCheckboxList
+            checkedStateKeysMap={this.state.checkedStateKeysMap}
+            onClick={this.toggleCheckbox}
+          />
+        </SelectSettingsDialog>
       </ButtonGroup>
     ) : null;
   }
