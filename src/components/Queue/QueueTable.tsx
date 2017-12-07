@@ -16,9 +16,9 @@ export interface Handlers {
 }
 
 class QueueTable extends React.PureComponent<Props & Handlers, never> {
-  componentWillMount() {
-    this.props.onRefresh();
-  }
+  // componentWillMount() {
+  //   this.props.onRefresh();
+  // }
 
   public render() {
     const { queueItemIds, onRefresh } = this.props;
