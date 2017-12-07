@@ -25,6 +25,13 @@ class UploadedSettingsDisplay extends React.Component<Props, never> {
             settings using the "Select Settings" button.
           </p>
         </Banner>
+        <Banner status="warning">
+          <p>
+            Importing a setting (e.g. a blocklist) will{' '}
+            <strong>completely overwite</strong> that setting. It's recommended
+            you make a backup of your existing settings first.
+          </p>
+        </Banner>
         <ConfirmImportButtons />
       </Stack>
     ) : (
