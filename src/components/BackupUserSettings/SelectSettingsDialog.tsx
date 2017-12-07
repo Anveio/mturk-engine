@@ -9,6 +9,7 @@ export interface Props {
 export interface Handlers {
   readonly onClose: () => void;
   readonly onToggleAll: (status: boolean) => void;
+  readonly onSubmit: () => void;
 }
 
 class SelectSettingsDialog extends React.PureComponent<
@@ -16,7 +17,19 @@ class SelectSettingsDialog extends React.PureComponent<
   never
 > {
   public render() {
-    const { onClose, onToggleAll } = this.props;
+    const { onClose, onSubmit, onToggleAll } = this.props;
+
+    const primaryAction = {
+      content: 'Confirm Selection & Import',
+      icon: 'import',
+      onAction: onSubmit
+    };
+
+    const secondaryAction = {
+      content: 'Save Selection & Close',
+      onAction: onClose
+    };
+
     return (
       <Dialog
         isOpen={this.props.modalOpen}
@@ -27,10 +40,8 @@ class SelectSettingsDialog extends React.PureComponent<
         <Card
           sectioned
           title="The following settings were found:"
-          primaryFooterAction={{
-            content: 'Close',
-            onAction: onClose
-          }}
+          primaryFooterAction={primaryAction}
+          secondaryFooterAction={secondaryAction}
           actions={[
             {
               content: 'Uncheck all',

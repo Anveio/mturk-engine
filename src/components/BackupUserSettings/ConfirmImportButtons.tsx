@@ -83,10 +83,12 @@ class ConfirmImportButtons extends React.PureComponent<
           modalOpen={this.state.modalOpen}
           onClose={this.toggleModal}
           onToggleAll={this.toggleAllCheckboxes(uploadedState)}
+          onSubmit={() => onClick(this.generateWhiteList())}
         >
           <StateKeyCheckboxList
             checkedStateKeysMap={this.state.checkedStateKeysMap}
             onClick={this.toggleCheckbox}
+            
           />
         </SelectSettingsDialog>
       </ButtonGroup>
