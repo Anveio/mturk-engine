@@ -1,5 +1,9 @@
 import * as localforage from 'localforage';
-import { PersistedStateKey, PersistedState } from '../types';
+import {
+  PersistedStateKey,
+  PersistedState,
+  ImmutablePersistedStateKey
+} from '../types';
 import * as transit from 'transit-immutable-js';
 
 export const persistedStateToJsonString = async () => {
@@ -89,6 +93,19 @@ export const stateKeyMap = new Map<PersistedStateKey, string>([
   ['dailyEarningsGoal', 'Daily Earnings Goal']
 ]);
 
+/**
+ * Provides O(1) lookup to determine if a key is for an immutable object.
+ */
+export const immutableStateKeyLookup = new Map<
+  ImmutablePersistedStateKey,
+  boolean
+>([
+  ['hitBlocklist', true],
+  ['hitDatabase', true],
+  ['requesterBlocklist', true],
+  ['watchers', true]
+]);
+
 export type CheckedStateKeyMap = Map<PersistedStateKey, boolean>;
 
 export const generateCheckStateKeysMap = (
@@ -109,6 +126,8 @@ export const parseUploadedBackupFile = (data: string) => {
     {}
   );
 };
+
+export const parseImmutableJson = (data: string) => transit.fromJSON(data);
 
 export const keepOnlyCheckedStateKeys = (whiteList: PersistedStateKey[]) => (
   uploadedState: Partial<PersistedState> | null
