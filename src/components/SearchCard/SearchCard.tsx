@@ -16,6 +16,7 @@ import { truncate } from '../../utils/formatting';
 import { qualException } from '../../utils/exceptions';
 import { generateTOpticonBadge } from '../../utils/badges';
 import { blockedHitFactory } from '../../utils/blocklist';
+import { Fragment } from '../Fragment';
 
 export interface Props {
   readonly hit: SearchResult;
@@ -95,7 +96,7 @@ class SearchCard extends React.PureComponent<
     const { qualified, title, requester, markedAsRead } = hit;
 
     return (
-      <div>
+      <Fragment>
         <div
           onClick={this.handleExpand}
           style={SearchCard.generateStyle(!!markedAsRead)}
@@ -107,11 +108,13 @@ class SearchCard extends React.PureComponent<
             attributeOne={truncate(requester.name, 40)}
             attributeTwo={truncate(title, 120)}
             attributeThree={
-              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />}
+              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
+              // tslint:disable-next-line:jsx-curly-spacing
+            }
           />
         </div>
         <CollapsibleInfo open={!!hit.expanded} hit={this.props.hit} />
-      </div>
+      </Fragment>
     );
   }
 }
