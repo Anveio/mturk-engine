@@ -41,7 +41,7 @@ class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
   };
 
   public render() {
-    const { tooltipContent } = CalendarButtons;
+    const { tooltipContent, captionContent } = CalendarButtons;
     return (
       <Stack vertical>
         <div className="pt-button-group pt-minimal">
@@ -64,7 +64,7 @@ class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
           </Button>
         </div>
         <Collapse isOpen={this.state.hovering}>
-          <Caption>{CalendarButtons.captionContent}</Caption>
+          <Caption>{captionContent}</Caption>
         </Collapse>
       </Stack>
     );

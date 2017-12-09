@@ -30,9 +30,7 @@ class SearchTable extends React.Component<Props, never> {
         <SearchTableButtons />
         <ResourceList
           items={resultsIds.toArray()}
-          renderItem={(id: string) => {
-            return <SearchCard key={id} groupId={id} />;
-          }}
+          renderItem={(id: string) => <SearchCard key={id} groupId={id} />}
         />
       </Card>
     );
