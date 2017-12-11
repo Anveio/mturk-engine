@@ -21,7 +21,7 @@ export const createToastLayer = () =>
 
 export const copyIdToast = () =>
   TopRightToaster.show({
-    message: 'Worker ID copied to clipboard',
+    message: 'Worker ID copied to clipboard.',
     timeout: 2000
   });
 
