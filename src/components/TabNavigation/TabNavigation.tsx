@@ -3,6 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import { Tabs2 as Tabs, Tab2 as Tab } from '@blueprintjs/core';
 import { RootState } from '../../types';
 import { changeTab, ChangeTab } from '../../actions/updateValue';
+import { TabIndex } from '../../constants/tabs';
 import QueueTable from '../Queue/QueueTable';
 import SearchTab from './SearchTab';
 import Account from '../Account/Account';
@@ -31,12 +32,16 @@ const TabNavigation: React.SFC<Props & Handlers> = ({
       onChange={onSelectTab}
       animate={false}
     >
-      <Tab id={0} title="Search" panel={<SearchTab />} />
-      <Tab id={1} title={`Queue (${queueSize})`} panel={<QueueTable />} />
-      <Tab id={2} title="Watchers" panel={<Watchers />} />
-      <Tab id={3} title="Blocklist" panel={<BlockLists />} />
-      <Tab id={4} title="Account" panel={<Account />} />
-      <Tab id={5} title="Settings" panel={<SettingsTab />} />
+      <Tab id={TabIndex.SEARCH} title="Search" panel={<SearchTab />} />
+      <Tab
+        id={TabIndex.QUEUE}
+        title={`Queue (${queueSize})`}
+        panel={<QueueTable />}
+      />
+      <Tab id={TabIndex.WATCHERS} title="Watchers" panel={<Watchers />} />
+      <Tab id={TabIndex.BLOCKLIST} title="Blocklist" panel={<BlockLists />} />
+      <Tab id={TabIndex.ACCOUNT} title="Account" panel={<Account />} />
+      <Tab id={TabIndex.SETTINGS} title="Settings" panel={<SettingsTab />} />
     </Tabs>
   );
 };
