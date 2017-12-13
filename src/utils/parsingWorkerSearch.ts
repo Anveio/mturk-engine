@@ -1,6 +1,6 @@
 import { Map } from 'immutable';
 import { SearchResult, SearchResults } from '../types';
-import { WorkerHit } from '../worker-mturk-api';
+import { WorkerHit, SearchResultsApiResponse } from '../worker-mturk-api';
 
 export const parseWorkerSearchPage = (
   html: Document,
@@ -11,11 +11,11 @@ export const parseWorkerSearchPage = (
 };
 
 const tabulateSearchData = (input: WorkerHit[]): SearchResults =>
-  input.reduce((map: SearchResults, hit: WorkerHit, index: number) => {
-    const groupId = hit.hit_set_id;
-    return map.set(groupId, createWorkerSearchItem(hit, index));
-    // tslint:disable-next-line:align
-  }, Map<string, SearchResult>());
+  input.reduce(
+    (map: SearchResults, hit: WorkerHit, index: number) =>
+      map.set(hit.hit_set_id, createWorkerSearchItem(hit, index)),
+    Map<string, SearchResult>()
+  );
 
 const createWorkerSearchItem = (
   hit: WorkerHit,
@@ -40,12 +40,11 @@ const searchResultsDocumentToWorkerHitArray = (html: Document): WorkerHit[] => {
   const searchResultsDataNode = html.querySelector(
     'div.row.m-b-md > div.col-xs-12 > div'
   ) as Element;
-  // const searchResultsDataString = searchResultsDataNode.getAttribute(
-  //   'data-react-props'
-  // ) as string;
-  console.log(searchResultsDataNode);
-  const searchResultsData = JSON.parse(searchResultsDataNode.getAttribute(
+  const searchResultsDataString = searchResultsDataNode.getAttribute(
     'data-react-props'
-  ) as string);
+  ) as string;
+  const searchResultsData = JSON.parse(
+    searchResultsDataString
+  ) as SearchResultsApiResponse;
   return searchResultsData.bodyData;
 };
