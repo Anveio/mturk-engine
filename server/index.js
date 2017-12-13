@@ -10,9 +10,9 @@ app.use('*', (req, res) => {
   console.log(new Date(), ' -- Request Received:', req.originalUrl);
   req.headers.cookie = cookies;
   /**
-  * Credit to: https://blog.javascripting.com/2015/01/17/dont-hassle-with-cors/
-  */
-  const url = 'https://www.mturk.com' + req.originalUrl;
+   * Credit to: https://blog.javascripting.com/2015/01/17/dont-hassle-with-cors/
+   */
+  const url = 'https://worker.mturk.com' + req.originalUrl;
   req.pipe(request(url)).pipe(res);
 });
 
