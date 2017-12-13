@@ -1,40 +1,30 @@
 import { SearchOptions, SearchSort } from '../types';
+import { WorkerSearchParams, WorkerSortParam } from '../worker-mturk-api';
 
-export interface MturkSearchParams {
-  selectedSearchType: string;
-  sortType: string;
-  searchWords: string;
-  minReward: string;
-  qualifiedFor: string;
-  pageSize: string;
-}
-
-export const generateParams = (options: SearchOptions): MturkSearchParams => {
-  const { sortType, minReward, qualifiedOnly } = options;
+export const generateParams = (options: SearchOptions): WorkerSearchParams => {
+  const { sortType, minReward, qualifiedOnly, searchTerm } = options;
 
   return {
-    selectedSearchType: 'hitgroups',
-    sortType: sortParam(sortType),
-    searchWords: options.searchTerm,
-    pageSize: '100',
-    minReward,
-    qualifiedFor: qualifiedParam(qualifiedOnly)
+    sort: sortParam(sortType),
+    filters: {
+      search_term: searchTerm,
+      min_reward: parseFloat(minReward),
+      qualified: qualifiedOnly
+    },
+    page_size: 100,
+    page_number: 1
   };
 };
 
-const sortParam = (sorting: SearchSort) => {
+const sortParam = (sorting: SearchSort): WorkerSortParam => {
   switch (sorting) {
     case 'Latest':
-      return 'LastUpdatedTime:1';
+      return 'updated_asc';
     case 'Batch Size':
-      return 'NumHITs:1';
+      return 'num_hits_desc';
     case 'Reward':
-      return 'Reward:1';
+      return 'reward_desc';
     default:
       throw new Error('Problem generating sortType param');
   }
-};
-
-const qualifiedParam = (qualified: boolean): string => {
-  return qualified ? 'on' : 'off';
 };
