@@ -1,4 +1,5 @@
 import { Map } from 'immutable';
+import { WorkerQualification } from './worker-mturk-api';
 
 export interface RootState {
   readonly account: MaybeAccount;
@@ -116,8 +117,8 @@ export interface SearchResult extends HumanIntelligenceTask {
   readonly expanded?: boolean;
   readonly batchSize: number;
   readonly qualified: boolean;
-  readonly timeAllotted: string;
-  readonly qualsRequired: string[];
+  readonly timeAllottedInSeconds: number;
+  readonly qualsRequired: string[] | WorkerQualification[];
 }
 
 export interface HitDatabaseEntry {

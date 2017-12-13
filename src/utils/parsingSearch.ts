@@ -6,7 +6,6 @@ import {
   hitRewardSelector,
   requesterIdAnchor,
   groupIdAnchor,
-  timeAllotedSelector,
   descriptionSelector,
   qualsRequiredSelector
 } from '../constants/querySelectors';
@@ -37,7 +36,8 @@ const createSearchItem = (
     id: parseRequesterId(input)
   },
   reward: parseCurrencyProperty(hitRewardSelector)(input),
-  timeAllotted: parseStringProperty(timeAllotedSelector, 'timeAlloted')(input),
+  // TODO: Fix this
+  timeAllottedInSeconds: 12,
   description: parseStringProperty(descriptionSelector, 'description')(input),
   batchSize: parseBatchSize(input),
   qualified: parseQualified(input),
@@ -58,7 +58,7 @@ const createReadSearchItem = (
     id: parseRequesterId(input)
   },
   reward: parseCurrencyProperty(hitRewardSelector)(input),
-  timeAllotted: parseStringProperty(timeAllotedSelector, 'timeAlloted')(input),
+  timeAllottedInSeconds: 12,
   description: parseStringProperty(descriptionSelector, 'description')(input),
   batchSize: parseBatchSize(input),
   qualified: parseQualified(input),
@@ -80,11 +80,11 @@ export const parseRequesterId = (input: HTMLDivElement): string => {
 };
 
 /**
- * Fetches the groupId of a Hit. If one cannot be found. assume it's because 
- * MTurk is hiding the GroupID due to being unqualified. If a groupID is still 
- * not found, return a string that starts with '[Error:groupId]-' then appends 
+ * Fetches the groupId of a Hit. If one cannot be found. assume it's because
+ * MTurk is hiding the GroupID due to being unqualified. If a groupID is still
+ * not found, return a string that starts with '[Error:groupId]-' then appends
  * a v4 uuid so that it can be uniquely indexed in the HitMap.
- * @param input 
+ * @param input
  */
 const parseGroupId = (input: HTMLDivElement): string => {
   const groupIdElem = input.querySelector(groupIdAnchor);
@@ -108,7 +108,7 @@ const parseUnqualifiedGroupId = (input: HTMLDivElement): string => {
 
 /**
  * Parses the number of HITs available. Returns a default value of 1 if parsing fails.
- * @param input 
+ * @param input
  */
 const parseBatchSize = (input: HTMLDivElement): number => {
   const batchSizeElem = input.querySelectorAll('td.capsule_field_text')[4];
@@ -125,7 +125,7 @@ const parseQualified = (input: HTMLDivElement): boolean =>
 const parseQualsRequired = (input: HTMLDivElement): string[] => {
   const qualsRequiredChildren = input.querySelectorAll(qualsRequiredSelector);
   /**
-   * The first child of qualsRequiredChildren will just contain the text 
+   * The first child of qualsRequiredChildren will just contain the text
    * 'Qualifications required', so start at 1 instead of 0.
    */
   return Array.from(qualsRequiredChildren)

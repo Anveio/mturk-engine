@@ -11,9 +11,9 @@ const contactBaseUrl = 'https://www.mturk.com/mturk/contact?requesterId=';
 const requesterSearchBaseUrl =
   'https://www.mturk.com/mturk/searchbar?requesterId=';
 
-const removExtraneousWhiteSpace = (el: string): string => {
-  return el.replace(/\s\s+/g, ' ');
-};
+// const removExtraneousWhiteSpace = (el: string): string => {
+//   return el.replace(/\s\s+/g, ' ');
+// };
 
 export const generateHwtfUrl = (hit: SearchResult): string => `
 https://www.reddit.com/r/HITsWorthTurkingFor/submit?selftext=true&title=${generateHwtfTitle(
@@ -24,7 +24,7 @@ https://www.reddit.com/r/HITsWorthTurkingFor/submit?selftext=true&title=${genera
 const generateHwtfTitle = (hit: SearchResult): string => {
   return `US - ${hit.title} - ${hit.requester.name} - ${formatAsCurrency(
     hit.reward
-  )}/X:XX - (${generateQuals(hit.qualsRequired)})`;
+  )}/X:XX - (${generateQuals([])})`;
 };
 
 const generateQuals = (quals: string[]): string =>
@@ -41,16 +41,13 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     groupId,
     requester,
     reward,
-    timeAllotted,
+    timeAllottedInSeconds,
     batchSize,
     description,
     qualsRequired
   } = hit;
 
-  const quals =
-    qualsRequired.length === 0
-      ? 'None'
-      : qualsRequired.map(removExtraneousWhiteSpace).join('; ');
+  const quals = qualsRequired.length === 0 ? 'None' : qualsRequired;
 
   if (requester.turkopticon) {
     const {
@@ -61,29 +58,23 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
 
     // tslint:disable:max-line-length
     return `**Title:** [${title}](${acceptBaseUrl}${groupId})  
-    **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${
-      baseTaskUrlWorker
-    }${groupId}/tasks/accept_random) | [Requester](${baseRequeserUrlWorker}${
+    **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${baseTaskUrlWorker}${groupId}/tasks/accept_random) | [Requester](${baseRequeserUrlWorker}${
       requester.id
     }/projects)  
     **Requester:** [${requester.name}](${requesterSearchBaseUrl}${
       requester.id
     }) ([Contact](${contactBaseUrl}${requester.id}))  
-    **[TO](${turkopticonBaseUrl}${requester.id}):** [Pay: ${pay}] [Fast: ${
-      fast
-    }] [Comm: ${comm}] [Fair: ${fair}] [Reviews: ${reviews}] [ToS: ${
-      tos_flags
-    }]  
+    **[TO](${turkopticonBaseUrl}${
+      requester.id
+    }):** [Pay: ${pay}] [Fast: ${fast}] [Comm: ${comm}] [Fair: ${fair}] [Reviews: ${reviews}] [ToS: ${tos_flags}]  
     **Reward:** $${reward} 
-    **Duration:** ${timeAllotted}  
+    **Duration:** ${timeAllottedInSeconds}  
     **Available:** ${batchSize}  
     **Description:** ${description}
     **Requirements:** ${quals}`;
   } else {
     return `**Title:** [${title}](${acceptBaseUrl}${groupId})  
-    **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${
-      baseTaskUrlWorker
-    }${groupId}/tasks/accept_random) | [Requester](${baseRequeserUrlWorker}${
+    **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${baseTaskUrlWorker}${groupId}/tasks/accept_random) | [Requester](${baseRequeserUrlWorker}${
       requester.id
     }/projects)  
     **Requester:** [${requester.name}](${requesterSearchBaseUrl}${
@@ -91,7 +82,7 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     }) [${requester.id}] ([Contact](${contactBaseUrl}${requester.id}))  
     **[TO](No data)]  
     **Reward:** $${reward} 
-    **Duration:** ${timeAllotted}  
+    **Duration:** ${timeAllottedInSeconds}  
     **Available:** ${batchSize}  
     **Description:** ${description}
     **Requirements:** ${quals}`;

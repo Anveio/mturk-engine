@@ -14,25 +14,26 @@ export const generateItemProps = (hit: QueueItem): ItemProps => {
 /**
  * Creates a QueueItem from a SearchItem, setting the hitId to [Refresh Required], and
  * using the SearchItem's timeAlloted property to set the QueueItem's timeLeft
- * property. Both of these properties should be updated when the queue is 
+ * property. Both of these properties should be updated when the queue is
  * refreshed.
- * @param hit 
+ * @param hit
  */
 export const searchItemToQueueItem = (hit: SearchResult): QueueItem => {
-  const { requester, reward, timeAllotted, title } = hit;
+  const { requester, reward, timeAllottedInSeconds, title } = hit;
   return {
     hitId: '[Refresh Required]',
     requesterName: requester.name,
     reward,
-    timeLeft: timeAllotted,
+    // TODO: FIX THIS
+    timeLeft: timeAllottedInSeconds.toString(),
     title
   };
 };
 
 /**
- * To be used when nothing is known of a successfully accepted HIT (e.g. when 
+ * To be used when nothing is known of a successfully accepted HIT (e.g. when
  * accepting a HIT via a watcher.)
- * @param groupId 
+ * @param groupId
  */
 export const blankQueueItem = (groupId: string): QueueItem => {
   return {
