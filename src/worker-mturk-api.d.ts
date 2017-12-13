@@ -45,3 +45,25 @@ export interface QualificationType {
   readonly qualification_type_id: string;
   readonly visibility: boolean;
 }
+
+export interface WorkerSearchParams {
+  readonly page_size: number;
+  readonly page_number: number;
+  readonly filters: Partial<WorkerSearchFilters>;
+  readonly sort: WorkerSortParam;
+}
+
+export interface WorkerSearchFilters {
+  readonly qualified: boolean;
+  readonly min_reward: number;
+  readonly masters: boolean;
+  readonly search_term: string;
+}
+
+export type WorkerSortParam =
+  | 'updated_asc'
+  | 'updated_desc'
+  | 'reward_asc'
+  | 'reward_desc'
+  | 'num_hits_asc'
+  | 'num_hits_desc';
