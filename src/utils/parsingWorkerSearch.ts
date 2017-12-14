@@ -11,7 +11,9 @@ export const parseWorkerSearchPage = (
   freshSearch?: boolean
 ): SearchResults => {
   const workerHits = searchResultsDocumentToWorkerHitArray(html);
-  console.log(workerHits);
+  workerHits.map(hit =>
+    hit.project_requirements.map(qual => console.log(qual.comparator))
+  );
   return tabulateSearchData(workerHits, freshSearch);
 };
 

@@ -6,14 +6,14 @@ import {
   turkopticonBaseUrl
 } from '../constants/urls';
 import { formatAsCurrency } from './formatting';
+import {
+  WorkerQualification,
+  QualificationComparator
+} from '../worker-mturk-api';
 
 const contactBaseUrl = 'https://www.mturk.com/mturk/contact?requesterId=';
 const requesterSearchBaseUrl =
   'https://www.mturk.com/mturk/searchbar?requesterId=';
-
-// const removExtraneousWhiteSpace = (el: string): string => {
-//   return el.replace(/\s\s+/g, ' ');
-// };
 
 export const generateHwtfUrl = (hit: SearchResult): string => `
 https://www.reddit.com/r/HITsWorthTurkingFor/submit?selftext=true&title=${generateHwtfTitle(
@@ -24,11 +24,13 @@ https://www.reddit.com/r/HITsWorthTurkingFor/submit?selftext=true&title=${genera
 const generateHwtfTitle = (hit: SearchResult): string => {
   return `US - ${hit.title} - ${hit.requester.name} - ${formatAsCurrency(
     hit.reward
-  )}/X:XX - (${generateQuals([])})`;
+  )}/X:XX - (${generateQuals(hit.qualsRequired)})`;
 };
 
-const generateQuals = (quals: string[]): string =>
-  quals.length > 0 ? quals.slice(0, 3).join(', ') : 'None';
+const generateQuals = (quals: WorkerQualification[]): string =>
+  quals.length > 0
+    ? quals.map(qual => qualificationToSentence(qual)).join(', ')
+    : 'None';
 
 const hwtfText =
   // tslint:disable-next-line:max-line-length
@@ -47,7 +49,8 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     qualsRequired
   } = hit;
 
-  const quals = qualsRequired.length === 0 ? 'None' : qualsRequired;
+  const quals =
+    qualsRequired.length === 0 ? 'None' : generateQuals(qualsRequired);
 
   if (requester.turkopticon) {
     const {
@@ -86,5 +89,27 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     **Available:** ${batchSize}  
     **Description:** ${description}
     **Requirements:** ${quals}`;
+  }
+};
+
+const qualificationToSentence = (qual: WorkerQualification): string =>
+  `${qual.qualification_type.name} ${qualComparatorToWords(
+    qual.comparator
+  )} ${qual.qualification_values.join(', ')}`;
+
+const qualComparatorToWords = (comparator: QualificationComparator): string => {
+  switch (comparator) {
+    case 'EqualTo':
+      return 'is equal to';
+    case 'GreaterThan':
+      return 'is greater than';
+    case 'GreaterThanOrEqualTo':
+      return 'is greater than or equal to';
+    case 'In':
+      return 'is one of';
+    case 'DoesNotExist':
+      return 'does not exist';
+    default:
+      return comparator;
   }
 };

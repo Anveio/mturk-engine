@@ -119,7 +119,7 @@ export interface SearchResult extends HumanIntelligenceTask {
   readonly batchSize: number;
   readonly qualified: boolean;
   readonly timeAllottedInSeconds: number;
-  readonly qualsRequired: string[] | WorkerQualification[];
+  readonly qualsRequired: WorkerQualification[];
 }
 
 export interface HitDatabaseEntry {
