@@ -139,7 +139,7 @@ export interface QueueItem {
   readonly requesterName: string;
   readonly hitId: string;
   readonly reward: number;
-  readonly timeLeft: string;
+  readonly timeLeftInSeconds: number;
 }
 
 export interface BlockedHit extends SearchResult {

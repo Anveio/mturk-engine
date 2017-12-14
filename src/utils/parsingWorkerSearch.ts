@@ -51,15 +51,15 @@ const createWorkerSearchItem = (hit: WorkerSearchResult): SearchResult => ({
 const searchResultsDocumentToWorkerHitArray = (
   html: Document
 ): WorkerSearchResult[] => {
-  const reactDataProps = getPageReactProps(html);
+  const pageReactProps = getPageReactProps(html);
 
-  if (!reactDataProps) {
+  if (!pageReactProps) {
     throw new Error('No data found on the requested search results page.');
   }
 
   try {
     const searchResultsData = JSON.parse(
-      reactDataProps
+      pageReactProps
     ) as SearchResultsApiResponse;
     return searchResultsData.bodyData;
   } catch (e) {

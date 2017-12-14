@@ -19,13 +19,13 @@ export const generateItemProps = (hit: QueueItem): ItemProps => {
  * @param hit
  */
 export const searchItemToQueueItem = (hit: SearchResult): QueueItem => {
-  const { requester, reward, timeAllottedInSeconds, title } = hit;
+  const { requester, reward, title } = hit;
   return {
     hitId: '[Refresh Required]',
     requesterName: requester.name,
     reward,
     // TODO: FIX THIS
-    timeLeft: timeAllottedInSeconds.toString(),
+    timeLeftInSeconds: 0,
     title
   };
 };
@@ -40,7 +40,7 @@ export const blankQueueItem = (groupId: string): QueueItem => {
     hitId: '[Refresh Required]' + v4(),
     requesterName: '[Refresh Required]',
     reward: 0,
-    timeLeft: '[Refresh Required]',
+    timeLeftInSeconds: 0,
     title: '[Refresh Required]'
   };
 };
