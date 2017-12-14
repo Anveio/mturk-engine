@@ -5,6 +5,19 @@ import {
 } from '../constants/querySelectors';
 import { removeCurrencyFormatting } from './formatting';
 
+export const getPageReactProps = (html: Document): string | null => {
+  const searchResultsDataNode = html.querySelector(
+    'div.row.m-b-md > div.col-xs-12 > div'
+  );
+
+  if (!searchResultsDataNode) {
+    console.warn('Node containing React props was not found.');
+    return null;
+  }
+
+  return searchResultsDataNode.getAttribute('data-react-props');
+};
+
 export const selectHitContainers = (el: Document): HTMLDivElement[] =>
   Array.from(el.querySelectorAll(hitContainerTableCell) as NodeListOf<
     HTMLDivElement
@@ -61,7 +74,7 @@ export const parseHitAcceptFailureReason = (
 };
 
 export const findHitForm = (input: Document) => {
-  return input.querySelector('form[action="/mturk/submit"]');
+  return input.querySelector('form#mturk_form');
 };
 
 export const validateHitAccept = (html: Document): boolean => {

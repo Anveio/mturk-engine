@@ -5,6 +5,7 @@ import {
   SearchResultsApiResponse,
   WorkerQualification
 } from '../worker-mturk-api';
+import { getPageReactProps } from './parsing';
 
 export const parseWorkerSearchPage = (
   html: Document,
@@ -50,16 +51,20 @@ const createWorkerSearchItem = (hit: WorkerSearchResult): SearchResult => ({
 const searchResultsDocumentToWorkerHitArray = (
   html: Document
 ): WorkerSearchResult[] => {
-  const searchResultsDataNode = html.querySelector(
-    'div.row.m-b-md > div.col-xs-12 > div'
-  ) as Element;
-  const searchResultsDataString = searchResultsDataNode.getAttribute(
-    'data-react-props'
-  ) as string;
-  const searchResultsData = JSON.parse(
-    searchResultsDataString
-  ) as SearchResultsApiResponse;
-  return searchResultsData.bodyData;
+  const reactDataProps = getPageReactProps(html);
+
+  if (!reactDataProps) {
+    throw new Error('No data found on the requested search results page.');
+  }
+
+  try {
+    const searchResultsData = JSON.parse(
+      reactDataProps
+    ) as SearchResultsApiResponse;
+    return searchResultsData.bodyData;
+  } catch (e) {
+    throw new Error('Error parsing react data props string.');
+  }
 };
 
 const calculateIfQualified = (qualificationsArray: WorkerQualification[]) =>
