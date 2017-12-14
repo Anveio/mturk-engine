@@ -7,6 +7,7 @@ export const parseWorkerSearchPage = (
   freshSearch?: boolean
 ): SearchResults => {
   const workerHits = searchResultsDocumentToWorkerHitArray(html);
+  console.log(workerHits);
   return tabulateSearchData(workerHits, freshSearch);
 };
 
@@ -29,7 +30,7 @@ const createWorkerSearchItem = (hit: WorkerHit): SearchResult => ({
   description: hit.description,
   groupId: hit.hit_set_id,
   qualified: hit.caller_meets_preview_requirements,
-  qualsRequired: hit.hit_requirements,
+  qualsRequired: hit.project_requirements,
   requester: {
     id: hit.requester_id,
     name: hit.requester_name

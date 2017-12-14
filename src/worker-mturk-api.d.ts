@@ -10,7 +10,7 @@ export interface WorkerHit {
   readonly caller_meets_preview_requirements: boolean;
   readonly creation_time: string; // Usable as argument for Date object constructor.
   readonly description: string;
-  readonly hit_requirements: WorkerQualification[];
+  readonly project_requirements: WorkerQualification[];
   readonly hit_set_id: string;
   readonly last_updated_time: string;
   readonly latest_expiration_time: string;
