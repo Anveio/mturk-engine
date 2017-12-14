@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
 import { SearchResult, SearchResults } from '../types';
 import {
-  WorkerHit,
+  WorkerSearchResult,
   SearchResultsApiResponse,
   WorkerQualification
 } from '../worker-mturk-api';
@@ -18,11 +18,11 @@ export const parseWorkerSearchPage = (
 };
 
 const tabulateSearchData = (
-  input: WorkerHit[],
+  input: WorkerSearchResult[],
   freshSearch?: boolean
 ): SearchResults =>
   input.reduce(
-    (map: SearchResults, hit: WorkerHit) =>
+    (map: SearchResults, hit: WorkerSearchResult) =>
       map.set(hit.hit_set_id, {
         ...createWorkerSearchItem(hit),
         markedAsRead: !!freshSearch
@@ -30,7 +30,7 @@ const tabulateSearchData = (
     Map<string, SearchResult>()
   );
 
-const createWorkerSearchItem = (hit: WorkerHit): SearchResult => ({
+const createWorkerSearchItem = (hit: WorkerSearchResult): SearchResult => ({
   title: hit.title,
   creationTime: new Date(hit.creation_time),
   lastUpdatedTime: new Date(hit.last_updated_time),
@@ -47,7 +47,9 @@ const createWorkerSearchItem = (hit: WorkerHit): SearchResult => ({
   reward: hit.monetary_reward.amount_in_dollars
 });
 
-const searchResultsDocumentToWorkerHitArray = (html: Document): WorkerHit[] => {
+const searchResultsDocumentToWorkerHitArray = (
+  html: Document
+): WorkerSearchResult[] => {
   const searchResultsDataNode = html.querySelector(
     'div.row.m-b-md > div.col-xs-12 > div'
   ) as Element;
