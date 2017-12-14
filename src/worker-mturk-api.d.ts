@@ -49,6 +49,7 @@ export interface QualificationType {
 export type QualificationComparator =
   | 'DoesNotExist'
   | 'EqualTo'
+  | 'NotEqualTo'
   | 'GreaterThan'
   | 'GreaterThanOrEqualTo'
   | 'In';

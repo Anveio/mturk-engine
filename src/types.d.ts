@@ -112,8 +112,8 @@ export interface HumanIntelligenceTask {
 }
 
 export interface SearchResult extends HumanIntelligenceTask {
-  readonly creationTime: string;
-  readonly lastUpdatedTime: string;
+  readonly creationTime: Date;
+  readonly lastUpdatedTime: Date;
   readonly markedAsRead?: boolean;
   readonly expanded?: boolean;
   readonly batchSize: number;
