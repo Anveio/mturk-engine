@@ -1,6 +1,10 @@
 import { Map } from 'immutable';
 import { SearchResult, SearchResults } from '../types';
-import { WorkerHit, SearchResultsApiResponse } from '../worker-mturk-api';
+import {
+  WorkerHit,
+  SearchResultsApiResponse,
+  WorkerQualification
+} from '../worker-mturk-api';
 
 export const parseWorkerSearchPage = (
   html: Document,
@@ -31,7 +35,7 @@ const createWorkerSearchItem = (hit: WorkerHit): SearchResult => ({
   batchSize: hit.assignable_hits_count,
   description: hit.description,
   groupId: hit.hit_set_id,
-  qualified: hit.caller_meets_preview_requirements,
+  qualified: calculateIfQualified(hit.project_requirements),
   qualsRequired: hit.project_requirements,
   requester: {
     id: hit.requester_id,
@@ -53,3 +57,6 @@ const searchResultsDocumentToWorkerHitArray = (html: Document): WorkerHit[] => {
   ) as SearchResultsApiResponse;
   return searchResultsData.bodyData;
 };
+
+const calculateIfQualified = (qualificationsArray: WorkerQualification[]) =>
+  qualificationsArray.every(qual => !!qual.caller_meets_requirement);
