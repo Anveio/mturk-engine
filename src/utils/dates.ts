@@ -58,3 +58,6 @@ export const dateRange = (
       ),
     List()
   );
+
+export const secondsToMinutes = (numSeconds: number): number =>
+  Math.floor(numSeconds / 60);

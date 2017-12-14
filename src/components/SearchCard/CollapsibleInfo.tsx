@@ -4,6 +4,7 @@ import { SearchResult } from '../../types';
 import MiscActionsPopover from './MiscActionsPopover';
 import ExternalPlainButtons from './ExternalPlainButtons';
 import BlockRequesterButton from './BlockRequesterButton';
+import { secondsToMinutes } from '../../utils/dates';
 
 export interface Props {
   readonly open: boolean;
@@ -25,7 +26,9 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
             </Caption>
             <Caption>
               Time allotted:
-              <TextStyle variation="subdued">{` ${timeAllottedInSeconds}`}</TextStyle>
+              <TextStyle variation="subdued">{` ${secondsToMinutes(
+                timeAllottedInSeconds
+              )} minutes.`}</TextStyle>
             </Caption>
             <Stack vertical={false} alignment="center">
               <MiscActionsPopover hit={hit} />
