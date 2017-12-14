@@ -19,7 +19,7 @@ export const generateParams = (options: SearchOptions): WorkerSearchParams => {
 const sortParam = (sorting: SearchSort): WorkerSortParam => {
   switch (sorting) {
     case 'Latest':
-      return 'updated_asc';
+      return 'updated_desc';
     case 'Batch Size':
       return 'num_hits_desc';
     case 'Reward':
