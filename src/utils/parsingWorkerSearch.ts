@@ -7,19 +7,23 @@ export const parseWorkerSearchPage = (
   freshSearch?: boolean
 ): SearchResults => {
   const workerHits = searchResultsDocumentToWorkerHitArray(html);
-  return tabulateSearchData(workerHits);
+  return tabulateSearchData(workerHits, freshSearch);
 };
 
-const tabulateSearchData = (input: WorkerHit[]): SearchResults =>
+const tabulateSearchData = (
+  input: WorkerHit[],
+  freshSearch?: boolean
+): SearchResults =>
   input.reduce(
     (map: SearchResults, hit: WorkerHit, index: number) =>
-      map.set(hit.hit_set_id, createWorkerSearchItem(hit, index)),
+      map.set(hit.hit_set_id, createWorkerSearchItem(hit, index, freshSearch)),
     Map<string, SearchResult>()
   );
 
 const createWorkerSearchItem = (
   hit: WorkerHit,
-  index: number
+  index: number,
+  freshSearch?: boolean
 ): SearchResult => ({
   title: hit.title,
   batchSize: hit.assignable_hits_count,
@@ -33,7 +37,8 @@ const createWorkerSearchItem = (
   },
   timeAllottedInSeconds: hit.assignment_duration_in_seconds,
   reward: hit.monetary_reward.amount_in_dollars,
-  index
+  index,
+  markedAsRead: !!freshSearch
 });
 
 const searchResultsDocumentToWorkerHitArray = (html: Document): WorkerHit[] => {
