@@ -29,7 +29,7 @@ export interface MonetaryReward {
 
 export interface WorkerQualification {
   readonly caller_meets_requirement: boolean;
-  readonly comparator: string;
+  readonly comparator: QualificationComparator;
   readonly qualification_type: QualificationType;
   readonly qualification_type_id: string;
   readonly qualification_values: string[];
@@ -45,6 +45,14 @@ export interface QualificationType {
   readonly qualification_type_id: string;
   readonly visibility: boolean;
 }
+
+export type QualificationComparator =
+  | 'DoesNotExist'
+  | 'EqualTo'
+  | 'GreaterThan'
+  | 'GreaterThanOrEqualTo'
+  | 'In';
+// Possibly 'LessThan' and 'LessThanOrEqualTo'? I haven't seen one of those yet.
 
 export interface WorkerSearchParams {
   readonly page_size: number;
