@@ -1,4 +1,4 @@
-import { SearchResult } from '../types';
+import { SearchResult, TOpticonData } from '../types';
 import {
   acceptBaseUrl,
   baseTaskUrlWorker,
@@ -52,44 +52,22 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
   const quals =
     qualsRequired.length === 0 ? 'None' : generateQuals(qualsRequired);
 
-  if (requester.turkopticon) {
-    const {
-      reviews,
-      tos_flags,
-      attrs: { comm, fair, fast, pay }
-    } = requester.turkopticon;
-
-    // tslint:disable:max-line-length
-    return `**Title:** [${title}](${acceptBaseUrl}${groupId})  
+  // tslint:disable:max-line-length
+  return `**Title:** [${title}](${acceptBaseUrl}${groupId})  
     **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${baseTaskUrlWorker}${groupId}/tasks/accept_random) | [Requester](${baseRequeserUrlWorker}${
-      requester.id
-    }/projects)  
+    requester.id
+  }/projects)  
     **Requester:** [${requester.name}](${requesterSearchBaseUrl}${
-      requester.id
-    }) ([Contact](${contactBaseUrl}${requester.id}))  
-    **[TO](${turkopticonBaseUrl}${
-      requester.id
-    }):** [Pay: ${pay}] [Fast: ${fast}] [Comm: ${comm}] [Fair: ${fair}] [Reviews: ${reviews}] [ToS: ${tos_flags}]  
+    requester.id
+  }) ([Contact](${contactBaseUrl}${requester.id}))  
+    **[TO](${turkopticonBaseUrl}${requester.id}): ${ratingsToWords(
+    requester.turkopticon
+  )}**   
     **Reward:** $${reward} 
     **Duration:** ${timeAllottedInSeconds}  
     **Available:** ${batchSize}  
     **Description:** ${description}
     **Requirements:** ${quals}`;
-  } else {
-    return `**Title:** [${title}](${acceptBaseUrl}${groupId})  
-    **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${baseTaskUrlWorker}${groupId}/tasks/accept_random) | [Requester](${baseRequeserUrlWorker}${
-      requester.id
-    }/projects)  
-    **Requester:** [${requester.name}](${requesterSearchBaseUrl}${
-      requester.id
-    }) [${requester.id}] ([Contact](${contactBaseUrl}${requester.id}))  
-    **[TO](No data)]  
-    **Reward:** $${reward} 
-    **Duration:** ${timeAllottedInSeconds}  
-    **Available:** ${batchSize}  
-    **Description:** ${description}
-    **Requirements:** ${quals}`;
-  }
 };
 
 const qualificationToSentence = (qual: WorkerQualification): string =>
@@ -112,4 +90,13 @@ const qualComparatorToWords = (comparator: QualificationComparator): string => {
     default:
       return comparator;
   }
+};
+
+const ratingsToWords = (turkopticon?: TOpticonData): string => {
+  if (!turkopticon) {
+    return 'No Data';
+  }
+
+  const { reviews, tos_flags, attrs: { comm, fair, fast, pay } } = turkopticon;
+  return `[Pay: ${pay}] [Fast: ${fast}] [Comm: ${comm}] [Fair: ${fair}] [Reviews: ${reviews}] [ToS: ${tos_flags}]`;
 };
