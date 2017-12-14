@@ -32,8 +32,8 @@ const tabulateSearchData = (
 
 const createWorkerSearchItem = (hit: WorkerHit): SearchResult => ({
   title: hit.title,
-  creationTime: hit.creation_time,
-  lastUpdatedTime: hit.last_updated_time,
+  creationTime: new Date(hit.creation_time),
+  lastUpdatedTime: new Date(hit.last_updated_time),
   batchSize: hit.assignable_hits_count,
   description: hit.description,
   groupId: hit.hit_set_id,

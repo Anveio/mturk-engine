@@ -1,7 +1,5 @@
 import { SearchResult, SortingOption } from '../types';
 
-type SortOrder = 'ascending' | 'descending';
-
 /**
  * Translates UI text into the associated property
  */
@@ -9,9 +7,11 @@ const optionsMap = {
   'Batch Size': 'batchSize',
   'Unread First': 'markedAsRead',
   Reward: 'reward',
-  Latest: 'index',
-  default: 'index'
+  Latest: 'creationTime',
+  default: 'creationTime'
 };
+
+type SortOrder = 'ascending' | 'descending';
 
 interface SortOrderMap {
   [key: string]: SortOrder;
@@ -24,7 +24,7 @@ const sortOrderMap: SortOrderMap = {
   'Batch Size': 'descending',
   'Unread First': 'ascending',
   Reward: 'descending',
-  Latest: 'ascending',
+  Latest: 'descending',
   default: 'ascending'
 };
 
