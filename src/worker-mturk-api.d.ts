@@ -1,16 +1,25 @@
+/**
+ * The object produced When calling JSON.parse on the react-props of a search results page.
+ */
 export interface SearchResultsApiResponse {
   readonly baseUrl: string;
-  readonly bodyData: WorkerHit[];
+  readonly bodyData: WorkerSearchResult[];
+}
+
+/**
+ * The object produced When calling JSON.parse on the react-props of a user's queue.
+ */
+export interface QueueApiResponse {
+  readonly bodyData: WorkerQueueItem[];
+  readonly tableConfig: TableConfig[];
 }
 
 export interface WorkerHit {
-  readonly accept_project_task_url: string;
   readonly assignable_hits_count: number;
   readonly assignment_duration_in_seconds: number;
   readonly caller_meets_preview_requirements: boolean;
-  readonly creation_time: string; // Usable as argument for Date object constructor.
+  readonly creation_time: string; // Date object converted to JSON string.
   readonly description: string;
-  readonly project_requirements: WorkerQualification[];
   readonly hit_set_id: string;
   readonly last_updated_time: string;
   readonly latest_expiration_time: string;
@@ -20,6 +29,32 @@ export interface WorkerHit {
   readonly requester_name: string;
   readonly requester_url: string;
   readonly title: string;
+}
+
+/**
+ * hit_requirements is renamed to project_requirements in search results as of now.
+ */
+export interface WorkerHitNew extends WorkerHit {
+  readonly project_requirements: WorkerQualification[];
+}
+
+export interface WorkerHitOld extends WorkerHit {
+  readonly hit_requirements: WorkerQualification[];
+}
+
+export interface WorkerSearchResult extends WorkerHitNew {
+  readonly accept_project_task_url: string;
+}
+
+export interface WorkerQueueItem {
+  readonly accepted_at: string; // Date object converted to JSON string.
+  readonly assignment_id: string;
+  readonly deadling: string; // Date object converted to JSON string.
+  readonly expired_task_action_url: string;
+  readonly project: WorkerHitOld;
+  readonly question: QueueItemQuestion;
+  readonly state: 'Assigned'; // Possibly others?;
+  readonly time_to_deadline_in_seconds: number;
 }
 
 export interface MonetaryReward {
@@ -76,3 +111,19 @@ export type WorkerSortParam =
   | 'reward_desc'
   | 'num_hits_asc'
   | 'num_hits_desc';
+
+export interface TableConfig {
+  readonly classNames: string[];
+  readonly header: {
+    readonly title: 'Title' | 'Reward' | 'Time Remaining' | 'Actions';
+  };
+}
+
+export interface QueueItemQuestion {
+  readonly attributes: {
+    readonly FrameHeight: string; // String representation of a number;
+    readonly FrameSourceAttribute: string; // a URL;
+  };
+  readonly type: string;
+  readonly value: string; // a URL;
+}
