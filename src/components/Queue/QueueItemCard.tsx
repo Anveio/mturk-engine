@@ -23,7 +23,7 @@ class QueueItemCard extends React.PureComponent<
   never
 > {
   public render() {
-    const { hitId, reward, timeLeft } = this.props.hit;
+    const { hitId, reward, timeLeftInSeconds } = this.props.hit;
     const actions = [
       {
         content: 'Return',
@@ -42,7 +42,7 @@ class QueueItemCard extends React.PureComponent<
       <ResourceList.Item
         actions={actions}
         {...generateItemProps(this.props.hit)}
-        attributeThree={<QueueItemInfo reward={reward} timeLeft={timeLeft} />}
+        attributeThree={<QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />}
       />
     );
   }

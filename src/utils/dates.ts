@@ -61,3 +61,7 @@ export const dateRange = (
 
 export const secondsToMinutes = (numSeconds: number): number =>
   Math.floor(numSeconds / 60);
+
+export const displaySecondsAsHHMMSS = (numSeconds: number): string =>
+  moment.utc(numSeconds * 1000).format('HH:mm:ss');
+
