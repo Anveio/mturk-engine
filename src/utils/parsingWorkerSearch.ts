@@ -15,16 +15,15 @@ const tabulateSearchData = (
   freshSearch?: boolean
 ): SearchResults =>
   input.reduce(
-    (map: SearchResults, hit: WorkerHit, index: number) =>
-      map.set(hit.hit_set_id, createWorkerSearchItem(hit, index, freshSearch)),
+    (map: SearchResults, hit: WorkerHit) =>
+      map.set(hit.hit_set_id, {
+        ...createWorkerSearchItem(hit),
+        markedAsRead: !!freshSearch
+      }),
     Map<string, SearchResult>()
   );
 
-const createWorkerSearchItem = (
-  hit: WorkerHit,
-  index: number,
-  freshSearch?: boolean
-): SearchResult => ({
+const createWorkerSearchItem = (hit: WorkerHit): SearchResult => ({
   title: hit.title,
   batchSize: hit.assignable_hits_count,
   description: hit.description,
@@ -36,9 +35,7 @@ const createWorkerSearchItem = (
     name: hit.requester_name
   },
   timeAllottedInSeconds: hit.assignment_duration_in_seconds,
-  reward: hit.monetary_reward.amount_in_dollars,
-  index,
-  markedAsRead: !!freshSearch
+  reward: hit.monetary_reward.amount_in_dollars
 });
 
 const searchResultsDocumentToWorkerHitArray = (html: Document): WorkerHit[] => {

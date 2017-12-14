@@ -23,15 +23,6 @@ export const resultsThatAppearInBoth = (action: SearchSuccess) => (
   prevSearchResult: SearchResult
 ): boolean => action.data.has(prevSearchResult.groupId);
 
-export const conflictsUpdateOnlyIndexes = (
-  oldResult: SearchResult,
-  newResult: SearchResult
-): SearchResult => ({
-  ...oldResult,
-  index: newResult.index,
-  requester: oldResult.requester
-});
-
 export const conflictsUseOldExpandedProp = (
   oldResult: SearchResult,
   newResult: SearchResult
