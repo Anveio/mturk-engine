@@ -40,7 +40,7 @@ export default (state = initial, action: SearchResultAction): SearchResults => {
         .filter(noTurkopticon)
         .map(updateTurkopticon(action.data)) as SearchResults);
     case TOGGLE_SEARCH_RESULT_EXPAND:
-      return state.update(action.hit.groupId, (hit) => ({
+      return state.update(action.hit.groupId, hit => ({
         ...hit,
         expanded: !action.hit.expanded
       }));
@@ -50,15 +50,14 @@ export default (state = initial, action: SearchResultAction): SearchResults => {
         expanded: false
       })) as SearchResults;
     case MARK_HIT_AS_READ:
-      return state.update(action.groupId, (hit) => ({
+      return state.update(action.groupId, hit => ({
         ...hit,
-        markedAsRead: new Date()
+        markedAsRead: true
       }));
     case MARK_ALL_HITS_AS_READ:
-      const memoizedDateObject = new Date();
       return state.map((hit: SearchResult) => ({
         ...hit,
-        markedAsRead: memoizedDateObject
+        markedAsRead: true
       })) as SearchResults;
 
     default:

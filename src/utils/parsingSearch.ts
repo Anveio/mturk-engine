@@ -63,7 +63,6 @@ const createReadSearchItem = (
   batchSize: parseBatchSize(input),
   qualified: parseQualified(input),
   qualsRequired: parseQualsRequired(input),
-  markedAsRead: readDate
 });
 
 export const parseRequesterId = (input: HTMLDivElement): string => {
