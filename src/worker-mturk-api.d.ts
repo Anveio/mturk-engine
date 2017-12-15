@@ -24,7 +24,6 @@ export interface WorkerHit {
   readonly last_updated_time: string;
   readonly latest_expiration_time: string;
   readonly monetary_reward: MonetaryReward;
-  readonly project_tasks_url: string;
   readonly requester_id: string;
   readonly requester_name: string;
   readonly requester_url: string;
@@ -44,17 +43,20 @@ export interface WorkerHitOld extends WorkerHit {
 
 export interface WorkerSearchResult extends WorkerHitNew {
   readonly accept_project_task_url: string;
+  readonly project_tasks_url: string;
 }
 
 export interface WorkerQueueItem {
   readonly accepted_at: string; // Date object converted to JSON string.
   readonly assignment_id: string;
-  readonly deadling: string; // Date object converted to JSON string.
+  readonly deadline: string; // Date object converted to JSON string.
   readonly expired_task_action_url: string;
   readonly project: WorkerHitOld;
   readonly question: QueueItemQuestion;
   readonly state: 'Assigned'; // Possibly others?;
   readonly time_to_deadline_in_seconds: number;
+  readonly task_id: string;
+  readonly task_url: string;
 }
 
 export interface MonetaryReward {
@@ -115,7 +117,12 @@ export type WorkerSortParam =
 export interface TableConfig {
   readonly classNames: string[];
   readonly header: {
-    readonly title: 'Title' | 'Reward' | 'Time Remaining' | 'Actions';
+    readonly title:
+      | 'Requester'
+      | 'Title'
+      | 'Reward'
+      | 'Time Remaining'
+      | 'Actions';
   };
 }
 
