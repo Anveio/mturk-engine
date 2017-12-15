@@ -15,7 +15,7 @@ export interface OwnProps {
 }
 
 export interface Handlers {
-  readonly onReturn: (hitID: string) => void;
+  readonly onReturn: (queueItem: QueueItem) => void;
 }
 
 class QueueItemCard extends React.PureComponent<
@@ -28,7 +28,7 @@ class QueueItemCard extends React.PureComponent<
       {
         content: 'Return',
         accessibilityLabel: 'Return',
-        onClick: () => this.props.onReturn(hitId)
+        onClick: () => this.props.onReturn(this.props.hit)
       },
       {
         external: true,
@@ -42,7 +42,8 @@ class QueueItemCard extends React.PureComponent<
       <ResourceList.Item
         actions={actions}
         {...generateItemProps(this.props.hit)}
-        attributeThree={<QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />}
+        attributeThree={
+          <QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />}
       />
     );
   }
@@ -53,7 +54,7 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<ReturnAction>): Handlers => ({
-  onReturn: (hitId: string) => dispatch(returnHitRequest(hitId))
+  onReturn: (queueItem: QueueItem) => dispatch(returnHitRequest(queueItem))
 });
 
 export default connect(mapState, mapDispatch)(QueueItemCard);
