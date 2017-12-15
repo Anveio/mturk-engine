@@ -138,6 +138,8 @@ export interface QueueItem {
   readonly title: string;
   readonly requesterName: string;
   readonly hitId: string;
+  readonly groupId: string;
+  readonly taskId: string;
   readonly reward: number;
   readonly timeLeftInSeconds: number;
 }
@@ -219,3 +221,8 @@ export type HitAcceptFailureReason =
   | 'Unqualified'
   | 'CAPTCHA'
   | 'Unknown';
+
+export interface QueuePageData {
+  readonly queueAuthToken: string | null;
+  readonly queueItems: QueueMap;
+}
