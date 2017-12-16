@@ -45,7 +45,8 @@ const createWorkerSearchItem = (hit: WorkerSearchResult): SearchResult => ({
     name: hit.requester_name
   },
   timeAllottedInSeconds: hit.assignment_duration_in_seconds,
-  reward: hit.monetary_reward.amount_in_dollars
+  reward: hit.monetary_reward.amount_in_dollars,
+  canPreview: hit.caller_meets_preview_requirements
 });
 
 const searchResultsDocumentToWorkerHitArray = (

@@ -120,6 +120,7 @@ export interface SearchResult extends HumanIntelligenceTask {
   readonly qualified: boolean;
   readonly timeAllottedInSeconds: number;
   readonly qualsRequired: WorkerQualification[];
+  readonly canPreview: boolean;
 }
 
 export interface HitDatabaseEntry {
