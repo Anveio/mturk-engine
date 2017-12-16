@@ -10,14 +10,24 @@ export interface Props {
 
 class MiscActionsPopOver extends React.PureComponent<Props, never> {
   public render() {
-    const { hit: { groupId, requester } } = this.props;
+    const { hit: { groupId, requester, qualified, canPreview } } = this.props;
 
     return (
       <ButtonGroup>
-        <Button plain external url={generateAcceptUrl(groupId)}>
+        <Button
+          plain
+          external
+          url={generateAcceptUrl(groupId)}
+          disabled={!qualified}
+        >
           Accept
         </Button>
-        <Button plain external url={generatePreviewUrl(groupId)}>
+        <Button
+          plain
+          external
+          url={generatePreviewUrl(groupId)}
+          disabled={!canPreview}
+        >
           Preview
         </Button>
         <TOpticonButton
