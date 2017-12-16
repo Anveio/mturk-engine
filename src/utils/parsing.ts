@@ -73,10 +73,10 @@ export const parseHitAcceptFailureReason = (
   }
 };
 
-export const findHitForm = (input: Document) => {
-  return input.querySelector('form#mturk_form');
+export const findHitIframe = (input: Document) => {
+  return input.querySelector('iframe.embed-responsive-item');
 };
 
 export const validateHitAccept = (html: Document): boolean => {
-  return !!findHitForm(html);
+  return !!findHitIframe(html);
 };

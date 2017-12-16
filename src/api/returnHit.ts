@@ -12,8 +12,8 @@ export const sendReturnHitRequest = async (
     const response = await axios.post(
       `${API_URL}/projects/${groupId}/tasks/${taskId}`,
       {
-        _method: 'delete',
-        authenticityToken: token
+        // _method: 'delete',
+        // authenticityToken: token
       },
 
       {
