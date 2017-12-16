@@ -2,8 +2,7 @@ import * as React from 'react';
 import { ButtonGroup, Button } from '@shopify/polaris';
 import { SearchResult } from '../../types';
 import TOpticonButton from './TOpticonButton';
-import { previewBaseUrl } from '../../constants/urls';
-import { generateAcceptUrl } from '../../utils/urls';
+import { generateAcceptUrl, generatePreviewUrl } from '../../utils/urls';
 
 export interface Props {
   readonly hit: SearchResult;
@@ -18,7 +17,7 @@ class MiscActionsPopOver extends React.PureComponent<Props, never> {
         <Button plain external url={generateAcceptUrl(groupId)}>
           Accept
         </Button>
-        <Button plain external url={previewBaseUrl + groupId}>
+        <Button plain external url={generatePreviewUrl(groupId)}>
           Preview
         </Button>
         <TOpticonButton
