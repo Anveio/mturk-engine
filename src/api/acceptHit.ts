@@ -12,7 +12,10 @@ export const validateHitAcceptRequest = async (groupId: string) => {
         responseType: 'document'
       }
     );
-    return validateHitAccept(response.data);
+    return {
+      successful: validateHitAccept(response.data),
+      acceptedHitInfo: null
+    };
   } catch (e) {
     console.warn('Unknown problem accepting HIT.');
     return false;

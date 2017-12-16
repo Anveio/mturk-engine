@@ -1,5 +1,5 @@
 /**
- * The object produced When calling JSON.parse on the react-props of a search results page.
+ * The object produced when calling JSON.parse on the react-props of a search results page.
  */
 export interface SearchResultsApiResponse {
   readonly baseUrl: string;
@@ -7,11 +7,20 @@ export interface SearchResultsApiResponse {
 }
 
 /**
- * The object produced When calling JSON.parse on the react-props of a user's queue.
+ * The object produced when calling JSON.parse on the react-props of a user's queue.
  */
 export interface QueueApiResponse {
   readonly bodyData: WorkerQueueItem[];
   readonly tableConfig: TableConfig[];
+}
+
+/**
+ * The object produced when calling JSON.parse on the react-props of an accepted HIT's details modal.
+ */
+export interface HitDetailsApiResponse {
+  readonly children: string;
+  readonly modalHeader: string;
+  readonly modalOptions: HitModalDetails;
 }
 
 export interface WorkerHit {
@@ -133,4 +142,16 @@ export interface QueueItemQuestion {
   };
   readonly type: string;
   readonly value: string; // a URL;
+}
+
+export interface HitModalDetails {
+  readonly assignableHitsCount: number;
+  readonly assignmentDurationInSeconds: 7200;
+  readonly contactRequesterUrl: string; // a URL;
+  readonly creationTime: string; // Date object converted to JSON string.
+  readonly description: string;
+  readonly expirationTime: string; // Date object converted to JSON string.
+  readonly monetaryReward: MonetaryReward;
+  readonly projectTitle: string;
+  readonly requesterName: string;
 }
