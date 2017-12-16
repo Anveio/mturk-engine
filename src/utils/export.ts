@@ -1,6 +1,5 @@
 import { SearchResult, TOpticonData } from '../types';
 import {
-  acceptBaseUrl,
   baseTaskUrlWorker,
   baseRequeserUrlWorker,
   turkopticonBaseUrl
@@ -10,6 +9,7 @@ import {
   WorkerQualification,
   QualificationComparator
 } from '../worker-mturk-api';
+import { generateAcceptUrl } from './urls';
 
 const contactBaseUrl = 'https://www.mturk.com/mturk/contact?requesterId=';
 const requesterSearchBaseUrl =
@@ -53,7 +53,7 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     qualsRequired.length === 0 ? 'None' : generateQuals(qualsRequired);
 
   // tslint:disable:max-line-length
-  return `**Title:** [${title}](${acceptBaseUrl}${groupId})  
+  return `**Title:** [${title}](${generateAcceptUrl(groupId)})  
     **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${baseTaskUrlWorker}${groupId}/tasks/accept_random) | [Requester](${baseRequeserUrlWorker}${
     requester.id
   }/projects)  
