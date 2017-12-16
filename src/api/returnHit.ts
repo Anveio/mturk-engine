@@ -1,16 +1,28 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
 import { validateHitReturn } from '../utils/returnHit';
+import { QueueItem } from '../types';
 
-export const sendReturnHitRequest = async (hitId: string) => {
+export const sendReturnHitRequest = async (
+  queueItem: QueueItem,
+  token: string
+) => {
   try {
-    const response = await axios.get<Document>(`${API_URL}/mturk/return`, {
-      params: {
-        hitId,
-        inPipeline: false
+    const { groupId, taskId, hitId } = queueItem;
+    const response = await axios.post(
+      `${API_URL}/projects/${groupId}/tasks/${taskId}`,
+      {
+        _method: 'delete',
+        authenticityToken: token
       },
-      responseType: 'document'
-    });
+
+      {
+        params: {
+          assignment_id: hitId
+        }
+      }
+    );
+    console.log(response.data);
     return validateHitReturn(response.data);
   } catch (e) {
     throw new Error('Unknown problem with returning Hit.');

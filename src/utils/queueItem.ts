@@ -24,6 +24,8 @@ export const searchItemToQueueItem = (hit: SearchResult): QueueItem => {
     hitId: '[Refresh Required]',
     requesterName: requester.name,
     reward,
+    groupId: 'h',
+    taskId: ' h',
     // TODO: FIX THIS
     timeLeftInSeconds: 0,
     title
@@ -40,6 +42,8 @@ export const blankQueueItem = (groupId: string): QueueItem => {
     hitId: '[Refresh Required]' + v4(),
     requesterName: '[Refresh Required]',
     reward: 0,
+    groupId: '',
+    taskId: '',
     timeLeftInSeconds: 0,
     title: '[Refresh Required]'
   };

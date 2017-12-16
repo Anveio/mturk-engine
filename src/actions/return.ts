@@ -3,6 +3,7 @@ import {
   RETURN_HIT_FAILURE,
   RETURN_HIT_SUCCESS
 } from '../constants';
+import { QueueItem } from '../types';
 
 export interface ReturnHitFailure {
   readonly type: RETURN_HIT_FAILURE;
@@ -15,7 +16,7 @@ export interface ReturnHitSuccess {
 
 export interface ReturnHitRequest {
   readonly type: RETURN_HIT_REQUEST;
-  readonly hitId: string;
+  readonly queueItem: QueueItem;
 }
 
 export type ReturnAction =
@@ -23,9 +24,9 @@ export type ReturnAction =
   | ReturnHitSuccess
   | ReturnHitRequest;
 
-export const returnHitRequest = (hitId: string): ReturnHitRequest => ({
+export const returnHitRequest = (queueItem: QueueItem): ReturnHitRequest => ({
   type: RETURN_HIT_REQUEST,
-  hitId
+  queueItem
 });
 
 export const returnHitFailure = (): ReturnHitFailure => ({

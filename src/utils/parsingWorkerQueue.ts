@@ -26,6 +26,8 @@ const queuePageToQueueItemArray = (html: Document): WorkerQueueItem[] => {
 const createQueueItem = (input: WorkerQueueItem): QueueItem => ({
   title: input.project.title,
   hitId: input.assignment_id,
+  groupId: input.project.hit_set_id,
+  taskId: input.task_id,
   requesterName: input.project.requester_name,
   reward: input.project.monetary_reward.amount_in_dollars,
   timeLeftInSeconds: input.time_to_deadline_in_seconds
