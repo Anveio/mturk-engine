@@ -217,11 +217,12 @@ export interface DailyEarnings {
   readonly bonus: number;
 }
 
-export type HitAcceptFailureReason =
-  | 'Group Empty'
-  | 'Unqualified'
+export type AcceptHitFailureReason =
   | 'CAPTCHA'
-  | 'Unknown';
+  | 'NO_AVAILABILITY'
+  | 'EXCEEDED_RATE_LIMIT'
+  | 'UNQUALIFIED'
+  | 'UNKNOWN';
 
 export interface QueuePageData {
   readonly queueAuthToken: string | null;
