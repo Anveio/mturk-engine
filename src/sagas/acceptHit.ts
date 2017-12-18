@@ -8,32 +8,22 @@ import {
 } from '../actions/accept';
 import { ScheduleWatcherTick, scheduleWatcher } from '../actions/watcher';
 import { sendHitAcceptRequest, HitAcceptResponse } from '../api/acceptHit';
-import { searchItemToQueueItem, blankQueueItem } from '../utils/queueItem';
 import { generateAcceptHitToast } from '../utils/toaster';
 import { calculateTimeFromDelay } from '../utils/scheduler';
+import { parseWorkerHit } from '../utils/parsingWorkerHit';
 
 export function* acceptHit(action: AcceptHitRequest) {
-  const { groupId, data } = action;
   try {
     const response: HitAcceptResponse = yield call(
       sendHitAcceptRequest,
-      groupId
+      action.groupId
     );
-    const { successful } = response;
-    console.log(response);
-    const newQueueItem = data
-      ? searchItemToQueueItem(data)
-      : blankQueueItem(groupId);
 
-    if (successful) {
-      generateAcceptHitToast(successful, newQueueItem.title);
-      yield put<AcceptHitSuccess>(acceptHitSuccess(newQueueItem));
-    } else if (action.fromWatcher && !successful) {
-      yield put<AcceptHitFailure>(acceptHitFailure());
-    } else if (!action.fromWatcher && !successful) {
-      yield put<AcceptHitFailure>(acceptHitFailure());
-      generateAcceptHitToast(successful, newQueueItem.title);
-    }
+    const { successful, htmlResponse } = response;
+
+    yield successful
+      ? handleSuccessfulAccept(htmlResponse)
+      : handleFailedAccept(action.fromWatcher);
 
     if (action.fromWatcher && action.delay) {
       yield put<ScheduleWatcherTick>(
@@ -43,4 +33,18 @@ export function* acceptHit(action: AcceptHitRequest) {
   } catch (e) {
     yield put<AcceptHitFailure>(acceptHitFailure());
   }
+}
+
+function* handleSuccessfulAccept(html: Document) {
+  const acceptedHit = parseWorkerHit(html);
+  generateAcceptHitToast(true, acceptedHit.title);
+  yield put<AcceptHitSuccess>(acceptHitSuccess(acceptedHit));
+}
+
+function* handleFailedAccept(fromWatcher: boolean) {
+  if (!fromWatcher) {
+    generateAcceptHitToast(false);
+  }
+
+  yield put<AcceptHitFailure>(acceptHitFailure());
 }

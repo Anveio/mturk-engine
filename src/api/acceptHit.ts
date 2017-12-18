@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
 import { validateHitAccept } from '../utils/parsing';
-import { parseWorkerHit } from '../utils/parsingWorkerHit';
-import { QueueItem } from '../types';
 
 export interface HitAcceptResponse {
   readonly successful: boolean;
-  readonly acceptedHitInfo: QueueItem | null;
+  readonly htmlResponse: Document;
 }
 
 export const sendHitAcceptRequest = async (
@@ -22,13 +20,9 @@ export const sendHitAcceptRequest = async (
 
     return {
       successful: validateHitAccept(response.data),
-      acceptedHitInfo: parseWorkerHit(response.data)
+      htmlResponse: response.data
     };
   } catch (e) {
-    console.warn(e);
-    return {
-      successful: false,
-      acceptedHitInfo: null
-    };
+    throw new Error(e);
   }
 };

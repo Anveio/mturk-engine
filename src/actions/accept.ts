@@ -17,7 +17,6 @@ export interface AcceptHitRequest {
   readonly type: ACCEPT_HIT_REQUEST;
   readonly groupId: string;
   readonly fromWatcher: boolean;
-  readonly data?: SearchResult;
   readonly delay?: number;
 }
 
@@ -41,7 +40,6 @@ export const acceptHitRequestfromSearch = (
   type: ACCEPT_HIT_REQUEST,
   groupId: data.groupId,
   fromWatcher: false,
-  data
 });
 
 export const acceptHitRequestFromWatcher = (

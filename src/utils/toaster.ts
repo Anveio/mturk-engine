@@ -45,7 +45,7 @@ export const failedSearchToast = () => {
   });
 };
 
-export const generateAcceptHitToast = (successful: boolean, title: string) =>
+export const generateAcceptHitToast = (successful: boolean, title: string = 'hi') =>
   successful ? successfulAcceptToast(title) : failedAcceptToast(title);
 
 export const generateQueueToast = (notEmpty: boolean) => {

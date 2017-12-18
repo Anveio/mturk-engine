@@ -10,8 +10,13 @@ import {
   returnButtonQuerySelector
 } from '../constants/querySelectors';
 
-export const parseWorkerHit = (html: Document): QueueItem | null => {
-  return hitDetailsPageToQueueItem(html);
+export const parseWorkerHit = (html: Document): QueueItem => {
+  const queueItem = hitDetailsPageToQueueItem(html);
+  if (!queueItem) {
+    throw new Error(`Could not create a queue item from the given document`);
+  }
+
+  return queueItem;
 };
 
 const hitDetailsPageToQueueItem = (html: Document): QueueItem | null => {
