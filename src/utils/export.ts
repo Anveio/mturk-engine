@@ -84,11 +84,11 @@ const qualComparatorToWords = (comparator: QualificationComparator): string => {
     case 'GreaterThan':
       return 'is greater than';
     case 'GreaterThanOrEqualTo':
-      return 'is greater than or equal to';
+      return 'is not less than';
     case 'LessThan':
       return 'is less than';
     case 'LessThanOrEqualTo':
-      return 'is less than or equal to';
+      return 'is not greater than';
     case 'In':
       return 'is one of';
     case 'DoesNotExist':
