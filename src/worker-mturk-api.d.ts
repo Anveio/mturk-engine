@@ -17,10 +17,20 @@ export interface QueueApiResponse {
 /**
  * The object produced when calling JSON.parse on the react-props of an accepted HIT's details modal.
  */
-export interface HitDetailsApiResponse {
+export interface AcceptedHitDetailsModal {
   readonly children: string;
   readonly modalHeader: string;
   readonly modalOptions: HitModalDetails;
+}
+
+/**
+ * The object produced when calling JSON.parse on the react-props of an accepted HIT's time remaining.
+ */
+export interface WorkerAcceptedHitTimeRemaining {
+  readonly className: string;
+  readonly originalTimeToCompleteInSeconds: number;
+  readonly timeRemainingInSeconds: number;
+  readonly update: boolean;
 }
 
 export interface WorkerHit {
@@ -98,8 +108,9 @@ export type QualificationComparator =
   | 'NotEqualTo'
   | 'GreaterThan'
   | 'GreaterThanOrEqualTo'
+  | 'LessThan'
+  | 'LessThanOrEqualTo'
   | 'In';
-// Possibly 'LessThan' and 'LessThanOrEqualTo'? I haven't seen one of those yet.
 
 export interface WorkerSearchParams {
   readonly page_size: number;
