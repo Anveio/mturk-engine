@@ -73,16 +73,22 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
 const qualificationToSentence = (qual: WorkerQualification): string =>
   `${qual.qualification_type.name} ${qualComparatorToWords(
     qual.comparator
-  )} ${qual.qualification_values.join(', ')}`;
+  )} ${qual.qualification_values.join(', ')}.`;
 
 const qualComparatorToWords = (comparator: QualificationComparator): string => {
   switch (comparator) {
     case 'EqualTo':
       return 'is equal to';
+    case 'NotEqualTo':
+      return 'is not';
     case 'GreaterThan':
       return 'is greater than';
     case 'GreaterThanOrEqualTo':
       return 'is greater than or equal to';
+    case 'LessThan':
+      return 'is less than';
+    case 'LessThanOrEqualTo':
+      return 'is less than or equal to';
     case 'In':
       return 'is one of';
     case 'DoesNotExist':
