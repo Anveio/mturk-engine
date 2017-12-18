@@ -33,6 +33,13 @@ export interface WorkerAcceptedHitTimeRemaining {
   readonly update: boolean;
 }
 
+export interface ErrorBannerProps {
+  readonly header: string;
+  readonly message: string;
+  readonly renderMessageAsHTML: boolean;
+  readonly type: string;
+}
+
 export interface WorkerHit {
   readonly assignable_hits_count: number;
   readonly assignment_duration_in_seconds: number;
