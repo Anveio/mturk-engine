@@ -5,7 +5,8 @@ import {
   SearchResultsApiResponse,
   WorkerQualification
 } from '../worker-mturk-api';
-import { getPageReactProps } from './parsing';
+import { parseReactProps } from './parsing';
+import { mturkTableDataNodeQuerySelector } from '../constants/querySelectors';
 
 export const parseWorkerSearchPage = (
   html: Document,
@@ -52,7 +53,7 @@ const createWorkerSearchItem = (hit: WorkerSearchResult): SearchResult => ({
 const searchResultsDocumentToWorkerHitArray = (
   html: Document
 ): WorkerSearchResult[] => {
-  const pageReactProps = getPageReactProps(html);
+  const pageReactProps = parseReactProps(html)(mturkTableDataNodeQuerySelector);
 
   if (!pageReactProps) {
     throw new Error('No data found on the requested search results page.');
@@ -64,7 +65,8 @@ const searchResultsDocumentToWorkerHitArray = (
     ) as SearchResultsApiResponse;
     return searchResultsData.bodyData;
   } catch (e) {
-    throw new Error('Error parsing react data props string.');
+    console.warn(e);
+    return [];
   }
 };
 

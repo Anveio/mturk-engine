@@ -5,19 +5,6 @@ import {
 } from '../constants/querySelectors';
 import { removeCurrencyFormatting } from './formatting';
 
-export const getPageReactProps = (html: Document): string | null => {
-  const searchResultsDataNode = html.querySelector(
-    'div.row.m-b-md > div.col-xs-12 > div'
-  );
-
-  if (!searchResultsDataNode) {
-    console.warn('Node containing React props was not found.');
-    return null;
-  }
-
-  return searchResultsDataNode.getAttribute('data-react-props');
-};
-
 export const selectHitContainers = (el: Document): HTMLDivElement[] =>
   Array.from(el.querySelectorAll(hitContainerTableCell) as NodeListOf<
     HTMLDivElement
@@ -79,4 +66,24 @@ export const findHitIframe = (input: Document) => {
 
 export const validateHitAccept = (html: Document): boolean => {
   return !!findHitIframe(html);
+};
+
+export const parseReactProps = (html: Document) => (
+  querySelector: string
+): string => {
+  const dataNode = html.querySelector(querySelector);
+
+  if (!dataNode) {
+    throw new Error(
+      `Node containing React props was not found. querySelector: ${querySelector}`
+    );
+  }
+
+  const reactProps = dataNode.getAttribute('data-react-props');
+
+  if (!reactProps) {
+    throw new Error(`No react props found on node.`);
+  }
+
+  return reactProps;
 };

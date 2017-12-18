@@ -1,7 +1,8 @@
 import { Map } from 'immutable';
 import { QueueMap, QueueItem } from '../types';
 import { WorkerQueueItem, QueueApiResponse } from '../worker-mturk-api';
-import { getPageReactProps } from './parsing';
+import { parseReactProps } from './parsing';
+import { mturkTableDataNodeQuerySelector } from '../constants/querySelectors';
 
 export const parseQueuePage = (html: Document): QueueMap => {
   const queueItems = queuePageToQueueItemArray(html);
@@ -9,17 +10,14 @@ export const parseQueuePage = (html: Document): QueueMap => {
 };
 
 const queuePageToQueueItemArray = (html: Document): WorkerQueueItem[] => {
-  const pageReactProps = getPageReactProps(html);
-
-  if (!pageReactProps) {
-    throw new Error('No data found on the requested queue page.');
-  }
+  const pageReactProps = parseReactProps(html)(mturkTableDataNodeQuerySelector);
 
   try {
     const searchResultsData = JSON.parse(pageReactProps) as QueueApiResponse;
     return searchResultsData.bodyData;
   } catch (e) {
-    throw new Error('Error parsing react data props string.');
+    console.warn(e);
+    return [];
   }
 };
 
