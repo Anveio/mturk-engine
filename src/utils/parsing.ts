@@ -85,14 +85,13 @@ export const parseAcceptFailureReason = (
   input: Document
 ): AcceptHitFailureReason => {
   /**
-   * TODO: Finish implementation;
+   * TODO: This does not actually work yet. The banner doesn't seem to render when failing to accept a HIT via XHR.
    */
   if (findCaptchaContainer(input)) {
     return 'CAPTCHA';
   }
 
   const errorDiv = findErrorDiv(input);
-
   if (!errorDiv) {
     return 'UNKNOWN';
   }
@@ -102,5 +101,20 @@ export const parseAcceptFailureReason = (
     return 'NO_AVAILABILITY';
   } else {
     return 'UNKNOWN';
+  }
+};
+
+export const failureReasonToWords = (input: AcceptHitFailureReason): string => {
+  switch (input) {
+    case 'CAPTCHA':
+      return `You must successfully complete a CAPTCHA before accepting any more HITs.`;
+    case 'EXCEEDED_RATE_LIMIT':
+      return `You've made too many requests to Mturk recently. Wait a few moments and then try again.`;
+    case 'NO_AVAILABILITY':
+      return `There are no more HITs available in this group.`;
+    case 'UNQUALIFIED':
+      return `You're not qualified to accept that HIT.`;
+    default:
+      return '';
   }
 };

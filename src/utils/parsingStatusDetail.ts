@@ -16,7 +16,7 @@ import {
   statusDetailMorePages
 } from '../constants/querySelectors';
 import { StatusDetailPageInfo } from '../api/statusDetail';
-import { pageErrorPresent, parseStringProperty } from './parsing';
+import { parseStringProperty } from './parsing';
 
 interface AnchorElemInfo {
   requester: Requester;
@@ -28,7 +28,8 @@ export const parseStatusDetailPage = (
   dateString: string
 ): StatusDetailPageInfo => {
   const hitRows = selectHitRows(html);
-  if (pageErrorPresent(html) || !activityPresent(hitRows)) {
+  // TODO: FIX THIS
+  if (!activityPresent(hitRows)) {
     return {
       data: Map<string, HitDatabaseEntry>(),
       morePages: false
@@ -158,7 +159,7 @@ const parseStatus = (input: HTMLTableRowElement): HitStatus => {
   if (rewardElem && rewardElem.textContent) {
     return /Pending\sPayment/.test(rewardElem.textContent)
       ? 'Pending Payment'
-      : rewardElem.textContent.trim() as HitStatus;
+      : (rewardElem.textContent.trim() as HitStatus);
   } else {
     return 'Pending Approval';
   }

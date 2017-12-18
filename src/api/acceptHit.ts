@@ -14,6 +14,9 @@ export const sendHitAcceptRequest = async (
     const response = await axios.get<Document>(
       `${API_URL}/projects/${groupId}/tasks/accept_random`,
       {
+        params: {
+          ref: 'w_wp_acpt_top'
+        },
         responseType: 'document'
       }
     );

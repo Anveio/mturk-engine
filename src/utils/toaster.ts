@@ -4,7 +4,8 @@ import { truncate } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsCurrency } from './formatting';
 import { Toaster, Position } from '@blueprintjs/core';
-import { ImmutablePersistedStateKey } from '../types';
+import { ImmutablePersistedStateKey, AcceptHitFailureReason } from '../types';
+import { failureReasonToWords } from './parsing';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
 
@@ -44,9 +45,6 @@ export const failedSearchToast = () => {
     timeout: 3000
   });
 };
-
-export const generateAcceptHitToast = (successful: boolean, title: string = 'hi') =>
-  successful ? successfulAcceptToast(title) : failedAcceptToast(title);
 
 export const generateQueueToast = (notEmpty: boolean) => {
   notEmpty ? successfulQueueToast() : emptyQueueToast();
@@ -196,19 +194,18 @@ export const failedImportPersistedState = () =>
     intent: 3
   });
 
-const successfulAcceptToast = (title: string) =>
+export const successfulAcceptToast = (title: string) =>
   TopRightToaster.show({
     message: `"${truncate(title, 45)}" was added to your queue.`,
     intent: 1,
     timeout: 5000
   });
 
-const failedAcceptToast = (title: string) =>
+export const failedAcceptToast = (reason: AcceptHitFailureReason) =>
   TopRightToaster.show({
-    message: `"${truncate(
-      title,
-      45
-    )}" was not added to your queue. You may not be qualified, or no HITs may be available, or you may need to solve a CAPTCHA.`,
+    message: `That HIT was not added to your queue. ${failureReasonToWords(
+      reason
+    )}`,
     intent: 2
   });
 
