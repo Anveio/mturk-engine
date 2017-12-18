@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
 import { WorkerQualification } from './worker-mturk-api';
 
-export interface RootState {
+interface RootState {
   readonly account: MaybeAccount;
   readonly tab: number;
   readonly queue: QueueMap;
@@ -25,21 +25,21 @@ export interface RootState {
   readonly uploadedState: Partial<PersistedState> | null;
 }
 
-export type SearchResults = Map<string, SearchResult>;
-export type QueueMap = Map<string, QueueItem>;
-export type RequesterMap = Map<string, Requester>;
-export type HitBlockMap = Map<string, BlockedHit>;
-export type RequesterBlockMap = Map<string, BlockedRequester>;
-export type TOpticonMap = Map<string, TOpticonData>;
-export type WatcherMap = Map<string, Watcher>;
-export type WatcherTimerMap = Map<string, Date | null>;
-export type HitDatabaseMap = Map<string, HitDatabaseEntry>;
+type SearchResults = Map<string, SearchResult>;
+type QueueMap = Map<string, QueueItem>;
+type RequesterMap = Map<string, Requester>;
+type HitBlockMap = Map<string, BlockedHit>;
+type RequesterBlockMap = Map<string, BlockedRequester>;
+type TOpticonMap = Map<string, TOpticonData>;
+type WatcherMap = Map<string, Watcher>;
+type WatcherTimerMap = Map<string, Date | null>;
+type HitDatabaseMap = Map<string, HitDatabaseEntry>;
 
 /**
  * The keys of RootState that are persisted by redux-persist.
  * See `PERSISTED_STATE_WHITELIST` in ./constants/settings
  */
-export type PersistedStateKey =
+type PersistedStateKey =
   | 'tab'
   | 'account'
   | 'hitBlocklist'
@@ -52,30 +52,27 @@ export type PersistedStateKey =
   | 'audioSettingsV1'
   | 'dailyEarningsGoal';
 
-export type ImmutablePersistedStateKey =
+type ImmutablePersistedStateKey =
   | 'hitDatabase'
   | 'hitBlocklist'
   | 'watchers'
   | 'requesterBlocklist';
 
-export type ImmutablePersistedDataType =
+type ImmutablePersistedDataType =
   | HitBlockMap
   | RequesterBlockMap
   | WatcherMap
   | HitDatabaseMap;
 
-export type PersistedState = Pick<RootState, PersistedStateKey>;
-export type ImmutablePersistedState = Pick<
-  RootState,
-  ImmutablePersistedStateKey
->;
+type PersistedState = Pick<RootState, PersistedStateKey>;
+type ImmutablePersistedState = Pick<RootState, ImmutablePersistedStateKey>;
 
-export type MaybeAccount = AccountInfo | null;
+type MaybeAccount = AccountInfo | null;
 
-export type FormTarget = 'searchOptions' | 'topticonSettings';
+type FormTarget = 'searchOptions' | 'topticonSettings';
 
-export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
-export interface SearchOptions {
+type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
+interface SearchOptions {
   readonly searchTerm: string;
   readonly delay: string;
   readonly minReward: string;
@@ -83,14 +80,10 @@ export interface SearchOptions {
   readonly qualifiedOnly: boolean;
 }
 
-export type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
-export type HitStatus =
-  | 'Paid'
-  | 'Pending Payment'
-  | 'Rejected'
-  | 'Pending Approval';
+type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
+type HitStatus = 'Paid' | 'Pending Payment' | 'Rejected' | 'Pending Approval';
 
-export interface AccountInfo {
+interface AccountInfo {
   readonly id: string;
   readonly fullName: string;
   readonly availableEarnings: number;
@@ -103,7 +96,7 @@ export interface AccountInfo {
   readonly numPending: number;
 }
 
-export interface HumanIntelligenceTask {
+interface HumanIntelligenceTask {
   readonly title: string;
   readonly requester: Requester;
   readonly reward: number;
@@ -111,7 +104,7 @@ export interface HumanIntelligenceTask {
   readonly description: string;
 }
 
-export interface SearchResult extends HumanIntelligenceTask {
+interface SearchResult extends HumanIntelligenceTask {
   readonly creationTime: Date;
   readonly lastUpdatedTime: Date;
   readonly markedAsRead?: boolean;
@@ -123,7 +116,7 @@ export interface SearchResult extends HumanIntelligenceTask {
   readonly canPreview: boolean;
 }
 
-export interface HitDatabaseEntry {
+interface HitDatabaseEntry {
   readonly id: string;
   readonly date: string;
   readonly title: string;
@@ -135,7 +128,7 @@ export interface HitDatabaseEntry {
   readonly feedback?: string;
 }
 
-export interface QueueItem {
+interface QueueItem {
   readonly title: string;
   readonly requesterName: string;
   readonly hitId: string;
@@ -145,39 +138,39 @@ export interface QueueItem {
   readonly timeLeftInSeconds: number;
 }
 
-export interface BlockedHit extends SearchResult {
+interface BlockedHit extends SearchResult {
   readonly dateBlocked: Date;
 }
 
-export interface Requester {
+interface Requester {
   readonly id: string;
   readonly name: string;
   readonly turkopticon?: TOpticonData;
 }
 
-export interface BlockedRequester extends Requester {
+interface BlockedRequester extends Requester {
   readonly dateBlocked: Date;
 }
 
-export interface TOpticonData {
+interface TOpticonData {
   readonly name: string;
   readonly attrs: RequesterScores;
   readonly reviews: number;
   readonly tos_flags: number;
 }
 
-export interface TOpticonResponse {
+interface TOpticonResponse {
   readonly [id: string]: TOpticonData;
 }
 
-export interface RequesterScores {
+interface RequesterScores {
   readonly comm?: string;
   readonly pay?: string;
   readonly fair?: string;
   readonly fast?: string;
 }
 
-export interface TOpticonSettings {
+interface TOpticonSettings {
   readonly hideBelowThresholdEnabled: boolean;
   readonly hideNoToEnabled: boolean;
   readonly minimumWeightedTO: number;
@@ -187,7 +180,7 @@ export interface TOpticonSettings {
   readonly fastWeight: number;
 }
 
-export interface Watcher {
+interface Watcher {
   readonly groupId: string;
   readonly title: string;
   readonly delay: number;
@@ -198,33 +191,33 @@ export interface Watcher {
   readonly hit?: HumanIntelligenceTask;
 }
 
-export interface AudioSettings {
+interface AudioSettings {
   readonly enabled: boolean;
   readonly volume: number;
 }
 
-export interface AudioFiles {
+interface AudioFiles {
   readonly audioNewSearch: HTMLAudioElement;
 }
 
-export interface HeatMapValue {
+interface HeatMapValue {
   readonly date: string;
   readonly count: number;
 }
 
-export interface DailyEarnings {
+interface DailyEarnings {
   readonly reward: number;
   readonly bonus: number;
 }
 
-export type AcceptHitFailureReason =
+type AcceptHitFailureReason =
   | 'CAPTCHA'
   | 'NO_AVAILABILITY'
   | 'EXCEEDED_RATE_LIMIT'
   | 'UNQUALIFIED'
   | 'UNKNOWN';
 
-export interface QueuePageData {
+interface QueuePageData {
   readonly queueAuthToken: string | null;
   readonly queueItems: QueueMap;
 }
