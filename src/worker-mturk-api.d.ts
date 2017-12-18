@@ -162,7 +162,10 @@ export interface HitModalDetails {
   readonly creationTime: string; // Date object converted to JSON string.
   readonly description: string;
   readonly expirationTime: string; // Date object converted to JSON string.
-  readonly monetaryReward: MonetaryReward;
+  readonly monetaryReward: {
+    readonly amountInDollars: number;
+    readonly currendyCode: string;
+  };
   readonly projectTitle: string;
   readonly requesterName: string;
 }

@@ -33,11 +33,11 @@ const hitDetailsPageToQueueItem = (html: Document): QueueItem | null => {
     } = hitDetails;
 
     const { groupId, taskId, hitId } = parseIdStrings(html);
-
+    console.log(hitDetails);
     return {
       title: projectTitle,
       requesterName: requesterName,
-      reward: monetaryReward.amount_in_dollars,
+      reward: monetaryReward.amountInDollars,
       timeLeftInSeconds: parseTimeLeft(html),
       groupId,
       hitId,
