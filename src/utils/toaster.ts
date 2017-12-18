@@ -197,17 +197,11 @@ export const failedImportPersistedState = () =>
   });
 
 const successfulAcceptToast = (title: string) =>
-  title.startsWith('[Refresh Required]')
-    ? TopRightToaster.show({
-        message: 'A HIT was added to your queue.',
-        intent: 1,
-        timeout: 5000
-      })
-    : TopRightToaster.show({
-        message: `"${truncate(title, 45)}" was added to your queue.`,
-        intent: 1,
-        timeout: 5000
-      });
+  TopRightToaster.show({
+    message: `"${truncate(title, 45)}" was added to your queue.`,
+    intent: 1,
+    timeout: 5000
+  });
 
 const failedAcceptToast = (title: string) =>
   TopRightToaster.show({
