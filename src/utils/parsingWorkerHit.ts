@@ -63,11 +63,10 @@ interface IdStrings {
   hitId: string;
 }
 
-export const hitIdRegex = /\/?assignment_id(.*)\&/g;
-export const taskIdRegex = /tasks\/(.*)\?assignment_id/g;
-export const groupIdRegex = /projects\/(.*)\/tasks/g;
-
 const parseIdStrings = (html: Document): IdStrings => {
+  const hitIdRegex = /\/?assignment_id=(.*)\&/g;
+  const taskIdRegex = /tasks\/(.*)\?assignment_id/g;
+  const groupIdRegex = /projects\/(.*)\/tasks/g;
   /**
    * The return button has all the information we neeed to return IdStrings.
    */
@@ -86,8 +85,10 @@ const parseIdStrings = (html: Document): IdStrings => {
 
 const parseReturnBtnAction = (action: string) => (regex: RegExp) => {
   const resultArr = regex.exec(action);
-  if (!resultArr || resultArr.length < 1) {
-    throw new Error('Problem parsing return button action string.');
+  if (resultArr === null || resultArr.length < 1) {
+    throw new Error(
+      `Problem parsing return button action string. Action: ${action} :: Regexp: ${regex} :: Result: ${resultArr}`
+    );
   } else {
     return resultArr[1];
   }
