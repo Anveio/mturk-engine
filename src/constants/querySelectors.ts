@@ -1,3 +1,5 @@
+// tslint:disable:max-line-length
+
 export const hitTableBody = `body > div:nth-child(9) > table:nth-child(3) > tbody`;
 
 export const hitContainerTableCell = `table[cellpadding="0"][cellspacing="0"][border="0"][width="100%"][height="100%"]`;
@@ -59,18 +61,24 @@ export const lifetimeTotalEarnings = 'td#total_earnings_amount > span.reward';
 
 export const availableEarnings = 'td#transfer_earnings > span.reward';
 
-// tslint:disable-next-line:max-line-length
 export const lifetimeSubmitted =
   'body > table:nth-child(12) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(2)';
 
-// tslint:disable-next-line:max-line-length
 export const lifetimeApproved =
   'body > table:nth-child(12) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(3) > td:nth-child(2)';
 
-// tslint:disable-next-line:max-line-length
 export const lifetimeRejected =
   'body > table:nth-child(12) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(4) > td:nth-child(2)';
 
-// tslint:disable-next-line:max-line-length
 export const numPending =
   'body > table:nth-child(12) > tbody > tr:nth-child(2) > td > table > tbody > tr > td > table > tbody > tr:nth-child(5) > td:nth-child(2)';
+
+export const acceptedHitTimeRemainingQuerySelector =
+  'span.detail-bar-value > span';
+
+export const mturkTableDataNodeQuerySelector =
+  'div.row.m-b-md > div.col-xs-12 > div';
+
+export const hitDetailsModalQuerySelector = 'div.col-sm-4.col-xs-5 > div';
+
+export const returnButtonQuerySelector = `#MainContent > div.work-pipeline-bottom-bar.m-b-sm > div.action-buttons.text-xs-center > div > form`;

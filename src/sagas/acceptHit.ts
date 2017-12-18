@@ -7,7 +7,7 @@ import {
   AcceptHitSuccess
 } from '../actions/accept';
 import { ScheduleWatcherTick, scheduleWatcher } from '../actions/watcher';
-import { validateHitAcceptRequest } from '../api/acceptHit';
+import { sendHitAcceptRequest, HitAcceptResponse } from '../api/acceptHit';
 import { searchItemToQueueItem, blankQueueItem } from '../utils/queueItem';
 import { generateAcceptHitToast } from '../utils/toaster';
 import { calculateTimeFromDelay } from '../utils/scheduler';
@@ -15,8 +15,12 @@ import { calculateTimeFromDelay } from '../utils/scheduler';
 export function* acceptHit(action: AcceptHitRequest) {
   const { groupId, data } = action;
   try {
-    const successful: boolean = yield call(validateHitAcceptRequest, groupId);
-
+    const response: HitAcceptResponse = yield call(
+      sendHitAcceptRequest,
+      groupId
+    );
+    const { successful } = response;
+    console.log(response);
     const newQueueItem = data
       ? searchItemToQueueItem(data)
       : blankQueueItem(groupId);
