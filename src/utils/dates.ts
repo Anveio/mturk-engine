@@ -64,4 +64,3 @@ export const secondsToMinutes = (numSeconds: number): number =>
 
 export const displaySecondsAsHHMMSS = (numSeconds: number): string =>
   moment.utc(numSeconds * 1000).format('HH:mm:ss');
-
