@@ -1,14 +1,7 @@
-import { HitAcceptFailureReason } from '../types';
-import {
-  errorBanner,
-  hitContainerTableCell
-} from '../constants/querySelectors';
+import { AcceptHitFailureReason } from '../types';
+import { errorBanner } from '../constants/querySelectors';
 import { removeCurrencyFormatting } from './formatting';
-
-export const selectHitContainers = (el: Document): HTMLDivElement[] =>
-  Array.from(el.querySelectorAll(hitContainerTableCell) as NodeListOf<
-    HTMLDivElement
-  >);
+import { ErrorBannerProps } from '../worker-mturk-api';
 
 export const parseStringProperty = (queryString: string, fallback: string) => (
   input: Document | Element
@@ -37,9 +30,6 @@ export const parseCurrencyProperty = (queryString: string) => (
     : 0;
 };
 
-export const pageErrorPresent = (html: Document): boolean =>
-  !!html.querySelector(errorBanner);
-
 export const rateLimitErrorPresent = (html: Document): boolean => {
   const maybeRateLimitElem = html.querySelector(errorBanner);
   if (maybeRateLimitElem && maybeRateLimitElem.textContent) {
@@ -49,20 +39,19 @@ export const rateLimitErrorPresent = (html: Document): boolean => {
   }
 };
 
-export const parseHitAcceptFailureReason = (
-  html: Document
-): HitAcceptFailureReason => {
-  const maybeReasonContainer = html.querySelector('div.message.warning');
-  if (maybeReasonContainer && maybeReasonContainer.textContent) {
-    return maybeReasonContainer.textContent as HitAcceptFailureReason;
-  } else {
-    return 'Unknown';
-  }
-};
-
 export const findHitIframe = (input: Document) => {
   return input.querySelector('iframe.embed-responsive-item');
 };
+
+export const findCaptchaContainer = (input: Document) =>
+  input.querySelector('img.captcha-image');
+
+/**
+ * If found, the returned `div` will have a data-react-props attribute.
+ * @param input
+ */
+export const findErrorDiv = (input: Document) =>
+  input.querySelector('#MainContent > div:nth-child(2) > div > div');
 
 export const validateHitAccept = (html: Document): boolean => {
   return !!findHitIframe(html);
@@ -79,11 +68,39 @@ export const parseReactProps = (html: Document) => (
     );
   }
 
+  return getDataReactProps(dataNode);
+};
+
+export const getDataReactProps = (dataNode: Element): string => {
   const reactProps = dataNode.getAttribute('data-react-props');
 
   if (!reactProps) {
     throw new Error(`No react props found on node.`);
+  } else {
+    return reactProps;
+  }
+};
+
+export const parseAcceptFailureReason = (
+  input: Document
+): AcceptHitFailureReason => {
+  /**
+   * TODO: Finish implementation;
+   */
+  if (findCaptchaContainer(input)) {
+    return 'CAPTCHA';
   }
 
-  return reactProps;
+  const errorDiv = findErrorDiv(input);
+
+  if (!errorDiv) {
+    return 'UNKNOWN';
+  }
+
+  const errorInfo: ErrorBannerProps = JSON.parse(getDataReactProps(errorDiv));
+  if (errorInfo.header === 'There are no more of these HITs available') {
+    return 'NO_AVAILABILITY';
+  } else {
+    return 'UNKNOWN';
+  }
 };
