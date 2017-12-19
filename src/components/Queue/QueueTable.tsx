@@ -6,8 +6,10 @@ import { queueItemsIds } from '../../selectors/queue';
 import { FetchQueueRequest, fetchQueueRequest } from '../../actions/queue';
 import EmptyQueue from './EmptyQueue';
 import QueueCard from './QueueItemCard';
+import { TabIndex } from '../../constants/tabs';
 
 export interface Props {
+  readonly selectedTabIndex: number;
   readonly queueItemIds: string[];
 }
 
@@ -16,9 +18,14 @@ export interface Handlers {
 }
 
 class QueueTable extends React.PureComponent<Props & Handlers, never> {
-  // componentWillMount() {
-  //   this.props.onRefresh();
-  // }
+  componentWillReceiveProps({ selectedTabIndex }: Props & Handlers) {
+    if (
+      this.props.selectedTabIndex !== selectedTabIndex &&
+      selectedTabIndex === TabIndex.QUEUE
+    ) {
+      this.props.onRefresh();
+    }
+  }
 
   public render() {
     const { queueItemIds, onRefresh } = this.props;
@@ -46,6 +53,7 @@ class QueueTable extends React.PureComponent<Props & Handlers, never> {
 }
 
 const mapState = (state: RootState): Props => ({
+  selectedTabIndex: state.tab,
   queueItemIds: queueItemsIds(state)
 });
 
