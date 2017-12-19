@@ -7,7 +7,7 @@ import { parseReactProps } from './parsing';
 import {
   hitDetailsModalQuerySelector,
   acceptedHitTimeRemainingQuerySelector,
-  returnButtonQuerySelector
+  returnAssignmentFormQuerySelector
 } from '../constants/querySelectors';
 
 export const parseWorkerHit = (html: Document): QueueItem => {
@@ -33,7 +33,6 @@ const hitDetailsPageToQueueItem = (html: Document): QueueItem | null => {
     } = hitDetails;
 
     const { groupId, taskId, hitId } = parseIdStrings(html);
-    console.log(hitDetails);
     return {
       title: projectTitle,
       requesterName: requesterName,
@@ -68,26 +67,29 @@ const parseIdStrings = (html: Document): IdStrings => {
   const taskIdRegex = /tasks\/(.*)\?assignment_id/g;
   const groupIdRegex = /projects\/(.*)\/tasks/g;
   /**
-   * The return button has all the information we neeed to return IdStrings.
+   * The return assignment form has all the information we neeed to return
+   * IdStrings.
    */
-  const returnBtn = html.querySelector(returnButtonQuerySelector);
-  if (!returnBtn) {
-    throw new Error(`Couldn't find return button.`);
+  const returnAssignmentForm = html.querySelector(
+    returnAssignmentFormQuerySelector
+  );
+  if (!returnAssignmentForm) {
+    throw new Error(`Couldn't find return assignment form.`);
   } else {
-    const action = returnBtn.getAttribute('action') as string;
+    const action = returnAssignmentForm.getAttribute('action') as string;
     return {
-      groupId: parseReturnBtnAction(action)(groupIdRegex),
-      hitId: parseReturnBtnAction(action)(hitIdRegex),
-      taskId: parseReturnBtnAction(action)(taskIdRegex)
+      groupId: executeRegex(action)(groupIdRegex),
+      hitId: executeRegex(action)(hitIdRegex),
+      taskId: executeRegex(action)(taskIdRegex)
     };
   }
 };
 
-const parseReturnBtnAction = (action: string) => (regex: RegExp) => {
-  const resultArr = regex.exec(action);
+const executeRegex = (inputString: string) => (regex: RegExp) => {
+  const resultArr = regex.exec(inputString);
   if (resultArr === null || resultArr.length < 1) {
     throw new Error(
-      `Problem parsing return button action string. Action: ${action} :: Regexp: ${regex} :: Result: ${resultArr}`
+      `Problem parsing string. Input: ${inputString} :: Regexp: ${regex} :: Result: ${resultArr}`
     );
   } else {
     return resultArr[1];

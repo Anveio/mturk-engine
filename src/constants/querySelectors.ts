@@ -81,4 +81,4 @@ export const mturkTableDataNodeQuerySelector =
 
 export const hitDetailsModalQuerySelector = 'div.col-sm-4.col-xs-5 > div';
 
-export const returnButtonQuerySelector = `#MainContent > div.work-pipeline-bottom-bar.m-b-sm > div.action-buttons.text-xs-center > div > form`;
+export const returnAssignmentFormQuerySelector = `#MainContent > div.work-pipeline-bottom-bar.m-b-sm > div.action-buttons.text-xs-center > div > form`;
