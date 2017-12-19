@@ -20,32 +20,22 @@ export function* returnHit(action: ReturnHitRequest) {
     );
 
     if (!authToken) {
-      console.warn('No auth token found for this HIT.');
       return yield put<ReturnHitFailure>(returnHitFailure());
     }
 
-    const status = yield call(
+    const successful: boolean = yield call(
       sendReturnHitRequest,
       action.queueItem,
       authToken
     );
-    generateReturnToast(status);
-    switch (status) {
-      case 'error':
-        yield put<ReturnHitFailure>(returnHitFailure());
-        break;
-      case 'repeat':
-        yield put<ReturnHitSuccess>(returnHitSuccess(hitId));
-        break;
-      case 'success':
-        yield put<ReturnHitSuccess>(returnHitSuccess(hitId));
-        break;
-      default:
-        yield put<ReturnHitFailure>(returnHitFailure());
-    }
+    generateReturnToast(successful);
+
+    return successful
+      ? yield put<ReturnHitSuccess>(returnHitSuccess(hitId))
+      : yield put<ReturnHitFailure>(returnHitFailure());
   } catch (e) {
     console.warn(e);
-    generateReturnToast('error');
+    generateReturnToast(false);
     yield put<ReturnHitFailure>(returnHitFailure());
   }
 }

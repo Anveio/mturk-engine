@@ -1,9 +1,8 @@
-export const parseQueueAuthToken = (html: Document): string | null => {
+export const parseHitAuthToken = (html: Document): string => {
   const authTokenInput = html.querySelector('input[name="authenticity_token"]');
-  if (authTokenInput && authTokenInput.getAttribute('value')) {
-    return authTokenInput.getAttribute('value');
+  if (authTokenInput && authTokenInput.getAttribute('value') !== null) {
+    return authTokenInput.getAttribute('value') as string;
   } else {
-    console.warn('No auth token found on queue page.');
-    return null;
+    throw new Error('No auth token found for this hit.')
   }
 };

@@ -1,5 +1,4 @@
 import { TopRightToaster } from '../';
-import { HitReturnStatus } from './returnHit';
 import { truncate } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsCurrency } from './formatting';
@@ -59,17 +58,8 @@ export const failedQueueToast = () => {
   });
 };
 
-export const generateReturnToast = (status: HitReturnStatus) => {
-  switch (status) {
-    case 'error':
-      return errorReturnToast();
-    case 'repeat':
-      return repeatReturnToast();
-    case 'success':
-      return successfulReturnToast();
-    default:
-      return errorReturnToast();
-  }
+export const generateReturnToast = (successful: boolean) => {
+  return successful ? successfulReturnToast() : errorReturnToast();
 };
 
 export const statusDetailToast = (dateStr: string, noDataFound: boolean) => {
@@ -233,10 +223,10 @@ const errorReturnToast = () =>
     intent: 2
   });
 
-const repeatReturnToast = () =>
-  // tslint:disable:quotemark
-  TopRightToaster.show({
-    message:
-      "You've already returned this HIT. It's been removed from your queue.",
-    intent: -1
-  });
+// const repeatReturnToast = () =>
+//   // tslint:disable:quotemark
+//   TopRightToaster.show({
+//     message:
+//       "You've already returned this HIT. It's been removed from your queue.",
+//     intent: -1
+//   });

@@ -1,6 +1,6 @@
 import axios from 'axios';
+import * as qs from 'qs';
 import { API_URL } from '../constants';
-import { validateHitReturn } from '../utils/returnHit';
 import { QueueItem } from '../types';
 
 export const sendReturnHitRequest = async (
@@ -11,20 +11,23 @@ export const sendReturnHitRequest = async (
     const { groupId, taskId, hitId } = queueItem;
     const response = await axios.post(
       `${API_URL}/projects/${groupId}/tasks/${taskId}`,
-      {
-        // _method: 'delete',
-        // authenticityToken: token
-      },
-
+      formatFormPayload(token),
       {
         params: {
-          assignment_id: hitId
+          assignment_id: hitId,
+          ref: 'w_wp_rtrn_top'
         }
       }
     );
-    console.log(response.data);
-    return validateHitReturn(response.data);
+    return response.status === 302;
   } catch (e) {
-    throw new Error('Unknown problem with returning Hit.');
+    return true;
   }
 };
+
+const formatFormPayload = (token: string): string =>
+  qs.stringify({
+    utf8: '✓',
+    _method: 'delete',
+    authenticity_token: token
+  });
