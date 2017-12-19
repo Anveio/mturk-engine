@@ -71,7 +71,7 @@ export const parseReactProps = (html: Document) => (
   return getDataReactProps(dataNode);
 };
 
-export const getDataReactProps = (dataNode: Element): string => {
+const getDataReactProps = (dataNode: Element): string => {
   const reactProps = dataNode.getAttribute('data-react-props');
 
   if (!reactProps) {
