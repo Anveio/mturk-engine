@@ -17,7 +17,7 @@ export const parseNumericProperty = (queryString: string, fallback = 0) => (
 ): number => {
   const maybeElem = input.querySelector(queryString);
   return maybeElem && maybeElem.textContent
-    ? parseFloat(maybeElem.textContent.trim())
+    ? parseFloat(maybeElem.textContent.trim().replace(/,/g, ''))
     : fallback;
 };
 
