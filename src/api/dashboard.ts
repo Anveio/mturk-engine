@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import { generateAccountInfo } from '../utils/parsingAccount';
+import { generateAccountInfo } from '../utils/parsingWorkerAccount';
 
 export const fetchDashboard = async () => {
   try {
