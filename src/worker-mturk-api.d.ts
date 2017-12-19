@@ -1,3 +1,5 @@
+import { HitStatus } from './types';
+
 /**
  * The object produced when calling JSON.parse on the react-props of a search results page.
  */
@@ -11,7 +13,7 @@ export interface SearchResultsApiResponse {
  */
 export interface QueueApiResponse {
   readonly bodyData: WorkerQueueItem[];
-  readonly tableConfig: TableConfig[];
+  readonly tableConfig: WorkerTableConfig[];
 }
 
 /**
@@ -21,6 +23,11 @@ export interface AcceptedHitDetailsModal {
   readonly children: string;
   readonly modalHeader: string;
   readonly modalOptions: HitModalDetails;
+}
+
+export interface StatusDetailApiResponse {
+  readonly bodyData: WorkerSubmittedHit[];
+  readonly tableConfig: WorkerTableConfig;
 }
 
 /**
@@ -85,6 +92,17 @@ export interface WorkerQueueItem {
   readonly task_url: string;
 }
 
+export interface WorkerSubmittedHit {
+  readonly contact_requester_url: string;
+  readonly hit_id: string;
+  readonly requester_feedback: string;
+  readonly requester_id: string;
+  readonly requester_name: string;
+  readonly reward: number;
+  readonly state: HitStatus; // TODO: Probably not correct.
+  readonly title: string;
+}
+
 export interface MonetaryReward {
   readonly amount_in_dollars: number;
   readonly currency_code: string;
@@ -141,15 +159,10 @@ export type WorkerSortParam =
   | 'num_hits_asc'
   | 'num_hits_desc';
 
-export interface TableConfig {
+export interface WorkerTableConfig {
   readonly classNames: string[];
   readonly header: {
-    readonly title:
-      | 'Requester'
-      | 'Title'
-      | 'Reward'
-      | 'Time Remaining'
-      | 'Actions';
+    readonly title: string;
   };
 }
 
