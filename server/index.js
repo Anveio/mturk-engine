@@ -1,18 +1,23 @@
 const express = require('express');
+const cors = require('cors');
 const request = require('request');
 const cookies = require('./cookie');
 
 const app = express();
 
-app.use('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Allow-Credentials', 'true');
+function logger(req, res, next) {
   console.log(
     new Date().toLocaleTimeString(),
     req.method,
-    ' -- Request Received:',
+    'Request Received:',
     req.originalUrl
   );
+  next();
+}
+
+app.use(cors());
+
+app.use('*', logger, (req, res) => {
   req.headers.cookie = cookies;
   /**
    * Credit to: https://blog.javascripting.com/2015/01/17/dont-hassle-with-cors/
