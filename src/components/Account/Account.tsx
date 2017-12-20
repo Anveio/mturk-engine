@@ -7,8 +7,10 @@ import {
   connectAccountRequest,
   ConnectAccountRequest
 } from '../../actions/connectAccount';
+import { TabIndex } from '../../constants/tabs';
 
 interface Props {
+  readonly selectedTabIndex: number;
   readonly account: MaybeAccount;
 }
 
@@ -17,8 +19,12 @@ interface Handlers {
 }
 
 class Account extends React.PureComponent<Props & Handlers, never> {
-  componentWillMount() {
-    if (this.props.account) {
+  componentWillReceiveProps({ selectedTabIndex }: Props & Handlers) {
+    if (
+      this.props.selectedTabIndex !== selectedTabIndex &&
+      this.props.account &&
+      selectedTabIndex === TabIndex.ACCOUNT
+    ) {
       this.props.onConnect();
     }
   }
@@ -33,6 +39,7 @@ class Account extends React.PureComponent<Props & Handlers, never> {
 }
 
 const mapState = (state: RootState): Props => ({
+  selectedTabIndex: state.tab,
   account: state.account
 });
 
