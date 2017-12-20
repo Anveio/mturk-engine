@@ -6,7 +6,6 @@ import ToggleNoTO from '../TurkopticonSettings/ToggleNoTO';
 import MinTOsection from '../TurkopticonSettings/MinTOsection';
 import TurkopticonWeightForm from '../TurkopticonSettings/TurkopticonWeightForm';
 
-
 const SettingsTab: React.SFC<{}> = () => {
   return (
     <Layout>
