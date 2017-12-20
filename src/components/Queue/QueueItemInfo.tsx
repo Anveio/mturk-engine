@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Stack, DisplayText, Caption } from '@shopify/polaris';
+import { Stack, DisplayText } from '@shopify/polaris';
 import { formatAsCurrency } from '../../utils/formatting';
-import { displaySecondsAsHHMMSS } from '../../utils/dates';
+
+import QueueTimer from './QueueTimer';
 
 interface Props {
   readonly reward: number;
@@ -11,9 +12,10 @@ interface Props {
 const QueueItemInfo: React.SFC<Props> = ({ reward, timeLeft }) => {
   return (
     <Stack vertical={false} spacing={'tight'} alignment="baseline">
-      <Caption>{displaySecondsAsHHMMSS(timeLeft)}</Caption>
+      <QueueTimer initialTimeLeft={timeLeft} />
       <DisplayText size="small">{formatAsCurrency(reward)}</DisplayText>
     </Stack>
   );
 };
+
 export default QueueItemInfo;
