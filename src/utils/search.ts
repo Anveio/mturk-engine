@@ -23,12 +23,11 @@ export const resultsThatAppearInBoth = (action: SearchSuccess) => (
   prevSearchResult: SearchResult
 ): boolean => action.data.has(prevSearchResult.groupId);
 
-export const conflictsUseOldExpandedProp = (
+export const conflictsUseOldMarkedAsReadProp = (
   oldResult: SearchResult,
   newResult: SearchResult
 ): SearchResult => ({
   ...newResult,
-  expanded: oldResult.expanded,
   markedAsRead: oldResult.markedAsRead,
   requester: oldResult.requester
 });

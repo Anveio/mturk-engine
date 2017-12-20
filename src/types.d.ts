@@ -123,7 +123,6 @@ interface SearchResult extends HumanIntelligenceTask {
   readonly creationTime: number; // Date converted to number
   readonly lastUpdatedTime: number; // Date converted to number
   readonly markedAsRead?: boolean;
-  readonly expanded?: boolean;
   readonly batchSize: number;
   readonly qualified: boolean;
   readonly timeAllottedInSeconds: number;
