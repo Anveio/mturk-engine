@@ -1,5 +1,9 @@
 import { Map } from 'immutable';
-import { WorkerQualification } from './worker-mturk-api';
+import {
+  WorkerQualification,
+  WorkerSubmittedHit,
+  WorkerSubmittedHitState
+} from './worker-mturk-api';
 
 interface RootState {
   readonly account: MaybeAccount;
@@ -81,7 +85,16 @@ interface SearchOptions {
 }
 
 type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
-type HitStatus = 'Paid' | 'Pending Payment' | 'Rejected' | 'Pending Approval';
+
+/**
+ * On the legacy Mturk website, 'Approved' was called 'Pending Payment'
+ * and 'Pending' was called 'Pending Approval'. Some users may have the legacy
+ * hit statuses in their databases.
+ */
+type HitStatus =
+  | WorkerSubmittedHitState
+  | 'Pending Payment'
+  | 'Pending Approval';
 
 interface AccountInfo {
   readonly id: string;
