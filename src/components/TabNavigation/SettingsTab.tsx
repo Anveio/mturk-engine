@@ -1,5 +1,5 @@
 import * as React from 'react';
-
+import { Layout } from '@shopify/polaris';
 import TurkopticonSettings from '../TurkopticonSettings/TurkopticonSettings';
 import AudioSettings from '../AudioSettings/AudioSettings';
 import ToggleNoTO from '../TurkopticonSettings/ToggleNoTO';
@@ -7,12 +7,12 @@ import BackupUserSettings from '../BackupUserSettings/BackupUserSettings';
 
 const SettingsTab: React.SFC<{}> = () => {
   return (
-    <div>
+    <Layout>
       <BackupUserSettings />
       <AudioSettings />
       <ToggleNoTO />
       <TurkopticonSettings />
-    </div>
+    </Layout>
   );
 };
 
