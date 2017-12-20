@@ -98,12 +98,11 @@ export const statusDetailErrorToast = (dateStr: string) =>
     timeout: 5000
   });
 
-export const accountConnectionSuccessfulToast = () => {
-  TopRightToaster.show({
-    message: 'Your dashboard has been refreshed.',
-    intent: 0
-  });
+export const accountConnectionSuccessfulToast = {
+  message: 'Your dashboard has been refreshed.',
+  intent: 0
 };
+
 export const accountConnectionFailedToast = () => {
   TopRightToaster.show({
     message:
