@@ -37,7 +37,7 @@ const tabulateHitDbEntries = (
   dateString: string
 ): HitDatabaseMap =>
   hits.reduce((map: HitDatabaseMap, hit: WorkerSubmittedHit) => {
-    return map.set(hit.assignment_id, generateHitDbEntry(hit, dateString));
+    return map.set(hit.hit_id, generateHitDbEntry(hit, dateString));
     // tslint:disable-next-line:align
   }, Map<string, HitDatabaseEntry>());
 
@@ -46,7 +46,7 @@ const generateHitDbEntry = (
   dateString: string
 ): HitDatabaseEntry => {
   const {
-    assignment_id,
+    hit_id,
     requester_id,
     requester_name,
     requester_feedback,
@@ -55,7 +55,7 @@ const generateHitDbEntry = (
     state
   } = submittedHit;
   return {
-    id: assignment_id,
+    id: hit_id,
     reward,
     bonus: 0,
     requester: {

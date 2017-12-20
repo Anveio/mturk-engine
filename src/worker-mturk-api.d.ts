@@ -95,7 +95,7 @@ export interface WorkerQueueItem {
 export interface WorkerSubmittedHit {
   readonly assignment_id: string;
   readonly contact_requester_url: string;
-  readonly hit_id: string; // AKA the 'task_id'. NOT unique.
+  readonly hit_id: string;
   readonly requester_feedback: string;
   readonly requester_id: string;
   readonly requester_name: string;
