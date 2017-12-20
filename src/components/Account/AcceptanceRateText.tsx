@@ -9,22 +9,19 @@ export interface Props {
 }
 
 class AcceptanceRateText extends React.PureComponent<Props, never> {
-  private static acceptanceRateText = (submitted: number, rejected: number) => {
-    const acceptanceRate = calculateAcceptanceRate(submitted, rejected);
+  public render() {
+    const { lifetimeSubmitted, lifetimeRejected } = this.props;
+    const acceptanceRate = calculateAcceptanceRate(
+      lifetimeSubmitted,
+      lifetimeRejected
+    );
+
     return acceptanceRate > 99 ? (
       <Tooltip content="It's best to keep your acceptance rate above 99%. Good job!">
         <TextStyle variation="positive">{acceptanceRate.toFixed(3)}%</TextStyle>
       </Tooltip>
     ) : (
       <span>{acceptanceRate.toFixed(3)}%</span>
-    );
-  };
-
-  public render() {
-    const { lifetimeSubmitted, lifetimeRejected } = this.props;
-    return AcceptanceRateText.acceptanceRateText(
-      lifetimeSubmitted,
-      lifetimeRejected
     );
   }
 }
