@@ -20,6 +20,7 @@ import { Fragment } from '../Fragment';
 
 export interface Props {
   readonly hit: SearchResult;
+  readonly expanded: boolean;
 }
 
 export interface OwnProps {
@@ -92,7 +93,7 @@ class SearchCard extends React.PureComponent<
   };
 
   public render() {
-    const { hit } = this.props;
+    const { hit, expanded } = this.props;
     const { qualified, title, requester, markedAsRead } = hit;
 
     return (
@@ -113,7 +114,7 @@ class SearchCard extends React.PureComponent<
             }
           />
         </div>
-        <CollapsibleInfo open={!!hit.expanded} hit={this.props.hit} />
+        <CollapsibleInfo open={!!expanded} hit={this.props.hit} />
       </Fragment>
     );
   }
@@ -126,7 +127,8 @@ type SearchTableAction =
   | MarkHitAsRead;
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  hit: state.search.get(ownProps.groupId)
+  hit: state.search.get(ownProps.groupId),
+  expanded: !!state.expandedSearchResults.get(ownProps.groupId)
 });
 
 const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
