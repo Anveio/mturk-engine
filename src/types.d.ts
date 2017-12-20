@@ -27,6 +27,7 @@ interface RootState {
   readonly watcherTimes: WatcherTimerMap;
   readonly audioFiles: AudioFiles;
   readonly uploadedState: Partial<PersistedState> | null;
+  readonly expandedSearchResults: ExpandedSearchResultsMap;
 }
 
 type SearchResults = Map<string, SearchResult>;
@@ -38,6 +39,7 @@ type TOpticonMap = Map<string, TOpticonData>;
 type WatcherMap = Map<string, Watcher>;
 type WatcherTimerMap = Map<string, Date | null>;
 type HitDatabaseMap = Map<string, HitDatabaseEntry>;
+type ExpandedSearchResultsMap = Map<string, true>; // indexed by groupId
 
 /**
  * The keys of RootState that are persisted by redux-persist.

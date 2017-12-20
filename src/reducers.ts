@@ -21,6 +21,7 @@ import { default as dailyEarningsGoal } from './reducers/dailyEarningsGoal';
 import { default as waitingForHitDbRefresh } from './reducers/waitingForHitDbRefresh';
 import { default as watcherTimes } from './reducers/watcherTimes';
 import { default as uploadedState } from './reducers/uploadedState';
+import { default as expandedSearchResults } from './reducers/expandedSearchResults';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -43,5 +44,6 @@ export const rootReducer = combineReducers<RootState>({
   dailyEarningsGoal,
   selectedHitDbDate,
   requesterBlocklist,
+  expandedSearchResults,
   waitingForHitDbRefresh
 });
