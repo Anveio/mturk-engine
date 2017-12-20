@@ -93,13 +93,14 @@ export interface WorkerQueueItem {
 }
 
 export interface WorkerSubmittedHit {
+  readonly assignment_id: string;
   readonly contact_requester_url: string;
-  readonly hit_id: string;
+  readonly hit_id: string; // AKA the 'task_id'. NOT unique.
   readonly requester_feedback: string;
   readonly requester_id: string;
   readonly requester_name: string;
   readonly reward: number;
-  readonly state: HitStatus; // TODO: Probably not correct.
+  readonly state: WorkerSubmittedHitState;
   readonly title: string;
 }
 
@@ -189,3 +190,9 @@ export interface HitModalDetails {
   readonly projectTitle: string;
   readonly requesterName: string;
 }
+
+export type WorkerSubmittedHitState =
+  | 'Pending'
+  | 'Approved'
+  | 'Rejected'
+  | 'Paid';
