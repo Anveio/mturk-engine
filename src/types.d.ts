@@ -137,7 +137,10 @@ interface HitDatabaseEntry {
   readonly reward: number;
   readonly bonus: number;
   readonly status: HitStatus;
-  readonly requester: Requester;
+  readonly requester: {
+    readonly id: string;
+    readonly name: string;
+  };
   readonly groupId?: string;
   readonly feedback?: string;
 }
