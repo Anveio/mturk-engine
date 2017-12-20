@@ -186,4 +186,7 @@ export type UPLOAD_SUCCESS = typeof UPLOAD_SUCCESS;
 export const UPLOAD_FAILURE = 'UPLOAD_FAILURE';
 export type UPLOAD_FAILURE = typeof UPLOAD_FAILURE;
 
+export const REMOVE_UPLOADED_FILE = 'REMOVE_UPLOADED_FILE';
+export type REMOVE_UPLOADED_FILE = typeof REMOVE_UPLOADED_FILE;
+
 export const API_URL = configureApiRoot();

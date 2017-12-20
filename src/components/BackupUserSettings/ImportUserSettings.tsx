@@ -1,12 +1,17 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Stack, TextContainer } from '@shopify/polaris';
-import { UploadRequest, uploadRequest } from '../../actions/upload';
+import { Stack, TextContainer, Button } from '@shopify/polaris';
+import {
+  UploadRequest,
+  uploadRequest,
+  removeUploadedFile
+} from '../../actions/upload';
 
 interface Props {}
 
 interface Handlers {
   readonly onUpload: (file: File) => void;
+  readonly onRemoveUploadedFile: () => void;
 }
 
 interface State {
@@ -35,6 +40,18 @@ class ImportUserSettings extends React.Component<Props & Handlers, State> {
     }
   };
 
+  private removeUploadedFile = () => {
+    this.setState((): Partial<State> => ({ filename: '' }));
+    this.props.onRemoveUploadedFile();
+  };
+
+  private clearUploadButton = (hasFile: boolean) =>
+    hasFile ? (
+      <Button plain onClick={this.removeUploadedFile}>
+        Remove Uploaded File
+      </Button>
+    ) : null;
+
   static validateFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event && event.target && event.target.files) {
       const fileList = event.target.files;
@@ -54,13 +71,15 @@ class ImportUserSettings extends React.Component<Props & Handlers, State> {
             {this.generateInputText()}
           </span>
         </label>
+        {this.clearUploadButton(!!this.state.filename)}
       </Stack>
     );
   }
 }
 
 const mapDispatch = (dispatch: Dispatch<UploadRequest>): Handlers => ({
-  onUpload: (file: File) => dispatch(uploadRequest(file))
+  onUpload: (file: File) => dispatch(uploadRequest(file)),
+  onRemoveUploadedFile: () => dispatch(removeUploadedFile())
 });
 
 export default connect(null, mapDispatch)(ImportUserSettings);

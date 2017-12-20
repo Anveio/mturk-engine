@@ -1,4 +1,9 @@
-import { UPLOAD_FAILURE, UPLOAD_REQUEST, UPLOAD_SUCCESS } from '../constants';
+import {
+  UPLOAD_FAILURE,
+  UPLOAD_REQUEST,
+  UPLOAD_SUCCESS,
+  REMOVE_UPLOADED_FILE
+} from '../constants';
 import { PersistedState } from '../types';
 
 export interface UploadRequest {
@@ -16,6 +21,10 @@ export interface UploadFailure {
   readonly payload: Error;
 }
 
+export interface RemoveUploadedFile {
+  readonly type: REMOVE_UPLOADED_FILE;
+}
+
 export const uploadRequest = (file: File): UploadRequest => ({
   type: UPLOAD_REQUEST,
   payload: file
@@ -31,4 +40,8 @@ export const uploadSuccess = (
 export const uploadFailure = (err: Error): UploadFailure => ({
   type: UPLOAD_FAILURE,
   payload: err
+});
+
+export const removeUploadedFile = (): RemoveUploadedFile => ({
+  type: REMOVE_UPLOADED_FILE
 });
