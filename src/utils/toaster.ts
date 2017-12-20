@@ -23,6 +23,12 @@ export const createToastLayer = () =>
 export const updateTopRightToaster = (key: string, newToast: IToastProps) =>
   TopRightToaster.update(key, newToast);
 
+export const createGenericWaitingToast = (message: string) =>
+  TopRightToaster.show({
+    message: GenericWaitingToast({ message }),
+    intent: Intent.NONE
+  });
+
 export const copyIdToast = () =>
   TopRightToaster.show({
     message: 'Worker ID copied to clipboard.',
@@ -51,12 +57,6 @@ export const failedSearchToast = () => {
 
 export const generateQueueToast = (notEmpty: boolean): IToastProps =>
   notEmpty ? successfulQueueToast : emptyQueueToast;
-
-export const fetchingQueueToast = () =>
-  TopRightToaster.show({
-    message: GenericWaitingToast({ message: 'Fetching your queue...' }),
-    intent: Intent.NONE
-  });
 
 export const failedQueueToast = () => {
   TopRightToaster.show({

@@ -10,14 +10,14 @@ import { getQueuePage } from '../api/queue';
 import {
   generateQueueToast,
   failedQueueToast,
-  fetchingQueueToast,
-  updateTopRightToaster
+  updateTopRightToaster,
+  createGenericWaitingToast
 } from '../utils/toaster';
 import { QueueMap } from '../types';
 
 export function* fetchUserQueue(action: FetchQueueRequest) {
   try {
-    const toasterKey = fetchingQueueToast();
+    const toasterKey = createGenericWaitingToast('Fetching your queue...');
 
     const queuePageData: QueueMap = yield call(getQueuePage);
 
