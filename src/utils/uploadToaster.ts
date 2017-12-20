@@ -1,5 +1,5 @@
 import { TopRightToaster } from '../index';
-import UploadProgressToast from '../components/BackupUserSettings/UploadProgressToast';
+import { UploadProgressToast } from '../components/Toasts';
 import { IToastProps } from '@blueprintjs/core';
 
 export const createProgressToast = () => TopRightToaster.show(renderProgress());
