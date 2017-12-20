@@ -108,7 +108,7 @@ export const accountConnectionFailedToast = () => {
 export const emptySummaryPageToast = () =>
   TopRightToaster.show({
     message:
-      "Problem getting your recent HITs. Make sure you're logged in and have done a HIT in the past 45 days and try again.",
+      "No work history found. Make sure you're still logged in and have done a HIT in the past 45 days and try again.",
     intent: 2,
     action: loginLink,
     timeout: 5000
