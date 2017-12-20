@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { Layout } from '@shopify/polaris';
-import TurkopticonSettings from '../TurkopticonSettings/TurkopticonSettings';
+import BackupUserSettings from '../BackupUserSettings/BackupUserSettings';
 import AudioSettings from '../AudioSettings/AudioSettings';
 import ToggleNoTO from '../TurkopticonSettings/ToggleNoTO';
-import BackupUserSettings from '../BackupUserSettings/BackupUserSettings';
+import MinTOsection from '../TurkopticonSettings/MinTOsection';
+import TurkopticonWeightForm from '../TurkopticonSettings/TurkopticonWeightForm';
+
 
 const SettingsTab: React.SFC<{}> = () => {
   return (
@@ -11,7 +13,8 @@ const SettingsTab: React.SFC<{}> = () => {
       <BackupUserSettings />
       <AudioSettings />
       <ToggleNoTO />
-      <TurkopticonSettings />
+      <MinTOsection />
+      <TurkopticonWeightForm />
     </Layout>
   );
 };
