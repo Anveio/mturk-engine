@@ -18,9 +18,9 @@ export const invalidGroupId = (hit: SearchResult) =>
   !hit.groupId.startsWith('[Error:groupId]-');
 
 /**
- * Returns the requesterIds of a SearchMap that correspond to a search result 
+ * Returns the requesterIds of a SearchMap that correspond to a search result
  * with no T.O.
- * @param hits 
+ * @param hits
  */
 // export const requesterIdsWithNoTO = (hits: SearchResults) => {
 //   return hits
@@ -49,9 +49,9 @@ export const hasAValidScore = (scores: RequesterScores): boolean =>
   Object.keys(scores).some(category => scores[category] !== '0.00');
 
 /**
- * Takes a RequesterScores object and returns a new object in which none of the  
+ * Takes a RequesterScores object and returns a new object in which none of the
  * keys correspond to the string '0.00'.
- * @param scores 
+ * @param scores
  */
 export const filterCategories = (
   scores: RequesterScores

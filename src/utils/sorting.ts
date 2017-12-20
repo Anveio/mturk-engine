@@ -1,4 +1,5 @@
 import { SearchResult, SortingOption } from '../types';
+import { calculateAverageScore } from './turkopticon';
 
 /**
  * Translates UI text into the associated property
@@ -32,11 +33,34 @@ const calculateSortOrder = (option: SortingOption): SortOrder =>
   sortOrderMap[option];
 
 export const sortBy = (option: SortingOption) => {
+  if (option === 'Weighted T.O.') {
+    return sortByTurkopticonRating;
+  }
+
   const property = optionsMap[option] || optionsMap.default;
   const sortOrder = calculateSortOrder(option);
   if (sortOrder === 'descending') {
     return (a: SearchResult, b: SearchResult) => +b[property] - +a[property];
   } else {
     return (a: SearchResult, b: SearchResult) => +a[property] - +b[property];
+  }
+};
+
+export const sortByTurkopticonRating = (a: SearchResult, b: SearchResult) => {
+  if (!a.requester.turkopticon) {
+    return 1;
+  } else if (!b.requester.turkopticon) {
+    return -1;
+  } else {
+    const aAverage = calculateAverageScore(a.requester.turkopticon.attrs);
+    const bAverage = calculateAverageScore(b.requester.turkopticon.attrs);
+
+    if (!aAverage) {
+      return 1;
+    } else if (!bAverage) {
+      return -1;
+    } else {
+      return bAverage - aAverage;
+    }
   }
 };

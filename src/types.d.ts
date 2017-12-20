@@ -84,7 +84,7 @@ interface SearchOptions {
   readonly qualifiedOnly: boolean;
 }
 
-type SortingOption = 'Batch Size' | 'Reward' | 'Latest';
+type SortingOption = 'Batch Size' | 'Reward' | 'Latest' | 'Weighted T.O.';
 
 /**
  * On the legacy Mturk website, 'Approved' was called 'Pending Payment'

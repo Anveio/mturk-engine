@@ -46,6 +46,13 @@ class SortingMenu extends React.PureComponent<Props & Handlers, never> {
           />
           <MenuItem
             shouldDismissPopover={false}
+            iconName="pt-icon-series-derived"
+            intent={this.generateIntent('Weighted T.O.')}
+            onClick={this.handleChange('Weighted T.O.')}
+            text="Weighted T.O."
+          />
+          <MenuItem
+            shouldDismissPopover={false}
             iconName="dollar"
             intent={this.generateIntent('Reward')}
             onClick={this.handleChange('Reward')}
