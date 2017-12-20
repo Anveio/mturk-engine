@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { HitDatabaseMap } from '../types';
 import { API_URL } from '../constants';
-import { parseStatusDetailPage } from '../utils/parsingStatusDetail';
+import { parseStatusDetailPage } from '../utils/parsingWorkerStatusDetail';
 
 export interface StatusDetailPageInfo {
   data: HitDatabaseMap;
@@ -9,17 +9,13 @@ export interface StatusDetailPageInfo {
 }
 
 /**
- * @param encodedDate in 'MMDDYYYY' format.
+ * @param encodedDate in 'YYYY-MM-DD' format.
  */
 export const fetchStatusDetailPage = async (encodedDate: string, page = 1) => {
   try {
     const response = await axios.get<Document>(
-      `${API_URL}/mturk/statusdetail`,
+      `${API_URL}/status_details/${encodedDate}`,
       {
-        params: {
-          encodedDate: encodedDate,
-          pageNumber: page
-        },
         responseType: 'document'
       }
     );

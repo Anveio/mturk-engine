@@ -12,13 +12,21 @@ import {
   StatusDetailPageInfo
 } from '../api/statusDetail';
 import { statusDetailToast, statusDetailErrorToast } from '../utils/toaster';
+import { legacyDateStringToWorkerDateString } from '../utils/dates';
 
 export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
   try {
+    const { dateFormat, dateString, page } = action;
+
+    const formattedDateString =
+      dateFormat === 'MMDDYYYY'
+        ? legacyDateStringToWorkerDateString(dateString)
+        : dateString;
+
     const pageInfo: StatusDetailPageInfo = yield call(
       fetchStatusDetailPage,
-      action.dateString,
-      action.page
+      formattedDateString,
+      page
     );
     const { data, morePages } = pageInfo;
 
@@ -35,7 +43,7 @@ export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
      */
     if (morePages) {
       yield put<FetchStatusDetailRequest>(
-        statusDetailRequest(action.dateString, action.page + 1)
+        statusDetailRequest(formattedDateString, 'YYYY-MM-DD', page + 1)
       );
     }
   } catch (e) {
