@@ -13,7 +13,7 @@ import { oneYearOfData } from '../../selectors/hitDatabase';
 import {
   HEATMAP_CSS_PREFIX,
   GUTTER_SIZE,
-  DATE_FORMAT,
+  LEGACY_DATE_FORMAT,
   WEEKDAY_LABELS,
   WEEKDAY_LABEL_SIZE,
   DAYS_IN_WEEK,
@@ -53,10 +53,10 @@ class CalendarHeatMap extends React.Component<Props, never> {
   }
 
   private static calculateStartDate = (values: List<HeatMapValue>) =>
-    moment(values.get(0).date, DATE_FORMAT).toDate();
+    moment(values.get(0).date, LEGACY_DATE_FORMAT).toDate();
 
   private static calculateEndDate = (values: List<HeatMapValue>) =>
-    moment(values.get(values.size - 1).date, DATE_FORMAT).toDate();
+    moment(values.get(values.size - 1).date, LEGACY_DATE_FORMAT).toDate();
 
   private static calculateNumDays = (startDate: Date, endDate: Date) =>
     moment(endDate).diff(startDate, 'days');

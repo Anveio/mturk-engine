@@ -1,4 +1,8 @@
-export const DATE_FORMAT = 'MMDDYYYY';
+export type LegacyDateFormat = 'MMDDYYYY';
+export const LEGACY_DATE_FORMAT: LegacyDateFormat = 'MMDDYYYY';
+
+export type WorkerDateFormat = 'YYYY-MM-DD';
+export const WORKER_DATE_FORMAT = 'YYYY-MM-DD';
 
 /**
  * To be passed in as the argument for moment().format()

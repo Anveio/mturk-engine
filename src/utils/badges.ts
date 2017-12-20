@@ -55,10 +55,12 @@ export const generateHitStatusBadge = (status: HitStatus): BadgeDescriptor => {
   switch (status) {
     case 'Paid':
       return { content: 'Paid', status: 'success' };
+    case 'Approved':
     case 'Pending Payment':
       return { content: 'Approved', status: 'success' };
     case 'Rejected':
       return { content: 'Rejected', status: 'warning' };
+    case 'Pending':
     case 'Pending Approval':
       return { content: 'Pending', status: 'attention' };
     default:

@@ -79,7 +79,8 @@ const mapDispatch = (
   dispatch: Dispatch<FetchStatusSummaryRequest>
 ): Handlers => ({
   onRefreshDb: () => dispatch(statusSummaryRequest()),
-  onRefreshToday: () => dispatch(statusDetailRequest(todayFormatted(), 1, true))
+  onRefreshToday: () =>
+    dispatch(statusDetailRequest(todayFormatted(), 'MMDDYYYY', 1, true))
 });
 
 export default connect(mapState, mapDispatch)(CalendarButtons);

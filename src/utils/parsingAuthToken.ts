@@ -3,6 +3,6 @@ export const parseHitAuthToken = (html: Document): string => {
   if (authTokenInput && authTokenInput.getAttribute('value') !== null) {
     return authTokenInput.getAttribute('value') as string;
   } else {
-    throw new Error('No auth token found for this hit.')
+    throw new Error('No auth token found for this hit.');
   }
 };

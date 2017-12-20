@@ -6,7 +6,7 @@ import {
 } from '../types';
 import { createSelector } from 'reselect';
 import { hitDatabaseSelector } from './hitDatabase';
-import { keepPaidOrApproved, keepPending } from '../utils/hitDatabase';
+import { isPaidOrApproved, isPending } from '../utils/hitDatabase';
 import { Map } from 'immutable';
 
 // tslint:disable:align
@@ -57,7 +57,7 @@ export const hitsOnSelectedDateIds = createSelector(
 export const earningsOnDate = createSelector(
   [hitsOnSelectedDate],
   (entry: HitDatabaseMap) =>
-    entry.filter(keepPaidOrApproved).reduce((
+    entry.filter(isPaidOrApproved).reduce((
       acc: DailyEarnings,
       cur: HitDatabaseEntry
     ) => ({
@@ -74,6 +74,6 @@ export const pendingEarningsOnDate = createSelector(
   [hitsOnSelectedDate],
   (entry: HitDatabaseMap) =>
     entry
-      .filter(keepPending)
+      .filter(isPending)
       .reduce((acc: number, cur: HitDatabaseEntry) => (acc += cur.reward), 0)
 );

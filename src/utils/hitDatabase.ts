@@ -10,11 +10,16 @@ export const conflictsPreserveBonus = (
   };
 };
 
-export const keepPaidOrApproved = (el: HitDatabaseEntry) =>
-  el.status === 'Paid' || el.status === 'Pending Payment';
+export const isPaidOrApproved = (el: HitDatabaseEntry) =>
+  el.status === 'Paid' ||
+  el.status === 'Pending Payment' ||
+  el.status === 'Approved';
 
-export const keepPending = (el: HitDatabaseEntry) =>
-  el.status === 'Pending Approval';
+export const isPending = (el: HitDatabaseEntry) =>
+  el.status === 'Pending Approval' ||
+  el.status === 'Pending' ||
+  el.status === 'Approved' ||
+  el.status === 'Pending Payment';
 
 export const calculateAcceptanceRate = (total: number, rejected: number) =>
   (total - rejected) / total * 100;

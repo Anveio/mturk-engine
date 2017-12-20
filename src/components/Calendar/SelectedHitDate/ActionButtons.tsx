@@ -42,7 +42,8 @@ const mapState = (state: RootState): Props => ({
 const mapDispatch = (
   dispatch: Dispatch<FetchStatusDetailRequest>
 ): Handlers => ({
-  onRefresh: (dateString: string) => dispatch(statusDetailRequest(dateString))
+  onRefresh: (dateString: string) =>
+    dispatch(statusDetailRequest(dateString, 'MMDDYYYY'))
 });
 
 export default connect(mapState, mapDispatch)(ActionButtons);
