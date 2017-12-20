@@ -2,9 +2,10 @@ import { TopRightToaster } from '../';
 import { truncate } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsCurrency } from './formatting';
-import { Toaster, Position } from '@blueprintjs/core';
+import { Toaster, Position, Intent, IToastProps } from '@blueprintjs/core';
 import { ImmutablePersistedStateKey, AcceptHitFailureReason } from '../types';
 import { failureReasonToWords } from './parsing';
+import { GenericWaitingToast } from '../components/Toasts';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
 
@@ -18,6 +19,9 @@ export const createToastLayer = () =>
   Toaster.create({
     position: Position.TOP_RIGHT
   });
+
+export const updateTopRightToaster = (key: string, newToast: IToastProps) =>
+  TopRightToaster.update(key, newToast);
 
 export const copyIdToast = () =>
   TopRightToaster.show({
@@ -45,9 +49,14 @@ export const failedSearchToast = () => {
   });
 };
 
-export const generateQueueToast = (notEmpty: boolean) => {
-  notEmpty ? successfulQueueToast() : emptyQueueToast();
-};
+export const generateQueueToast = (notEmpty: boolean): IToastProps =>
+  notEmpty ? successfulQueueToast : emptyQueueToast;
+
+export const fetchingQueueToast = () =>
+  TopRightToaster.show({
+    message: GenericWaitingToast({ message: 'Fetching your queue...' }),
+    intent: Intent.NONE
+  });
 
 export const failedQueueToast = () => {
   TopRightToaster.show({
@@ -199,16 +208,14 @@ export const failedAcceptToast = (reason: AcceptHitFailureReason) =>
     intent: 2
   });
 
-const successfulQueueToast = () =>
-  TopRightToaster.show({
-    message: 'Refreshed queue on ' + new Date().toLocaleTimeString(),
-    intent: 0
-  });
+const successfulQueueToast = {
+  message: 'Refreshed queue on ' + new Date().toLocaleTimeString(),
+  intent: 0
+};
 
-const emptyQueueToast = () =>
-  TopRightToaster.show({
-    message: 'Your queue is empty as of ' + new Date().toLocaleTimeString()
-  });
+const emptyQueueToast = {
+  message: 'Your queue is empty as of ' + new Date().toLocaleTimeString()
+};
 
 const successfulReturnToast = () =>
   TopRightToaster.show({
