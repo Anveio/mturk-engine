@@ -118,8 +118,8 @@ interface HumanIntelligenceTask {
 }
 
 interface SearchResult extends HumanIntelligenceTask {
-  readonly creationTime: Date;
-  readonly lastUpdatedTime: Date;
+  readonly creationTime: number; // Date converted to number
+  readonly lastUpdatedTime: number; // Date converted to number
   readonly markedAsRead?: boolean;
   readonly expanded?: boolean;
   readonly batchSize: number;

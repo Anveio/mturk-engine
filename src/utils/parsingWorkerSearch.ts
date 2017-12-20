@@ -31,8 +31,8 @@ const tabulateSearchData = (
 
 const createWorkerSearchItem = (hit: WorkerSearchResult): SearchResult => ({
   title: hit.title,
-  creationTime: new Date(hit.creation_time),
-  lastUpdatedTime: new Date(hit.last_updated_time),
+  creationTime: new Date(hit.creation_time).valueOf(),
+  lastUpdatedTime: new Date(hit.last_updated_time).valueOf(),
   batchSize: hit.assignable_hits_count,
   description: hit.description,
   groupId: hit.hit_set_id,
@@ -51,10 +51,6 @@ const searchResultsDocumentToWorkerHitArray = (
   html: Document
 ): WorkerSearchResult[] => {
   const pageReactProps = parseReactProps(html)(mturkTableDataNodeQuerySelector);
-
-  if (!pageReactProps) {
-    throw new Error('No data found on the requested search results page.');
-  }
 
   try {
     const searchResultsData = JSON.parse(
