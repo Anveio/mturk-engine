@@ -4,7 +4,7 @@ import { RootState } from '../types';
 
 const playAudioFile = async (file: HTMLAudioElement, volume: number) => {
   try {
-    file.volume = volume;
+    file.volume = volume * volume;
     return await file.play();
   } catch (e) {
     console.warn(e);
