@@ -83,6 +83,9 @@ export const hitDetailsModalQuerySelector = 'div.col-sm-4.col-xs-5 > div';
 
 export const returnAssignmentFormQuerySelector = `#MainContent > div.work-pipeline-bottom-bar.m-b-sm > div.action-buttons.text-xs-center > div > form`;
 
+/**
+ * Account Info
+ */
 export const workerAmazonIdQuerySelector = `span > span > span.copyable-content > span`;
 export const workerFullNameQuerySelector = `div > div.col-xs-5.text-xs-right > a:nth-child(2)`;
 export const availableEarningsQuerySelector = `#dashboard-available-earnings > div > div > div:nth-child(1) > div.col-xs-5.col-sm-6.col-lg-5.text-xs-right`;
@@ -93,3 +96,9 @@ export const lifetimeApprovedQuerySelector = `#dashboard-hits-overview > div > d
 export const lifetimeRejectedQuerySelector = `#HitsOverviewAdditionalInfo > div:nth-child(2) > div.col-xs-5.text-xs-right`;
 export const numPendingQuerySelector = `#dashboard-hits-overview > div > div > div:nth-child(4) > div.col-xs-5.text-xs-right`;
 export const workerAmazonIdReactPropsQuerySelector = `body > div.container-fluid.me-bar > div > div.col-xs-7 > span.text-uppercase > span`;
+
+/**
+ * Submitted Hit History
+ */
+
+export const workerHitHistoryDateAnchor = `tr.daily_hit_statuses > td > a`;
