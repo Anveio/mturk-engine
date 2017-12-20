@@ -10,12 +10,12 @@ import {
   RefreshDatabaseRequest,
   databaseRefreshRequest
 } from '../actions/refreshDatabase';
-import { fetchStatusSummaryPage } from '../api/statusSummary';
+import { fetchSubmittedHitHistory } from '../api/dashboard';
 import { emptySummaryPageToast } from '../utils/toaster';
 
 export function* handleStatusSummaryRequest(action: FetchStatusSummaryRequest) {
   try {
-    const dateStrings: string[] = yield call(fetchStatusSummaryPage);
+    const dateStrings: string[] = yield call(fetchSubmittedHitHistory);
 
     if (dateStrings.length === 0) {
       emptySummaryPageToast();
