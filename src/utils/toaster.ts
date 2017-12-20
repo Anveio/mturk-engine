@@ -26,7 +26,8 @@ export const updateTopRightToaster = (key: string, newToast: IToastProps) =>
 export const createGenericWaitingToast = (message: string) =>
   TopRightToaster.show({
     message: GenericWaitingToast({ message }),
-    intent: Intent.NONE
+    intent: Intent.NONE,
+    timeout: 0
   });
 
 export const copyIdToast = () =>
@@ -100,7 +101,8 @@ export const statusDetailErrorToast = (dateStr: string) =>
 
 export const accountConnectionSuccessfulToast = {
   message: 'Your dashboard has been refreshed.',
-  intent: 0
+  intent: 0,
+  timeout: 1000
 };
 
 export const accountConnectionFailedToast = () => {
@@ -208,12 +210,15 @@ export const failedAcceptToast = (reason: AcceptHitFailureReason) =>
   });
 
 const successfulQueueToast = {
-  message: 'Refreshed queue on ' + new Date().toLocaleTimeString(),
-  intent: 0
+  message: 'Your queue has been refreshed.',
+  intent: Intent.PRIMARY,
+  timeout: 1000
 };
 
 const emptyQueueToast = {
-  message: 'Your queue is empty as of ' + new Date().toLocaleTimeString()
+  message: 'Your queue is empty as of ' + new Date().toLocaleTimeString(),
+  intent: Intent.NONE,
+  timeout: 2000
 };
 
 const successfulReturnToast = () =>
