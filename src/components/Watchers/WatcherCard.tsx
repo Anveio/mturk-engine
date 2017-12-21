@@ -10,8 +10,10 @@ import {
 import { RootState, Watcher } from '../../types';
 import {
   DeleteWatcher,
-  ToggleWatcherActivity,
-  toggleWatcherActive,
+  ScheduleWatcherTick,
+  scheduleWatcher,
+  CancelWatcherTick,
+  cancelNextWatcherTick,
   deleteWatcher
 } from '../../actions/watcher';
 import WatcherTimer from './WatcherTimer';
@@ -22,11 +24,13 @@ export interface OwnProps {
 
 export interface Props {
   readonly watcher: Watcher;
+  readonly watcherActive: boolean;
 }
 
 export interface Handlers {
   readonly onDelete: (id: string) => void;
-  readonly onToggle: (id: string, active: boolean) => void;
+  readonly onSchedule: (id: string, timeNextSearch: Date) => void;
+  readonly onCancel: (id: string) => void;
   readonly onEdit: (
     id: string,
     field: EditableField,
@@ -46,8 +50,18 @@ class WatcherCard extends React.PureComponent<
 
   private handleDelete = () => this.props.onDelete(this.props.watcher.groupId);
 
-  private handleToggle = () =>
-    this.props.onToggle(this.props.watcher.groupId, this.props.watcher.active);
+  private handleToggle = () => {
+    const {
+      watcherActive,
+      onCancel,
+      watcherId,
+      onSchedule,
+      watcher
+    } = this.props;
+    watcherActive
+      ? onCancel(watcherId)
+      : onSchedule(watcherId, new Date(Date.now() + watcher.delay));
+  };
 
   private headingSection = (title: string) => {
     return (
@@ -61,12 +75,13 @@ class WatcherCard extends React.PureComponent<
               selectAllOnFocus
               placeholder="Click to edit title"
               onChange={(value: string) =>
-                this.props.onEdit(this.props.watcherId, 'title', value)}
+                this.props.onEdit(this.props.watcherId, 'title', value)
+              }
             />
           </Heading>
           <WatcherTimer
             groupId={this.props.watcherId}
-            active={this.props.watcher.active}
+            active={this.props.watcherActive}
           />
         </Stack>
       </Card.Section>
@@ -83,7 +98,8 @@ class WatcherCard extends React.PureComponent<
           multiline
           selectAllOnFocus
           onChange={(value: string) =>
-            this.props.onEdit(this.props.watcherId, 'description', value)}
+            this.props.onEdit(this.props.watcherId, 'description', value)
+          }
           placeholder={`ID starts with ${this.props.watcherId.slice(
             0,
             5
@@ -107,7 +123,8 @@ class WatcherCard extends React.PureComponent<
               this.props.watcherId,
               'delay',
               WatcherCard.validateNumber(value) || value === '' ? value : delay
-            )}
+            )
+          }
           minWidth={10}
         />{' '}
         seconds
@@ -115,17 +132,17 @@ class WatcherCard extends React.PureComponent<
     );
   };
 
-  private buttonSection = (watcher: Watcher) => {
+  private buttonSection = (watcher: Watcher, active: boolean) => {
     return (
       <Card.Section>
         <Stack distribution="equalSpacing">
-          <Button destructive={watcher.active} onClick={this.handleToggle}>
-            {WatcherCard.generateButtonContent(watcher.active)}
+          <Button destructive={active} onClick={this.handleToggle}>
+            {WatcherCard.generateButtonContent(active)}
           </Button>
 
           <Tooltip content="Delete this watcher.">
             <Button
-              disabled={watcher.active}
+              disabled={active}
               onClick={this.handleDelete}
               icon="delete"
             />
@@ -136,35 +153,37 @@ class WatcherCard extends React.PureComponent<
   };
 
   public render() {
-    const { watcher } = this.props;
+    const { watcher, watcherActive } = this.props;
 
     return (
       <Card>
         {this.headingSection(watcher.title)}
         {this.descriptionSection(watcher.description)}
         {this.delaySection(watcher.delay)}
-        {this.buttonSection(watcher)}
+        {this.buttonSection(watcher, watcherActive)}
       </Card>
     );
   }
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  watcher: state.watchers.get(ownProps.watcherId)
+  watcher: state.watchers.get(ownProps.watcherId),
+  watcherActive: !!state.watcherTimes.get(ownProps.watcherId)
 });
 
-type WatcherCardAction = ToggleWatcherActivity | DeleteWatcher | WatcherEdit;
+type WatcherCardAction =
+  | ScheduleWatcherTick
+  | CancelWatcherTick
+  | DeleteWatcher
+  | WatcherEdit;
 
 const mapDispatch = (dispatch: Dispatch<WatcherCardAction>): Handlers => ({
-  onDelete: (id: string) => {
-    dispatch(deleteWatcher(id));
-  },
-  onToggle: (id: string, active: boolean) => {
-    dispatch(toggleWatcherActive(id, active));
-  },
-  onEdit: (id: string, field: EditableField, value: string | number) => {
-    dispatch(editWatcher(id, field, value));
-  }
+  onDelete: (id: string) => dispatch(deleteWatcher(id)),
+  onCancel: (id: string) => dispatch(cancelNextWatcherTick(id)),
+  onSchedule: (id: string, timeNextSearch: Date) =>
+    dispatch(scheduleWatcher(id, timeNextSearch)),
+  onEdit: (id: string, field: EditableField, value: string | number) =>
+    dispatch(editWatcher(id, field, value))
 });
 
 export default connect(mapState, mapDispatch)(WatcherCard);

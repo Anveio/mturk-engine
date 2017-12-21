@@ -20,12 +20,16 @@ export function* acceptAfterWatcherDelay(action: ScheduleWatcherTick) {
     state.watchers.get(action.groupId)
   );
 
+  const watcherActive: boolean = yield select(
+    (state: RootState) => !!state.watcherTimes.get(action.groupId)
+  );
+
   try {
-    if (watcher && watcher.active) {
+    if (watcher && watcherActive) {
       yield put<AcceptHitRequest>(
         acceptHitRequestFromWatcher(watcher.groupId, watcher.delay)
       );
-    } else if (watcher && !watcher.active) {
+    } else if (watcher && !watcherActive) {
       yield put<CancelWatcherTick>(cancelNextWatcherTick(watcher.groupId));
     } else {
       throw new Error(

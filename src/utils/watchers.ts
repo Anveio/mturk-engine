@@ -5,7 +5,6 @@ export const watcherFactoryFromId = (groupId: string): Watcher => ({
   description: '',
   groupId,
   delay: 10,
-  active: false,
   createdOn: new Date(),
   timeNextAttempt: null
 });
@@ -15,7 +14,6 @@ export const watcherFactoryFromSearchResult = (hit: SearchResult): Watcher => ({
   description: hit.description,
   groupId: hit.groupId,
   delay: 10,
-  active: false,
   createdOn: new Date(),
   timeNextAttempt: null
 });

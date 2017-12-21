@@ -15,7 +15,11 @@ export function* toggleWatcherActive(action: ToggleWatcherActivity) {
     state.watchers.get(action.groupId)
   );
 
-  if (watcher.active) {
+  const watcherActive: boolean = yield select(
+    (state: RootState) => !!state.watcherTimes.get(action.groupId)
+  );
+
+  if (watcherActive) {
     yield put<AcceptHitRequest>(
       acceptHitRequestFromWatcher(action.groupId, watcher.delay)
     );

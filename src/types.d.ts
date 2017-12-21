@@ -37,7 +37,7 @@ type HitBlockMap = Map<string, BlockedHit>;
 type RequesterBlockMap = Map<string, BlockedRequester>;
 type TOpticonMap = Map<string, TOpticonRequester>;
 type WatcherMap = Map<string, Watcher>;
-type WatcherTimerMap = Map<string, Date | null>;
+type WatcherTimerMap = Map<string, Date>;
 type HitDatabaseMap = Map<string, HitDatabaseEntry>;
 type ExpandedSearchResultsMap = Map<string, true>; // indexed by groupId
 
@@ -202,7 +202,6 @@ interface Watcher {
   readonly title: string;
   readonly delay: number;
   readonly description: string;
-  readonly active: boolean;
   readonly createdOn: Date;
   readonly timeNextAttempt: Date | null;
   readonly hit?: HumanIntelligenceTask;
