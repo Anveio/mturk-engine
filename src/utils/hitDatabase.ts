@@ -21,6 +21,9 @@ export const isPending = (el: HitDatabaseEntry) =>
   el.status === 'Approved' ||
   el.status === 'Pending Payment';
 
+export const isApprovedButNotPaid = (el: HitDatabaseEntry) =>
+  el.status === 'Pending Approval' || el.status === 'Approved';
+
 export const calculateAcceptanceRate = (total: number, rejected: number) =>
   (total - rejected) / total * 100;
 

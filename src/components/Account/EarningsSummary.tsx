@@ -2,10 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Card, Stack, DisplayText, TextStyle, Caption } from '@shopify/polaris';
-import { Tooltip } from '@blueprintjs/core';
 import {
   pendingEarningsSelector,
-  todaysProjectedEarnings
+  todaysProjectedEarnings,
+  approvedButNotPaidEarnings
 } from '../../selectors/hitDatabase';
 import { formatAsCurrency } from '../../utils/formatting';
 import DailyEarningsProgressBar from './DailyEarningsProgressBar';
@@ -15,24 +15,44 @@ interface Props {
   readonly accountInfo: MaybeAccount;
   readonly pendingEarnings: number;
   readonly todaysEarnings: number;
+  readonly earningsApprovedButNotPaid: number;
 }
 
 interface FieldProps {
-  readonly captionText: string;
+  readonly caption: React.ReactNode;
 }
 
 class EarningsSummary extends React.PureComponent<Props, never> {
-  private static Field: React.SFC<FieldProps> = ({ children, captionText }) => {
+  private static Field: React.SFC<FieldProps> = ({ children, caption }) => {
     return (
       <Stack vertical={false} alignment="baseline" spacing="tight">
         <DisplayText size="medium">{children}</DisplayText>
-        <Caption>{captionText}</Caption>
+        <Caption>{caption}</Caption>
       </Stack>
     );
   };
 
+  private generateApprovalCaption = (earningsApprovedButNotPaid: number) =>
+    earningsApprovedButNotPaid > 0 ? (
+      // tslint:disable:jsx-wrap-multiline
+      <>
+        Pending.{' '}
+        <TextStyle variation={'positive'}>
+          {formatAsCurrency(earningsApprovedButNotPaid)}
+        </TextStyle>{' '}
+        already approved
+      </>
+    ) : (
+      <>Pending.</>
+    );
+
   public render() {
-    const { accountInfo, pendingEarnings, todaysEarnings } = this.props;
+    const {
+      accountInfo,
+      pendingEarnings,
+      todaysEarnings,
+      earningsApprovedButNotPaid
+    } = this.props;
     return accountInfo ? (
       <Card
         title="Earnings Summary"
@@ -45,7 +65,7 @@ class EarningsSummary extends React.PureComponent<Props, never> {
         ]}
       >
         <Card.Section>
-          <EarningsSummary.Field captionText="Available for transfer">
+          <EarningsSummary.Field caption="Available for transfer">
             <TextStyle variation="positive">
               {formatAsCurrency(accountInfo.availableEarnings)}
             </TextStyle>
@@ -53,16 +73,16 @@ class EarningsSummary extends React.PureComponent<Props, never> {
         </Card.Section>
 
         <Card.Section>
-          <Tooltip content="This includes earnings from HITs that have been approved but not yet paid out.">
-            <EarningsSummary.Field captionText="Pending">
-              <TextStyle>{formatAsCurrency(pendingEarnings)}</TextStyle>
-            </EarningsSummary.Field>
-          </Tooltip>
+          <EarningsSummary.Field
+            caption={this.generateApprovalCaption(earningsApprovedButNotPaid)}
+          >
+            {formatAsCurrency(pendingEarnings)}
+          </EarningsSummary.Field>
         </Card.Section>
 
         <Card.Section>
           <Stack vertical>
-            <EarningsSummary.Field captionText="Projected for today">
+            <EarningsSummary.Field caption="Projected for today">
               {formatAsCurrency(todaysEarnings)}
             </EarningsSummary.Field>
             <DailyEarningsProgressBar />
@@ -79,7 +99,8 @@ class EarningsSummary extends React.PureComponent<Props, never> {
 const mapState = (state: RootState): Props => ({
   accountInfo: state.account,
   pendingEarnings: pendingEarningsSelector(state),
-  todaysEarnings: todaysProjectedEarnings(state)
+  todaysEarnings: todaysProjectedEarnings(state),
+  earningsApprovedButNotPaid: approvedButNotPaidEarnings(state)
 });
 
 export default connect(mapState)(EarningsSummary);

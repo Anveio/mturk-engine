@@ -6,7 +6,11 @@ import {
   HeatMapValue
 } from '../types';
 import { generateOneYearOfDates, todayFormatted } from '../utils/dates';
-import { rewardAndBonus, isPending } from '../utils/hitDatabase';
+import {
+  rewardAndBonus,
+  isPending,
+  isApprovedButNotPaid
+} from '../utils/hitDatabase';
 
 // import { selectedHitDbDateSelector } from './hitDatabaseDay';
 import { Map, List } from 'immutable';
@@ -19,6 +23,16 @@ export const pendingEarningsSelector = createSelector(
     hitDatabase.reduce(
       (acc: number, hit: HitDatabaseEntry) =>
         isPending(hit) ? acc + hit.reward : acc,
+      0
+    )
+);
+
+export const approvedButNotPaidEarnings = createSelector(
+  [hitDatabaseSelector],
+  hitDatabase =>
+    hitDatabase.reduce(
+      (acc: number, hit: HitDatabaseEntry) =>
+        isApprovedButNotPaid(hit) ? acc + hit.reward : acc,
       0
     )
 );
