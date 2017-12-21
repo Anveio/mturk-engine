@@ -43,19 +43,14 @@ interface CopyTextData {
 
 const parseAmazonId = (input: Document): string => {
   /**
-   * For whatever reason, just getting the node's text content wasn't working. 
+   * For whatever reason, just getting the node's text content wasn't working.
    * Maybe simplify later?
    */
-  try {
-    const workerIdData: CopyTextData = JSON.parse(
-      parseReactProps(input)(workerAmazonIdReactPropsQuerySelector)
-    );
+  const workerIdData: CopyTextData = JSON.parse(
+    parseReactProps(input)(workerAmazonIdReactPropsQuerySelector)
+  );
 
-    return workerIdData.textToCopy;
-  } catch (e) {
-    console.warn(e);
-    return '[Error:accountId]';
-  }
+  return workerIdData.textToCopy;
 };
 
 export const generateAccountInfo = (dashboard: Document): AccountInfo => {
