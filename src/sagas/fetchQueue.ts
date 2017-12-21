@@ -16,9 +16,8 @@ import {
 import { QueueMap } from '../types';
 
 export function* fetchUserQueue(action: FetchQueueRequest) {
+  const toasterKey = createGenericWaitingToast('Fetching your queue...');
   try {
-    const toasterKey = createGenericWaitingToast('Fetching your queue...');
-
     const queuePageData: QueueMap = yield call(getQueuePage);
 
     updateTopRightToaster(
@@ -28,7 +27,7 @@ export function* fetchUserQueue(action: FetchQueueRequest) {
 
     yield put<FetchQueueSuccess>(fetchQueueSuccess(queuePageData));
   } catch (e) {
-    failedQueueToast();
+    updateTopRightToaster(toasterKey, failedQueueToast);
     yield put<FetchQueueFailure>(fetchQueueFailure());
   }
 }

@@ -59,13 +59,11 @@ export const failedSearchToast = () => {
 export const generateQueueToast = (notEmpty: boolean): IToastProps =>
   notEmpty ? successfulQueueToast : emptyQueueToast;
 
-export const failedQueueToast = () => {
-  TopRightToaster.show({
-    message: `There was a problem refreshing your queue. Make sure you're still logged in.`,
-    action: loginLink,
-    intent: 2,
-    timeout: 5000
-  });
+export const failedQueueToast = {
+  message: `There was a problem refreshing your queue. Make sure you're still logged in.`,
+  action: loginLink,
+  intent: 2,
+  timeout: 5000
 };
 
 export const generateReturnToast = (successful: boolean) => {
@@ -105,14 +103,12 @@ export const accountConnectionSuccessfulToast = {
   timeout: 1000
 };
 
-export const accountConnectionFailedToast = () => {
-  TopRightToaster.show({
-    message:
-      "Couldn't fetch your dashboard. Make sure you're logged into MTurk and try again.",
-    action: loginLink,
-    intent: 2,
-    timeout: 5000
-  });
+export const accountConnectionFailedToast = {
+  message:
+    "Couldn't fetch your dashboard. Make sure you're logged into MTurk and try again.",
+  action: loginLink,
+  intent: 2,
+  timeout: 5000
 };
 
 export const emptySummaryPageToast = () =>

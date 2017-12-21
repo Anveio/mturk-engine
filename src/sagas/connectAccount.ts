@@ -15,15 +15,14 @@ import {
 } from '../utils/toaster';
 
 export function* fetchAccountInfo(action: ConnectAccountRequest) {
+  const toasterKey = createGenericWaitingToast('Fetching your dashboard...');
   try {
-    const toasterKey = createGenericWaitingToast('Fetching your dashboard...');
-
     const accountData = yield call(fetchDashboard);
     updateTopRightToaster(toasterKey, accountConnectionSuccessfulToast);
     yield put<ConnectAccountSuccess>(connectAccountSuccess(accountData));
   } catch (e) {
     console.warn(e);
-    accountConnectionFailedToast();
+    updateTopRightToaster(toasterKey, accountConnectionFailedToast);
     yield put<ConnectAccountFailure>(connectAccountFailure());
   }
 }
