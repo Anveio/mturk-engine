@@ -6,12 +6,9 @@ import {
   AcceptHitRequest,
   acceptHitRequestFromWatcher
 } from '../actions/accept';
-import { calculateTimeFromDelay } from '../utils/scheduler';
 
 export function* acceptAfterWatcherDelay(action: ScheduleWatcherTick) {
-  yield delay(
-    calculateTimeFromDelay(action.delayInSeconds).valueOf() - Date.now()
-  );
+  yield delay(action.delayInSeconds * 1000);
   /**
    * It's possible that a watcher is deleted during the delay.
    */

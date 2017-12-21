@@ -9,7 +9,7 @@ export const sendReturnHitRequest = async (
 ) => {
   try {
     const { groupId, taskId, hitId } = queueItem;
-    const response = await axios.post(
+    await axios.post(
       `${API_URL}/projects/${groupId}/tasks/${taskId}`,
       formatFormPayload(token),
       {
@@ -19,15 +19,20 @@ export const sendReturnHitRequest = async (
         }
       }
     );
-    return response.status === 302;
+    return true;
   } catch (e) {
+    // tslin
+    console.warn(
+      `HIT with title: "${
+        queueItem.title
+      }" was most likely successfully returned even though there may be a network error reported in your browser's console. This is because returning a HIT  causes Amazon to redirect to the sign in page, which disallows requests from worker.mturk.com`
+    );
     return true;
   }
 };
 
 const formatFormPayload = (token: string): string =>
   qs.stringify({
-    utf8: '✓',
     _method: 'delete',
     authenticity_token: token
   });

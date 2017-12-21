@@ -14,7 +14,7 @@ import {
 } from '../actions/turkopticon';
 import { searchHits } from '../api/search';
 import { selectHitRequester } from '../utils/turkopticon';
-import { calculateTimeFromDelay } from '../utils/scheduler';
+import { calculateTimeFromDelay } from '../utils/dates';
 import { failedSearchToast } from '../utils/toaster';
 
 const getSearchOptions = (state: RootState) => state.searchOptions;

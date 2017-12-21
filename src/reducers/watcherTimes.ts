@@ -5,7 +5,7 @@ import {
   CANCEL_NEXT_WATCHER_TICK
 } from '../constants';
 import { Map } from 'immutable';
-import { calculateTimeFromDelay } from '../utils/scheduler';
+import { calculateTimeFromDelay } from '../utils/dates';
 // import { watcherFromId, conflictsOnlyUseNewDateProp } from '../utils/watchers';
 
 const initial: WatcherTimerMap = Map<string, Date>();
