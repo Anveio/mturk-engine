@@ -2,8 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Card, Stack, DisplayText, TextStyle, Caption } from '@shopify/polaris';
-import { Tooltip, AnchorButton } from '@blueprintjs/core';
-import { Variation } from '@shopify/polaris/types/components/TextStyle/TextStyle';
+import { Tooltip } from '@blueprintjs/core';
 import {
   pendingEarningsSelector,
   todaysProjectedEarnings
@@ -12,65 +11,63 @@ import { formatAsCurrency } from '../../utils/formatting';
 import DailyEarningsProgressBar from './DailyEarningsProgressBar';
 import EditDailyGoalButton from './EditDailyGoalButton';
 
-export interface Props {
+interface Props {
   readonly accountInfo: MaybeAccount;
   readonly pendingEarnings: number;
   readonly todaysEarnings: number;
 }
 
+interface FieldProps {
+  readonly captionText: string;
+}
+
 class EarningsSummary extends React.PureComponent<Props, never> {
-  private static generateField = (
-    value: number,
-    fieldText: string,
-    variation?: Variation
-  ) => {
+  private static Field: React.SFC<FieldProps> = ({ children, captionText }) => {
     return (
       <Stack vertical={false} alignment="baseline" spacing="tight">
-        <DisplayText size="medium">
-          <TextStyle variation={variation}>{formatAsCurrency(value)}</TextStyle>
-        </DisplayText>
-        <Caption>{fieldText}</Caption>
+        <DisplayText size="medium">{children}</DisplayText>
+        <Caption>{captionText}</Caption>
       </Stack>
     );
   };
 
   public render() {
     const { accountInfo, pendingEarnings, todaysEarnings } = this.props;
-    const { generateField } = EarningsSummary;
     return accountInfo ? (
-      <Card title="Earnings Summary">
+      <Card
+        title="Earnings Summary"
+        actions={[
+          {
+            content: 'Transfer Earnings',
+            url: 'https://www.mturk.com/mturk/transferearnings',
+            external: true
+          }
+        ]}
+      >
         <Card.Section>
-          {generateField(
-            accountInfo.availableEarnings,
-            'Available for transfer',
-            'positive'
-          )}
+          <EarningsSummary.Field captionText="Available for transfer">
+            <TextStyle variation="positive">
+              {formatAsCurrency(accountInfo.availableEarnings)}
+            </TextStyle>
+          </EarningsSummary.Field>
         </Card.Section>
 
         <Card.Section>
           <Tooltip content="This includes earnings from HITs that have been approved but not yet paid out.">
-            {generateField(pendingEarnings, 'Pending')}
+            <EarningsSummary.Field captionText="Pending">
+              <TextStyle>{formatAsCurrency(pendingEarnings)}</TextStyle>
+            </EarningsSummary.Field>
           </Tooltip>
         </Card.Section>
 
         <Card.Section>
           <Stack vertical>
-            {generateField(todaysEarnings, 'Projected for today')}
+            <EarningsSummary.Field captionText="Projected for today">
+              {formatAsCurrency(todaysEarnings)}
+            </EarningsSummary.Field>
             <DailyEarningsProgressBar />
             <EditDailyGoalButton />
           </Stack>
-        </Card.Section>
-
-        <Card.Section>
-          <AnchorButton
-            intent={0}
-            className="pt-button pt-small pt-minimal"
-            iconName="credit-card"
-            target="_blank"
-            href="https://www.mturk.com/mturk/transferearnings"
-          >
-            Transfer Earnings
-          </AnchorButton>
         </Card.Section>
       </Card>
     ) : (
