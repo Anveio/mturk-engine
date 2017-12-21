@@ -1,16 +1,16 @@
 import * as React from 'react';
 import { Button, Stack, TextContainer } from '@shopify/polaris';
 import { Tooltip } from '@blueprintjs/core';
-import { TOpticonData } from '../../types';
+import { TOpticonRequester } from '../../types';
 import { turkopticonBaseUrl } from '../../constants/urls';
 
 export interface Props {
   readonly requesterId: string;
-  readonly turkopticon?: TOpticonData;
+  readonly turkopticon?: TOpticonRequester;
 }
 
 class TOpticonButton extends React.PureComponent<Props, never> {
-  private static generateTooltipContent = (data: TOpticonData) => {
+  private static generateTooltipContent = (data: TOpticonRequester) => {
     const { attrs: { pay, comm, fair, fast }, reviews, tos_flags } = data;
 
     return (

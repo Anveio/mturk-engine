@@ -3,7 +3,7 @@ import {
   HitDatabaseEntry,
   RequesterScores,
   TOpticonResponse,
-  TOpticonData,
+  TOpticonRequester,
   Requester,
   RequesterMap,
   TOpticonMap
@@ -67,17 +67,17 @@ export const filterCategories = (
 export const topticonMapFromTO = (data: TOpticonResponse): TOpticonMap =>
   Object.keys(data).reduce(
     (acc, id: string) => (data[id] ? acc.set(id, data[id]) : acc),
-    Map<string, TOpticonData>()
+    Map<string, TOpticonRequester>()
   );
 
 export const requesterMapFromTO = (data: TOpticonMap): RequesterMap =>
   data.reduce(
-    (acc: RequesterMap, value: TOpticonData, key: string): RequesterMap =>
+    (acc: RequesterMap, value: TOpticonRequester, key: string): RequesterMap =>
       acc.set(key, createRequester(data.get(key), key)),
     Map<string, Requester>()
   );
 
-export const createRequester = (data: TOpticonData, id: string): Requester => ({
+export const createRequester = (data: TOpticonRequester, id: string): Requester => ({
   id,
   name: data.name,
   turkopticon: data

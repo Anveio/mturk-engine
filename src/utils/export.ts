@@ -1,4 +1,4 @@
-import { SearchResult, TOpticonData } from '../types';
+import { SearchResult, TOpticonRequester } from '../types';
 import {
   baseTaskUrlWorker,
   baseRequeserUrlWorker,
@@ -98,7 +98,7 @@ const qualComparatorToWords = (comparator: QualificationComparator): string => {
   }
 };
 
-const ratingsToWords = (turkopticon?: TOpticonData): string => {
+const ratingsToWords = (turkopticon?: TOpticonRequester): string => {
   if (!turkopticon) {
     return 'No Data';
   }

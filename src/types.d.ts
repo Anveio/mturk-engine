@@ -35,7 +35,7 @@ type QueueMap = Map<string, QueueItem>;
 type RequesterMap = Map<string, Requester>;
 type HitBlockMap = Map<string, BlockedHit>;
 type RequesterBlockMap = Map<string, BlockedRequester>;
-type TOpticonMap = Map<string, TOpticonData>;
+type TOpticonMap = Map<string, TOpticonRequester>;
 type WatcherMap = Map<string, Watcher>;
 type WatcherTimerMap = Map<string, Date | null>;
 type HitDatabaseMap = Map<string, HitDatabaseEntry>;
@@ -162,14 +162,14 @@ interface BlockedHit extends SearchResult {
 interface Requester {
   readonly id: string;
   readonly name: string;
-  readonly turkopticon?: TOpticonData;
+  readonly turkopticon?: TOpticonRequester;
 }
 
 interface BlockedRequester extends Requester {
   readonly dateBlocked: Date;
 }
 
-interface TOpticonData {
+interface TOpticonRequester {
   readonly name: string;
   readonly attrs: RequesterScores;
   readonly reviews: number;
@@ -177,7 +177,7 @@ interface TOpticonData {
 }
 
 interface TOpticonResponse {
-  readonly [id: string]: TOpticonData;
+  readonly [id: string]: TOpticonRequester;
 }
 
 interface RequesterScores {
