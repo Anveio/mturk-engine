@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@blueprintjs/core": "^1.33.0",
+    "@blueprintjs/core": "^1.35.0",
     "@shopify/polaris": "^1.8.3",
     "axios": "^0.17.1",
     "copy-to-clipboard": "^3.0.8",
