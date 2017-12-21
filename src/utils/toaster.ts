@@ -190,20 +190,23 @@ export const failedImportPersistedState = () =>
     intent: 3
   });
 
-export const successfulAcceptToast = (title: string) =>
-  TopRightToaster.show({
-    message: `"${truncate(title, 45)}" was added to your queue.`,
-    intent: 1,
-    timeout: 5000
-  });
+export const successfulAcceptToast = (title: string) => ({
+  message: `"${truncate(title, 45)}" was added to your queue.`,
+  intent: 1,
+  timeout: 5000
+});
 
-export const failedAcceptToast = (reason: AcceptHitFailureReason) =>
-  TopRightToaster.show({
-    message: `That HIT was not added to your queue. ${failureReasonToWords(
-      reason
-    )}`,
-    intent: 2
-  });
+export const failedAcceptToast = (reason: AcceptHitFailureReason) => ({
+  message: `That HIT was not added to your queue. ${failureReasonToWords(
+    reason
+  )}`,
+  intent: 2
+});
+
+export const errorAcceptToast = {
+  message: `There was a problem accepting this HIT. Make sure you're still logged into MTurk and try again.`,
+  intent: Intent.WARNING
+};
 
 const successfulQueueToast = {
   message: 'Your queue has been refreshed.',

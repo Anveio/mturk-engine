@@ -4,15 +4,14 @@ import { RootState, Watcher } from '../types';
 import { ScheduleWatcherTick } from '../actions/watcher';
 import {
   AcceptHitRequest,
-  AcceptHitFailure,
-  acceptHitFailure,
   acceptHitRequestFromWatcher
 } from '../actions/accept';
-import { CancelWatcherTick, cancelNextWatcherTick } from '../actions/watcher';
+import { calculateTimeFromDelay } from '../utils/scheduler';
 
 export function* acceptAfterWatcherDelay(action: ScheduleWatcherTick) {
-  yield delay(action.time.valueOf() - Date.now());
-
+  yield delay(
+    calculateTimeFromDelay(action.delayInSeconds).valueOf() - Date.now()
+  );
   /**
    * It's possible that a watcher is deleted during the delay.
    */
@@ -20,27 +19,13 @@ export function* acceptAfterWatcherDelay(action: ScheduleWatcherTick) {
     state.watchers.get(action.groupId)
   );
 
-  const watcherActive: boolean = yield select(
-    (state: RootState) => !!state.watcherTimes.get(action.groupId)
+  const watcherTime: Date | undefined = yield select((state: RootState) =>
+    state.watcherTimes.get(action.groupId)
   );
 
-  try {
-    if (watcher && watcherActive) {
-      yield put<AcceptHitRequest>(
-        acceptHitRequestFromWatcher(watcher.groupId, watcher.delay)
-      );
-    } else if (watcher && !watcherActive) {
-      yield put<CancelWatcherTick>(cancelNextWatcherTick(watcher.groupId));
-    } else {
-      throw new Error(
-        'Warning: Attempted to accept a HIT with a deleted watcher.'
-      );
-    }
-  } catch (e) {
-    console.warn(e);
-    if (watcher) {
-      yield put<CancelWatcherTick>(cancelNextWatcherTick(watcher.groupId));
-    }
-    yield put<AcceptHitFailure>(acceptHitFailure());
+  if (watcher && watcherTime) {
+    yield put<AcceptHitRequest>(
+      acceptHitRequestFromWatcher(watcher.groupId, watcher.delay)
+    );
   }
 }

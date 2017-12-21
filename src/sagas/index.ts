@@ -12,7 +12,6 @@ import {
   SCHEDULE_NEXT_SEARCH,
   SCHEDULE_NEXT_WATCHER_TICK,
   TOGGLE_SEARCH_ACTIVITY,
-  TOGGLE_WATCHER_ACTIVE,
   READ_PERSISTED_STATE,
   UPLOAD_REQUEST,
   PLAY_AUDIO,
@@ -29,7 +28,7 @@ import { FetchStatusSummaryRequest } from '../actions/statusSummary';
 import { RefreshDatabaseRequest } from '../actions/refreshDatabase';
 import { ToggleSearchActive } from '../actions/updateValue';
 import { ReadPersistedState, WritePersistedState } from '../actions/backup';
-import { ToggleWatcherActivity, ScheduleWatcherTick } from '../actions/watcher';
+import { ScheduleWatcherTick } from '../actions/watcher';
 import { FetchStatusDetailRequest } from '../actions/statusDetail';
 import { PlayAudio } from '../actions/audio';
 import { UploadRequest } from '../actions/upload';
@@ -42,7 +41,6 @@ import { searchAfterDelay } from './scheduleSearch';
 import { acceptHit } from './acceptHit';
 import { fetchTurkopticon } from './fetchTurkopticon';
 import { toggleSearchActive } from './toggleSearchActive';
-import { toggleWatcherActive } from './toggleWatcherActive';
 import { acceptAfterWatcherDelay } from './scheduleWatcher';
 import { handleStatusDetailRequest } from './statusDetail';
 import { handleStatusSummaryRequest } from './statusSummary';
@@ -81,10 +79,6 @@ export default function* rootSaga() {
   yield takeEvery<FetchStatusDetailRequest>(
     STATUS_DETAIL_REQUEST,
     handleStatusDetailRequest
-  );
-  yield takeEvery<ToggleWatcherActivity>(
-    TOGGLE_WATCHER_ACTIVE,
-    toggleWatcherActive
   );
   yield takeEvery<ScheduleWatcherTick>(
     SCHEDULE_NEXT_WATCHER_TICK,

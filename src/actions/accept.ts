@@ -20,10 +20,18 @@ export interface AcceptHitRequest {
   readonly delay?: number;
 }
 
+export interface AcceptHitRequestFromWatcher {
+  readonly type: ACCEPT_HIT_REQUEST;
+  readonly groupId: string;
+  readonly fromWatcher: boolean;
+  readonly delay: number;
+}
+
 export type AcceptAction =
   | AcceptHitSuccess
   | AcceptHitFailure
-  | AcceptHitRequest;
+  | AcceptHitRequest
+  | AcceptHitRequestFromWatcher;
 
 export const acceptHitSuccess = (data: QueueItem): AcceptHitSuccess => ({
   type: ACCEPT_HIT_SUCCESS,
@@ -39,7 +47,7 @@ export const acceptHitRequestfromSearch = (
 ): AcceptHitRequest => ({
   type: ACCEPT_HIT_REQUEST,
   groupId: data.groupId,
-  fromWatcher: false,
+  fromWatcher: false
 });
 
 export const acceptHitRequestFromWatcher = (

@@ -1,7 +1,6 @@
 import {
   ADD_WATCHER,
   DELETE_WATCHER,
-  TOGGLE_WATCHER_ACTIVE,
   SCHEDULE_NEXT_WATCHER_TICK,
   CANCEL_NEXT_WATCHER_TICK
 } from '../constants';
@@ -17,16 +16,10 @@ export interface DeleteWatcher {
   readonly groupId: string;
 }
 
-export interface ToggleWatcherActivity {
-  readonly type: TOGGLE_WATCHER_ACTIVE;
-  readonly groupId: string;
-  readonly active: boolean;
-}
-
 export interface ScheduleWatcherTick {
   readonly type: SCHEDULE_NEXT_WATCHER_TICK;
   readonly groupId: string;
-  readonly time: Date;
+  readonly delayInSeconds: number;
 }
 
 export interface CancelWatcherTick {
@@ -44,22 +37,13 @@ export const deleteWatcher = (groupId: string): DeleteWatcher => ({
   groupId
 });
 
-export const toggleWatcherActive = (
-  groupId: string,
-  active: boolean
-): ToggleWatcherActivity => ({
-  type: TOGGLE_WATCHER_ACTIVE,
-  groupId,
-  active
-});
-
 export const scheduleWatcher = (
   groupId: string,
-  time: Date
+  delayInSeconds: number
 ): ScheduleWatcherTick => ({
   type: SCHEDULE_NEXT_WATCHER_TICK,
   groupId,
-  time
+  delayInSeconds
 });
 
 export const cancelNextWatcherTick = (groupId: string): CancelWatcherTick => ({
