@@ -1,15 +1,15 @@
 import { Watcher, SearchResult } from '../types';
 
-export const watcherFactoryFromId = (groupId: string): Watcher => ({
+export const watcherFromId = (groupId: string): Watcher => ({
   title: '',
-  description: '',
+  description: 'ID: ' + groupId,
   groupId,
   delay: 10,
   createdOn: new Date(),
   timeNextAttempt: null
 });
 
-export const watcherFactoryFromSearchResult = (hit: SearchResult): Watcher => ({
+export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
   title: hit.title,
   description: hit.description,
   groupId: hit.groupId,

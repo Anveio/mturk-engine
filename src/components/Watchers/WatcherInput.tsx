@@ -4,7 +4,7 @@ import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { Card, FormLayout, TextField, Button } from '@shopify/polaris';
 import {
   pandaLinkValidators,
-  watcherFactoryFromId
+  watcherFromId
 } from '../../utils/watchers';
 import { watchForEnter } from '../../utils/watchForEnter';
 
@@ -91,7 +91,7 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
 
 const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
   onAddWatcher: (groupId: string) =>
-    dispatch(addWatcher(watcherFactoryFromId(groupId)))
+    dispatch(addWatcher(watcherFromId(groupId)))
 });
 
 export default connect(null, mapDispatch)(WatcherInput);

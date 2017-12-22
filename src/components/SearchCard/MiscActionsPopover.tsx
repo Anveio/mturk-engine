@@ -7,7 +7,7 @@ import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../../types';
 import { addWatcherToast, copyMarkdownToast } from '../../utils/toaster';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
-import { watcherFactoryFromSearchResult } from '../../utils/watchers';
+import { watcherFromSearchResult } from '../../utils/watchers';
 import { generateHwtfUrl } from '../../utils/export';
 import { generateContactLinkSearchResult } from '../../utils/turkopticon';
 
@@ -17,7 +17,7 @@ const mapState = (state: RootState, ownProps: Props): Props => ({
 
 const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
   onAddWatcher: (hit: SearchResult) => {
-    dispatch(addWatcher(watcherFactoryFromSearchResult(hit)));
+    dispatch(addWatcher(watcherFromSearchResult(hit)));
     addWatcherToast(hit.title);
   }
 });

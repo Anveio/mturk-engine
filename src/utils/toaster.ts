@@ -3,9 +3,11 @@ import { truncate } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsCurrency } from './formatting';
 import { Toaster, Position, Intent, IToastProps } from '@blueprintjs/core';
-import { ImmutablePersistedStateKey, AcceptHitFailureReason } from '../types';
-import { failureReasonToWords } from './parsing';
+import { ImmutablePersistedStateKey } from '../types';
 import { GenericWaitingToast } from '../components/Toasts';
+import store from '../store';
+import { addWatcher } from '../actions/watcher';
+import { watcherFromId } from './watchers';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
 
@@ -196,11 +198,19 @@ export const successfulAcceptToast = (title: string) => ({
   timeout: 5000
 });
 
-export const failedAcceptToast = (reason: AcceptHitFailureReason) => ({
-  message: `That HIT was not added to your queue. ${failureReasonToWords(
-    reason
-  )}`,
-  intent: 2
+export const failedAcceptToast = (groupId: string): IToastProps => ({
+  message: `Couldn't add that HIT to your queue.`,
+  intent: 2,
+  action: {
+    text: 'Add as watcher',
+    onClick: () => {
+      store.dispatch(addWatcher(watcherFromId(groupId)));
+      TopRightToaster.show({
+        message: `Watcher with ID: ${groupId} added.`,
+        intent: Intent.PRIMARY
+      });
+    }
+  }
 });
 
 export const errorAcceptToast = {
@@ -232,11 +242,3 @@ const errorReturnToast = (title: string) => ({
   )} but the HIT you attempted to return is likely no longer in your queue.`,
   intent: 2
 });
-
-// const repeatReturnToast = () =>
-//   // tslint:disable:quotemark
-//   TopRightToaster.show({
-//     message:
-//       "You've already returned this HIT. It's been removed from your queue.",
-//     intent: -1
-//   });

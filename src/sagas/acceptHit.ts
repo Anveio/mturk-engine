@@ -33,7 +33,7 @@ export function* acceptHit(action: AcceptHitRequest) {
 
     yield successful
       ? handleSuccessfulAccept(htmlResponse, toasterKey)
-      : handleFailedAccept(toasterKey);
+      : handleFailedAccept(toasterKey, action.groupId);
   } catch (e) {
     yield put<AcceptHitFailure>(acceptHitFailure());
     updateTopRightToaster(toasterKey, errorAcceptToast);
@@ -53,7 +53,7 @@ function* handleSuccessfulAccept(html: Document, key: string) {
   }
 }
 
-function* handleFailedAccept(key: string) {
+function* handleFailedAccept(key: string, groupId: string) {
   yield put<AcceptHitFailure>(acceptHitFailure());
-  updateTopRightToaster(key, failedAcceptToast('UNKNOWN'));
+  updateTopRightToaster(key, failedAcceptToast(groupId));
 }
