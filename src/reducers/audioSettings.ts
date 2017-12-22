@@ -3,7 +3,7 @@ import { AudioSettings } from '../types';
 import { CHANGE_VOLUME, TOGGLE_AUDIO_ENABLED } from '../constants';
 
 const initial: AudioSettings = {
-  enabled: true,
+  enabled: false,
   volume: 0.1
 };
 
