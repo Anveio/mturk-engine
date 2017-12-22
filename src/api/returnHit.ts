@@ -9,7 +9,7 @@ export const sendReturnHitRequest = async (
 ) => {
   try {
     const { groupId, taskId, hitId } = queueItem;
-    await axios.post(
+    const response = await axios.post(
       `${API_URL}/projects/${groupId}/tasks/${taskId}`,
       formatFormPayload(token),
       {
@@ -19,9 +19,9 @@ export const sendReturnHitRequest = async (
         }
       }
     );
-    return true;
+    return response.status === 302;
   } catch (e) {
-    // tslin
+    // tslint:disable:max-line-length
     console.warn(
       `HIT with title: "${
         queueItem.title
