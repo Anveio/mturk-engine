@@ -30,29 +30,29 @@ class Watchers extends React.PureComponent<Props, never> {
     return column;
   };
 
+  private static WatcherLayout: React.SFC = ({ children }) => (
+    <Layout>
+      <Layout.AnnotatedSection
+        title="Add a watcher"
+        description="Enter a project ID, or 'Preview & Work' link."
+      >
+        <WatcherInput />
+      </Layout.AnnotatedSection>
+      {children}
+    </Layout>
+  );
+
   public render() {
     const { watcherIds } = this.props;
 
     return watcherIds.isEmpty() ? (
-      <Layout>
-        <Layout.AnnotatedSection
-          title="Add a watcher"
-          description="Enter a project ID, or 'Preview & Work' link."
-        >
-          <WatcherInput />
-        </Layout.AnnotatedSection>
+      <Watchers.WatcherLayout>
         <Layout.Section>
           <EmptyWatchers />
         </Layout.Section>
-      </Layout>
+      </Watchers.WatcherLayout>
     ) : (
-      <Layout>
-        <Layout.AnnotatedSection
-          title="Add a watcher"
-          description="Enter a project ID or 'Preview & Work' link."
-        >
-          <WatcherInput />
-        </Layout.AnnotatedSection>
+      <Watchers.WatcherLayout>
         <Layout.Section secondary>
           {Watchers.generateColumn(0)(watcherIds)}
         </Layout.Section>
@@ -62,7 +62,7 @@ class Watchers extends React.PureComponent<Props, never> {
         <Layout.Section secondary>
           {Watchers.generateColumn(2)(watcherIds)}
         </Layout.Section>
-      </Layout>
+      </Watchers.WatcherLayout>
     );
   }
 }
