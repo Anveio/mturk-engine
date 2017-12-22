@@ -2,10 +2,12 @@ import axios from 'axios';
 import { HitDatabaseMap } from '../types';
 import { API_URL } from '../constants';
 import { parseStatusDetailPage } from '../utils/parsingWorkerStatusDetail';
+import { StatusDetailApiResponse } from '../worker-mturk-api';
+import { workerDateFormatToLegacyDateFormat } from '../utils/dates';
 
 export interface StatusDetailPageInfo {
-  data: HitDatabaseMap;
-  morePages: boolean;
+  readonly data: HitDatabaseMap;
+  readonly morePages: boolean;
 }
 
 /**
@@ -13,13 +15,19 @@ export interface StatusDetailPageInfo {
  */
 export const fetchStatusDetailPage = async (encodedDate: string, page = 1) => {
   try {
-    const response = await axios.get<Document>(
+    const response = await axios.get<StatusDetailApiResponse>(
       `${API_URL}/status_details/${encodedDate}`,
       {
-        responseType: 'document'
+        params: {
+          format: 'json'
+        },
+        responseType: 'json'
       }
     );
-    return parseStatusDetailPage(response.data, encodedDate);
+    return parseStatusDetailPage(
+      response.data,
+      workerDateFormatToLegacyDateFormat(encodedDate)
+    );
   } catch (e) {
     throw Error('Problem fetching status detail: ' + e);
   }

@@ -12,12 +12,13 @@ import {
   StatusDetailPageInfo
 } from '../api/statusDetail';
 import { statusDetailToast, statusDetailErrorToast } from '../utils/toaster';
-import { dateObjectToWorkerDateFormat } from '../utils/dates';
+import { dateObjectTo } from '../utils/dates';
+import { WORKER_DATE_FORMAT } from '../constants/misc';
 
 export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
   try {
     const { date, page } = action;
-    const encodedDateString = dateObjectToWorkerDateFormat(date);
+    const encodedDateString = dateObjectTo(date)(WORKER_DATE_FORMAT);
     const pageInfo: StatusDetailPageInfo = yield call(
       fetchStatusDetailPage,
       encodedDateString,

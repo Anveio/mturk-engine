@@ -7,14 +7,18 @@ import {
   FetchStatusDetailRequest,
   statusDetailRequest
 } from '../../../actions/statusDetail';
-import { dateStringToLocaleDateString } from '../../../utils/dates';
+import {
+  dateStringToLocaleDateString,
+  stringToDate
+} from '../../../utils/dates';
+import { LEGACY_DATE_FORMAT } from '../../../constants/misc';
 
 export interface Props {
   readonly selectedDate: string | null;
 }
 
 export interface Handlers {
-  readonly onRefresh: (dateString: string) => void;
+  readonly onRefresh: (date: Date) => void;
 }
 
 class DateDisplay extends React.PureComponent<Props & Handlers, never> {
@@ -24,8 +28,10 @@ class DateDisplay extends React.PureComponent<Props & Handlers, never> {
       : 'Select a date to see more information.';
 
   private handleRefresh = () => {
-    if (!!this.props.selectedDate) {
-      this.props.onRefresh(this.props.selectedDate);
+    const { selectedDate } = this.props;
+
+    if (!!selectedDate) {
+      this.props.onRefresh(stringToDate(selectedDate)(LEGACY_DATE_FORMAT));
     }
   };
 
@@ -69,8 +75,7 @@ const mapState = (state: RootState): Props => ({
 const mapDispatch = (
   dispatch: Dispatch<FetchStatusDetailRequest>
 ): Handlers => ({
-  onRefresh: (dateString: string) =>
-    dispatch(statusDetailRequest(dateString, 'MMDDYYYY', 1, true))
+  onRefresh: (date: Date) => dispatch(statusDetailRequest(date, 1, true))
 });
 
 export default connect(mapState, mapDispatch)(DateDisplay);

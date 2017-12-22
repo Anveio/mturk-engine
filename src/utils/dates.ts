@@ -3,6 +3,7 @@ import { List } from 'immutable';
 import {
   LEGACY_DATE_FORMAT,
   WORKER_DATE_FORMAT,
+  DATE_FORMAT,
   MOMENT_LOCALE
 } from '../constants/misc';
 import { range } from './arrays';
@@ -11,11 +12,14 @@ import { range } from './arrays';
  * Worker's date URL's are in YYYY-MM-DD
  * @param dateString
  */
-export const dateObjectToWorkerDateFormat = (date: Date) =>
-  moment(date).format(WORKER_DATE_FORMAT);
+export const dateObjectTo = (date: Date) => (format: DATE_FORMAT) =>
+  moment(date).format(format);
 
-export const legacyDateStringToDate = (dateString: string) =>
-  moment(dateString, LEGACY_DATE_FORMAT).toDate();
+export const stringToDate = (dateString: string) => (format: DATE_FORMAT) =>
+  moment(dateString, format).toDate();
+
+export const workerDateFormatToLegacyDateFormat = (dateString: string) =>
+  moment(dateString, WORKER_DATE_FORMAT).format(LEGACY_DATE_FORMAT);
 
 // returns a new date shifted a certain number of days (can be negative)
 export const shiftDate = (date: Date, numDays: number) => {

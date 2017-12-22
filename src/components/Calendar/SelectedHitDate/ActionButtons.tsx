@@ -6,7 +6,8 @@ import {
   FetchStatusDetailRequest,
   statusDetailRequest
 } from '../../../actions/statusDetail';
-import { legacyDateStringToDate } from '../../../utils/dates';
+import { stringToDate } from '../../../utils/dates';
+import { LEGACY_DATE_FORMAT } from '../../../constants/misc';
 
 interface Props {
   readonly selectedDate: string | null;
@@ -19,7 +20,9 @@ interface Handlers {
 class ActionButtons extends React.PureComponent<Props & Handlers, never> {
   private handleRefresh = () => {
     if (!!this.props.selectedDate) {
-      this.props.onRefresh(legacyDateStringToDate(this.props.selectedDate));
+      this.props.onRefresh(
+        stringToDate(this.props.selectedDate)(LEGACY_DATE_FORMAT)
+      );
     }
   };
 

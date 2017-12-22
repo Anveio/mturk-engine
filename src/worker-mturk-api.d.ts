@@ -42,7 +42,10 @@ export interface DashboardApiResponse {
 }
 
 export interface StatusDetailApiResponse {
-  results: {};
+  readonly results: WorkerSubmittedHit[];
+  readonly page_number: 1;
+  readonly num_results: 4;
+  readonly total_num_results: 4;
 }
 
 /**
@@ -52,11 +55,6 @@ export interface AcceptedHitDetailsModal {
   readonly children: string;
   readonly modalHeader: string;
   readonly modalOptions: HitModalDetails;
-}
-
-export interface StatusDetailApiResponse {
-  readonly bodyData: WorkerSubmittedHit[];
-  readonly tableConfig: WorkerTableConfig;
 }
 
 /**
@@ -124,7 +122,7 @@ export interface WorkerQueueItem {
 export interface WorkerSubmittedHit {
   readonly assignment_id: string;
   readonly hit_id: string;
-  readonly requester_feedback: string;
+  readonly requester_feedback: string | null;
   readonly requester_id: string;
   readonly requester_name: string;
   readonly reward: MonetaryReward;

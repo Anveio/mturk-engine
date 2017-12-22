@@ -8,7 +8,6 @@ import {
   statusSummaryRequest
 } from '../../actions/statusSummary';
 import { statusDetailRequest } from '../../actions/statusDetail';
-import { todayFormatted } from '../../utils/dates';
 
 export interface Props {
   readonly waitingForHitDbRefresh: boolean;
@@ -79,8 +78,7 @@ const mapDispatch = (
   dispatch: Dispatch<FetchStatusSummaryRequest>
 ): Handlers => ({
   onRefreshDb: () => dispatch(statusSummaryRequest()),
-  onRefreshToday: () =>
-    dispatch(statusDetailRequest(todayFormatted(), 'MMDDYYYY', 1, true))
+  onRefreshToday: () => dispatch(statusDetailRequest(new Date(), 1, true))
 });
 
 export default connect(mapState, mapDispatch)(CalendarButtons);
