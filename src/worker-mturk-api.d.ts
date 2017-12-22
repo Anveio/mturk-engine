@@ -1,11 +1,10 @@
 import { HitStatus } from './types';
 
-/**
- * The object produced when calling JSON.parse on the react-props of a search results page.
- */
 export interface SearchResultsApiResponse {
-  readonly baseUrl: string;
-  readonly bodyData: WorkerSearchResult[];
+  readonly results: WorkerSearchResult[];
+  readonly page_number: number;
+  readonly num_results: number;
+  readonly total_num_results: number;
 }
 
 /**
@@ -169,6 +168,7 @@ export interface WorkerSearchParams {
   readonly page_number: number;
   readonly filters: Partial<WorkerSearchFilters>;
   readonly sort: WorkerSortParam;
+  readonly format?: 'json';
 }
 
 export interface WorkerSearchFilters {

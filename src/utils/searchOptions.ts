@@ -12,7 +12,8 @@ export const generateParams = (options: SearchOptions): WorkerSearchParams => {
       qualified: qualifiedOnly
     },
     page_size: 100,
-    page_number: 1
+    page_number: 1,
+    format: 'json'
   };
 };
 

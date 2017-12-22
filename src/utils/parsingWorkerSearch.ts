@@ -1,22 +1,8 @@
 import { Map } from 'immutable';
 import { SearchResult, SearchResults } from '../types';
-import {
-  WorkerSearchResult,
-  SearchResultsApiResponse,
-  WorkerQualification
-} from '../worker-mturk-api';
-import { parseReactProps } from './parsing';
-import { mturkTableDataNodeQuerySelector } from '../constants/querySelectors';
+import { WorkerSearchResult, WorkerQualification } from '../worker-mturk-api';
 
-export const parseWorkerSearchPage = (
-  html: Document,
-  freshSearch?: boolean
-): SearchResults => {
-  const workerHits = searchResultsDocumentToWorkerHitArray(html);
-  return tabulateSearchData(workerHits, freshSearch);
-};
-
-const tabulateSearchData = (
+export const tabulateSearchData = (
   input: WorkerSearchResult[],
   freshSearch?: boolean
 ): SearchResults =>
@@ -46,22 +32,6 @@ const createWorkerSearchItem = (hit: WorkerSearchResult): SearchResult => ({
   reward: hit.monetary_reward.amount_in_dollars,
   canPreview: hit.caller_meets_preview_requirements
 });
-
-const searchResultsDocumentToWorkerHitArray = (
-  html: Document
-): WorkerSearchResult[] => {
-  const pageReactProps = parseReactProps(html)(mturkTableDataNodeQuerySelector);
-
-  try {
-    const searchResultsData = JSON.parse(
-      pageReactProps
-    ) as SearchResultsApiResponse;
-    return searchResultsData.bodyData;
-  } catch (e) {
-    console.warn(e);
-    return [];
-  }
-};
 
 const calculateIfQualified = (qualificationsArray: WorkerQualification[]) =>
   qualificationsArray.every(qual => !!qual.caller_meets_requirement);
