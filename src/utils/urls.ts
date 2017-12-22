@@ -93,3 +93,8 @@ export const generateContactLinkSearchResult = (hit: SearchResult) => {
     noRedirectParam
   );
 };
+
+export const generateTransferEarningsUrl = (legacy = false) =>
+  legacy
+    ? 'https://www.mturk.com/mturk/transferearnings'
+    : 'https://worker.mturk.com/earnings';

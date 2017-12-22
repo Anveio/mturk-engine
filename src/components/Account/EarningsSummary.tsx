@@ -10,12 +10,14 @@ import {
 import { formatAsCurrency } from '../../utils/formatting';
 import DailyEarningsProgressBar from './DailyEarningsProgressBar';
 import EditDailyGoalButton from './EditDailyGoalButton';
+import { generateTransferEarningsUrl } from '../../utils/urls';
 
 interface Props {
   readonly accountInfo: MaybeAccount;
   readonly pendingEarnings: number;
   readonly todaysEarnings: number;
   readonly earningsApprovedButNotPaid: number;
+  readonly legacyLinksEnabled: boolean;
 }
 
 interface FieldProps {
@@ -59,7 +61,7 @@ class EarningsSummary extends React.PureComponent<Props, never> {
         actions={[
           {
             content: 'Transfer Earnings',
-            url: 'https://www.mturk.com/mturk/transferearnings',
+            url: generateTransferEarningsUrl(this.props.legacyLinksEnabled),
             external: true
           }
         ]}
@@ -100,7 +102,8 @@ const mapState = (state: RootState): Props => ({
   accountInfo: state.account,
   pendingEarnings: pendingEarningsSelector(state),
   todaysEarnings: todaysProjectedEarnings(state),
-  earningsApprovedButNotPaid: approvedButNotPaidEarnings(state)
+  earningsApprovedButNotPaid: approvedButNotPaidEarnings(state),
+  legacyLinksEnabled: state.legacyLinksEnabled
 });
 
 export default connect(mapState)(EarningsSummary);
