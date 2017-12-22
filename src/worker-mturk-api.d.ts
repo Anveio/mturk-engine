@@ -7,12 +7,8 @@ export interface SearchResultsApiResponse {
   readonly total_num_results: number;
 }
 
-/**
- * The object produced when calling JSON.parse on the react-props of a user's queue.
- */
 export interface QueueApiResponse {
-  readonly bodyData: WorkerQueueItem[];
-  readonly tableConfig: WorkerTableConfig[];
+  readonly tasks: WorkerQueueItem[];
 }
 
 export interface DashboardApiResponse {
@@ -113,6 +109,7 @@ export interface WorkerQueueItem {
   readonly project: WorkerHitOld;
   readonly question: QueueItemQuestion;
   readonly state: 'Assigned'; // Possibly others?;
+  readonly hit_requirements: WorkerQualification[];
   readonly time_to_deadline_in_seconds: number;
   readonly task_id: string;
   readonly task_url: string;

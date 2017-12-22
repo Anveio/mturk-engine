@@ -1,13 +1,17 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import { parseQueuePage } from '../utils/parsingWorkerQueue';
+import { tabulateQueueData } from '../utils/parsingWorkerQueue';
+import { QueueApiResponse } from '../worker-mturk-api';
 
 export const getQueuePage = async () => {
   try {
-    const response = await axios.get<Document>(`${API_URL}/tasks`, {
-      responseType: 'document'
+    const response = await axios.get<QueueApiResponse>(`${API_URL}/tasks`, {
+      params: {
+        format: 'json'
+      },
+      responseType: 'json'
     });
-    return parseQueuePage(response.data);
+    return tabulateQueueData(response.data.tasks);
   } catch (e) {
     throw Error('Problem getting queue page.');
   }
