@@ -118,3 +118,17 @@ export const failureReasonToWords = (input: AcceptHitFailureReason): string => {
       return '';
   }
 };
+
+export const executeRegex = (inputString: string) => (regex: RegExp) => {
+  const resultArr = regex.exec(inputString);
+  if (resultArr === null || resultArr.length < 1) {
+    throw new Error(
+      `Problem parsing string. Input: ${inputString} :: Regexp: ${regex} :: Result: ${resultArr}`
+    );
+  } else {
+    return resultArr[1];
+  }
+};
+
+export const testRegex = (inputString: string) => (regex: RegExp) =>
+  regex.test(inputString);

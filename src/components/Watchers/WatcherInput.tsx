@@ -4,9 +4,11 @@ import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { Card, FormLayout, TextField, Button } from '@shopify/polaris';
 import {
   pandaLinkValidators,
-  watcherFromId
+  watcherFromId,
+  determineInputType
 } from '../../utils/watchers';
 import { watchForEnter } from '../../utils/watchForEnter';
+import { executeRegex } from '../../utils/parsing';
 
 export interface Handlers {
   readonly onAddWatcher: (groupId: string) => void;
@@ -38,24 +40,42 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
 
   private handleSubmit = () => {
     const input = this.state.value;
+    const { onAddWatcher } = this.props;
 
-    const isPandaLink = input.length > 30;
-    const valid = isPandaLink
-      ? WatcherInput.validateInputPandaLink(input)
-      : input.length === 30;
+    const inputType = determineInputType(input);
 
-    const groupId = isPandaLink ? WatcherInput.parseGroupId(input) : input;
-
-    if (valid) {
-      this.props.onAddWatcher(groupId);
-    } else {
-      this.displayError();
+    switch (inputType) {
+      case 'GROUP_ID':
+        onAddWatcher(input);
+        break;
+      case 'LEGACY': {
+        const valid = WatcherInput.validateInputPandaLink(input);
+        valid
+          ? onAddWatcher(WatcherInput.parseGroupId(input))
+          : this.displayError();
+        break;
+      }
+      case 'WORKER':
+        {
+          try {
+            const groupId = executeRegex(input)(/\/projects\/(.*)\/tasks/gi);
+            groupId.length === 30 ? onAddWatcher(groupId) : this.displayError();
+          } catch (e) {
+            this.displayError();
+          }
+        }
+        break;
+      case 'INVALID':
+        this.displayError();
+        break;
+      default:
+        this.displayError();
     }
   };
 
   private displayError = () =>
     this.setState((): Partial<State> => ({
-      error: 'That doesn\'t appear to be a valid group ID or pandA link.'
+      error: `That doesn't appear to be a valid group ID or pandA link.`
     }));
 
   private handleInput = (value: string) =>
@@ -74,7 +94,7 @@ class WatcherInput extends React.PureComponent<Handlers, State> {
               autoFocus
               label="Add watcher"
               labelHidden
-              placeholder="Valid pandA link or a groupID of a HIT"
+              placeholder="Project ID or 'Preview & Work' link"
               value={this.state.value}
               error={this.state.error || false}
               onChange={this.handleInput}

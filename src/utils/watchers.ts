@@ -31,3 +31,17 @@ export const conflictsOnlyUseNewDateProp = (
   ...oldWatcher,
   createdOn: newWatcher.createdOn
 });
+
+type WatcherInputType = 'GROUP_ID' | 'WORKER' | 'LEGACY' | 'INVALID';
+
+export const determineInputType = (input: string): WatcherInputType => {
+  if (/\/projects\/(.*)\/tasks/gi.test(input)) {
+    return 'WORKER';
+  } else if (/groupId=(.*)/gi.test(input)) {
+    return 'LEGACY';
+  } else if (input.length === 30) {
+    return 'GROUP_ID';
+  } else {
+    return 'INVALID';
+  }
+};

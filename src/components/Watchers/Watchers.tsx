@@ -37,7 +37,7 @@ class Watchers extends React.PureComponent<Props, never> {
       <Layout>
         <Layout.AnnotatedSection
           title="Add a watcher"
-          description="Enter a groupID or a pandA link."
+          description="Enter a project ID, or 'Preview & Work' link."
         >
           <WatcherInput />
         </Layout.AnnotatedSection>
@@ -49,7 +49,7 @@ class Watchers extends React.PureComponent<Props, never> {
       <Layout>
         <Layout.AnnotatedSection
           title="Add a watcher"
-          description="Enter a groupID or a pandA link."
+          description="Enter a project ID or 'Preview & Work' link."
         >
           <WatcherInput />
         </Layout.AnnotatedSection>
