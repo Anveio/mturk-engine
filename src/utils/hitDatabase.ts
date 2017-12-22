@@ -17,7 +17,7 @@ export const isPaidOrApproved = (el: HitDatabaseEntry) =>
 
 export const isPending = (el: HitDatabaseEntry) =>
   el.status === 'Pending Approval' ||
-  el.status === 'Pending' ||
+  el.status === 'Submitted' ||
   el.status === 'Approved' ||
   el.status === 'Pending Payment';
 

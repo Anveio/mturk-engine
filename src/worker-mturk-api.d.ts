@@ -215,7 +215,7 @@ export interface HitModalDetails {
 }
 
 export type WorkerSubmittedHitState =
-  | 'Pending'
+  | 'Submitted'
   | 'Approved'
   | 'Rejected'
   | 'Paid';

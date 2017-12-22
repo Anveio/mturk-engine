@@ -60,7 +60,7 @@ export const generateHitStatusBadge = (status: HitStatus): BadgeDescriptor => {
       return { content: 'Approved', status: 'success' };
     case 'Rejected':
       return { content: 'Rejected', status: 'warning' };
-    case 'Pending':
+    case 'Submitted':
     case 'Pending Approval':
       return { content: 'Pending', status: 'attention' };
     default:
