@@ -7,13 +7,18 @@ import {
   returnHitSuccess
 } from '../actions/return';
 import { sendReturnHitRequest } from '../api/returnHit';
-import { generateReturnToast } from '../utils/toaster';
+import {
+  generateReturnToast,
+  createGenericWaitingToast,
+  updateTopRightToaster
+} from '../utils/toaster';
 import { getHitAuthToken } from '../api/getHitAuthToken';
 
 export function* returnHit(action: ReturnHitRequest) {
-  try {
-    const { hitId } = action.queueItem;
+  const { title, hitId } = action.queueItem;
+  const toasterKey = createGenericWaitingToast(`Returning "${title}" ...`);
 
+  try {
     const authToken: string | null = yield call(
       getHitAuthToken,
       action.queueItem
@@ -28,14 +33,14 @@ export function* returnHit(action: ReturnHitRequest) {
       action.queueItem,
       authToken
     );
-    generateReturnToast(successful);
+    updateTopRightToaster(toasterKey, generateReturnToast(successful, title));
 
     return successful
       ? yield put<ReturnHitSuccess>(returnHitSuccess(hitId))
       : yield put<ReturnHitFailure>(returnHitFailure());
   } catch (e) {
     console.warn(e);
-    generateReturnToast(false);
+    updateTopRightToaster(toasterKey, generateReturnToast(false, title));
     yield put<ReturnHitFailure>(returnHitFailure());
   }
 }

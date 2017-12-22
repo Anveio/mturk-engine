@@ -66,8 +66,8 @@ export const failedQueueToast = {
   timeout: 5000
 };
 
-export const generateReturnToast = (successful: boolean) => {
-  return successful ? successfulReturnToast() : errorReturnToast();
+export const generateReturnToast = (successful: boolean, title: string) => {
+  return successful ? successfulReturnToast(title) : errorReturnToast(title);
 };
 
 export const statusDetailToast = (dateStr: string, noDataFound: boolean) => {
@@ -220,18 +220,15 @@ const emptyQueueToast = {
   timeout: 2000
 };
 
-const successfulReturnToast = () =>
-  TopRightToaster.show({
-    message: 'A HIT has been removed from your queue.',
-    intent: 0
-  });
+const successfulReturnToast = (title: string) => ({
+  message: `"${title}" has been removed from your queue.`,
+  intent: Intent.PRIMARY
+});
 
-const errorReturnToast = () =>
-  TopRightToaster.show({
-    message:
-      'Problem returning HIT. The HIT you attempted to return is likely no longer in your queue',
-    intent: 2
-  });
+const errorReturnToast = (title: string) => ({
+  message: `Problem returning ${title} but the HIT you attempted to return is likely no longer in your queue.`,
+  intent: 2
+});
 
 // const repeatReturnToast = () =>
 //   // tslint:disable:quotemark
