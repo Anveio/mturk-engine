@@ -96,9 +96,3 @@ export const lifetimeApprovedQuerySelector = `#dashboard-hits-overview > div > d
 export const lifetimeRejectedQuerySelector = `#HitsOverviewAdditionalInfo > div:nth-child(2) > div.col-xs-5.text-xs-right`;
 export const numPendingQuerySelector = `#dashboard-hits-overview > div > div > div:nth-child(4) > div.col-xs-5.text-xs-right`;
 export const workerAmazonIdReactPropsQuerySelector = `body > div.container-fluid.me-bar > div > div.col-xs-7 > span.text-uppercase > span`;
-
-/**
- * Submitted Hit History
- */
-
-export const workerHitHistoryDateAnchor = `tr.daily_hit_statuses > td > a`;

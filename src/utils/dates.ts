@@ -8,15 +8,14 @@ import {
 import { range } from './arrays';
 
 /**
- * Worker's date URL's are in YYYY-MM-DD, but the HIT database stores them in
- * MMDDYYYY format.
+ * Worker's date URL's are in YYYY-MM-DD
  * @param dateString
  */
-export const workerDateStringToLegacyDateString = (dateString: string) =>
-  moment(dateString, WORKER_DATE_FORMAT).format(LEGACY_DATE_FORMAT);
+export const dateObjectToWorkerDateFormat = (date: Date) =>
+  moment(date).format(WORKER_DATE_FORMAT);
 
-export const legacyDateStringToWorkerDateString = (dateString: string) =>
-  moment(dateString, LEGACY_DATE_FORMAT).format(WORKER_DATE_FORMAT);
+export const legacyDateStringToDate = (dateString: string) =>
+  moment(dateString, LEGACY_DATE_FORMAT).toDate();
 
 // returns a new date shifted a certain number of days (can be negative)
 export const shiftDate = (date: Date, numDays: number) => {

@@ -17,12 +17,12 @@ import { handleStatusDetailRequest } from './statusDetail';
 
 export function* handleStatusSummarySuccess(action: RefreshDatabaseRequest) {
   try {
-    const { dateStrings } = action;
+    const { workedDates } = action;
 
     const initialDb: HitDatabaseMap = yield select(hitDatabaseSelector);
 
     yield all(
-      dateStrings.map(function*(dateString: string) {
+      workedDates.map(function*(date: Date) {
         /**
          * We call the `handleStatusDetailRequest` saga directly instead of
          * dispatching the action to the store because we need to wait for the
@@ -35,14 +35,14 @@ export function* handleStatusSummarySuccess(action: RefreshDatabaseRequest) {
            * The format is YYYY-MM-DD automatically because they were retrieved
            * from manually parsing the worker site.
            */
-          statusDetailRequest(dateString, 'YYYY-MM-DD')
+          statusDetailRequest(date)
         );
       })
     );
 
     const finalDb: HitDatabaseMap = yield select(hitDatabaseSelector);
 
-    refreshDbSuccessToast(dateStrings.length, finalDb.size - initialDb.size);
+    refreshDbSuccessToast(workedDates.length, finalDb.size - initialDb.size);
     yield put<RefreshDatabaseSuccess>(databaseRefreshSuccess());
   } catch (e) {
     refreshDbErrorToast();

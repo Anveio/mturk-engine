@@ -15,16 +15,16 @@ import { emptySummaryPageToast } from '../utils/toaster';
 
 export function* handleStatusSummaryRequest(action: FetchStatusSummaryRequest) {
   try {
-    const dateStrings: string[] = yield call(fetchSubmittedHitHistory);
+    const workedDates: Date[] = yield call(fetchSubmittedHitHistory);
 
-    if (dateStrings.length === 0) {
+    if (workedDates.length === 0) {
       emptySummaryPageToast();
       yield put<FetchStatusSummaryFailure>(statusSummaryFailure());
     } else {
       yield put<FetchStatusSummarySuccess>(statusSummarySuccess());
     }
 
-    yield put<RefreshDatabaseRequest>(databaseRefreshRequest(dateStrings));
+    yield put<RefreshDatabaseRequest>(databaseRefreshRequest(workedDates));
   } catch (e) {
     emptySummaryPageToast();
     yield put<FetchStatusSummaryFailure>(statusSummaryFailure());

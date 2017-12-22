@@ -6,19 +6,20 @@ import {
   FetchStatusDetailRequest,
   statusDetailRequest
 } from '../../../actions/statusDetail';
+import { legacyDateStringToDate } from '../../../utils/dates';
 
 interface Props {
   readonly selectedDate: string | null;
 }
 
 interface Handlers {
-  readonly onRefresh: (dateString: string) => void;
+  readonly onRefresh: (date: Date) => void;
 }
 
 class ActionButtons extends React.PureComponent<Props & Handlers, never> {
   private handleRefresh = () => {
     if (!!this.props.selectedDate) {
-      this.props.onRefresh(this.props.selectedDate);
+      this.props.onRefresh(legacyDateStringToDate(this.props.selectedDate));
     }
   };
 
@@ -42,8 +43,7 @@ const mapState = (state: RootState): Props => ({
 const mapDispatch = (
   dispatch: Dispatch<FetchStatusDetailRequest>
 ): Handlers => ({
-  onRefresh: (dateString: string) =>
-    dispatch(statusDetailRequest(dateString, 'MMDDYYYY'))
+  onRefresh: date => dispatch(statusDetailRequest(date))
 });
 
 export default connect(mapState, mapDispatch)(ActionButtons);

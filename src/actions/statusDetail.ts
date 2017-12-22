@@ -4,12 +4,10 @@ import {
   STATUS_DETAIL_SUCCESS
 } from '../constants';
 import { HitDatabaseMap } from '../types';
-import { LEGACY_DATE_FORMAT, WORKER_DATE_FORMAT } from '../constants/misc';
 
 export interface FetchStatusDetailRequest {
   readonly type: STATUS_DETAIL_REQUEST;
-  readonly dateString: string;
-  readonly dateFormat: LEGACY_DATE_FORMAT | WORKER_DATE_FORMAT;
+  readonly date: Date;
   readonly page: number;
   readonly withToast: boolean;
 }
@@ -24,14 +22,12 @@ export interface FetchStatusDetailFailure {
 }
 
 export const statusDetailRequest = (
-  dateString: string,
-  dateFormat: LEGACY_DATE_FORMAT | WORKER_DATE_FORMAT,
+  date: Date,
   page = 1,
   withToast = false
 ): FetchStatusDetailRequest => ({
   type: STATUS_DETAIL_REQUEST,
-  dateString,
-  dateFormat,
+  date,
   page,
   withToast
 });

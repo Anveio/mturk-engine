@@ -10,7 +10,7 @@ import {
   StatusDetailApiResponse,
   WorkerSubmittedHit
 } from '../worker-mturk-api';
-import { workerDateStringToLegacyDateString } from './dates';
+import { dateObjectToWorkerDateFormat } from './dates';
 
 export const parseStatusDetailPage = (
   html: Document,
@@ -18,7 +18,7 @@ export const parseStatusDetailPage = (
 ): StatusDetailPageInfo => {
   try {
     const hits = parseSubmittedHits(html);
-    const workerFormattedDate = workerDateStringToLegacyDateString(dateString);
+    const workerFormattedDate = dateObjectToWorkerDateFormat(dateString);
     return {
       data: tabulateHitDbEntries(hits, workerFormattedDate),
       morePages: detectMorePages(html)

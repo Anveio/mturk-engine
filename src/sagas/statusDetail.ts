@@ -12,20 +12,15 @@ import {
   StatusDetailPageInfo
 } from '../api/statusDetail';
 import { statusDetailToast, statusDetailErrorToast } from '../utils/toaster';
-import { legacyDateStringToWorkerDateString } from '../utils/dates';
+import { dateObjectToWorkerDateFormat } from '../utils/dates';
 
 export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
   try {
-    const { dateFormat, dateString, page } = action;
-
-    const formattedDateString =
-      dateFormat === 'MMDDYYYY'
-        ? legacyDateStringToWorkerDateString(dateString)
-        : dateString;
-
+    const { date, page } = action;
+    const encodedDateString = dateObjectToWorkerDateFormat(date);
     const pageInfo: StatusDetailPageInfo = yield call(
       fetchStatusDetailPage,
-      formattedDateString,
+      encodedDateString,
       page
     );
     const { data, morePages } = pageInfo;
@@ -42,12 +37,10 @@ export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
      * Recursively call this function with page+1.
      */
     if (morePages) {
-      yield put<FetchStatusDetailRequest>(
-        statusDetailRequest(formattedDateString, 'YYYY-MM-DD', page + 1)
-      );
+      yield put<FetchStatusDetailRequest>(statusDetailRequest(date, page + 1));
     }
   } catch (e) {
-    statusDetailErrorToast(action.dateString);
+    statusDetailErrorToast(action.date.toLocaleDateString());
     console.warn(e);
     yield put<FetchStatusDetailFailure>(statusDetailFailure());
   }
@@ -58,6 +51,6 @@ const conditionallyDisplayToast = (
   noDataFound: boolean
 ) => {
   if (action.withToast) {
-    statusDetailToast(action.dateString, noDataFound);
+    statusDetailToast(action.date.toLocaleDateString(), noDataFound);
   }
 };

@@ -6,7 +6,7 @@ import {
 
 export interface RefreshDatabaseRequest {
   readonly type: REFRESH_DATABASE_REQUEST;
-  readonly dateStrings: string[];
+  readonly workedDates: Date[];
 }
 
 export interface RefreshDatabaseSuccess {
@@ -24,10 +24,10 @@ export type RefreshDatabaseAction =
   | RefreshDatabaseFailure;
 
 export const databaseRefreshRequest = (
-  dateStrings: string[]
+  workedDates: Date[]
 ): RefreshDatabaseRequest => ({
   type: REFRESH_DATABASE_REQUEST,
-  dateStrings
+  workedDates
 });
 
 export const databaseRefreshSuccess = (): RefreshDatabaseSuccess => ({
