@@ -21,10 +21,10 @@ export default (
           ...state,
           [action.field]: action.value
         };
+      } else {
+        return state;
       }
-      break;
     default:
       return state;
   }
-  return state;
 };

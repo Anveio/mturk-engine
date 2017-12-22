@@ -9,7 +9,7 @@ import { addWatcherToast, copyMarkdownToast } from '../../utils/toaster';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { watcherFromSearchResult } from '../../utils/watchers';
 import { generateHwtfUrl } from '../../utils/export';
-import { generateContactLinkSearchResult } from '../../utils/turkopticon';
+import { generateContactLinkSearchResult } from '../../utils/urls';
 
 const mapState = (state: RootState, ownProps: Props): Props => ({
   hit: ownProps.hit

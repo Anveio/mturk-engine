@@ -186,4 +186,7 @@ export type UPLOAD_FAILURE = typeof UPLOAD_FAILURE;
 export const REMOVE_UPLOADED_FILE = 'REMOVE_UPLOADED_FILE';
 export type REMOVE_UPLOADED_FILE = typeof REMOVE_UPLOADED_FILE;
 
+export const TOGGLE_LEGACY_LINKS = 'TOGGLE_LEGACY_LINKS';
+export type TOGGLE_LEGACY_LINKS = typeof TOGGLE_LEGACY_LINKS;
+
 export const API_URL = configureApiRoot();

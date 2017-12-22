@@ -17,19 +17,6 @@ export const selectRequesterId = (requester: Requester) => requester.id;
 export const invalidGroupId = (hit: SearchResult) =>
   !hit.groupId.startsWith('[Error:groupId]-');
 
-/**
- * Returns the requesterIds of a SearchMap that correspond to a search result
- * with no T.O.
- * @param hits
- */
-// export const requesterIdsWithNoTO = (hits: SearchResults) => {
-//   return hits
-//     .filter(noTurkopticon)
-//     .filter(invalidGroupId)
-//     .map(selectHitRequester)
-//     .toArray();
-// };
-
 export const calculateAverageScore = (
   scores: RequesterScores
 ): number | null => {
@@ -77,7 +64,10 @@ export const requesterMapFromTO = (data: TOpticonMap): RequesterMap =>
     Map<string, Requester>()
   );
 
-export const createRequester = (data: TOpticonRequester, id: string): Requester => ({
+export const createRequester = (
+  data: TOpticonRequester,
+  id: string
+): Requester => ({
   id,
   name: data.name,
   turkopticon: data
@@ -102,35 +92,5 @@ export const generateReviewLink = (
     requester.name +
     '&report[hit_names]=' +
     hit.title
-  );
-};
-
-export const generateContactLink = (hit: HitDatabaseEntry): string => {
-  const { requester, id, title } = hit;
-  return (
-    'https://www.mturk.com/mturk/contact?requesterId=' +
-    requester.id +
-    '&hitId=' +
-    id +
-    '&requesterName=' +
-    requester.name +
-    '&subject=Regarding Amazon Mechanical Turk HIT' +
-    id +
-    '&hitTitle=' +
-    title
-  );
-};
-
-export const generateContactLinkSearchResult = (hit: SearchResult) => {
-  const { requester, groupId, title } = hit;
-  return (
-    'https://www.mturk.com/mturk/contact?requesterId=' +
-    requester.id +
-    '&requesterName=' +
-    requester.name +
-    '&subject=Regarding Amazon Mechanical Turk HIT of group ID ' +
-    groupId +
-    '&hitTitle=' +
-    title
   );
 };

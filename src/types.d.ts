@@ -16,6 +16,7 @@ interface RootState {
   readonly waitingForMturk: boolean;
   readonly waitingForHitDbRefresh: boolean;
   readonly timeNextSearch: Date | null;
+  readonly legacyLinksEnabled: boolean;
   readonly searchOptions: SearchOptions;
   readonly sortingOption: SortingOption;
   readonly hitDatabase: HitDatabaseMap;
@@ -56,7 +57,8 @@ type PersistedStateKey =
   | 'topticonSettings'
   | 'watchers'
   | 'audioSettingsV1'
-  | 'dailyEarningsGoal';
+  | 'dailyEarningsGoal'
+  | 'legacyLinksEnabled';
 
 type ImmutablePersistedStateKey =
   | 'hitDatabase'
@@ -75,7 +77,7 @@ type ImmutablePersistedState = Pick<RootState, ImmutablePersistedStateKey>;
 
 type MaybeAccount = AccountInfo | null;
 
-type FormTarget = 'searchOptions' | 'topticonSettings';
+type FormTarget = 'searchOptions' | 'topticonSettings' | 'useLegacyLinks';
 
 type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 interface SearchOptions {
@@ -132,7 +134,7 @@ interface SearchResult extends HumanIntelligenceTask {
 
 interface HitDatabaseEntry {
   readonly id: string;
-  readonly date: string;
+  readonly date: string; // In MMDDYYYY Format
   readonly title: string;
   readonly reward: number;
   readonly bonus: number;

@@ -21,6 +21,9 @@ export const stringToDate = (dateString: string) => (format: DATE_FORMAT) =>
 export const workerDateFormatToLegacyDateFormat = (dateString: string) =>
   moment(dateString, WORKER_DATE_FORMAT).format(LEGACY_DATE_FORMAT);
 
+export const legacyDateFormatToContactDateFormat = (dateString: string) =>
+  moment(dateString, LEGACY_DATE_FORMAT).format('MM-DD-YYYY');
+
 // returns a new date shifted a certain number of days (can be negative)
 export const shiftDate = (date: Date, numDays: number) => {
   return moment(date)

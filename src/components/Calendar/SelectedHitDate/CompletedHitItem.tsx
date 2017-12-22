@@ -2,13 +2,11 @@ import * as React from 'react';
 import { RootState, HitDatabaseEntry } from '../../../types';
 import { connect } from 'react-redux';
 import { ResourceList } from '@shopify/polaris';
-import {
-  generateReviewLink,
-  generateContactLink
-} from '../../../utils/turkopticon';
+import { generateReviewLink } from '../../../utils/turkopticon';
 import { generateHitStatusBadge } from '../../../utils/badges';
 import { truncate, formatAsCurrency } from '../../../utils/formatting';
 import HitDbEntryCollapsible from './HitDbEntryCollapsible';
+import { generateContactLink } from '../../../utils/urls';
 
 export interface OwnProps {
   readonly id: string;
@@ -16,6 +14,7 @@ export interface OwnProps {
 
 export interface Props {
   readonly hit: HitDatabaseEntry;
+  readonly legacyLinksEnabled: boolean;
 }
 
 interface State {
@@ -34,14 +33,14 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
   }
 
   private static displayEarnings = (reward: number, bonus: number) =>
-  bonus > 0
-    ? `${formatAsCurrency(reward)} + ${formatAsCurrency(bonus)}`
-    : `${formatAsCurrency(reward)}`;
+    bonus > 0
+      ? `${formatAsCurrency(reward)} + ${formatAsCurrency(bonus)}`
+      : `${formatAsCurrency(reward)}`;
 
   private generateActions = () => [
     {
       content: 'Contact',
-      url: generateContactLink(this.props.hit),
+      url: generateContactLink(this.props.hit, this.props.legacyLinksEnabled),
       external: true
     },
     {
@@ -80,7 +79,8 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  hit: state.hitDatabase.get(ownProps.id)
+  hit: state.hitDatabase.get(ownProps.id),
+  legacyLinksEnabled: state.legacyLinksEnabled
 });
 
 export default connect(mapState)(CompletedHitItem);

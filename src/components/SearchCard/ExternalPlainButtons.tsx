@@ -1,23 +1,31 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { ButtonGroup, Button } from '@shopify/polaris';
-import { SearchResult } from '../../types';
+import { SearchResult, RootState } from '../../types';
 import TOpticonButton from './TOpticonButton';
 import { generateAcceptUrl, generatePreviewUrl } from '../../utils/urls';
 
-export interface Props {
+export interface OwnProps {
   readonly hit: SearchResult;
 }
 
-class MiscActionsPopOver extends React.PureComponent<Props, never> {
+export interface Props {
+  readonly legacyLinksEnabled: boolean;
+}
+
+class MiscActionsPopOver extends React.PureComponent<Props & OwnProps, never> {
   public render() {
-    const { hit: { groupId, requester, qualified, canPreview } } = this.props;
+    const {
+      legacyLinksEnabled,
+      hit: { groupId, requester, qualified, canPreview }
+    } = this.props;
 
     return (
       <ButtonGroup>
         <Button
           plain
           external
-          url={generateAcceptUrl(groupId)}
+          url={generateAcceptUrl(groupId, legacyLinksEnabled)}
           disabled={!qualified}
         >
           Accept
@@ -25,7 +33,7 @@ class MiscActionsPopOver extends React.PureComponent<Props, never> {
         <Button
           plain
           external
-          url={generatePreviewUrl(groupId)}
+          url={generatePreviewUrl(groupId, legacyLinksEnabled)}
           disabled={!canPreview}
         >
           Preview
@@ -39,4 +47,8 @@ class MiscActionsPopOver extends React.PureComponent<Props, never> {
   }
 }
 
-export default MiscActionsPopOver;
+const mapState = (state: RootState): Props => ({
+  legacyLinksEnabled: state.legacyLinksEnabled
+});
+
+export default connect(mapState)(MiscActionsPopOver);

@@ -22,6 +22,7 @@ import { default as waitingForHitDbRefresh } from './reducers/waitingForHitDbRef
 import { default as watcherTimes } from './reducers/watcherTimes';
 import { default as uploadedState } from './reducers/uploadedState';
 import { default as expandedSearchResults } from './reducers/expandedSearchResults';
+import { default as legacyLinksEnabled } from './reducers/legacyLinksEnabled';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -44,6 +45,7 @@ export const rootReducer = combineReducers<RootState>({
   dailyEarningsGoal,
   selectedHitDbDate,
   requesterBlocklist,
+  legacyLinksEnabled,
   expandedSearchResults,
   waitingForHitDbRefresh
 });

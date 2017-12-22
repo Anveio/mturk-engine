@@ -9,6 +9,7 @@ import { generateContinueWorkUrl } from '../../utils/urls';
 
 export interface Props {
   readonly hit: QueueItem;
+  readonly legacyLinksEnabled: boolean;
 }
 
 export interface OwnProps {
@@ -24,25 +25,26 @@ class QueueItemCard extends React.PureComponent<
   never
 > {
   public render() {
-    const { reward, timeLeftInSeconds } = this.props.hit;
+    const { hit, legacyLinksEnabled } = this.props;
+    const { reward, timeLeftInSeconds } = hit;
     const actions = [
       {
         content: 'Return',
         accessibilityLabel: 'Return',
-        onClick: () => this.props.onReturn(this.props.hit)
+        onClick: () => this.props.onReturn(hit)
       },
       {
         external: true,
         content: 'Work',
         accessibilityLabel: 'Work',
-        url: generateContinueWorkUrl(this.props.hit)
+        url: generateContinueWorkUrl(hit, legacyLinksEnabled)
       }
     ];
 
     return (
       <ResourceList.Item
         actions={actions}
-        {...generateItemProps(this.props.hit)}
+        {...generateItemProps(hit)}
         attributeThree={
           <QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />
           // tslint:disable-next-line:jsx-curly-spacing
@@ -53,7 +55,8 @@ class QueueItemCard extends React.PureComponent<
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  hit: state.queue.get(ownProps.hitId)
+  hit: state.queue.get(ownProps.hitId),
+  legacyLinksEnabled: state.legacyLinksEnabled
 });
 
 const mapDispatch = (dispatch: Dispatch<ReturnAction>): Handlers => ({

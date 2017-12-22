@@ -5,12 +5,14 @@ import AudioSettings from '../AudioSettings/AudioSettings';
 import ToggleNoTO from '../TurkopticonSettings/ToggleNoTO';
 import MinTOsection from '../TurkopticonSettings/MinTOsection';
 import TurkopticonWeightForm from '../TurkopticonSettings/TurkopticonWeightForm';
+import ToggleLegacyLinks from './ToggleLegacyLinks';
 
 const SettingsTab: React.SFC<{}> = () => {
   return (
     <Layout>
       <BackupUserSettings />
       <AudioSettings />
+      <ToggleLegacyLinks />
       <ToggleNoTO />
       <MinTOsection />
       <TurkopticonWeightForm />
