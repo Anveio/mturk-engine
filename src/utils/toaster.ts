@@ -231,14 +231,14 @@ const emptyQueueToast = {
 };
 
 const successfulReturnToast = (title: string) => ({
-  message: `"${truncate(title, 45)}" has been removed from your queue.`,
+  message: `"${truncate(title, 20)}" has been removed from your queue.`,
   intent: Intent.PRIMARY
 });
 
 const errorReturnToast = (title: string) => ({
   message: `Problem returning ${truncate(
     title,
-    45
-  )} but the HIT you attempted to return is likely no longer in your queue.`,
+    20
+  )} but it is likely no longer in your queue.`,
   intent: 2
 });
