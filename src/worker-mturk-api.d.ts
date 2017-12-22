@@ -16,6 +16,35 @@ export interface QueueApiResponse {
   readonly tableConfig: WorkerTableConfig[];
 }
 
+export interface DashboardApiResponse {
+  readonly availableEarnings: MonetaryReward;
+  readonly balance_by_end_of_last_year: number;
+  readonly balance_by_end_of_year_before_last: number;
+  readonly current_balance: number;
+  readonly daily_hit_statistics_overview: DailyHitStatistics[];
+  readonly earnings_to_date: {
+    readonly approved: number;
+    readonly bonuses: number;
+    readonly total_earnigns: number;
+  };
+  readonly hits_overview: {
+    readonly approved: number;
+    readonly approvalRate: number;
+    readonly pending: number;
+    readonly rejected: number;
+    readonly rejection_rate: number;
+  };
+  readonly reward_payment_balances: {
+    readonly current_reward_payment_balance: MonetaryReward;
+    readonly reward_payment_balance_by_end_of_last_year: MonetaryReward;
+    readonly reward_payment_balance_by_end_of_year_before_last: MonetaryReward;
+  };
+}
+
+export interface StatusDetailApiResponse {
+  results: {};
+}
+
 /**
  * The object produced when calling JSON.parse on the react-props of an accepted HIT's details modal.
  */
@@ -94,12 +123,11 @@ export interface WorkerQueueItem {
 
 export interface WorkerSubmittedHit {
   readonly assignment_id: string;
-  readonly contact_requester_url: string;
   readonly hit_id: string;
   readonly requester_feedback: string;
   readonly requester_id: string;
   readonly requester_name: string;
-  readonly reward: number;
+  readonly reward: MonetaryReward;
   readonly state: WorkerSubmittedHitState;
   readonly title: string;
 }
@@ -196,3 +224,12 @@ export type WorkerSubmittedHitState =
   | 'Approved'
   | 'Rejected'
   | 'Paid';
+
+export interface DailyHitStatistics {
+  readonly date: string; // Date object converted to JSON string;
+  readonly submitted: number;
+  readonly approved: number;
+  readonly rejected: number;
+  readonly pending: number;
+  readonly earnings: number;
+}
