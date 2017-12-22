@@ -16,7 +16,8 @@ export const sendReturnHitRequest = async (
         params: {
           assignment_id: hitId,
           ref: 'w_wp_rtrn_top'
-        }
+        },
+        withCredentials: true
       }
     );
     return response.status === 302;

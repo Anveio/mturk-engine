@@ -17,7 +17,8 @@ export const sendHitAcceptRequest = async (
         params: {
           ref: 'w_wp_acpt_top'
         },
-        responseType: 'document'
+        responseType: 'document',
+        withCredentials: true
       }
     );
 
