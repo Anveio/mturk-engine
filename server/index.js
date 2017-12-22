@@ -24,7 +24,6 @@ app.use('*', logger, (req, res) => {
    */
   const url = 'https://worker.mturk.com' + req.originalUrl;
   req.pipe(request(url)).pipe(res);
-  console.log(res.statusCode);
 });
 
 app.set('port', process.env.PORT || 7777);
