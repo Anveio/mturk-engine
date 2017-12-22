@@ -7,4 +7,4 @@ export const turkopticonBaseUrl = `https://turkopticon.ucsd.edu/`;
 
 export const baseTaskUrlWorker = 'https://worker.mturk.com/projects/';
 
-export const baseRequeserUrlWorker = 'https://worker.mturk.com/requesters/';
+export const baseRequesterUrlWorker = 'https://worker.mturk.com/requesters/';

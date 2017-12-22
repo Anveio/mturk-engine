@@ -5,6 +5,7 @@ import { ResourceList } from '@shopify/polaris';
 import QueueItemInfo from './QueueItemInfo';
 import { ReturnAction, returnHitRequest } from '../../actions/return';
 import { generateItemProps } from '../../utils/queueItem';
+import { generateContinueWorkUrl } from '../../utils/urls';
 
 export interface Props {
   readonly hit: QueueItem;
@@ -23,7 +24,7 @@ class QueueItemCard extends React.PureComponent<
   never
 > {
   public render() {
-    const { hitId, reward, timeLeftInSeconds } = this.props.hit;
+    const { reward, timeLeftInSeconds } = this.props.hit;
     const actions = [
       {
         content: 'Return',
@@ -34,7 +35,7 @@ class QueueItemCard extends React.PureComponent<
         external: true,
         content: 'Work',
         accessibilityLabel: 'Work',
-        url: `https://www.mturk.com/mturk/continue?hitId=${hitId}`
+        url: generateContinueWorkUrl(this.props.hit)
       }
     ];
 
@@ -43,7 +44,9 @@ class QueueItemCard extends React.PureComponent<
         actions={actions}
         {...generateItemProps(this.props.hit)}
         attributeThree={
-          <QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />}
+          <QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />
+          // tslint:disable-next-line:jsx-curly-spacing
+        }
       />
     );
   }

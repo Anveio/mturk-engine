@@ -1,7 +1,7 @@
 import { SearchResult, TOpticonRequester } from '../types';
 import {
   baseTaskUrlWorker,
-  baseRequeserUrlWorker,
+  baseRequesterUrlWorker,
   turkopticonBaseUrl
 } from '../constants/urls';
 import { formatAsCurrency } from './formatting';
@@ -54,7 +54,7 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
 
   // tslint:disable:max-line-length
   return `**Title:** [${title}](${generateAcceptUrl(groupId)})  
-    **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${baseTaskUrlWorker}${groupId}/tasks/accept_random) | [Requester](${baseRequeserUrlWorker}${
+    **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${baseTaskUrlWorker}${groupId}/tasks/accept_random) | [Requester](${baseRequesterUrlWorker}${
     requester.id
   }/projects)  
     **Requester:** [${requester.name}](${requesterSearchBaseUrl}${
