@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { API_URL } from '../constants';
 import { validateHitAccept } from '../utils/parsing';
 
@@ -12,12 +12,12 @@ export const sendHitAcceptRequest = async (
 ): Promise<HitAcceptResponse> => {
   try {
     const response = await axios.get<Document>(
-      `${API_URL}/projects/${groupId}/tasks/accept_random`,
+      `${API_URL}/projects/${groupId}/tasks/`,
       {
-        params: {
-          ref: 'w_pl_prvw'
+        headers: {
+          'Upgrade-Insecure-Requests': 1
         },
-        responseType: 'document',
+        responseType: 'document'
       }
     );
 
@@ -26,6 +26,6 @@ export const sendHitAcceptRequest = async (
       htmlResponse: response.data
     };
   } catch (e) {
-    throw new Error(e);
+    throw Error();
   }
 };

@@ -17,7 +17,9 @@ export const sendReturnHitRequest = async (
           assignment_id: hitId,
           ref: 'w_wp_rtrn_top'
         },
-        withCredentials: true
+        headers: {
+          'Upgrade-Insecure-Requests': 1
+        }
       }
     );
     return response.status === 302;
