@@ -15,10 +15,9 @@ export const sendHitAcceptRequest = async (
       `${API_URL}/projects/${groupId}/tasks/accept_random`,
       {
         params: {
-          ref: 'w_wp_acpt_top'
+          ref: 'w_pl_prvw'
         },
         responseType: 'document',
-        withCredentials: true
       }
     );
 
