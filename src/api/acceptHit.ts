@@ -1,4 +1,4 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { API_URL } from '../constants';
 import { validateHitAccept } from '../utils/parsing';
 
@@ -12,7 +12,7 @@ export const sendHitAcceptRequest = async (
 ): Promise<HitAcceptResponse> => {
   try {
     const response = await axios.get<Document>(
-      `${API_URL}/projects/${groupId}/tasks/`,
+      `${API_URL}/projects/${groupId}/tasks/accept_random`,
       {
         headers: {
           'Upgrade-Insecure-Requests': 1
