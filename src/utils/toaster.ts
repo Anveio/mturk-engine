@@ -246,6 +246,6 @@ const errorReturnToast = (title: string) => ({
   message: `Problem returning ${truncate(
     title,
     20
-  )} but it is likely no longer in your queue.`,
+  )}. It's likely no longer in your queue. Refresh your queue for the most up to date information.`,
   intent: 2
 });

@@ -25,6 +25,7 @@ export function* returnHit(action: ReturnHitRequest) {
     );
 
     if (!authToken) {
+      updateTopRightToaster(toasterKey, generateReturnToast(false, title));
       return yield put<ReturnHitFailure>(returnHitFailure());
     }
 
