@@ -1,6 +1,5 @@
-import { RequesterAttributes, HitStatus, RequesterInfo } from '../types';
+import { HitStatus, RequesterInfo } from '../types';
 import { BadgeDescriptor } from '@shopify/polaris/types/components/ResourceList/Item';
-import { calculateAverageScore } from './turkopticon';
 import { Status } from '@shopify/polaris/types/components/Badge/Badge';
 // import { BadgeProps } from '@shopify/polaris';
 
@@ -16,18 +15,17 @@ export const generateTOpticonBadge = (
     return [noTOBadge];
   }
 
-  return [calculateScoreBadge(turkopticon.scores)];
+  return [calculateScoreBadge(turkopticon.unweightedAverageScore)];
 };
 
 export const calculateScoreBadge = (
-  scores: RequesterAttributes
+  averageScore: number | null
 ): BadgeDescriptor => {
-  const average = calculateAverageScore(scores);
-  const status = assignScoreColor(average) as Status;
+  const status = assignScoreColor(averageScore) as Status;
 
   return {
     status,
-    content: generateContentString(average)
+    content: generateContentString(averageScore)
   };
 };
 
@@ -36,7 +34,7 @@ const generateContentString = (average: number | null) => {
 };
 
 const assignScoreColor = (score: number | null): Status | null => {
-  if (score === null) {
+  if (!score) {
     return null;
   }
 

@@ -6,7 +6,8 @@ import {
   TOpticonRequester,
   Requester,
   RequesterMap,
-  TOpticonAttributes
+  TOpticonAttributes,
+  AttributeWeights
 } from '../types';
 import { turkopticonBaseUrl } from '../constants/urls';
 
@@ -21,12 +22,36 @@ export const calculateAverageScore = (
   scores: RequesterAttributes
 ): number | null => {
   const categories = filterCategories(scores);
+
+  if (Object.keys(categories).length === 0) {
+    return null;
+  }
+
   const total = Object.keys(categories).reduce(
     (acc, category: string) => acc + parseFloat(categories[category]),
     0
   );
 
   return total / Object.keys(categories).length;
+};
+
+export const calculateWeightedAverageScore = (
+  scores: RequesterAttributes,
+  weights: AttributeWeights
+): number | null => {
+  const categories = filterCategories(scores);
+
+  if (Object.keys(categories).length === 0) {
+    return null;
+  }
+
+  const total = Object.keys(categories).reduce(
+    (acc, category: string) =>
+      acc + categories[category] * weights[`${category}Weight`],
+    0
+  );
+
+  return total / Object.keys(categories).length / Object.keys(weights).length;
 };
 
 /**
@@ -48,25 +73,39 @@ export const filterCategories = (
 export const hasAValidScore = (scores: RequesterAttributes) =>
   Object.values(scores).some(value => value !== 0);
 
-export const topticonMapFromTO = (data: TOpticonResponse): RequesterMap =>
+export const topticonMapFromTO = (
+  data: TOpticonResponse,
+  weights: AttributeWeights
+): RequesterMap =>
   Object.keys(data).reduce(
     (acc, id: string) =>
-      data[id] ? acc.set(id, topticonRequesterToRequester(id, data[id])) : acc,
+      data[id]
+        ? acc.set(id, topticonRequesterToRequester(id, data[id], weights))
+        : acc,
     Map<string, Requester>()
   );
 
 export const topticonRequesterToRequester = (
   id: string,
-  requester: TOpticonRequester
-): Requester => ({
-  id,
-  name: requester.name,
-  turkopticon: {
-    numReviews: requester.reviews,
-    numTosFlags: requester.tos_flags,
-    scores: stringScoresToNumbers(requester.attrs)
-  }
-});
+  requester: TOpticonRequester,
+  weights: AttributeWeights
+): Requester => {
+  const scores = stringScoresToNumbers(requester.attrs);
+  const unweightedAverageScore = calculateAverageScore(scores);
+  const weightedAverageScore = calculateWeightedAverageScore(scores, weights);
+
+  return {
+    id,
+    name: requester.name,
+    turkopticon: {
+      scores,
+      unweightedAverageScore,
+      weightedAverageScore,
+      numReviews: requester.reviews,
+      numTosFlags: requester.tos_flags
+    }
+  };
+};
 
 const stringScoresToNumbers = (
   scores: TOpticonAttributes
@@ -76,14 +115,13 @@ const stringScoresToNumbers = (
     .reduce(
       (acc: RequesterAttributes, category: string): RequesterAttributes => ({
         ...acc,
-        [category]: +scores[category]
+        [category]: +scores[category] || null
       }),
       {}
     );
 };
 
 const validTurkopticonAttributeScore = (score: string) => score !== '0.00';
-
 
 export const generateReviewLink = (
   hit: HitDatabaseEntry | SearchResult

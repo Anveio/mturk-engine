@@ -1,5 +1,4 @@
 import { SearchResult, SortingOption } from '../types';
-import { calculateAverageScore } from './turkopticon';
 
 /**
  * Translates UI text into the associated property
@@ -52,8 +51,8 @@ export const sortByTurkopticonRating = (a: SearchResult, b: SearchResult) => {
   } else if (!b.requester.turkopticon) {
     return -1;
   } else {
-    const aAverage = calculateAverageScore(a.requester.turkopticon.scores);
-    const bAverage = calculateAverageScore(b.requester.turkopticon.scores);
+    const aAverage = a.requester.turkopticon.unweightedAverageScore;
+    const bAverage = b.requester.turkopticon.unweightedAverageScore;
 
     if (!aAverage) {
       return 1;

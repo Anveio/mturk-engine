@@ -1,5 +1,5 @@
 import { call, put, select } from 'redux-saga/effects';
-import { RootState, SearchResult, RequesterMap } from '../types';
+import { RootState, SearchResult, TOpticonResponse } from '../types';
 import {
   FetchTOpticonRequest,
   FetchTOpticonSuccess,
@@ -8,8 +8,9 @@ import {
   fetchTOpticonFailure
 } from '../actions/turkopticon';
 // import { hitIdsWithNoTO } from '../selectors/searchTable';
-import { noTurkopticon } from '../utils/turkopticon';
+import { noTurkopticon, topticonMapFromTO } from '../utils/turkopticon';
 import { batchFetchTOpticon } from '../api/turkopticon';
+import { attributeWeightsSelector } from '../selectors/turkopticon';
 
 export function* fetchTurkopticon(action: FetchTOpticonRequest) {
   try {
@@ -21,10 +22,15 @@ export function* fetchTurkopticon(action: FetchTOpticonRequest) {
     );
 
     if (requesterIds.length > 0) {
-      const topticonData: RequesterMap = yield call(
+      const rawTopticonData: TOpticonResponse = yield call(
         batchFetchTOpticon,
         requesterIds
       );
+
+      const attributeWeights = yield select(attributeWeightsSelector);
+
+      const topticonData = topticonMapFromTO(rawTopticonData, attributeWeights);
+
       yield put<FetchTOpticonSuccess>(fetchTOpticonSuccess(topticonData));
     }
   } catch (e) {

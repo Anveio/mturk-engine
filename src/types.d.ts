@@ -183,11 +183,13 @@ interface TOpticonResponse {
 
 interface RequesterInfo {
   readonly scores: RequesterAttributes;
+  readonly unweightedAverageScore: number | null;
+  readonly weightedAverageScore: number | null;
   readonly numReviews: number;
   readonly numTosFlags: number;
 }
 
-export interface RequesterAttributes {
+interface RequesterAttributes {
   readonly comm?: number;
   readonly pay?: number;
   readonly fair?: number;

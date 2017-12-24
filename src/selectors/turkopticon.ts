@@ -1,5 +1,11 @@
 import { createSelector } from 'reselect';
-import { RootState, SearchResults, SearchResult } from '../types';
+import {
+  RootState,
+  SearchResults,
+  SearchResult,
+  AttributeWeights,
+  RequesterInfo
+} from '../types';
 import { calculateAverageScore, hasAValidScore } from '../utils/turkopticon';
 
 const searchResultSelector = (state: RootState) => state.search;
@@ -12,6 +18,15 @@ export const hideNoToEnabled = (state: RootState) =>
 
 export const minWeightedTopticonScore = (state: RootState) =>
   state.topticonSettings.minimumWeightedTO;
+
+export const attributeWeightsSelector = (
+  state: RootState
+): AttributeWeights => ({
+  commWeight: state.topticonSettings.commWeight,
+  fairWeight: state.topticonSettings.fairWeight,
+  fastWeight: state.topticonSettings.fastWeight,
+  payWeight: state.topticonSettings.payWeight
+});
 
 export const filterNoTO = createSelector(
   [searchResultSelector, hideNoToEnabled],
@@ -27,8 +42,18 @@ export const filterNoTO = createSelector(
 );
 
 export const filterBelowTOThreshold = createSelector(
-  [filterNoTO, minWeightedTopticonScore, minTopticonScoreEnabled],
-  (hits: SearchResults, minScore: number, minToEnabled: boolean) => {
+  [
+    filterNoTO,
+    minWeightedTopticonScore,
+    minTopticonScoreEnabled,
+    attributeWeightsSelector
+  ],
+  (
+    hits: SearchResults,
+    minScore: number,
+    minToEnabled: boolean,
+    attributeWeights: AttributeWeights
+  ) => {
     /**
      * High complexity code. Todo: separate these into individual selectors and compose them instead of this.
      * Basically: does nothing if setting isn't enabled, but if it is...
@@ -36,14 +61,14 @@ export const filterBelowTOThreshold = createSelector(
      */
     if (minToEnabled) {
       return hits.filter((hit: SearchResult): boolean => {
-        if (!hit.requester.turkopticon) {
-          return true;
-        } else {
-          const averageScore = calculateAverageScore(
-            hit.requester.turkopticon.scores
-          );
-          return averageScore ? averageScore >= minScore : true;
-        }
+        /**
+         * Because we filtered out hits with no T.O, we know that
+         * hits.requester.turkopticon won't be undefined.
+         */
+        const averageScore = calculateAverageScore(
+          (hit.requester.turkopticon as RequesterInfo).scores
+        );
+        return averageScore ? averageScore >= minScore : true;
       });
     } else {
       return hits;
