@@ -16,7 +16,7 @@ const createMapDispatchFn = (field: keyof TOpticonSettings) => (
   dispatch: Dispatch<FormUpdate<TOpticonSettings>>
 ): Handlers => ({
   onChange: (value: string) => {
-    dispatch(updateForm<TOpticonSettings>('topticonSettings', field, value));
+    dispatch(updateForm<TOpticonSettings>('topticonSettings', field, +value));
   }
 });
 

@@ -1,7 +1,7 @@
 import * as constants from '../constants';
 import { FormTarget } from '../types';
 
-export type FormValue = string | boolean;
+export type FormValue = string | boolean | number;
 
 export interface FormUpdate<T> {
   readonly type: constants.UPDATE_FIELD;

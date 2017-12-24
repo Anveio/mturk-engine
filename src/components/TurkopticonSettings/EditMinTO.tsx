@@ -22,7 +22,7 @@ const mapDispatch = (
       updateForm<TOpticonSettings>(
         'topticonSettings',
         'minimumWeightedTO',
-        value
+        +value
       )
     );
   }

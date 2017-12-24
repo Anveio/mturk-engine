@@ -50,9 +50,7 @@ export const calculateWeightedAverageScore = (
       acc + categories[category] * weights[`${category}Weight`],
     0
   );
-
   const sumOfWeights = objectValueSumation<AttributeWeights>(weights);
-
   return total / sumOfWeights;
 };
 
