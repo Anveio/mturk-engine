@@ -17,7 +17,8 @@ class TOpticonButton extends React.PureComponent<Props, never> {
       <Stack vertical>
         <TextContainer>{numTosFlags} reported TOS violations.</TextContainer>
         <TextContainer>
-          Pay: {pay}. Comm: {comm}. Fair: {fair}. Fast: {fast}.
+          Pay: {pay || 'No reviews'}. Comm: {comm || 'No reviews'}. Fair:{' '}
+          {fair || 'No reviews'}. Fast: {fast || 'No reviews'}.
         </TextContainer>
         <TextContainer>Calculated from {numReviews} reviews.</TextContainer>
       </Stack>
