@@ -14,8 +14,9 @@ import {
   errorAcceptToast,
   failedAcceptToast
 } from '../utils/toaster';
-import { parseWorkerHit } from '../utils/parsingWorkerHit';
+// import { parseWorkerHit } from '../utils/parsingWorkerHit';
 import { acceptHitFromWatcher } from './acceptHitWatcher';
+import { blankQueueItem } from '../utils/queueItem';
 
 export function* acceptHit(action: AcceptHitRequest) {
   if (action.fromWatcher) {
@@ -29,10 +30,10 @@ export function* acceptHit(action: AcceptHitRequest) {
       action.groupId
     );
 
-    const { successful, htmlResponse } = response;
+    const { successful } = response;
 
     yield successful
-      ? handleSuccessfulAccept(htmlResponse, toasterKey)
+      ? handleSuccessfulAccept(action.groupId, toasterKey)
       : handleFailedAccept(toasterKey, action.groupId);
   } catch (e) {
     yield put<AcceptHitFailure>(acceptHitFailure());
@@ -40,11 +41,10 @@ export function* acceptHit(action: AcceptHitRequest) {
   }
 }
 
-function* handleSuccessfulAccept(html: Document, key: string) {
+function* handleSuccessfulAccept(groupId: string, key: string) {
   try {
-    const acceptedHit = parseWorkerHit(html);
-    updateTopRightToaster(key, successfulAcceptToast(acceptedHit.title));
-    yield put<AcceptHitSuccess>(acceptHitSuccess(acceptedHit));
+    updateTopRightToaster(key, successfulAcceptToast('A hit'));
+    yield put<AcceptHitSuccess>(acceptHitSuccess(blankQueueItem(groupId)));
   } catch (e) {
     /**
      * Even if there is an error at this point, the hit was successfuly accepted.

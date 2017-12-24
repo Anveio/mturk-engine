@@ -14,10 +14,11 @@ import {
 } from '../actions/watcher';
 import { sendHitAcceptRequest, HitAcceptResponse } from '../api/acceptHit';
 import { successfulAcceptToast } from '../utils/toaster';
-import { parseWorkerHit } from '../utils/parsingWorkerHit';
+// import { parseWorkerHit } from '../utils/parsingWorkerHit';
 // import { parseAcceptFailureReason } from '../utils/parsing';
 import { RootState } from '../types';
 import { TopRightToaster } from '../index';
+import { blankQueueItem } from '../utils/queueItem';
 
 export function* acceptHitFromWatcher(action: AcceptHitRequest) {
   try {
@@ -26,10 +27,10 @@ export function* acceptHitFromWatcher(action: AcceptHitRequest) {
       action.groupId
     );
 
-    const { successful, htmlResponse } = response;
+    const { successful } = response;
 
     yield successful
-      ? handleSuccessfulAccept(htmlResponse)
+      ? handleSuccessfulAccept(action.groupId)
       : yield put<AcceptHitFailure>(acceptHitFailure());
 
     if (action.fromWatcher && action.delay) {
@@ -41,11 +42,10 @@ export function* acceptHitFromWatcher(action: AcceptHitRequest) {
   }
 }
 
-function* handleSuccessfulAccept(html: Document) {
+function* handleSuccessfulAccept(groupId: string) {
   try {
-    const acceptedHit = parseWorkerHit(html);
-    TopRightToaster.show(successfulAcceptToast(acceptedHit.title));
-    yield put<AcceptHitSuccess>(acceptHitSuccess(acceptedHit));
+    TopRightToaster.show(successfulAcceptToast('A hit'));
+    yield put<AcceptHitSuccess>(acceptHitSuccess(blankQueueItem(groupId)));
   } catch (e) {
     /**
      * Even if there is an error at this point, the hit was successfuly accepted.

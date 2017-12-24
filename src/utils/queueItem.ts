@@ -9,3 +9,13 @@ export const generateItemProps = (hit: QueueItem): ItemProps => {
     attributeTwo: truncate(title, 75)
   };
 };
+
+export const blankQueueItem = (groupId: string): QueueItem => ({
+  groupId,
+  hitId: 'REFRESH_REQUIRED',
+  requesterName: 'REFRESH_REQUIRED',
+  reward: 0,
+  taskId: 'REFRESH_REQUIRED',
+  timeLeftInSeconds: 10000,
+  title: 'REFRESH_REQUIRED'
+});

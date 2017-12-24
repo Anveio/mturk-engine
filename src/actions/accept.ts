@@ -17,6 +17,7 @@ export interface AcceptHitRequest {
   readonly type: ACCEPT_HIT_REQUEST;
   readonly groupId: string;
   readonly fromWatcher: boolean;
+  readonly searchResult?: SearchResult;
   readonly delay?: number;
 }
 
