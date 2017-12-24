@@ -3,8 +3,7 @@ import {
   RootState,
   SearchResults,
   SearchResult,
-  AttributeWeights,
-  RequesterInfo
+  AttributeWeights
 } from '../types';
 import {
   hasAValidScore,
@@ -31,7 +30,7 @@ export const attributeWeightsSelector = (
   payWeight: state.topticonSettings.payWeight
 });
 
-export const filterNoTO = createSelector(
+export const useUserFilterNoTOsetting = createSelector(
   [searchResultSelector, hideNoToEnabled],
   (hits: SearchResults, enabled: boolean) => {
     return enabled
@@ -46,7 +45,7 @@ export const filterNoTO = createSelector(
 
 export const filterBelowTOThreshold = createSelector(
   [
-    filterNoTO,
+    useUserFilterNoTOsetting,
     minWeightedTopticonScore,
     minTopticonScoreEnabled,
     attributeWeightsSelector
@@ -64,12 +63,12 @@ export const filterBelowTOThreshold = createSelector(
      */
     if (minToEnabled) {
       return hits.filter((hit: SearchResult): boolean => {
-        /**
-         * Because we filtered out hits with no T.O, we know that
-         * hits.requester.turkopticon won't be undefined.
-         */
+        if (!hit.requester.turkopticon) {
+          return false;
+        }
+
         const averageScore = calculateWeightedAverageScore(
-          (hit.requester.turkopticon as RequesterInfo).scores,
+          hit.requester.turkopticon.scores,
           attributeWeights
         );
         return averageScore ? averageScore >= minScore : true;
