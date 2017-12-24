@@ -16,7 +16,13 @@ const createMapDispatchFn = (field: keyof TOpticonSettings) => (
   dispatch: Dispatch<FormUpdate<TOpticonSettings>>
 ): Handlers => ({
   onChange: (value: string) => {
-    dispatch(updateForm<TOpticonSettings>('topticonSettings', field, +value));
+    dispatch(
+      updateForm<TOpticonSettings>(
+        'topticonSettings',
+        field,
+        Math.max(+value, 0)
+      )
+    );
   }
 });
 
@@ -32,10 +38,11 @@ class PayWeightTOField extends React.PureComponent<Props & Handlers, never> {
       <TextField
         label="Pay"
         type="number"
-        step={0.1}
+        step={1}
         autoComplete={false}
         value={this.props.value}
         onChange={this.props.onChange}
+        min={0}
       />
     );
   }
@@ -47,10 +54,11 @@ class FairWeightTOField extends React.PureComponent<Props & Handlers, never> {
       <TextField
         label="Fair"
         type="number"
-        step={0.1}
+        step={1}
         autoComplete={false}
         value={this.props.value}
         onChange={this.props.onChange}
+        min={0}
       />
     );
   }
@@ -62,10 +70,11 @@ class CommWeightTOField extends React.PureComponent<Props & Handlers, never> {
       <TextField
         label="Communication"
         type="number"
-        step={0.1}
+        step={1}
         autoComplete={false}
         value={this.props.value}
         onChange={this.props.onChange}
+        min={0}
       />
     );
   }
@@ -77,10 +86,11 @@ class FastWeightTOField extends React.PureComponent<Props & Handlers, never> {
       <TextField
         label="Fast"
         type="number"
-        step={0.1}
+        step={1}
         autoComplete={false}
         value={this.props.value}
         onChange={this.props.onChange}
+        min={0}
       />
     );
   }
