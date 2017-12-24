@@ -1,4 +1,5 @@
-import { SearchResult, SortingOption } from '../types';
+import { SearchResult, SortingOption, AttributeWeights } from '../types';
+import { calculateWeightedAverageScore } from './turkopticon';
 
 /**
  * Translates UI text into the associated property
@@ -31,9 +32,9 @@ const sortOrderMap: SortOrderMap = {
 const calculateSortOrder = (option: SortingOption): SortOrder =>
   sortOrderMap[option];
 
-export const sortBy = (option: SortingOption) => {
+export const sortBy = (option: SortingOption, weights: AttributeWeights) => {
   if (option === 'Weighted T.O.') {
-    return sortByTurkopticonRating;
+    return sortByTurkopticonRating(weights);
   }
 
   const property = optionsMap[option] || optionsMap.default;
@@ -45,14 +46,23 @@ export const sortBy = (option: SortingOption) => {
   }
 };
 
-export const sortByTurkopticonRating = (a: SearchResult, b: SearchResult) => {
+export const sortByTurkopticonRating = (weights: AttributeWeights) => (
+  a: SearchResult,
+  b: SearchResult
+) => {
   if (!a.requester.turkopticon) {
     return 1;
   } else if (!b.requester.turkopticon) {
     return -1;
   } else {
-    const aAverage = a.requester.turkopticon.unweightedAverageScore;
-    const bAverage = b.requester.turkopticon.unweightedAverageScore;
+    const aAverage = calculateWeightedAverageScore(
+      a.requester.turkopticon.scores,
+      weights
+    );
+    const bAverage = calculateWeightedAverageScore(
+      b.requester.turkopticon.scores,
+      weights
+    );
 
     if (!aAverage) {
       return 1;

@@ -5,10 +5,14 @@ import {
   SearchResults,
   HitBlockMap,
   RequesterBlockMap,
-  SortingOption
+  SortingOption,
+  AttributeWeights
 } from '../types';
 import { hitBlocklistSelector } from './hitBlocklist';
-import { filterBelowTOThreshold } from './turkopticon';
+import {
+  filterBelowTOThreshold,
+  attributeWeightsSelector
+} from './turkopticon';
 import { sortBy } from '../utils/sorting';
 
 const selectGroupId = (hit: SearchResult) => hit.groupId;
@@ -51,15 +55,21 @@ const hideBlockedRequestersAndHits = createSelector(
 );
 
 const filteredAndSortedResults = createSelector(
-  [hideBlockedRequestersAndHits, filterBelowTOThreshold, sortOptionSelector],
+  [
+    hideBlockedRequestersAndHits,
+    filterBelowTOThreshold,
+    sortOptionSelector,
+    attributeWeightsSelector
+  ],
   (
     hits: SearchResults,
     aboveThreshold: SearchResults,
-    sortingOption: SortingOption
+    sortingOption: SortingOption,
+    weights: AttributeWeights
   ) =>
     hits
       .filter((hit: SearchResult) => aboveThreshold.has(hit.groupId))
-      .sort(sortBy(sortingOption))
+      .sort(sortBy(sortingOption, weights))
   // .sort(unreadFirst) as SearchResults
 );
 
