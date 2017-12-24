@@ -84,6 +84,27 @@ const groupNewHitsBeforeOldHits = createSelector(
   (hits: SearchResults, readHits: SearchResults) => hits.concat(readHits)
 );
 
+// export const hitsWithUpdatedWeightedAverage = createSelector(
+//   [groupNewHitsBeforeOldHits, attributeWeightsSelector],
+//   hits =>
+//     hits.reduce(
+//       (hit: SearchResult) =>
+//         hit.requester.turkopticon &&
+//         hit.requester.turkopticon.weightedAverageScore
+//           ? {
+//               ...hit,
+//               requester: {
+//                 ...hit.requester,
+//                 turkopticon: {
+//                   ...hit.requester.turkopticon,
+
+//                 }
+//               }
+//             }
+//           : hit
+//     )
+// );
+
 export const filteredResultsGroupId = createSelector(
   [groupNewHitsBeforeOldHits],
   (hits: SearchResults) => {

@@ -1,4 +1,4 @@
-import { HitStatus, RequesterInfo } from '../types';
+import { HitStatus } from '../types';
 import { BadgeDescriptor } from '@shopify/polaris/types/components/ResourceList/Item';
 import { Status } from '@shopify/polaris/types/components/Badge/Badge';
 // import { BadgeProps } from '@shopify/polaris';
@@ -9,24 +9,20 @@ const noTOBadge: BadgeDescriptor = {
 };
 
 export const generateTOpticonBadge = (
-  turkopticon?: RequesterInfo
+  averageScore: number | null
 ): BadgeDescriptor[] => {
-  if (!turkopticon || !turkopticon.scores) {
+  if (!averageScore) {
     return [noTOBadge];
   }
 
-  return [calculateScoreBadge(turkopticon.weightedAverageScore)];
-};
-
-export const calculateScoreBadge = (
-  averageScore: number | null
-): BadgeDescriptor => {
   const status = assignScoreColor(averageScore) as Status;
 
-  return {
-    status,
-    content: generateContentString(averageScore)
-  };
+  return [
+    {
+      status,
+      content: generateContentString(averageScore)
+    }
+  ];
 };
 
 const generateContentString = (average: number | null) => {

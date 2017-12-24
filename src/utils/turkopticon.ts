@@ -94,6 +94,7 @@ export const topticonRequesterToRequester = (
   weights: AttributeWeights
 ): Requester => {
   const scores = stringScoresToNumbers(requester.attrs);
+
   const unweightedAverageScore = calculateAverageScore(scores);
   const weightedAverageScore = calculateWeightedAverageScore(scores, weights);
 

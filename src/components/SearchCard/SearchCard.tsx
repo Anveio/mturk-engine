@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { SearchResult, BlockedHit, RootState } from '../../types';
+import {
+  SearchResult,
+  BlockedHit,
+  RootState,
+  AttributeWeights,
+  RequesterAttributes
+} from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import {} from '../types';
 import { AcceptAction, acceptHitRequestfromSearch } from '../../actions/accept';
@@ -17,10 +23,13 @@ import { qualException } from '../../utils/exceptions';
 import { generateTOpticonBadge } from '../../utils/badges';
 import { blockedHitFactory } from '../../utils/blocklist';
 import { Fragment } from '../Fragment';
+import { calculateWeightedAverageScore } from '../../utils/turkopticon';
+import { attributeWeightsSelector } from '../../selectors/turkopticon';
 
 export interface Props {
   readonly hit: SearchResult;
   readonly expanded: boolean;
+  readonly attributeWeights: AttributeWeights;
 }
 
 export interface OwnProps {
@@ -93,8 +102,12 @@ class SearchCard extends React.PureComponent<
   };
 
   public render() {
-    const { hit, expanded } = this.props;
+    const { hit, expanded, attributeWeights } = this.props;
     const { qualified, title, requester, markedAsRead } = hit;
+
+    const attributeScores =
+      ((requester.turkopticon &&
+        requester.turkopticon.scores) as RequesterAttributes) || null;
 
     return (
       <Fragment>
@@ -105,7 +118,14 @@ class SearchCard extends React.PureComponent<
           <ResourceList.Item
             actions={this.generateActions(!!markedAsRead)}
             exceptions={qualException(qualified)}
-            badges={generateTOpticonBadge(requester.turkopticon)}
+            badges={generateTOpticonBadge(
+              attributeScores
+                ? calculateWeightedAverageScore(
+                    attributeScores,
+                    attributeWeights
+                  )
+                : null
+            )}
             attributeOne={truncate(requester.name, 40)}
             attributeTwo={truncate(title, 120)}
             attributeThree={
@@ -128,7 +148,8 @@ type SearchTableAction =
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   hit: state.search.get(ownProps.groupId),
-  expanded: !!state.expandedSearchResults.get(ownProps.groupId)
+  expanded: !!state.expandedSearchResults.get(ownProps.groupId),
+  attributeWeights: attributeWeightsSelector(state)
 });
 
 const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
