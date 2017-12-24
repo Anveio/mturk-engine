@@ -192,14 +192,21 @@ export const failedImportPersistedState = () =>
     intent: 3
   });
 
-export const successfulAcceptToast = (title: string) => ({
-  message: `"${truncate(title, 45)}" was added to your queue.`,
+export const successfulAcceptToast = (title?: string) => ({
+  message: title
+    ? `"${truncate(title, 45)}" was added to your queue.`
+    : 'A hit was added to your queue',
   intent: 1,
   timeout: 5000
 });
 
-export const failedAcceptToast = (groupId: string): IToastProps => ({
-  message: `Couldn't add that HIT to your queue.`,
+export const failedAcceptToast = (
+  groupId: string,
+  title?: string
+): IToastProps => ({
+  message: title
+    ? `Failed to add "${title}" to your queue.`
+    : `Couldn't add that HIT to your queue.`,
   intent: 2,
   action: {
     text: 'Add as watcher',

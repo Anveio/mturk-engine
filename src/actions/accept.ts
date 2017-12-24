@@ -44,11 +44,12 @@ export const acceptHitFailure = (): AcceptHitFailure => ({
 });
 
 export const acceptHitRequestfromSearch = (
-  data: SearchResult
+  searchResult: SearchResult
 ): AcceptHitRequest => ({
   type: ACCEPT_HIT_REQUEST,
-  groupId: data.groupId,
-  fromWatcher: false
+  groupId: searchResult.groupId,
+  fromWatcher: false,
+  searchResult
 });
 
 export const acceptHitRequestFromWatcher = (

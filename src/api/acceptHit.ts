@@ -22,7 +22,7 @@ export const sendHitAcceptRequest = async (
   groupId: string
 ): Promise<HitAcceptResponse> => {
   try {
-    const response = await axios.get<Document>(
+    await axios.get<Document>(
       `${API_URL}/projects/${groupId}/tasks/accept_random`,
       {
         params: {

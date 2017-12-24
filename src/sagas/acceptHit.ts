@@ -33,27 +33,35 @@ export function* acceptHit(action: AcceptHitRequest) {
     const { successful } = response;
 
     yield successful
-      ? handleSuccessfulAccept(action.groupId, toasterKey)
-      : handleFailedAccept(toasterKey, action.groupId);
+      ? handleSuccessfulAccept(
+          action.groupId,
+          toasterKey,
+          action.searchResult && action.searchResult.title
+        )
+      : handleFailedAccept(
+          toasterKey,
+          action.groupId,
+          action.searchResult && action.searchResult.title
+        );
   } catch (e) {
     yield put<AcceptHitFailure>(acceptHitFailure());
     updateTopRightToaster(toasterKey, errorAcceptToast);
   }
 }
 
-function* handleSuccessfulAccept(groupId: string, key: string) {
+function* handleSuccessfulAccept(groupId: string, key: string, title?: string) {
   try {
-    updateTopRightToaster(key, successfulAcceptToast('A hit'));
+    updateTopRightToaster(key, successfulAcceptToast(title));
     yield put<AcceptHitSuccess>(acceptHitSuccess(blankQueueItem(groupId)));
   } catch (e) {
     /**
      * Even if there is an error at this point, the hit was successfuly accepted.
      */
-    updateTopRightToaster(key, successfulAcceptToast('A hit'));
+    updateTopRightToaster(key, successfulAcceptToast(title));
   }
 }
 
-function* handleFailedAccept(key: string, groupId: string) {
+function* handleFailedAccept(key: string, groupId: string, title?: string) {
   yield put<AcceptHitFailure>(acceptHitFailure());
-  updateTopRightToaster(key, failedAcceptToast(groupId));
+  updateTopRightToaster(key, failedAcceptToast(groupId, title));
 }
