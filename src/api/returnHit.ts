@@ -17,9 +17,6 @@ export const sendReturnHitRequest = async (
           assignment_id: hitId,
           ref: 'w_wp_rtrn_top'
         },
-        headers: {
-          'Upgrade-Insecure-Requests': 1
-        }
       }
     );
     return response.status === 302;
@@ -39,3 +36,6 @@ const formatFormPayload = (token: string): string =>
     _method: 'delete',
     authenticity_token: token
   });
+
+
+  
