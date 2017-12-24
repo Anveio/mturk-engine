@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Card, Stack, Tooltip, Heading, Button } from '@shopify/polaris';
+import { Card, Stack, Heading, Button } from '@shopify/polaris';
+import { Tooltip } from '@blueprintjs/core';
 import { EditableText } from '@blueprintjs/core';
 import {
   EditableField,
