@@ -95,16 +95,11 @@ export const topticonRequesterToRequester = (
 ): Requester => {
   const scores = stringScoresToNumbers(requester.attrs);
 
-  const unweightedAverageScore = calculateAverageScore(scores);
-  const weightedAverageScore = calculateWeightedAverageScore(scores, weights);
-
   return {
     id,
     name: requester.name,
     turkopticon: {
       scores,
-      unweightedAverageScore,
-      weightedAverageScore,
       numReviews: requester.reviews,
       numTosFlags: requester.tos_flags
     }
