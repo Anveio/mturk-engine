@@ -2,7 +2,13 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, TOpticonSettings } from '../../types';
 import { FormUpdate, updateForm } from '../../actions/form';
-import { Layout, SettingToggle, TextStyle } from '@shopify/polaris';
+import {
+  Layout,
+  SettingToggle,
+  Stack,
+  TextContainer,
+  TextStyle
+} from '@shopify/polaris';
 
 interface Props {
   readonly value: boolean;
@@ -34,8 +40,16 @@ class ToggleNoTO extends React.PureComponent<Props & Handlers> {
           }}
           enabled={value}
         >
-          Requesters that have no T.O. score are{' '}
-          {ToggleNoTO.calculateBodyContent(value)} being hidden.
+          <Stack vertical>
+            <TextContainer>
+              Requesters that have no T.O. score are{' '}
+              {ToggleNoTO.calculateBodyContent(value)} being hidden.
+            </TextContainer>
+            <TextContainer>
+              Enabling this setting will mean search results are not displayed
+              until data is retrieved from Turkopticon.
+            </TextContainer>
+          </Stack>
         </SettingToggle>
       </Layout.AnnotatedSection>
     );

@@ -30,7 +30,7 @@ class EnableMinimumTO extends React.PureComponent<Props & Handlers> {
         }}
         enabled={value}
       >
-        Requesters below the minimum T.O. score are{' '}
+        Requesters below the minimum weighted T.O. score are{' '}
         {EnableMinimumTO.calculateBodyContent(value)} being hidden.
       </SettingToggle>
     );
