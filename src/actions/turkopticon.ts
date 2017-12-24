@@ -1,4 +1,4 @@
-import { TOpticonMap, Requester } from '../types';
+import { RequesterMap, Requester } from '../types';
 import * as constants from '../constants';
 
 export interface FetchTOpticonRequest {
@@ -8,7 +8,7 @@ export interface FetchTOpticonRequest {
 
 export interface FetchTOpticonSuccess {
   readonly type: constants.FETCH_TURKOPTICON_SUCCESS;
-  readonly data: TOpticonMap;
+  readonly data: RequesterMap;
 }
 
 export interface FetchTOpticonFailure {
@@ -18,7 +18,7 @@ export interface FetchTOpticonFailure {
 export type TOpticonAction = FetchTOpticonSuccess | FetchTOpticonFailure;
 
 export const fetchTOpticonSuccess = (
-  data: TOpticonMap
+  data: RequesterMap
 ): FetchTOpticonSuccess => ({
   type: constants.FETCH_TURKOPTICON_SUCCESS,
   data

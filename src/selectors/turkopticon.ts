@@ -14,20 +14,20 @@ export const minWeightedTopticonScore = (state: RootState) =>
   state.topticonSettings.minimumWeightedTO;
 
 export const filterNoTO = createSelector(
-  [ searchResultSelector, hideNoToEnabled ],
+  [searchResultSelector, hideNoToEnabled],
   (hits: SearchResults, enabled: boolean) => {
     return enabled
       ? hits.filter(
           (hit: SearchResult) =>
             !!hit.requester.turkopticon &&
-            hasAValidScore(hit.requester.turkopticon.attrs)
+            hasAValidScore(hit.requester.turkopticon.scores)
         )
       : hits;
   }
 );
 
 export const filterBelowTOThreshold = createSelector(
-  [ filterNoTO, minWeightedTopticonScore, minTopticonScoreEnabled ],
+  [filterNoTO, minWeightedTopticonScore, minTopticonScoreEnabled],
   (hits: SearchResults, minScore: number, minToEnabled: boolean) => {
     /**
      * High complexity code. Todo: separate these into individual selectors and compose them instead of this.
@@ -40,7 +40,7 @@ export const filterBelowTOThreshold = createSelector(
           return true;
         } else {
           const averageScore = calculateAverageScore(
-            hit.requester.turkopticon.attrs
+            hit.requester.turkopticon.scores
           );
           return averageScore ? averageScore >= minScore : true;
         }

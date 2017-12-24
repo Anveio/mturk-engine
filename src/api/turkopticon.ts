@@ -8,7 +8,7 @@ export const batchFetchTOpticon = async (requesterIds: string[]) => {
     const t0 = performance.now();
     const response = await axios.get<TOpticonResponse>(turkopticonApiMulti, {
       params: {
-        ids: requesterIds.toString()
+        ids: requesterIds.join(',')
       },
       responseType: 'json'
     });

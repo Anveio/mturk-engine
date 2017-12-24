@@ -36,7 +36,6 @@ type QueueMap = Map<string, QueueItem>;
 type RequesterMap = Map<string, Requester>;
 type HitBlockMap = Map<string, BlockedHit>;
 type RequesterBlockMap = Map<string, BlockedRequester>;
-type TOpticonMap = Map<string, TOpticonRequester>;
 type WatcherMap = Map<string, Watcher>;
 type WatcherTimerMap = Map<string, Date>;
 type HitDatabaseMap = Map<string, HitDatabaseEntry>;
@@ -164,7 +163,7 @@ interface BlockedHit extends SearchResult {
 interface Requester {
   readonly id: string;
   readonly name: string;
-  readonly turkopticon?: TOpticonRequester;
+  readonly turkopticon?: RequesterInfo;
 }
 
 interface BlockedRequester extends Requester {
@@ -173,7 +172,7 @@ interface BlockedRequester extends Requester {
 
 interface TOpticonRequester {
   readonly name: string;
-  readonly attrs: RequesterScores;
+  readonly attrs: TOpticonAttributes;
   readonly reviews: number;
   readonly tos_flags: number;
 }
@@ -182,17 +181,33 @@ interface TOpticonResponse {
   readonly [id: string]: TOpticonRequester;
 }
 
-interface RequesterScores {
+interface RequesterInfo {
+  readonly scores: RequesterAttributes;
+  readonly numReviews: number;
+  readonly numTosFlags: number;
+}
+
+export interface RequesterAttributes {
+  readonly comm?: number;
+  readonly pay?: number;
+  readonly fair?: number;
+  readonly fast?: number;
+}
+
+interface TOpticonAttributes {
   readonly comm?: string;
   readonly pay?: string;
   readonly fair?: string;
   readonly fast?: string;
 }
 
-interface TOpticonSettings {
+interface TOpticonSettings extends AttributeWeights {
   readonly hideBelowThresholdEnabled: boolean;
   readonly hideNoToEnabled: boolean;
   readonly minimumWeightedTO: number;
+}
+
+interface AttributeWeights {
   readonly payWeight: number;
   readonly fairWeight: number;
   readonly commWeight: number;

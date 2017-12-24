@@ -1,4 +1,4 @@
-import { SearchResult, TOpticonRequester } from '../types';
+import { SearchResult, RequesterInfo } from '../types';
 import {
   baseTaskUrlWorker,
   baseRequesterUrlWorker,
@@ -98,11 +98,15 @@ const qualComparatorToWords = (comparator: QualificationComparator): string => {
   }
 };
 
-const ratingsToWords = (turkopticon?: TOpticonRequester): string => {
+const ratingsToWords = (turkopticon?: RequesterInfo): string => {
   if (!turkopticon) {
     return 'No Data';
   }
 
-  const { reviews, tos_flags, attrs: { comm, fair, fast, pay } } = turkopticon;
-  return `[Pay: ${pay}] [Fast: ${fast}] [Comm: ${comm}] [Fair: ${fair}] [Reviews: ${reviews}] [ToS: ${tos_flags}]`;
+  const {
+    numReviews,
+    numTosFlags,
+    scores: { comm, fair, fast, pay }
+  } = turkopticon;
+  return `[Pay: ${pay}] [Fast: ${fast}] [Comm: ${comm}] [Fair: ${fair}] [Reviews: ${numReviews}] [ToS: ${numTosFlags}]`;
 };

@@ -1,15 +1,23 @@
-import { SearchResult, TOpticonMap } from '../types';
+import { SearchResult, RequesterMap } from '../types';
 import { SearchSuccess } from '../actions/search';
 
-export const updateTurkopticon = (data: TOpticonMap) => (
+export const updateTurkopticon = (data: RequesterMap) => (
   hit: SearchResult
-): SearchResult => ({
-  ...hit,
-  requester: {
-    ...hit.requester,
-    turkopticon: data.get(hit.requester.id)
+): SearchResult => {
+  const associatedRequester = data.get(hit.requester.id);
+
+  if (!associatedRequester) {
+    return hit;
+  } else {
+    return {
+      ...hit,
+      requester: {
+        ...hit.requester,
+        turkopticon: associatedRequester.turkopticon
+      }
+    };
   }
-});
+};
 
 export const rejectInvalidGroupId = (hit: SearchResult) =>
   !hit.groupId.startsWith('[Error:');

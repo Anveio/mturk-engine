@@ -42,7 +42,6 @@ export default (state = initial, action: SearchResultAction): SearchResults => {
         ...hit,
         markedAsRead: true
       })) as SearchResults;
-
     default:
       return state;
   }

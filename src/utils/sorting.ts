@@ -52,8 +52,8 @@ export const sortByTurkopticonRating = (a: SearchResult, b: SearchResult) => {
   } else if (!b.requester.turkopticon) {
     return -1;
   } else {
-    const aAverage = calculateAverageScore(a.requester.turkopticon.attrs);
-    const bAverage = calculateAverageScore(b.requester.turkopticon.attrs);
+    const aAverage = calculateAverageScore(a.requester.turkopticon.scores);
+    const bAverage = calculateAverageScore(b.requester.turkopticon.scores);
 
     if (!aAverage) {
       return 1;
