@@ -15,7 +15,7 @@ export const generateTOpticonBadge = (
     return [noTOBadge];
   }
 
-  return [calculateScoreBadge(turkopticon.unweightedAverageScore)];
+  return [calculateScoreBadge(turkopticon.weightedAverageScore)];
 };
 
 export const calculateScoreBadge = (

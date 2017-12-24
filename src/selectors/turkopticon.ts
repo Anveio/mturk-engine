@@ -6,7 +6,10 @@ import {
   AttributeWeights,
   RequesterInfo
 } from '../types';
-import { calculateAverageScore, hasAValidScore } from '../utils/turkopticon';
+import {
+  hasAValidScore,
+  calculateWeightedAverageScore
+} from '../utils/turkopticon';
 
 const searchResultSelector = (state: RootState) => state.search;
 
@@ -65,8 +68,9 @@ export const filterBelowTOThreshold = createSelector(
          * Because we filtered out hits with no T.O, we know that
          * hits.requester.turkopticon won't be undefined.
          */
-        const averageScore = calculateAverageScore(
-          (hit.requester.turkopticon as RequesterInfo).scores
+        const averageScore = calculateWeightedAverageScore(
+          (hit.requester.turkopticon as RequesterInfo).scores,
+          attributeWeights
         );
         return averageScore ? averageScore >= minScore : true;
       });

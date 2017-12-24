@@ -51,8 +51,13 @@ export const calculateWeightedAverageScore = (
     0
   );
 
-  return total / Object.keys(categories).length / Object.keys(weights).length;
+  const sumOfWeights = objectValueSumation<AttributeWeights>(weights);
+
+  return total / sumOfWeights;
 };
+
+export const objectValueSumation = <T>(obj: T): number =>
+  Object.values(obj).reduce((acc, cur): number => acc + cur, 0);
 
 /**
  * Takes a RequesterScores object and returns a new object in which none of the
