@@ -11,11 +11,11 @@ const SettingsTab: React.SFC<{}> = () => {
   return (
     <Layout>
       <BackupUserSettings />
-      <AudioSettings />
       <ToggleLegacyLinks />
-      <ToggleNoTO />
-      <MinTOsection />
+      <AudioSettings />
       <TurkopticonWeightForm />
+      <MinTOsection />
+      <ToggleNoTO />
     </Layout>
   );
 };
