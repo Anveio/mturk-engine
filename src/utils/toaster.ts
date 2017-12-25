@@ -239,7 +239,8 @@ const emptyQueueToast = {
 
 const successfulReturnToast = (title: string) => ({
   message: `"${truncate(title, 20)}" has been removed from your queue.`,
-  intent: Intent.PRIMARY
+  intent: Intent.PRIMARY,
+  timeout: 1000
 });
 
 const errorReturnToast = (title: string) => ({
