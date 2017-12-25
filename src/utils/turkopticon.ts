@@ -78,7 +78,7 @@ export const filterCategories = (
   );
 
 export const hasAValidScore = (scores: RequesterAttributes) =>
-  Object.values(scores).some(value => value !== 0);
+  Object.values(scores).some(value => value !== null);
 
 export const topticonMapFromTO = (
   data: TOpticonResponse,
