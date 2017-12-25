@@ -16,7 +16,7 @@ export const sendReturnHitRequest = async (
         params: {
           assignment_id: hitId,
           ref: 'w_wp_rtrn_top'
-        },
+        }
       }
     );
     return response.status === 302;
@@ -36,6 +36,3 @@ const formatFormPayload = (token: string): string =>
     _method: 'delete',
     authenticity_token: token
   });
-
-
-  
