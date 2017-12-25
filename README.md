@@ -6,9 +6,7 @@
 
 The Lite version pulls Mturk Engine from a CDN and caches it in your browser. Use it if the main installation link isn't working.
 
-[Homepage](https://www.mturk.com/mturk/findhits?mturkengine) (You must have installed Mturk Engine first.)
-
-This is a userscript. You must install it with a userscript manager (TamperMonkey for Chrome or Greasemonkey for FireFox).
+This is a userscript. You must install it with a userscript manager (e.g. TamperMonkey for Chrome) and then nagivate to https://worker.mturk.com/?mturkengine while logged in to your Mturk account in order to use it.
 
 ### Mturk Engine only works on this page: https://worker.mturk.com/?mturkengine
 
