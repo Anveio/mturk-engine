@@ -41,21 +41,25 @@ export const calculateWeightedAverageScore = (
 ): number | null => {
   const categories = filterCategories(scores);
 
-  if (Object.keys(categories).length === 0) {
-    return null;
-  }
-
   const total = Object.keys(categories).reduce(
     (acc, category: string) =>
       acc + categories[category] * weights[`${category}Weight`],
     0
   );
-  const sumOfWeights = objectValueSumation<AttributeWeights>(weights);
-  return total / sumOfWeights;
+  return total / sumOfApplicableWeights(categories, weights);
 };
 
 export const objectValueSumation = <T>(obj: T): number =>
   Object.values(obj).reduce((acc, cur): number => acc + cur, 0);
+
+export const sumOfApplicableWeights = (
+  categories: Partial<RequesterAttributes>,
+  weights: AttributeWeights
+): number =>
+  Object.keys(categories).reduce(
+    (acc: number, cur: string) => acc + weights[`${cur}Weight`],
+    0
+  );
 
 /**
  * Takes a RequesterScores object and returns a new object in which none of the
@@ -64,10 +68,10 @@ export const objectValueSumation = <T>(obj: T): number =>
  */
 export const filterCategories = (
   scores: RequesterAttributes
-): RequesterAttributes =>
+): Partial<RequesterAttributes> =>
   Object.keys(scores).reduce(
     (acc: Object, category: string) =>
-      scores[category] !== '0.00'
+      scores[category] !== null
         ? { ...acc, [category]: scores[category] }
         : acc,
     {}
