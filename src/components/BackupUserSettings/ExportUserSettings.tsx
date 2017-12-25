@@ -11,7 +11,7 @@ class ExportUserSettings extends React.Component<Handlers, never> {
   public render() {
     return (
       <Stack alignment="baseline">
-        <Button icon="save" onClick={this.props.onExport}>
+        <Button primary icon="save" onClick={this.props.onExport}>
           Save Backup
         </Button>
         <TextContainer>
