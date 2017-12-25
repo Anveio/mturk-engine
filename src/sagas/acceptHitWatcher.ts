@@ -44,13 +44,13 @@ export function* acceptHitFromWatcher(action: AcceptHitRequest) {
 
 function* handleSuccessfulAccept(groupId: string) {
   try {
-    TopRightToaster.show(successfulAcceptToast('A hit'));
+    TopRightToaster.show(successfulAcceptToast());
     yield put<AcceptHitSuccess>(acceptHitSuccess(blankQueueItem(groupId)));
   } catch (e) {
     /**
      * Even if there is an error at this point, the hit was successfuly accepted.
      */
-    TopRightToaster.show(successfulAcceptToast('A hit'));
+    TopRightToaster.show(successfulAcceptToast());
   }
 }
 
