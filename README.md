@@ -4,7 +4,7 @@
 
 [Download (Lite version)](https://greasyfork.org/en/scripts/33403-mturk-engine-lite)
 
-Download the Lite version if your browser or user script manager does not allow you to install the script with the main download link. The lite version inserts the main script into the MTurk page so it works exactly the same, but incurs a 300kb download.
+The Lite version pulls Mturk Engine from a CDN and caches it in your browser. Use it if the main installation link isn't working.
 
 [Homepage](https://www.mturk.com/mturk/findhits?mturkengine) (You must have installed Mturk Engine first.)
 
