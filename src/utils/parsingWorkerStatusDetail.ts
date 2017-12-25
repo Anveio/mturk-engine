@@ -13,7 +13,7 @@ export const parseStatusDetailPage = (
   try {
     return {
       data: tabulateHitDbEntries(data.results, legacyDateString),
-      morePages: detectMorePages(data)
+      morePages: false
     };
   } catch (e) {
     console.warn(e);
