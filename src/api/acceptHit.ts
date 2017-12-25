@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-// import { validateHitAccept } from '../utils/parsing';
+import { validateHitAccept } from '../utils/parsing';
 
 export interface HitAcceptResponse {
   readonly successful: boolean;
@@ -22,7 +22,7 @@ export const sendHitAcceptRequest = async (
   groupId: string
 ): Promise<HitAcceptResponse> => {
   try {
-    await axios.get<Document>(
+    const response = await axios.get<Document>(
       `${API_URL}/projects/${groupId}/tasks/accept_random`,
       {
         params: {
@@ -32,10 +32,13 @@ export const sendHitAcceptRequest = async (
       }
     );
     return {
-      successful: true
+      successful: validateHitAccept(response.data)
     };
   } catch (e) {
-    if (e.response && e.response.status === 404) {
+    if (
+      (e.response && e.response.status === 404) ||
+      (e.response && e.response.status === 429)
+    ) {
       return {
         successful: false
       };
