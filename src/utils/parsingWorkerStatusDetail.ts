@@ -61,5 +61,5 @@ const generateHitDbEntry = (
   };
 };
 
-const detectMorePages = (data: StatusDetailApiResponse): boolean =>
-  data.num_results * data.page_number < data.total_num_results;
+// const detectMorePages = (data: StatusDetailApiResponse): boolean =>
+//   data.num_results * data.page_number < data.total_num_results;
