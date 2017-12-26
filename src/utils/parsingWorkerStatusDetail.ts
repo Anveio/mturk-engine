@@ -6,7 +6,8 @@ import {
   WorkerSubmittedHit
 } from '../worker-mturk-api';
 
-export const parseStatusDetailPage = (
+export const 
+parseStatusDetailPage = (
   data: StatusDetailApiResponse,
   legacyDateString: string
 ): StatusDetailPageInfo => {
