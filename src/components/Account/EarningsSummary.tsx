@@ -17,7 +17,6 @@ interface Props {
   readonly pendingEarnings: number;
   readonly todaysEarnings: number;
   readonly earningsApprovedButNotPaid: number;
-  readonly legacyLinksEnabled: boolean;
 }
 
 interface FieldProps {
@@ -61,7 +60,7 @@ class EarningsSummary extends React.PureComponent<Props, never> {
         actions={[
           {
             content: 'Transfer Earnings',
-            url: generateTransferEarningsUrl(this.props.legacyLinksEnabled),
+            url: generateTransferEarningsUrl(),
             external: true
           }
         ]}
@@ -102,8 +101,7 @@ const mapState = (state: RootState): Props => ({
   accountInfo: state.account,
   pendingEarnings: pendingEarningsSelector(state),
   todaysEarnings: todaysProjectedEarnings(state),
-  earningsApprovedButNotPaid: approvedButNotPaidEarnings(state),
-  legacyLinksEnabled: state.legacyLinksEnabled
+  earningsApprovedButNotPaid: approvedButNotPaidEarnings(state)
 });
 
 export default connect(mapState)(EarningsSummary);

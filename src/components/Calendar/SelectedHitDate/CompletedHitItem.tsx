@@ -15,7 +15,6 @@ export interface OwnProps {
 
 export interface Props {
   readonly hit: HitDatabaseEntry;
-  readonly legacyLinksEnabled: boolean;
 }
 
 interface State {
@@ -41,7 +40,7 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
   private generateActions = () => [
     {
       content: 'Contact',
-      url: generateContactLink(this.props.hit, this.props.legacyLinksEnabled),
+      url: generateContactLink(this.props.hit),
       external: true
     },
     {
@@ -80,8 +79,7 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  hit: state.hitDatabase.get(ownProps.id),
-  legacyLinksEnabled: state.legacyLinksEnabled
+  hit: state.hitDatabase.get(ownProps.id)
 });
 
 export default connect(mapState)(CompletedHitItem);

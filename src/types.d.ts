@@ -16,7 +16,6 @@ interface RootState {
   readonly waitingForMturk: boolean;
   readonly waitingForHitDbRefresh: boolean;
   readonly timeNextSearch: Date | null;
-  readonly legacyLinksEnabled: boolean;
   readonly searchOptions: SearchOptions;
   readonly sortingOption: SortingOption;
   readonly hitDatabase: HitDatabaseMap;
@@ -56,8 +55,7 @@ type PersistedStateKey =
   | 'topticonSettings'
   | 'watchers'
   | 'audioSettingsV1'
-  | 'dailyEarningsGoal'
-  | 'legacyLinksEnabled';
+  | 'dailyEarningsGoal';
 
 type ImmutablePersistedStateKey =
   | 'hitDatabase'

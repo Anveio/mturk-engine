@@ -9,7 +9,6 @@ import { generateContinueWorkUrl } from '../../utils/urls';
 
 export interface Props {
   readonly hit: QueueItem;
-  readonly legacyLinksEnabled: boolean;
 }
 
 export interface OwnProps {
@@ -25,7 +24,7 @@ class QueueItemCard extends React.PureComponent<
   never
 > {
   public render() {
-    const { hit, legacyLinksEnabled } = this.props;
+    const { hit } = this.props;
     const { reward, timeLeftInSeconds } = hit;
     const actions = [
       {
@@ -37,7 +36,7 @@ class QueueItemCard extends React.PureComponent<
         external: true,
         content: 'Work',
         accessibilityLabel: 'Work',
-        url: generateContinueWorkUrl(hit, legacyLinksEnabled)
+        url: generateContinueWorkUrl(hit)
       }
     ];
 
@@ -55,8 +54,7 @@ class QueueItemCard extends React.PureComponent<
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  hit: state.queue.get(ownProps.hitId),
-  legacyLinksEnabled: state.legacyLinksEnabled
+  hit: state.queue.get(ownProps.hitId)
 });
 
 const mapDispatch = (dispatch: Dispatch<ReturnAction>): Handlers => ({
