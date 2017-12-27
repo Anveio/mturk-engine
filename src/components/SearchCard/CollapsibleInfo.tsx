@@ -21,8 +21,13 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
         <Card.Section>
           <Stack vertical spacing="loose" distribution="equalSpacing">
             <Caption>
+              Requester:
+              <TextStyle variation="subdued">{` ${requester.name}`}</TextStyle>
+            </Caption>
+            <Caption>
               Description:
-              <TextStyle variation="subdued">{` ${description}`}</TextStyle>
+              <TextStyle variation="subdued">{`${description ||
+                'No description.'}`}</TextStyle>
             </Caption>
             <Caption>
               Time allotted:
