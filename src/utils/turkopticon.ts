@@ -29,7 +29,7 @@ export const calculateWeightedAverageScore = (
       acc + categories[category] * weights[`${category}Weight`],
     0
   );
-  return total / sumOfApplicableWeights(categories, weights);
+  return total / sumOfApplicableWeights(categories, weights) || null;
 };
 
 export const objectValueSumation = <T>(obj: T): number =>
