@@ -15,25 +15,40 @@ const allZeroWeights: AttributeWeights = {
   payWeight: 0
 };
 
-const noNullAttributeScores: RequesterAttributes = {
-  comm: 5,
-  fair: 5,
-  fast: 5,
+const noUndefinedAttributeScores: RequesterAttributes = {
+  comm: 2,
+  fair: 3,
+  fast: 4,
   pay: 5
 };
 
-const someNullAttributeScores = {};
+const someUndefinedAttributeScores: Partial<RequesterAttributes> = {
+  comm: 5,
+  fast: 4
+};
 
 describe('Calculating requester average T.O. score', () => {
-  test('equalized weights and no null attributes', () => {
+  test('equalized weights and no undefined attributes', () => {
     expect(
-      calculateWeightedAverageScore(noNullAttributeScores, equalizedWeights)
-    ).toEqual(5);
+      calculateWeightedAverageScore(
+        noUndefinedAttributeScores,
+        equalizedWeights
+      )
+    ).toEqual(3.5);
   });
 
-  test('all zero weights and no null attributes', () => {
+  test('all zero weights and no undefined attributes', () => {
     expect(
-      calculateWeightedAverageScore(noNullAttributeScores, allZeroWeights)
+      calculateWeightedAverageScore(noUndefinedAttributeScores, allZeroWeights)
     ).toEqual(null);
+  });
+
+  test('equalized weights and some undefined attributes', () => {
+    expect(
+      calculateWeightedAverageScore(
+        someUndefinedAttributeScores,
+        equalizedWeights
+      )
+    ).toEqual(4.5);
   });
 });
