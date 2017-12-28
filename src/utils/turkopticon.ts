@@ -18,23 +18,6 @@ export const selectRequesterId = (requester: Requester) => requester.id;
 export const invalidGroupId = (hit: SearchResult) =>
   !hit.groupId.startsWith('[Error:groupId]-');
 
-export const calculateAverageScore = (
-  scores: RequesterAttributes
-): number | null => {
-  const categories = filterCategories(scores);
-
-  if (Object.keys(categories).length === 0) {
-    return null;
-  }
-
-  const total = Object.keys(categories).reduce(
-    (acc, category: string) => acc + parseFloat(categories[category]),
-    0
-  );
-
-  return total / Object.keys(categories).length;
-};
-
 export const calculateWeightedAverageScore = (
   scores: RequesterAttributes,
   weights: AttributeWeights
