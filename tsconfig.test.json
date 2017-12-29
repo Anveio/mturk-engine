@@ -16,16 +16,5 @@
     "noUnusedLocals": true,
     "experimentalDecorators": true
   },
-  "exclude": [
-    "server",
-    "__test__",
-    "node_modules",
-    "build",
-    "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest",
-    "src/setupTests.ts"
-  ],
   "types": ["typePatches"]
 }
