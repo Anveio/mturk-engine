@@ -14,8 +14,7 @@ export const sendReturnHitRequest = async (
       formatFormPayload(token),
       {
         params: {
-          assignment_id: hitId,
-          ref: 'w_wp_rtrn_top'
+          assignment_id: hitId
         }
       }
     );
