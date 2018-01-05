@@ -140,11 +140,7 @@ class WatcherCard extends React.PureComponent<
           </Button>
 
           <Tooltip content="Delete this watcher.">
-            <Button
-              disabled={active}
-              onClick={this.handleDelete}
-              icon="delete"
-            />
+            <Button onClick={this.handleDelete} icon="delete" />
           </Tooltip>
         </Stack>
       </Card.Section>
