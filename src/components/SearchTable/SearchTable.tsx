@@ -7,7 +7,7 @@ import SearchTableHeading from './SearchTableHeading';
 import SearchTableButtons from './SearchTableButtons';
 import EmptySearchTable from './EmptySearchTable';
 import { List } from 'immutable';
-import { filteredResultsGroupId } from '../../selectors/searchTable';
+import { filteredResultsGroupId } from '../../selectors/search';
 
 export interface Props {
   readonly resultsIds: List<string>;

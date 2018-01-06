@@ -3,7 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import { List } from 'immutable';
 import { RootState } from '../types';
 import { PlayAudio, playAudio } from '../actions/audio';
-import { newResultsGroupIdsList } from '../selectors/searchTable';
+import { newResultsGroupIdsList } from '../selectors/search';
 
 export interface Props {
   readonly audioNewSearch: HTMLAudioElement;

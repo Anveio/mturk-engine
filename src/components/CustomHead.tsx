@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { RootState } from '../types';
 import calendarHeatMapStylesheet from '../utils/calendarHeatMapStylesheet';
-import { newResults } from '../selectors/searchTable';
+import { newResults } from '../selectors/search';
 
 export interface Props {
   readonly numNewHits: number;

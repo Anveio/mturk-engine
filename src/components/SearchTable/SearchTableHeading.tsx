@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../types';
 import { Card, Heading } from '@shopify/polaris';
-import { resultsLengthSelector, newResults } from '../../selectors/searchTable';
+import { resultsLengthSelector, newResults } from '../../selectors/search';
 
 export interface Props {
   readonly rawResultsSize: number;
@@ -24,7 +24,9 @@ class SearchTableHeading extends React.PureComponent<Props & OwnProps, never> {
     return (
       <Card.Section>
         <Heading>
-          Showing {displayedResultsSize} results. ({SearchTableHeading.showNewResults(numNewHits)}
+          Showing {displayedResultsSize} results. ({SearchTableHeading.showNewResults(
+            numNewHits
+          )}
           {numHiddenResults} hidden)
         </Heading>
       </Card.Section>
