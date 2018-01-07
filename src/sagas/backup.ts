@@ -15,6 +15,7 @@ import {
 } from '../utils/toaster';
 import { PersistedState } from '../types';
 import { uploadedStateSelector } from '../selectors/uploadedState';
+import { refreshPage } from '../utils/refresh';
 
 export function* downloadPersistedState(action: ReadPersistedState) {
   try {
@@ -38,7 +39,7 @@ export function* importPersistedState(action: WritePersistedState) {
       action.whiteList
     )(uploadedState);
     yield call(writeToPersistedState, stateToImport);
-    location = location;
+    refreshPage();
   } catch (e) {
     console.warn(e);
     failedImportPersistedState();

@@ -11,6 +11,7 @@ import { NonIdealState, Collapse } from '@blueprintjs/core';
 import { deletePersistedStateToast } from '../utils/toaster';
 import * as localforage from 'localforage';
 import { ImmutablePersistedStateKey } from '../types';
+import { refreshPage } from '../utils/refresh';
 
 interface State {
   readonly error: boolean;
@@ -55,7 +56,7 @@ class ErrorBoundary extends React.PureComponent<{}, State> {
             <Card
               primaryFooterAction={{
                 content: 'Refresh',
-                onAction: () => (location = location)
+                onAction: refreshPage
               }}
             >
               <Card.Section>
@@ -131,7 +132,7 @@ class ErrorBoundary extends React.PureComponent<{}, State> {
               </Card.Section>
             </Card>
           </Layout.AnnotatedSection>
-        </Layout>
+        </Layout>;
       </Page>
     ) : (
       this.props.children
