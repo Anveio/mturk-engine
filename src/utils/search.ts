@@ -1,10 +1,10 @@
 import { SearchResult, RequesterMap } from '../types';
 import { SearchSuccess } from '../actions/search';
 
-export const updateTurkopticon = (data: RequesterMap) => (
+export const updateTurkopticon = (requesterData: RequesterMap) => (
   hit: SearchResult
 ): SearchResult => {
-  const associatedRequester = data.get(hit.requester.id);
+  const associatedRequester = requesterData.get(hit.requester.id);
 
   if (!associatedRequester) {
     return hit;
