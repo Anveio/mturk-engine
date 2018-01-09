@@ -19,9 +19,6 @@ export const updateTurkopticon = (requesterData: RequesterMap) => (
   }
 };
 
-export const rejectInvalidGroupId = (hit: SearchResult) =>
-  !hit.groupId.startsWith('[Error:');
-
 /**
  * Returns true if a search result in a successful search has an entry that
  * exists in prevSearchResult.
@@ -44,3 +41,5 @@ export const markAsRead = (hit: SearchResult): SearchResult => ({
   ...hit,
   markedAsRead: true
 });
+
+

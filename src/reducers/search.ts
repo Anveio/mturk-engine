@@ -13,7 +13,6 @@ import {
   updateTurkopticon,
   resultsThatAppearInBoth,
   conflictsUseOldMarkedAsReadProp,
-  rejectInvalidGroupId
 } from '../utils/search';
 import { noTurkopticon } from '../utils/turkopticon';
 // import sampleHits from '../utils/sampleHits';
@@ -27,7 +26,6 @@ export default (state = initial, action: SearchResultAction): SearchResults => {
     case SEARCH_SUCCESS:
       return (state.filter(resultsThatAppearInBoth(action)) as SearchResults)
         .mergeWith(conflictsUseOldMarkedAsReadProp, action.data)
-        .filter(rejectInvalidGroupId) as SearchResults;
     case FETCH_TURKOPTICON_SUCCESS:
       return state.merge(state
         .filter(noTurkopticon)
