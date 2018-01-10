@@ -64,7 +64,7 @@ export const filterBelowTOThreshold = createSelector(
     if (minToEnabled) {
       return hits.filter((hit: SearchResult): boolean => {
         if (!hit.requester.turkopticon) {
-          return false;
+          return true;
         }
 
         const averageScore = calculateWeightedAverageScore(
