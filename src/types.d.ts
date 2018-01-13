@@ -28,6 +28,7 @@ interface RootState {
   readonly audioFiles: AudioFiles;
   readonly uploadedState: Partial<PersistedState> | null;
   readonly expandedSearchResults: ExpandedSearchResultsMap;
+  readonly notificationSettings: NotificationSettings;
 }
 
 type SearchResults = Map<string, SearchResult>;
@@ -152,6 +153,11 @@ interface QueueItem {
   readonly taskId: string;
   readonly reward: number;
   readonly timeLeftInSeconds: number;
+}
+
+interface NotificationSettings {
+  readonly enabled: boolean;
+  readonly minReward: number;
 }
 
 interface BlockedHit extends SearchResult {
