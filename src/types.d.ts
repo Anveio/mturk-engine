@@ -156,6 +156,7 @@ interface QueueItem {
 }
 
 interface NotificationSettings {
+  readonly hasPermission: boolean;
   readonly enabled: boolean;
   readonly minReward: number;
 }
