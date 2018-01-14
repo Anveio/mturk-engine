@@ -23,6 +23,7 @@ import { default as watcherTimes } from './reducers/watcherTimes';
 import { default as uploadedState } from './reducers/uploadedState';
 import { default as expandedSearchResults } from './reducers/expandedSearchResults';
 import { default as legacyLinksEnabled } from './reducers/legacyLinksEnabled';
+import { default as notificationSettings } from './reducers/notificationSettings';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -46,6 +47,7 @@ export const rootReducer = combineReducers<RootState>({
   selectedHitDbDate,
   requesterBlocklist,
   legacyLinksEnabled,
+  notificationSettings,
   expandedSearchResults,
   waitingForHitDbRefresh
 });

@@ -19,6 +19,10 @@ export const updateNotificationPermission = (
   value
 });
 
+export const notificationPermissionRequest = (): NotificationPermissionRequest => ({
+  type: NOTIFICATION_PERM_REQUEST
+});
+
 export const notificationPermissionFailure = (): NotificationPermissionUpdate => ({
   type: NOTIFICATION_PERM_UPDATE,
   value: false
