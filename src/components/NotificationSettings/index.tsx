@@ -1,24 +1,30 @@
 import * as React from 'react';
 import { Layout, Card } from '@shopify/polaris';
-import EnableNotificationsButton from './EnableNotificationsButton';
+import EnableNotifications from './EnableNotifications';
+import { connect } from 'react-redux';
+import { RootState, NotificationSettings } from '../../types';
 
-export interface Props {}
+interface Props {
+  readonly notificationSettings: NotificationSettings;
+}
 
-class NotificationSettings extends React.PureComponent<Props, never> {
+class EditNotificationSettings extends React.PureComponent<Props, State> {
   public render() {
     return (
       <Layout.AnnotatedSection
         title="Enable Notifications"
         description={
-          'Notifications will be displayed on your desktop when a new HIT is found.'
+          'You can have notifications of new HITs be sent to your desktop.'
         }
       >
-        <Card>
-          <EnableNotificationsButton />
-        </Card>
+        <EnableNotifications />
       </Layout.AnnotatedSection>
     );
   }
 }
 
-export default NotificationSettings;
+const mapState = (state: RootState): Props => ({
+  notificationSettings: state.notificationSettings
+});
+
+export default connect(mapState)(EditNotificationSettings);

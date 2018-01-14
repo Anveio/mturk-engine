@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from '@shopify/polaris';
+import { Card, Button } from '@shopify/polaris';
 import {
   NotificationPermissionRequest,
   notificationPermissionRequest
@@ -15,12 +15,13 @@ interface Props {
   readonly hasPermission: boolean;
 }
 
-class EnableNotificationsButton extends React.Component<
-  Props & Handlers,
-  never
-> {
+class EnableNotifications extends React.Component<Props & Handlers, never> {
   public render() {
-    return <Button onClick={this.props.onEnable}>Sample Text</Button>;
+    return (
+      <Card sectioned>
+        <Button onClick={this.props.onEnable}>Request Permission</Button>
+      </Card>
+    );
   }
 }
 
@@ -34,4 +35,4 @@ const mapState = (state: RootState): Props => ({
   hasPermission: state.notificationSettings.hasPermission
 });
 
-export default connect(mapState, mapDispatch)(EnableNotificationsButton);
+export default connect(mapState, mapDispatch)(EnableNotifications);
