@@ -1,21 +1,22 @@
-import { ToggleNotificationPermission } from '../actions/updateValue';
-import { TOGGLE_NOTIFICATION_PERMISSION } from '../constants';
+import { NOTIFICATION_PERM_UPDATE } from '../constants';
 import { NotificationSettings } from '../types';
+import { NotificationPermissionUpdate } from '../actions/notifications';
 
 const initial: NotificationSettings = {
+  hasPermission: false,
   enabled: false,
   minReward: 0.75
 };
 
 export default (
   state = initial,
-  action: ToggleNotificationPermission
+  action: NotificationPermissionUpdate
 ): NotificationSettings => {
   switch (action.type) {
-    case TOGGLE_NOTIFICATION_PERMISSION:
+    case NOTIFICATION_PERM_UPDATE:
       return {
         ...state,
-        enabled: !state.enabled
+        hasPermission: action.value
       };
     default:
       return state;
