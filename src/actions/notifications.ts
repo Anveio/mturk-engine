@@ -1,6 +1,7 @@
 import {
   NOTIFICATION_PERM_REQUEST,
-  NOTIFICATION_PERM_UPDATE
+  NOTIFICATION_PERM_UPDATE,
+  EDIT_NOTIFICATION_THRESHOLD
 } from '../constants/index';
 
 export interface NotificationPermissionRequest {
@@ -10,6 +11,11 @@ export interface NotificationPermissionRequest {
 export interface NotificationPermissionUpdate {
   readonly type: NOTIFICATION_PERM_UPDATE;
   readonly value: boolean;
+}
+
+export interface EditNotificationThreshold {
+  readonly type: EDIT_NOTIFICATION_THRESHOLD;
+  readonly value: number;
 }
 
 export const updateNotificationPermission = (
@@ -31,4 +37,11 @@ export const notificationPermissionFailure = (): NotificationPermissionUpdate =>
 export const notificationPermissionSuccess = (): NotificationPermissionUpdate => ({
   type: NOTIFICATION_PERM_UPDATE,
   value: true
+});
+
+export const editNotificationThreshold = (
+  value: number
+): EditNotificationThreshold => ({
+  type: EDIT_NOTIFICATION_THRESHOLD,
+  value
 });

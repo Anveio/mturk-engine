@@ -17,11 +17,11 @@ interface Props {
 
 class EnableNotifications extends React.Component<Props & Handlers, never> {
   public render() {
-    return (
+    return !this.props.hasPermission ? (
       <Card sectioned>
         <Button onClick={this.props.onEnable}>Request Permission</Button>
       </Card>
-    );
+    ) : null;
   }
 }
 
