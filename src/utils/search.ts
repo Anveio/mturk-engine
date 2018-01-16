@@ -41,5 +41,3 @@ export const markAsRead = (hit: SearchResult): SearchResult => ({
   ...hit,
   markedAsRead: true
 });
-
-

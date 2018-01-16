@@ -16,12 +16,16 @@ interface Props {
 }
 
 class EnableNotifications extends React.Component<Props & Handlers, never> {
+  /**
+   * TODO: TypeScript's type definitions for Notifications are incorrect. Notifications.permission is missing.
+   * When it's fixed, add a check for Notification.permission in cWM and render if  not "granted".
+   */
   public render() {
-    return (
+    return !this.props.hasPermission ? (
       <Card sectioned>
         <Button onClick={this.props.onEnable}>Request Permission</Button>
       </Card>
-    );
+    ) : null;
   }
 }
 
