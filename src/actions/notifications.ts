@@ -2,8 +2,15 @@ import {
   NOTIFICATION_PERM_REQUEST,
   NOTIFICATION_PERM_UPDATE,
   EDIT_NOTIFICATION_THRESHOLD,
-  TOGGLE_NOTIFICATIONS
+  TOGGLE_NOTIFICATIONS,
+  SEND_NOTIFICATION
 } from '../constants/index';
+import { SearchResult } from '../types';
+
+export interface SendNotification {
+  readonly type: SEND_NOTIFICATION;
+  readonly hit: SearchResult;
+}
 
 export interface NotificationPermissionRequest {
   readonly type: NOTIFICATION_PERM_REQUEST;
@@ -53,4 +60,9 @@ export const editNotificationThreshold = (
 
 export const toggleNotifications = (): ToggleNotifications => ({
   type: TOGGLE_NOTIFICATIONS
+});
+
+export const sendNotification = (hit: SearchResult): SendNotification => ({
+  type: SEND_NOTIFICATION,
+  hit
 });
