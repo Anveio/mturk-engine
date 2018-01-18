@@ -7,7 +7,6 @@ import { generateHitStatusBadge } from '../../../utils/badges';
 import { truncate, formatAsCurrency } from '../../../utils/formatting';
 import HitDbEntryCollapsible from './HitDbEntryCollapsible';
 import { generateContactLink } from '../../../utils/urls';
-import { Fragment } from 'react';
 
 export interface OwnProps {
   readonly id: string;
@@ -59,7 +58,7 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
   public render() {
     const { hit: { title, reward, bonus, status } } = this.props;
     return (
-      <Fragment>
+      <React.Fragment>
         <div onClick={this.handleExpand}>
           <ResourceList.Item
             persistActions
@@ -73,7 +72,7 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
           open={this.state.expanded}
           hit={this.props.hit}
         />
-      </Fragment>
+      </React.Fragment>
     );
   }
 }
