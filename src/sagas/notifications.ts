@@ -3,7 +3,8 @@ import {
   NotificationPermissionRequest,
   NotificationPermissionUpdate,
   notificationPermissionFailure,
-  notificationPermissionSuccess
+  notificationPermissionSuccess,
+  SendNotification
 } from '../actions/notifications';
 import { requestNotificationPermission } from '../utils/notifications';
 
@@ -31,4 +32,15 @@ export function* resolveNotificationRequest(
   } catch (e) {
     yield put<NotificationPermissionUpdate>(notificationPermissionFailure());
   }
+}
+
+export function* createDesktopNotification(action: SendNotification) {
+  console.log(action);
+  const x = new Notification(action.hit.title, {
+    body: action.hit.description
+  });
+
+  x.onclose = console.log;
+
+  yield 1;
 }

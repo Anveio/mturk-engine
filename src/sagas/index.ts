@@ -16,7 +16,8 @@ import {
   UPLOAD_REQUEST,
   PLAY_AUDIO,
   WRITE_PERSISTED_STATE,
-  NOTIFICATION_PERM_REQUEST
+  NOTIFICATION_PERM_REQUEST,
+  SEND_NOTIFICATION
 } from '../constants';
 import { ConnectAccountRequest } from '../actions/connectAccount';
 import { FetchQueueRequest } from '../actions/queue';
@@ -49,8 +50,14 @@ import { handleStatusSummarySuccess } from './refreshHitDb';
 import { downloadPersistedState, importPersistedState } from './backup';
 import { playAudio } from './playAudio';
 import { handleFileUploadRequest } from './uploadFile';
-import { resolveNotificationRequest } from './notifications';
-import { NotificationPermissionRequest } from '../actions/notifications';
+import {
+  resolveNotificationRequest,
+  createDesktopNotification
+} from './notifications';
+import {
+  NotificationPermissionRequest,
+  SendNotification
+} from '../actions/notifications';
 
 export default function* rootSaga() {
   yield takeLatest<ConnectAccountRequest>(
@@ -99,6 +106,10 @@ export default function* rootSaga() {
   yield takeEvery<WritePersistedState>(
     WRITE_PERSISTED_STATE,
     importPersistedState
+  );
+  yield takeEvery<SendNotification>(
+    SEND_NOTIFICATION,
+    createDesktopNotification
   );
   yield takeEvery<UploadRequest>(UPLOAD_REQUEST, handleFileUploadRequest);
 }
