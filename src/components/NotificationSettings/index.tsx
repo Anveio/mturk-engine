@@ -14,9 +14,8 @@ class NotificationsSettingsSection extends React.PureComponent<Props, never> {
     return (
       <Layout.AnnotatedSection
         title="Enable desktop notifications"
-        description={
-          'A link to accept an unread HIT will be sent to your desktop. You can revoke permission at any time.'
-        }
+        description={`A link to accept an unread HIT will be sent to your 
+        desktop with your permission. You can revoke permission at any time.`}
       >
         <EnableNotifications />
         <EditNotificationSettings />

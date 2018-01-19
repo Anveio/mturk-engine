@@ -5,7 +5,8 @@ import { NotificationSettings, RootState } from '../../types';
 import {
   editNotificationThreshold,
   EditNotificationThreshold,
-  notificationPermissionRequest
+  notificationPermissionRequest,
+  toggleNotifications
 } from '../../actions/notifications';
 
 interface Props {
@@ -14,7 +15,8 @@ interface Props {
 
 interface Handlers {
   readonly onChange: (val: number) => void;
-  readonly onEnable: () => void;
+  readonly onRequestPermission: () => void;
+  readonly onToggle: () => void;
 }
 
 interface State {
@@ -34,6 +36,11 @@ class EditNotificationSettings extends React.PureComponent<
     };
   }
 
+  /**
+   * TODO: TypeScript's type definitions for Notifications are incorrect. Notifications.permission is missing.
+   * When it's fixed, add a check for Notification.permission in cWM and render if  not "granted".
+   */
+
   private handleChange = (value: string) => {
     this.setState({ value, error: null });
     this.setErrorIfAny(value);
@@ -49,16 +56,20 @@ class EditNotificationSettings extends React.PureComponent<
   };
 
   public render() {
-    const { hasPermission } = this.props.notificationSettings;
+    const { enabled } = this.props.notificationSettings;
 
-    return hasPermission ? (
+    return enabled ? (
       <Card
         sectioned
         title="Edit Notification Settings"
         actions={[
           {
             content: 'Request Permission',
-            onAction: this.props.onEnable
+            onAction: this.props.onRequestPermission
+          },
+          {
+            content: 'Disable Notifications',
+            onAction: this.props.onToggle
           }
         ]}
       >
@@ -89,7 +100,8 @@ const mapDispatch = (
   dispatch: Dispatch<EditNotificationThreshold>
 ): Handlers => ({
   onChange: (value: number) => dispatch(editNotificationThreshold(value)),
-  onEnable: () => dispatch(notificationPermissionRequest())
+  onRequestPermission: () => dispatch(notificationPermissionRequest()),
+  onToggle: () => dispatch(toggleNotifications())
 });
 
 export default connect(mapState, mapDispatch)(EditNotificationSettings);

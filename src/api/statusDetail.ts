@@ -19,7 +19,8 @@ export const fetchStatusDetailPage = async (encodedDate: string, page = 1) => {
       `${API_URL}/status_details/${encodedDate}`,
       {
         params: {
-          format: 'json'
+          format: 'json',
+          page_number: page
         },
         responseType: 'json'
       }

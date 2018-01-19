@@ -5,16 +5,16 @@ import {
   StatusDetailApiResponse,
   WorkerSubmittedHit
 } from '../worker-mturk-api';
+import { STATUS_DETAIL_RESULTS_PER_PAGE } from '../constants/misc';
 
-export const 
-parseStatusDetailPage = (
+export const parseStatusDetailPage = (
   data: StatusDetailApiResponse,
   legacyDateString: string
 ): StatusDetailPageInfo => {
   try {
     return {
       data: tabulateHitDbEntries(data.results, legacyDateString),
-      morePages: false
+      morePages: detectMorePages(data)
     };
   } catch (e) {
     console.warn(e);
@@ -62,5 +62,5 @@ const generateHitDbEntry = (
   };
 };
 
-// const detectMorePages = (data: StatusDetailApiResponse): boolean =>
-//   data.num_results * data.page_number < data.total_num_results;
+const detectMorePages = (data: StatusDetailApiResponse): boolean =>
+  STATUS_DETAIL_RESULTS_PER_PAGE * data.page_number < data.total_num_results;

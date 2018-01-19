@@ -8,7 +8,6 @@ import {
   RequesterAttributes
 } from '../../types';
 import { ResourceList } from '@shopify/polaris';
-import {} from '../types';
 import { AcceptAction, acceptHitRequestfromSearch } from '../../actions/accept';
 import { MarkHitAsRead, markHitAsRead } from '../../actions/markAsRead';
 import { BlockHitAction, blockHitGroup } from '../../actions/blockHitGroup';
@@ -22,9 +21,9 @@ import { truncate } from '../../utils/formatting';
 import { qualException } from '../../utils/exceptions';
 import { generateTOpticonBadge } from '../../utils/badges';
 import { blockedHitFactory } from '../../utils/blocklist';
-import { Fragment } from '../Fragment';
 import { calculateWeightedAverageScore } from '../../utils/turkopticon';
 import { attributeWeightsSelector } from '../../selectors/turkopticon';
+import { sendNotification } from '../../actions/notifications';
 
 export interface Props {
   readonly hit: SearchResult;
@@ -41,6 +40,7 @@ export interface Handlers {
   readonly onToggleExpand: (hit: SearchResult) => void;
   readonly onHide: (hit: BlockedHit) => void;
   readonly markHitAsRead: (groupId: string) => void;
+  readonly onUnreadHit: (hit: SearchResult) => void;
 }
 
 class SearchCard extends React.PureComponent<
@@ -110,7 +110,7 @@ class SearchCard extends React.PureComponent<
         requester.turkopticon.scores) as RequesterAttributes) || null;
 
     return (
-      <Fragment>
+      <React.Fragment>
         <div
           onClick={this.handleExpand}
           style={SearchCard.generateStyle(!!markedAsRead)}
@@ -134,8 +134,9 @@ class SearchCard extends React.PureComponent<
             }
           />
         </div>
+
         <CollapsibleInfo open={!!expanded} hit={this.props.hit} />
-      </Fragment>
+      </React.Fragment>
     );
   }
 }
@@ -164,6 +165,9 @@ const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   },
   markHitAsRead: (groupId: string) => {
     dispatch(markHitAsRead(groupId));
+  },
+  onUnreadHit: (hit: SearchResult) => {
+    dispatch(sendNotification(hit));
   }
 });
 
