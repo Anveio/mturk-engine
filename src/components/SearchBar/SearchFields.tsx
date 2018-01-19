@@ -57,17 +57,32 @@ class MinimumRewardField extends React.PureComponent<Props & Handlers, never> {
   }
 }
 
+interface SortDropdownOptions {
+  readonly label: SortingOption;
+  readonly value: SortingOption;
+}
+
 class SortTypeField extends React.PureComponent<Props & Handlers, never> {
-  private static options: SortingOption[] = ['Latest', 'Batch Size', 'Reward'];
+  private static options: SortDropdownOptions[] = [
+    {
+      label: 'Latest',
+      value: 'Latest'
+    },
+    {
+      label: 'Batch Size',
+      value: 'Batch Size'
+    },
+    {
+      label: 'Reward',
+      value: 'Reward'
+    }
+  ];
 
   public render() {
     return (
       <Select
         label="Search By"
-        options={SortTypeField.options.map((option: string) => ({
-          label: option,
-          value: option
-        }))}
+        options={SortTypeField.options}
         value={this.props.value}
         onChange={this.props.onChange}
       />
