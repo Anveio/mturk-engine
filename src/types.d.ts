@@ -56,7 +56,8 @@ type PersistedStateKey =
   | 'topticonSettings'
   | 'watchers'
   | 'audioSettingsV1'
-  | 'dailyEarningsGoal';
+  | 'dailyEarningsGoal'
+  | 'notificationSettings';
 
 type ImmutablePersistedStateKey =
   | 'hitDatabase'

@@ -11,7 +11,8 @@ export const PERSISTED_STATE_WHITELIST: PersistedStateKey[] = [
   'topticonSettings',
   'watchers',
   'audioSettingsV1',
-  'dailyEarningsGoal'
+  'dailyEarningsGoal',
+  'notificationSettings'
 ];
 
 export const IMMUTABLE_PERSISTED_STATE_WHITELIST: ImmutablePersistedStateKey[] = [
