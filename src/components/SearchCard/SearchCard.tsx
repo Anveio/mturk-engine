@@ -23,7 +23,6 @@ import { generateTOpticonBadge } from '../../utils/badges';
 import { blockedHitFactory } from '../../utils/blocklist';
 import { calculateWeightedAverageScore } from '../../utils/turkopticon';
 import { attributeWeightsSelector } from '../../selectors/turkopticon';
-import { sendNotification } from '../../actions/notifications';
 
 export interface Props {
   readonly hit: SearchResult;
@@ -40,7 +39,6 @@ export interface Handlers {
   readonly onToggleExpand: (hit: SearchResult) => void;
   readonly onHide: (hit: BlockedHit) => void;
   readonly markHitAsRead: (groupId: string) => void;
-  readonly onUnreadHit: (hit: SearchResult) => void;
 }
 
 class SearchCard extends React.PureComponent<
@@ -165,9 +163,6 @@ const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   },
   markHitAsRead: (groupId: string) => {
     dispatch(markHitAsRead(groupId));
-  },
-  onUnreadHit: (hit: SearchResult) => {
-    dispatch(sendNotification(hit));
   }
 });
 
