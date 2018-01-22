@@ -14,7 +14,7 @@ export interface Handlers {
   readonly onNewSearchResult: (file: HTMLAudioElement) => void;
 }
 
-class AudioLayer extends React.PureComponent<Props & Handlers, never> {
+class AudioLayer extends React.Component<Props & Handlers, never> {
   componentWillReceiveProps(nextProps: Props) {
     if (!nextProps.unreadResults.isSubset(this.props.unreadResults)) {
       this.props.onNewSearchResult(this.props.audioNewSearch);
@@ -22,7 +22,7 @@ class AudioLayer extends React.PureComponent<Props & Handlers, never> {
   }
 
   public render() {
-    return <div id="audio-layer" />;
+    return <> </>;
   }
 }
 
