@@ -4,6 +4,7 @@ import ErrorBoundary from './ErrorBoundary';
 import TabNavigation from './TabNavigation/TabNavigation';
 import CustomHead from './CustomHead';
 import AudioLayer from './AudioLayer';
+import NotificationLayer from './NotificationLayer';
 import Footer from './Footer';
 
 const App: React.SFC<{}> = () => {
@@ -16,6 +17,7 @@ const App: React.SFC<{}> = () => {
           <Footer />
         </Page>
         <AudioLayer />
+        <NotificationLayer />
       </ErrorBoundary>
     </main>
   );
