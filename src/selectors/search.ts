@@ -75,7 +75,8 @@ const filteredAndSortedResults = createSelector(
 
 export const newResults = createSelector(
   [filteredAndSortedResults],
-  (hits: SearchResults) => hits.filter((hit: SearchResult) => !hit.markedAsRead)
+  (hits: SearchResults) =>
+    hits.filter((hit: SearchResult) => !hit.markedAsRead) as SearchResults
 );
 
 export const newResultsGroupIdsList = createSelector(

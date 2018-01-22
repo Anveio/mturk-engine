@@ -1,3 +1,4 @@
+import { delay } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import {
   NotificationPermissionRequest,
@@ -42,7 +43,6 @@ export function* createDesktopNotification(action: SendNotification) {
     body: action.hit.description
   });
 
-  x.onclose = console.log;
-
-  yield 1;
+  yield delay(3000);
+  x.close();
 }
