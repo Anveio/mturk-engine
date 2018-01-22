@@ -225,6 +225,13 @@ export const errorAcceptToast = {
   intent: Intent.WARNING
 };
 
+export const notificationPermissionGrantedToast = () =>
+  TopRightToaster.show({
+    message:
+      'Mturk Engine has permission to send you desktop notifications. You can revoke this permission at any time.',
+    intent: Intent.PRIMARY
+  });
+
 const successfulQueueToast = {
   message: 'Your queue has been refreshed.',
   intent: Intent.PRIMARY,

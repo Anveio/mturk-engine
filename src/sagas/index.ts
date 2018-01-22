@@ -51,7 +51,7 @@ import { downloadPersistedState, importPersistedState } from './backup';
 import { playAudio } from './playAudio';
 import { handleFileUploadRequest } from './uploadFile';
 import {
-  resolveNotificationRequest,
+  resolveNotificationPermissionRequest,
   createDesktopNotification
 } from './notifications';
 import {
@@ -87,7 +87,7 @@ export default function* rootSaga() {
   );
   yield takeLatest<NotificationPermissionRequest>(
     NOTIFICATION_PERM_REQUEST,
-    resolveNotificationRequest
+    resolveNotificationPermissionRequest
   );
   yield takeEvery<AcceptHitRequest>(ACCEPT_HIT_REQUEST, acceptHit);
   yield takeEvery<FetchStatusDetailRequest>(

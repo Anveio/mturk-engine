@@ -7,8 +7,9 @@ import {
   SendNotification
 } from '../actions/notifications';
 import { requestNotificationPermission } from '../utils/notifications';
+import { notificationPermissionGrantedToast } from '../utils/toaster';
 
-export function* resolveNotificationRequest(
+export function* resolveNotificationPermissionRequest(
   action: NotificationPermissionRequest
 ) {
   try {
@@ -21,6 +22,7 @@ export function* resolveNotificationRequest(
         yield put<NotificationPermissionUpdate>(
           notificationPermissionSuccess()
         );
+        notificationPermissionGrantedToast();
         break;
       case 'default':
       case 'denied':
