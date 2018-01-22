@@ -1,3 +1,5 @@
+import { SearchResult } from '../types';
+
 export var requestNotificationPermission = async (): Promise<
   NotificationPermission
 > => {
@@ -8,3 +10,8 @@ export var requestNotificationPermission = async (): Promise<
     return 'denied';
   }
 };
+
+export const acceptHitOnClick = ({ groupId }: SearchResult) => () =>
+  window.open(
+    `https://worker.mturk.com/projects/${groupId}/tasks/accept_random`
+  );

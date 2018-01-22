@@ -7,7 +7,10 @@ import {
   notificationPermissionSuccess,
   SendNotification
 } from '../actions/notifications';
-import { requestNotificationPermission } from '../utils/notifications';
+import {
+  requestNotificationPermission,
+  acceptHitOnClick
+} from '../utils/notifications';
 import { notificationPermissionGrantedToast } from '../utils/toaster';
 
 export function* resolveNotificationPermissionRequest(
@@ -38,11 +41,10 @@ export function* resolveNotificationPermissionRequest(
 }
 
 export function* createDesktopNotification(action: SendNotification) {
-  console.log(action);
   const x = new Notification(action.hit.title, {
-    body: action.hit.description
+    body: `Click to accept: ` + action.hit.description
   });
-
-  yield delay(3000);
+  x.onclick = acceptHitOnClick(action.hit);
+  yield delay(6000);
   x.close();
 }
