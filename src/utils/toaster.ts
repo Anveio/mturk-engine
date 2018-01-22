@@ -12,7 +12,7 @@ import { watcherFromId } from './watchers';
 // tslint:disable:quotemark
 
 const loginLink = {
-  href: 'https://www.mturk.com/mturk/beginsignin',
+  href: 'https://worker.mturk.com/',
   target: '_blank',
   text: 'Login Page'
 };
