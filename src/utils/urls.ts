@@ -1,7 +1,6 @@
 import * as qs from 'qs';
 import { QueueItem, HitDatabaseEntry, SearchResult } from '../types';
 import {
-  baseContactUrlLegacy,
   baseContactUrlWorker,
   baseAcceptUrlLegacy,
   baseAcceptUrlWorker,
@@ -31,34 +30,25 @@ export const generateContinueWorkUrl = (hit: QueueItem, legacy = false) =>
         hit.taskId
       }?assignment_id=${hit.hitId}`;
 
-export const generateContactLink = (
-  hit: HitDatabaseEntry,
-  legacy = false
-): string => {
-  return legacy
-    ? generateLegacyContactLink(hit)
-    : generateWorkerContactLink(hit);
-};
+// const generateLegacyContactLink = (hit: HitDatabaseEntry) => {
+//   const { requester, id, title } = hit;
+//   return (
+//     baseContactUrlLegacy +
+//     'requesterId=' +
+//     requester.id +
+//     '&hitId=' +
+//     id +
+//     '&requesterName=' +
+//     requester.name +
+//     '&subject=Regarding Amazon Mechanical Turk HIT' +
+//     id +
+//     '&hitTitle=' +
+//     title +
+//     noRedirectParam
+//   );
+// };
 
-const generateLegacyContactLink = (hit: HitDatabaseEntry) => {
-  const { requester, id, title } = hit;
-  return (
-    baseContactUrlLegacy +
-    'requesterId=' +
-    requester.id +
-    '&hitId=' +
-    id +
-    '&requesterName=' +
-    requester.name +
-    '&subject=Regarding Amazon Mechanical Turk HIT' +
-    id +
-    '&hitTitle=' +
-    title +
-    noRedirectParam
-  );
-};
-
-const generateWorkerContactLink = (hit: HitDatabaseEntry) => {
+export const generateContactLink = (hit: HitDatabaseEntry) => {
   const { requester, id, title } = hit;
   return (
     baseContactUrlWorker +
@@ -82,15 +72,18 @@ const generateWorkerContactLink = (hit: HitDatabaseEntry) => {
 export const generateContactLinkSearchResult = (hit: SearchResult) => {
   const { requester, groupId, title } = hit;
   return (
-    'https://www.mturk.com/mturk/contact?requesterId=' +
-    requester.id +
-    '&requesterName=' +
-    requester.name +
-    '&subject=Regarding Amazon Mechanical Turk HIT of group ID ' +
-    groupId +
-    '&hitTitle=' +
-    title +
-    noRedirectParam
+    baseContactUrlWorker +
+    qs.stringify(
+      {
+        assignment_message: {
+          subject: `Regarding Amazon Mechanical Turk group ID ${groupId}`
+        },
+        requester_id: requester.id,
+        requester_name: requester.name,
+        title: title
+      },
+      { arrayFormat: 'brackets' }
+    )
   );
 };
 
