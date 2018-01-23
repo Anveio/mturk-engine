@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { RootState, HitDatabaseEntry } from '../../../types';
+import {
+  RootState,
+  HitDatabaseEntry,
+  WorkerHitDatabaseEntry
+} from '../../../types';
 import { connect } from 'react-redux';
 import { ResourceList } from '@shopify/polaris';
 import { generateReviewLink } from '../../../utils/turkopticon';
@@ -36,10 +40,12 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
       ? `${formatAsCurrency(reward)} + ${formatAsCurrency(bonus)}`
       : `${formatAsCurrency(reward)}`;
 
-  private generateActions = () => [
+  private generateActions = (assignmentId?: string) => [
     {
       content: 'Contact',
-      url: generateContactLink(this.props.hit),
+      url: assignmentId
+        ? generateContactLink(this.props.hit as WorkerHitDatabaseEntry)
+        : undefined,
       external: true,
       disabled: this.props.hit.assignmentId ? false : true
     },
@@ -57,7 +63,7 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
   };
 
   public render() {
-    const { hit: { title, reward, bonus, status } } = this.props;
+    const { hit: { title, reward, bonus, status, assignmentId } } = this.props;
     return (
       <React.Fragment>
         <div onClick={this.handleExpand}>
@@ -66,7 +72,7 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
             attributeOne={CompletedHitItem.displayEarnings(reward, bonus)}
             attributeTwo={truncate(title, 100)}
             badges={[generateHitStatusBadge(status)]}
-            actions={this.generateActions()}
+            actions={this.generateActions(assignmentId)}
           />
         </div>
         <HitDbEntryCollapsible

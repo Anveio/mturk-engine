@@ -1,5 +1,5 @@
 import * as qs from 'qs';
-import { QueueItem, HitDatabaseEntry, SearchResult } from '../types';
+import { QueueItem, SearchResult, WorkerHitDatabaseEntry } from '../types';
 import {
   baseContactUrlWorker,
   baseAcceptUrlLegacy,
@@ -48,14 +48,14 @@ export const generateContinueWorkUrl = (hit: QueueItem, legacy = false) =>
 //   );
 // };
 
-export const generateContactLink = (hit: HitDatabaseEntry) => {
-  const { requester, id, title } = hit;
+export const generateContactLink = (hit: WorkerHitDatabaseEntry) => {
+  const { requester, id, assignmentId, title } = hit;
   return (
     baseContactUrlWorker +
     qs.stringify(
       {
         assignment_message: {
-          assignment_id: id,
+          assignment_id: assignmentId,
           subject: `Regarding Amazon Mechanical Turk HIT ${id}`
         },
         completed_date: legacyDateFormatToContactDateFormat(hit.date),
