@@ -160,6 +160,7 @@ interface NotificationSettings {
   readonly hasPermission: boolean;
   readonly enabled: boolean;
   readonly minReward: number;
+  readonly durationInSeconds: number;
 }
 
 interface BlockedHit extends SearchResult {

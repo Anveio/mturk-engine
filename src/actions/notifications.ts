@@ -1,15 +1,18 @@
 import {
   NOTIFICATION_PERM_REQUEST,
   NOTIFICATION_PERM_UPDATE,
-  EDIT_NOTIFICATION_THRESHOLD,
+  EDIT_NOTIFICATION_FIELD,
   TOGGLE_NOTIFICATIONS,
   SEND_NOTIFICATION
 } from '../constants/index';
 import { SearchResult } from '../types';
 
+export type EditableNotificationField = 'minReward' | 'durationInSeconds';
+
 export interface SendNotification {
   readonly type: SEND_NOTIFICATION;
   readonly hit: SearchResult;
+  readonly durationInSeconds: number;
 }
 
 export interface NotificationPermissionRequest {
@@ -21,8 +24,9 @@ export interface NotificationPermissionUpdate {
   readonly value: boolean;
 }
 
-export interface EditNotificationThreshold {
-  readonly type: EDIT_NOTIFICATION_THRESHOLD;
+export interface EditNotificationField {
+  readonly type: EDIT_NOTIFICATION_FIELD;
+  readonly field: EditableNotificationField;
   readonly value: number;
 }
 
@@ -51,10 +55,12 @@ export const notificationPermissionSuccess = (): NotificationPermissionUpdate =>
   value: true
 });
 
-export const editNotificationThreshold = (
+export const editNotificationField = (
+  field: EditableNotificationField,
   value: number
-): EditNotificationThreshold => ({
-  type: EDIT_NOTIFICATION_THRESHOLD,
+): EditNotificationField => ({
+  type: EDIT_NOTIFICATION_FIELD,
+  field,
   value
 });
 
@@ -62,7 +68,11 @@ export const toggleNotifications = (): ToggleNotifications => ({
   type: TOGGLE_NOTIFICATIONS
 });
 
-export const sendNotification = (hit: SearchResult): SendNotification => ({
+export const sendNotification = (
+  hit: SearchResult,
+  durationInSeconds: number
+): SendNotification => ({
   type: SEND_NOTIFICATION,
-  hit
+  hit,
+  durationInSeconds
 });

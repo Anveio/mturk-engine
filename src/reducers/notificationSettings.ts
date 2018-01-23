@@ -1,25 +1,26 @@
 import {
   NOTIFICATION_PERM_UPDATE,
-  EDIT_NOTIFICATION_THRESHOLD,
+  EDIT_NOTIFICATION_FIELD,
   TOGGLE_NOTIFICATIONS
 } from '../constants';
 import { NotificationSettings } from '../types';
 import {
   NotificationPermissionUpdate,
-  EditNotificationThreshold,
+  EditNotificationField,
   ToggleNotifications
 } from '../actions/notifications';
 
 const initial: NotificationSettings = {
   hasPermission: false,
   enabled: false,
-  minReward: 0.75
+  minReward: 0.75,
+  durationInSeconds: 6
 };
 
 type NotificationAction =
   | NotificationPermissionUpdate
   | ToggleNotifications
-  | EditNotificationThreshold;
+  | EditNotificationField;
 
 export default (
   state = initial,
@@ -36,10 +37,10 @@ export default (
         ...state,
         enabled: !state.enabled
       };
-    case EDIT_NOTIFICATION_THRESHOLD:
+    case EDIT_NOTIFICATION_FIELD:
       return {
         ...state,
-        minReward: action.value
+        [action.field]: action.value
       };
     default:
       return state;

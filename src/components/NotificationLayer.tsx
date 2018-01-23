@@ -17,7 +17,7 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onUnreadHit: (hit: SearchResult) => void;
+  readonly onUnreadHit: (hit: SearchResult, durationInSeconds: number) => void;
 }
 
 class NotificationLayer extends React.Component<Props & Handlers, never> {
@@ -32,7 +32,7 @@ class NotificationLayer extends React.Component<Props & Handlers, never> {
         notificationSettings.minReward
       );
       resultsToNotify.forEach((result: SearchResult) =>
-        this.props.onUnreadHit(result)
+        this.props.onUnreadHit(result, notificationSettings.durationInSeconds)
       );
     }
   }
@@ -42,7 +42,7 @@ class NotificationLayer extends React.Component<Props & Handlers, never> {
     minReward: number
   ) =>
     /**
-     * Users can receive 3 desktop notifications at a time. 
+     * Users can receive 3 desktop notifications at a time.
      * So send notifications for only the 3 highest paying HITs.
      */
 
@@ -63,8 +63,8 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<SendNotification>): Handlers => ({
-  onUnreadHit: (hit: SearchResult) => {
-    dispatch(sendNotification(hit));
+  onUnreadHit: (hit: SearchResult, durationInSeconds: number) => {
+    dispatch(sendNotification(hit, durationInSeconds));
   }
 });
 

@@ -45,6 +45,6 @@ export function* createDesktopNotification(action: SendNotification) {
     body: `Click to accept: ` + action.hit.description
   });
   x.onclick = acceptHitOnClick(action.hit);
-  yield delay(6000);
+  yield delay(action.durationInSeconds * 1000);
   x.close();
 }
