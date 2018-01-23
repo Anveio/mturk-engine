@@ -40,7 +40,8 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
     {
       content: 'Contact',
       url: generateContactLink(this.props.hit),
-      external: true
+      external: true,
+      disabled: this.props.hit.assignmentId ? false : true
     },
     {
       content: 'Review',

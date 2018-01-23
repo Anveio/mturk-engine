@@ -12,7 +12,7 @@ import { Map } from 'immutable';
 import {
   updateTurkopticon,
   resultsThatAppearInBoth,
-  conflictsUseOldMarkedAsReadProp,
+  conflictsUseOldMarkedAsReadProp
 } from '../utils/search';
 import { noTurkopticon } from '../utils/turkopticon';
 // import sampleHits from '../utils/sampleHits';
@@ -24,8 +24,12 @@ type SearchResultAction = SearchAction | MarkAction | TOpticonAction;
 export default (state = initial, action: SearchResultAction): SearchResults => {
   switch (action.type) {
     case SEARCH_SUCCESS:
-      return (state.filter(resultsThatAppearInBoth(action)) as SearchResults)
-        .mergeWith(conflictsUseOldMarkedAsReadProp, action.data)
+      return (state.filter(
+        resultsThatAppearInBoth(action)
+      ) as SearchResults).mergeWith(
+        conflictsUseOldMarkedAsReadProp,
+        action.data
+      );
     case FETCH_TURKOPTICON_SUCCESS:
       return state.merge(state
         .filter(noTurkopticon)

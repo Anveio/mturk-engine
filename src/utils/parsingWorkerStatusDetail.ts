@@ -1,4 +1,8 @@
-import { HitDatabaseEntry, HitDatabaseMap } from '../types';
+import {
+  HitDatabaseEntry,
+  HitDatabaseMap,
+  WorkerHitDatabaseEntry
+} from '../types';
 import { Map } from 'immutable';
 import { StatusDetailPageInfo } from '../api/statusDetail';
 import {
@@ -32,12 +36,12 @@ const tabulateHitDbEntries = (
   hits.reduce((map: HitDatabaseMap, hit: WorkerSubmittedHit) => {
     return map.set(hit.hit_id, generateHitDbEntry(hit, legacyDateString));
     // tslint:disable-next-line:align
-  }, Map<string, HitDatabaseEntry>());
+  }, Map<string, WorkerHitDatabaseEntry>());
 
 const generateHitDbEntry = (
   submittedHit: WorkerSubmittedHit,
   dateString: string
-): HitDatabaseEntry => {
+): WorkerHitDatabaseEntry => {
   const {
     hit_id,
     requester_id,
@@ -45,7 +49,8 @@ const generateHitDbEntry = (
     requester_feedback,
     reward: { amount_in_dollars },
     title,
-    state
+    state,
+    assignment_id
   } = submittedHit;
   return {
     id: hit_id,
@@ -58,6 +63,7 @@ const generateHitDbEntry = (
     date: dateString,
     status: state,
     title: title,
+    assignmentId: assignment_id,
     feedback: requester_feedback || undefined
   };
 };

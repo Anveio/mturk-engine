@@ -131,7 +131,7 @@ interface SearchResult extends HumanIntelligenceTask {
   readonly canPreview: boolean;
 }
 
-interface HitDatabaseEntry {
+interface LegacyHitDatabaseEntry {
   readonly id: string;
   readonly date: string; // In MMDDYYYY Format
   readonly title: string;
@@ -144,7 +144,14 @@ interface HitDatabaseEntry {
   };
   readonly groupId?: string;
   readonly feedback?: string;
+  readonly assignmentId?: string;
 }
+
+interface WorkerHitDatabaseEntry extends LegacyHitDatabaseEntry {
+  readonly assignmentId: string;
+}
+
+export type HitDatabaseEntry = LegacyHitDatabaseEntry | WorkerHitDatabaseEntry;
 
 interface QueueItem {
   readonly title: string;
