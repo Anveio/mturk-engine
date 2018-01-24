@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Collapsible, Card, Stack, TextStyle, Caption } from '@shopify/polaris';
+import { Collapsible, Card, Stack, Caption } from '@shopify/polaris';
 import { SearchResult, RootState } from '../../types';
 import MiscActionsPopover from './MiscActionsPopover';
 import ExternalPlainButtons from './ExternalPlainButtons';
@@ -25,20 +25,14 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
       <Collapsible open={expanded}>
         <Card.Section>
           <Stack vertical spacing="loose" distribution="equalSpacing">
+            <Caption>{`Requester: ${requester.name}`}</Caption>
             <Caption>
-              Requester:{' '}
-              <TextStyle variation="subdued">{`${requester.name}`}</TextStyle>
+              {`Description: ${description || 'No description.'}`}
             </Caption>
             <Caption>
-              Description:{' '}
-              <TextStyle variation="subdued">{`${description ||
-                'No description.'}`}</TextStyle>
-            </Caption>
-            <Caption>
-              Time allotted:{' '}
-              <TextStyle variation="subdued">{`${secondsToMinutes(
+              {`Time allotted: ${secondsToMinutes(
                 timeAllottedInSeconds
-              )} minutes.`}</TextStyle>
+              )} minutes.`}
             </Caption>
             <Stack vertical={false} alignment="center">
               <MiscActionsPopover hit={hit} />
