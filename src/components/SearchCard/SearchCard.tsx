@@ -27,7 +27,6 @@ import { hitDatabaseToUniqueRequesters } from '../../selectors/hitDatabase';
 
 export interface Props {
   readonly hit: SearchResult;
-  readonly expanded: boolean;
   readonly attributeWeights: AttributeWeights;
   readonly knownRequester: boolean;
 }
@@ -102,8 +101,8 @@ class SearchCard extends React.PureComponent<
   };
 
   public render() {
-    const { hit, expanded, attributeWeights, knownRequester } = this.props;
-    const { qualified, title, requester, markedAsRead } = hit;
+    const { hit, attributeWeights, knownRequester } = this.props;
+    const { groupId, qualified, title, requester, markedAsRead } = hit;
 
     const attributeScores =
       ((requester.turkopticon &&
@@ -135,7 +134,7 @@ class SearchCard extends React.PureComponent<
           />
         </div>
 
-        <CollapsibleInfo open={!!expanded} hit={this.props.hit} />
+        <CollapsibleInfo groupId={groupId} />
       </React.Fragment>
     );
   }
@@ -151,7 +150,6 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
   const hit = state.search.get(ownProps.groupId);
   return {
     hit,
-    expanded: !!state.expandedSearchResults.get(ownProps.groupId),
     attributeWeights: attributeWeightsSelector(state),
     knownRequester: !!hitDatabaseToUniqueRequesters(state).get(hit.requester.id)
   };
