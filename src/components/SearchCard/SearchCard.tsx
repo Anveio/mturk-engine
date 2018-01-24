@@ -18,16 +18,18 @@ import {
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
 import { truncate } from '../../utils/formatting';
-import { qualException } from '../../utils/exceptions';
+import { generateSearchCardExceptions } from '../../utils/exceptions';
 import { generateTOpticonBadge } from '../../utils/badges';
 import { blockedHitFactory } from '../../utils/blocklist';
 import { calculateWeightedAverageScore } from '../../utils/turkopticon';
 import { attributeWeightsSelector } from '../../selectors/turkopticon';
+import { hitDatabaseToUniqueRequesters } from '../../selectors/hitDatabase';
 
 export interface Props {
   readonly hit: SearchResult;
   readonly expanded: boolean;
   readonly attributeWeights: AttributeWeights;
+  readonly knownRequester: boolean;
 }
 
 export interface OwnProps {
@@ -100,7 +102,7 @@ class SearchCard extends React.PureComponent<
   };
 
   public render() {
-    const { hit, expanded, attributeWeights } = this.props;
+    const { hit, expanded, attributeWeights, knownRequester } = this.props;
     const { qualified, title, requester, markedAsRead } = hit;
 
     const attributeScores =
@@ -115,7 +117,7 @@ class SearchCard extends React.PureComponent<
         >
           <ResourceList.Item
             actions={this.generateActions(!!markedAsRead)}
-            exceptions={qualException(qualified)}
+            exceptions={generateSearchCardExceptions(qualified, knownRequester)}
             badges={generateTOpticonBadge(
               attributeScores
                 ? calculateWeightedAverageScore(
@@ -145,11 +147,15 @@ type SearchTableAction =
   | ExpandAction
   | MarkHitAsRead;
 
-const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  hit: state.search.get(ownProps.groupId),
-  expanded: !!state.expandedSearchResults.get(ownProps.groupId),
-  attributeWeights: attributeWeightsSelector(state)
-});
+const mapState = (state: RootState, ownProps: OwnProps): Props => {
+  const hit = state.search.get(ownProps.groupId);
+  return {
+    hit,
+    expanded: !!state.expandedSearchResults.get(ownProps.groupId),
+    attributeWeights: attributeWeightsSelector(state),
+    knownRequester: !!hitDatabaseToUniqueRequesters(state).get(hit.requester.id)
+  };
+};
 
 const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   onAccept: (hit: SearchResult) => {

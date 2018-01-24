@@ -3,7 +3,9 @@ import {
   RootState,
   HitDatabaseEntry,
   HitDatabaseMap,
-  HeatMapValue
+  HeatMapValue,
+  Requester,
+  RequesterMap
 } from '../types';
 import { generateOneYearOfDates, todayFormatted } from '../utils/dates';
 import {
@@ -83,5 +85,15 @@ export const todaysProjectedEarnings = createSelector(
     hits.reduce(
       (acc: number, cur: HitDatabaseEntry) => acc + rewardAndBonus(cur),
       0
+    )
+);
+
+export const hitDatabaseToUniqueRequesters = createSelector(
+  [hitDatabaseSelector],
+  database =>
+    database.reduceRight(
+      (acc: RequesterMap, cur: HitDatabaseEntry): RequesterMap =>
+        acc.set(cur.requester.id, cur.requester),
+      Map<string, Requester>()
     )
 );
