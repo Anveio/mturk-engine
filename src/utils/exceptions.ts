@@ -1,23 +1,40 @@
 type ExceptionStatus = 'neutral' | 'warning' | 'critical';
-export interface ExceptionDescriptor {
-  status?: ExceptionStatus;
-  title?: string;
-  description?: string;
+interface ExceptionDescriptor {
+  readonly status?: ExceptionStatus;
+  readonly title?: string;
+  readonly description?: string;
 }
 
-export const qualException = (qualified: boolean): ExceptionDescriptor | null =>
-  !qualified ? { status: 'warning', title: 'Not qualified.' } : null;
+interface ExceptionGenerator<T = boolean> {
+  (condition: T): ExceptionDescriptor | null;
+}
 
-export const knownRequesterException = (
-  requesterInDatabase: boolean
-): ExceptionDescriptor | null =>
-  requesterInDatabase ? { title: 'Requester in database.' } : null;
+const qualException = (qualified: boolean): ExceptionDescriptor | null =>
+  !qualified ? { status: 'critical', title: 'Not qualified' } : null;
+
+const knownRequesterException: ExceptionGenerator = requesterInDatabase =>
+  requesterInDatabase
+    ? {
+        status: 'neutral',
+        title: 'Requester in database'
+      }
+    : null;
+
+const hitsInQueueException: ExceptionGenerator<number> = hitsInQueue =>
+  hitsInQueue > 0
+    ? {
+        status: 'neutral',
+        title: `${hitsInQueue} HIT in queue`
+      }
+    : null;
 
 export const generateSearchCardExceptions = (
   qualified: boolean,
-  requesterInDatabase: boolean
+  requesterInDatabase: boolean,
+  hitsInQueue: number
 ): ExceptionDescriptor[] =>
   [
     qualException(qualified),
-    knownRequesterException(requesterInDatabase)
+    knownRequesterException(requesterInDatabase),
+    hitsInQueueException(hitsInQueue)
   ].filter(maybeException => maybeException !== null) as ExceptionDescriptor[];

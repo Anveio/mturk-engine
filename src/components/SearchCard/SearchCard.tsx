@@ -23,12 +23,14 @@ import { generateTOpticonBadge } from '../../utils/badges';
 import { blockedHitFactory } from '../../utils/blocklist';
 import { calculateWeightedAverageScore } from '../../utils/turkopticon';
 import { attributeWeightsSelector } from '../../selectors/turkopticon';
-import { hitDatabaseToUniqueRequesters } from '../../selectors/hitDatabase';
+import { hitDatabaseToRequesterMap } from '../../selectors/hitDatabase';
+import { uniqueGroupIdsInQueueHistogram } from '../../selectors/queue';
 
 export interface Props {
   readonly hit: SearchResult;
   readonly attributeWeights: AttributeWeights;
   readonly knownRequester: boolean;
+  readonly hitsInQueue: number;
 }
 
 export interface OwnProps {
@@ -101,12 +103,18 @@ class SearchCard extends React.PureComponent<
   };
 
   public render() {
-    const { hit, attributeWeights, knownRequester } = this.props;
+    const { hit, attributeWeights, knownRequester, hitsInQueue } = this.props;
     const { groupId, qualified, title, requester, markedAsRead } = hit;
 
     const attributeScores =
       ((requester.turkopticon &&
         requester.turkopticon.scores) as RequesterAttributes) || null;
+
+    const exceptions = generateSearchCardExceptions(
+      qualified,
+      knownRequester,
+      hitsInQueue
+    );
 
     return (
       <React.Fragment>
@@ -116,7 +124,7 @@ class SearchCard extends React.PureComponent<
         >
           <ResourceList.Item
             actions={this.generateActions(!!markedAsRead)}
-            exceptions={generateSearchCardExceptions(qualified, knownRequester)}
+            exceptions={exceptions}
             badges={generateTOpticonBadge(
               attributeScores
                 ? calculateWeightedAverageScore(
@@ -151,7 +159,8 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
   return {
     hit,
     attributeWeights: attributeWeightsSelector(state),
-    knownRequester: !!hitDatabaseToUniqueRequesters(state).get(hit.requester.id)
+    knownRequester: !!hitDatabaseToRequesterMap(state).get(hit.requester.id),
+    hitsInQueue: uniqueGroupIdsInQueueHistogram(state).get(ownProps.groupId) || 0
   };
 };
 

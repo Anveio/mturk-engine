@@ -88,7 +88,7 @@ export const todaysProjectedEarnings = createSelector(
     )
 );
 
-export const hitDatabaseToUniqueRequesters = createSelector(
+export const hitDatabaseToRequesterMap = createSelector(
   [hitDatabaseSelector],
   database =>
     database.reduceRight(
