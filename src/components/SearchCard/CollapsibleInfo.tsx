@@ -1,23 +1,28 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import { Collapsible, Card, Stack, TextStyle, Caption } from '@shopify/polaris';
-import { SearchResult } from '../../types';
+import { SearchResult, RootState } from '../../types';
 import MiscActionsPopover from './MiscActionsPopover';
 import ExternalPlainButtons from './ExternalPlainButtons';
 import BlockRequesterButton from './BlockRequesterButton';
 import { secondsToMinutes } from '../../utils/dates';
 
-export interface Props {
-  readonly open: boolean;
+interface Props {
   readonly hit: SearchResult;
+  readonly expanded: boolean;
+}
+
+interface OwnProps {
+  readonly groupId: string;
 }
 
 class CollapsibleInfo extends React.PureComponent<Props, never> {
   public render() {
-    const { open, hit } = this.props;
+    const { hit, expanded } = this.props;
     const { description, timeAllottedInSeconds, requester } = hit;
 
     return (
-      <Collapsible open={open}>
+      <Collapsible open={expanded}>
         <Card.Section>
           <Stack vertical spacing="loose" distribution="equalSpacing">
             <Caption>
@@ -47,4 +52,9 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
   }
 }
 
-export default CollapsibleInfo;
+const mapState = (state: RootState, ownProps: OwnProps): Props => ({
+  hit: state.search.get(ownProps.groupId),
+  expanded: !!state.expandedSearchResults.get(ownProps.groupId)
+});
+
+export default connect(mapState)(CollapsibleInfo);
