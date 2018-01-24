@@ -32,8 +32,8 @@ export function* fetchSearchResults(action: SearchRequest) {
     );
 
     if (hitData.isEmpty()) {
-      yield put<SearchFailure>(searchFailure());
       failedSearchToast();
+      return yield put<SearchFailure>(searchFailure());
     } else {
       yield put<SearchSuccess>(searchSuccess(hitData));
       yield put<FetchTOpticonRequest>(
