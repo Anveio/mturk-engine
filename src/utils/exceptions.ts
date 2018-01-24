@@ -5,6 +5,19 @@ export interface ExceptionDescriptor {
   description?: string;
 }
 
-export const qualException = (qualified: boolean): ExceptionDescriptor[] => {
-  return !qualified ? [{ status: 'warning', title: 'Not qualified.' }] : [];
-};
+export const qualException = (qualified: boolean): ExceptionDescriptor | null =>
+  !qualified ? { status: 'warning', title: 'Not qualified.' } : null;
+
+export const knownRequesterException = (
+  requesterInDatabase: boolean
+): ExceptionDescriptor | null =>
+  requesterInDatabase ? { title: 'Requester in database.' } : null;
+
+export const generateSearchCardExceptions = (
+  qualified: boolean,
+  requesterInDatabase: boolean
+): ExceptionDescriptor[] =>
+  [
+    qualException(qualified),
+    knownRequesterException(requesterInDatabase)
+  ].filter(maybeException => maybeException !== null) as ExceptionDescriptor[];
