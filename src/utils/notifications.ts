@@ -1,4 +1,6 @@
 import { SearchResult } from '../types';
+import { formatAsCurrency } from './formatting';
+import { secondsToMinutes } from './dates';
 
 export var requestNotificationPermission = async (): Promise<
   NotificationPermission
@@ -9,6 +11,21 @@ export var requestNotificationPermission = async (): Promise<
     console.warn(e);
     return 'denied';
   }
+};
+export const createNotificationFromSearchResult = (
+  hit: SearchResult
+): Notification => {
+  const { title, reward, description, timeAllottedInSeconds } = hit;
+  const notification = new Notification(
+    `${formatAsCurrency(reward)} - ${title}`,
+    {
+      body: `Click to accept - ${secondsToMinutes(
+        timeAllottedInSeconds
+      )} minutes allotted - ${description}`
+    }
+  );
+  notification.onclick = acceptHitOnClick(hit);
+  return notification;
 };
 
 export const acceptHitOnClick = ({ groupId }: SearchResult) => () =>

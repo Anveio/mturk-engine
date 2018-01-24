@@ -9,7 +9,7 @@ import {
 } from '../actions/notifications';
 import {
   requestNotificationPermission,
-  acceptHitOnClick
+  createNotificationFromSearchResult
 } from '../utils/notifications';
 import { notificationPermissionGrantedToast } from '../utils/toaster';
 
@@ -41,10 +41,7 @@ export function* resolveNotificationPermissionRequest(
 }
 
 export function* createDesktopNotification(action: SendNotification) {
-  const x = new Notification(action.hit.title, {
-    body: `Click to accept: ` + action.hit.description
-  });
-  x.onclick = acceptHitOnClick(action.hit);
+  const notification = createNotificationFromSearchResult(action.hit);
   yield delay(action.durationInSeconds * 1000);
-  x.close();
+  notification.close();
 }
