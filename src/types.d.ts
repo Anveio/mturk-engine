@@ -31,14 +31,14 @@ export interface RootState {
   readonly notificationSettings: NotificationSettings;
 }
 
-export type SearchResults = Map<string, SearchResult>;
-export type QueueMap = Map<string, QueueItem>;
-export type RequesterMap = Map<string, Requester>;
-export type HitBlockMap = Map<string, BlockedHit>;
-export type RequesterBlockMap = Map<string, BlockedRequester>;
-export type WatcherMap = Map<string, Watcher>;
-export type WatcherTimerMap = Map<string, Date>;
-export type HitDatabaseMap = Map<string, HitDatabaseEntry>;
+export type SearchResults = Map<string, SearchResult>; // indexed by groupId
+export type QueueMap = Map<string, QueueItem>; // indexed by hitId
+export type RequesterMap = Map<string, Requester>; // indexed by requesterId
+export type HitBlockMap = Map<string, BlockedHit>; // indexed by groupId
+export type RequesterBlockMap = Map<string, BlockedRequester>; // indexed by requesterId
+export type WatcherMap = Map<string, Watcher>; // indexed by groupId
+export type WatcherTimerMap = Map<string, Date>; // indexed by groupId
+export type HitDatabaseMap = Map<string, HitDatabaseEntry>; // indexed by LEGACY_DATE_FORMAT string
 export type ExpandedSearchResultsMap = Map<string, true>; // indexed by groupId
 
 /**
@@ -143,7 +143,10 @@ export interface SearchResult extends HumanIntelligenceTask {
 
 export interface LegacyHitDatabaseEntry {
   readonly id: string;
-  readonly date: string; // In MMDDYYYY Format
+  /**
+   * In 'MMDDYYYY' Format
+   */
+  readonly date: string;
   readonly title: string;
   readonly reward: number;
   readonly bonus: number;
