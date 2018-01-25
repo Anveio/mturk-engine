@@ -4,8 +4,8 @@ import {
   HitDatabaseEntry,
   HitDatabaseMap,
   HeatMapValue,
-  Requester,
-  RequesterMap
+  RequesterMap,
+  Requester
 } from '../types';
 import { generateOneYearOfDates, todayFormatted } from '../utils/dates';
 import {
@@ -91,9 +91,28 @@ export const todaysProjectedEarnings = createSelector(
 export const hitDatabaseToRequesterMap = createSelector(
   [hitDatabaseSelector],
   database =>
-    database.reduceRight(
+    database.reduce(
       (acc: RequesterMap, cur: HitDatabaseEntry): RequesterMap =>
         acc.set(cur.requester.id, cur.requester),
       Map<string, Requester>()
     )
 );
+
+export const hitDatabaseToRequesterWorkHistoryMap = createSelector(
+  [hitDatabaseSelector],
+  database =>
+    database.reduce(
+      (acc: Map<string, List<HitDatabaseEntry>>, cur: HitDatabaseEntry) =>
+        acc.update(
+          cur.requester.id,
+          (submittedHits: List<HitDatabaseEntry>) =>
+            submittedHits ? submittedHits.push(cur) : List([cur])
+        ),
+      Map<string, List<HitDatabaseEntry>>()
+    )
+);
+
+export const getAllHitsSubmittedToRequester = (requesterId: string) =>
+  createSelector([hitDatabaseToRequesterWorkHistoryMap], workHistory =>
+    workHistory.get(requesterId)
+  );
