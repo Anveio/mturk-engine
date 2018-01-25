@@ -142,7 +142,7 @@ class SearchCard extends React.PureComponent<
           />
         </div>
 
-        <CollapsibleInfo groupId={groupId} />
+        <CollapsibleInfo groupId={groupId} knownRequester={knownRequester} />
       </React.Fragment>
     );
   }
@@ -160,7 +160,8 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
     hit,
     attributeWeights: attributeWeightsSelector(state),
     knownRequester: !!hitDatabaseToRequesterMap(state).get(hit.requester.id),
-    hitsInQueue: uniqueGroupIdsInQueueHistogram(state).get(ownProps.groupId) || 0
+    hitsInQueue:
+      uniqueGroupIdsInQueueHistogram(state).get(ownProps.groupId) || 0
   };
 };
 

@@ -5,6 +5,8 @@ import { SearchResult, RootState } from '../../types';
 import MiscActionsPopover from './MiscActionsPopover';
 import ExternalPlainButtons from './ExternalPlainButtons';
 import BlockRequesterButton from './BlockRequesterButton';
+import KnownRequesterButton from './KnownRequesterButton';
+
 import { secondsToMinutes } from '../../utils/dates';
 
 interface Props {
@@ -14,11 +16,12 @@ interface Props {
 
 interface OwnProps {
   readonly groupId: string;
+  readonly knownRequester: boolean;
 }
 
-class CollapsibleInfo extends React.PureComponent<Props, never> {
+class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
   public render() {
-    const { hit, expanded } = this.props;
+    const { hit, expanded, knownRequester } = this.props;
     const { description, timeAllottedInSeconds, requester } = hit;
 
     return (
@@ -34,6 +37,7 @@ class CollapsibleInfo extends React.PureComponent<Props, never> {
                 timeAllottedInSeconds
               )} minutes.`}
             </Caption>
+            <KnownRequesterButton knownRequester={knownRequester} />
             <Stack vertical={false} alignment="center">
               <MiscActionsPopover hit={hit} />
               <BlockRequesterButton requester={requester} />
