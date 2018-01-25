@@ -18,3 +18,6 @@ export const formatAsCurrency = currencyFormatter.format;
 
 export const removeCurrencyFormatting = (input: string) =>
   input.replace(/[^\d.]/g, '');
+
+export const pluralize = (input: string, size = 2) =>
+  `${input}${size > 1 ? 's' : ''}`;
