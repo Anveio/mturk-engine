@@ -41,6 +41,7 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
             size="large"
             name={accountInfo.fullName}
             initials={accountInfo.fullName}
+            accessibilityLabel="Your first and last name on Mechanical Turk."
           />
           <Stack vertical spacing="tight">
             <UsernameButton fullName={accountInfo.fullName} />
