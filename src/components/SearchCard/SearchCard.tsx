@@ -142,7 +142,11 @@ class SearchCard extends React.PureComponent<
           />
         </div>
 
-        <CollapsibleInfo groupId={groupId} knownRequester={knownRequester} />
+        <CollapsibleInfo
+          groupId={groupId}
+          knownRequester={knownRequester}
+          requesterId={requester.id}
+        />
       </React.Fragment>
     );
   }
