@@ -24,7 +24,7 @@ const hitsInQueueException: ExceptionGenerator<number> = hitsInQueue =>
   hitsInQueue > 0
     ? {
         status: 'neutral',
-        title: `${hitsInQueue} HIT in queue`
+        title: `${hitsInQueue} HIT${hitsInQueue > 1 ? 's' : ''} in queue`
       }
     : null;
 
