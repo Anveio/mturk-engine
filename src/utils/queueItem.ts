@@ -1,5 +1,5 @@
 import { Props as ItemProps } from '@shopify/polaris/types/components/ResourceList/Item';
-import { QueueItem } from '../types';
+import { QueueItem, SearchResult } from '../types';
 import { truncate } from './formatting';
 import * as v4 from 'uuid/v4';
 
@@ -20,3 +20,16 @@ export const blankQueueItem = (groupId: string): QueueItem => ({
   timeLeftInSeconds: 10000,
   title: 'REFRESH_REQUIRED'
 });
+
+export const queueItemFromSearchResult = (hit: SearchResult): QueueItem => {
+  const { groupId, reward, timeAllottedInSeconds, requester, title } = hit;
+  return {
+    groupId,
+    hitId: '[REFRESH_REQUIRED]' + v4(),
+    reward,
+    taskId: '[REFRESH_REQUIRED]' + v4(),
+    timeLeftInSeconds: timeAllottedInSeconds,
+    requesterName: requester.name,
+    title: '[REFRESH_REQUIRED]' + title
+  };
+};
