@@ -28,7 +28,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
     return (
       <Collapsible open={expanded}>
         <Card.Section>
-          <Stack vertical spacing="loose" distribution="equalSpacing">
+          <Stack vertical spacing="loose">
             <Caption>{`Requester: ${requester.name}`}</Caption>
             <Caption>
               {`Description: ${description || 'No description.'}`}
@@ -38,10 +38,11 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
                 timeAllottedInSeconds
               )} minutes.`}
             </Caption>
-            <KnownRequesterButton
-              knownRequester={knownRequester}
-              requesterId={requesterId}
-            />
+            {knownRequester ? (
+              <KnownRequesterButton requesterId={requesterId} />
+            ) : (
+              undefined
+            )}
             <Stack vertical={false} alignment="center">
               <MiscActionsPopover hit={hit} />
               <BlockRequesterButton requester={requester} />

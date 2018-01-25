@@ -3,14 +3,12 @@ import { Popover, Button, PopoverInteractionKind } from '@blueprintjs/core';
 import RecentlySubmittedHits from '../RequesterWorkHistory/RecentlySubmittedHits ';
 
 export interface Props {
-  readonly knownRequester: boolean;
   readonly requesterId: string;
 }
 
 class KnownRequesterButton extends React.PureComponent<Props, never> {
   public render() {
-    const { knownRequester, requesterId } = this.props;
-    return knownRequester ? (
+    return (
       <Popover interactionKind={PopoverInteractionKind.HOVER}>
         <Button
           intent={0}
@@ -19,9 +17,9 @@ class KnownRequesterButton extends React.PureComponent<Props, never> {
         >
           View requester work history
         </Button>
-        <RecentlySubmittedHits requesterId={requesterId} />
+        <RecentlySubmittedHits requesterId={this.props.requesterId} />
       </Popover>
-    ) : null;
+    );
   }
 }
 
