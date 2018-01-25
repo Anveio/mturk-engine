@@ -5,7 +5,7 @@ import {
   WorkerSubmittedHitState
 } from './worker-mturk-api';
 
-interface RootState {
+export interface RootState {
   readonly account: MaybeAccount;
   readonly tab: number;
   readonly queue: QueueMap;
@@ -31,21 +31,21 @@ interface RootState {
   readonly notificationSettings: NotificationSettings;
 }
 
-type SearchResults = Map<string, SearchResult>;
-type QueueMap = Map<string, QueueItem>;
-type RequesterMap = Map<string, Requester>;
-type HitBlockMap = Map<string, BlockedHit>;
-type RequesterBlockMap = Map<string, BlockedRequester>;
-type WatcherMap = Map<string, Watcher>;
-type WatcherTimerMap = Map<string, Date>;
-type HitDatabaseMap = Map<string, HitDatabaseEntry>;
-type ExpandedSearchResultsMap = Map<string, true>; // indexed by groupId
+export type SearchResults = Map<string, SearchResult>;
+export type QueueMap = Map<string, QueueItem>;
+export type RequesterMap = Map<string, Requester>;
+export type HitBlockMap = Map<string, BlockedHit>;
+export type RequesterBlockMap = Map<string, BlockedRequester>;
+export type WatcherMap = Map<string, Watcher>;
+export type WatcherTimerMap = Map<string, Date>;
+export type HitDatabaseMap = Map<string, HitDatabaseEntry>;
+export type ExpandedSearchResultsMap = Map<string, true>; // indexed by groupId
 
 /**
  * The keys of RootState that are persisted by redux-persist.
  * See `PERSISTED_STATE_WHITELIST` in ./constants/settings
  */
-type PersistedStateKey =
+export type PersistedStateKey =
   | 'tab'
   | 'account'
   | 'hitBlocklist'
@@ -59,27 +59,33 @@ type PersistedStateKey =
   | 'dailyEarningsGoal'
   | 'notificationSettings';
 
-type ImmutablePersistedStateKey =
+export type ImmutablePersistedStateKey =
   | 'hitDatabase'
   | 'hitBlocklist'
   | 'watchers'
   | 'requesterBlocklist';
 
-type ImmutablePersistedDataType =
+export type ImmutablePersistedDataType =
   | HitBlockMap
   | RequesterBlockMap
   | WatcherMap
   | HitDatabaseMap;
 
-type PersistedState = Pick<RootState, PersistedStateKey>;
-type ImmutablePersistedState = Pick<RootState, ImmutablePersistedStateKey>;
+export type PersistedState = Pick<RootState, PersistedStateKey>;
+export type ImmutablePersistedState = Pick<
+  RootState,
+  ImmutablePersistedStateKey
+>;
 
-type MaybeAccount = AccountInfo | null;
+export type MaybeAccount = AccountInfo | null;
 
-type FormTarget = 'searchOptions' | 'topticonSettings' | 'useLegacyLinks';
+export type FormTarget =
+  | 'searchOptions'
+  | 'topticonSettings'
+  | 'useLegacyLinks';
 
-type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
-interface SearchOptions {
+export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
+export interface SearchOptions {
   readonly searchTerm: string;
   readonly delay: string;
   readonly minReward: string;
@@ -87,19 +93,23 @@ interface SearchOptions {
   readonly qualifiedOnly: boolean;
 }
 
-type SortingOption = 'Batch Size' | 'Reward' | 'Latest' | 'Weighted T.O.';
+export type SortingOption =
+  | 'Batch Size'
+  | 'Reward'
+  | 'Latest'
+  | 'Weighted T.O.';
 
 /**
  * On the legacy Mturk website, 'Approved' was called 'Pending Payment'
  * and 'Pending' was called 'Pending Approval'. Some users may have the legacy
  * hit statuses in their databases.
  */
-type HitStatus =
+export type HitStatus =
   | WorkerSubmittedHitState
   | 'Pending Payment'
   | 'Pending Approval';
 
-interface AccountInfo {
+export interface AccountInfo {
   readonly id: string;
   readonly fullName: string;
   readonly availableEarnings: number;
@@ -112,7 +122,7 @@ interface AccountInfo {
   readonly numPending: number;
 }
 
-interface HumanIntelligenceTask {
+export interface HumanIntelligenceTask {
   readonly title: string;
   readonly requester: Requester;
   readonly reward: number;
@@ -120,7 +130,7 @@ interface HumanIntelligenceTask {
   readonly description: string;
 }
 
-interface SearchResult extends HumanIntelligenceTask {
+export interface SearchResult extends HumanIntelligenceTask {
   readonly creationTime: number; // Date converted to number
   readonly lastUpdatedTime: number; // Date converted to number
   readonly markedAsRead?: boolean;
@@ -131,7 +141,7 @@ interface SearchResult extends HumanIntelligenceTask {
   readonly canPreview: boolean;
 }
 
-interface LegacyHitDatabaseEntry {
+export interface LegacyHitDatabaseEntry {
   readonly id: string;
   readonly date: string; // In MMDDYYYY Format
   readonly title: string;
@@ -147,13 +157,13 @@ interface LegacyHitDatabaseEntry {
   readonly assignmentId?: string;
 }
 
-interface WorkerHitDatabaseEntry extends LegacyHitDatabaseEntry {
+export interface WorkerHitDatabaseEntry extends LegacyHitDatabaseEntry {
   readonly assignmentId: string;
 }
 
 export type HitDatabaseEntry = LegacyHitDatabaseEntry | WorkerHitDatabaseEntry;
 
-interface QueueItem {
+export interface QueueItem {
   readonly title: string;
   readonly requesterName: string;
   readonly hitId: string;
@@ -163,72 +173,72 @@ interface QueueItem {
   readonly timeLeftInSeconds: number;
 }
 
-interface NotificationSettings {
+export interface NotificationSettings {
   readonly hasPermission: boolean;
   readonly enabled: boolean;
   readonly minReward: number;
   readonly durationInSeconds: number;
 }
 
-interface BlockedHit extends SearchResult {
+export interface BlockedHit extends SearchResult {
   readonly dateBlocked: Date;
 }
 
-interface Requester {
+export interface Requester {
   readonly id: string;
   readonly name: string;
   readonly turkopticon?: RequesterInfo;
 }
 
-interface BlockedRequester extends Requester {
+export interface BlockedRequester extends Requester {
   readonly dateBlocked: Date;
 }
 
-interface TOpticonRequester {
+export interface TOpticonRequester {
   readonly name: string;
   readonly attrs: TOpticonAttributes;
   readonly reviews: number;
   readonly tos_flags: number;
 }
 
-interface TOpticonResponse {
+export interface TOpticonResponse {
   readonly [id: string]: TOpticonRequester;
 }
 
-interface RequesterInfo {
+export interface RequesterInfo {
   readonly scores: RequesterAttributes;
   readonly numReviews: number;
   readonly numTosFlags: number;
 }
 
-interface RequesterAttributes {
+export interface RequesterAttributes {
   readonly comm?: number;
   readonly pay?: number;
   readonly fair?: number;
   readonly fast?: number;
 }
 
-interface TOpticonAttributes {
+export interface TOpticonAttributes {
   readonly comm?: string;
   readonly pay?: string;
   readonly fair?: string;
   readonly fast?: string;
 }
 
-interface TOpticonSettings extends AttributeWeights {
+export interface TOpticonSettings extends AttributeWeights {
   readonly hideBelowThresholdEnabled: boolean;
   readonly hideNoToEnabled: boolean;
   readonly minimumWeightedTO: number;
 }
 
-interface AttributeWeights {
+export interface AttributeWeights {
   readonly payWeight: number;
   readonly fairWeight: number;
   readonly commWeight: number;
   readonly fastWeight: number;
 }
 
-interface Watcher {
+export interface Watcher {
   readonly groupId: string;
   readonly title: string;
   readonly delay: number;
@@ -238,33 +248,28 @@ interface Watcher {
   readonly hit?: HumanIntelligenceTask;
 }
 
-interface AudioSettings {
+export interface AudioSettings {
   readonly enabled: boolean;
   readonly volume: number;
 }
 
-interface AudioFiles {
+export interface AudioFiles {
   readonly audioNewSearch: HTMLAudioElement;
 }
 
-interface HeatMapValue {
+export interface HeatMapValue {
   readonly date: string;
   readonly count: number;
 }
 
-interface DailyEarnings {
+export interface DailyEarnings {
   readonly reward: number;
   readonly bonus: number;
 }
 
-type AcceptHitFailureReason =
+export type AcceptHitFailureReason =
   | 'CAPTCHA'
   | 'NO_AVAILABILITY'
   | 'EXCEEDED_RATE_LIMIT'
   | 'UNQUALIFIED'
   | 'UNKNOWN';
-
-interface QueuePageData {
-  readonly queueAuthToken: string | null;
-  readonly queueItems: QueueMap;
-}
