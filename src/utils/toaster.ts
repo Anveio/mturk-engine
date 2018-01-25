@@ -3,11 +3,11 @@ import { truncate } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsCurrency } from './formatting';
 import { Toaster, Position, Intent, IToastProps } from '@blueprintjs/core';
-import { ImmutablePersistedStateKey } from '../types';
+import { ImmutablePersistedStateKey, SearchResult } from '../types';
 import { GenericWaitingToast } from '../components/Toasts';
 import store from '../store';
 import { addWatcher } from '../actions/watcher';
-import { watcherFromId } from './watchers';
+import { watcherFromSearchResult } from './watchers';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
 
@@ -200,20 +200,17 @@ export const successfulAcceptToast = (title?: string) => ({
   timeout: 5000
 });
 
-export const failedAcceptToast = (
-  groupId: string,
-  title?: string
-): IToastProps => ({
-  message: title
-    ? `Failed to add "${title}" to your queue.`
+export const failedAcceptToast = (hit: SearchResult): IToastProps => ({
+  message: hit.title
+    ? `Failed to add "${hit.title}" to your queue.`
     : `Couldn't add that HIT to your queue.`,
   intent: 2,
   action: {
     text: 'Add as watcher',
     onClick: () => {
-      store.dispatch(addWatcher(watcherFromId(groupId)));
+      store.dispatch(addWatcher(watcherFromSearchResult(hit)));
       TopRightToaster.show({
-        message: `Watcher with ID: ${groupId} added.`,
+        message: `Watcher with title: ${hit.title} added.`,
         intent: Intent.PRIMARY
       });
     }

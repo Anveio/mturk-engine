@@ -14,12 +14,12 @@ import {
   errorAcceptToast,
   failedAcceptToast
 } from '../utils/toaster';
-// import { parseWorkerHit } from '../utils/parsingWorkerHit';
 import { acceptHitFromWatcher } from './acceptHitWatcher';
-import { blankQueueItem } from '../utils/queueItem';
+import { queueItemFromSearchResult } from '../utils/queueItem';
+import { SearchResult } from '../types';
 
 export function* acceptHit(action: AcceptHitRequest) {
-  if (action.fromWatcher) {
+  if (!action.searchResult) {
     return yield acceptHitFromWatcher(action);
   }
 
@@ -34,25 +34,27 @@ export function* acceptHit(action: AcceptHitRequest) {
 
     yield successful
       ? handleSuccessfulAccept(
-          action.groupId,
+          action.searchResult,
           toasterKey,
           action.searchResult && action.searchResult.title
         )
-      : handleFailedAccept(
-          toasterKey,
-          action.groupId,
-          action.searchResult && action.searchResult.title
-        );
+      : handleFailedAccept(toasterKey, action.searchResult);
   } catch (e) {
     yield put<AcceptHitFailure>(acceptHitFailure());
     updateTopRightToaster(toasterKey, errorAcceptToast);
   }
 }
 
-function* handleSuccessfulAccept(groupId: string, key: string, title?: string) {
+function* handleSuccessfulAccept(
+  hit: SearchResult,
+  key: string,
+  title?: string
+) {
   try {
     updateTopRightToaster(key, successfulAcceptToast(title));
-    yield put<AcceptHitSuccess>(acceptHitSuccess(blankQueueItem(groupId)));
+    yield put<AcceptHitSuccess>(
+      acceptHitSuccess(queueItemFromSearchResult(hit))
+    );
   } catch (e) {
     /**
      * Even if there is an error at this point, the hit was successfuly accepted.
@@ -61,7 +63,7 @@ function* handleSuccessfulAccept(groupId: string, key: string, title?: string) {
   }
 }
 
-function* handleFailedAccept(key: string, groupId: string, title?: string) {
+function* handleFailedAccept(key: string, hit: SearchResult) {
   yield put<AcceptHitFailure>(acceptHitFailure());
-  updateTopRightToaster(key, failedAcceptToast(groupId, title));
+  updateTopRightToaster(key, failedAcceptToast(hit));
 }
