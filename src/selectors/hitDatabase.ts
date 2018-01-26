@@ -7,7 +7,11 @@ import {
   RequesterMap,
   Requester
 } from '../types';
-import { generateOneYearOfDates, todayFormatted } from '../utils/dates';
+import {
+  generateOneYearOfDates,
+  todayFormatted,
+  stringToDate
+} from '../utils/dates';
 import {
   rewardAndBonus,
   isPending,
@@ -16,6 +20,7 @@ import {
 
 // import { selectedHitDbDateSelector } from './hitDatabaseDay';
 import { Map, List } from 'immutable';
+import { LEGACY_DATE_FORMAT } from '../constants/misc';
 
 export const hitDatabaseSelector = (state: RootState) => state.hitDatabase;
 
@@ -115,4 +120,15 @@ export const hitDatabaseToRequesterWorkHistoryMap = createSelector(
 export const getAllHitsSubmittedToRequester = (requesterId: string) =>
   createSelector([hitDatabaseToRequesterWorkHistoryMap], workHistory =>
     workHistory.get(requesterId)
+  );
+
+export const allHitsSubmittedToRequesterRecentFirst = (requesterId: string) =>
+  createSelector(
+    [getAllHitsSubmittedToRequester(requesterId)],
+    hits =>
+      hits.sort(
+        (a, b) =>
+          stringToDate(b.date)(LEGACY_DATE_FORMAT).valueOf() -
+          stringToDate(a.date)(LEGACY_DATE_FORMAT).valueOf()
+      ) as List<HitDatabaseEntry>
   );

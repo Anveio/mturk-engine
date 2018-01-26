@@ -12,8 +12,8 @@ import {
 } from '@shopify/polaris';
 import { stringToDate } from '../../utils/dates';
 import { LEGACY_DATE_FORMAT } from '../../constants/misc';
-import { getAllHitsSubmittedToRequester } from '../../selectors/hitDatabase';
-import { pluralize } from '../../utils/formatting';
+import { allHitsSubmittedToRequesterRecentFirst } from '../../selectors/hitDatabase';
+import { pluralize, formatAsCurrency } from '../../utils/formatting';
 
 interface OwnProps {
   readonly requesterId: string;
@@ -40,12 +40,19 @@ class RecentlySubmittedHits extends React.PureComponent<
                 hits.size
               )} from this requester found in your database.`}
             </Heading>
+            {hits.size > 5 ? (
+              <p>Showing the 5 most recently submitted HITs.</p>
+            ) : (
+              undefined
+            )}
           </TextContainer>
           <List>
-            {hits.map((hit: HitDatabaseEntry) => (
+            {hits.slice(0, 5).map((hit: HitDatabaseEntry) => (
               <List.Item key={hit.id}>
                 {hit.title}
-                <Caption>{`Submitted ${stringToDate(hit.date)(
+                <Caption>{`${formatAsCurrency(
+                  hit.reward
+                )} - Submitted ${stringToDate(hit.date)(
                   LEGACY_DATE_FORMAT
                 ).toLocaleDateString()}`}</Caption>
               </List.Item>
@@ -58,7 +65,7 @@ class RecentlySubmittedHits extends React.PureComponent<
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  hits: getAllHitsSubmittedToRequester(ownProps.requesterId)(state)
+  hits: allHitsSubmittedToRequesterRecentFirst(ownProps.requesterId)(state)
 });
 
 export default connect(mapState)(RecentlySubmittedHits);
