@@ -10,9 +10,9 @@ export interface Handlers {
 const EmptyQueue: React.SFC<Handlers> = ({ onRefresh }) => {
   return (
     <NonIdealState
-      title="Your queue is empty"
-      description="You can click refresh or switch to the search tab."
-      visual="refresh"
+      title="Your queue is empty."
+      description="Accept HITs from the search tab and they'll show up here."
+      visual="pt-icon-projects"
       action={
         <Button primary onClick={onRefresh}>
           Refresh
