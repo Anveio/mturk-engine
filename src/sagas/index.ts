@@ -60,15 +60,7 @@ import {
 } from '../actions/notifications';
 
 export default function* rootSaga() {
-  yield takeLatest<ConnectAccountRequest>(
-    CONNECT_ACCOUNT_REQUEST,
-    fetchAccountInfo
-  );
-  yield takeLatest<FetchQueueRequest>(FETCH_QUEUE_REQUEST, fetchUserQueue);
-  yield takeLatest<ReturnHitRequest>(RETURN_HIT_REQUEST, returnHit);
-  yield takeLatest<SearchRequest>(SEARCH_REQUEST, fetchSearchResults);
   yield takeLatest<ScheduleNextSearch>(SCHEDULE_NEXT_SEARCH, searchAfterDelay);
-
   yield takeLatest<FetchTOpticonRequest>(
     FETCH_TURKOPTICON_REQUEST,
     fetchTurkopticon
@@ -89,6 +81,17 @@ export default function* rootSaga() {
     NOTIFICATION_PERM_REQUEST,
     resolveNotificationPermissionRequest
   );
+  yield takeLatest<SearchRequest>(SEARCH_REQUEST, fetchSearchResults);
+  yield takeLatest<WritePersistedState>(
+    WRITE_PERSISTED_STATE,
+    importPersistedState
+  );
+  yield takeEvery<ConnectAccountRequest>(
+    CONNECT_ACCOUNT_REQUEST,
+    fetchAccountInfo
+  );
+  yield takeEvery<FetchQueueRequest>(FETCH_QUEUE_REQUEST, fetchUserQueue);
+  yield takeEvery<ReturnHitRequest>(RETURN_HIT_REQUEST, returnHit);
   yield takeEvery<AcceptHitRequest>(ACCEPT_HIT_REQUEST, acceptHit);
   yield takeEvery<FetchStatusDetailRequest>(
     STATUS_DETAIL_REQUEST,
@@ -102,10 +105,6 @@ export default function* rootSaga() {
   yield takeEvery<ReadPersistedState>(
     READ_PERSISTED_STATE,
     downloadPersistedState
-  );
-  yield takeEvery<WritePersistedState>(
-    WRITE_PERSISTED_STATE,
-    importPersistedState
   );
   yield takeEvery<SendNotification>(
     SEND_NOTIFICATION,
