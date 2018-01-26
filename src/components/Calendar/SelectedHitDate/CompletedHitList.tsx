@@ -9,7 +9,7 @@ import CompletedHitItem from './CompletedHitItem';
 import NoActivity from './NoActivity';
 
 export interface Props {
-  readonly hitsOnSelectedDate: List<string>;
+  readonly hitIds: List<string>;
 }
 
 export interface OwnProps {
@@ -18,12 +18,12 @@ export interface OwnProps {
 
 class CompletedHitList extends React.PureComponent<Props & OwnProps, never> {
   public render() {
-    const { hitsOnSelectedDate, page } = this.props;
+    const { hitIds, page } = this.props;
     const start = RESULTS_PER_PAGE * page;
     const end = start + RESULTS_PER_PAGE;
-    const itemsToShow = hitsOnSelectedDate.slice(start, end);
+    const itemsToShow = hitIds.slice(start, end);
 
-    return hitsOnSelectedDate.size > 0 ? (
+    return hitIds.size > 0 ? (
       <ResourceList
         items={itemsToShow.toArray()}
         renderItem={(id: string) => <CompletedHitItem id={id} />}
@@ -35,7 +35,7 @@ class CompletedHitList extends React.PureComponent<Props & OwnProps, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  hitsOnSelectedDate: hitsOnSelectedDateIds(state)
+  hitIds: hitsOnSelectedDateIds(state)
 });
 
 export default connect(mapState)(CompletedHitList);
