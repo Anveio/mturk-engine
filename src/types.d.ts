@@ -183,7 +183,10 @@ export interface NotificationSettings {
   readonly durationInSeconds: number;
 }
 
-export interface BlockedHit extends SearchResult {
+export interface BlockedHit {
+  readonly groupId: string;
+  readonly title: string;
+  readonly requester: Requester;
   readonly dateBlocked: Date;
 }
 

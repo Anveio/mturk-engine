@@ -5,8 +5,10 @@ import {
   BlockedRequester
 } from '../types';
 
-export const blockedHitFactory = (item: SearchResult): BlockedHit => ({
-  ...item,
+export const blockedHitFactory = (hit: SearchResult): BlockedHit => ({
+  groupId: hit.groupId,
+  requester: hit.requester,
+  title: hit.title,
   dateBlocked: new Date()
 });
 
