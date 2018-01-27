@@ -17,6 +17,7 @@ import { pluralize, formatAsCurrency } from '../../utils/formatting';
 
 interface OwnProps {
   readonly requesterId: string;
+  readonly requesterName: string;
 }
 
 interface Props {
@@ -28,7 +29,7 @@ class RecentlySubmittedHits extends React.PureComponent<
   never
 > {
   public render() {
-    const { hits } = this.props;
+    const { hits, requesterName } = this.props;
     return (
       <Card sectioned>
         <Stack vertical>
@@ -38,7 +39,7 @@ class RecentlySubmittedHits extends React.PureComponent<
                 'HIT',
                 'HITs',
                 hits.size
-              )} from this requester found in your database.`}
+              )} from "${requesterName}" found in your database.`}
             </Heading>
             {hits.size > 5 ? (
               <p>Showing the 5 most recently submitted HITs.</p>

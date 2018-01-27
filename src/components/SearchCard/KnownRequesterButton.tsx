@@ -10,6 +10,7 @@ import RequesterWorkHistory from '../RequesterWorkHistory/RequesterWorkHistory';
 
 interface Props {
   readonly requesterId: string;
+  readonly requesterName: string;
 }
 
 interface State {
@@ -36,7 +37,7 @@ class KnownRequesterButton extends React.PureComponent<Props, State> {
           >
             View requester work history
           </Button>
-          <RecentlySubmittedHits requesterId={this.props.requesterId} />
+          <RecentlySubmittedHits {...this.props} />
         </Popover>
         <Dialog
           isOpen={this.state.modalOpen}

@@ -146,6 +146,7 @@ class SearchCard extends React.PureComponent<
           groupId={groupId}
           knownRequester={knownRequester}
           requesterId={requester.id}
+          requesterName={requester.name}
         />
       </React.Fragment>
     );

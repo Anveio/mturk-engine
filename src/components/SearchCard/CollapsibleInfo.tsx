@@ -17,12 +17,13 @@ interface Props {
 interface OwnProps {
   readonly groupId: string;
   readonly requesterId: string;
+  readonly requesterName: string;
   readonly knownRequester: boolean;
 }
 
 class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
   public render() {
-    const { hit, expanded, knownRequester, requesterId } = this.props;
+    const { hit, expanded, knownRequester } = this.props;
     const { description, timeAllottedInSeconds, requester } = hit;
 
     return (
@@ -39,7 +40,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
               )} minutes.`}
             </Caption>
             {knownRequester ? (
-              <KnownRequesterButton requesterId={requesterId} />
+              <KnownRequesterButton {...this.props} />
             ) : (
               undefined
             )}
