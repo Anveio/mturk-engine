@@ -16,11 +16,12 @@ export const generateTOpticonBadge = (
   }
 
   const status = assignScoreColor(averageScore) as Status;
+  const content = generateContentString(averageScore);
 
   return [
     {
       status,
-      content: generateContentString(averageScore)
+      content
     }
   ];
 };
