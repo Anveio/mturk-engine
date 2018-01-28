@@ -119,7 +119,7 @@ export const hitDatabaseToRequesterWorkHistoryMap = createSelector(
 
 export const getAllHitsSubmittedToRequester = (requesterId: string) =>
   createSelector([hitDatabaseToRequesterWorkHistoryMap], workHistory =>
-    workHistory.get(requesterId)
+    workHistory.get(requesterId, List([]))
   );
 
 export const allHitsSubmittedToRequesterRecentFirst = (requesterId: string) =>

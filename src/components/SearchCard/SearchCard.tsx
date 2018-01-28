@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
+import { List } from 'immutable';
 import {
   SearchResult,
   BlockedHit,
   RootState,
   AttributeWeights,
-  RequesterAttributes
+  RequesterAttributes,
+  HitDatabaseEntry
 } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import { AcceptAction, acceptHitRequestfromSearch } from '../../actions/accept';
@@ -23,13 +25,17 @@ import { generateTOpticonBadge } from '../../utils/badges';
 import { blockedHitFactory } from '../../utils/blocklist';
 import { calculateWeightedAverageScore } from '../../utils/turkopticon';
 import { attributeWeightsSelector } from '../../selectors/turkopticon';
-import { hitDatabaseToRequesterMap } from '../../selectors/hitDatabase';
+import {
+  hitDatabaseToRequesterMap,
+  getAllHitsSubmittedToRequester
+} from '../../selectors/hitDatabase';
 import { uniqueGroupIdsInQueueHistogram } from '../../selectors/queue';
 
 export interface Props {
   readonly hit: SearchResult;
   readonly attributeWeights: AttributeWeights;
   readonly knownRequester: boolean;
+  readonly requesterWorkHistory: List<HitDatabaseEntry>;
   readonly hitsInQueue: number;
 }
 
@@ -103,7 +109,13 @@ class SearchCard extends React.PureComponent<
   };
 
   public render() {
-    const { hit, attributeWeights, knownRequester, hitsInQueue } = this.props;
+    const {
+      hit,
+      attributeWeights,
+      knownRequester,
+      hitsInQueue,
+      requesterWorkHistory
+    } = this.props;
     const { groupId, qualified, title, requester, markedAsRead } = hit;
 
     const attributeScores =
@@ -112,7 +124,7 @@ class SearchCard extends React.PureComponent<
 
     const exceptions = generateSearchCardExceptions(
       qualified,
-      knownRequester,
+      { knownRequester, numPreviouslySubmittedHits: requesterWorkHistory.size },
       hitsInQueue
     );
 
@@ -166,7 +178,10 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
     attributeWeights: attributeWeightsSelector(state),
     knownRequester: !!hitDatabaseToRequesterMap(state).get(hit.requester.id),
     hitsInQueue:
-      uniqueGroupIdsInQueueHistogram(state).get(ownProps.groupId) || 0
+      uniqueGroupIdsInQueueHistogram(state).get(ownProps.groupId) || 0,
+    requesterWorkHistory: getAllHitsSubmittedToRequester(hit.requester.id)(
+      state
+    )
   };
 };
 
