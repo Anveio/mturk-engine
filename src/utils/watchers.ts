@@ -13,7 +13,7 @@ export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
   title: hit.title,
   description: hit.description,
   groupId: hit.groupId,
-  delay: 10,
+  delay: 5,
   createdOn: new Date(),
   timeNextAttempt: null
 });
