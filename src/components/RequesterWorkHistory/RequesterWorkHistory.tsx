@@ -34,7 +34,7 @@ class RequesterWorkHistory extends React.PureComponent<
           hits.size
         )} submitted to ${requester.name}`}
       >
-        <SubmittedHitsCaptionedList hits={hits} />
+        <SubmittedHitsCaptionedList numbered hits={hits} />
       </Card>
     );
   }

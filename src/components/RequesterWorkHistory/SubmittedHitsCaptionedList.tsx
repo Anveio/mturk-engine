@@ -6,19 +6,18 @@ import SubmittedHit from './SubmittedHit';
 
 interface Props {
   readonly hits: ImmutableList<HitDatabaseEntry>;
+  readonly numbered?: boolean;
 }
 
-class SubmittedHitsCaptionedList extends React.PureComponent<Props, never> {
-  public render() {
-    const { hits } = this.props;
-    return (
-      <List>
-        {hits.map((hit: HitDatabaseEntry) => (
-          <SubmittedHit hit={hit} key={hit.id} />
-        ))}
-      </List>
-    );
-  }
-}
+const SubmittedHitsCaptionedList: React.SFC<Props> = ({
+  hits,
+  numbered = false
+}) => (
+  <List type={numbered ? 'number' : 'bullet'}>
+    {hits.map((hit: HitDatabaseEntry) => (
+      <SubmittedHit hit={hit} key={hit.id} />
+    ))}
+  </List>
+);
 
 export default SubmittedHitsCaptionedList;
