@@ -28,7 +28,7 @@ export const generateContinueWorkUrl = (hit: QueueItem, legacy = false) =>
       }${noRedirectParam}`
     : `https://worker.mturk.com/projects/${hit.groupId}/tasks/${
         hit.taskId
-      }?assignment_id=${hit.hitId}`;
+      }?assignment_id=${hit.hitId}&ref=w_pl_prvw`;
 
 // const generateLegacyContactLink = (hit: HitDatabaseEntry) => {
 //   const { requester, id, title } = hit;
