@@ -11,7 +11,10 @@ import {
   requestNotificationPermission,
   createNotificationFromSearchResult
 } from '../utils/notifications';
-import { notificationPermissionGrantedToast } from '../utils/toaster';
+import {
+  notificationPermissionGrantedToast,
+  notificationPermissionBlockedToast
+} from '../utils/toaster';
 
 export function* resolveNotificationPermissionRequest(
   action: NotificationPermissionRequest
@@ -34,6 +37,7 @@ export function* resolveNotificationPermissionRequest(
         yield put<NotificationPermissionUpdate>(
           notificationPermissionFailure()
         );
+        notificationPermissionBlockedToast();
     }
   } catch (e) {
     yield put<NotificationPermissionUpdate>(notificationPermissionFailure());

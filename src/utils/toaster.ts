@@ -235,6 +235,15 @@ export const notificationPermissionGrantedToast = () =>
     intent: Intent.PRIMARY
   });
 
+export const notificationPermissionBlockedToast = () =>
+  TopRightToaster.show({
+    message: `Mturk Engine is blocked from sending you notifications. 
+    If you do not see a popup for allowing notifications, you may have to 
+    manually allow them with the button on the left of the URL bar.`,
+    intent: Intent.WARNING,
+    timeout: 9000
+  });
+
 const successfulQueueToast = {
   message: 'Your queue has been refreshed.',
   intent: Intent.PRIMARY,
