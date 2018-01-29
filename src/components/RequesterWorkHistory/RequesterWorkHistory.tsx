@@ -2,14 +2,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { List as ImmutableList } from 'immutable';
 import { RootState, HitDatabaseEntry, Requester } from '../../types';
-import { Card, List, Caption } from '@shopify/polaris';
-import { stringToDate } from '../../utils/dates';
-import { LEGACY_DATE_FORMAT } from '../../constants/misc';
+import { Card } from '@shopify/polaris';
 import {
   allHitsSubmittedToRequesterRecentFirst,
   hitDatabaseToRequesterMap
 } from '../../selectors/hitDatabase';
-import { formatAsCurrency, pluralize } from '../../utils/formatting';
+import { pluralize } from '../../utils/formatting';
+import SubmittedHitsCaptionedList from './SubmittedHitsCaptionedList';
 
 interface OwnProps {
   readonly requesterId: string;
@@ -35,18 +34,7 @@ class RequesterWorkHistory extends React.PureComponent<
           hits.size
         )} submitted to ${requester.name}`}
       >
-        <List>
-          {hits.slice(0, 5).map((hit: HitDatabaseEntry) => (
-            <List.Item key={hit.id}>
-              {hit.title}
-              <Caption>{`${formatAsCurrency(
-                hit.reward
-              )} - Submitted ${stringToDate(hit.date)(
-                LEGACY_DATE_FORMAT
-              ).toLocaleDateString()}`}</Caption>
-            </List.Item>
-          ))}
-        </List>
+        <SubmittedHitsCaptionedList hits={hits} />
       </Card>
     );
   }

@@ -1,19 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { List as ImmutableList } from 'immutable';
+import { List } from 'immutable';
 import { RootState, HitDatabaseEntry } from '../../types';
-import {
-  Card,
-  TextContainer,
-  Heading,
-  Stack,
-  List,
-  Caption
-} from '@shopify/polaris';
-import { stringToDate } from '../../utils/dates';
-import { LEGACY_DATE_FORMAT } from '../../constants/misc';
+import { Card, TextContainer, Heading, Stack } from '@shopify/polaris';
 import { allHitsSubmittedToRequesterRecentFirst } from '../../selectors/hitDatabase';
-import { pluralize, formatAsCurrency } from '../../utils/formatting';
+import { pluralize } from '../../utils/formatting';
+import SubmittedHitsCaptionedList from './SubmittedHitsCaptionedList';
 
 interface OwnProps {
   readonly requesterId: string;
@@ -21,7 +13,7 @@ interface OwnProps {
 }
 
 interface Props {
-  readonly hits: ImmutableList<HitDatabaseEntry>;
+  readonly hits: List<HitDatabaseEntry>;
 }
 
 class RecentlySubmittedHits extends React.PureComponent<
@@ -47,18 +39,9 @@ class RecentlySubmittedHits extends React.PureComponent<
               undefined
             )}
           </TextContainer>
-          <List>
-            {hits.slice(0, 5).map((hit: HitDatabaseEntry) => (
-              <List.Item key={hit.id}>
-                {hit.title}
-                <Caption>{`${formatAsCurrency(
-                  hit.reward
-                )} - Submitted ${stringToDate(hit.date)(
-                  LEGACY_DATE_FORMAT
-                ).toLocaleDateString()}`}</Caption>
-              </List.Item>
-            ))}
-          </List>
+          <SubmittedHitsCaptionedList
+            hits={hits.slice(0, 5) as List<HitDatabaseEntry>}
+          />
         </Stack>
       </Card>
     );
