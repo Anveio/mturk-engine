@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Card } from '@shopify/polaris';
-import { Tooltip, Button } from '@blueprintjs/core';
 import { RootState } from '../../../types';
 import {
   FetchStatusDetailRequest,
@@ -21,7 +20,7 @@ export interface Handlers {
   readonly onRefresh: (date: Date) => void;
 }
 
-class DateDisplay extends React.PureComponent<Props & Handlers, never> {
+class DateDisplayCard extends React.PureComponent<Props & Handlers, never> {
   private static generateTitle = (selectedDate: string | null) =>
     selectedDate
       ? `${dateStringToLocaleDateString(selectedDate)}`
@@ -36,28 +35,28 @@ class DateDisplay extends React.PureComponent<Props & Handlers, never> {
   };
 
   private dateSelectedMarkup = () => (
-    <Card.Section>
-      <Tooltip content="Click to refresh this day's data.">
-        <Button
-          intent={0}
-          rightIconName="refresh"
-          className="pt-button pt-minimal"
-          onClick={this.handleRefresh}
-        >
-          <span className="pt-ui-text-large">
-            {DateDisplay.generateTitle(this.props.selectedDate)}
-          </span>
-        </Button>
-      </Tooltip>
-    </Card.Section>
+    <Card
+      title={DateDisplayCard.generateTitle(this.props.selectedDate)}
+      actions={[
+        {
+          content: `Refresh this day's data`,
+          onAction: this.handleRefresh
+        }
+      ]}
+    >
+      {this.props.children}
+    </Card>
   );
 
   private noDateSelectedMarkup = () => (
-    <Card.Section>
-      <span className="pt-ui-text-large">
-        {DateDisplay.generateTitle(this.props.selectedDate)}
-      </span>
-    </Card.Section>
+    <Card>
+      <Card.Section>
+        <span className="pt-ui-text-large">
+          {DateDisplayCard.generateTitle(this.props.selectedDate)}
+        </span>
+        {this.props.children}
+      </Card.Section>
+    </Card>
   );
 
   public render() {
@@ -78,4 +77,4 @@ const mapDispatch = (
   onRefresh: (date: Date) => dispatch(statusDetailRequest(date, 1, true))
 });
 
-export default connect(mapState, mapDispatch)(DateDisplay);
+export default connect(mapState, mapDispatch)(DateDisplayCard);

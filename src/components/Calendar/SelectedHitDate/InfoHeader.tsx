@@ -33,22 +33,24 @@ class InfoHeader extends React.PureComponent<
         )} (in bonuses) earned.`
       : `${formatAsCurrency(reward)} earned.`;
 
-  public render() {
+  private generateCardTitle = () => {
     const {
       dailyEarnings: { reward, bonus },
-      numSubmitted,
-      earningsPending
+      earningsPending,
+      numSubmitted
     } = this.props;
+    const { showEarnings, showPendingEarnings } = InfoHeader;
+    return `${showEarnings(reward, bonus)} ${showPendingEarnings(
+      earningsPending
+    )} ${numSubmitted} HITs submitted.`;
+  };
 
-    return numSubmitted > 0 ? (
+  public render() {
+    return this.props.numSubmitted > 0 ? (
       <Card.Section>
         <Stack vertical={false} spacing="tight" alignment="baseline">
           <PaginationButtons {...this.props} />
-          <Heading>
-            {InfoHeader.showEarnings(reward, bonus)}{' '}
-            {InfoHeader.showPendingEarnings(earningsPending)} {numSubmitted}{' '}
-            HITs submitted.
-          </Heading>
+          <Heading>{this.generateCardTitle()}</Heading>
         </Stack>
       </Card.Section>
     ) : null;

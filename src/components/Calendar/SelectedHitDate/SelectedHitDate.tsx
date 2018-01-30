@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Card } from '@shopify/polaris';
 import { RootState } from '../../../types';
 import { RESULTS_PER_PAGE } from '../../../constants/misc';
 import { hitsOnSelectedDateIds } from '../../../selectors/hitDatabaseDay';
 import CompletedHitList from './CompletedHitList';
-import DateDisplay from './DateDisplay';
+import DateDisplayCard from './DateDisplayCard';
 import InfoHeader from './InfoHeader';
 
 export interface Props {
@@ -65,15 +64,12 @@ class SelectedHitDate extends React.PureComponent<Props, State> {
     };
 
     return this.props.selectedDate ? (
-      <Card>
-        <DateDisplay />
+      <DateDisplayCard>
         <InfoHeader {...infoHeaderProps} />
         <CompletedHitList page={this.state.page} />
-      </Card>
+      </DateDisplayCard>
     ) : (
-      <Card>
-        <DateDisplay />
-      </Card>
+      <DateDisplayCard />
     );
   }
 }
