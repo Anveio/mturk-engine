@@ -4,7 +4,8 @@ import { RootState, HeatMapValue } from '../../types';
 import { SQUARE_SIZE, SQUARE_BORDER_RADIUS } from '../../constants/misc';
 import {
   SelectDatabaseDate,
-  selectDatabaseDate
+  selectDatabaseDate,
+  clearDatabaseDateSelection
 } from '../../actions/selectDatabaseDate';
 
 export interface OwnProps {
@@ -19,6 +20,7 @@ export interface Props {
 
 export interface Handlers {
   readonly onSelect: (dateString: string) => void;
+  readonly clearSelect: () => void;
 }
 
 class CalendarDay extends React.PureComponent<
@@ -54,7 +56,11 @@ class CalendarDay extends React.PureComponent<
       : {};
 
   private handleSelect = () => {
-    this.props.onSelect(this.props.value.date);
+    if (this.props.selected) {
+      this.props.clearSelect();
+    } else {
+      this.props.onSelect(this.props.value.date);
+    }
   };
 
   public render() {
@@ -82,7 +88,8 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<SelectDatabaseDate>): Handlers => ({
-  onSelect: (date: string) => dispatch(selectDatabaseDate(date))
+  onSelect: (date: string) => dispatch(selectDatabaseDate(date)),
+  clearSelect: () => dispatch(clearDatabaseDateSelection())
 });
 
 export default connect(mapState, mapDispatch)(CalendarDay);
