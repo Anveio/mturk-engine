@@ -30,8 +30,8 @@ class InfoHeader extends React.PureComponent<
     bonus > 0
       ? `${formatAsCurrency(reward)} + ${formatAsCurrency(
           bonus
-        )} (in bonuses) earned.`
-      : `${formatAsCurrency(reward)} earned.`;
+        )} (in bonuses) paid.`
+      : `${formatAsCurrency(reward)} paid.`;
 
   private generateCardTitle = () => {
     const {

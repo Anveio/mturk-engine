@@ -59,7 +59,7 @@ class EarningsSummary extends React.PureComponent<Props, never> {
         title="Earnings Summary"
         actions={[
           {
-            content: 'Transfer Earnings',
+            content: 'Transfer earnings',
             url: generateTransferEarningsUrl(),
             external: true
           }
