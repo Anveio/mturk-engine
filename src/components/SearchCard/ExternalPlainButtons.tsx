@@ -3,6 +3,7 @@ import { ButtonGroup, Button } from '@shopify/polaris';
 import { SearchResult } from '../../types';
 import TOpticonButton from './TOpticonButton';
 import { generateAcceptUrl, generatePreviewUrl } from '../../utils/urls';
+import { turkopticonTwoBaseUrl } from '../../constants/urls';
 
 export interface OwnProps {
   readonly hit: SearchResult;
@@ -34,6 +35,9 @@ class MiscActionsPopOver extends React.PureComponent<OwnProps, never> {
           requesterId={requester.id}
           turkopticon={requester.turkopticon}
         />
+        <Button plain external url={turkopticonTwoBaseUrl + requester.id}>
+          T.O. 2 Page
+        </Button>
       </ButtonGroup>
     );
   }
