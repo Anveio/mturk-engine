@@ -17,9 +17,19 @@ export function* acceptAfterWatcherDelay(action: ScheduleWatcherTick) {
     state.watchers.get(action.groupId)
   );
 
+  /**
+   * It's possible that a watcher is cancelled during the delay.
+   */
   const watcherTimer: WatcherTimer | undefined = yield select(
     (state: RootState) => state.watcherTimes.get(action.groupId)
   );
+
+  /**
+   * If we don't make sure the origin of the scheduler is the same as the origin
+   * before waiting for the delay, then repeatedly stopping and starting a
+   * watcher will cause each scheduler accept to fire as long as the watcher is
+   * active when this check is made.
+   */
 
   if (watcher && watcherTimer && watcherTimer.origin === origin) {
     yield put<AcceptHitRequest>(
