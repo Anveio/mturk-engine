@@ -37,7 +37,7 @@ export type RequesterMap = Map<string, Requester>; // indexed by requesterId
 export type HitBlockMap = Map<string, BlockedHit>; // indexed by groupId
 export type RequesterBlockMap = Map<string, BlockedRequester>; // indexed by requesterId
 export type WatcherMap = Map<string, Watcher>; // indexed by groupId
-export type WatcherTimerMap = Map<string, Date>; // indexed by groupId
+export type WatcherTimerMap = Map<string, WatcherTimer>; // indexed by groupId
 export type HitDatabaseMap = Map<string, HitDatabaseEntry>; // indexed by LEGACY_DATE_FORMAT string
 export type ExpandedSearchResultsMap = Map<string, true>; // indexed by groupId
 
@@ -252,6 +252,11 @@ export interface Watcher {
   readonly createdOn: Date;
   readonly timeNextAttempt: Date | null;
   readonly hit?: HumanIntelligenceTask;
+}
+
+export interface WatcherTimer {
+  readonly date: Date;
+  readonly origin: number;
 }
 
 export interface AudioSettings {

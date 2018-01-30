@@ -17,9 +17,12 @@ interface State {
   readonly timeUntilNextSearch: number | null;
 }
 
-const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  timeNextSearch: state.watcherTimes.get(ownProps.groupId)
-});
+const mapState = (state: RootState, ownProps: OwnProps): Props => {
+  const watcherTimer = state.watcherTimes.get(ownProps.groupId);
+  return {
+    timeNextSearch: (watcherTimer && watcherTimer.date) || null
+  };
+};
 
 class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   private static readonly tickRate: number = 100;
