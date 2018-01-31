@@ -38,7 +38,7 @@ class CustomHead extends React.PureComponent<Props, never> {
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://sdks.shopifycdn.com/polaris/1.8.3/polaris.min.css"
+          href="https://sdks.shopifycdn.com/polaris/1.10.2/polaris.min.css"
         />
       </Helmet>
     );
