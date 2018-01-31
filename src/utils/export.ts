@@ -2,11 +2,13 @@ import { SearchResult, RequesterInfo, TaskQualification } from '../types';
 import {
   baseTaskUrlWorker,
   baseRequesterUrlWorker,
-  turkopticonBaseUrl
+  turkopticonBaseUrl,
+  turkopticonTwoBaseUrl
 } from '../constants/urls';
 import { formatAsCurrency } from './formatting';
 import { QualificationComparator } from '../worker-mturk-api';
 import { generateAcceptUrl } from './urls';
+import { secondsToMinutes } from './dates';
 
 const contactBaseUrl = 'https://www.mturk.com/mturk/contact?requesterId=';
 const requesterSearchBaseUrl =
@@ -57,11 +59,13 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     **Requester:** [${requester.name}](${requesterSearchBaseUrl}${
     requester.id
   }) ([Contact](${contactBaseUrl}${requester.id}))  
-    **[TO](${turkopticonBaseUrl}${requester.id}): ${ratingsToWords(
+    **[[TO](${turkopticonBaseUrl}${
+    requester.id
+  }) / [TO2](${turkopticonTwoBaseUrl}${requester.id})] : ${ratingsToWords(
     requester.turkopticon
-  )}**   
+  )}**
     **Reward:** $${reward} 
-    **Duration:** ${timeAllottedInSeconds}  
+    **Duration:** ${secondsToMinutes(timeAllottedInSeconds)} minutes.  
     **Available:** ${batchSize}  
     **Description:** ${description}
     **Requirements:** ${quals}`;
