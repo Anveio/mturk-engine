@@ -1,27 +1,18 @@
-import {
-  RootState,
-  HitDatabaseMap,
-  HitDatabaseEntry,
-  DailyEarnings
-} from '../types';
+// tslint:disable:align
+import { HitDatabaseMap, HitDatabaseEntry, DailyEarnings } from '../types';
 import { createSelector } from 'reselect';
-import { hitDatabaseSelector } from './hitDatabase';
 import { isPaidOrApproved, isPending } from '../utils/hitDatabase';
 import { Map } from 'immutable';
-
-// tslint:disable:align
-
-export const selectedHitDbDateSelector = (state: RootState) =>
-  state.selectedHitDbDate;
+import { selectedHitDbDateSelector, hitDatabaseSelector } from './index';
 
 export const hitsOnSelectedDate = createSelector(
   [hitDatabaseSelector, selectedHitDbDateSelector],
   (database: HitDatabaseMap, date: string | null) => {
     return date === null
       ? Map<string, HitDatabaseEntry>()
-      : database.filter(
+      : (database.filter(
           (entry: HitDatabaseEntry) => entry.date === date
-        ) as HitDatabaseMap;
+        ) as HitDatabaseMap);
   }
 );
 
@@ -57,17 +48,16 @@ export const hitsOnSelectedDateIds = createSelector(
 export const earningsOnDate = createSelector(
   [hitsOnSelectedDate],
   (entry: HitDatabaseMap) =>
-    entry.filter(isPaidOrApproved).reduce((
-      acc: DailyEarnings,
-      cur: HitDatabaseEntry
-    ) => ({
-      reward: acc.reward + cur.reward,
-      bonus: acc.bonus + cur.bonus || 0
-    }),
-    {
-      reward: 0,
-      bonus: 0
-    })
+    entry.filter(isPaidOrApproved).reduce(
+      (acc: DailyEarnings, cur: HitDatabaseEntry) => ({
+        reward: acc.reward + cur.reward,
+        bonus: acc.bonus + cur.bonus || 0
+      }),
+      {
+        reward: 0,
+        bonus: 0
+      }
+    )
 );
 
 export const pendingEarningsOnDate = createSelector(

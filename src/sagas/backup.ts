@@ -14,8 +14,8 @@ import {
   successfulDownloadStateToast
 } from '../utils/toaster';
 import { PersistedState } from '../types';
-import { uploadedStateSelector } from '../selectors/uploadedState';
 import { refreshPage } from '../utils/refresh';
+import { uploadedStateSelector } from '../selectors/index';
 
 export function* downloadPersistedState(action: ReadPersistedState) {
   try {

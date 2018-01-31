@@ -1,8 +1,7 @@
 import { createSelector } from 'reselect';
-import { RootState, QueueItem, QueueMap } from '../types';
+import { QueueItem, QueueMap } from '../types';
 import { Map } from 'immutable';
-
-export const queueSelector = (state: RootState) => state.queue;
+import { queueSelector } from './index';
 
 export const queueItemsIds = createSelector(
   [queueSelector],

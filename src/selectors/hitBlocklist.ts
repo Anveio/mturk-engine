@@ -1,10 +1,9 @@
 import { createSelector } from 'reselect';
-import { RootState, HitBlockMap, BlockedHit } from '../types';
-
-export const hitBlocklistSelector = (state: RootState) => state.hitBlocklist;
+import { HitBlockMap, BlockedHit } from '../types';
+import { hitBlocklistSelector } from './index';
 
 export const sortedHitBlocklist = createSelector(
-  [ hitBlocklistSelector ],
+  [hitBlocklistSelector],
   (blockedHits: HitBlockMap) =>
     blockedHits.sort(
       (a: BlockedHit, b: BlockedHit) => +b.dateBlocked - +a.dateBlocked
@@ -12,7 +11,10 @@ export const sortedHitBlocklist = createSelector(
 );
 
 export const recentlyBlockedHitIds = createSelector(
-  [ sortedHitBlocklist ],
+  [sortedHitBlocklist],
   (blockedHits: HitBlockMap) =>
-    blockedHits.map((el: BlockedHit) => el.groupId).slice(0, 20).toArray()
+    blockedHits
+      .map((el: BlockedHit) => el.groupId)
+      .slice(0, 20)
+      .toArray()
 );

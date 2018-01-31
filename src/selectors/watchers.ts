@@ -1,7 +1,6 @@
 import { createSelector } from 'reselect';
-import { RootState, Watcher, WatcherMap } from '../types';
-
-export const watcherSelector = (state: RootState) => state.watchers;
+import { Watcher, WatcherMap } from '../types';
+import { watcherSelector } from './index';
 
 export const watchersSortedLatestFirst = createSelector(
   [watcherSelector],

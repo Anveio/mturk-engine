@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
 import {
-  RootState,
   SearchResult,
   SearchResults,
   HitBlockMap,
@@ -8,19 +7,19 @@ import {
   SortingOption,
   AttributeWeights
 } from '../types';
-import { hitBlocklistSelector } from './hitBlocklist';
 import {
   filterBelowTOThreshold,
   attributeWeightsSelector
 } from './turkopticon';
 import { sortBy } from '../utils/sorting';
+import {
+  searchResultSelector,
+  hitBlocklistSelector,
+  requesterBlocklistSelector,
+  sortOptionSelector
+} from './index';
 
 const selectGroupId = (hit: SearchResult) => hit.groupId;
-
-export const searchResultSelector = (state: RootState) => state.search;
-export const sortOptionSelector = (state: RootState) => state.sortingOption;
-export const requesterBlocklistSelector = (state: RootState) =>
-  state.requesterBlocklist;
 
 export const resultsLengthSelector = createSelector(
   [searchResultSelector],

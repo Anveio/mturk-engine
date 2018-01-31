@@ -9,17 +9,22 @@ import {
   hasAValidScore,
   calculateWeightedAverageScore
 } from '../utils/turkopticon';
+import { searchResultSelector, turkopticonSettingsSelector } from './index';
 
-const searchResultSelector = (state: RootState) => state.search;
+export const minTopticonScoreEnabled = createSelector(
+  [turkopticonSettingsSelector],
+  settings => settings.hideBelowThresholdEnabled
+);
 
-export const minTopticonScoreEnabled = (state: RootState) =>
-  state.topticonSettings.hideBelowThresholdEnabled;
+export const hideNoToEnabled = createSelector(
+  [turkopticonSettingsSelector],
+  settings => settings.hideNoToEnabled
+);
 
-export const hideNoToEnabled = (state: RootState) =>
-  state.topticonSettings.hideNoToEnabled;
-
-export const minWeightedTopticonScore = (state: RootState) =>
-  state.topticonSettings.minimumWeightedTO;
+export const minWeightedTopticonScore = createSelector(
+  [turkopticonSettingsSelector],
+  settings => settings.minimumWeightedTO
+);
 
 export const attributeWeightsSelector = (
   state: RootState

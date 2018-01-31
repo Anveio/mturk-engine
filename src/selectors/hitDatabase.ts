@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect';
 import {
-  RootState,
   HitDatabaseEntry,
   HitDatabaseMap,
   HeatMapValue,
@@ -21,8 +20,7 @@ import {
 // import { selectedHitDbDateSelector } from './hitDatabaseDay';
 import { Map, List } from 'immutable';
 import { LEGACY_DATE_FORMAT } from '../constants/misc';
-
-export const hitDatabaseSelector = (state: RootState) => state.hitDatabase;
+import { hitDatabaseSelector } from './index';
 
 export const pendingEarningsSelector = createSelector(
   [hitDatabaseSelector],

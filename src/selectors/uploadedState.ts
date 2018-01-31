@@ -11,8 +11,7 @@ import {
   selectReduxPersistStateKey
 } from '../utils/validation';
 import { immutableStateKeyLookup, parseImmutableJson } from '../utils/backup';
-
-export const uploadedStateSelector = (state: RootState) => state.uploadedState;
+import { uploadedStateSelector } from './index';
 
 export const validUploadedState = createSelector(
   [uploadedStateSelector],

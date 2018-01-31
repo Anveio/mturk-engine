@@ -1,11 +1,9 @@
 import { createSelector } from 'reselect';
-import { RootState, RequesterBlockMap, BlockedRequester } from '../types';
-
-export const requesterBlocklistSelector = (state: RootState) =>
-  state.requesterBlocklist;
+import { RequesterBlockMap, BlockedRequester } from '../types';
+import { requesterBlocklistSelector } from './index';
 
 export const sortedRequesterBlockList = createSelector(
-  [ requesterBlocklistSelector ],
+  [requesterBlocklistSelector],
   (blockedRequesters: RequesterBlockMap) =>
     blockedRequesters.sort(
       (a: BlockedRequester, b: BlockedRequester) =>
@@ -14,7 +12,7 @@ export const sortedRequesterBlockList = createSelector(
 );
 
 export const recentlyBlockedRequesterIds = createSelector(
-  [ sortedRequesterBlockList ],
+  [sortedRequesterBlockList],
   (blockedRequesters: RequesterBlockMap) =>
     blockedRequesters
       .map((el: BlockedRequester) => el.id)

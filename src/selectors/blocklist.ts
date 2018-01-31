@@ -1,9 +1,8 @@
 import { createSelector } from 'reselect';
-import { hitBlocklistSelector } from './hitBlocklist';
-import { requesterBlocklistSelector } from './requesterBlocklist';
+import { hitBlocklistSelector, requesterBlocklistSelector } from './index';
 
 export const blockListsAreEmpty = createSelector(
-  [ hitBlocklistSelector, requesterBlocklistSelector ],
+  [hitBlocklistSelector, requesterBlocklistSelector],
   (blockedHits, blockedRequesters) =>
     blockedHits.isEmpty() && blockedRequesters.isEmpty()
 );

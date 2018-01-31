@@ -12,8 +12,8 @@ import {
   statusDetailRequest
 } from '../actions/statusDetail';
 import { refreshDbSuccessToast, refreshDbErrorToast } from '../utils/toaster';
-import { hitDatabaseSelector } from '../selectors/hitDatabase';
 import { handleStatusDetailRequest } from './statusDetail';
+import { hitDatabaseSelector } from '../selectors/index';
 
 export function* handleStatusSummarySuccess(action: RefreshDatabaseRequest) {
   try {
