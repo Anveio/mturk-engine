@@ -53,14 +53,12 @@ export const searchResultsToWeightedToMap = createSelector(
   [searchResultSelector, attributeWeightsSelector],
   (results, weights) =>
     results.map((hit: SearchResult) => {
-      if (!hit.requester.turkopticon) {
+      const { turkopticon } = hit.requester;
+      if (!turkopticon) {
         return null;
       }
 
-      return calculateWeightedAverageScore(
-        hit.requester.turkopticon.scores,
-        weights
-      );
+      return calculateWeightedAverageScore(turkopticon.scores, weights);
     })
 );
 

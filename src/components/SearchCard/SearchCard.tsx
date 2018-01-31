@@ -164,8 +164,7 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
 
   return {
     hit,
-    weightedToScore:
-      searchResultsToWeightedToMap(state).get(hit.groupId) || null,
+    weightedToScore: searchResultsToWeightedToMap(state).get(hit.groupId, null),
     knownRequester: !!hitDatabaseToRequesterMap(state).get(hit.requester.id),
     hitsInQueue:
       uniqueGroupIdsInQueueHistogram(state).get(ownProps.groupId) || 0,
