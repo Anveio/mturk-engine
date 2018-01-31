@@ -5,7 +5,7 @@ export const turkopticonApiMulti = `https://turkopticon.ucsd.edu/api/multi-attrs
 
 export const turkopticonBaseUrl = `https://turkopticon.ucsd.edu/`;
 
-export const turkopticonTwoBaseUrl = `https://turkopticon.info/requesters/`
+export const turkopticonTwoBaseUrl = `https://turkopticon.info/requesters/`;
 
 export const baseTaskUrlWorker = 'https://worker.mturk.com/projects/';
 

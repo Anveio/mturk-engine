@@ -29,6 +29,7 @@ export interface RootState {
   readonly uploadedState: Partial<PersistedState> | null;
   readonly expandedSearchResults: ExpandedSearchResultsMap;
   readonly notificationSettings: NotificationSettings;
+  readonly loggedSearchResults: LoggedSearchResults;
 }
 
 export type SearchResults = Map<string, SearchResult>; // indexed by groupId
@@ -40,6 +41,7 @@ export type WatcherMap = Map<string, Watcher>; // indexed by groupId
 export type WatcherTimerMap = Map<string, WatcherTimer>; // indexed by groupId
 export type HitDatabaseMap = Map<string, HitDatabaseEntry>; // indexed by LEGACY_DATE_FORMAT string
 export type ExpandedSearchResultsMap = Map<string, true>; // indexed by groupId
+export type LoggedSearchResults = Map<string, LoggedSearchResult>; // indexed by groupId;
 
 /**
  * The keys of RootState that are persisted by redux-persist.
@@ -139,6 +141,12 @@ export interface SearchResult extends HumanIntelligenceTask {
   readonly timeAllottedInSeconds: number;
   readonly qualsRequired: WorkerQualification[];
   readonly canPreview: boolean;
+}
+
+export interface LoggedSearchResult {
+  readonly groupId: string;
+  readonly markedAsRead: boolean;
+  readonly notificationSent: boolean;
 }
 
 export interface LegacyHitDatabaseEntry {
