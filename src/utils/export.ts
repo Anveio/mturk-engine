@@ -10,7 +10,6 @@ import { QualificationComparator } from '../worker-mturk-api';
 import { generateAcceptUrl } from './urls';
 import { secondsToMinutes } from './dates';
 
-const contactBaseUrl = 'https://www.mturk.com/mturk/contact?requesterId=';
 const requesterSearchBaseUrl =
   'https://www.mturk.com/mturk/searchbar?requesterId=';
 
@@ -56,9 +55,7 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${baseTaskUrlWorker}${groupId}/tasks/accept_random) | [Requester](${baseRequesterUrlWorker}${
     requester.id
   }/projects)  
-    **Requester:** [${requester.name}](${requesterSearchBaseUrl}${
-    requester.id
-  }) ([Contact](${contactBaseUrl}${requester.id}))  
+    **Requester:** [${requester.name}](${requesterSearchBaseUrl}${requester.id})
     **[[TO](${turkopticonBaseUrl}${
     requester.id
   }) / [TO2](${turkopticonTwoBaseUrl}${requester.id})] : ${ratingsToWords(
