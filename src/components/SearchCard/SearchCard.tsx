@@ -5,8 +5,6 @@ import {
   SearchResult,
   BlockedHit,
   RootState,
-  AttributeWeights,
-  RequesterAttributes,
   HitDatabaseEntry
 } from '../../types';
 import { ResourceList } from '@shopify/polaris';
@@ -23,18 +21,18 @@ import { truncate } from '../../utils/formatting';
 import { generateSearchCardExceptions } from '../../utils/exceptions';
 import { generateTOpticonBadge } from '../../utils/badges';
 import { blockedHitFactory } from '../../utils/blocklist';
-import { calculateWeightedAverageScore } from '../../utils/turkopticon';
-import { attributeWeightsSelector } from '../../selectors/turkopticon';
+import { searchResultsToWeightedToMap } from '../../selectors/turkopticon';
 import {
   hitDatabaseToRequesterMap,
   getAllHitsSubmittedToRequester
 } from '../../selectors/hitDatabase';
 import { uniqueGroupIdsInQueueHistogram } from '../../selectors/queue';
+import { searchResultSelector } from '../../selectors/index';
 
 export interface Props {
   readonly hit: SearchResult;
-  readonly attributeWeights: AttributeWeights;
   readonly knownRequester: boolean;
+  readonly weightedToScore: number | null;
   readonly requesterWorkHistory: List<HitDatabaseEntry>;
   readonly hitsInQueue: number;
 }
@@ -51,6 +49,10 @@ export interface Handlers {
 }
 
 class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
+  shouldComponentUpdate() {
+    return true;
+  }
+
   private static generateStyle = (markedAsRead?: boolean) =>
     markedAsRead ? {} : { backgroundColor: 'rgba(72, 175, 240, 0.15)' };
 
@@ -108,16 +110,12 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
   public render() {
     const {
       hit,
-      attributeWeights,
       knownRequester,
       hitsInQueue,
+      weightedToScore,
       requesterWorkHistory
     } = this.props;
     const { groupId, qualified, title, requester, markedAsRead } = hit;
-
-    const attributeScores =
-      ((requester.turkopticon &&
-        requester.turkopticon.scores) as RequesterAttributes) || null;
 
     const exceptions = generateSearchCardExceptions(
       qualified,
@@ -134,14 +132,7 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
           <ResourceList.Item
             actions={this.generateActions(!!markedAsRead)}
             exceptions={exceptions}
-            badges={generateTOpticonBadge(
-              attributeScores
-                ? calculateWeightedAverageScore(
-                    attributeScores,
-                    attributeWeights
-                  )
-                : null
-            )}
+            badges={generateTOpticonBadge(weightedToScore)}
             attributeOne={truncate(requester.name, 40)}
             attributeTwo={truncate(title, 120)}
             attributeThree={
@@ -169,10 +160,12 @@ type SearchTableAction =
   | MarkHitAsRead;
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => {
-  const hit = state.search.get(ownProps.groupId);
+  const hit = searchResultSelector(state).get(ownProps.groupId);
+
   return {
     hit,
-    attributeWeights: attributeWeightsSelector(state),
+    weightedToScore:
+      searchResultsToWeightedToMap(state).get(hit.groupId) || null,
     knownRequester: !!hitDatabaseToRequesterMap(state).get(hit.requester.id),
     hitsInQueue:
       uniqueGroupIdsInQueueHistogram(state).get(ownProps.groupId) || 0,

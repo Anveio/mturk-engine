@@ -4,15 +4,26 @@ export const hitDatabaseSelector = (state: RootState) => state.hitDatabase;
 
 export const hitBlocklistSelector = (state: RootState) => state.hitBlocklist;
 
+export const loggedSearchResultsSelector = (state: RootState) =>
+  state.loggedSearchResults;
+
 export const requesterBlocklistSelector = (state: RootState) =>
   state.requesterBlocklist;
 
-export const notiticationSettingsSelector = (state: RootState) =>
+export const notificationSettingsSelector = (state: RootState) =>
   state.notificationSettings;
 
 export const queueSelector = (state: RootState) => state.queue;
 
 export const searchResultSelector = (state: RootState) => state.search;
+
+// export const searchResultSelector = createSelector(
+//   [(state: RootState) => state.search],
+//   results => {
+//     console.log('recomputing search');
+//     return results;
+//   }
+// );
 
 export const selectedHitDbDateSelector = (state: RootState) =>
   state.selectedHitDbDate;

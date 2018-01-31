@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { Map } from 'immutable';
 import {
   RootState,
   SearchResults,
@@ -48,18 +49,33 @@ export const useUserFilterNoTOsetting = createSelector(
   }
 );
 
+export const searchResultsToWeightedToMap = createSelector(
+  [searchResultSelector, attributeWeightsSelector],
+  (results, weights) =>
+    results.map((hit: SearchResult) => {
+      if (!hit.requester.turkopticon) {
+        return null;
+      }
+
+      return calculateWeightedAverageScore(
+        hit.requester.turkopticon.scores,
+        weights
+      );
+    })
+);
+
 export const filterBelowTOThreshold = createSelector(
   [
     useUserFilterNoTOsetting,
+    searchResultsToWeightedToMap,
     minWeightedTopticonScore,
-    minTopticonScoreEnabled,
-    attributeWeightsSelector
+    minTopticonScoreEnabled
   ],
   (
     hits: SearchResults,
+    weightedToMap: Map<string, number | null>,
     minScore: number,
-    minToEnabled: boolean,
-    attributeWeights: AttributeWeights
+    minToEnabled: boolean
   ) => {
     /**
      * High complexity code. Todo: separate these into individual selectors and compose them instead of this.
@@ -72,10 +88,7 @@ export const filterBelowTOThreshold = createSelector(
           return true;
         }
 
-        const averageScore = calculateWeightedAverageScore(
-          hit.requester.turkopticon.scores,
-          attributeWeights
-        );
+        const averageScore = weightedToMap.get(hit.groupId);
         return averageScore ? averageScore >= minScore : true;
       });
     } else {
