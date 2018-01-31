@@ -48,7 +48,7 @@ class NotificationLayer extends React.Component<Props & Handlers, never> {
 
     results
       .filter((result: SearchResult) => result.reward >= minReward)
-      .sort((a, b) => a.reward - b.reward)
+      .sort((a, b) => b.reward - a.reward)
       .slice(0, 3) as SearchResults;
 
   public render() {
