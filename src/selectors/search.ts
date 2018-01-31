@@ -47,7 +47,7 @@ const hideBlockedRequestersAndHits = createSelector(
   (
     resultsFilteredByBlockedIds: SearchResults,
     blockedRequesters: RequesterBlockMap
-  ) =>
+  ) => 
     resultsFilteredByBlockedIds.filter(
       (result: SearchResult) => !blockedRequesters.get(result.requester.id)
     ) as SearchResults

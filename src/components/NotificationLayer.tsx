@@ -7,13 +7,16 @@ import {
   SearchResults,
   NotificationSettings
 } from '../types';
-import { newResultsGroupIdsList, newResults } from '../selectors/search';
 import { sendNotification, SendNotification } from '../actions/notifications';
+import {
+  topThreePayingResultsSuitableForNotification,
+  topThreePayingResultsGroupIds
+} from '../selectors/notificationSettings';
 
 interface Props {
   readonly notificationSettings: NotificationSettings;
-  readonly unreadResults: List<string>;
   readonly newResults: SearchResults;
+  readonly newResultsGroupIds: List<string>;
 }
 
 interface Handlers {
@@ -22,34 +25,16 @@ interface Handlers {
 
 class NotificationLayer extends React.Component<Props & Handlers, never> {
   componentWillReceiveProps(nextProps: Props) {
-    const { notificationSettings } = this.props;
+    const { notificationSettings, newResultsGroupIds, newResults } = nextProps;
     if (
-      !nextProps.unreadResults.isSubset(this.props.unreadResults) &&
-      notificationSettings.enabled
+      notificationSettings.enabled &&
+      !newResultsGroupIds.isSubset(this.props.newResultsGroupIds)
     ) {
-      const resultsToNotify = NotificationLayer.generateResultsToNotifyUserOf(
-        nextProps.newResults,
-        notificationSettings.minReward
-      );
-      resultsToNotify.forEach((result: SearchResult) =>
+      newResults.forEach((result: SearchResult) =>
         this.props.onUnreadHit(result, notificationSettings.durationInSeconds)
       );
     }
   }
-
-  private static generateResultsToNotifyUserOf = (
-    results: SearchResults,
-    minReward: number
-  ) =>
-    /**
-     * Users can receive 3 desktop notifications at a time.
-     * So send notifications for only the 3 highest paying HITs.
-     */
-
-    results
-      .filter((result: SearchResult) => result.reward >= minReward)
-      .sort((a, b) => b.reward - a.reward)
-      .slice(0, 3) as SearchResults;
 
   public render() {
     return <> </>;
@@ -57,8 +42,8 @@ class NotificationLayer extends React.Component<Props & Handlers, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  unreadResults: newResultsGroupIdsList(state),
-  newResults: newResults(state),
+  newResults: topThreePayingResultsSuitableForNotification(state),
+  newResultsGroupIds: topThreePayingResultsGroupIds(state),
   notificationSettings: state.notificationSettings
 });
 

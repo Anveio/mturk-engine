@@ -50,10 +50,7 @@ export interface Handlers {
   readonly markHitAsRead: (groupId: string) => void;
 }
 
-class SearchCard extends React.PureComponent<
-  Props & OwnProps & Handlers,
-  never
-> {
+class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
   private static generateStyle = (markedAsRead?: boolean) =>
     markedAsRead ? {} : { backgroundColor: 'rgba(72, 175, 240, 0.15)' };
 

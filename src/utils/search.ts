@@ -41,3 +41,5 @@ export const markAsRead = (hit: SearchResult): SearchResult => ({
   ...hit,
   markedAsRead: true
 });
+
+export const keepReadResults = (hit: SearchResult) => !!hit.markedAsRead;
