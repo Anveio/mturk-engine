@@ -136,8 +136,9 @@ export interface WorkerQualification {
   readonly comparator: QualificationComparator;
   readonly qualification_type: QualificationType;
   readonly qualification_type_id: string;
-  readonly qualification_values: string[];
+  readonly qualification_values: (string | number)[];
   readonly worker_action: string;
+  readonly caller_qualification_value: CallerQualificationValue;
 }
 
 export interface QualificationType {
@@ -148,6 +149,14 @@ export interface QualificationType {
   readonly name: string;
   readonly qualification_type_id: string;
   readonly visibility: boolean;
+}
+
+export interface CallerQualificationValue {
+  readonly integerValue: number | null;
+  readonly locale_value: {
+    readonly country: string | null;
+    readonly subdivision: string | null;
+  };
 }
 
 export type QualificationComparator =

@@ -1,8 +1,7 @@
 import { Map } from 'immutable';
 import {
-  WorkerQualification,
-  WorkerSubmittedHit,
-  WorkerSubmittedHitState
+  WorkerSubmittedHitState,
+  QualificationComparator
 } from './worker-mturk-api';
 
 export interface RootState {
@@ -138,7 +137,7 @@ export interface SearchResult extends HumanIntelligenceTask {
   readonly batchSize: number;
   readonly qualified: boolean;
   readonly timeAllottedInSeconds: number;
-  readonly qualsRequired: WorkerQualification[];
+  readonly qualsRequired: TaskQualification[];
   readonly canPreview: boolean;
 }
 
@@ -269,6 +268,17 @@ export interface WatcherTimer {
 export interface AudioSettings {
   readonly enabled: boolean;
   readonly volume: number;
+}
+
+export interface TaskQualification {
+  readonly qualificationId: string;
+  readonly name: string;
+  readonly description: string;
+  readonly hasTest: boolean;
+  readonly requestable: boolean;
+  readonly comparator: QualificationComparator;
+  readonly userValue: string | number | null;
+  readonly qualificationValues: (string | number)[];
 }
 
 export interface AudioFiles {

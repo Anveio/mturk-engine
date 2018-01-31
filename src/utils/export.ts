@@ -1,14 +1,11 @@
-import { SearchResult, RequesterInfo } from '../types';
+import { SearchResult, RequesterInfo, TaskQualification } from '../types';
 import {
   baseTaskUrlWorker,
   baseRequesterUrlWorker,
   turkopticonBaseUrl
 } from '../constants/urls';
 import { formatAsCurrency } from './formatting';
-import {
-  WorkerQualification,
-  QualificationComparator
-} from '../worker-mturk-api';
+import { QualificationComparator } from '../worker-mturk-api';
 import { generateAcceptUrl } from './urls';
 
 const contactBaseUrl = 'https://www.mturk.com/mturk/contact?requesterId=';
@@ -27,7 +24,7 @@ const generateHwtfTitle = (hit: SearchResult): string => {
   )}/X:XX - (${generateQuals(hit.qualsRequired)})`;
 };
 
-const generateQuals = (quals: WorkerQualification[]): string =>
+const generateQuals = (quals: TaskQualification[]): string =>
   quals.length > 0
     ? quals.map(qual => qualificationToSentence(qual)).join(', ')
     : 'None';
@@ -70,10 +67,10 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     **Requirements:** ${quals}`;
 };
 
-const qualificationToSentence = (qual: WorkerQualification): string =>
-  `${qual.qualification_type.name} ${qualComparatorToWords(
+const qualificationToSentence = (qual: TaskQualification): string =>
+  `${qual.name} ${qualComparatorToWords(
     qual.comparator
-  )} ${qual.qualification_values.join(', ')}.`;
+  )} ${qual.qualificationValues.join(', ')}.`;
 
 const qualComparatorToWords = (comparator: QualificationComparator): string => {
   switch (comparator) {

@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { SearchResult, SearchResults } from '../types';
+import { SearchResult, SearchResults, TaskQualification } from '../types';
 import { WorkerSearchResult, WorkerQualification } from '../worker-mturk-api';
 
 export const tabulateSearchData = (
@@ -23,7 +23,7 @@ const createWorkerSearchItem = (hit: WorkerSearchResult): SearchResult => ({
   description: hit.description,
   groupId: hit.hit_set_id,
   qualified: calculateIfQualified(hit.project_requirements),
-  qualsRequired: hit.project_requirements,
+  qualsRequired: transformProjectRequirements(hit.project_requirements),
   requester: {
     id: hit.requester_id,
     name: hit.requester_name
@@ -35,3 +35,17 @@ const createWorkerSearchItem = (hit: WorkerSearchResult): SearchResult => ({
 
 const calculateIfQualified = (qualificationsArray: WorkerQualification[]) =>
   qualificationsArray.every(qual => !!qual.caller_meets_requirement);
+
+const transformProjectRequirements = (
+  quals: WorkerQualification[]
+): TaskQualification[] =>
+  quals.map((qual): TaskQualification => ({
+    qualificationId: qual.qualification_type_id,
+    name: qual.qualification_type.name,
+    description: qual.qualification_type.description,
+    comparator: qual.comparator,
+    hasTest: qual.qualification_type.has_test,
+    requestable: qual.qualification_type.is_requestable,
+    userValue: qual.caller_qualification_value.integerValue,
+    qualificationValues: qual.qualification_values
+  }));
