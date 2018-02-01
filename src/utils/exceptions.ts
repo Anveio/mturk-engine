@@ -33,7 +33,7 @@ const qualException = ({
     ? {
         status: 'critical',
         title: `Not qualified ${
-          testAvailable(qualifications) ? ' - test available' : ''
+          testAvailable(qualifications) ? ' - Test available' : ''
         }`
       }
     : null;
@@ -45,7 +45,8 @@ const knownRequesterException: ExceptionGenerator<RequesterExceptionData> = ({
   knownRequester
     ? {
         status: 'neutral',
-        title: `Requester in database - ${numPreviouslySubmittedHits} ${pluralize(
+        title: `Requester in database`,
+        description: `${numPreviouslySubmittedHits} ${pluralize(
           'HIT',
           'HITs',
           numPreviouslySubmittedHits
