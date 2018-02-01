@@ -6,7 +6,7 @@ import { List } from 'immutable';
 import { oneYearOfData } from '../../selectors/hitDatabase';
 import CalendarHeatMap from './CalendarHeatMap';
 import CalendarButtons from './CalendarButtons';
-import SelectedHitDate from './SelectedHitDate/SelectedHitDate';
+// import SelectedHitDate from './SelectedHitDate/SelectedHitDate';
 import { dateStringToLocaleDateString } from '../../utils/dates';
 
 interface Props {
@@ -27,7 +27,6 @@ class Calendar extends React.PureComponent<Props, never> {
           <CalendarHeatMap />
           <CalendarButtons />
         </Card.Section>
-        <SelectedHitDate />
       </Card>
     );
   }

@@ -38,10 +38,10 @@ class DateDisplayCard extends React.PureComponent<Props & Handlers, never> {
     <Card>
       <Card.Section>
         <Stack alignment="baseline">
-          <DisplayText size="medium">
+          <DisplayText size="small">
             {DateDisplayCard.generateTitle(this.props.selectedDate)}
           </DisplayText>
-          <Button plain size="large" onClick={this.handleRefresh}>
+          <Button plain onClick={this.handleRefresh}>
             Refresh this day's data
           </Button>
         </Stack>
