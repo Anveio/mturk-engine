@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Mturk Engine (Lite)
+// @name         Mturk Engine
 // @namespace    https://github.com/Anveio/mturk-engine/
 // @version      1.5.0
 // @description  Earn money more efficiently on Amazon's Mechanical Turk work platform.
