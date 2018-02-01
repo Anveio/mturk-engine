@@ -1,6 +1,9 @@
 import { Map } from 'immutable';
 import { SearchResult, SearchResults, WorkerQualification } from '../types';
-import { WorkerSearchResult, WorkerApiQualification } from '../worker-mturk-api';
+import {
+  WorkerSearchResult,
+  WorkerApiQualification
+} from '../worker-mturk-api';
 
 export const tabulateSearchData = (
   input: WorkerSearchResult[],
@@ -46,6 +49,24 @@ const transformProjectRequirements = (
     comparator: qual.comparator,
     hasTest: qual.qualification_type.has_test,
     requestable: qual.qualification_type.is_requestable,
-    userValue: qual.caller_qualification_value.integerValue,
+    userValue: resolveUserQualificationValue(qual),
     qualificationValues: qual.qualification_values
   }));
+
+const resolveUserQualificationValue = (
+  qual: WorkerApiQualification
+): string | number => {
+  const {
+    integerValue,
+    locale_value: { country, subdivision }
+  } = qual.caller_qualification_value;
+  if (!!integerValue) {
+    return integerValue;
+  } else if (!!country && !!subdivision) {
+    return `${country} - ${subdivision}`;
+  } else if (!!country) {
+    return country;
+  } else {
+    return 'Doesn\'t exist.';
+  }
+};
