@@ -137,7 +137,7 @@ export interface SearchResult extends HumanIntelligenceTask {
   readonly batchSize: number;
   readonly qualified: boolean;
   readonly timeAllottedInSeconds: number;
-  readonly qualsRequired: TaskQualification[];
+  readonly qualsRequired: WorkerQualification[];
   readonly canPreview: boolean;
 }
 
@@ -270,7 +270,7 @@ export interface AudioSettings {
   readonly volume: number;
 }
 
-export interface TaskQualification {
+export interface WorkerQualification {
   readonly qualificationId: string;
   readonly name: string;
   readonly description: string;

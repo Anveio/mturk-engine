@@ -89,11 +89,11 @@ export interface WorkerHit {
  * hit_requirements is renamed to project_requirements in search results as of now.
  */
 export interface WorkerHitNew extends WorkerHit {
-  readonly project_requirements: WorkerQualification[];
+  readonly project_requirements: WorkerApiQualification[];
 }
 
 export interface WorkerHitOld extends WorkerHit {
-  readonly hit_requirements: WorkerQualification[];
+  readonly hit_requirements: WorkerApiQualification[];
 }
 
 export interface WorkerSearchResult extends WorkerHitNew {
@@ -109,7 +109,7 @@ export interface WorkerQueueItem {
   readonly project: WorkerHitOld;
   readonly question: QueueItemQuestion;
   readonly state: 'Assigned'; // Possibly others?;
-  readonly hit_requirements: WorkerQualification[];
+  readonly hit_requirements: WorkerApiQualification[];
   readonly time_to_deadline_in_seconds: number;
   readonly task_id: string;
   readonly task_url: string;
@@ -131,7 +131,7 @@ export interface MonetaryReward {
   readonly currency_code: string;
 }
 
-export interface WorkerQualification {
+export interface WorkerApiQualification {
   readonly caller_meets_requirement: boolean;
   readonly comparator: QualificationComparator;
   readonly qualification_type: QualificationType;

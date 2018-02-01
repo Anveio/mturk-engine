@@ -1,4 +1,4 @@
-import { SearchResult, RequesterInfo, TaskQualification } from '../types';
+import { SearchResult, RequesterInfo, WorkerQualification } from '../types';
 import {
   baseTaskUrlWorker,
   baseRequesterUrlWorker,
@@ -25,7 +25,7 @@ const generateHwtfTitle = (hit: SearchResult): string => {
   )}/X:XX - (${generateQuals(hit.qualsRequired)})`;
 };
 
-const generateQuals = (quals: TaskQualification[]): string =>
+const generateQuals = (quals: WorkerQualification[]): string =>
   quals.length > 0
     ? quals.map(qual => qualificationToSentence(qual)).join(', ')
     : 'None';
@@ -68,7 +68,7 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     **Requirements:** ${quals}`;
 };
 
-const qualificationToSentence = (qual: TaskQualification): string =>
+const qualificationToSentence = (qual: WorkerQualification): string =>
   `${qual.name} ${qualComparatorToWords(
     qual.comparator
   )} ${qual.qualificationValues.join(', ')}.`;
