@@ -24,7 +24,10 @@ export const hitsOnSelectedDateSortedByPay = createSelector(
 export const pendingResultsOnSelectedDate = createSelector(
   [hitsOnSelectedDateSortedByPay],
   hits =>
-    hits.filter((el: HitDatabaseEntry) => el.status === 'Pending Approval')
+    hits.filter(
+      (el: HitDatabaseEntry) =>
+        el.status === 'Pending Approval' || el.status === 'Submitted'
+    )
 );
 
 export const nonPendingResultsOnSelectedDate = createSelector(
