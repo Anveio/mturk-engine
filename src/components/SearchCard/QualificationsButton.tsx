@@ -20,7 +20,7 @@ class ViewQualificationsButton extends React.PureComponent<Props, never> {
   public render() {
     const { qualifications } = this.props;
     return (
-      <Popover interactionKind={PopoverInteractionKind.HOVER}>
+      <Popover interactionKind={PopoverInteractionKind.CLICK}>
         <Button
           intent={0}
           className="pt-button pt-small pt-minimal"
