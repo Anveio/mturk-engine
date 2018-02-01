@@ -17,8 +17,25 @@ interface Props {
 }
 
 class ViewQualificationsButton extends React.PureComponent<Props, never> {
+  static TakeTestButton = ({
+    hasTest,
+    qualificationId,
+    userMeetsQualification
+  }: WorkerQualification) =>
+    userMeetsQualification ? (
+      <PolarisButton
+        plain
+        external
+        disabled={!hasTest}
+        url={`https://worker.mturk.com/qualifications/${qualificationId}`}
+      >
+        Take Test
+      </PolarisButton>
+    ) : null;
+
   public render() {
     const { qualifications } = this.props;
+    const { TakeTestButton } = ViewQualificationsButton;
     return (
       <Popover interactionKind={PopoverInteractionKind.CLICK}>
         <Button
@@ -52,22 +69,7 @@ class ViewQualificationsButton extends React.PureComponent<Props, never> {
                     </TextStyle>
                   </Caption>
                 </List.Item>
-                <Stack />
-
-                {!qual.userMeetsQualification ? (
-                  <PolarisButton
-                    plain
-                    external
-                    disabled={!qual.hasTest}
-                    url={`https://worker.mturk.com/qualifications/${
-                      qual.qualificationId
-                    }`}
-                  >
-                    Take Test
-                  </PolarisButton>
-                ) : (
-                  undefined
-                )}
+                <TakeTestButton {...qual} />
               </Stack>
             ))}
           </List>
