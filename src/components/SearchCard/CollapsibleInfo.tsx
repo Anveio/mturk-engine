@@ -8,6 +8,7 @@ import BlockRequesterButton from './BlockRequesterButton';
 import KnownRequesterButton from './KnownRequesterButton';
 
 import { secondsToMinutes } from '../../utils/dates';
+import QualificationsButton from './QualificationsButton';
 
 interface Props {
   readonly hit: SearchResult;
@@ -41,6 +42,11 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
             </Caption>
             {knownRequester ? (
               <KnownRequesterButton {...this.props} />
+            ) : (
+              undefined
+            )}
+            {!hit.qualified ? (
+              <QualificationsButton qualifications={hit.qualsRequired} />
             ) : (
               undefined
             )}

@@ -32,7 +32,7 @@ class KnownRequesterButton extends React.PureComponent<Props, State> {
           <Button
             intent={0}
             className="pt-button pt-small pt-minimal"
-            iconName="pt-icon-search-template"
+            iconName="pt-icon-history"
             onClick={this.toggleModal}
           >
             View requester work history

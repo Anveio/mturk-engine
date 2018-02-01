@@ -68,7 +68,7 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
     **Requirements:** ${quals}`;
 };
 
-const qualificationToSentence = (qual: WorkerQualification): string =>
+export const qualificationToSentence = (qual: WorkerQualification): string =>
   `${qual.name} ${qualComparatorToWords(
     qual.comparator
   )} ${qual.qualificationValues.join(', ')}.`;
