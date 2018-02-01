@@ -6,7 +6,7 @@
 // @author       Anveio (Shovon Hasan)
 // @match        https://worker.mturk.com/?mturkengine
 // @match        https://www.mturk.com/?mturkengine
-// @require      https://cdn.rawgit.com/Anveio/mturk-engine/c30fe41da902b83d795e17bfb12878c58c32bc4b/build/mturk-engine.latest.raw.user.js
+// @require      https://cdn.rawgit.com/Anveio/mturk-engine/dbe3c1549726ea895987467d968650a5b7cd49c5/build/mturk-engine.latest.raw.user.js
 // @grant        none
 // ==/UserScript==
 
