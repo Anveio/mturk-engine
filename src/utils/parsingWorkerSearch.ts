@@ -68,7 +68,7 @@ const resolveUserQualificationValue = (
   } else if (!!country) {
     return country;
   } else {
-    return 'Doesn\'t exist.';
+    return 'Not assigned.';
   }
 };
 
