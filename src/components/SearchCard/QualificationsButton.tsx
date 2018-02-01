@@ -22,7 +22,7 @@ class ViewQualificationsButton extends React.PureComponent<Props, never> {
     qualificationId,
     userMeetsQualification
   }: WorkerQualification) =>
-    userMeetsQualification ? (
+    !userMeetsQualification ? (
       <PolarisButton
         plain
         external
