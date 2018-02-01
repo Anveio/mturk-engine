@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Card } from '@shopify/polaris';
+import { Card, DisplayText, Stack, Button } from '@shopify/polaris';
 import { RootState } from '../../../types';
 import {
   FetchStatusDetailRequest,
@@ -35,15 +35,17 @@ class DateDisplayCard extends React.PureComponent<Props & Handlers, never> {
   };
 
   private dateSelectedMarkup = () => (
-    <Card
-      title={DateDisplayCard.generateTitle(this.props.selectedDate)}
-      actions={[
-        {
-          content: `Refresh this day's data`,
-          onAction: this.handleRefresh
-        }
-      ]}
-    >
+    <Card>
+      <Card.Section>
+        <Stack alignment="baseline">
+          <DisplayText size="medium">
+            {DateDisplayCard.generateTitle(this.props.selectedDate)}
+          </DisplayText>
+          <Button plain size="large" onClick={this.handleRefresh}>
+            Refresh this day's data
+          </Button>
+        </Stack>
+      </Card.Section>
       {this.props.children}
     </Card>
   );
@@ -51,11 +53,11 @@ class DateDisplayCard extends React.PureComponent<Props & Handlers, never> {
   private noDateSelectedMarkup = () => (
     <Card>
       <Card.Section>
-        <span className="pt-ui-text-large">
+        <DisplayText size="small">
           {DateDisplayCard.generateTitle(this.props.selectedDate)}
-        </span>
-        {this.props.children}
+        </DisplayText>
       </Card.Section>
+      {this.props.children}
     </Card>
   );
 
