@@ -58,11 +58,11 @@ const resolveUserQualificationValue = (
   qual: WorkerApiQualification
 ): string | number => {
   const {
-    integerValue,
+    integer_value,
     locale_value: { country, subdivision }
   } = qual.caller_qualification_value;
-  if (!!integerValue) {
-    return integerValue;
+  if (integer_value !== null && Number.isFinite(integer_value)) {
+    return integer_value;
   } else if (!!country && !!subdivision) {
     return `${country} - ${subdivision}`;
   } else if (!!country) {
@@ -70,4 +70,30 @@ const resolveUserQualificationValue = (
   } else {
     return 'Doesn\'t exist.';
   }
+};
+
+export var x = {
+  qualification_type_id: '3V75YMGIEXYVCDJFPSK5TD5CAIB4NZ',
+  comparator: 'GreaterThan',
+  worker_action: 'PreviewHit',
+  qualification_values: ['0'],
+  caller_meets_requirement: false,
+  qualification_type: {
+    qualification_type_id: '3V75YMGIEXYVCDJFPSK5TD5CAIB4NZ',
+    name: 'rekognition internal',
+    visibility: true,
+    description: 'internal workers',
+    has_test: false,
+    is_requestable: true,
+    keywords: null
+  },
+  caller_qualification_value: {
+    integer_value: null,
+    locale_value: {
+      country: null,
+      subdivision: null
+    }
+  },
+  qualification_request_url:
+    '/qualifications/3V75YMGIEXYVCDJFPSK5TD5CAIB4NZ/request'
 };

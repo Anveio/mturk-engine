@@ -152,7 +152,7 @@ export interface QualificationType {
 }
 
 export interface CallerQualificationValue {
-  readonly integerValue: number | null;
+  readonly integer_value: number | null;
   readonly locale_value: {
     readonly country: string | null;
     readonly subdivision: string | null;
