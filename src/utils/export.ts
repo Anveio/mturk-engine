@@ -61,7 +61,7 @@ export const generateMarkdownExport = (hit: SearchResult): string => {
   }) / [TO2](${turkopticonTwoBaseUrl}${requester.id})] : ${ratingsToWords(
     requester.turkopticon
   )}**
-    **Reward:** $${reward} 
+    **Reward:** ${formatAsCurrency(reward)} 
     **Duration:** ${secondsToMinutes(timeAllottedInSeconds)} minutes.  
     **Available:** ${batchSize}  
     **Description:** ${description}
