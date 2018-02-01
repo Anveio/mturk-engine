@@ -6,8 +6,15 @@ import {
 import { newResults } from './search';
 import { SearchResult, SearchResults } from '../types';
 
-export const newNeverLoggedSearchResults = createSelector(
-  [newResults, loggedSearchResultsSelector],
+const filterNewSearchResultsQualifiedOnly = createSelector(
+  [newResults],
+  (results: SearchResults) => {
+    return results.filter((result: SearchResult) => result.qualified);
+  }
+);
+
+const newNeverLoggedSearchResults = createSelector(
+  [filterNewSearchResultsQualifiedOnly, loggedSearchResultsSelector],
   (results: SearchResults, loggedResults: SearchResults) => {
     return results.filter(
       (result: SearchResult) => !loggedResults.get(result.groupId)
@@ -15,7 +22,7 @@ export const newNeverLoggedSearchResults = createSelector(
   }
 );
 
-export const unreadSearchResultsAboveNotificationThreshold = createSelector(
+const unreadSearchResultsAboveNotificationThreshold = createSelector(
   [newNeverLoggedSearchResults, notificationSettingsSelector],
   (results, settings) =>
     results.filter(
