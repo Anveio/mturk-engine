@@ -17,12 +17,8 @@ interface Props {
 }
 
 class ViewQualificationsButton extends React.PureComponent<Props, never> {
-  private static testAvailable = (quals: WorkerQualification[]): boolean =>
-    quals.some(qual => !qual.userMeetsQualification && qual.hasTest);
-
   public render() {
     const { qualifications } = this.props;
-    const { testAvailable } = ViewQualificationsButton;
     return (
       <Popover interactionKind={PopoverInteractionKind.HOVER}>
         <Button
@@ -30,8 +26,7 @@ class ViewQualificationsButton extends React.PureComponent<Props, never> {
           className="pt-button pt-small pt-minimal"
           iconName="pt-icon-comparison"
         >
-          View qualifications{' '}
-          {testAvailable(qualifications) ? '(Test available)' : ''}
+          View qualifications
         </Button>
         <Card
           sectioned

@@ -111,6 +111,7 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
     const {
       hit,
       knownRequester,
+
       hitsInQueue,
       weightedToScore,
       requesterWorkHistory
@@ -118,7 +119,7 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
     const { groupId, qualified, title, requester, markedAsRead } = hit;
 
     const exceptions = generateSearchCardExceptions(
-      qualified,
+      { qualified, qualifications: hit.qualsRequired },
       { knownRequester, numPreviouslySubmittedHits: requesterWorkHistory.size },
       hitsInQueue
     );

@@ -1,4 +1,5 @@
 import { pluralize } from './formatting';
+import { WorkerQualification } from '../types';
 
 type ExceptionStatus = 'neutral' | 'warning' | 'critical';
 interface ExceptionDescriptor {
@@ -16,8 +17,26 @@ interface RequesterExceptionData {
   readonly numPreviouslySubmittedHits: number;
 }
 
-const qualException = (qualified: boolean): ExceptionDescriptor | null =>
-  !qualified ? { status: 'critical', title: 'Not qualified' } : null;
+interface QualificationExceptionData {
+  readonly qualified: boolean;
+  readonly qualifications: WorkerQualification[];
+}
+
+const testAvailable = (quals: WorkerQualification[]): boolean =>
+  quals.some(qual => !qual.userMeetsQualification && qual.hasTest);
+
+const qualException = ({
+  qualified,
+  qualifications
+}: QualificationExceptionData): ExceptionDescriptor | null =>
+  !qualified
+    ? {
+        status: 'critical',
+        title: `Not qualified ${
+          testAvailable(qualifications) ? ' - test available' : ''
+        }`
+      }
+    : null;
 
 const knownRequesterException: ExceptionGenerator<RequesterExceptionData> = ({
   knownRequester,
@@ -43,7 +62,7 @@ const hitsInQueueException: ExceptionGenerator<number> = hitsInQueue =>
     : null;
 
 export const generateSearchCardExceptions = (
-  qualified: boolean,
+  qualified: QualificationExceptionData,
   requesterExceptionData: RequesterExceptionData,
   hitsInQueue: number
 ): ExceptionDescriptor[] =>
