@@ -50,6 +50,7 @@ const transformProjectRequirements = (
     hasTest: qual.qualification_type.has_test,
     requestable: qual.qualification_type.is_requestable,
     userValue: resolveUserQualificationValue(qual),
+    userMeetsQualification: !!qual.caller_meets_requirement,
     qualificationValues: qual.qualification_values
   }));
 

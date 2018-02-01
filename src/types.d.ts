@@ -278,6 +278,7 @@ export interface WorkerQualification {
   readonly requestable: boolean;
   readonly comparator: QualificationComparator;
   readonly userValue: string | number | null;
+  readonly userMeetsQualification: boolean;
   readonly qualificationValues: (string | number)[];
 }
 
