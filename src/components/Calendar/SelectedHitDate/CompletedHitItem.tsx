@@ -63,14 +63,16 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
   };
 
   public render() {
-    const { hit: { title, reward, bonus, status, assignmentId } } = this.props;
+    const {
+      hit: { title, requester, reward, bonus, status, assignmentId }
+    } = this.props;
     return (
       <React.Fragment>
         <div onClick={this.handleExpand}>
           <ResourceList.Item
-            persistActions
             attributeOne={CompletedHitItem.displayEarnings(reward, bonus)}
             attributeTwo={truncate(title, 100)}
+            attributeThree={truncate(requester.name, 30)}
             badges={[generateHitStatusBadge(status)]}
             actions={this.generateActions(assignmentId)}
           />
