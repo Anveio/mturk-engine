@@ -1,4 +1,5 @@
 import { Watcher, SearchResult } from '../types';
+import { formatAsCurrency } from './formatting';
 
 export const watcherFromId = (groupId: string): Watcher => ({
   title: '',
@@ -11,7 +12,7 @@ export const watcherFromId = (groupId: string): Watcher => ({
 
 export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
   title: hit.title,
-  description: hit.description,
+  description: `${formatAsCurrency(hit.reward)} - ${hit.description}`,
   groupId: hit.groupId,
   delay: 5,
   createdOn: new Date(),
