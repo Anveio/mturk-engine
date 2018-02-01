@@ -132,7 +132,7 @@ export interface MonetaryReward {
 }
 
 export interface WorkerApiQualification {
-  readonly caller_meets_requirement: boolean;
+  readonly caller_meets_requirement: boolean | null;
   readonly comparator: QualificationComparator;
   readonly qualification_type: QualificationType;
   readonly qualification_type_id: string;
