@@ -31,7 +31,6 @@
     "transit-immutable-js": "^0.7.0",
     "uuid": "^3.1.0"
   },
-  "homepage": "https://www.mturk.com/mturk/findhits?match=true?mturkengine",
   "devDependencies": {
     "@types/jest": "^21.1.8",
     "@types/node": "^8.0.53",
