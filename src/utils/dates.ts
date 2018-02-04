@@ -42,8 +42,7 @@ export const todayFormatted = (): string => moment().format(LEGACY_DATE_FORMAT);
 export const dateStringToLocaleDateString = (dateString: string): string =>
   moment(dateString, LEGACY_DATE_FORMAT).format(MOMENT_LOCALE);
 
-export const generateOneYearOfDates = () => {
-  const startDate = moment();
+export const generateOneYearOfDates = (startDate = moment()) => {
   return dateRange(startDate, 365 + startDate.day());
 };
 
