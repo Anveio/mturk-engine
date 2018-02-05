@@ -22,9 +22,9 @@ Scroll down to the animated gifs and get a sense of what Mturk Engine looks like
 
 Mturk Engine in its current state can be described as a combination of HitScraper + PandaCrazy, with a few extra features like adding a watcher directly from your search results (watchers automatically accept HITs for you). Scroll down to the "Preview" section to see what that looks like.
 
-You can also accept HITs and know immediately if your accept went through without having to wait for a full page reload and being disappointed when it didn't. Mturk Engine is also super fast, and should handle 0 second delays between searches and 1 billion+ blocked requesters/HITs without slowing down. 
+You can also accept HITs and know immediately if your accept went through without having to wait for a full page reload and being disappointed when it didn't. Mturk Engine is also super fast, and should handle 0 second delays between searches and 1 billion+ blocked requesters/HITs without slowing down.
 
-Mturk Engine uses [Immutable.js Maps](https://facebook.github.io/immutable-js/) under the hood to do blocklist lookups in O(log32n) time for each HIT, meaning that you don't have to worry that your blocklists are slowing things down and you can keep them growing infinitely. 
+Mturk Engine uses [Immutable.js Maps](https://facebook.github.io/immutable-js/) under the hood to do blocklist lookups in O(log32n) time for each HIT, meaning that you don't have to worry that your blocklists are slowing things down and you can keep them growing infinitely.
 
 Mturk Engine uses React to update elements on the page, which means that rapidly updating pages in response to changes is faster than other tools. I spend a lot of time making sure Mturk Engine is performant, and [write about some performance related stuff on my blog](https://blog.shovonhasan.com/pattern-for-rendering-lists-of-connected-components-with-react-redux/).
 
@@ -40,7 +40,7 @@ Mturk Engine is under active development so feel free to suggest features or sub
 
 2. [Download Mturk Engine here.](https://raw.githubusercontent.com/Anveio/mturk-engine/master/build/mturk-engine.latest.user.js) Your userscript manager should prompt you to install the script. An alternative is to download the lite version here: https://greasyfork.org/en/scripts/33403-mturk-engine-lite
 
-4. Navigate to https://worker.mturk.com/?mturkengine with your Amazon Mechanical Turk account to begin using Mturk Engine. It's a good idea to bookmark this link if you intend on using it frequently.
+3. Navigate to https://worker.mturk.com/?mturkengine with your Amazon Mechanical Turk account to begin using Mturk Engine. It's a good idea to bookmark this link if you intend on using it frequently.
 
 ## Developer Guide
 
@@ -58,12 +58,15 @@ Check out the [Developer Guide](https://github.com/Anveio/mturk-engine/blob/mast
 ###
 
 ### The Mturk Engine UI
+
 <img src="https://i.imgur.com/JE0M8RB.png" alt="Still image showing the UI for searching for HITs, seeing unread HITS, hiding HITs, and blocking requesters."/>
 
 ### Keep track of your work with the Account tab
+
 <img src="https://i.imgur.com/q764FG0.gif" alt="Animated Gif showing the usage of the account tab to monitor your dashboard, update your HIT database, and edit bonuses"/>
 
- ### Search for HITs and block requesters.
+### Search for HITs and block requesters.
+
 <img src="https://i.imgur.com/Z5UEVbs.gif" alt="Animated GIF showing the normal flow of searching for HITs, hiding HITs, blocking requesters, accepting HITs, viewing your queue, and returning a HIT"/>
 
 ### Add watchers to automatically accept HITs
@@ -78,7 +81,8 @@ Check out the [Developer Guide](https://github.com/Anveio/mturk-engine/blob/mast
 
 * Search for HITs periodically without waiting for full page reloads.
 * New HITs are highlighted and grouped together at the top of your search results.
-* Optionally receive a sound alert when you find a new HIT.
+* Optionally receive a sound alert or notification when you find a new HIT.
+* See what other HITs you've done for a requester in your search results.
 * Have TO data at your fingertips.
 * Use watchers to automatically accept HITs.
 * Add watchers manually or add them directly from search results.
@@ -98,4 +102,3 @@ Check out the [Developer Guide](https://github.com/Anveio/mturk-engine/blob/mast
 * ~~Integration with your dashboard and data visualization of income over time, earning streaks etc.~~ <~ Added in 1.3.0
 * ~~New HIT highlighting~~ <~ Added in 1.2.0
 * CAPTCHA detection <~ Coming soon
-
