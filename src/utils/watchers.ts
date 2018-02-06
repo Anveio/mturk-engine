@@ -6,8 +6,7 @@ export const watcherFromId = (groupId: string): Watcher => ({
   description: 'ID: ' + groupId,
   groupId,
   delay: 10,
-  createdOn: new Date(),
-  timeNextAttempt: null
+  createdOn: new Date()
 });
 
 export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
@@ -15,8 +14,7 @@ export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
   description: `${formatAsCurrency(hit.reward)} - ${hit.description}`,
   groupId: hit.groupId,
   delay: 5,
-  createdOn: new Date(),
-  timeNextAttempt: null
+  createdOn: new Date()
 });
 
 export const pandaLinkValidators: Function[] = [

@@ -256,7 +256,6 @@ export interface Watcher {
   readonly delay: number;
   readonly description: string;
   readonly createdOn: Date;
-  readonly timeNextAttempt: Date | null;
   readonly hit?: HumanIntelligenceTask;
 }
 
