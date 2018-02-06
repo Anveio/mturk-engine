@@ -9,7 +9,7 @@ import SearchTab from './SearchTab';
 import Account from '../Account/Account';
 import BlockLists from '../BlockList/BlockLists';
 import SettingsTab from '../SettingsTab/SettingsTab';
-import Watchers from '../Watchers/Watchers';
+import Watchers from '../WatchersNew';
 
 export interface Props {
   readonly selected: number;
