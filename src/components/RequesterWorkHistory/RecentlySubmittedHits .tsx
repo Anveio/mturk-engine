@@ -27,9 +27,7 @@ class RecentlySubmittedHits extends React.PureComponent<
         <Stack vertical>
           <TextContainer>
             <Heading>
-              {`${hits.size} ${pluralize(
-                'HIT',
-                'HITs',
+              {`${hits.size} ${pluralize('HIT', 'HITs')(
                 hits.size
               )} from "${requesterName}" found in your database.`}
             </Heading>

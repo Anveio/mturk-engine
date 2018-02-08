@@ -28,9 +28,7 @@ class RequesterWorkHistory extends React.PureComponent<
     return (
       <Card
         sectioned
-        title={`Found ${hits.size} ${pluralize(
-          'HIT',
-          'HITS',
+        title={`Found ${hits.size} ${pluralize('HIT', 'HITS')(
           hits.size
         )} submitted to ${requester.name}`}
       >

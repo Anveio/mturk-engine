@@ -19,8 +19,21 @@ export const formatAsCurrency = currencyFormatter.format;
 export const removeCurrencyFormatting = (input: string) =>
   input.replace(/[^\d.]/g, '');
 
-export const pluralize = (
-  nonPluralForm: string,
-  pluralForm: string,
+/**
+ * Creates a pluralize function that accepts an amount then returns the
+ * appropriate plural form or non-plural form
+ * @param nonPluralForm
+ * @param pluralForm
+ */
+export const pluralize = (nonPluralForm: string, pluralForm: string) => (
   groupSize = 2
 ) => (groupSize === 1 ? nonPluralForm : pluralForm);
+
+expect(pluralize('goose', 'geese')(0)).toBe('geese');
+expect(pluralize('goose', 'geese')());
+
+// Thunked
+const pluralizeGeese = pluralize('goose', 'geese');
+
+expect(pluralizeGeese(0)).toBe('geese');
+expect(pluralizeGeese());

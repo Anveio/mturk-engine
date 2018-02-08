@@ -46,9 +46,7 @@ const knownRequesterException: ExceptionGenerator<RequesterExceptionData> = ({
     ? {
         status: 'neutral',
         title: `Requester in database`,
-        description: `${numPreviouslySubmittedHits} ${pluralize(
-          'HIT',
-          'HITs',
+        description: `${numPreviouslySubmittedHits} ${pluralize('HIT', 'HITs')(
           numPreviouslySubmittedHits
         )} found`
       }
