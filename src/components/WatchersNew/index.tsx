@@ -2,24 +2,26 @@ import * as React from 'react';
 // import { Tabs2 as Tabs, Tab2 as Tab } from '@blueprintjs/core';
 // import { Menu, MenuItem, MenuDivider } from '@blueprintjs/core';
 import { connect } from 'react-redux';
-import { List } from 'immutable';
 import { Classes, Tree, ITreeNode } from '@blueprintjs/core';
 import { Layout, Stack, DisplayText } from '@shopify/polaris';
-import { RootState } from '../../types';
+import { RootState, WatcherMap, Watcher } from '../../types';
 import { watchersListToTreeNodes } from '../../selectors/watchers';
 
 interface Props {
-  readonly tree: List<ITreeNode>;
+  readonly tree: ITreeNode[];
+  readonly watchers: WatcherMap;
 }
 
 interface State {
   readonly nodes: ITreeNode[];
+  readonly currentlySelectedWatcher: Watcher | null;
 }
 
 class WatchersNew extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      currentlySelectedWatcher: null,
       nodes: [
         {
           id: 1,
@@ -51,11 +53,12 @@ class WatchersNew extends React.Component<Props, State> {
       originallySelected == null ? true : !originallySelected;
     this.setState(this.state);
   };
+
   public render() {
-    const contents = WatchersNew.appendChildNodes(
-      this.state.nodes,
-      this.props.tree.toArray()
-    );
+    const { tree } = this.props;
+    const { nodes, currentlySelectedWatcher } = this.state;
+
+    const contents = WatchersNew.appendChildNodes(nodes, tree);
 
     return (
       <Layout>
@@ -70,7 +73,11 @@ class WatchersNew extends React.Component<Props, State> {
           </Stack>
         </Layout.Section>
         <Layout.Section>
-          <DisplayText>Hey there don't be scared</DisplayText>
+          <DisplayText>
+            {currentlySelectedWatcher
+              ? currentlySelectedWatcher.title
+              : 'Select a Watcher'}
+          </DisplayText>
         </Layout.Section>;
       </Layout>
     );
@@ -78,7 +85,8 @@ class WatchersNew extends React.Component<Props, State> {
 }
 
 const mapState = (state: RootState): Props => ({
-  tree: watchersListToTreeNodes(state)
+  tree: watchersListToTreeNodes(state),
+  watchers: state.watchers
 });
 
 export default connect(mapState)(WatchersNew);
