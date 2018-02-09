@@ -25,6 +25,7 @@ import { default as expandedSearchResults } from './reducers/expandedSearchResul
 import { default as legacyLinksEnabled } from './reducers/legacyLinksEnabled';
 import { default as notificationSettings } from './reducers/notificationSettings';
 import { default as loggedSearchResults } from './reducers/loggedSearchResults';
+import { default as watcherTree } from './reducers/watcherTree';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -33,6 +34,7 @@ export const rootReducer = combineReducers<RootState>({
   account,
   watchers,
   audioFiles,
+  watcherTree,
   hitDatabase,
   hitBlocklist,
   watcherTimes,
