@@ -20,6 +20,15 @@ export interface Handlers {
   readonly onSelectTab: (selectedTabIndex: number) => void;
 }
 
+const tabLookup = {
+  [TabIndex.SEARCH]: 'search',
+  [TabIndex.QUEUE]: 'queue',
+  [TabIndex.WATCHERS]: 'watchers',
+  [TabIndex.BLOCKLIST]: 'blocklist',
+  [TabIndex.ACCOUNT]: 'account',
+  [TabIndex.SETTINGS]: 'settings'
+};
+
 const TabNavigation: React.SFC<Props & Handlers> = ({
   onSelectTab,
   queueSize,
@@ -27,21 +36,41 @@ const TabNavigation: React.SFC<Props & Handlers> = ({
 }) => {
   return (
     <Tabs
-      id="mturk-engine-tab-navigation"
-      selectedTabId={selected}
+      id="tabs"
+      selectedTabId={tabLookup[selected]}
       onChange={onSelectTab}
       animate={false}
     >
-      <Tab id={TabIndex.SEARCH} title="Search" panel={<SearchTab />} />
+      <Tab
+        id={tabLookup[TabIndex.SEARCH]}
+        title="Search"
+        panel={<SearchTab />}
+      />
       <Tab
         id={TabIndex.QUEUE}
         title={`Queue (${queueSize})`}
         panel={<QueueTable />}
       />
-      <Tab id={TabIndex.WATCHERS} title="Watchers" panel={<Watchers />} />
-      <Tab id={TabIndex.BLOCKLIST} title="Blocklist" panel={<BlockLists />} />
-      <Tab id={TabIndex.ACCOUNT} title="Account" panel={<Account />} />
-      <Tab id={TabIndex.SETTINGS} title="Settings" panel={<SettingsTab />} />
+      <Tab
+        id={tabLookup[TabIndex.WATCHERS]}
+        title="Watchers"
+        panel={<Watchers />}
+      />
+      <Tab
+        id={tabLookup[TabIndex.BLOCKLIST]}
+        title="Blocklist"
+        panel={<BlockLists />}
+      />
+      <Tab
+        id={tabLookup[TabIndex.ACCOUNT]}
+        title="Account"
+        panel={<Account />}
+      />
+      <Tab
+        id={tabLookup[TabIndex.SETTINGS]}
+        title="Settings"
+        panel={<SettingsTab />}
+      />
     </Tabs>
   );
 };
