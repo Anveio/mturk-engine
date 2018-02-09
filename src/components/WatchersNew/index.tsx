@@ -3,7 +3,7 @@ import * as React from 'react';
 // import { Menu, MenuItem, MenuDivider } from '@blueprintjs/core';
 import { connect } from 'react-redux';
 import { Classes, Tree } from '@blueprintjs/core';
-import { Layout, Stack, DisplayText } from '@shopify/polaris';
+import { Layout, Stack, Card, DisplayText } from '@shopify/polaris';
 import { RootState, WatcherKind, Watcher } from '../../types';
 import { watchersListToTreeNodes } from '../../selectors/watchers';
 import { GenericTreeNode } from '../../utils/tree';
@@ -74,11 +74,18 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
           </Stack>
         </Layout.Section>
         <Layout.Section>
-          <DisplayText>
-            {currentlySelectedWatcher
-              ? `${currentlySelectedWatcher.title}`
-              : 'Select a Watcher'}
-          </DisplayText>
+          <Stack vertical>
+            <DisplayText>
+              {currentlySelectedWatcher
+                ? `${currentlySelectedWatcher.title}`
+                : 'Select a Watcher'}
+            </DisplayText>
+            <Card sectioned>
+              {currentlySelectedWatcher
+                ? currentlySelectedWatcher.description
+                : 'No description'}
+            </Card>
+          </Stack>
         </Layout.Section>;
       </Layout>
     );
