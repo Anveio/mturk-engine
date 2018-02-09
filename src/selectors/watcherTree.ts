@@ -1,5 +1,8 @@
 import { createSelector } from 'reselect';
 import { watcherTreeSelector, watcherSelector } from './index';
+import { watchersList } from './watchers';
+import { WatcherTreeNode } from '../utils/tree';
+import { Watcher } from '../types';
 
 export const getCurrentlySelectedWatcherOrNull = createSelector(
   [watcherTreeSelector, watcherSelector],
@@ -12,4 +15,16 @@ export const getCurrentlySelectedWatcherOrNull = createSelector(
       return null;
     }
   }
+);
+
+export const watchersListToTreeNodes = createSelector(
+  [watchersList, watcherTreeSelector],
+  (watchers, { selectionId }): WatcherTreeNode[] =>
+    watchers.map((watcher: Watcher): WatcherTreeNode => ({
+      id: watcher.groupId,
+      iconName: 'document',
+      label: watcher.title,
+      isSelected: selectionId === watcher.groupId ? true : false,
+      kind: 'groupId'
+    }))
 );
