@@ -34,5 +34,7 @@ export const uploadedStateSelector = (state: RootState) => state.uploadedState;
 
 export const watcherSelector = (state: RootState) => state.watchers;
 
+export const watcherTreeSelector = (state: RootState) => state.watcherTree;
+
 export const turkopticonSettingsSelector = (state: RootState) =>
   state.topticonSettings;

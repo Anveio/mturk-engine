@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { Watcher, WatcherMap } from '../types';
 import { watcherSelector } from './index';
-import { ITreeNode } from '@blueprintjs/core';
+import { WatcherTreeNode } from '../utils/tree';
 
 export const watchersSortedLatestFirst = createSelector(
   [watcherSelector],
@@ -23,10 +23,11 @@ export const watchersList = createSelector(
 
 export const watchersListToTreeNodes = createSelector(
   [watchersList],
-  (watchers): ITreeNode[] =>
-    watchers.map((watcher: Watcher): ITreeNode => ({
+  (watchers): WatcherTreeNode[] =>
+    watchers.map((watcher: Watcher): WatcherTreeNode => ({
       id: watcher.groupId,
       iconName: 'document',
-      label: watcher.title
+      label: watcher.title,
+      kind: 'groupId'
     }))
 );
