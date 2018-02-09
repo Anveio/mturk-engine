@@ -29,6 +29,7 @@ export interface RootState {
   readonly expandedSearchResults: ExpandedSearchResultsMap;
   readonly notificationSettings: NotificationSettings;
   readonly loggedSearchResults: SearchResults;
+  readonly watcherTree: WatcherTreeSettings;
 }
 
 export type SearchResults = Map<string, SearchResult>; // indexed by groupId
@@ -294,6 +295,13 @@ export interface DailyEarnings {
   readonly reward: number;
   readonly bonus: number;
 }
+
+export interface WatcherTreeSettings {
+  readonly selectionKind: WatcherKind | 'folder' | null;
+  readonly selectionId: string | null;
+}
+
+export type WatcherKind = 'groupId' | 'searchTerm' | 'requesterId';
 
 export type AcceptHitFailureReason =
   | 'CAPTCHA'
