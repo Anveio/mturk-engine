@@ -64,7 +64,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
       hasCaret: selectionId === watcher.groupId ? true : false,
       iconName: 'document',
       secondaryLabel: watcherTimers.get(watcher.groupId) ? (
-        <div style={{ paddingTop: '0.375em' }}>
+        <div style={{ paddingTop: '0.4em' }}>
           <Spinner className={Classes.SMALL} />
         </div>
       ) : (
