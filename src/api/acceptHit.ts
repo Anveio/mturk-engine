@@ -35,10 +35,7 @@ export const sendHitAcceptRequest = async (
       successful: validateHitAccept(response.data)
     };
   } catch (e) {
-    if (
-      (e.response && e.response.status === 404) ||
-      (e.response && e.response.status === 429)
-    ) {
+    if (e.response && failureStatusCodes[e.response.status]) {
       return {
         successful: false
       };
@@ -48,4 +45,10 @@ export const sendHitAcceptRequest = async (
       };
     }
   }
+};
+
+const failureStatusCodes = {
+  404: true,
+  429: true,
+  500: true
 };
