@@ -2,20 +2,23 @@ import * as React from 'react';
 // import { Tabs2 as Tabs, Tab2 as Tab } from '@blueprintjs/core';
 // import { Menu, MenuItem, MenuDivider } from '@blueprintjs/core';
 import { connect } from 'react-redux';
-import { Classes, Tree, Breadcrumb } from '@blueprintjs/core';
-import { Layout, Stack, Card, DisplayText } from '@shopify/polaris';
-import { RootState, WatcherKind, Watcher } from '../../types';
-import { GenericTreeNode } from '../../utils/tree';
+import { Classes, Tree, Spinner, NonIdealState } from '@blueprintjs/core';
+import { Layout, Stack, DisplayText } from '@shopify/polaris';
+import { RootState, WatcherKind, Watcher, WatcherTimerMap } from '../../types';
+import { GenericTreeNode, WatcherTreeNode } from '../../utils/tree';
 import { Dispatch } from 'redux';
 import {
   SelectWatcherTreeNodeAction,
   selectWatcherFile,
   selectWatcherFolder
 } from '../../actions/watcherTree';
-import { getCurrentlySelectedWatcherOrNull, watchersListToTreeNodes } from '../../selectors/watcherTree';
+import { getCurrentlySelectedWatcherOrNull } from '../../selectors/watcherTree';
+import { watchersList } from '../../selectors/watchers';
+import WatcherCard from './Watcher';
 
 interface Props {
-  readonly tree: GenericTreeNode[];
+  readonly watchers: Watcher[];
+  readonly watcherTimers: WatcherTimerMap;
   readonly currentlySelectedWatcher: Watcher | null;
 }
 
@@ -50,18 +53,48 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
       : this.props.onSelectWatcher(nodeData.id, nodeData.kind);
   };
 
+  static watchersArrayToTreeNodes = (
+    watchers: Watcher[],
+    selectionId: string | null,
+    watcherTimers: WatcherTimerMap
+  ): WatcherTreeNode[] =>
+    watchers.map((watcher: Watcher): WatcherTreeNode => ({
+      id: watcher.groupId,
+      isExpanded: false,
+      hasCaret: selectionId === watcher.groupId ? true : false,
+      iconName: 'document',
+      secondaryLabel: watcherTimers.get(watcher.groupId) ? (
+        <div style={{ paddingTop: '0.375em' }}>
+          <Spinner className={Classes.SMALL} />
+        </div>
+      ) : (
+        undefined
+      ),
+      label: watcher.title,
+      kind: 'groupId'
+    }));
+
   public render() {
-    const { tree, currentlySelectedWatcher } = this.props;
-    const { initialNodes, appendChildNodes } = WatchersNew;
-    const contents = appendChildNodes(initialNodes, tree);
+    const { watchers, currentlySelectedWatcher, watcherTimers } = this.props;
+    const {
+      initialNodes,
+      appendChildNodes,
+      watchersArrayToTreeNodes
+    } = WatchersNew;
+    const contents = appendChildNodes(
+      initialNodes,
+      watchersArrayToTreeNodes(
+        watchers,
+        (currentlySelectedWatcher && currentlySelectedWatcher.groupId) || null,
+        watcherTimers
+      )
+    );
 
     return (
       <Layout>
         <Layout.Section secondary>
           <Stack vertical>
-            <ul className="pt-breadcrumbs">
-              <Breadcrumb text="Watchers" />
-            </ul>
+            <DisplayText>Watchers</DisplayText>
             <Tree
               className={Classes.ELEVATION_0}
               onNodeClick={this.handleNodeClick}
@@ -70,7 +103,12 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
           </Stack>
         </Layout.Section>
         <Layout.Section>
-          <Stack vertical>
+          {currentlySelectedWatcher ? (
+            <WatcherCard watcherId={currentlySelectedWatcher.groupId} />
+          ) : (
+            <NonIdealState />
+          )}
+          {/* <Stack vertical>
             <DisplayText>
               {currentlySelectedWatcher
                 ? `${currentlySelectedWatcher.title}`
@@ -81,7 +119,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
                 ? currentlySelectedWatcher.description
                 : 'No description'}
             </Card>
-          </Stack>
+          </Stack> */}
         </Layout.Section>;
       </Layout>
     );
@@ -89,8 +127,9 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  tree: watchersListToTreeNodes(state),
-  currentlySelectedWatcher: getCurrentlySelectedWatcherOrNull(state)
+  watchers: watchersList(state),
+  currentlySelectedWatcher: getCurrentlySelectedWatcherOrNull(state),
+  watcherTimers: state.watcherTimes
 });
 
 const mapDispatch = (

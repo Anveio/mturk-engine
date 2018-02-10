@@ -4,8 +4,8 @@ import { WatcherTreeSettings } from '../types';
 
 const initial: WatcherTreeSettings = {
   selectionKind: null,
-  selectionId: null,
-}
+  selectionId: null
+};
 
 export default (
   state = initial,
@@ -23,7 +23,7 @@ export default (
         ...state,
         selectionId: null,
         selectionKind: 'folder'
-      }
+      };
     default:
       return state;
   }
