@@ -2,7 +2,7 @@ import * as React from 'react';
 // import { Tabs2 as Tabs, Tab2 as Tab } from '@blueprintjs/core';
 // import { Menu, MenuItem, MenuDivider } from '@blueprintjs/core';
 import { connect } from 'react-redux';
-import { Classes, Tree, Spinner, NonIdealState } from '@blueprintjs/core';
+import { Classes, Tree, NonIdealState } from '@blueprintjs/core';
 import { Layout, Stack, DisplayText } from '@shopify/polaris';
 import { RootState, WatcherKind, Watcher, WatcherTimerMap } from '../../types';
 import { GenericTreeNode, WatcherTreeNode } from '../../utils/tree';
@@ -15,6 +15,7 @@ import {
 import { getCurrentlySelectedWatcherOrNull } from '../../selectors/watcherTree';
 import { watchersList } from '../../selectors/watchers';
 import WatcherCard from './Watcher';
+import WatcherSpinner from './WatcherSpinner';
 
 interface Props {
   readonly watchers: Watcher[];
@@ -64,9 +65,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
       hasCaret: selectionId === watcher.groupId ? true : false,
       iconName: 'document',
       secondaryLabel: watcherTimers.get(watcher.groupId) ? (
-        <div style={{ paddingTop: '0.4em' }}>
-          <Spinner className={Classes.SMALL} />
-        </div>
+        <WatcherSpinner id={watcher.groupId} />
       ) : (
         undefined
       ),
@@ -120,7 +119,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
                 : 'No description'}
             </Card>
           </Stack> */}
-        </Layout.Section>;
+        </Layout.Section>
       </Layout>
     );
   }
