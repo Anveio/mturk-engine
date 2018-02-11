@@ -41,6 +41,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
   ): GenericTreeNode[] => nodes.map(node => ({ ...node, childNodes }));
 
   private handleNodeClick = (nodeData: GenericTreeNode) => {
+    console.log(nodeData);
     nodeData.kind === 'folder'
       ? this.props.onSelectFolder(nodeData.id)
       : this.props.onSelectWatcher(nodeData.id, nodeData.kind);

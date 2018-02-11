@@ -5,7 +5,7 @@ import { Map } from 'immutable';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
 
 const initial = Map<string, WatcherFolder>({
-  DEFAULT_WATCHER_FOLDER_ID: {
+  [DEFAULT_WATCHER_FOLDER_ID]: {
     expanded: true,
     id: DEFAULT_WATCHER_FOLDER_ID,
     name: 'Unsorted Watchers',
