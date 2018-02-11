@@ -258,7 +258,7 @@ export interface Watcher {
   readonly delay: number;
   readonly description: string;
   readonly createdOn: Date;
-  readonly hit?: HumanIntelligenceTask;
+  readonly folderId: string;
 }
 
 export interface WatcherTimer {
