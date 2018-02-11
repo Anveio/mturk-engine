@@ -39,10 +39,6 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
     }
   ];
 
-  shouldComponentUpdate() {
-    return true;
-  }
-
   private static appendChildNodes = (
     nodes: GenericTreeNode[],
     childNodes: GenericTreeNode[]
@@ -105,7 +101,11 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
           {currentlySelectedWatcher ? (
             <WatcherCard watcherId={currentlySelectedWatcher.groupId} />
           ) : (
-            <NonIdealState />
+            <NonIdealState
+              title="Select a Watcher"
+              description="Watchers let you accept many of the same HIT or snag a rare one."
+              visual="pt-icon-folder-shared-open"
+            />
           )}
           {/* <Stack vertical>
             <DisplayText>
