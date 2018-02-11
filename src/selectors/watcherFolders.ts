@@ -35,6 +35,7 @@ export const watcherFoldersToTreeNodes = createSelector(
             label: folder.name,
             isExpanded: folder.expanded,
             kind: 'folder',
+            iconName: folder.expanded ? 'folder-open' : 'folder-close',
             childNodes: watchersArrayToTreeNodes(
               watcherFolderMap.get(folder.id, [])
             )
