@@ -1,12 +1,15 @@
 import { Watcher, SearchResult } from '../types';
 import { formatAsCurrency } from './formatting';
+import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
+import { WatcherTreeNode } from './tree';
 
 export const watcherFromId = (groupId: string): Watcher => ({
   title: '',
   description: 'ID: ' + groupId,
   groupId,
   delay: 10,
-  createdOn: new Date()
+  createdOn: new Date(),
+  folderId: DEFAULT_WATCHER_FOLDER_ID
 });
 
 export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
@@ -14,7 +17,8 @@ export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
   description: `${formatAsCurrency(hit.reward)} - ${hit.description}`,
   groupId: hit.groupId,
   delay: 5,
-  createdOn: new Date()
+  createdOn: new Date(),
+  folderId: DEFAULT_WATCHER_FOLDER_ID
 });
 
 export const pandaLinkValidators: Function[] = [
@@ -44,3 +48,13 @@ export const determineInputType = (input: string): WatcherInputType => {
     return 'INVALID';
   }
 };
+
+export const watchersArrayToTreeNodes = (
+  watchers: Watcher[]
+): WatcherTreeNode[] =>
+  watchers.map((watcher: Watcher): WatcherTreeNode => ({
+    id: watcher.groupId,
+    iconName: 'document',
+    label: watcher.title,
+    kind: 'groupId'
+  }));

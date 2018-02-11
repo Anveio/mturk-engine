@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
-import { watcherTreeSelector, watcherSelector } from './index';
+import { watcherTreeSelector } from './index';
+import { normalizedWatchers } from './watchers';
 
 export const getCurrentlySelectedWatcherOrNull = createSelector(
-  [watcherTreeSelector, watcherSelector],
+  [watcherTreeSelector, normalizedWatchers],
   (watcherSettings, watchers) => {
     const { selectionId, selectionKind } = watcherSettings;
 

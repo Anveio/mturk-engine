@@ -1,9 +1,17 @@
 import { SelectWatcherFolder } from '../actions/watcherTree';
 import { SELECT_WATCHER_FOLDER } from '../constants';
-import { WatcherFolder } from '../types';
+import { WatcherFolder, Watcher } from '../types';
 import { Map } from 'immutable';
+import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
 
-const initial = Map<string, WatcherFolder>();
+const initial = Map<string, WatcherFolder>({
+  DEFAULT_WATCHER_FOLDER_ID: {
+    expanded: true,
+    id: DEFAULT_WATCHER_FOLDER_ID,
+    name: 'Unsorted Watchers',
+    watchers: Map<string, Watcher>()
+  }
+});
 
 export default (
   state = initial,
