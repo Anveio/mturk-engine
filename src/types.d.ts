@@ -30,6 +30,7 @@ export interface RootState {
   readonly notificationSettings: NotificationSettings;
   readonly loggedSearchResults: SearchResults;
   readonly watcherTree: WatcherTreeSettings;
+  readonly watcherFolders: Map<string, WatcherFolder>;
 }
 
 export type SearchResults = Map<string, SearchResult>; // indexed by groupId
@@ -302,6 +303,13 @@ export interface WatcherTreeSettings {
 }
 
 export type WatcherKind = 'groupId' | 'searchTerm' | 'requesterId';
+
+export interface WatcherFolder {
+  readonly id: string;
+  readonly name: string;
+  readonly expanded: boolean;
+  readonly watchers: Map<string, Watcher>;
+}
 
 export type AcceptHitFailureReason =
   | 'CAPTCHA'
