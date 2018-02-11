@@ -63,7 +63,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     return Math.max(nextSearch - Date.now(), 0);
   };
 
-  private static spinnerProgress = (
+  private static calculateProgress = (
     delay: number,
     timeLeft: number
   ): number => {
@@ -87,14 +87,13 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   public render() {
     const { timeNextSearch } = this.props;
     const { timeUntilNextSearch } = this.state;
-
     return timeNextSearch ? (
       <div style={{ paddingTop: '0.4em' }}>
         <Spinner
           className={Classes.SMALL}
           value={
             timeUntilNextSearch
-              ? WatcherTimer.spinnerProgress(this.delay, timeUntilNextSearch)
+              ? WatcherTimer.calculateProgress(this.delay, timeUntilNextSearch)
               : 0
           }
         />
