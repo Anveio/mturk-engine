@@ -26,6 +26,7 @@ import { default as legacyLinksEnabled } from './reducers/legacyLinksEnabled';
 import { default as notificationSettings } from './reducers/notificationSettings';
 import { default as loggedSearchResults } from './reducers/loggedSearchResults';
 import { default as watcherTree } from './reducers/watcherTree';
+import { default as watcherFolders } from './reducers/watcherFolders';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -41,6 +42,7 @@ export const rootReducer = combineReducers<RootState>({
   searchOptions,
   sortingOption,
   uploadedState,
+  watcherFolders,
   timeNextSearch,
   audioSettingsV1,
   waitingForMturk,
