@@ -24,7 +24,7 @@ import {
 } from '../../actions/watcherFolders';
 import { getCurrentlySelectedWatcherIdOrNull } from '../../selectors/watcherTree';
 import WatcherCard from './Watcher';
-import WatcherSpinner from './WatcherSpinner';
+import WatcherProgress from './WatcherProgress';
 import { watchersToFolderWatcherMap } from '../../selectors/watcherFolders';
 import { Map } from 'immutable';
 
@@ -91,16 +91,16 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
   static createWatcher = (
     selectionId: string | null,
     watcherTimers: WatcherTimerMap
-  ) => (watcher: Watcher): WatcherTreeNode => ({
-    id: watcher.groupId,
-    hasCaret: selectionId === watcher.groupId ? true : false,
+  ) => ({ groupId, title }: Watcher): WatcherTreeNode => ({
+    id: groupId,
+    isSelected: selectionId === groupId ? true : false,
     iconName: 'document',
-    secondaryLabel: watcherTimers.get(watcher.groupId) ? (
-      <WatcherSpinner id={watcher.groupId} />
+    secondaryLabel: watcherTimers.get(groupId) ? (
+      <WatcherProgress id={groupId} />
     ) : (
       undefined
     ),
-    label: watcher.title,
+    label: title,
     kind: 'groupId'
   });
 
