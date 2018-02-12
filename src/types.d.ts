@@ -84,7 +84,8 @@ export type MaybeAccount = AccountInfo | null;
 export type FormTarget =
   | 'searchOptions'
   | 'topticonSettings'
-  | 'useLegacyLinks';
+  | 'useLegacyLinks'
+  | 'notificationSettings';
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {

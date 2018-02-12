@@ -3,9 +3,9 @@ import { connect, Dispatch } from 'react-redux';
 import { Card, FormLayout } from '@shopify/polaris';
 import { NotificationSettings, RootState } from '../../types';
 import {
-  EditNotificationField,
   notificationPermissionRequest,
-  toggleNotifications
+  toggleNotifications,
+  NotificationAction
 } from '../../actions/notifications';
 import {
   EditNotificationThresholdField,
@@ -60,7 +60,7 @@ const mapState = (state: RootState): Props => ({
   notificationSettings: state.notificationSettings
 });
 
-const mapDispatch = (dispatch: Dispatch<EditNotificationField>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch<NotificationAction>): Handlers => ({
   onRequestPermission: () => dispatch(notificationPermissionRequest()),
   onToggle: () => dispatch(toggleNotifications())
 });

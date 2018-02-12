@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { RootState } from '../../types';
+import { RootState, NotificationSettings } from '../../types';
 import { TextField } from '@shopify/polaris';
-import {
-  EditableNotificationField,
-  EditNotificationField,
-  editNotificationField
-} from '../../actions/notifications';
+import { EditableNotificationField } from '../../actions/notifications';
+import { FormUpdate, updateForm } from '../../actions/form';
 
 interface Props {
   readonly value: number;
@@ -21,11 +18,13 @@ interface State {
   readonly error: null | string;
 }
 
-const createMapDispatchFn = (field: EditableNotificationField) => (
-  dispatch: Dispatch<EditNotificationField>
+const createMapDispatchFn = (field: keyof NotificationSettings) => (
+  dispatch: Dispatch<FormUpdate<NotificationSettings>>
 ): Handlers => ({
   onChange: (value: number) => {
-    dispatch(editNotificationField(field, value));
+    dispatch(
+      updateForm<NotificationSettings>('notificationSettings', field, value)
+    );
   }
 });
 

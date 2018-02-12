@@ -1,14 +1,14 @@
 import {
   NOTIFICATION_PERM_UPDATE,
-  EDIT_NOTIFICATION_FIELD,
-  TOGGLE_NOTIFICATIONS
+  TOGGLE_NOTIFICATIONS,
+  UPDATE_FIELD
 } from '../constants';
 import { NotificationSettings } from '../types';
 import {
   NotificationPermissionUpdate,
-  EditNotificationField,
   ToggleNotifications
 } from '../actions/notifications';
+import { FormUpdate } from '../actions/form';
 
 const initial: NotificationSettings = {
   hasPermission: false,
@@ -20,7 +20,7 @@ const initial: NotificationSettings = {
 type NotificationAction =
   | NotificationPermissionUpdate
   | ToggleNotifications
-  | EditNotificationField;
+  | FormUpdate<NotificationSettings>;
 
 export default (
   state = initial,
@@ -37,11 +37,15 @@ export default (
         ...state,
         enabled: !state.enabled
       };
-    case EDIT_NOTIFICATION_FIELD:
-      return {
-        ...state,
-        [action.field]: action.value
-      };
+    case UPDATE_FIELD:
+      if (action.form === 'notificationSettings') {
+        return {
+          ...state,
+          [action.field]: action.value
+        };
+      } else {
+        return state;
+      }
     default:
       return state;
   }

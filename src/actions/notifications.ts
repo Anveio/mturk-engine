@@ -1,7 +1,6 @@
 import {
   NOTIFICATION_PERM_REQUEST,
   NOTIFICATION_PERM_UPDATE,
-  EDIT_NOTIFICATION_FIELD,
   TOGGLE_NOTIFICATIONS,
   SEND_NOTIFICATION
 } from '../constants/index';
@@ -24,15 +23,15 @@ export interface NotificationPermissionUpdate {
   readonly value: boolean;
 }
 
-export interface EditNotificationField {
-  readonly type: EDIT_NOTIFICATION_FIELD;
-  readonly field: EditableNotificationField;
-  readonly value: number;
-}
-
 export interface ToggleNotifications {
   readonly type: TOGGLE_NOTIFICATIONS;
 }
+
+export type NotificationAction =
+  | SendNotification
+  | NotificationPermissionRequest
+  | NotificationPermission
+  | ToggleNotifications;
 
 export const updateNotificationPermission = (
   value: boolean
@@ -53,15 +52,6 @@ export const notificationPermissionFailure = (): NotificationPermissionUpdate =>
 export const notificationPermissionSuccess = (): NotificationPermissionUpdate => ({
   type: NOTIFICATION_PERM_UPDATE,
   value: true
-});
-
-export const editNotificationField = (
-  field: EditableNotificationField,
-  value: number
-): EditNotificationField => ({
-  type: EDIT_NOTIFICATION_FIELD,
-  field,
-  value
 });
 
 export const toggleNotifications = (): ToggleNotifications => ({
