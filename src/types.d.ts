@@ -89,8 +89,8 @@ export type FormTarget =
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
 export interface SearchOptions {
   readonly searchTerm: string;
-  readonly delay: string;
-  readonly minReward: string;
+  readonly delay: number;
+  readonly minReward: number;
   readonly sortType: SearchSort;
   readonly qualifiedOnly: boolean;
 }

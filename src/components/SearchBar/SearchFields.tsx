@@ -9,13 +9,18 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onChange: (value: string) => void;
+  readonly onChange: (value: string | number) => void;
+}
+
+interface State {
+  readonly value: string;
+  readonly error: string | null;
 }
 
 const createMapDispatchFn = (field: keyof SearchOptions) => (
   dispatch: Dispatch<FormUpdate<SearchOptions>>
 ): Handlers => ({
-  onChange: (value: string | boolean) => {
+  onChange: (value: string | boolean | number) => {
     dispatch(updateForm<SearchOptions>('searchOptions', field, value));
   }
 });
@@ -26,7 +31,32 @@ const createMapStateFn = (field: keyof SearchOptions) => (
   value: state.searchOptions[field]
 });
 
-class SearchDelayField extends React.PureComponent<Props & Handlers, never> {
+class SearchDelayField extends React.PureComponent<Props & Handlers, State> {
+  constructor(props: Props & Handlers) {
+    super(props);
+    this.state = {
+      error: null,
+      value: props.value.toString()
+    };
+  }
+
+  private handleChange = (value: string) => {
+    this.setState({ value, error: null });
+    this.setErrorIfAny(value);
+    const parsedValue = +value;
+    if (!Number.isNaN(parsedValue)) {
+      this.props.onChange(parsedValue);
+    }
+  };
+
+  private setErrorIfAny = (value: string) => {
+    if (+value < 0) {
+      this.setState({
+        error: `Time between searches can't be negative.`
+      });
+    }
+  };
+
   public render() {
     return (
       <TextField
@@ -34,14 +64,32 @@ class SearchDelayField extends React.PureComponent<Props & Handlers, never> {
         type="number"
         suffix="seconds"
         autoComplete={false}
-        value={this.props.value}
-        onChange={this.props.onChange}
+        spellCheck={false}
+        value={this.state.value}
+        onChange={this.handleChange}
+        error={this.state.error || false}
       />
     );
   }
 }
 
-class MinimumRewardField extends React.PureComponent<Props & Handlers, never> {
+class MinimumRewardField extends React.PureComponent<Props & Handlers, State> {
+  constructor(props: Props & Handlers) {
+    super(props);
+    this.state = {
+      error: null,
+      value: props.value.toString()
+    };
+  }
+
+  private handleChange = (value: string) => {
+    this.setState({ value, error: null });
+    const parsedValue = +value;
+    if (!Number.isNaN(parsedValue)) {
+      this.props.onChange(parsedValue);
+    }
+  };
+
   public render() {
     return (
       <TextField
@@ -50,8 +98,10 @@ class MinimumRewardField extends React.PureComponent<Props & Handlers, never> {
         step={0.1}
         prefix="$"
         autoComplete={false}
-        value={this.props.value}
-        onChange={this.props.onChange}
+        spellCheck={false}
+        labelAction={{ content: 'hey there' }}
+        value={this.state.value}
+        onChange={this.handleChange}
       />
     );
   }

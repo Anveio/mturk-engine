@@ -8,7 +8,7 @@ export const generateParams = (options: SearchOptions): WorkerSearchParams => {
     sort: sortParam(sortType),
     filters: {
       search_term: searchTerm,
-      min_reward: parseFloat(minReward) || 0,
+      min_reward: minReward,
       qualified: qualifiedOnly
     },
     page_size: 100,

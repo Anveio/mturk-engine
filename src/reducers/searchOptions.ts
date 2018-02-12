@@ -4,8 +4,8 @@ import { UPDATE_FIELD } from '../constants';
 
 const initial: SearchOptions = {
   searchTerm: '',
-  delay: '10',
-  minReward: '0',
+  delay: 10,
+  minReward: 0,
   sortType: 'Latest',
   qualifiedOnly: true
 };
