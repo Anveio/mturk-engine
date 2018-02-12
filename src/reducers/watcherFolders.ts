@@ -1,5 +1,5 @@
-import { SelectWatcherFolder } from '../actions/watcherTree';
-import { SELECT_WATCHER_FOLDER } from '../constants';
+import { WatcherFolderAction } from '../actions/watcherFolders';
+import { WATCHER_FOLDER_TOGGLE_EXPAND } from '../constants';
 import { WatcherFolder, Watcher } from '../types';
 import { Map } from 'immutable';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
@@ -15,10 +15,10 @@ const initial = Map<string, WatcherFolder>({
 
 export default (
   state = initial,
-  action: SelectWatcherFolder
+  action: WatcherFolderAction
 ): Map<string, WatcherFolder> => {
   switch (action.type) {
-    case SELECT_WATCHER_FOLDER:
+    case WATCHER_FOLDER_TOGGLE_EXPAND:
       return state.update(action.folderId, folder => ({
         ...folder,
         expanded: !folder.expanded

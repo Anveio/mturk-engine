@@ -1,4 +1,5 @@
 import { SelectWatcherTreeNodeAction } from '../actions/watcherTree';
+import { WatcherFolderAction } from '../actions/watcherFolders';
 import { SELECT_WATCHER_FILE, SELECT_WATCHER_FOLDER } from '../constants';
 import { WatcherTreeSettings } from '../types';
 
@@ -9,7 +10,7 @@ const initial: WatcherTreeSettings = {
 
 export default (
   state = initial,
-  action: SelectWatcherTreeNodeAction
+  action: SelectWatcherTreeNodeAction | WatcherFolderAction
 ): WatcherTreeSettings => {
   switch (action.type) {
     case SELECT_WATCHER_FILE:

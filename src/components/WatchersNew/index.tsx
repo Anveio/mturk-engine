@@ -1,7 +1,5 @@
 import * as React from 'react';
-// import { Tabs2 as Tabs, Tab2 as Tab } from '@blueprintjs/core';
-// import { Menu, MenuItem, MenuDivider } from '@blueprintjs/core';
-import { connect } from 'react-redux';
+import { connect, Dispatch } from 'react-redux';
 import { Classes, Tree, NonIdealState } from '@blueprintjs/core';
 import { Layout, Stack, DisplayText } from '@shopify/polaris';
 import {
@@ -16,12 +14,14 @@ import {
   WatcherTreeNode,
   FolderTreeNode
 } from '../../utils/tree';
-import { Dispatch } from 'redux';
 import {
   SelectWatcherTreeNodeAction,
-  selectWatcherFile,
-  selectWatcherFolder
+  selectWatcherFile
 } from '../../actions/watcherTree';
+import {
+  selectWatcherFolder,
+  toggleWatcherFolderExpand
+} from '../../actions/watcherFolders';
 import { getCurrentlySelectedWatcherIdOrNull } from '../../selectors/watcherTree';
 import WatcherCard from './Watcher';
 import WatcherSpinner from './WatcherSpinner';
@@ -38,6 +38,7 @@ interface Props {
 interface Handlers {
   readonly onSelectWatcher: (id: string, kind: WatcherKind) => void;
   readonly onSelectFolder: (folderId: string) => void;
+  readonly onToggleFolderExpand: (folderId: string) => void;
 }
 
 class WatchersNew extends React.Component<Props & Handlers, never> {
@@ -151,7 +152,8 @@ const mapDispatch = (
 ): Handlers => ({
   onSelectWatcher: (id: string, kind: WatcherKind) =>
     dispatch(selectWatcherFile(id, kind)),
-  onSelectFolder: (id: string) => dispatch(selectWatcherFolder(id))
+  onSelectFolder: (id: string) => dispatch(selectWatcherFolder(id)),
+  onToggleFolderExpand: (id: string) => dispatch(toggleWatcherFolderExpand(id))
 });
 
 export default connect(mapState, mapDispatch)(WatchersNew);
