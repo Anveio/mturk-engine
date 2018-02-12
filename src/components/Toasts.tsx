@@ -11,7 +11,7 @@ export const GenericWaitingToast = ({ message }: GenericProps) => (
       size="small"
       accessibilityLabel="Waiting for a response from MTurk."
     />
-    <TextContainer>{message}.</TextContainer>
+    <TextContainer>{message}</TextContainer>
   </Stack>
 );
 
