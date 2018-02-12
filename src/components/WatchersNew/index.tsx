@@ -48,6 +48,9 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
       : this.props.onSelectWatcher(nodeData.id, nodeData.kind);
   };
 
+  private handleNodeExpandToggle = (nodeData: FolderTreeNode) =>
+    this.props.onToggleFolderExpand(nodeData.id);
+
   static createFolders = (
     folders: Map<string, WatcherFolder>,
     watcherFolderMap: Map<string, Watcher[]>
@@ -120,6 +123,8 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
             <Tree
               className={Classes.ELEVATION_0}
               onNodeClick={this.handleNodeClick}
+              onNodeCollapse={this.handleNodeExpandToggle}
+              onNodeExpand={this.handleNodeExpandToggle}
               contents={contents}
             />
           </Stack>
