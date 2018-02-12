@@ -4,7 +4,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Classes, Tree, NonIdealState } from '@blueprintjs/core';
 import { Layout, Stack, DisplayText } from '@shopify/polaris';
-import { RootState, WatcherKind, Watcher, WatcherTimerMap } from '../../types';
+import {
+  RootState,
+  WatcherKind,
+  Watcher,
+  WatcherTimerMap,
+  WatcherFolder
+} from '../../types';
 import {
   GenericTreeNode,
   WatcherTreeNode,
@@ -16,17 +22,17 @@ import {
   selectWatcherFile,
   selectWatcherFolder
 } from '../../actions/watcherTree';
-import { getCurrentlySelectedWatcherOrNull } from '../../selectors/watcherTree';
-import { watchersList } from '../../selectors/watchers';
+import { getCurrentlySelectedWatcherIdOrNull } from '../../selectors/watcherTree';
 import WatcherCard from './Watcher';
 import WatcherSpinner from './WatcherSpinner';
-import { watcherFoldersToTreeNodes } from '../../selectors/watcherFolders';
+import { watchersToFolderWatcherMap } from '../../selectors/watcherFolders';
+import { Map } from 'immutable';
 
 interface Props {
-  readonly watcherFolders: FolderTreeNode[];
-  readonly watchers: Watcher[];
+  readonly watcherFolders: Map<string, WatcherFolder>;
+  readonly watcherFolderMap: Map<string, Watcher[]>;
   readonly watcherTimers: WatcherTimerMap;
-  readonly currentlySelectedWatcher: Watcher | null;
+  readonly currentlySelectedWatcherId: string | null;
 }
 
 interface Handlers {
@@ -35,52 +41,74 @@ interface Handlers {
 }
 
 class WatchersNew extends React.Component<Props & Handlers, never> {
-  private static appendChildNodes = (
-    nodes: GenericTreeNode[],
-    childNodes: GenericTreeNode[]
-  ): GenericTreeNode[] => nodes.map(node => ({ ...node, childNodes }));
-
   private handleNodeClick = (nodeData: GenericTreeNode) => {
-    console.log(nodeData);
     nodeData.kind === 'folder'
       ? this.props.onSelectFolder(nodeData.id)
       : this.props.onSelectWatcher(nodeData.id, nodeData.kind);
   };
 
-  static watchersArrayToTreeNodes = (
+  static createFolders = (
+    folders: Map<string, WatcherFolder>,
+    watcherFolderMap: Map<string, Watcher[]>
+  ) => (
+    selectionId: string | null,
+    watcherTimers: WatcherTimerMap
+  ): FolderTreeNode[] =>
+    folders.reduce(
+      (acc: FolderTreeNode[], folder: WatcherFolder): FolderTreeNode[] => [
+        ...acc,
+        {
+          id: folder.id,
+          label: folder.name,
+          isExpanded: folder.expanded,
+          kind: 'folder',
+          iconName: folder.expanded ? 'folder-open' : 'folder-close',
+          childNodes: WatchersNew.assignWatchersToFolder(
+            watcherFolderMap.get(folder.id, []),
+            selectionId || null,
+            watcherTimers
+          ),
+          hasCaret: true
+        }
+      ],
+      []
+    );
+
+  static assignWatchersToFolder = (
     watchers: Watcher[],
     selectionId: string | null,
     watcherTimers: WatcherTimerMap
   ): WatcherTreeNode[] =>
-    watchers.map((watcher: Watcher): WatcherTreeNode => ({
-      id: watcher.groupId,
-      hasCaret: selectionId === watcher.groupId ? true : false,
-      iconName: 'document',
-      secondaryLabel: watcherTimers.get(watcher.groupId) ? (
-        <WatcherSpinner id={watcher.groupId} />
-      ) : (
-        undefined
-      ),
-      label: watcher.title,
-      kind: 'groupId'
-    }));
+    watchers.map(WatchersNew.createWatcher(selectionId, watcherTimers));
+
+  static createWatcher = (
+    selectionId: string | null,
+    watcherTimers: WatcherTimerMap
+  ) => (watcher: Watcher): WatcherTreeNode => ({
+    id: watcher.groupId,
+    hasCaret: selectionId === watcher.groupId ? true : false,
+    iconName: 'document',
+    secondaryLabel: watcherTimers.get(watcher.groupId) ? (
+      <WatcherSpinner id={watcher.groupId} />
+    ) : (
+      undefined
+    ),
+    label: watcher.title,
+    kind: 'groupId'
+  });
 
   public render() {
     const {
-      watchers,
-      currentlySelectedWatcher,
+      currentlySelectedWatcherId,
       watcherTimers,
-      watcherFolders
-    } = this.props;
-    const { appendChildNodes, watchersArrayToTreeNodes } = WatchersNew;
-
-    const contents = appendChildNodes(
       watcherFolders,
-      watchersArrayToTreeNodes(
-        watchers,
-        (currentlySelectedWatcher && currentlySelectedWatcher.groupId) || null,
-        watcherTimers
-      )
+      watcherFolderMap
+    } = this.props;
+    const { createFolders } = WatchersNew;
+
+    const contents = createFolders(watcherFolders, watcherFolderMap)(
+      currentlySelectedWatcherId,
+      watcherTimers
     );
 
     return (
@@ -96,8 +124,8 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
           </Stack>
         </Layout.Section>
         <Layout.Section>
-          {currentlySelectedWatcher ? (
-            <WatcherCard watcherId={currentlySelectedWatcher.groupId} />
+          {currentlySelectedWatcherId ? (
+            <WatcherCard watcherId={currentlySelectedWatcherId} />
           ) : (
             <NonIdealState
               title="Select a Watcher"
@@ -112,9 +140,9 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  watcherFolders: watcherFoldersToTreeNodes(state),
-  watchers: watchersList(state),
-  currentlySelectedWatcher: getCurrentlySelectedWatcherOrNull(state),
+  watcherFolders: state.watcherFolders,
+  watcherFolderMap: watchersToFolderWatcherMap(state),
+  currentlySelectedWatcherId: getCurrentlySelectedWatcherIdOrNull(state),
   watcherTimers: state.watcherTimes
 });
 
