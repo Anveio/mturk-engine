@@ -48,8 +48,11 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
       : this.props.onSelectWatcher(nodeData.id, nodeData.kind);
   };
 
-  private handleNodeExpandToggle = (nodeData: FolderTreeNode) =>
-    this.props.onToggleFolderExpand(nodeData.id);
+  private handleNodeExpandToggle = (nodeData: GenericTreeNode) => {
+    if (nodeData.kind === 'folder') {
+      this.props.onToggleFolderExpand(nodeData.id);
+    }
+  };
 
   static createFolders = (
     folders: Map<string, WatcherFolder>,

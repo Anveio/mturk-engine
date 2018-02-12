@@ -96,7 +96,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     // console.log(progress);
     return timeNextSearch ? (
       <div style={{ paddingTop: '0.4em' }}>
-        <Spinner className={Classes.SMALL} value={spinnerProgress} />
+        <Spinner  className={Classes.SMALL} value={spinnerProgress} />
       </div>
     ) : null;
   }

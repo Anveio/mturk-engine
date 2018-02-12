@@ -21,7 +21,7 @@ export default (
     case WATCHER_FOLDER_TOGGLE_EXPAND:
       return state.update(action.folderId, folder => ({
         ...folder,
-        expanded: !folder.expanded
+        expanded: folder.expanded
       }));
     default:
       return state;
