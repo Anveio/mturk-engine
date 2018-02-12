@@ -2,10 +2,11 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../types';
 // import { Caption } from '@shopify/polaris';
-import { Spinner, Classes } from '@blueprintjs/core';
+import { Spinner, Classes, Intent } from '@blueprintjs/core';
 
 interface OwnProps {
   readonly id: string;
+  readonly isSelected: boolean;
 }
 
 interface Props {
@@ -85,7 +86,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   };
 
   public render() {
-    const { timeNextSearch } = this.props;
+    const { timeNextSearch, isSelected } = this.props;
     const { timeUntilNextSearch } = this.state;
 
     const spinnerProgress =
@@ -95,8 +96,12 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
 
     // console.log(progress);
     return timeNextSearch ? (
-      <div style={{ paddingTop: '0.4em' }}>
-        <Spinner  className={Classes.SMALL} value={spinnerProgress} />
+      <div style={{ paddingTop: '0.75em' }}>
+        <Spinner
+          className={Classes.SMALL}
+          value={spinnerProgress}
+          intent={isSelected ? Intent.WARNING : Intent.NONE}
+        />
       </div>
     ) : null;
   }
