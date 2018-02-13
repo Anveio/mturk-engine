@@ -1,26 +1,22 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Map } from 'immutable';
-import { Classes, Tree, NonIdealState } from '@blueprintjs/core';
+import { Classes, Tree } from '@blueprintjs/core';
 import { Layout, Stack, DisplayText } from '@shopify/polaris';
-import { RootState, WatcherKind, Watcher, WatcherFolder } from '../../types';
+import { RootState, SelectionKind, Watcher, WatcherFolder } from '../../types';
 import {
   GenericTreeNode,
   WatcherTreeNode,
   FolderTreeNode
 } from '../../utils/tree';
-import {
-  SelectWatcherFile,
-  selectWatcherFile
-} from '../../actions/watcherTree';
+import { SelectTreeNode, selectWatcherFile } from '../../actions/watcherTree';
 import {
   WatcherFolderAction,
-  selectWatcherFolder,
   toggleWatcherFolderExpand
 } from '../../actions/watcherFolders';
 import { getCurrentlySelectedWatcherIdOrNull } from '../../selectors/watcherTree';
 import { watchersToFolderWatcherMap } from '../../selectors/watcherFolders';
-import WatcherCard from './Watcher';
+import SelectedWatcherSection from './SelectedWatcherSection';
 import WatcherProgress from './WatcherProgress';
 
 interface Props {
@@ -30,16 +26,13 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onSelectWatcher: (id: string, kind: WatcherKind) => void;
-  readonly onSelectFolder: (folderId: string) => void;
+  readonly onSelectTreeNode: (id: string, kind: SelectionKind) => void;
   readonly onToggleFolderExpand: (folderId: string) => void;
 }
 
 class WatchersNew extends React.Component<Props & Handlers, never> {
   private handleNodeClick = (nodeData: GenericTreeNode) => {
-    nodeData.kind === 'folder'
-      ? this.props.onSelectFolder(nodeData.id)
-      : this.props.onSelectWatcher(nodeData.id, nodeData.kind);
+    this.props.onSelectTreeNode(nodeData.id, nodeData.kind);
   };
 
   private handleNodeExpandToggle = (nodeData: GenericTreeNode) => {
@@ -114,17 +107,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
             />
           </Stack>
         </Layout.Section>
-        <Layout.Section>
-          {currentlySelectedWatcherId ? (
-            <WatcherCard watcherId={currentlySelectedWatcherId} />
-          ) : (
-            <NonIdealState
-              title="Select a Watcher"
-              description="Watchers let you accept many of the same HIT or snag a rare one."
-              visual="pt-icon-folder-shared-open"
-            />
-          )}
-        </Layout.Section>
+        <SelectedWatcherSection />
       </Layout>
     );
   }
@@ -137,11 +120,10 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (
-  dispatch: Dispatch<WatcherFolderAction | SelectWatcherFile>
+  dispatch: Dispatch<WatcherFolderAction | SelectTreeNode>
 ): Handlers => ({
-  onSelectWatcher: (id: string, kind: WatcherKind) =>
+  onSelectTreeNode: (id: string, kind: SelectionKind) =>
     dispatch(selectWatcherFile(id, kind)),
-  onSelectFolder: (id: string) => dispatch(selectWatcherFolder(id)),
   onToggleFolderExpand: (id: string) => dispatch(toggleWatcherFolderExpand(id))
 });
 

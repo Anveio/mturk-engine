@@ -1,29 +1,22 @@
-import { SelectWatcherFile } from '../actions/watcherTree';
-import { WatcherFolderAction } from '../actions/watcherFolders';
-import { SELECT_WATCHER_FILE, SELECT_WATCHER_FOLDER } from '../constants';
+import { SelectTreeNode } from '../actions/watcherTree';
+import { SELECT_WATCHER_TREE_NODE } from '../constants';
 import { WatcherTreeSettings } from '../types';
 
 const initial: WatcherTreeSettings = {
-  selectionKind: null,
+  selectionKind: 'none',
   selectionId: null
 };
 
 export default (
   state = initial,
-  action: SelectWatcherFile | WatcherFolderAction
+  action: SelectTreeNode
 ): WatcherTreeSettings => {
   switch (action.type) {
-    case SELECT_WATCHER_FILE:
+    case SELECT_WATCHER_TREE_NODE:
       return {
         ...state,
-        selectionId: action.watcherId,
-        selectionKind: action.watcherKind
-      };
-    case SELECT_WATCHER_FOLDER:
-      return {
-        ...state,
-        selectionId: null,
-        selectionKind: 'folder'
+        selectionId: action.id,
+        selectionKind: action.selectionKind
       };
     default:
       return state;

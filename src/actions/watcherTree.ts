@@ -1,17 +1,17 @@
-import { SELECT_WATCHER_FILE } from '../constants/index';
-import { WatcherKind } from '../types';
+import { SELECT_WATCHER_TREE_NODE } from '../constants/index';
+import { SelectionKind } from '../types';
 
-export interface SelectWatcherFile {
-  readonly type: SELECT_WATCHER_FILE;
-  readonly watcherId: string;
-  readonly watcherKind: WatcherKind;
+export interface SelectTreeNode {
+  readonly type: SELECT_WATCHER_TREE_NODE;
+  readonly id: string;
+  readonly selectionKind: SelectionKind;
 }
 
 export const selectWatcherFile = (
-  watcherId: string,
-  watcherKind: WatcherKind
-): SelectWatcherFile => ({
-  type: SELECT_WATCHER_FILE,
-  watcherId,
-  watcherKind
+  id: string,
+  selectionKind: SelectionKind
+): SelectTreeNode => ({
+  type: SELECT_WATCHER_TREE_NODE,
+  id,
+  selectionKind
 });

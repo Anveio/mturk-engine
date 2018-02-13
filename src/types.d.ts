@@ -299,11 +299,13 @@ export interface DailyEarnings {
 }
 
 export interface WatcherTreeSettings {
-  readonly selectionKind: WatcherKind | 'folder' | null;
+  readonly selectionKind: SelectionKind;
   readonly selectionId: string | null;
 }
 
 export type WatcherKind = 'groupId' | 'searchTerm' | 'requesterId';
+
+export type SelectionKind = WatcherKind | 'folder' | 'none';
 
 export interface WatcherFolder {
   readonly id: string;
