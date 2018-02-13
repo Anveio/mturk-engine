@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Map } from 'immutable';
-import { Classes, Tree } from '@blueprintjs/core';
+import { Tree, Classes } from '@blueprintjs/core';
 import { Layout, Stack, DisplayText } from '@shopify/polaris';
 import { RootState, SelectionKind, Watcher, WatcherFolder } from '../../types';
 import {
@@ -53,6 +53,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
           label: folder.name,
           isExpanded: folder.expanded,
           kind: 'folder',
+          isSelected: selectionId === folder.id,
           iconName: folder.expanded ? 'folder-open' : 'folder-close',
           childNodes: WatchersNew.assignWatchersToFolder(
             watcherFolderMap.get(folder.id, []),
