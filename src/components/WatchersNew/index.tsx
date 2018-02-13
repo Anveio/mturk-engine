@@ -14,7 +14,7 @@ import {
   WatcherFolderAction,
   toggleWatcherFolderExpand
 } from '../../actions/watcherFolders';
-import { getCurrentlySelectedWatcherIdOrNull } from '../../selectors/watcherTree';
+import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
 import { watchersToFolderWatcherMap } from '../../selectors/watcherFolders';
 import SelectedWatcherSection from './SelectedWatcherSection';
 import WatcherProgress from './WatcherProgress';
@@ -116,7 +116,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
 const mapState = (state: RootState): Props => ({
   watcherFolders: state.watcherFolders,
   watcherFolderMap: watchersToFolderWatcherMap(state),
-  currentlySelectedWatcherId: getCurrentlySelectedWatcherIdOrNull(state)
+  currentlySelectedWatcherId: getCurrentSelectionIdOrNull(state)
 });
 
 const mapDispatch = (

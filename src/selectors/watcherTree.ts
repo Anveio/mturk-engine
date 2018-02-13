@@ -1,21 +1,30 @@
 import { createSelector } from 'reselect';
-import { watcherTreeSelector } from './index';
+import { watcherTreeSelector, watcherFoldersSelector } from './index';
 import { normalizedWatchers } from './watchers';
-import { Watcher } from '../types';
+import { Watcher, WatcherFolder } from '../types';
 
-export const getCurrentlySelectedWatcherIdOrNull = createSelector(
-  [watcherTreeSelector, normalizedWatchers],
-  (watcherSettings, watchers) => {
+export const getCurrentSelectionIdOrNull = createSelector(
+  [watcherTreeSelector, normalizedWatchers, watcherFoldersSelector],
+  (watcherSettings, watchers, watcherFolders) => {
     const { selectionId, selectionKind } = watcherSettings;
-
-    if (selectionId && selectionKind !== 'folder') {
-      const maybeSelectedWatcher: Watcher | undefined = watchers.get(
-        selectionId,
-        undefined
-      );
-      return maybeSelectedWatcher ? maybeSelectedWatcher.groupId : null;
-    } else {
+    if (!selectionId) {
       return null;
+    }
+
+    switch (selectionKind) {
+      case 'folder': {
+        const maybeSelectedFolder:
+          | WatcherFolder
+          | undefined = watcherFolders.get(selectionId, undefined);
+        return maybeSelectedFolder ? maybeSelectedFolder.id : null;
+      }
+      default: {
+        const maybeSelectedWatcher: Watcher | undefined = watchers.get(
+          selectionId,
+          undefined
+        );
+        return maybeSelectedWatcher ? maybeSelectedWatcher.groupId : null;
+      }
     }
   }
 );
