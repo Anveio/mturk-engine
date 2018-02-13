@@ -20,7 +20,7 @@ export interface State {
 }
 
 class RejectionThreshold extends React.PureComponent<Props, State> {
-  state: State = { minimumRate: 95 };
+  public readonly state: State = { minimumRate: 95 };
 
   private onChange = (value: string) => {
     if (validateRejectionThreshold(value)) {
@@ -49,7 +49,7 @@ class RejectionThreshold extends React.PureComponent<Props, State> {
           </Card.Section>
           <Card.Section>
             <TextContainer>
-              To stay above {minimumRate}% acceptance rate
+              To stay above a {minimumRate}% acceptance rate
             </TextContainer>
             <TextContainer>
               you can receive{' '}
@@ -64,7 +64,7 @@ class RejectionThreshold extends React.PureComponent<Props, State> {
               As of last dashboard refresh, you have{' '}
               <TextStyle variation="strong">{numPending}</TextStyle> HITs
               pending. If all your pending HITs were rejected your acceptance
-              rate would be {' '}
+              rate would be{' '}
               <TextStyle variation="strong">
                 {calculateAcceptanceRate(
                   numSubmitted,
