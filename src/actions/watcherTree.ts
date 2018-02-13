@@ -7,8 +7,6 @@ export interface SelectWatcherFile {
   readonly watcherKind: WatcherKind;
 }
 
-export type SelectWatcherTreeNodeAction = SelectWatcherFile;
-
 export const selectWatcherFile = (
   watcherId: string,
   watcherKind: WatcherKind

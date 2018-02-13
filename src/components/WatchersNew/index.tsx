@@ -10,10 +10,11 @@ import {
   FolderTreeNode
 } from '../../utils/tree';
 import {
-  SelectWatcherTreeNodeAction,
+  SelectWatcherFile,
   selectWatcherFile
 } from '../../actions/watcherTree';
 import {
+  WatcherFolderAction,
   selectWatcherFolder,
   toggleWatcherFolderExpand
 } from '../../actions/watcherFolders';
@@ -136,7 +137,7 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (
-  dispatch: Dispatch<SelectWatcherTreeNodeAction>
+  dispatch: Dispatch<WatcherFolderAction | SelectWatcherFile>
 ): Handlers => ({
   onSelectWatcher: (id: string, kind: WatcherKind) =>
     dispatch(selectWatcherFile(id, kind)),
