@@ -99,7 +99,6 @@ class MinimumRewardField extends React.PureComponent<Props & Handlers, State> {
         prefix="$"
         autoComplete={false}
         spellCheck={false}
-        labelAction={{ content: 'hey there' }}
         value={this.state.value}
         onChange={this.handleChange}
       />
