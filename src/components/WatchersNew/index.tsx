@@ -1,14 +1,9 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
+import { Map } from 'immutable';
 import { Classes, Tree, NonIdealState } from '@blueprintjs/core';
 import { Layout, Stack, DisplayText } from '@shopify/polaris';
-import {
-  RootState,
-  WatcherKind,
-  Watcher,
-  WatcherTimerMap,
-  WatcherFolder
-} from '../../types';
+import { RootState, WatcherKind, Watcher, WatcherFolder } from '../../types';
 import {
   GenericTreeNode,
   WatcherTreeNode,
@@ -23,15 +18,13 @@ import {
   toggleWatcherFolderExpand
 } from '../../actions/watcherFolders';
 import { getCurrentlySelectedWatcherIdOrNull } from '../../selectors/watcherTree';
+import { watchersToFolderWatcherMap } from '../../selectors/watcherFolders';
 import WatcherCard from './Watcher';
 import WatcherProgress from './WatcherProgress';
-import { watchersToFolderWatcherMap } from '../../selectors/watcherFolders';
-import { Map } from 'immutable';
 
 interface Props {
   readonly watcherFolders: Map<string, WatcherFolder>;
   readonly watcherFolderMap: Map<string, Watcher[]>;
-  readonly watcherTimers: WatcherTimerMap;
   readonly currentlySelectedWatcherId: string | null;
 }
 
@@ -57,10 +50,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
   static createFolders = (
     folders: Map<string, WatcherFolder>,
     watcherFolderMap: Map<string, Watcher[]>
-  ) => (
-    selectionId: string | null,
-    watcherTimers: WatcherTimerMap
-  ): FolderTreeNode[] =>
+  ) => (selectionId: string | null): FolderTreeNode[] =>
     folders.reduce(
       (acc: FolderTreeNode[], folder: WatcherFolder): FolderTreeNode[] => [
         ...acc,
@@ -72,8 +62,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
           iconName: folder.expanded ? 'folder-open' : 'folder-close',
           childNodes: WatchersNew.assignWatchersToFolder(
             watcherFolderMap.get(folder.id, []),
-            selectionId || null,
-            watcherTimers
+            selectionId || null
           ),
           hasCaret: true
         }
@@ -83,23 +72,17 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
 
   static assignWatchersToFolder = (
     watchers: Watcher[],
-    selectionId: string | null,
-    watcherTimers: WatcherTimerMap
-  ): WatcherTreeNode[] =>
-    watchers.map(WatchersNew.createWatcher(selectionId, watcherTimers));
+    selectionId: string | null
+  ): WatcherTreeNode[] => watchers.map(WatchersNew.createWatcher(selectionId));
 
-  static createWatcher = (
-    selectionId: string | null,
-    watcherTimers: WatcherTimerMap
-  ) => ({ groupId, title }: Watcher): WatcherTreeNode => ({
+  static createWatcher = (selectionId: string | null) => ({
+    groupId,
+    title
+  }: Watcher): WatcherTreeNode => ({
     id: groupId,
     isSelected: selectionId === groupId ? true : false,
     iconName: 'document',
-    secondaryLabel: watcherTimers.get(groupId) ? (
-      <WatcherProgress id={groupId} />
-    ) : (
-      undefined
-    ),
+    secondaryLabel: <WatcherProgress id={groupId} />,
     label: title,
     kind: 'groupId'
   });
@@ -107,15 +90,13 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
   public render() {
     const {
       currentlySelectedWatcherId,
-      watcherTimers,
       watcherFolders,
       watcherFolderMap
     } = this.props;
     const { createFolders } = WatchersNew;
 
     const contents = createFolders(watcherFolders, watcherFolderMap)(
-      currentlySelectedWatcherId,
-      watcherTimers
+      currentlySelectedWatcherId
     );
 
     return (
@@ -151,8 +132,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
 const mapState = (state: RootState): Props => ({
   watcherFolders: state.watcherFolders,
   watcherFolderMap: watchersToFolderWatcherMap(state),
-  currentlySelectedWatcherId: getCurrentlySelectedWatcherIdOrNull(state),
-  watcherTimers: state.watcherTimes
+  currentlySelectedWatcherId: getCurrentlySelectedWatcherIdOrNull(state)
 });
 
 const mapDispatch = (
