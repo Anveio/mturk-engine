@@ -4,7 +4,7 @@ import { NonIdealState } from '@blueprintjs/core';
 import { Layout } from '@shopify/polaris';
 import { RootState, SelectionKind } from '../../types';
 import WatcherCard from './WatcherCard';
-import WatcherFolderInfo from './WatcherFolderInfo';
+import WatcherFolderInfo from '../WatcherFolderInfo/WatcherFolderInfo';
 import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
 
 interface Props {
@@ -24,21 +24,22 @@ class SelectedWatcherSection extends React.Component<Props, never> {
     }
   };
 
+  private static renderEmptyState = () => (
+    <NonIdealState
+      title="Select a Watcher"
+      description="Watchers let you accept many of the same HIT or snag a rare one."
+      visual="pt-icon-folder-shared-open"
+    />
+  );
+
   render() {
     const { currentSelectionId, selectionKind } = this.props;
-    const { renderFolderOrWatcher } = SelectedWatcherSection;
-    console.log(currentSelectionId);
+    const { renderEmptyState, renderFolderOrWatcher } = SelectedWatcherSection;
     return (
       <Layout.Section>
-        {!currentSelectionId ? (
-          <NonIdealState
-            title="Select a Watcher"
-            description="Watchers let you accept many of the same HIT or snag a rare one."
-            visual="pt-icon-folder-shared-open"
-          />
-        ) : (
-          renderFolderOrWatcher(selectionKind, currentSelectionId)
-        )}
+        {!currentSelectionId
+          ? renderEmptyState()
+          : renderFolderOrWatcher(selectionKind, currentSelectionId)}
       </Layout.Section>
     );
   }
