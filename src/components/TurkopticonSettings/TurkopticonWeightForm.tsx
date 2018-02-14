@@ -32,7 +32,7 @@ class TurkopticonWeightForm extends React.PureComponent<{}, never> {
               <ConnectedFastWeightField />
             </FormLayout.Group>
             <TextContainer>
-              Weights with a value of 0 will be ignored when calculating
+              Attributes with a weight of 0 will be ignored when calculating
               averages.
             </TextContainer>
           </FormLayout>
