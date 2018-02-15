@@ -7,8 +7,21 @@ import {
   acceptHitRequestFromWatcher
 } from '../actions/accept';
 
-export function* acceptAfterWatcherDelay(action: ScheduleWatcherTick) {
-  const origin = action.origin;
+export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
+  const maybeWatcher: Watcher | undefined = yield select(
+    getWatcher(action.groupId)
+  );
+
+  const readyToAccept: boolean = yield waitForWatcherDelay(action);
+
+  if (readyToAccept && !!maybeWatcher) {
+    return yield put<AcceptHitRequest>(
+      acceptHitRequestFromWatcher(maybeWatcher.groupId, maybeWatcher.delay)
+    );
+  }
+}
+
+function* waitForWatcherDelay(action: ScheduleWatcherTick) {
   yield delay(action.delayInSeconds * 1000);
   /**
    * It's possible that a watcher is deleted during the delay.
@@ -25,15 +38,16 @@ export function* acceptAfterWatcherDelay(action: ScheduleWatcherTick) {
   );
 
   /**
-   * If we don't make sure the origin of the scheduler is the same as the origin
-   * before waiting for the delay, then repeatedly stopping and starting a
-   * watcher will cause each scheduler accept to fire as long as the watcher is
-   * active when this check is made.
+   * If the origin of the watcher after the delay and the origin from the action
+   * are not the same, that means the user cancelled the original watcher and
+   * restarted it during the delay. In that case, return false.
    */
 
-  if (watcher && watcherTimer && watcherTimer.origin === origin) {
-    yield put<AcceptHitRequest>(
-      acceptHitRequestFromWatcher(watcher.groupId, watcher.delay)
-    );
+  if (watcher && watcherTimer && watcherTimer.origin === action.origin) {
+    return yield true;
+  } else {
+    return yield false;
   }
 }
+
+const getWatcher = (id: string) => (state: RootState) => state.watchers.get(id);

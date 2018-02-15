@@ -43,7 +43,7 @@ import { searchAfterDelay } from './scheduleSearch';
 import { acceptHit } from './acceptHit';
 import { fetchTurkopticon } from './fetchTurkopticon';
 import { toggleSearchActive } from './toggleSearchActive';
-import { acceptAfterWatcherDelay } from './scheduleWatcher';
+import { acceptHitAfterWatcherDelay } from './scheduleWatcher';
 import { handleStatusDetailRequest } from './statusDetail';
 import { handleStatusSummaryRequest } from './statusSummary';
 import { handleStatusSummarySuccess } from './refreshHitDb';
@@ -99,7 +99,7 @@ export default function* rootSaga() {
   );
   yield takeEvery<ScheduleWatcherTick>(
     SCHEDULE_NEXT_WATCHER_TICK,
-    acceptAfterWatcherDelay
+    acceptHitAfterWatcherDelay
   );
   yield takeEvery<PlayAudio>(PLAY_AUDIO, playAudio);
   yield takeEvery<ReadPersistedState>(
