@@ -26,7 +26,7 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
   private static readonly tickRate: number = 100;
   private timerId: number;
   private dateNumNextSearch: number;
-  private delay: number;
+  private timeBetweenStartAndEnd: number;
 
   public readonly state: State = { timeUntilNextSearch: null };
 
@@ -34,7 +34,7 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
     const { timeOfNextSearch } = this.props;
     if (timeOfNextSearch) {
       this.dateNumNextSearch = timeOfNextSearch.valueOf();
-      this.delay = WatcherProgress.calculateTimeUntilNextSearch(
+      this.timeBetweenStartAndEnd = WatcherProgress.calculateTimeUntilNextSearch(
         this.dateNumNextSearch
       );
       this.startTimer();
@@ -45,7 +45,7 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
     clearInterval(this.timerId);
     if (nextProps.timeOfNextSearch) {
       this.dateNumNextSearch = nextProps.timeOfNextSearch.valueOf();
-      this.delay = WatcherProgress.calculateTimeUntilNextSearch(
+      this.timeBetweenStartAndEnd = WatcherProgress.calculateTimeUntilNextSearch(
         this.dateNumNextSearch
       );
       this.startTimer();
@@ -59,16 +59,20 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
   }
 
   private static calculateTimeUntilNextSearch = (
-    nextSearch: number
+    dateNumNextSearch: number
   ): number => {
-    return Math.max(nextSearch - Date.now(), 0);
+    return Math.max(dateNumNextSearch - Date.now(), 0);
   };
 
   private static calculateProgress = (
-    delay: number,
-    timeLeft: number
+    timeLeft: number,
+    total: number
   ): number => {
-    return 1 - timeLeft / delay;
+    if (total === 0) {
+      return 1;
+    }
+
+    return 1 - timeLeft / total;
   };
 
   private startTimer = () => {
@@ -95,7 +99,10 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
     const spinnerProgress =
       timeUntilNextSearch === null
         ? 0
-        : WatcherProgress.calculateProgress(this.delay, timeUntilNextSearch);
+        : WatcherProgress.calculateProgress(
+            timeUntilNextSearch,
+            this.timeBetweenStartAndEnd
+          );
 
     // console.log(progress);
     return timeOfNextSearch ? (
