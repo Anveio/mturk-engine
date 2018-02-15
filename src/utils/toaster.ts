@@ -6,7 +6,7 @@ import { Toaster, Position, Intent, IToastProps } from '@blueprintjs/core';
 import { ImmutablePersistedStateKey, SearchResult } from '../types';
 import { GenericWaitingToast } from '../components/Toasts';
 import store from '../store';
-import { addWatcher, scheduleWatcher } from '../actions/watcher';
+import { addWatcher } from '../actions/watcher';
 import { watcherFromSearchResult } from './watchers';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
@@ -214,9 +214,10 @@ export const failedAcceptToast = (hit: SearchResult): IToastProps => ({
         message: `Watcher with title: ${hit.title} added.`,
         intent: Intent.PRIMARY,
         action: {
-          text: 'Start watcher',
-          onClick: () =>
-            store.dispatch(scheduleWatcher(hit.groupId, newWatcher.delay))
+          text: 'Start watcher'
+          // TODO: make this work again.
+          // onClick: () =>
+          //   store.dispatch(scheduleWatcher(hit.groupId))
         }
       });
     }

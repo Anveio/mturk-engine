@@ -30,7 +30,7 @@ export interface Props {
 
 export interface Handlers {
   readonly onDelete: (id: string) => void;
-  readonly onSchedule: (id: string, delayInSeconds: number) => void;
+  readonly onSchedule: (watcher: Watcher) => void;
   readonly onCancel: (id: string) => void;
   readonly onEdit: (
     id: string,
@@ -59,7 +59,7 @@ class WatcherCard extends React.PureComponent<
       onSchedule,
       watcher
     } = this.props;
-    watcherActive ? onCancel(watcherId) : onSchedule(watcherId, watcher.delay);
+    watcherActive ? onCancel(watcherId) : onSchedule(watcher);
   };
 
   private headingSection = (title: string) => {
@@ -78,10 +78,7 @@ class WatcherCard extends React.PureComponent<
               }
             />
           </Heading>
-          <WatcherTimer
-            groupId={this.props.watcherId}
-            active={this.props.watcherActive}
-          />
+          <WatcherTimer id={this.props.watcherId} />
         </Stack>
       </Card.Section>
     );
@@ -175,8 +172,7 @@ type WatcherCardAction =
 const mapDispatch = (dispatch: Dispatch<WatcherCardAction>): Handlers => ({
   onDelete: (id: string) => dispatch(deleteWatcher(id)),
   onCancel: (id: string) => dispatch(cancelNextWatcherTick(id)),
-  onSchedule: (id: string, delayInSeconds: number) =>
-    dispatch(scheduleWatcher(id, delayInSeconds)),
+  onSchedule: (watcher: Watcher) => dispatch(scheduleWatcher(watcher)),
   onEdit: (id: string, field: EditableField, value: string | number) =>
     dispatch(editWatcher(id, field, value))
 });

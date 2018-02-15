@@ -15,8 +15,8 @@ type WatcherAction = CancelWatcherTick | ScheduleWatcherTick;
 export default (state = initial, action: WatcherAction) => {
   switch (action.type) {
     case SCHEDULE_NEXT_WATCHER_TICK:
-      return state.set(action.groupId, {
-        date: calculateTimeFromDelay(action.delayInSeconds),
+      return state.set(action.watcher.groupId, {
+        date: calculateTimeFromDelay(action.watcher.delay),
         origin: action.origin
       });
     case CANCEL_NEXT_WATCHER_TICK:

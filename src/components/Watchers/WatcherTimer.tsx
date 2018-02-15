@@ -5,12 +5,11 @@ import { RootState } from '../../types';
 import { ProgressBar } from '@blueprintjs/core';
 
 interface OwnProps {
-  readonly groupId: string;
-  readonly active: boolean;
+  readonly id: string;
 }
 
 interface Props {
-  readonly timeNextSearch: Date | null;
+  readonly timeOfNextSearch: Date | null;
 }
 
 interface State {
@@ -18,9 +17,9 @@ interface State {
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => {
-  const watcherTimer = state.watcherTimes.get(ownProps.groupId);
+  const watcherTimer = state.watcherTimes.get(ownProps.id);
   return {
-    timeNextSearch: (watcherTimer && watcherTimer.date) || null
+    timeOfNextSearch: (watcherTimer && watcherTimer.date) || null
   };
 };
 
@@ -33,9 +32,9 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   public readonly state: State = { timeUntilNextSearch: null };
 
   componentDidMount() {
-    const { timeNextSearch } = this.props;
-    if (timeNextSearch) {
-      this.dateNumNextSearch = timeNextSearch.valueOf();
+    const { timeOfNextSearch } = this.props;
+    if (timeOfNextSearch) {
+      this.dateNumNextSearch = timeOfNextSearch.valueOf();
       this.delay = WatcherTimer.calculateTimeUntilNextSearch(
         this.dateNumNextSearch
       );
@@ -45,12 +44,14 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     clearInterval(this.timerId);
-    if (nextProps.timeNextSearch) {
-      this.dateNumNextSearch = nextProps.timeNextSearch.valueOf();
+    if (nextProps.timeOfNextSearch) {
+      this.dateNumNextSearch = nextProps.timeOfNextSearch.valueOf();
       this.delay = WatcherTimer.calculateTimeUntilNextSearch(
         this.dateNumNextSearch
       );
       this.startTimer();
+    } else {
+      this.setState({ timeUntilNextSearch: null });
     }
   }
 
@@ -64,7 +65,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     return Math.max(nextSearch - Date.now(), 0);
   };
 
-  private static spinnerProgress = (
+  private static calculateProgress = (
     delay: number,
     timeLeft: number
   ): number => {
@@ -76,7 +77,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   };
 
   private tick = () => {
-    if (this.props.timeNextSearch) {
+    if (this.props.timeOfNextSearch) {
       this.setState({
         timeUntilNextSearch: WatcherTimer.calculateTimeUntilNextSearch(
           this.dateNumNextSearch
@@ -86,13 +87,15 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   };
 
   public render() {
-    const { timeNextSearch, active } = this.props;
-    return timeNextSearch && active ? (
-      <ProgressBar
-        value={WatcherTimer.spinnerProgress(this.delay, this.state
-          .timeUntilNextSearch as number)}
-      />
-    ) : null;
+    const { timeOfNextSearch } = this.props;
+    const { timeUntilNextSearch } = this.state;
+
+    const spinnerProgress =
+      timeUntilNextSearch === null
+        ? 0
+        : WatcherTimer.calculateProgress(this.delay, timeUntilNextSearch);
+
+    return timeOfNextSearch ? <ProgressBar value={spinnerProgress} /> : null;
   }
 }
 

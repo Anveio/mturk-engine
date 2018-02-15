@@ -14,6 +14,10 @@ interface Props {
   readonly assignedWatcherIds: string[];
 }
 
+// interface Handlers {
+//   onScheduleMultipleWatchers: (ids: string[]) => void;
+// }
+
 class WatcherFolderInfo extends React.PureComponent<Props & OwnProps, never> {
   public render() {
     const { folder, assignedWatcherIds } = this.props;

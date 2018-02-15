@@ -8,46 +8,55 @@ import {
 } from '../actions/accept';
 
 export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
-  const maybeWatcher: Watcher | undefined = yield select(
-    getWatcher(action.groupId)
+  const { watcher } = action;
+
+  const readyToAccept: boolean = yield waitForWatcherDelay(
+    watcher.groupId,
+    watcher.delay,
+    action.origin
   );
 
-  const readyToAccept: boolean = yield waitForWatcherDelay(action);
-
-  if (readyToAccept && !!maybeWatcher) {
+  if (readyToAccept) {
     return yield put<AcceptHitRequest>(
-      acceptHitRequestFromWatcher(maybeWatcher.groupId, maybeWatcher.delay)
+      acceptHitRequestFromWatcher(watcher.groupId, watcher.delay)
     );
   }
 }
 
-function* waitForWatcherDelay(action: ScheduleWatcherTick) {
-  yield delay(action.delayInSeconds * 1000);
-  /**
-   * It's possible that a watcher is deleted during the delay.
-   */
-  const watcher: Watcher | undefined = yield select((state: RootState) =>
-    state.watchers.get(action.groupId)
-  );
+function* waitForWatcherDelay(
+  watcherId: string,
+  delayInSeconds: number,
+  origin: number
+) {
+  try {
+    yield delay(delayInSeconds * 1000);
+    /**
+     * It's possible that a watcher is deleted during the delay.
+     */
+    const watcher: Watcher | undefined = yield select((state: RootState) =>
+      state.watchers.get(watcherId)
+    );
 
-  /**
-   * It's possible that a watcher is cancelled during the delay.
-   */
-  const watcherTimer: WatcherTimer | undefined = yield select(
-    (state: RootState) => state.watcherTimes.get(action.groupId)
-  );
+    /**
+     * It's possible that a watcher is cancelled during the delay.
+     */
+    const watcherTimer: WatcherTimer | undefined = yield select(
+      (state: RootState) => state.watcherTimes.get(watcherId)
+    );
 
-  /**
-   * If the origin of the watcher after the delay and the origin from the action
-   * are not the same, that means the user cancelled the original watcher and
-   * restarted it during the delay. In that case, return false.
-   */
+    /**
+     * If the origin of the watcher after the delay and the origin from the action
+     * are not the same, that means the user cancelled the original watcher and
+     * restarted it during the delay. In that case, return false.
+     */
 
-  if (watcher && watcherTimer && watcherTimer.origin === action.origin) {
-    return yield true;
-  } else {
-    return yield false;
+    if (watcher && watcherTimer && watcherTimer.origin === origin) {
+      return yield true;
+    } else {
+      return yield false;
+    }
+  } catch (e) {
+    console.warn(e);
+    return false;
   }
 }
-
-const getWatcher = (id: string) => (state: RootState) => state.watchers.get(id);

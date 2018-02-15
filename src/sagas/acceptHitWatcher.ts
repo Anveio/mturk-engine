@@ -16,7 +16,7 @@ import { sendHitAcceptRequest, HitAcceptResponse } from '../api/acceptHit';
 import { successfulAcceptToast } from '../utils/toaster';
 // import { parseWorkerHit } from '../utils/parsingWorkerHit';
 // import { parseAcceptFailureReason } from '../utils/parsing';
-import { RootState } from '../types';
+import { RootState, Watcher } from '../types';
 import { TopRightToaster } from '../index';
 import { blankQueueItem } from '../utils/queueItem';
 
@@ -64,7 +64,11 @@ function* handleWatcherScheduling(id: string, delay: number) {
     (state: RootState) => !!state.watcherTimes.get(id)
   );
 
-  if (watcherActive) {
-    yield put<ScheduleWatcherTick>(scheduleWatcher(id, delay));
+  const watcher: Watcher | undefined = yield select((state: RootState) =>
+    state.watchers.get(id)
+  );
+
+  if (watcherActive && watcher) {
+    yield put<ScheduleWatcherTick>(scheduleWatcher(watcher));
   }
 }
