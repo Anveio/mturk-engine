@@ -1,19 +1,30 @@
 import { delay } from 'redux-saga';
 import { put, select } from 'redux-saga/effects';
 import { RootState, Watcher, WatcherTimer } from '../types';
-import { ScheduleWatcherTick } from '../actions/watcher';
+import {
+  ScheduleWatcherTick,
+  SetWatcherTimer,
+  setWatcherTimer
+} from '../actions/watcher';
 import {
   AcceptHitRequest,
   acceptHitRequestFromWatcher
 } from '../actions/accept';
 
+const getWatcher = (id: string) => (state: RootState) => state.watchers.get(id);
+
 export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
-  const { watcher } = action;
+  const watcher: Watcher = yield select(getWatcher(action.id));
+  const origin = Date.now();
+
+  yield put<SetWatcherTimer>(
+    setWatcherTimer(watcher.groupId, watcher.delay, origin)
+  );
 
   const readyToAccept: boolean = yield waitForWatcherDelay(
     watcher.groupId,
     watcher.delay,
-    action.origin
+    origin
   );
 
   if (readyToAccept) {

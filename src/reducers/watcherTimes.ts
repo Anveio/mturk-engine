@@ -1,22 +1,18 @@
 import { WatcherTimerMap, WatcherTimer } from '../types';
-import { ScheduleWatcherTick, CancelWatcherTick } from '../actions/watcher';
-import {
-  SCHEDULE_NEXT_WATCHER_TICK,
-  CANCEL_NEXT_WATCHER_TICK
-} from '../constants';
+import { SetWatcherTimer, CancelWatcherTick } from '../actions/watcher';
+import { SET_WATCHER_TIMER, CANCEL_NEXT_WATCHER_TICK } from '../constants';
 import { Map } from 'immutable';
 import { calculateTimeFromDelay } from '../utils/dates';
-// import { watcherFromId, conflictsOnlyUseNewDateProp } from '../utils/watchers';
 
 const initial: WatcherTimerMap = Map<string, WatcherTimer>();
 
-type WatcherAction = CancelWatcherTick | ScheduleWatcherTick;
+type WatcherTimerAction = CancelWatcherTick | SetWatcherTimer;
 
-export default (state = initial, action: WatcherAction) => {
+export default (state = initial, action: WatcherTimerAction) => {
   switch (action.type) {
-    case SCHEDULE_NEXT_WATCHER_TICK:
-      return state.set(action.watcher.groupId, {
-        date: calculateTimeFromDelay(action.watcher.delay),
+    case SET_WATCHER_TIMER:
+      return state.set(action.id, {
+        date: calculateTimeFromDelay(action.delayInSeconds),
         origin: action.origin
       });
     case CANCEL_NEXT_WATCHER_TICK:
