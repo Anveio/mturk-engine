@@ -17,7 +17,7 @@ export interface Props {
 
 export interface Handlers {
   // tslint:disable-next-line:no-any
-  readonly onClick: (key: PersistedStateKey, value: any) => void;
+  readonly onClick: (key: PersistedStateKey, value: boolean) => void;
 }
 
 class StateKeyCheckbox extends React.Component<Props & OwnProps & Handlers> {
