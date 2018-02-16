@@ -1,5 +1,6 @@
 import { call, put, select } from 'redux-saga/effects';
-import { RootState, SearchResult, TOpticonResponse } from '../types';
+import { List } from 'immutable';
+import { TOpticonResponse } from '../types';
 import {
   FetchTOpticonRequest,
   FetchTOpticonSuccess,
@@ -8,20 +9,18 @@ import {
   fetchTOpticonFailure
 } from '../actions/turkopticon';
 // import { hitIdsWithNoTO } from '../selectors/searchTable';
-import { noTurkopticon, topticonMapFromTO } from '../utils/turkopticon';
+import { topticonMapFromTO } from '../utils/turkopticon';
 import { batchFetchTOpticon } from '../api/turkopticon';
 import { attributeWeightsSelector } from '../selectors/turkopticon';
+import { getSearchResultRequesterIds } from '../selectors/search';
 
 export function* fetchTurkopticon(action: FetchTOpticonRequest) {
   try {
-    const requesterIds = yield select((state: RootState) =>
-      state.search
-        .filter(noTurkopticon)
-        .map((hit: SearchResult) => hit.requester.id)
-        .toArray()
+    const requesterIds: List<string> = yield select(
+      getSearchResultRequesterIds
     );
 
-    if (requesterIds.length > 0) {
+    if (requesterIds.size > 0) {
       const rawTopticonData: TOpticonResponse = yield call(
         batchFetchTOpticon,
         requesterIds

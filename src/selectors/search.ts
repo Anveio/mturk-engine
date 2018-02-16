@@ -18,6 +18,8 @@ import {
   requesterBlocklistSelector,
   sortOptionSelector
 } from './index';
+import { noTurkopticon } from '../utils/turkopticon';
+import { List } from 'immutable';
 
 const selectGroupId = (hit: SearchResult) => hit.groupId;
 
@@ -47,7 +49,7 @@ const hideBlockedRequestersAndHits = createSelector(
   (
     resultsFilteredByBlockedIds: SearchResults,
     blockedRequesters: RequesterBlockMap
-  ) => 
+  ) =>
     resultsFilteredByBlockedIds.filter(
       (result: SearchResult) => !blockedRequesters.get(result.requester.id)
     ) as SearchResults
@@ -99,4 +101,15 @@ export const filteredResultsGroupId = createSelector(
   (hits: SearchResults) => {
     return hits.map(selectGroupId).toList();
   }
+);
+
+export const getSearchResultRequesterIds = createSelector(
+  [searchResultSelector],
+  searchResults =>
+    searchResults
+      .filter(noTurkopticon)
+      .reduce(
+        (acc: List<string>, cur: SearchResult) => acc.push(cur.requester.id),
+        List<string>([])
+      )
 );
