@@ -26,5 +26,5 @@ export const config = {
   // tslint:disable:no-string-literal
   devtools: window['__REDUX_DEVTOOLS_EXTENSION__']
     ? window['__REDUX_DEVTOOLS_EXTENSION__']()
-    : (f: any) => f
+    : () => ({})
 };

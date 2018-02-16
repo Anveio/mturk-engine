@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { List } from 'immutable';
-import { RootState } from '../types';
-import { PlayAudio, playAudio } from '../actions/audio';
-import { newResultsGroupIdsList } from '../selectors/search';
+import { RootState } from '../../types';
+import { PlayAudio, playAudio } from '../../actions/audio';
+import { newResultsGroupIdsList } from '../../selectors/search';
 
 export interface Props {
   readonly audioNewSearch: HTMLAudioElement;
@@ -14,7 +14,7 @@ export interface Handlers {
   readonly onNewSearchResult: (file: HTMLAudioElement) => void;
 }
 
-class AudioLayer extends React.Component<Props & Handlers, never> {
+class NewResultAudioLayer extends React.Component<Props & Handlers, never> {
   componentWillReceiveProps(nextProps: Props) {
     if (!nextProps.unreadResults.isSubset(this.props.unreadResults)) {
       this.props.onNewSearchResult(this.props.audioNewSearch);
@@ -22,7 +22,7 @@ class AudioLayer extends React.Component<Props & Handlers, never> {
   }
 
   public render() {
-    return <> </>;
+    return this.props.children;
   }
 }
 
@@ -37,4 +37,4 @@ const mapDispatch = (dispatch: Dispatch<PlayAudio>): Handlers => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(AudioLayer);
+export default connect(mapState, mapDispatch)(NewResultAudioLayer);

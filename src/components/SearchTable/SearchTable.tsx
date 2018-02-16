@@ -6,6 +6,8 @@ import SearchCard from '../SearchCard/SearchCard';
 import SearchTableHeading from './SearchTableHeading';
 import SearchTableButtons from './SearchTableButtons';
 import EmptySearchTable from './EmptySearchTable';
+import NewResultAudioLayer from './NewResultAudioLayer';
+import NewResultNotificationLayer from './NewResultNotificationLayer';
 import { List } from 'immutable';
 import { filteredResultsGroupId } from '../../selectors/search';
 
@@ -28,10 +30,14 @@ class SearchTable extends React.Component<Props, never> {
       <Card>
         <SearchTableHeading displayedResultsSize={numResults} />
         <SearchTableButtons />
-        <ResourceList
-          items={resultsIds.toArray()}
-          renderItem={(id: string) => <SearchCard key={id} groupId={id} />}
-        />
+        <NewResultAudioLayer>
+          <NewResultNotificationLayer>
+            <ResourceList
+              items={resultsIds.toArray()}
+              renderItem={(id: string) => <SearchCard key={id} groupId={id} />}
+            />
+          </NewResultNotificationLayer>
+        </NewResultAudioLayer>
       </Card>
     );
   }

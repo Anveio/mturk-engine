@@ -6,12 +6,15 @@ import {
   SearchResult,
   SearchResults,
   NotificationSettings
-} from '../types';
-import { sendNotification, SendNotification } from '../actions/notifications';
+} from '../../types';
+import {
+  sendNotification,
+  SendNotification
+} from '../../actions/notifications';
 import {
   topThreePayingResultsSuitableForNotification,
   topThreePayingResultsGroupIds
-} from '../selectors/notificationSettings';
+} from '../../selectors/notificationSettings';
 
 interface Props {
   readonly notificationSettings: NotificationSettings;
@@ -23,7 +26,10 @@ interface Handlers {
   readonly onUnreadHit: (hit: SearchResult, durationInSeconds: number) => void;
 }
 
-class NotificationLayer extends React.Component<Props & Handlers, never> {
+class NewResultsNotificationLayer extends React.Component<
+  Props & Handlers,
+  never
+> {
   componentWillReceiveProps(nextProps: Props) {
     const { notificationSettings, newResultsGroupIds, newResults } = nextProps;
     if (
@@ -37,7 +43,7 @@ class NotificationLayer extends React.Component<Props & Handlers, never> {
   }
 
   public render() {
-    return <> </>;
+    return this.props.children;
   }
 }
 
@@ -53,4 +59,4 @@ const mapDispatch = (dispatch: Dispatch<SendNotification>): Handlers => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(NotificationLayer);
+export default connect(mapState, mapDispatch)(NewResultsNotificationLayer);
