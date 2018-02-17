@@ -1,6 +1,6 @@
 import { EDIT_WATCHER_FIELD } from '../constants';
 
-export type EditableField = 'title' | 'description' | 'delay';
+export type EditableField = 'title' | 'description' | 'delay' | 'folderId';
 
 export interface WatcherEdit {
   readonly type: EDIT_WATCHER_FIELD;

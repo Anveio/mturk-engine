@@ -30,7 +30,7 @@ export interface RootState {
   readonly notificationSettings: NotificationSettings;
   readonly loggedSearchResults: SearchResults;
   readonly watcherTree: WatcherTreeSettings;
-  readonly watcherFolders: Map<string, WatcherFolder>;
+  readonly watcherFolders: WatcherFolderMap;
 }
 
 export type SearchResults = Map<string, SearchResult>; // indexed by groupId
@@ -40,6 +40,7 @@ export type HitBlockMap = Map<string, BlockedHit>; // indexed by groupId
 export type RequesterBlockMap = Map<string, BlockedRequester>; // indexed by requesterId
 export type WatcherMap = Map<string, Watcher>; // indexed by groupId
 export type WatcherTimerMap = Map<string, WatcherTimer>; // indexed by groupId
+export type WatcherFolderMap = Map<string, WatcherFolder>; // indexed by folderId
 export type HitDatabaseMap = Map<string, HitDatabaseEntry>; // indexed by LEGACY_DATE_FORMAT string
 export type ExpandedSearchResultsMap = Map<string, true>; // indexed by groupId
 
