@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NonIdealState } from '@blueprintjs/core';
 import { Layout } from '@shopify/polaris';
 import { RootState, SelectionKind } from '../../types';
-import WatcherCard from './WatcherCard';
+import WatcherCard from '../Watcher/WatcherCard';
 import WatcherFolderInfo from '../WatcherFolderInfo/WatcherFolderInfo';
 import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
 

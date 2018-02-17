@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Card, Stack, Heading, Button } from '@shopify/polaris';
+import { Card, Stack, Button } from '@shopify/polaris';
 import { Tooltip } from '@blueprintjs/core';
 import { EditableText } from '@blueprintjs/core';
 import {
@@ -17,7 +17,8 @@ import {
   cancelNextWatcherTick,
   deleteWatcher
 } from '../../actions/watcher';
-import WatcherTimer from '../Watchers/WatcherTimer';
+// import WatcherTimer from '../Watchers/WatcherTimer';
+import WatcherHeading from './WatcherHeading';
 
 export interface OwnProps {
   readonly watcherId: string;
@@ -56,27 +57,27 @@ class WatcherCard extends React.PureComponent<
     watcherActive ? onCancel(watcherId) : onSchedule(watcherId);
   };
 
-  private headingSection = (title: string) => {
-    return (
-      <Card.Section>
-        <Stack vertical spacing="tight">
-          <Heading>
-            <EditableText
-              intent={0}
-              maxLength={80}
-              value={title}
-              selectAllOnFocus
-              placeholder="Click to edit title"
-              onChange={(value: string) =>
-                this.props.onEdit(this.props.watcherId, 'title', value)
-              }
-            />
-          </Heading>
-          <WatcherTimer id={this.props.watcherId} />
-        </Stack>
-      </Card.Section>
-    );
-  };
+  // private headingSection = (title: string) => {
+  //   return (
+  //     <Card.Section>
+  //       <Stack vertical spacing="tight">
+  //         <Heading>
+  //           <EditableText
+  //             intent={0}
+  //             maxLength={80}
+  //             value={title}
+  //             selectAllOnFocus
+  //             placeholder="Click to edit title"
+  //             onChange={(value: string) =>
+  //               this.props.onEdit(this.props.watcherId, 'title', value)
+  //             }
+  //           />
+  //         </Heading>
+  //         <WatcherTimer id={this.props.watcherId} />
+  //       </Stack>
+  //     </Card.Section>
+  //   );
+  // };
 
   private descriptionSection = (description: string) => {
     return (
@@ -142,12 +143,19 @@ class WatcherCard extends React.PureComponent<
     const { watcher, watcherActive } = this.props;
 
     return (
-      <Card>
-        {this.headingSection(watcher.title)}
-        {this.descriptionSection(watcher.description)}
-        {this.delaySection(watcher.delay)}
-        {this.buttonSection(watcher, watcherActive)}
-      </Card>
+      <Stack vertical>
+        <WatcherHeading
+          title={watcher.title}
+          onChange={(value: string) =>
+            this.props.onEdit(this.props.watcherId, 'title', value)
+          }
+        />
+        <Card>
+          {this.descriptionSection(watcher.description)}
+          {this.delaySection(watcher.delay)}
+          {this.buttonSection(watcher, watcherActive)}
+        </Card>
+      </Stack>
     );
   }
 }
