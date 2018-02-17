@@ -32,9 +32,9 @@ export const createGenericWaitingToast = (message: string) =>
     timeout: 0
   });
 
-export const copyIdToast = () =>
+export const plainToast = (message: string) =>
   TopRightToaster.show({
-    message: 'Worker ID copied to clipboard.',
+    message,
     timeout: 2000
   });
 
