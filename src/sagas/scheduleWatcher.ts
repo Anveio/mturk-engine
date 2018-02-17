@@ -10,8 +10,10 @@ import {
   AcceptHitRequest,
   acceptHitRequestFromWatcher
 } from '../actions/accept';
+import { normalizedWatchers } from '../selectors/watchers';
 
-const getWatcher = (id: string) => (state: RootState) => state.watchers.get(id);
+const getWatcher = (id: string) => (state: RootState) =>
+  normalizedWatchers(state).get(id);
 
 export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
   const watcher: Watcher = yield select(getWatcher(action.id));

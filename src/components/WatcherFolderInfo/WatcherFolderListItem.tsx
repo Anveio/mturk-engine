@@ -4,6 +4,7 @@ import { Card, Stack, TextContainer } from '@shopify/polaris';
 import { Icon } from '@blueprintjs/core';
 import { truncate } from '../../utils/formatting';
 import { Watcher, RootState } from '../../types';
+import { normalizedWatchers } from '../../selectors/watchers';
 
 interface OwnProps {
   readonly watcherId: string;
@@ -48,7 +49,7 @@ class WatcherFolderListItem extends React.PureComponent<
 }
 
 const mapState = (state: RootState, { watcherId }: OwnProps): Props => ({
-  watcher: state.watchers.get(watcherId),
+  watcher: normalizedWatchers(state).get(watcherId),
   watcherActive: !!state.watcherTimes.get(watcherId)
 });
 

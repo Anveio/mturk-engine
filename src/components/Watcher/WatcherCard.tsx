@@ -19,6 +19,7 @@ import WatcherHeading from './WatcherHeading';
 import WatcherInfo from './WatcherInfo';
 import WatcherSettings from './WatcherSettings';
 import WatcherActions from './WatcherActions';
+import { normalizedWatchers } from '../../selectors/watchers';
 
 interface OwnProps {
   readonly watcherId: string;
@@ -81,7 +82,7 @@ class WatcherCard extends React.PureComponent<
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  watcher: state.watchers.get(ownProps.watcherId),
+  watcher: normalizedWatchers(state).get(ownProps.watcherId),
   watcherActive: !!state.watcherTimes.get(ownProps.watcherId)
 });
 

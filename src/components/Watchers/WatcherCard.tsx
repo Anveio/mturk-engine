@@ -18,6 +18,7 @@ import {
   deleteWatcher
 } from '../../actions/watcher';
 import WatcherTimer from './WatcherTimer';
+import { normalizedWatchers } from '../../selectors/watchers';
 
 export interface OwnProps {
   readonly watcherId: string;
@@ -153,7 +154,7 @@ class WatcherCard extends React.PureComponent<
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  watcher: state.watchers.get(ownProps.watcherId),
+  watcher: normalizedWatchers(state).get(ownProps.watcherId),
   watcherActive: !!state.watcherTimes.get(ownProps.watcherId)
 });
 

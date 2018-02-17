@@ -4,12 +4,16 @@ import { watcherSelector } from './index';
 import { Map } from 'immutable';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
 
+const getLegacyWatchers = createSelector([watcherSelector], watchers =>
+  watchers.filter((watcher: Watcher) => !watcher.folderId)
+);
+
 /**
  * For backwards compatibility. Legacy watchers on't have certain properties.
  * Here we ensure they do.
  */
 export const normalizedWatchers = createSelector(
-  [watcherSelector],
+  [getLegacyWatchers],
   (watchers: WatcherMap): WatcherMap =>
     watchers.reduce(
       (acc: WatcherMap, cur: Watcher) =>
