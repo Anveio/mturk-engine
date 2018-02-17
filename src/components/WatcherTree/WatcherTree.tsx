@@ -18,7 +18,10 @@ import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
 import { watchersToFolderWatcherMap } from '../../selectors/watcherFolders';
 import SelectedWatcherSection from './SelectedWatcherSection';
 import WatcherProgress from './WatcherProgress';
-import { scheduleWatcher } from '../../actions/watcher';
+
+interface OwnHandlers {
+  readonly handleDoubleClick: (nodeData: GenericTreeNode) => void;
+}
 
 interface Props {
   readonly watcherFolders: Map<string, WatcherFolder>;
@@ -28,21 +31,16 @@ interface Props {
 
 interface Handlers {
   readonly onSelectTreeNode: (id: string, kind: SelectionKind) => void;
-  readonly onScheduleWatcher: (id: string) => void;
+
   readonly onToggleFolderExpand: (folderId: string) => void;
 }
 
-class WatchersNew extends React.Component<Props & Handlers, never> {
+class WatchersNew extends React.Component<
+  Props & OwnHandlers & Handlers,
+  never
+> {
   private handleNodeClick = (nodeData: GenericTreeNode) => {
     this.props.onSelectTreeNode(nodeData.id, nodeData.kind);
-  };
-
-  private handleNodeDoubleClick = (nodeData: GenericTreeNode) => {
-    if (nodeData.kind === 'folder') {
-      this.handleNodeExpandToggle(nodeData);
-    } else if (nodeData.kind === 'groupId') {
-      this.props.onScheduleWatcher(nodeData.id);
-    }
   };
 
   private handleNodeExpandToggle = (nodeData: GenericTreeNode) => {
@@ -112,7 +110,7 @@ class WatchersNew extends React.Component<Props & Handlers, never> {
             <Tree
               className={Classes.ELEVATION_0}
               onNodeClick={this.handleNodeClick}
-              onNodeDoubleClick={this.handleNodeDoubleClick}
+              onNodeDoubleClick={this.props.handleDoubleClick}
               onNodeCollapse={this.handleNodeExpandToggle}
               onNodeExpand={this.handleNodeExpandToggle}
               contents={contents}
@@ -136,7 +134,6 @@ const mapDispatch = (
 ): Handlers => ({
   onSelectTreeNode: (id: string, kind: SelectionKind) =>
     dispatch(selectWatcherFile(id, kind)),
-  onScheduleWatcher: (id: string) => dispatch(scheduleWatcher(id)),
   onToggleFolderExpand: (id: string) => dispatch(toggleWatcherFolderExpand(id))
 });
 
