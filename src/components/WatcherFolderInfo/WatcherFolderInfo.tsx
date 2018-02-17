@@ -22,7 +22,7 @@ class WatcherFolderInfo extends React.PureComponent<Props & OwnProps, never> {
   public render() {
     const { folder, assignedWatcherIds } = this.props;
     return (
-      <Stack vertical spacing="tight">
+      <Stack vertical>
         <DisplayText>{folder.name}</DisplayText>
         <Card
           sectioned

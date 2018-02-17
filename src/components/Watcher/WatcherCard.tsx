@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Card, Stack } from '@shopify/polaris';
-import { EditableText } from '@blueprintjs/core';
+import { Stack } from '@shopify/polaris';
 import {
   EditableField,
   WatcherEdit,
@@ -18,6 +17,7 @@ import {
 } from '../../actions/watcher';
 import WatcherHeading from './WatcherHeading';
 import WatcherInfo from './WatcherInfo';
+import WatcherSettings from './WatcherSettings';
 import WatcherActions from './WatcherActions';
 
 interface OwnProps {
@@ -44,37 +44,11 @@ class WatcherCard extends React.PureComponent<
   OwnProps & Props & Handlers,
   never
 > {
-  private static validateNumber = (value: string): boolean =>
-    /^\d+$/.test(value);
-
   private handleDelete = () => this.props.onDelete(this.props.watcher.groupId);
 
   private handleToggle = () => {
     const { watcherActive, onCancel, watcherId, onSchedule } = this.props;
     watcherActive ? onCancel(watcherId) : onSchedule(watcherId);
-  };
-
-  private delaySection = (delay: number) => {
-    return (
-      <Card.Section>
-        Delay:{' '}
-        <EditableText
-          intent={0}
-          maxLength={3}
-          value={delay.toString()}
-          selectAllOnFocus
-          onChange={(value: string) =>
-            this.props.onEdit(
-              this.props.watcherId,
-              'delay',
-              WatcherCard.validateNumber(value) || value === '' ? value : delay
-            )
-          }
-          minWidth={10}
-        />{' '}
-        seconds
-      </Card.Section>
-    );
   };
 
   public render() {
@@ -95,7 +69,7 @@ class WatcherCard extends React.PureComponent<
             this.props.onEdit(this.props.watcherId, 'description', value)
           }
         />
-        <Card>{this.delaySection(watcher.delay)}</Card>
+        <WatcherSettings watcher={watcher} onEdit={this.props.onEdit} />
         <WatcherActions
           watcherActive={watcherActive}
           onDelete={this.handleDelete}

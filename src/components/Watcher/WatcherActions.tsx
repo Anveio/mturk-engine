@@ -7,7 +7,7 @@ interface Props {
   readonly onToggle: () => void;
 }
 
-class WatcherActions extends React.PureComponent<Props, never> {
+class WatcherActions extends React.Component<Props, never> {
   public render() {
     return (
       <PageActions
