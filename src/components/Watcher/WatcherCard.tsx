@@ -17,8 +17,8 @@ import {
   cancelNextWatcherTick,
   deleteWatcher
 } from '../../actions/watcher';
-// import WatcherTimer from '../Watchers/WatcherTimer';
 import WatcherHeading from './WatcherHeading';
+import WatcherInfo from './WatcherInfo';
 
 export interface OwnProps {
   readonly watcherId: string;
@@ -78,28 +78,6 @@ class WatcherCard extends React.PureComponent<
   //     </Card.Section>
   //   );
   // };
-
-  private descriptionSection = (description: string) => {
-    return (
-      <Card.Section>
-        <EditableText
-          maxLength={140}
-          value={this.props.watcher.description}
-          maxLines={4}
-          multiline
-          selectAllOnFocus
-          onChange={(value: string) =>
-            this.props.onEdit(this.props.watcherId, 'description', value)
-          }
-          placeholder={`ID starts with ${this.props.watcherId.slice(
-            0,
-            5
-          )}. Click to edit description`}
-        />
-      </Card.Section>
-    );
-  };
-
   private delaySection = (delay: number) => {
     return (
       <Card.Section>
@@ -150,8 +128,14 @@ class WatcherCard extends React.PureComponent<
             this.props.onEdit(this.props.watcherId, 'title', value)
           }
         />
+        <WatcherInfo
+          id={watcher.groupId}
+          description={watcher.description}
+          onChangeDescription={(value: string) =>
+            this.props.onEdit(this.props.watcherId, 'description', value)
+          }
+        />
         <Card>
-          {this.descriptionSection(watcher.description)}
           {this.delaySection(watcher.delay)}
           {this.buttonSection(watcher, watcherActive)}
         </Card>
