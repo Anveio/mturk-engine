@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Card, Stack, Button } from '@shopify/polaris';
-import { Tooltip } from '@blueprintjs/core';
+import { Card, Stack } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
 import {
   EditableField,
@@ -19,17 +18,18 @@ import {
 } from '../../actions/watcher';
 import WatcherHeading from './WatcherHeading';
 import WatcherInfo from './WatcherInfo';
+import WatcherActions from './WatcherActions';
 
-export interface OwnProps {
+interface OwnProps {
   readonly watcherId: string;
 }
 
-export interface Props {
+interface Props {
   readonly watcher: Watcher;
   readonly watcherActive: boolean;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onDelete: (id: string) => void;
   readonly onSchedule: (id: string) => void;
   readonly onCancel: (id: string) => void;
@@ -44,9 +44,6 @@ class WatcherCard extends React.PureComponent<
   OwnProps & Props & Handlers,
   never
 > {
-  private static generateButtonContent = (active: boolean) =>
-    active ? 'Stop' : 'Start';
-
   private static validateNumber = (value: string): boolean =>
     /^\d+$/.test(value);
 
@@ -57,27 +54,6 @@ class WatcherCard extends React.PureComponent<
     watcherActive ? onCancel(watcherId) : onSchedule(watcherId);
   };
 
-  // private headingSection = (title: string) => {
-  //   return (
-  //     <Card.Section>
-  //       <Stack vertical spacing="tight">
-  //         <Heading>
-  //           <EditableText
-  //             intent={0}
-  //             maxLength={80}
-  //             value={title}
-  //             selectAllOnFocus
-  //             placeholder="Click to edit title"
-  //             onChange={(value: string) =>
-  //               this.props.onEdit(this.props.watcherId, 'title', value)
-  //             }
-  //           />
-  //         </Heading>
-  //         <WatcherTimer id={this.props.watcherId} />
-  //       </Stack>
-  //     </Card.Section>
-  //   );
-  // };
   private delaySection = (delay: number) => {
     return (
       <Card.Section>
@@ -101,22 +77,6 @@ class WatcherCard extends React.PureComponent<
     );
   };
 
-  private buttonSection = (watcher: Watcher, active: boolean) => {
-    return (
-      <Card.Section>
-        <Stack distribution="equalSpacing">
-          <Button destructive={active} onClick={this.handleToggle}>
-            {WatcherCard.generateButtonContent(active)}
-          </Button>
-
-          <Tooltip content="Delete this watcher.">
-            <Button onClick={this.handleDelete} icon="delete" />
-          </Tooltip>
-        </Stack>
-      </Card.Section>
-    );
-  };
-
   public render() {
     const { watcher, watcherActive } = this.props;
 
@@ -135,10 +95,12 @@ class WatcherCard extends React.PureComponent<
             this.props.onEdit(this.props.watcherId, 'description', value)
           }
         />
-        <Card>
-          {this.delaySection(watcher.delay)}
-          {this.buttonSection(watcher, watcherActive)}
-        </Card>
+        <Card>{this.delaySection(watcher.delay)}</Card>
+        <WatcherActions
+          watcherActive={watcherActive}
+          onDelete={this.handleDelete}
+          onToggle={this.handleToggle}
+        />
       </Stack>
     );
   }
