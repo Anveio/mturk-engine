@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, WatcherTimerMap } from '../../types';
 import WatcherTree from './WatcherTree';
-import { GenericTreeNode } from '../../utils/tree';
+import { GenericTreeNode, WatcherTreeNode } from '../../utils/tree';
 import { cancelNextWatcherTick, scheduleWatcher } from '../../actions/watcher';
 import {
   toggleWatcherFolderExpand,
@@ -11,7 +11,7 @@ import {
 import { ScheduleAction } from '../../actions/scheduler';
 
 interface Props {
-  watcherTimers: WatcherTimerMap;
+  readonly watcherTimers: WatcherTimerMap;
 }
 
 interface Handlers {
@@ -21,11 +21,19 @@ interface Handlers {
 }
 
 class DoubleClickHandler extends React.PureComponent<Props & Handlers, never> {
+  private watcherIsActive = (nodeData: WatcherTreeNode) => {
+    return !!this.props.watcherTimers.get(nodeData.id);
+  };
+
   private handleNodeDoubleClick = (nodeData: GenericTreeNode) => {
+    const { id } = nodeData;
+
     if (nodeData.kind === 'folder') {
-      this.props.onToggleFolderExpand(nodeData.id);
+      this.props.onToggleFolderExpand(id);
     } else if (nodeData.kind === 'groupId') {
-      this.props.onScheduleWatcher(nodeData.id);
+      this.watcherIsActive(nodeData)
+        ? this.props.onCancelWatcher(id)
+        : this.props.onScheduleWatcher(id);
     }
   };
 
