@@ -18,7 +18,7 @@ interface OwnProps {
 
 interface Props {
   readonly folder: WatcherFolder;
-  readonly assignedWatcherIds: string[];
+  readonly assignedWatchers: string[];
 }
 
 interface Handlers {
@@ -32,17 +32,17 @@ class WatcherFolderInfo extends React.PureComponent<
   never
 > {
   private scheduleAllWatchersInFolder = () =>
-    this.props.assignedWatcherIds.forEach(watcherId =>
+    this.props.assignedWatchers.forEach(watcherId =>
       this.props.onScheduleWatcher(watcherId)
     );
 
   private cancelAllWatchersInFolder = () =>
-    this.props.assignedWatcherIds.forEach(watcherId =>
+    this.props.assignedWatchers.forEach(watcherId =>
       this.props.onCancelWatcher(watcherId)
     );
 
   public render() {
-    const { folder, assignedWatcherIds, onEdit } = this.props;
+    const { folder, assignedWatchers, onEdit } = this.props;
     return (
       <Stack vertical>
         <WatcherFolderHeading
@@ -52,7 +52,7 @@ class WatcherFolderInfo extends React.PureComponent<
         />
         <Card
           sectioned
-          title={`${assignedWatcherIds.length} watchers in this folder.`}
+          title={`${assignedWatchers.length} watchers in this folder.`}
           actions={[
             {
               content: 'Restart all',
@@ -61,7 +61,7 @@ class WatcherFolderInfo extends React.PureComponent<
             { content: 'Stop all', onAction: this.cancelAllWatchersInFolder }
           ]}
         />
-        {assignedWatcherIds.map(watcherId => (
+        {assignedWatchers.map(watcherId => (
           <WatcherFolderListItem key={watcherId} watcherId={watcherId} />
         ))}
       </Stack>
@@ -71,7 +71,7 @@ class WatcherFolderInfo extends React.PureComponent<
 
 const mapState = (state: RootState, { folderId }: OwnProps): Props => ({
   folder: state.watcherFolders.get(folderId),
-  assignedWatcherIds: getWatcherIdsAssignedToFolder(folderId)(state)
+  assignedWatchers: getWatcherIdsAssignedToFolder(folderId)(state)
 });
 
 const mapDispatch = (dispatch: Dispatch<EditWatcherFolder>): Handlers => ({
