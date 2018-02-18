@@ -9,6 +9,7 @@ import {
   EditWatcherFolder,
   editWatcherFolder
 } from '../../actions/watcherFolders';
+import { DEFAULT_WATCHER_FOLDER_ID } from '../../constants/misc';
 
 interface OwnProps {
   readonly folderId: string;
@@ -33,6 +34,7 @@ class WatcherFolderInfo extends React.PureComponent<
       <Stack vertical>
         <WatcherFolderHeading
           title={folder.name}
+          editable={folder.id !== DEFAULT_WATCHER_FOLDER_ID}
           onChange={(value: string) => onEdit(folder.id, 'name', value)}
         />
         <Card
