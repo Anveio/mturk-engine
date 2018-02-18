@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Map } from 'immutable';
 import { Tree, Classes } from '@blueprintjs/core';
-import { Layout, Stack, DisplayText } from '@shopify/polaris';
+import { Layout, Stack, DisplayText, Button } from '@shopify/polaris';
 import { RootState, SelectionKind, Watcher, WatcherFolder } from '../../types';
 import {
   GenericTreeNode,
@@ -106,7 +106,13 @@ class WatchersNew extends React.Component<
       <Layout>
         <Layout.Section secondary>
           <Stack vertical>
-            <DisplayText>Watchers</DisplayText>
+            <Stack
+              vertical={false}
+              distribution="equalSpacing"
+              alignment="baseline"
+            >
+              <DisplayText>Watchers</DisplayText>
+            </Stack>
             <Tree
               className={Classes.ELEVATION_0}
               onNodeClick={this.handleNodeClick}
@@ -115,6 +121,7 @@ class WatchersNew extends React.Component<
               onNodeExpand={this.handleNodeExpandToggle}
               contents={contents}
             />
+            <Button icon="circlePlus">Create folder</Button>
           </Stack>
         </Layout.Section>
         <SelectedWatcherSection />
