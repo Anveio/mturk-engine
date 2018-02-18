@@ -52,7 +52,7 @@ class WatcherFolderHeading extends React.Component<Props, State> {
           onEdit={this.toggleEditingState}
           onConfirm={this.handleConfirmEdit}
           onChange={this.handleChange}
-          maxLength={200}
+          maxLength={50}
         />
       </DisplayText>
     );
