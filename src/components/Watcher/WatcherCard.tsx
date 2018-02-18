@@ -64,7 +64,6 @@ class WatcherCard extends React.PureComponent<
             this.props.onEdit(this.props.watcherId, 'title', value)
           }
         />
-        <WatcherProgressBar id={watcher.groupId} />
         <WatcherInfo
           id={watcher.groupId}
           description={watcher.description}
@@ -73,6 +72,7 @@ class WatcherCard extends React.PureComponent<
           }
         />
         <WatcherSettings watcher={watcher} onEdit={this.props.onEdit} />
+        <WatcherProgressBar id={watcher.groupId} />
         <WatcherActions
           watcherActive={watcherActive}
           onDelete={this.handleDelete}
