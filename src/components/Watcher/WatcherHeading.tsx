@@ -35,7 +35,7 @@ class WatcherHeading extends React.Component<Props, State> {
   private handleConfirmEdit = () => {
     if (!(this.state.title.length > 0)) {
       this.resetTitle();
-      genericWarningToast('Watcher folders cannot have a blank name.');
+      genericWarningToast('Watchers cannot have a blank name.');
     } else {
       this.props.onChange(this.state.title);
     }

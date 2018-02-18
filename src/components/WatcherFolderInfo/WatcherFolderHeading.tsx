@@ -47,7 +47,8 @@ class WatcherFolderHeading extends React.Component<Props, State> {
       <DisplayText element="h2">
         <EditableText
           confirmOnEnterKey
-          isEditing={this.props.editable ? this.state.editing : false}
+          disabled={!this.props.editable}
+          isEditing={this.state.editing}
           value={this.state.title}
           onCancel={this.resetTitle}
           onEdit={this.toggleEditingState}
