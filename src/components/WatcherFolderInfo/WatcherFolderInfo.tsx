@@ -1,9 +1,14 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { DisplayText, Stack, Card } from '@shopify/polaris';
+import { connect, Dispatch } from 'react-redux';
+import { Stack, Card } from '@shopify/polaris';
 import { WatcherFolder, RootState } from '../../types';
 import { getWatcherIdsAssignedToFolder } from '../../selectors/watcherFolders';
 import WatcherFolderListItem from './WatcherFolderListItem';
+import WatcherFolderHeading from './WatcherFolderHeading';
+import {
+  EditWatcherFolder,
+  editWatcherFolder
+} from '../../actions/watcherFolders';
 
 interface OwnProps {
   readonly folderId: string;
@@ -14,16 +19,22 @@ interface Props {
   readonly assignedWatcherIds: string[];
 }
 
-// interface Handlers {
-//   onScheduleMultipleWatchers: (ids: string[]) => void;
-// }
+interface Handlers {
+  readonly onEdit: (id: string, field: 'name', value: string | number) => void;
+}
 
-class WatcherFolderInfo extends React.PureComponent<Props & OwnProps, never> {
+class WatcherFolderInfo extends React.PureComponent<
+  Props & OwnProps & Handlers,
+  never
+> {
   public render() {
-    const { folder, assignedWatcherIds } = this.props;
+    const { folder, assignedWatcherIds, onEdit } = this.props;
     return (
       <Stack vertical>
-        <DisplayText>{folder.name}</DisplayText>
+        <WatcherFolderHeading
+          title={folder.name}
+          onChange={(value: string) => onEdit(folder.id, 'name', value)}
+        />
         <Card
           sectioned
           title={`${assignedWatcherIds.length} watchers in this folder.`}
@@ -42,4 +53,9 @@ const mapState = (state: RootState, { folderId }: OwnProps): Props => ({
   assignedWatcherIds: getWatcherIdsAssignedToFolder(folderId)(state)
 });
 
-export default connect(mapState)(WatcherFolderInfo);
+const mapDispatch = (dispatch: Dispatch<EditWatcherFolder>): Handlers => ({
+  onEdit: (id: string, field: 'name', value: string) =>
+    dispatch(editWatcherFolder(id, field, value))
+});
+
+export default connect(mapState, mapDispatch)(WatcherFolderInfo);
