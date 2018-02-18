@@ -10,6 +10,7 @@ import {
   editWatcherFolder
 } from '../../actions/watcherFolders';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../../constants/misc';
+import { scheduleWatcher, cancelNextWatcherTick } from '../../actions/watcher';
 
 interface OwnProps {
   readonly folderId: string;
@@ -22,12 +23,24 @@ interface Props {
 
 interface Handlers {
   readonly onEdit: (id: string, field: 'name', value: string | number) => void;
+  readonly onScheduleWatcher: (id: string) => void;
+  readonly onCancelWatcher: (id: string) => void;
 }
 
 class WatcherFolderInfo extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
+  private scheduleAllWatchersInFolder = () =>
+    this.props.assignedWatcherIds.forEach(watcherId =>
+      this.props.onScheduleWatcher(watcherId)
+    );
+
+  private cancelAllWatchersInFolder = () =>
+    this.props.assignedWatcherIds.forEach(watcherId =>
+      this.props.onCancelWatcher(watcherId)
+    );
+
   public render() {
     const { folder, assignedWatcherIds, onEdit } = this.props;
     return (
@@ -40,7 +53,13 @@ class WatcherFolderInfo extends React.PureComponent<
         <Card
           sectioned
           title={`${assignedWatcherIds.length} watchers in this folder.`}
-          actions={[{ content: 'Start all' }]}
+          actions={[
+            {
+              content: 'Restart all',
+              onAction: this.scheduleAllWatchersInFolder
+            },
+            { content: 'Stop all', onAction: this.cancelAllWatchersInFolder }
+          ]}
         />
         {assignedWatcherIds.map(watcherId => (
           <WatcherFolderListItem key={watcherId} watcherId={watcherId} />
@@ -57,7 +76,9 @@ const mapState = (state: RootState, { folderId }: OwnProps): Props => ({
 
 const mapDispatch = (dispatch: Dispatch<EditWatcherFolder>): Handlers => ({
   onEdit: (id: string, field: 'name', value: string) =>
-    dispatch(editWatcherFolder(id, field, value))
+    dispatch(editWatcherFolder(id, field, value)),
+  onCancelWatcher: (id: string) => dispatch(cancelNextWatcherTick(id)),
+  onScheduleWatcher: (id: string) => dispatch(scheduleWatcher(id))
 });
 
 export default connect(mapState, mapDispatch)(WatcherFolderInfo);
