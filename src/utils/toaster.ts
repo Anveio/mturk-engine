@@ -38,6 +38,13 @@ export const plainToast = (message: string) =>
     timeout: 2000
   });
 
+export const genericWarningToast = (message: string) =>
+  TopRightToaster.show({
+    message,
+    timeout: 4000,
+    intent: Intent.WARNING
+  });
+
 export const copyMarkdownToast = (title: string) =>
   TopRightToaster.show({
     message: `HIT: "${title}"'s markdown was added to your clipboard.`
