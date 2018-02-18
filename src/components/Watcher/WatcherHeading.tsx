@@ -28,7 +28,8 @@ class WatcherHeading extends React.Component<Props, State> {
 
   private resetTitle = () =>
     this.setState((prevState: State): Partial<State> => ({
-      title: this.props.title
+      title: this.props.title,
+      editing: false
     }));
 
   private handleConfirmEdit = () => {
