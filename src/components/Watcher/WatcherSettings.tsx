@@ -44,6 +44,7 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
             label="Time between attempts"
             value={watcher.delay.toString()}
             type="number"
+            min={0}
             suffix="seconds"
             onChange={this.handleEdit('delay')}
           />
