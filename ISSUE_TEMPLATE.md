@@ -12,12 +12,9 @@ What actually happened? Include any error messages you see in the console when t
 
 ## Steps to Reproduce the Problem
 
-1.
-2.
-3.
+1. 2. 3.
 
 ## Specifications
 
-- Mturk Engine version:
-- Are you using the Lite version? 
-- Browser:
+* Mturk Engine version:
+* Browser:
