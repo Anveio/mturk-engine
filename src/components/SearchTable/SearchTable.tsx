@@ -4,7 +4,6 @@ import { ResourceList, Card } from '@shopify/polaris';
 import { RootState } from '../../types';
 import SearchCard from '../SearchCard/SearchCard';
 import SearchTableHeading from './SearchTableHeading';
-import SearchTableButtons from './SearchTableButtons';
 import EmptySearchTable from './EmptySearchTable';
 import NewResultAudioLayer from './NewResultAudioLayer';
 import NewResultNotificationLayer from './NewResultNotificationLayer';
@@ -29,7 +28,6 @@ class SearchTable extends React.Component<Props, never> {
     ) : (
       <Card>
         <SearchTableHeading displayedResultsSize={numResults} />
-        <SearchTableButtons />
         <NewResultAudioLayer>
           <NewResultNotificationLayer>
             <ResourceList

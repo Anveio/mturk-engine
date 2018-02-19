@@ -31,7 +31,7 @@ class SortingMenu extends React.PureComponent<Props & Handlers, never> {
   public render() {
     const { value } = this.props;
     return (
-      <Popover position={Position.BOTTOM_LEFT} canEscapeKeyClose>
+      <Popover position={Position.BOTTOM_RIGHT} canEscapeKeyClose>
         <Button plain disclosure>
           {`Sorted By: ${value}`}
         </Button>

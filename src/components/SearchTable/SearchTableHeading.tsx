@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../types';
-import { Card, Heading } from '@shopify/polaris';
+import { Card, Stack, Heading } from '@shopify/polaris';
 import { resultsLengthSelector, newResults } from '../../selectors/search';
+import SearchTableButtons from './SearchTableButtons';
 
 export interface Props {
   readonly rawResultsSize: number;
@@ -23,12 +24,19 @@ class SearchTableHeading extends React.PureComponent<Props & OwnProps, never> {
 
     return (
       <Card.Section>
-        <Heading>
-          Showing {displayedResultsSize} results. ({SearchTableHeading.showNewResults(
-            numNewHits
-          )}
-          {numHiddenResults} hidden)
-        </Heading>
+        <Stack vertical={false}>
+          <Stack.Item fill>
+            <Heading>
+              Showing {displayedResultsSize} results. ({SearchTableHeading.showNewResults(
+                numNewHits
+              )}
+              {numHiddenResults} hidden)
+            </Heading>
+          </Stack.Item>
+          <Stack.Item>
+            <SearchTableButtons />
+          </Stack.Item>
+        </Stack>
       </Card.Section>
     );
   }
