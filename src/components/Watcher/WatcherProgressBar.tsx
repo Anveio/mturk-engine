@@ -87,7 +87,6 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   };
 
   public render() {
-    const { timeOfNextSearch } = this.props;
     const { timeUntilNextSearch } = this.state;
 
     const spinnerProgress =
@@ -95,7 +94,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
         ? 0
         : WatcherTimer.calculateProgress(this.delay, timeUntilNextSearch);
 
-    return timeOfNextSearch ? <ProgressBar value={spinnerProgress} /> : null;
+    return <ProgressBar value={spinnerProgress} />;
   }
 }
 
