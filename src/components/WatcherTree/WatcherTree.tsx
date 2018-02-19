@@ -35,7 +35,7 @@ interface Handlers {
   readonly onToggleFolderExpand: (folderId: string) => void;
 }
 
-class WatchersNew extends React.Component<
+class WatcherTree extends React.Component<
   Props & OwnHandlers & Handlers,
   never
 > {
@@ -63,7 +63,7 @@ class WatchersNew extends React.Component<
           kind: 'folder',
           isSelected: selectionId === folder.id,
           iconName: folder.expanded ? 'folder-open' : 'folder-close',
-          childNodes: WatchersNew.assignWatchersToFolder(
+          childNodes: WatcherTree.assignWatchersToFolder(
             watcherFolderMap.get(folder.id, []),
             selectionId || null
           ),
@@ -76,7 +76,7 @@ class WatchersNew extends React.Component<
   static assignWatchersToFolder = (
     watchers: Watcher[],
     selectionId: string | null
-  ): WatcherTreeNode[] => watchers.map(WatchersNew.createWatcher(selectionId));
+  ): WatcherTreeNode[] => watchers.map(WatcherTree.createWatcher(selectionId));
 
   static createWatcher = (selectionId: string | null) => ({
     groupId,
@@ -96,7 +96,7 @@ class WatchersNew extends React.Component<
       watcherFolders,
       watcherFolderMap
     } = this.props;
-    const { createFolders } = WatchersNew;
+    const { createFolders } = WatcherTree;
 
     const contents = createFolders(watcherFolders, watcherFolderMap)(
       currentlySelectedWatcherId
@@ -144,4 +144,4 @@ const mapDispatch = (
   onToggleFolderExpand: (id: string) => dispatch(toggleWatcherFolderExpand(id))
 });
 
-export default connect(mapState, mapDispatch)(WatchersNew);
+export default connect(mapState, mapDispatch)(WatcherTree);
