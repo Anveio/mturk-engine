@@ -16,17 +16,21 @@ const getWatcher = (id: string) => (state: RootState) =>
   normalizedWatchers(state).get(id);
 
 export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
-  const watcher: Watcher = yield select(getWatcher(action.id));
+  try {
+    const watcher: Watcher = yield select(getWatcher(action.id));
 
-  const readyToAccept: boolean = yield waitForWatcherDelay(
-    watcher.groupId,
-    watcher.delay
-  );
-
-  if (readyToAccept) {
-    return yield put<AcceptHitRequest>(
-      acceptHitRequestFromWatcher(watcher.groupId, watcher.delay)
+    const readyToAccept: boolean = yield waitForWatcherDelay(
+      watcher.groupId,
+      watcher.delay
     );
+
+    if (readyToAccept) {
+      return yield put<AcceptHitRequest>(
+        acceptHitRequestFromWatcher(watcher.groupId, watcher.delay)
+      );
+    }
+  } catch (e) {
+    console.warn(e);
   }
 }
 

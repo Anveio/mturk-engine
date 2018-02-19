@@ -8,11 +8,7 @@ const getLegacyWatchers = createSelector([watcherSelector], watchers =>
   watchers.filter((watcher: Watcher) => !watcher.folderId)
 );
 
-/**
- * For backwards compatibility. Legacy watchers on't have certain properties.
- * Here we ensure they do.
- */
-export const normalizedWatchers = createSelector(
+const updateLegacyWatchers = createSelector(
   [getLegacyWatchers],
   (watchers: WatcherMap): WatcherMap =>
     watchers.reduce(
@@ -23,6 +19,16 @@ export const normalizedWatchers = createSelector(
         }),
       Map<string, Watcher>()
     )
+);
+
+/**
+ * For backwards compatibility. Legacy watchers won't have certain properties.
+ * Here we ensure they do.
+ */
+export const normalizedWatchers = createSelector(
+  [watcherSelector, updateLegacyWatchers],
+  (allWatchers: WatcherMap, legacyWatchers: WatcherMap): WatcherMap =>
+    allWatchers.merge(legacyWatchers)
 );
 
 const watchersSortedLatestFirst = createSelector(
