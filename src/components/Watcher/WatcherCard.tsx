@@ -16,9 +16,9 @@ import {
   deleteWatcher
 } from '../../actions/watcher';
 import WatcherHeading from './WatcherHeading';
-import WatcherProgressBar from './WatcherProgressBar';
 import WatcherInfo from './WatcherInfo';
 import WatcherSettings from './WatcherSettings';
+import InfoCallout from './InfoCallout';
 import WatcherActions from './WatcherActions';
 import { normalizedWatchers } from '../../selectors/watchers';
 
@@ -72,7 +72,7 @@ class WatcherCard extends React.PureComponent<
           }
         />
         <WatcherSettings watcher={watcher} onEdit={this.props.onEdit} />
-        <WatcherProgressBar id={watcher.groupId} />
+        <InfoCallout />
         <WatcherActions
           watcherActive={watcherActive}
           onDelete={this.handleDelete}
