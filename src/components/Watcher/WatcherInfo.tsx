@@ -80,7 +80,7 @@ class WatcherInfo extends React.PureComponent<Props, State> {
             selectAllOnFocus
             confirmOnEnterKey
             value={this.state.description}
-            maxLength={500}
+            maxLength={1500}
             onChange={this.handleChange}
             onCancel={this.resetDescription}
             onConfirm={this.props.onChangeDescription}
