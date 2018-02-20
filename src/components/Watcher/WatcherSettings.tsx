@@ -17,6 +17,7 @@ import {
 } from '../../types';
 import { EditableWatcherField } from '../../actions/watcher';
 import { plainToast } from '../../utils/toaster';
+import { watcherFoldersSortedByCreationDate } from '../../selectors/watcherFolders';
 
 interface OwnProps {
   readonly watcher: Watcher;
@@ -117,7 +118,7 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  watcherFolders: state.watcherFolders,
+  watcherFolders: watcherFoldersSortedByCreationDate(state),
   assignedFolder: state.watcherFolders.get(ownProps.watcher.folderId)
 });
 

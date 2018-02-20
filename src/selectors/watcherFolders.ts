@@ -3,13 +3,11 @@ import { watcherFoldersSelector } from './index';
 import { Watcher, WatcherFolder, WatcherFolderMap } from '../types';
 import { normalizedWatchers } from './watchers';
 import { Map, Set } from 'immutable';
+import { sortWatcherFoldersNewestFirst } from '../utils/sorting';
 
 export const watcherFoldersSortedByCreationDate = createSelector(
   [watcherFoldersSelector],
-  folders =>
-    folders.sort(
-      (a, b) => a.dateNumCreation - b.dateNumCreation
-    ) as WatcherFolderMap
+  folders => folders.sort(sortWatcherFoldersNewestFirst) as WatcherFolderMap
 );
 
 export const watchersToFolderWatcherMap = createSelector(

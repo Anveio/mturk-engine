@@ -1,4 +1,9 @@
-import { SearchResult, SortingOption, AttributeWeights } from '../types';
+import {
+  SearchResult,
+  SortingOption,
+  AttributeWeights,
+  WatcherFolder
+} from '../types';
 import { calculateWeightedAverageScore } from './turkopticon';
 
 /**
@@ -73,3 +78,8 @@ export const sortByTurkopticonRating = (weights: AttributeWeights) => (
     }
   }
 };
+
+export const sortWatcherFoldersNewestFirst = (
+  a: WatcherFolder,
+  b: WatcherFolder
+) => a.dateNumCreation - b.dateNumCreation;
