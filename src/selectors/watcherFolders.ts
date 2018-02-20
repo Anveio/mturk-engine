@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import { watcherFoldersSelector } from './index';
-import { Watcher } from '../types';
+import { Watcher, WatcherFolder } from '../types';
 import { normalizedWatchers } from './watchers';
-import { Map } from 'immutable';
+import { Map, Set } from 'immutable';
 
 export const watchersToFolderWatcherMap = createSelector(
   [normalizedWatchers, watcherFoldersSelector],
@@ -30,3 +30,12 @@ export const getWatcherIdsAssignedToFolder = (folderId: string) =>
   createSelector([getWatchersAssignedToFolder(folderId)], watchers =>
     watchers.map((cur: Watcher) => cur.groupId)
   );
+
+export const watcherFolderUniqueNames = createSelector(
+  [watcherFoldersSelector],
+  watcherFolders =>
+    watcherFolders.reduce(
+      (acc: Set<string>, cur: WatcherFolder) => acc.add(cur.name),
+      Set<string>()
+    )
+);

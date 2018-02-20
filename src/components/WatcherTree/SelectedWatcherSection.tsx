@@ -4,7 +4,7 @@ import { NonIdealState } from '@blueprintjs/core';
 import { Layout } from '@shopify/polaris';
 import { RootState, SelectionKind } from '../../types';
 import WatcherCard from '../Watcher/WatcherCard';
-import WatcherFolderInfo from '../WatcherFolderInfo/WatcherFolderInfo';
+import WatcherFolder from '../WatcherFolder/WatcherFolder';
 import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
 
 interface Props {
@@ -18,7 +18,7 @@ class SelectedWatcherSection extends React.Component<Props, never> {
       case 'groupId':
         return <WatcherCard watcherId={id} />;
       case 'folder':
-        return <WatcherFolderInfo folderId={id} />;
+        return <WatcherFolder folderId={id} />;
       default:
         throw new Error('Invalid selection kind.');
     }

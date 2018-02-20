@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Map } from 'immutable';
 import { Tree, Classes } from '@blueprintjs/core';
-import { Layout, Stack, DisplayText, Button } from '@shopify/polaris';
+import { Layout, Stack, DisplayText } from '@shopify/polaris';
 import { RootState, SelectionKind, Watcher, WatcherFolder } from '../../types';
 import {
   GenericTreeNode,
@@ -18,6 +18,7 @@ import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
 import { watchersToFolderWatcherMap } from '../../selectors/watcherFolders';
 import SelectedWatcherSection from './SelectedWatcherSection';
 import WatcherProgress from './WatcherProgress';
+import CreateFolderButton from './CreateFolderButton';
 
 interface OwnHandlers {
   readonly handleDoubleClick: (nodeData: GenericTreeNode) => void;
@@ -121,7 +122,7 @@ class WatcherTree extends React.Component<
               onNodeExpand={this.handleNodeExpandToggle}
               contents={contents}
             />
-            <Button icon="circlePlus">Create folder</Button>
+            <CreateFolderButton />
           </Stack>
         </Layout.Section>
         <SelectedWatcherSection />
