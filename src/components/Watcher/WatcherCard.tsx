@@ -1,19 +1,14 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Stack } from '@shopify/polaris';
-import {
-  EditableField,
-  WatcherEdit,
-  editWatcher
-} from '../../actions/editWatcher';
 import { RootState, Watcher } from '../../types';
 import {
-  DeleteWatcher,
-  ScheduleWatcherTick,
   scheduleWatcher,
-  CancelWatcherTick,
   cancelNextWatcherTick,
-  deleteWatcher
+  deleteWatcher,
+  EditableWatcherField,
+  WatcherAction,
+  editWatcher
 } from '../../actions/watcher';
 import WatcherHeading from './WatcherHeading';
 import WatcherInfo from './WatcherInfo';
@@ -37,7 +32,7 @@ interface Handlers {
   readonly onCancel: (id: string) => void;
   readonly onEdit: (
     id: string,
-    field: EditableField,
+    field: EditableWatcherField,
     value: string | number
   ) => void;
 }
@@ -88,17 +83,11 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   watcherActive: !!state.watcherTimes.get(ownProps.watcherId)
 });
 
-type WatcherCardAction =
-  | ScheduleWatcherTick
-  | CancelWatcherTick
-  | DeleteWatcher
-  | WatcherEdit;
-
-const mapDispatch = (dispatch: Dispatch<WatcherCardAction>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch<WatcherAction>): Handlers => ({
   onDelete: (id: string) => dispatch(deleteWatcher(id)),
   onCancel: (id: string) => dispatch(cancelNextWatcherTick(id)),
   onSchedule: (id: string) => dispatch(scheduleWatcher(id)),
-  onEdit: (id: string, field: EditableField, value: string | number) =>
+  onEdit: (id: string, field: EditableWatcherField, value: string | number) =>
     dispatch(editWatcher(id, field, value))
 });
 

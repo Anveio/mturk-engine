@@ -7,13 +7,13 @@ import {
   WatcherFolderMap,
   WatcherFolder
 } from '../../types';
-import { EditableField } from '../../actions/editWatcher';
+import { EditableWatcherField } from '../../actions/watcher';
 
 interface OwnProps {
   readonly watcher: Watcher;
   readonly onEdit: (
     id: string,
-    field: EditableField,
+    field: EditableWatcherField,
     value: string | number
   ) => void;
 }
@@ -32,7 +32,7 @@ interface Option {
 class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
   static validateNumber = (value: string): boolean => /^\d+$/.test(value);
 
-  private handleEdit = (field: EditableField) => (value: string) => {
+  private handleEdit = (field: EditableWatcherField) => (value: string) => {
     this.props.onEdit(this.props.watcher.groupId, field, value);
   };
 
