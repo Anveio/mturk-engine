@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import * as copy from 'copy-to-clipboard';
 import {
   Card,
   FormLayout,
@@ -15,6 +16,7 @@ import {
   Primitive
 } from '../../types';
 import { EditableWatcherField } from '../../actions/watcher';
+import { plainToast } from '../../utils/toaster';
 
 interface OwnProps {
   readonly watcher: Watcher;
@@ -37,7 +39,10 @@ interface Option {
 }
 
 class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
-  static validateNumber = (value: string): boolean => /^\d+$/.test(value);
+  private copyId = () => {
+    copy(this.props.watcher.groupId);
+    plainToast(`"${this.props.watcher.groupId}" copied to clipboard.`);
+  };
 
   private handleEdit = <T extends string | boolean>(
     field: EditableWatcherField
@@ -65,7 +70,16 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
     const folderLabels = this.generateOptions();
 
     return (
-      <Card sectioned title="Settings">
+      <Card
+        sectioned
+        title="Settings"
+        actions={[
+          {
+            content: 'Copy ID',
+            onAction: this.copyId
+          }
+        ]}
+      >
         <FormLayout>
           <TextField
             label="Time between attempts"

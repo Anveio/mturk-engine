@@ -1,8 +1,6 @@
 import * as React from 'react';
-import * as copy from 'copy-to-clipboard';
 import { Card, TextContainer } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
-import { plainToast } from '../../utils/toaster';
 
 interface Props {
   readonly id: string;
@@ -29,11 +27,6 @@ class WatcherInfo extends React.PureComponent<Props, State> {
       }));
     }
   }
-
-  private copyId = () => {
-    copy(this.props.id);
-    plainToast(`Watcher project ID copied to clipboard.`);
-  };
 
   private toggleEditableState = () =>
     this.setState((prevState: State): Partial<State> => ({
@@ -67,10 +60,6 @@ class WatcherInfo extends React.PureComponent<Props, State> {
         sectioned
         title={`Description`}
         actions={[
-          {
-            content: 'Copy ID',
-            onAction: this.copyId
-          },
           this.state.editable ? this.endEditingAction : this.startEditingAction
         ]}
       >
