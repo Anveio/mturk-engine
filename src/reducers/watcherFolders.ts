@@ -24,7 +24,7 @@ export default (
 ): Map<string, WatcherFolder> => {
   switch (action.type) {
     case CREATE_WATCHER_FOLDER:
-      return state.set(action.id, action.payload);
+      return state.set(action.payload.id, action.payload);
     case WATCHER_FOLDER_TOGGLE_EXPAND:
       return state.update(action.folderId, folder => ({
         ...folder,

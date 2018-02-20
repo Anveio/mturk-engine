@@ -19,7 +19,7 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onCreateFolder: (id: string, payload: WatcherFolder) => void;
+  readonly onCreateFolder: (payload: WatcherFolder) => void;
 }
 
 class CreateFolderButton extends React.PureComponent<Props & Handlers, never> {
@@ -30,7 +30,7 @@ class CreateFolderButton extends React.PureComponent<Props & Handlers, never> {
       ),
       new Date()
     );
-    this.props.onCreateFolder(newWatcherFolder.id, newWatcherFolder);
+    this.props.onCreateFolder(newWatcherFolder);
   };
 
   public render() {
@@ -47,8 +47,8 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<CreateWatcherFolder>): Handlers => ({
-  onCreateFolder: (id: string, payload: WatcherFolder) =>
-    dispatch(createWatcherFolder(id, payload))
+  onCreateFolder: (payload: WatcherFolder) =>
+    dispatch(createWatcherFolder(payload))
 });
 
 export default connect(mapState, mapDispatch)(CreateFolderButton);

@@ -19,7 +19,6 @@ export interface EditWatcherFolder {
 
 export interface CreateWatcherFolder {
   readonly type: CREATE_WATCHER_FOLDER;
-  readonly id: string;
   readonly payload: WatcherFolder;
 }
 
@@ -47,10 +46,8 @@ export const editWatcherFolder = (
 });
 
 export const createWatcherFolder = (
-  id: string,
   payload: WatcherFolder
 ): CreateWatcherFolder => ({
   type: CREATE_WATCHER_FOLDER,
-  id,
   payload
 });
