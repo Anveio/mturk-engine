@@ -3,6 +3,15 @@ import { formatAsCurrency } from './formatting';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
 import { WatcherTreeNode } from './tree';
 
+export const createDefaultWatcher = (id: string): Watcher => ({
+  groupId: id,
+  delay: 5,
+  description: '',
+  folderId: DEFAULT_WATCHER_FOLDER_ID,
+  title: 'Untitled Watcher',
+  createdOn: new Date(0)
+});
+
 export const watcherFromId = (groupId: string): Watcher => ({
   title: '',
   description: 'ID: ' + groupId,

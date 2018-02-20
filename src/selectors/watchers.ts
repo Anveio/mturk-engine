@@ -1,19 +1,21 @@
 import { createSelector } from 'reselect';
 import { Watcher, WatcherMap } from '../types';
-import { watcherSelector } from './index';
+import { watchersSelector } from './index';
 import { Map } from 'immutable';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
+import { createDefaultWatcher } from '../utils/watchers';
 
-const getLegacyWatchers = createSelector([watcherSelector], watchers =>
-  watchers.filter((watcher: Watcher) => !watcher.folderId)
-);
-
+/**
+ * For backwards compatibility. Legacy watchers won't have certain properties.
+ * Here we ensure they do.
+ */
 const updateLegacyWatchers = createSelector(
-  [getLegacyWatchers],
+  [watchersSelector],
   (watchers: WatcherMap): WatcherMap =>
     watchers.reduce(
       (acc: WatcherMap, cur: Watcher) =>
         acc.set(cur.groupId, {
+          ...createDefaultWatcher(cur.groupId),
           ...cur,
           folderId: cur.folderId ? cur.folderId : DEFAULT_WATCHER_FOLDER_ID
         }),
@@ -21,12 +23,8 @@ const updateLegacyWatchers = createSelector(
     )
 );
 
-/**
- * For backwards compatibility. Legacy watchers won't have certain properties.
- * Here we ensure they do.
- */
 export const normalizedWatchers = createSelector(
-  [watcherSelector, updateLegacyWatchers],
+  [watchersSelector, updateLegacyWatchers],
   (allWatchers: WatcherMap, legacyWatchers: WatcherMap): WatcherMap =>
     allWatchers.merge(legacyWatchers)
 );
@@ -44,7 +42,7 @@ export const watcherIdsList = createSelector(
 );
 
 export const watchersList = createSelector(
-  [watcherSelector],
+  [watchersSelector],
   (watchers: WatcherMap) =>
     watchers.reduce((acc: Watcher[], cur: Watcher) => [...acc, cur], [])
 );

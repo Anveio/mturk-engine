@@ -25,10 +25,11 @@ export const sortOptionSelector = (state: RootState) => state.sortingOption;
 export const uploadedStateSelector = (state: RootState) => state.uploadedState;
 
 /**
- * WARNING: Never call this selector directly. Legacy watchers may not have all
- * the properties of new watchers. Always call normalizedWatchers selectors instead.
+ * WARNING: Never call this selector in a connected component directly. Legacy
+ * watchers may not have all the properties of new watchers. Always call the
+ * normalizedWatchers selector instead.
  */
-export const watcherSelector = (state: RootState) => state.watchers;
+export const watchersSelector = (state: RootState) => state.watchers;
 
 export const watcherTreeSelector = (state: RootState) => state.watcherTree;
 
