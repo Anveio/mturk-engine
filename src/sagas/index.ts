@@ -17,14 +17,18 @@ import {
   PLAY_AUDIO,
   WRITE_PERSISTED_STATE,
   NOTIFICATION_PERM_REQUEST,
-  SEND_NOTIFICATION
+  SEND_NOTIFICATION,
+  ACCEPT_HIT_FROM_WATCHER
 } from '../constants';
 import { ConnectAccountRequest } from '../actions/connectAccount';
 import { FetchQueueRequest } from '../actions/queue';
 import { ReturnHitRequest } from '../actions/return';
 import { SearchRequest } from '../actions/search';
 import { ScheduleNextSearch } from '../actions/scheduler';
-import { AcceptHitRequest } from '../actions/accept';
+import {
+  AcceptHitRequest,
+  AcceptHitRequestFromWatcher
+} from '../actions/accept';
 import { FetchTOpticonRequest } from '../actions/turkopticon';
 import { FetchStatusSummaryRequest } from '../actions/statusSummary';
 import { RefreshDatabaseRequest } from '../actions/refreshDatabase';
@@ -58,6 +62,7 @@ import {
   NotificationPermissionRequest,
   SendNotification
 } from '../actions/notifications';
+import { acceptHitFromWatcher } from './acceptHitWatcher';
 
 export default function* rootSaga() {
   yield takeLatest<ScheduleNextSearch>(SCHEDULE_NEXT_SEARCH, searchAfterDelay);
@@ -93,6 +98,10 @@ export default function* rootSaga() {
   yield takeEvery<FetchQueueRequest>(FETCH_QUEUE_REQUEST, fetchUserQueue);
   yield takeEvery<ReturnHitRequest>(RETURN_HIT_REQUEST, returnHit);
   yield takeEvery<AcceptHitRequest>(ACCEPT_HIT_REQUEST, acceptHit);
+  yield takeEvery<AcceptHitRequestFromWatcher>(
+    ACCEPT_HIT_FROM_WATCHER,
+    acceptHitFromWatcher
+  );
   yield takeEvery<FetchStatusDetailRequest>(
     STATUS_DETAIL_REQUEST,
     handleStatusDetailRequest

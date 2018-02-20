@@ -7,13 +7,10 @@ import {
   setWatcherTimer
 } from '../actions/watcher';
 import {
-  AcceptHitRequest,
-  acceptHitRequestFromWatcher
+  acceptHitRequestFromWatcher,
+  AcceptHitRequestFromWatcher
 } from '../actions/accept';
-import { normalizedWatchers } from '../selectors/watchers';
-
-const getWatcher = (id: string) => (state: RootState) =>
-  normalizedWatchers(state).get(id);
+import { getWatcher } from '../selectors/watchers';
 
 export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
   try {
@@ -25,8 +22,8 @@ export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
     );
 
     if (readyToAccept) {
-      return yield put<AcceptHitRequest>(
-        acceptHitRequestFromWatcher(watcher.groupId, watcher.delay)
+      return yield put<AcceptHitRequestFromWatcher>(
+        acceptHitRequestFromWatcher(watcher.groupId)
       );
     }
   } catch (e) {

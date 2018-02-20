@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { Watcher, WatcherMap } from '../types';
+import { Watcher, WatcherMap, RootState } from '../types';
 import { watchersSelector } from './index';
 import { Map } from 'immutable';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
@@ -46,3 +46,6 @@ export const watchersList = createSelector(
   (watchers: WatcherMap) =>
     watchers.reduce((acc: Watcher[], cur: Watcher) => [...acc, cur], [])
 );
+
+export const getWatcher = (id: string) => (state: RootState) =>
+  normalizedWatchers(state).get(id);

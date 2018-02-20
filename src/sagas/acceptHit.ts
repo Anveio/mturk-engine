@@ -14,15 +14,10 @@ import {
   errorAcceptToast,
   failedAcceptToast
 } from '../utils/toaster';
-import { acceptHitFromWatcher } from './acceptHitWatcher';
 import { queueItemFromSearchResult } from '../utils/queueItem';
 import { SearchResult } from '../types';
 
 export function* acceptHit(action: AcceptHitRequest) {
-  if (!action.searchResult) {
-    return yield acceptHitFromWatcher(action);
-  }
-
   const toasterKey = createGenericWaitingToast(`Accepting HIT...`);
   try {
     const response: HitAcceptResponse = yield call(
