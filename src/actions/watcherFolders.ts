@@ -23,7 +23,10 @@ export interface CreateWatcherFolder {
   readonly payload: WatcherFolder;
 }
 
-export type WatcherFolderAction = ToggleWatcherFolderExpand | EditWatcherFolder;
+export type WatcherFolderAction =
+  | CreateWatcherFolder
+  | ToggleWatcherFolderExpand
+  | EditWatcherFolder;
 
 export const toggleWatcherFolderExpand = (
   folderId: string

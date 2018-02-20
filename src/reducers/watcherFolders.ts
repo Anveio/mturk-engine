@@ -1,7 +1,8 @@
 import { WatcherFolderAction } from '../actions/watcherFolders';
 import {
   WATCHER_FOLDER_TOGGLE_EXPAND,
-  WATCHER_FOLDER_EDIT
+  WATCHER_FOLDER_EDIT,
+  CREATE_WATCHER_FOLDER
 } from '../constants';
 import { WatcherFolder, Watcher } from '../types';
 import { Map } from 'immutable';
@@ -21,6 +22,8 @@ export default (
   action: WatcherFolderAction
 ): Map<string, WatcherFolder> => {
   switch (action.type) {
+    case CREATE_WATCHER_FOLDER:
+      return state.set(action.id, action.payload);
     case WATCHER_FOLDER_TOGGLE_EXPAND:
       return state.update(action.folderId, folder => ({
         ...folder,
