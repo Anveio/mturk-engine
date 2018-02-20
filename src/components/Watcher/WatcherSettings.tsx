@@ -39,8 +39,16 @@ interface Option {
 class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
   static validateNumber = (value: string): boolean => /^\d+$/.test(value);
 
-  private handleEdit = (field: EditableWatcherField) => (value: Primitive) => {
+  private handleEdit = <T extends string | boolean>(
+    field: EditableWatcherField
+  ) => (value: T) => {
     this.props.onEdit(this.props.watcher.groupId, field, value);
+  };
+
+  private handleEditNumber = (field: EditableWatcherField) => (
+    value: string
+  ) => {
+    this.props.onEdit(this.props.watcher.groupId, field, +value);
   };
 
   private generateOptions = () =>
@@ -51,8 +59,6 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
       ],
       []
     );
-
-  // private getFolderIdFromFolderName = (folderName: string) => this.props.watcherFolders.
 
   public render() {
     const { watcher, assignedFolder } = this.props;
@@ -66,10 +72,13 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
             id="text-input-delay"
             name="text-input-delay"
             value={watcher.delay.toString()}
-            type="number"
-            min={0}
             suffix="seconds"
-            onChange={this.handleEdit('delay')}
+            type="number"
+            spellCheck={false}
+            autoComplete={false}
+            min={0}
+            step={1}
+            onChange={this.handleEditNumber('delay')}
           />
           <Select
             label="Assigned folder"
@@ -77,14 +86,14 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
             name="select-folder"
             options={folderLabels}
             value={assignedFolder.id}
-            onChange={this.handleEdit('folderId')}
+            onChange={this.handleEdit<string>('folderId')}
           />
           <Checkbox
             label="Stop after first success"
             id="checkbox-stop-after-first-success"
             name="checkbox-stop-after-first-success"
             checked={watcher.stopAfterFirstSuccess}
-            onChange={this.handleEdit('stopAfterFirstSuccess')}
+            onChange={this.handleEdit<boolean>('stopAfterFirstSuccess')}
           />
         </FormLayout>
       </Card>
