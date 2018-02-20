@@ -130,7 +130,7 @@ class CalendarHeatMap extends React.Component<Props, never> {
   private renderWeekdayLabels = () =>
     WEEKDAY_LABELS.map((weekdayLabel, dayIndex) => {
       const [x, y] = CalendarHeatMap.getWeekdayLabelCoordinates(dayIndex);
-      return !!weekdayLabel ? ( // eslint-disable-line no-bitwise
+      return (
         <text
           key={dayIndex}
           x={x}
@@ -139,7 +139,7 @@ class CalendarHeatMap extends React.Component<Props, never> {
         >
           {weekdayLabel}
         </text>
-      ) : null;
+      );
     });
 
   private renderAllWeeks = () =>
