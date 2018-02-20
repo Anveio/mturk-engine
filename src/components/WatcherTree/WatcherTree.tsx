@@ -15,7 +15,10 @@ import {
   toggleWatcherFolderExpand
 } from '../../actions/watcherFolders';
 import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
-import { watchersToFolderWatcherMap, watcherFoldersSortedByCreationDate } from '../../selectors/watcherFolders';
+import {
+  watchersToFolderWatcherMap,
+  watcherFoldersSortedByCreationDate
+} from '../../selectors/watcherFolders';
 import SelectedWatcherSection from './SelectedWatcherSection';
 import WatcherProgress from './WatcherProgress';
 import CreateFolderButton from './CreateFolderButton';
@@ -106,7 +109,7 @@ class WatcherTree extends React.Component<
     return (
       <Layout>
         <Layout.Section secondary>
-          <Stack vertical>
+          <Stack vertical spacing="tight">
             <Stack
               vertical={false}
               distribution="equalSpacing"

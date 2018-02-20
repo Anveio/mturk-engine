@@ -51,7 +51,7 @@ class WatcherHeading extends React.Component<Props, State> {
 
   public render() {
     return (
-      <DisplayText element="h2">
+      <DisplayText size="small" element="h2">
         <EditableText
           confirmOnEnterKey
           isEditing={this.state.editing}
