@@ -1,7 +1,9 @@
 import {
   WATCHER_FOLDER_TOGGLE_EXPAND,
-  WATCHER_FOLDER_EDIT
+  WATCHER_FOLDER_EDIT,
+  CREATE_WATCHER_FOLDER
 } from '../constants/index';
+import { WatcherFolder } from '../types';
 
 export interface ToggleWatcherFolderExpand {
   readonly type: WATCHER_FOLDER_TOGGLE_EXPAND;
@@ -13,6 +15,12 @@ export interface EditWatcherFolder {
   readonly folderId: string;
   readonly field: 'name';
   readonly value: string;
+}
+
+export interface CreateWatcherFolder {
+  readonly type: CREATE_WATCHER_FOLDER;
+  readonly id: string;
+  readonly payload: WatcherFolder;
 }
 
 export type WatcherFolderAction = ToggleWatcherFolderExpand | EditWatcherFolder;
@@ -33,4 +41,13 @@ export const editWatcherFolder = (
   folderId,
   field,
   value
+});
+
+export const createWatcherFolder = (
+  id: string,
+  payload: WatcherFolder
+): CreateWatcherFolder => ({
+  type: CREATE_WATCHER_FOLDER,
+  id,
+  payload
 });
