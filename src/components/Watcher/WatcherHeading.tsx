@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { DisplayText } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
-import { genericWarningToast } from '../../utils/toaster';
 
 interface Props {
   readonly title: string;
@@ -43,7 +42,6 @@ class WatcherHeading extends React.Component<Props, State> {
   private handleConfirmEdit = () => {
     if (!(this.state.title.length > 0)) {
       this.resetTitle();
-      genericWarningToast('Watchers cannot have a blank name.');
     } else {
       this.props.onChange(this.state.title);
     }
@@ -60,7 +58,7 @@ class WatcherHeading extends React.Component<Props, State> {
           onEdit={this.toggleEditingState}
           onConfirm={this.handleConfirmEdit}
           onChange={this.handleChange}
-          maxLength={50}
+          maxLength={100}
         />
       </DisplayText>
     );
