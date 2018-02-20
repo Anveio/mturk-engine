@@ -9,16 +9,8 @@ export const createDefaultWatcher = (id: string): Watcher => ({
   description: '',
   folderId: DEFAULT_WATCHER_FOLDER_ID,
   title: 'Untitled Watcher',
-  createdOn: new Date(0)
-});
-
-export const watcherFromId = (groupId: string): Watcher => ({
-  title: '',
-  description: 'ID: ' + groupId,
-  groupId,
-  delay: 10,
-  createdOn: new Date(),
-  folderId: DEFAULT_WATCHER_FOLDER_ID
+  createdOn: new Date(0),
+  stopAfterFirstSuccess: true
 });
 
 export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
@@ -27,7 +19,8 @@ export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
   groupId: hit.groupId,
   delay: 5,
   createdOn: new Date(),
-  folderId: DEFAULT_WATCHER_FOLDER_ID
+  folderId: DEFAULT_WATCHER_FOLDER_ID,
+  stopAfterFirstSuccess: true
 });
 
 export const pandaLinkValidators: Function[] = [

@@ -261,6 +261,7 @@ export interface Watcher {
   readonly description: string;
   readonly createdOn: Date;
   readonly folderId: string;
+  readonly stopAfterFirstSuccess: boolean;
 }
 
 export interface WatcherTimer {
