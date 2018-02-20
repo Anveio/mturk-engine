@@ -312,7 +312,6 @@ export interface WatcherFolder {
   readonly id: string;
   readonly name: string;
   readonly expanded: boolean;
-  readonly watchers: Map<string, Watcher>;
 }
 
 export type AcceptHitFailureReason =

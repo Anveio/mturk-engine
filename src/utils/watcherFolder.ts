@@ -1,4 +1,4 @@
-import { Set, Map } from 'immutable';
+import { Set } from 'immutable';
 import * as v4 from 'uuid/v4';
 
 import { WatcherFolder } from '../types';
@@ -10,11 +10,7 @@ export const createDefaultFolderName = (suffix?: number) => {
   if (!suffix || suffix === 0) {
     return DEFAULT_FOLDER_NAME;
   } else {
-    return (
-      DEFAULT_FOLDER_NAME +
-      FOLDER_NAME_SUFFIX_CONNECTOR +
-      suffix
-    );
+    return DEFAULT_FOLDER_NAME + FOLDER_NAME_SUFFIX_CONNECTOR + suffix;
   }
 };
 
@@ -32,6 +28,5 @@ export const findUnusedNumericSuffix = (
 export const generateWatcherFolder = (name: string): WatcherFolder => ({
   name,
   id: v4(),
-  watchers: Map(),
   expanded: false
 });
