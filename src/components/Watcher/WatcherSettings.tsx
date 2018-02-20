@@ -65,7 +65,7 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
     const folderLabels = this.generateOptions();
 
     return (
-      <Card sectioned>
+      <Card sectioned title="Settings">
         <FormLayout>
           <TextField
             label="Time between attempts"
