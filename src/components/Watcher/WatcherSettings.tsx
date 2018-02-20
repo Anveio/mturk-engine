@@ -23,6 +23,12 @@ interface Props {
   readonly assignedFolder: WatcherFolder;
 }
 
+interface Option {
+  readonly label: string;
+  readonly value: string;
+  readonly disabled?: boolean;
+}
+
 class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
   static validateNumber = (value: string): boolean => /^\d+$/.test(value);
 
@@ -30,12 +36,20 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
     this.props.onEdit(this.props.watcher.groupId, field, value);
   };
 
-  public render() {
-    const { watcher, watcherFolders, assignedFolder } = this.props;
-    const folderLabels = watcherFolders.reduce(
-      (acc: string[], folder: WatcherFolder) => [...acc, folder.name],
+  private generateOptions = () =>
+    this.props.watcherFolders.reduce(
+      (acc: Option[], folder: WatcherFolder): Option[] => [
+        ...acc,
+        { value: folder.id, label: folder.name }
+      ],
       []
     );
+
+  // private getFolderIdFromFolderName = (folderName: string) => this.props.watcherFolders.
+
+  public render() {
+    const { watcher, assignedFolder } = this.props;
+    const folderLabels = this.generateOptions();
 
     return (
       <Card sectioned>
