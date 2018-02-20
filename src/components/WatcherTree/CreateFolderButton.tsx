@@ -27,7 +27,8 @@ class CreateFolderButton extends React.PureComponent<Props & Handlers, never> {
     const newWatcherFolder = generateWatcherFolder(
       createDefaultFolderName(
         findUnusedNumericSuffix(this.props.watcherFolderNames)
-      )
+      ),
+      new Date()
     );
     this.props.onCreateFolder(newWatcherFolder.id, newWatcherFolder);
   };

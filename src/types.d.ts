@@ -312,6 +312,7 @@ export interface WatcherFolder {
   readonly id: string;
   readonly name: string;
   readonly expanded: boolean;
+  readonly dateNumCreation: number;
 }
 
 export type AcceptHitFailureReason =

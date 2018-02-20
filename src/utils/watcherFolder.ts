@@ -25,8 +25,12 @@ export const findUnusedNumericSuffix = (
   }
 };
 
-export const generateWatcherFolder = (name: string): WatcherFolder => ({
+export const generateWatcherFolder = (
+  name: string,
+  timeStamp: Date
+): WatcherFolder => ({
   name,
   id: v4(),
-  expanded: false
+  expanded: false,
+  dateNumCreation: timeStamp.valueOf()
 });
