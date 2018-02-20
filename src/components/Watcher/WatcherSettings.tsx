@@ -92,6 +92,7 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
             label="Stop after first success"
             id="checkbox-stop-after-first-success"
             name="checkbox-stop-after-first-success"
+            helpText="Enable this for HITs that you only want one of, such as surveys."
             checked={watcher.stopAfterFirstSuccess}
             onChange={this.handleEdit<boolean>('stopAfterFirstSuccess')}
           />
