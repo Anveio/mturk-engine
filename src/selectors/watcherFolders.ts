@@ -1,8 +1,16 @@
 import { createSelector } from 'reselect';
 import { watcherFoldersSelector } from './index';
-import { Watcher, WatcherFolder } from '../types';
+import { Watcher, WatcherFolder, WatcherFolderMap } from '../types';
 import { normalizedWatchers } from './watchers';
 import { Map, Set } from 'immutable';
+
+export const watcherFoldersSortedByCreationDate = createSelector(
+  [watcherFoldersSelector],
+  folders =>
+    folders.sort(
+      (a, b) => a.dateNumCreation - b.dateNumCreation
+    ) as WatcherFolderMap
+);
 
 export const watchersToFolderWatcherMap = createSelector(
   [normalizedWatchers, watcherFoldersSelector],

@@ -13,8 +13,9 @@ const initial = Map<string, WatcherFolder>({
     expanded: true,
     id: DEFAULT_WATCHER_FOLDER_ID,
     name: 'Unsorted Watchers',
-    watchers: Map<string, Watcher>()
-  }
+    watchers: Map<string, Watcher>(),
+    dateNumCreation: 0
+  } as WatcherFolder
 });
 
 export default (

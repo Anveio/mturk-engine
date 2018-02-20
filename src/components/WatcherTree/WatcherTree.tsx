@@ -15,7 +15,7 @@ import {
   toggleWatcherFolderExpand
 } from '../../actions/watcherFolders';
 import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
-import { watchersToFolderWatcherMap } from '../../selectors/watcherFolders';
+import { watchersToFolderWatcherMap, watcherFoldersSortedByCreationDate } from '../../selectors/watcherFolders';
 import SelectedWatcherSection from './SelectedWatcherSection';
 import WatcherProgress from './WatcherProgress';
 import CreateFolderButton from './CreateFolderButton';
@@ -132,7 +132,7 @@ class WatcherTree extends React.Component<
 }
 
 const mapState = (state: RootState): Props => ({
-  watcherFolders: state.watcherFolders,
+  watcherFolders: watcherFoldersSortedByCreationDate(state),
   watcherFolderMap: watchersToFolderWatcherMap(state),
   currentlySelectedWatcherId: getCurrentSelectionIdOrNull(state)
 });
