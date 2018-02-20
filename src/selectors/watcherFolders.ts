@@ -27,7 +27,7 @@ export const watchersToFolderWatcherMap = createSelector(
   }
 );
 
-export const getWatchersAssignedToFolder = (folderId: string) =>
+const getWatchersAssignedToFolder = (folderId: string) =>
   createSelector([watchersToFolderWatcherMap], watcherFolderMap =>
     watcherFolderMap.get(folderId, [])
   );
