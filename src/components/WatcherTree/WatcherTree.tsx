@@ -68,7 +68,7 @@ class WatcherTree extends React.Component<
             watcherFolderMap.get(folder.id, []),
             selectionId || null
           ),
-          hasCaret: true
+          hasCaret: watcherFolderMap.has(folder.id)
         }
       ],
       []
