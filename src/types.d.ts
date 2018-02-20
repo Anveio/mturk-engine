@@ -44,6 +44,8 @@ export type WatcherFolderMap = Map<string, WatcherFolder>; // indexed by folderI
 export type HitDatabaseMap = Map<string, HitDatabaseEntry>; // indexed by LEGACY_DATE_FORMAT string
 export type ExpandedSearchResultsMap = Map<string, true>; // indexed by groupId
 
+export type Primitive = string | number | boolean;
+
 /**
  * The keys of RootState that are persisted by redux-persist.
  * See `PERSISTED_STATE_WHITELIST` in ./constants/settings

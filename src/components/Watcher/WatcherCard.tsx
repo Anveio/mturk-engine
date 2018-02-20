@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Stack } from '@shopify/polaris';
-import { RootState, Watcher } from '../../types';
+import { RootState, Watcher, Primitive } from '../../types';
 import {
   scheduleWatcher,
   cancelNextWatcherTick,
@@ -87,7 +87,7 @@ const mapDispatch = (dispatch: Dispatch<WatcherAction>): Handlers => ({
   onDelete: (id: string) => dispatch(deleteWatcher(id)),
   onCancel: (id: string) => dispatch(cancelNextWatcherTick(id)),
   onSchedule: (id: string) => dispatch(scheduleWatcher(id)),
-  onEdit: (id: string, field: EditableWatcherField, value: string | number) =>
+  onEdit: (id: string, field: EditableWatcherField, value: Primitive) =>
     dispatch(editWatcher(id, field, value))
 });
 

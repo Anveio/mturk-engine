@@ -1,11 +1,18 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Card, FormLayout, TextField, Select } from '@shopify/polaris';
+import {
+  Card,
+  FormLayout,
+  TextField,
+  Select,
+  Checkbox
+} from '@shopify/polaris';
 import {
   Watcher,
   RootState,
   WatcherFolderMap,
-  WatcherFolder
+  WatcherFolder,
+  Primitive
 } from '../../types';
 import { EditableWatcherField } from '../../actions/watcher';
 
@@ -14,7 +21,7 @@ interface OwnProps {
   readonly onEdit: (
     id: string,
     field: EditableWatcherField,
-    value: string | number
+    value: Primitive
   ) => void;
 }
 
@@ -32,7 +39,7 @@ interface Option {
 class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
   static validateNumber = (value: string): boolean => /^\d+$/.test(value);
 
-  private handleEdit = (field: EditableWatcherField) => (value: string) => {
+  private handleEdit = (field: EditableWatcherField) => (value: Primitive) => {
     this.props.onEdit(this.props.watcher.groupId, field, value);
   };
 
@@ -56,6 +63,8 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
         <FormLayout>
           <TextField
             label="Time between attempts"
+            id="text-input-delay"
+            name="text-input-delay"
             value={watcher.delay.toString()}
             type="number"
             min={0}
@@ -64,9 +73,18 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
           />
           <Select
             label="Assigned folder"
+            id="select-folder"
+            name="select-folder"
             options={folderLabels}
             value={assignedFolder.id}
             onChange={this.handleEdit('folderId')}
+          />
+          <Checkbox
+            label="Stop after first success"
+            id="checkbox-stop-after-first-success"
+            name="checkbox-stop-after-first-success"
+            checked={watcher.stopAfterFirstSuccess}
+            onChange={this.handleEdit('stopAfterFirstSuccess')}
           />
         </FormLayout>
       </Card>

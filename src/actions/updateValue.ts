@@ -4,6 +4,7 @@ import {
   TOGGLE_SEARCH_ACTIVITY,
   TOGGLE_LEGACY_LINKS
 } from '../constants';
+import { Primitive } from '../types';
 
 export interface ChangeTab {
   readonly type: CHANGE_SELECTED_TAB;
@@ -22,8 +23,6 @@ export interface ToggleSearchActive {
 export interface ToggleLegacyLinks {
   readonly type: TOGGLE_LEGACY_LINKS;
 }
-
-type Primitive = string | number | boolean;
 
 export const updateValue = <T extends Primitive>(type: string) => (
   data: T

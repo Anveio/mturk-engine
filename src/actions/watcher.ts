@@ -7,7 +7,7 @@ import {
   SET_WATCHER_TIMER
 } from '../constants';
 
-import { Watcher } from '../types';
+import { Watcher, Primitive } from '../types';
 
 export type EditableWatcherField = keyof Pick<
   Watcher,
@@ -23,7 +23,7 @@ export interface EditWatcher {
   readonly type: EDIT_WATCHER_FIELD;
   readonly groupId: string;
   readonly field: EditableWatcherField;
-  readonly value: string | number;
+  readonly value: Primitive;
 }
 
 export interface DeleteWatcher {
@@ -63,7 +63,7 @@ export const addWatcher = (watcher: Watcher): AddWatcher => ({
 export const editWatcher = (
   groupId: string,
   field: EditableWatcherField,
-  value: string | number
+  value: Primitive
 ): EditWatcher => ({
   type: EDIT_WATCHER_FIELD,
   groupId,
