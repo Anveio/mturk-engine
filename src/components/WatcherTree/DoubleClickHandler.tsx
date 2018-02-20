@@ -7,7 +7,7 @@ import { cancelNextWatcherTick, scheduleWatcher } from '../../actions/watcher';
 import {
   toggleWatcherFolderExpand,
   ToggleWatcherFolderExpand
-} from '../../actions/watcherFolders';
+} from '../../actions/watcherTree';
 import { ScheduleAction } from '../../actions/scheduler';
 
 interface Props {

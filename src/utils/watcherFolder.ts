@@ -31,6 +31,5 @@ export const generateWatcherFolder = (
 ): WatcherFolder => ({
   name,
   id: v4(),
-  expanded: false,
   dateNumCreation: timeStamp.valueOf()
 });

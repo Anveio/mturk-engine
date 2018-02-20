@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Map } from 'immutable';
+import { Map, Set } from 'immutable';
 import { Tree, Classes } from '@blueprintjs/core';
 import { Layout, Stack, DisplayText } from '@shopify/polaris';
 import { RootState, SelectionKind, Watcher, WatcherFolder } from '../../types';
@@ -9,11 +9,11 @@ import {
   WatcherTreeNode,
   FolderTreeNode
 } from '../../utils/tree';
-import { SelectTreeNode, selectWatcherFile } from '../../actions/watcherTree';
 import {
-  WatcherFolderAction,
-  toggleWatcherFolderExpand
-} from '../../actions/watcherFolders';
+  selectWatcherFile,
+  WatcherTreeAction
+} from '../../actions/watcherTree';
+import { toggleWatcherFolderExpand } from '../../actions/watcherTree';
 import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
 import {
   watchersToFolderWatcherMap,
@@ -22,6 +22,7 @@ import {
 import SelectedWatcherSection from './SelectedWatcherSection';
 import WatcherProgress from './WatcherProgress';
 import CreateFolderButton from './CreateFolderButton';
+import { WatcherFolderAction } from '../../actions/watcherFolders';
 
 interface OwnHandlers {
   readonly handleDoubleClick: (nodeData: GenericTreeNode) => void;
@@ -30,6 +31,7 @@ interface OwnHandlers {
 interface Props {
   readonly watcherFolders: Map<string, WatcherFolder>;
   readonly watcherFolderMap: Map<string, Watcher[]>;
+  readonly expandedFolders: Set<string>;
   readonly currentlySelectedWatcherId: string | null;
 }
 
@@ -55,7 +57,8 @@ class WatcherTree extends React.Component<
 
   static createFolders = (
     folders: Map<string, WatcherFolder>,
-    watcherFolderMap: Map<string, Watcher[]>
+    watcherFolderMap: Map<string, Watcher[]>,
+    expandedFolderIds: Set<string>
   ) => (selectionId: string | null): FolderTreeNode[] =>
     folders.reduce(
       (acc: FolderTreeNode[], folder: WatcherFolder): FolderTreeNode[] => [
@@ -63,10 +66,12 @@ class WatcherTree extends React.Component<
         {
           id: folder.id,
           label: folder.name,
-          isExpanded: folder.expanded,
+          isExpanded: expandedFolderIds.has(folder.id),
           kind: 'folder',
           isSelected: selectionId === folder.id,
-          iconName: folder.expanded ? 'folder-open' : 'folder-close',
+          iconName: expandedFolderIds.has(folder.id)
+            ? 'folder-open'
+            : 'folder-close',
           childNodes: WatcherTree.assignWatchersToFolder(
             watcherFolderMap.get(folder.id, []),
             selectionId || null
@@ -98,13 +103,16 @@ class WatcherTree extends React.Component<
     const {
       currentlySelectedWatcherId,
       watcherFolders,
-      watcherFolderMap
+      watcherFolderMap,
+      expandedFolders
     } = this.props;
     const { createFolders } = WatcherTree;
 
-    const contents = createFolders(watcherFolders, watcherFolderMap)(
-      currentlySelectedWatcherId
-    );
+    const contents = createFolders(
+      watcherFolders,
+      watcherFolderMap,
+      expandedFolders
+    )(currentlySelectedWatcherId);
 
     return (
       <Layout>
@@ -135,13 +143,14 @@ class WatcherTree extends React.Component<
 }
 
 const mapState = (state: RootState): Props => ({
+  expandedFolders: state.watcherTree.expandedFolderIds,
   watcherFolders: watcherFoldersSortedByCreationDate(state),
   watcherFolderMap: watchersToFolderWatcherMap(state),
   currentlySelectedWatcherId: getCurrentSelectionIdOrNull(state)
 });
 
 const mapDispatch = (
-  dispatch: Dispatch<WatcherFolderAction | SelectTreeNode>
+  dispatch: Dispatch<WatcherFolderAction | WatcherTreeAction>
 ): Handlers => ({
   onSelectTreeNode: (id: string, kind: SelectionKind) =>
     dispatch(selectWatcherFile(id, kind)),

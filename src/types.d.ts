@@ -1,4 +1,4 @@
-import { Map } from 'immutable';
+import { Map, Set } from 'immutable';
 import {
   WorkerSubmittedHitState,
   QualificationComparator
@@ -302,6 +302,7 @@ export interface DailyEarnings {
 export interface WatcherTreeSettings {
   readonly selectionKind: SelectionKind;
   readonly selectionId: string | null;
+  readonly expandedFolderIds: Set<string>;
 }
 
 export type WatcherKind = 'groupId' | 'searchTerm' | 'requesterId';
@@ -311,7 +312,6 @@ export type SelectionKind = WatcherKind | 'folder' | 'none';
 export interface WatcherFolder {
   readonly id: string;
   readonly name: string;
-  readonly expanded: boolean;
   readonly dateNumCreation: number;
 }
 

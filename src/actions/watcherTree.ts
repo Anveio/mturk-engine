@@ -1,4 +1,7 @@
-import { SELECT_WATCHER_TREE_NODE } from '../constants/index';
+import {
+  SELECT_WATCHER_TREE_NODE,
+  WATCHER_FOLDER_TOGGLE_EXPAND
+} from '../constants/index';
 import { SelectionKind } from '../types';
 
 export interface SelectTreeNode {
@@ -7,6 +10,13 @@ export interface SelectTreeNode {
   readonly selectionKind: SelectionKind;
 }
 
+export interface ToggleWatcherFolderExpand {
+  readonly type: WATCHER_FOLDER_TOGGLE_EXPAND;
+  readonly folderId: string;
+}
+
+export type WatcherTreeAction = SelectTreeNode | ToggleWatcherFolderExpand;
+
 export const selectWatcherFile = (
   id: string,
   selectionKind: SelectionKind
@@ -14,4 +24,11 @@ export const selectWatcherFile = (
   type: SELECT_WATCHER_TREE_NODE,
   id,
   selectionKind
+});
+
+export const toggleWatcherFolderExpand = (
+  folderId: string
+): ToggleWatcherFolderExpand => ({
+  type: WATCHER_FOLDER_TOGGLE_EXPAND,
+  folderId
 });
