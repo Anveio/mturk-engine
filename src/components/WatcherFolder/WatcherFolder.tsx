@@ -3,11 +3,12 @@ import { connect, Dispatch } from 'react-redux';
 import { Stack, Card } from '@shopify/polaris';
 import { WatcherFolder, RootState } from '../../types';
 import { getWatcherIdsAssignedToFolder } from '../../selectors/watcherFolders';
-import WatcherFolderListItem from './WatcherFolderListItem';
+import WatcherFolderActions from './WatcherFolderActions';
 import WatcherFolderHeading from './WatcherFolderHeading';
 import {
-  EditWatcherFolder,
-  editWatcherFolder
+  editWatcherFolder,
+  WatcherFolderAction,
+  deleteWatcherFolder
 } from '../../actions/watcherFolders';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../../constants/misc';
 import { scheduleWatcher, cancelNextWatcherTick } from '../../actions/watcher';
@@ -23,6 +24,7 @@ interface Props {
 
 interface Handlers {
   readonly onEdit: (id: string, field: 'name', value: string | number) => void;
+  readonly onDeleteFolder: (id: string) => void;
   readonly onScheduleWatcher: (id: string) => void;
   readonly onCancelWatcher: (id: string) => void;
 }
@@ -40,6 +42,9 @@ class WatcherFolderInfo extends React.PureComponent<
     this.props.assignedWatchers.forEach(watcherId =>
       this.props.onCancelWatcher(watcherId)
     );
+
+  private handleDeleteFolder = () =>
+    this.props.onDeleteFolder(this.props.folderId);
 
   public render() {
     const { folder, assignedWatchers, onEdit } = this.props;
@@ -61,9 +66,7 @@ class WatcherFolderInfo extends React.PureComponent<
             { content: 'Stop all', onAction: this.cancelAllWatchersInFolder }
           ]}
         />
-        {assignedWatchers.map(watcherId => (
-          <WatcherFolderListItem key={watcherId} watcherId={watcherId} />
-        ))}
+        <WatcherFolderActions onDelete={this.handleDeleteFolder} />
       </Stack>
     );
   }
@@ -74,9 +77,10 @@ const mapState = (state: RootState, { folderId }: OwnProps): Props => ({
   assignedWatchers: getWatcherIdsAssignedToFolder(folderId)(state)
 });
 
-const mapDispatch = (dispatch: Dispatch<EditWatcherFolder>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch<WatcherFolderAction>): Handlers => ({
   onEdit: (id: string, field: 'name', value: string) =>
     dispatch(editWatcherFolder(id, field, value)),
+  onDeleteFolder: (id: string) => dispatch(deleteWatcherFolder(id)),
   onCancelWatcher: (id: string) => dispatch(cancelNextWatcherTick(id)),
   onScheduleWatcher: (id: string) => dispatch(scheduleWatcher(id))
 });
