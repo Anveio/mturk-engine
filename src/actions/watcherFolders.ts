@@ -1,4 +1,8 @@
-import { WATCHER_FOLDER_EDIT, CREATE_WATCHER_FOLDER } from '../constants/index';
+import {
+  WATCHER_FOLDER_EDIT,
+  CREATE_WATCHER_FOLDER,
+  DELETE_WATCHER_FOLDER
+} from '../constants/index';
 import { WatcherFolder } from '../types';
 
 export interface EditWatcherFolder {
@@ -13,7 +17,15 @@ export interface CreateWatcherFolder {
   readonly payload: WatcherFolder;
 }
 
-export type WatcherFolderAction = CreateWatcherFolder | EditWatcherFolder;
+export interface DeleteWatcherFolder {
+  readonly type: DELETE_WATCHER_FOLDER;
+  readonly folderId: string;
+}
+
+export type WatcherFolderAction =
+  | CreateWatcherFolder
+  | DeleteWatcherFolder
+  | EditWatcherFolder;
 
 export const editWatcherFolder = (
   folderId: string,
@@ -31,4 +43,9 @@ export const createWatcherFolder = (
 ): CreateWatcherFolder => ({
   type: CREATE_WATCHER_FOLDER,
   payload
+});
+
+export const deleteWatcherFolder = (folderId: string): DeleteWatcherFolder => ({
+  type: DELETE_WATCHER_FOLDER,
+  folderId
 });
