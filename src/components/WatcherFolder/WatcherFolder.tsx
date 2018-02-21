@@ -66,7 +66,10 @@ class WatcherFolderInfo extends React.PureComponent<
             { content: 'Stop all', onAction: this.cancelAllWatchersInFolder }
           ]}
         />
-        <WatcherFolderActions onDelete={this.handleDeleteFolder} />
+        <WatcherFolderActions
+          deletable={folder.id !== DEFAULT_WATCHER_FOLDER_ID}
+          onDelete={this.handleDeleteFolder}
+        />
       </Stack>
     );
   }

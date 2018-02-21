@@ -2,6 +2,7 @@ import * as React from 'react';
 import { PageActions } from '@shopify/polaris';
 
 interface Props {
+  readonly deletable: boolean;
   readonly onDelete: () => void;
 }
 
@@ -13,7 +14,8 @@ class WatcherFolderActions extends React.Component<Props, never> {
           {
             content: 'Delete',
             onAction: this.props.onDelete,
-            destructive: true
+            destructive: true,
+            disabled: !this.props.deletable
           }
         ]}
       />
