@@ -13,6 +13,19 @@ export const createDefaultWatcher = (id: string): Watcher => ({
   stopAfterFirstSuccess: true
 });
 
+export const createWatcherInFolder = (
+  id: string,
+  folderId: string
+): Watcher => ({
+  groupId: id,
+  delay: 5,
+  description: '',
+  folderId: folderId,
+  title: id,
+  createdOn: new Date(),
+  stopAfterFirstSuccess: true
+});
+
 export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
   title: hit.title,
   description: `${formatAsCurrency(hit.reward)} - ${hit.description}`,

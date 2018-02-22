@@ -4,7 +4,7 @@ import { AddWatcher, addWatcherToFolder } from '../../actions/watcher';
 import { Card, FormLayout, TextField, Button } from '@shopify/polaris';
 import {
   pandaLinkValidators,
-  createDefaultWatcher,
+  createWatcherInFolder,
   determineInputType
 } from '../../utils/watchers';
 import { watchForEnter } from '../../utils/watchForEnter';
@@ -120,7 +120,9 @@ class CreateWatcherField extends React.PureComponent<
 
 const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
   onAddWatcher: (groupId: string, folderId: string) =>
-    dispatch(addWatcherToFolder(createDefaultWatcher(groupId), folderId))
+    dispatch(
+      addWatcherToFolder(createWatcherInFolder(groupId, folderId), folderId)
+    )
 });
 
 export default connect(null, mapDispatch)(CreateWatcherField);
