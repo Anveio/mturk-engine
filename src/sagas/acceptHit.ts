@@ -19,6 +19,8 @@ import { SearchResult } from '../types';
 
 export function* acceptHit(action: AcceptHitRequest) {
   const toasterKey = createGenericWaitingToast(`Accepting HIT...`);
+  const { searchResult } = action;
+
   try {
     const response: HitAcceptResponse = yield call(
       sendHitAcceptRequest,
@@ -28,12 +30,8 @@ export function* acceptHit(action: AcceptHitRequest) {
     const { successful } = response;
 
     yield successful
-      ? handleSuccessfulAccept(
-          action.searchResult,
-          toasterKey,
-          action.searchResult && action.searchResult.title
-        )
-      : handleFailedAccept(toasterKey, action.searchResult);
+      ? handleSuccessfulAccept(searchResult, searchResult.title, toasterKey)
+      : handleFailedAccept(toasterKey, searchResult);
   } catch (e) {
     yield put<AcceptHitFailure>(acceptHitFailure());
     updateTopRightToaster(toasterKey, errorAcceptToast);
@@ -42,20 +40,11 @@ export function* acceptHit(action: AcceptHitRequest) {
 
 function* handleSuccessfulAccept(
   hit: SearchResult,
-  key: string,
-  title?: string
+  title: string,
+  key: string
 ) {
-  try {
-    updateTopRightToaster(key, successfulAcceptToast(title));
-    yield put<AcceptHitSuccess>(
-      acceptHitSuccess(queueItemFromSearchResult(hit))
-    );
-  } catch (e) {
-    /**
-     * Even if there is an error at this point, the hit was successfuly accepted.
-     */
-    updateTopRightToaster(key, successfulAcceptToast(title));
-  }
+  updateTopRightToaster(key, successfulAcceptToast(title));
+  yield put<AcceptHitSuccess>(acceptHitSuccess(queueItemFromSearchResult(hit)));
 }
 
 function* handleFailedAccept(key: string, hit: SearchResult) {
