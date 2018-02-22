@@ -17,6 +17,11 @@ export type EditableWatcherField = keyof Pick<
 export interface AddWatcher {
   readonly type: ADD_WATCHER;
   readonly watcher: Watcher;
+  readonly folderId?: string;
+}
+
+export interface AddWatcherToFolder extends AddWatcher {
+  readonly folderId: string;
 }
 
 export interface EditWatcher {
@@ -58,6 +63,15 @@ export type WatcherAction =
 export const addWatcher = (watcher: Watcher): AddWatcher => ({
   type: ADD_WATCHER,
   watcher
+});
+
+export const addWatcherToFolder = (
+  watcher: Watcher,
+  folderId: string
+): AddWatcherToFolder => ({
+  type: ADD_WATCHER,
+  watcher,
+  folderId
 });
 
 export const editWatcher = (
