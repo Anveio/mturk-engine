@@ -84,7 +84,7 @@ class CreateWatcherField extends React.PureComponent<
 
   private displayError = () =>
     this.setState((): Partial<State> => ({
-      error: `That doesn't appear to be a valid group ID or pandA link.`
+      error: `That doesn't appear to be a valid project ID or project link.`
     }));
 
   private handleInput = (value: string) =>
