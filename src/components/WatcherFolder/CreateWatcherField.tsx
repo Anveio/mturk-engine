@@ -96,13 +96,12 @@ class CreateWatcherField extends React.PureComponent<
 
   public render() {
     return (
-      <Card sectioned>
+      <Card sectioned title="Create a watcher">
         <FormLayout>
           <div onKeyPress={this.handleEnterKeyPress}>
             <TextField
               autoFocus
-              label="Add watcher"
-              labelHidden
+              label="Project ID"
               placeholder="Project ID or 'Preview & Work' link"
               value={this.state.value}
               error={this.state.error || false}
