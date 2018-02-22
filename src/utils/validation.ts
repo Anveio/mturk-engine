@@ -1,3 +1,6 @@
+import { pandaLinkValidators, projectIdFromProjectLinkRegex } from './watchers';
+import { executeRegex } from './parsing';
+
 export const validateInbounds = (value: string) => {
   const num = parseFloat(value);
   return num >= 0 && num <= 100;
@@ -20,3 +23,22 @@ export const validatePersistedStateKey = (key: string) =>
 
 export const selectReduxPersistStateKey = (key: string) =>
   (/reduxPersist:(.*)/g.exec(key) as RegExpExecArray)[1];
+
+export const validateInputPandaLink = (input: string): boolean => {
+  try {
+    return pandaLinkValidators
+      .map(fn => fn(input))
+      .every((el: boolean) => el === true);
+  } catch (e) {
+    return false;
+  }
+};
+
+export const validateProjectIdLink = (input: string): boolean => {
+  try {
+    const groupId = executeRegex(input)(projectIdFromProjectLinkRegex);
+    return groupId.length === 30 ? true : false;
+  } catch (e) {
+    return false;
+  }
+};

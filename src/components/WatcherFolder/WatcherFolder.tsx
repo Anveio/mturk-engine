@@ -12,7 +12,7 @@ import {
 } from '../../actions/watcherFolders';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../../constants/misc';
 import { scheduleWatcher, cancelNextWatcherTick } from '../../actions/watcher';
-import CreateWatcherField from './CreateWatcherField';
+import CreateWatcherForm from './CreateWatcherForm';
 
 interface OwnProps {
   readonly folderId: string;
@@ -67,7 +67,7 @@ class WatcherFolderInfo extends React.PureComponent<
             { content: 'Stop all', onAction: this.cancelAllWatchersInFolder }
           ]}
         />
-        <CreateWatcherField folderId={folder.id} />
+        <CreateWatcherForm folderId={folder.id} />
         <WatcherFolderActions
           deletable={folder.id !== DEFAULT_WATCHER_FOLDER_ID}
           onDelete={this.handleDeleteFolder}

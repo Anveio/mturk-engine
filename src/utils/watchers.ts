@@ -2,6 +2,7 @@ import { Watcher, SearchResult } from '../types';
 import { formatAsCurrency } from './formatting';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
 import { WatcherTreeNode } from './tree';
+import { executeRegex } from './parsing';
 
 export const createDefaultWatcher = (id: string): Watcher => ({
   groupId: id,
@@ -10,19 +11,6 @@ export const createDefaultWatcher = (id: string): Watcher => ({
   folderId: DEFAULT_WATCHER_FOLDER_ID,
   title: 'Untitled Watcher',
   createdOn: new Date(0),
-  stopAfterFirstSuccess: true
-});
-
-export const createWatcherInFolder = (
-  id: string,
-  folderId: string
-): Watcher => ({
-  groupId: id,
-  delay: 5,
-  description: '',
-  folderId: folderId,
-  title: id,
-  createdOn: new Date(),
   stopAfterFirstSuccess: true
 });
 
@@ -41,6 +29,11 @@ export const pandaLinkValidators: Function[] = [
   (input: string) => input.split('groupId=').length === 2,
   (input: string) => input.split('groupId=')[1].length === 30
 ];
+
+export const projectIdFromProjectLinkRegex = /\/projects\/(.*)\//i;
+
+export const parseProjectIdFromProjectLink = (input: string) =>
+  executeRegex(input)(projectIdFromProjectLinkRegex);
 
 export const conflictsOnlyUseNewDateProp = (
   oldWatcher: Watcher,
