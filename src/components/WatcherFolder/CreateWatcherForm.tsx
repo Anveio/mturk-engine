@@ -14,6 +14,7 @@ import {
   validateProjectIdLink
 } from '../../utils/validation';
 import { normalizedWatchers } from '../../selectors/watchers';
+import { truncate } from '../../utils/formatting';
 
 interface OwnProps {
   readonly folderId: string;
@@ -64,7 +65,14 @@ class CreateWatcherForm extends React.PureComponent<
 
   private confirmSubmit = (id: string, valid: boolean) => {
     if (!valid) {
-      this.displayError();
+      this.displayInvalidIdError();
+      return;
+    }
+
+    const maybeDuplicateWatcher = this.props.watchers.get(id);
+
+    if (maybeDuplicateWatcher) {
+      this.displayDuplicateWatcherError(maybeDuplicateWatcher);
       return;
     }
 
@@ -72,13 +80,12 @@ class CreateWatcherForm extends React.PureComponent<
   };
 
   private handleSubmit = () => {
-    const { onAddWatcher, folderId } = this.props;
     const { groupIdInput } = this.state;
     const inputType = determineInputType(groupIdInput);
 
     switch (inputType) {
       case 'GROUP_ID':
-        onAddWatcher(this.createWatcher(groupIdInput, folderId));
+        this.confirmSubmit(groupIdInput, true);
         break;
       case 'LEGACY': {
         this.confirmSubmit(
@@ -95,16 +102,21 @@ class CreateWatcherForm extends React.PureComponent<
         break;
       }
       case 'INVALID':
-        this.displayError();
+        this.displayInvalidIdError();
         break;
       default:
-        this.displayError();
+        this.displayInvalidIdError();
     }
   };
 
-  private displayError = () =>
+  private displayInvalidIdError = () =>
     this.setState((): Partial<State> => ({
       error: `That doesn't appear to be a valid project ID or project link.`
+    }));
+
+  private displayDuplicateWatcherError = (watcher: Watcher) =>
+    this.setState((): Partial<State> => ({
+      error: `Watcher "${truncate(watcher.title, 55)}" has duplicate ID."`
     }));
 
   private handleInput = (field: keyof InputState) => (value: string) =>
