@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { DisplayText } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
-import { genericWarningToast } from '../../utils/toaster';
 
 interface Props {
   readonly title: string;
@@ -44,7 +43,6 @@ class WatcherFolderHeading extends React.Component<Props, State> {
   private handleConfirmEdit = () => {
     if (!(this.state.title.length > 0)) {
       this.resetTitle();
-      genericWarningToast('Watcher folders cannot have a blank name.');
     } else {
       this.props.onChange(this.state.title);
     }
