@@ -30,6 +30,9 @@ export const pandaLinkValidators: Function[] = [
   (input: string) => input.split('groupId=')[1].length === 30
 ];
 
+export const parseGroupId = (input: string): string =>
+  input.split('groupId=')[1];
+
 export const projectIdFromProjectLinkRegex = /\/projects\/(.*)\//i;
 
 export const parseProjectIdFromProjectLink = (input: string) =>

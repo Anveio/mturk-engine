@@ -4,17 +4,23 @@ import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { Card, FormLayout, TextField, Button } from '@shopify/polaris';
 import {
   determineInputType,
-  parseProjectIdFromProjectLink
+  parseProjectIdFromProjectLink,
+  parseGroupId
 } from '../../utils/watchers';
 import { watchForEnter } from '../../utils/watchForEnter';
-import { Watcher } from '../../types';
+import { Watcher, RootState, WatcherMap } from '../../types';
 import {
   validateInputPandaLink,
   validateProjectIdLink
 } from '../../utils/validation';
+import { normalizedWatchers } from '../../selectors/watchers';
 
 interface OwnProps {
   readonly folderId: string;
+}
+
+interface Props {
+  readonly watchers: WatcherMap;
 }
 
 interface Handlers {
@@ -28,83 +34,64 @@ interface InputState {
 }
 
 interface ErrorState {
+  readonly helpText: string | null;
   readonly error: string | null;
 }
 
 type State = InputState & ErrorState;
 
 class CreateWatcherForm extends React.PureComponent<
-  OwnProps & Handlers,
+  Props & OwnProps & Handlers,
   State
 > {
   public readonly state: State = {
     groupIdInput: '',
     titleInput: '',
     descriptionInput: '',
-    error: null
+    error: null,
+    helpText: null
   };
 
-  private static createWatcher = (input: State, folderId: string): Watcher => ({
-    groupId: input.groupIdInput,
+  private createWatcher = (groupId: string, folderId: string): Watcher => ({
+    groupId: groupId,
     delay: 5,
-    description: input.descriptionInput,
+    description: this.state.descriptionInput,
     folderId: folderId,
-    title: input.titleInput || input.groupIdInput,
+    title: this.state.titleInput || groupId,
     createdOn: new Date(),
     stopAfterFirstSuccess: true
   });
 
-  private static parseGroupId = (input: string): string =>
-    input.split('groupId=')[1];
+  private confirmSubmit = (id: string, valid: boolean) => {
+    if (!valid) {
+      this.displayError();
+      return;
+    }
 
-  private handleWorkerLinkInput = () => {
-    const { groupIdInput } = this.state;
-    const { onAddWatcher, folderId } = this.props;
-    const valid = validateProjectIdLink(groupIdInput);
-    valid
-      ? onAddWatcher(
-          CreateWatcherForm.createWatcher(
-            {
-              ...this.state,
-              groupIdInput: parseProjectIdFromProjectLink(groupIdInput)
-            },
-            folderId
-          )
-        )
-      : this.displayError();
-  };
-
-  private handleLegacyLinkInput = () => {
-    const { groupIdInput } = this.state;
-    const { onAddWatcher, folderId } = this.props;
-    const valid = validateInputPandaLink(groupIdInput);
-    valid
-      ? onAddWatcher(
-          CreateWatcherForm.createWatcher(
-            {
-              ...this.state,
-              groupIdInput: CreateWatcherForm.parseGroupId(groupIdInput)
-            },
-            folderId
-          )
-        )
-      : this.displayError();
+    this.props.onAddWatcher(this.createWatcher(id, this.props.folderId));
   };
 
   private handleSubmit = () => {
     const { onAddWatcher, folderId } = this.props;
-    const inputType = determineInputType(this.state.groupIdInput);
+    const { groupIdInput } = this.state;
+    const inputType = determineInputType(groupIdInput);
 
     switch (inputType) {
       case 'GROUP_ID':
-        onAddWatcher(CreateWatcherForm.createWatcher(this.state, folderId));
+        onAddWatcher(this.createWatcher(groupIdInput, folderId));
         break;
       case 'LEGACY': {
-        this.handleLegacyLinkInput();
+        this.confirmSubmit(
+          parseGroupId(groupIdInput),
+          validateInputPandaLink(groupIdInput)
+        );
         break;
       }
       case 'WORKER': {
-        this.handleWorkerLinkInput();
+        this.confirmSubmit(
+          parseProjectIdFromProjectLink(groupIdInput),
+          validateProjectIdLink(groupIdInput)
+        );
         break;
       }
       case 'INVALID':
@@ -172,8 +159,12 @@ class CreateWatcherForm extends React.PureComponent<
   }
 }
 
+const mapState = (state: RootState): Props => ({
+  watchers: normalizedWatchers(state)
+});
+
 const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
   onAddWatcher: (watcher: Watcher) => dispatch(addWatcher(watcher))
 });
 
-export default connect(null, mapDispatch)(CreateWatcherForm);
+export default connect(mapState, mapDispatch)(CreateWatcherForm);
