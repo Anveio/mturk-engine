@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
-import { Watcher, WatcherMap, RootState } from '../types';
-import { watchersSelector } from './index';
+import { Watcher, WatcherMap, RootState, WatcherFolderMap } from '../types';
+import { watchersSelector, watcherFoldersSelector } from './index';
 import { Map } from 'immutable';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
 import { createDefaultWatcher } from '../utils/watchers';
@@ -10,14 +10,17 @@ import { createDefaultWatcher } from '../utils/watchers';
  * Here we ensure they do.
  */
 const updateLegacyWatchers = createSelector(
-  [watchersSelector],
-  (watchers: WatcherMap): WatcherMap =>
+  [watchersSelector, watcherFoldersSelector],
+  (watchers: WatcherMap, folders: WatcherFolderMap): WatcherMap =>
     watchers.reduce(
       (acc: WatcherMap, cur: Watcher) =>
         acc.set(cur.groupId, {
           ...createDefaultWatcher(cur.groupId),
           ...cur,
-          folderId: cur.folderId ? cur.folderId : DEFAULT_WATCHER_FOLDER_ID
+          folderId:
+            cur.folderId && folders.has(cur.folderId)
+              ? cur.folderId
+              : DEFAULT_WATCHER_FOLDER_ID
         }),
       Map<string, Watcher>()
     )
