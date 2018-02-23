@@ -129,7 +129,7 @@ class CreateWatcherForm extends React.PureComponent<
 
   public render() {
     return (
-      <Card sectioned title="Create a watcher">
+      <Card sectioned title="Create a watcher in this folder">
         <div onKeyPress={this.handleEnterKeyPress}>
           <FormLayout>
             <TextField
