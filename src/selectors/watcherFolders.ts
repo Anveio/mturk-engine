@@ -27,7 +27,7 @@ export const watchersToFolderWatcherMap = createSelector(
   }
 );
 
-const getWatchersAssignedToFolder = (folderId: string) =>
+export const getWatchersAssignedToFolder = (folderId: string) =>
   createSelector([watchersToFolderWatcherMap], watcherFolderMap =>
     watcherFolderMap.get(folderId, [])
   );
@@ -37,6 +37,11 @@ export const getWatcherIdsAssignedToFolder = (folderId: string) =>
     watchers.map((cur: Watcher) => cur.groupId)
   );
 
+export const getNumWatchersAssignedToFolder = (folderId: string) =>
+  createSelector(
+    [getWatchersAssignedToFolder(folderId)],
+    watchers => watchers.length
+  );
 export const watcherFolderUniqueNames = createSelector(
   [watcherFoldersSelector],
   watcherFolders =>

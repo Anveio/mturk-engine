@@ -69,6 +69,8 @@ class WatcherFolderInfo extends React.PureComponent<
         />
         <CreateWatcherForm folderId={folder.id} />
         <WatcherFolderActions
+          folderId={folder.id}
+          numWatchers={assignedWatchers.length}
           deletable={folder.id !== DEFAULT_WATCHER_FOLDER_ID}
           onDelete={this.handleDeleteFolder}
         />
