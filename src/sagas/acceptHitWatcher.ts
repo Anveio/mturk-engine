@@ -1,10 +1,10 @@
 import { call, put, select } from 'redux-saga/effects';
 import {
-  acceptHitFailure,
+  acceptHitFailureFromWatcher,
   AcceptHitFailure,
-  acceptHitSuccess,
   AcceptHitSuccess,
-  AcceptHitRequestFromWatcher
+  AcceptHitRequestFromWatcher,
+  acceptHitSuccessFromWatcher
 } from '../actions/accept';
 import {
   ScheduleWatcherTick,
@@ -14,8 +14,6 @@ import {
 } from '../actions/watcher';
 import { sendHitAcceptRequest, HitAcceptResponse } from '../api/acceptHit';
 import { successfulAcceptToast } from '../utils/toaster';
-// import { parseWorkerHit } from '../utils/parsingWorkerHit';
-// import { parseAcceptFailureReason } from '../utils/parsing';
 import { RootState, Watcher } from '../types';
 import { TopRightToaster } from '../index';
 import { blankQueueItem } from '../utils/queueItem';
@@ -38,7 +36,7 @@ export function* acceptHitFromWatcher(action: AcceptHitRequestFromWatcher) {
       ? handleSuccessfulAccept(action, watcher)
       : handleFailedAccept(action, watcher);
   } catch (e) {
-    yield put<AcceptHitFailure>(acceptHitFailure());
+    yield put<AcceptHitFailure>(acceptHitFailureFromWatcher());
     yield put<CancelWatcherTick>(cancelNextWatcherTick(action.groupId));
   }
 }
@@ -50,7 +48,7 @@ function* handleSuccessfulAccept(
   try {
     TopRightToaster.show(successfulAcceptToast());
     yield put<AcceptHitSuccess>(
-      acceptHitSuccess(blankQueueItem(action.groupId))
+      acceptHitSuccessFromWatcher(blankQueueItem(action.groupId))
     );
 
     /**
@@ -73,7 +71,7 @@ function* handleFailedAccept(
   action: AcceptHitRequestFromWatcher,
   watcher?: Watcher
 ) {
-  yield put<AcceptHitFailure>(acceptHitFailure());
+  yield put<AcceptHitFailure>(acceptHitFailureFromWatcher());
 
   if (watcher) {
     return yield handleWatcherScheduling(watcher);

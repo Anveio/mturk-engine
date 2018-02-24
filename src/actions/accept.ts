@@ -9,15 +9,16 @@ import { SearchResult, QueueItem } from '../types';
 export interface AcceptHitSuccess {
   readonly type: ACCEPT_HIT_SUCCESS;
   readonly data: QueueItem;
+  readonly fromWatcher: boolean;
 }
 export interface AcceptHitFailure {
   readonly type: ACCEPT_HIT_FAILURE;
+  readonly fromWatcher: boolean;
 }
 
 export interface AcceptHitRequest {
   readonly type: ACCEPT_HIT_REQUEST;
   readonly groupId: string;
-  readonly fromWatcher: boolean;
   readonly searchResult: SearchResult;
 }
 
@@ -34,11 +35,26 @@ export type AcceptAction =
 
 export const acceptHitSuccess = (data: QueueItem): AcceptHitSuccess => ({
   type: ACCEPT_HIT_SUCCESS,
-  data
+  data,
+  fromWatcher: false
+});
+
+export const acceptHitSuccessFromWatcher = (
+  data: QueueItem
+): AcceptHitSuccess => ({
+  type: ACCEPT_HIT_SUCCESS,
+  data,
+  fromWatcher: true
 });
 
 export const acceptHitFailure = (): AcceptHitFailure => ({
-  type: ACCEPT_HIT_FAILURE
+  type: ACCEPT_HIT_FAILURE,
+  fromWatcher: false
+});
+
+export const acceptHitFailureFromWatcher = (): AcceptHitFailure => ({
+  type: ACCEPT_HIT_FAILURE,
+  fromWatcher: true
 });
 
 export const acceptHitRequestfromSearch = (
@@ -46,7 +62,6 @@ export const acceptHitRequestfromSearch = (
 ): AcceptHitRequest => ({
   type: ACCEPT_HIT_REQUEST,
   groupId: searchResult.groupId,
-  fromWatcher: false,
   searchResult
 });
 
