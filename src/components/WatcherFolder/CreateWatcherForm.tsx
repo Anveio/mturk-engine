@@ -116,7 +116,7 @@ class CreateWatcherForm extends React.PureComponent<
 
   private displayDuplicateWatcherError = (watcher: Watcher) =>
     this.setState((): Partial<State> => ({
-      error: `Watcher "${truncate(watcher.title, 55)}" has duplicate ID."`
+      error: `Watcher "${truncate(watcher.title, 55)}" has duplicate ID.`
     }));
 
   private handleInput = (field: keyof InputState) => (value: string) =>
