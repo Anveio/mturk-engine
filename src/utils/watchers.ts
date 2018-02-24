@@ -24,7 +24,7 @@ export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
   stopAfterFirstSuccess: true
 });
 
-export const pandaLinkValidators: Function[] = [
+export const pandaLinkValidators: ((i: string) => boolean)[] = [
   (input: string) => /groupId=/.test(input),
   (input: string) => input.split('groupId=').length === 2,
   (input: string) => input.split('groupId=')[1].length === 30
