@@ -31,6 +31,7 @@ export interface RootState {
   readonly loggedSearchResults: SearchResults;
   readonly watcherTree: WatcherTreeSettings;
   readonly watcherFolders: WatcherFolderMap;
+  readonly watcherStatistics: WatcherStatisticsMap;
 }
 
 export type SearchResults = Map<string, SearchResult>; // indexed by groupId
@@ -43,6 +44,7 @@ export type WatcherTimerMap = Map<string, WatcherTimer>; // indexed by groupId
 export type WatcherFolderMap = Map<string, WatcherFolder>; // indexed by folderId
 export type HitDatabaseMap = Map<string, HitDatabaseEntry>; // indexed by LEGACY_DATE_FORMAT string
 export type ExpandedSearchResultsMap = Map<string, true>; // indexed by groupId
+export type WatcherStatisticsMap = Map<string, WatcherStatistics>; // indexed by groupId
 
 export type Primitive = string | number | boolean;
 
@@ -269,6 +271,11 @@ export interface Watcher {
 export interface WatcherTimer {
   readonly date: Date;
   readonly origin: number;
+}
+
+export interface WatcherStatistics {
+  readonly successes: number;
+  readonly attempts: number;
 }
 
 export interface AudioSettings {
