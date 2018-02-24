@@ -27,6 +27,7 @@ import { default as notificationSettings } from './reducers/notificationSettings
 import { default as loggedSearchResults } from './reducers/loggedSearchResults';
 import { default as watcherTree } from './reducers/watcherTree';
 import { default as watcherFolders } from './reducers/watcherFolders';
+import { default as watcherStatistics } from './reducers/watcherStatistics';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -48,6 +49,7 @@ export const rootReducer = combineReducers<RootState>({
   waitingForMturk,
   searchingActive,
   topticonSettings,
+  watcherStatistics,
   dailyEarningsGoal,
   selectedHitDbDate,
   requesterBlocklist,

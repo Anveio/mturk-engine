@@ -275,7 +275,7 @@ export interface WatcherTimer {
 
 export interface WatcherStatistics {
   readonly successes: number;
-  readonly attempts: number;
+  readonly failures: number;
 }
 
 export interface AudioSettings {
