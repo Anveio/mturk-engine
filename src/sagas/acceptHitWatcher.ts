@@ -36,7 +36,7 @@ export function* acceptHitFromWatcher(action: AcceptHitRequestFromWatcher) {
       ? handleSuccessfulAccept(action, watcher)
       : handleFailedAccept(action, watcher);
   } catch (e) {
-    yield put<AcceptHitFailure>(acceptHitFailureFromWatcher());
+    yield put<AcceptHitFailure>(acceptHitFailureFromWatcher(action.groupId));
     yield put<CancelWatcherTick>(cancelNextWatcherTick(action.groupId));
   }
 }
@@ -71,7 +71,7 @@ function* handleFailedAccept(
   action: AcceptHitRequestFromWatcher,
   watcher?: Watcher
 ) {
-  yield put<AcceptHitFailure>(acceptHitFailureFromWatcher());
+  yield put<AcceptHitFailure>(acceptHitFailureFromWatcher(action.groupId));
 
   if (watcher) {
     return yield handleWatcherScheduling(watcher);

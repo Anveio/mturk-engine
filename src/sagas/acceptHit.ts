@@ -33,7 +33,7 @@ export function* acceptHit(action: AcceptHitRequest) {
       ? handleSuccessfulAccept(searchResult, searchResult.title, toasterKey)
       : handleFailedAccept(toasterKey, searchResult);
   } catch (e) {
-    yield put<AcceptHitFailure>(acceptHitFailure());
+    yield put<AcceptHitFailure>(acceptHitFailure(searchResult.groupId));
     updateTopRightToaster(toasterKey, errorAcceptToast);
   }
 }
@@ -48,6 +48,6 @@ function* handleSuccessfulAccept(
 }
 
 function* handleFailedAccept(key: string, hit: SearchResult) {
-  yield put<AcceptHitFailure>(acceptHitFailure());
+  yield put<AcceptHitFailure>(acceptHitFailure(hit.groupId));
   updateTopRightToaster(key, failedAcceptToast(hit));
 }

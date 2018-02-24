@@ -14,6 +14,7 @@ export interface AcceptHitSuccess {
 export interface AcceptHitFailure {
   readonly type: ACCEPT_HIT_FAILURE;
   readonly fromWatcher: boolean;
+  readonly groupId: string;
 }
 
 export interface AcceptHitRequest {
@@ -47,13 +48,17 @@ export const acceptHitSuccessFromWatcher = (
   fromWatcher: true
 });
 
-export const acceptHitFailure = (): AcceptHitFailure => ({
+export const acceptHitFailure = (groupId: string): AcceptHitFailure => ({
   type: ACCEPT_HIT_FAILURE,
+  groupId,
   fromWatcher: false
 });
 
-export const acceptHitFailureFromWatcher = (): AcceptHitFailure => ({
+export const acceptHitFailureFromWatcher = (
+  groupId: string
+): AcceptHitFailure => ({
   type: ACCEPT_HIT_FAILURE,
+  groupId,
   fromWatcher: true
 });
 
