@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Card, TextContainer } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
+import WatcherStatistics from './WatcherStatistics';
 
 interface Props {
   readonly id: string;
@@ -57,29 +58,33 @@ class WatcherInfo extends React.PureComponent<Props, State> {
   public render() {
     return (
       <Card
-        sectioned
         title={`Description`}
         actions={[
           this.state.editable ? this.endEditingAction : this.startEditingAction
         ]}
       >
-        {this.state.editable ? (
-          <EditableText
-            multiline
-            selectAllOnFocus
-            confirmOnEnterKey
-            value={this.state.description}
-            maxLength={1500}
-            onChange={this.handleChange}
-            onCancel={this.resetDescription}
-            onConfirm={this.props.onChangeDescription}
-            placeholder={`Click to edit description`}
-          />
-        ) : (
-          <TextContainer>
-            {this.props.description || 'No description.'}
-          </TextContainer>
-        )}
+        <Card.Section>
+          {this.state.editable ? (
+            <EditableText
+              multiline
+              selectAllOnFocus
+              confirmOnEnterKey
+              value={this.state.description}
+              maxLength={1500}
+              onChange={this.handleChange}
+              onCancel={this.resetDescription}
+              onConfirm={this.props.onChangeDescription}
+              placeholder={`Click to edit description`}
+            />
+          ) : (
+            <TextContainer>
+              {this.props.description || 'No description.'}
+            </TextContainer>
+          )}
+        </Card.Section>
+        <Card.Section subdued>
+          <WatcherStatistics groupId={this.props.id} />
+        </Card.Section>
       </Card>
     );
   }
