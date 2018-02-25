@@ -27,7 +27,7 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
           <Caption>Failed accepts: {failures}</Caption>
         </Stack.Item>
         <Stack.Item>
-          <Caption>Created on {watcher.createdOn.toLocaleString()}</Caption>
+          <Caption>Created {watcher.createdOn.toLocaleString()}</Caption>
         </Stack.Item>
       </Stack>
     );

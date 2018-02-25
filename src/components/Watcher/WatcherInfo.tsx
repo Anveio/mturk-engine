@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Card, TextContainer } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
-import WatcherStatistics from './WatcherStatistics';
 
 interface Props {
   readonly id: string;
@@ -81,9 +80,6 @@ class WatcherInfo extends React.PureComponent<Props, State> {
               {this.props.description || 'No description.'}
             </TextContainer>
           )}
-        </Card.Section>
-        <Card.Section subdued>
-          <WatcherStatistics groupId={this.props.id} />
         </Card.Section>
       </Card>
     );
