@@ -66,7 +66,11 @@ class WatcherView extends React.PureComponent<
             this.props.onEdit(this.props.watcherId, 'description', value)
           }
         />
-        <WatcherSettings watcher={watcher} onEdit={this.props.onEdit} />
+        <WatcherSettings
+          watcher={watcher}
+          onEdit={this.props.onEdit}
+          onToggle={this.handleToggle}
+        />
         <InfoCallout />
         <WatcherActions
           watcherActive={watcherActive}

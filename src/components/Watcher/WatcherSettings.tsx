@@ -20,6 +20,7 @@ import { plainToast } from '../../utils/toaster';
 import { watcherFoldersSortedByCreationDate } from '../../selectors/watcherFolders';
 import WatcherStatistics from './WatcherStatistics';
 import { validatePositiveNumber } from '../../utils/validation';
+import { watchForEnter } from '../../utils/watchForEnter';
 
 interface OwnProps {
   readonly watcher: Watcher;
@@ -28,6 +29,7 @@ interface OwnProps {
     field: EditableWatcherField,
     value: Primitive
   ) => void;
+  readonly onToggle: () => void;
 }
 
 interface Props {
@@ -71,6 +73,8 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
       []
     );
 
+  private handleEnterKeyPress = watchForEnter(this.props.onToggle);
+
   public render() {
     const { watcher, assignedFolder } = this.props;
     const folderLabels = this.generateOptions();
@@ -86,37 +90,39 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
         ]}
       >
         <Card.Section>
-          <FormLayout>
-            <TextField
-              label="Time between attempts"
-              id="text-input-delay"
-              name="text-input-delay"
-              value={watcher.delay.toString()}
-              suffix="seconds"
-              type="number"
-              spellCheck={false}
-              autoComplete={false}
-              min={0}
-              step={1}
-              onChange={this.handleEditNumber('delay')}
-            />
-            <Select
-              label="Assigned folder"
-              id="select-folder"
-              name="select-folder"
-              options={folderLabels}
-              value={assignedFolder.id}
-              onChange={this.handleEdit<string>('folderId')}
-            />
-            <Checkbox
-              label="Stop after first success"
-              id="checkbox-stop-after-first-success"
-              name="checkbox-stop-after-first-success"
-              helpText="Enable for HITs that you only want one of, such as surveys."
-              checked={watcher.stopAfterFirstSuccess}
-              onChange={this.handleEdit<boolean>('stopAfterFirstSuccess')}
-            />
-          </FormLayout>
+          <div onKeyPress={this.handleEnterKeyPress}>
+            <FormLayout>
+              <TextField
+                label="Time between attempts"
+                id="text-input-delay"
+                name="text-input-delay"
+                value={watcher.delay.toString()}
+                suffix="seconds"
+                type="number"
+                spellCheck={false}
+                autoComplete={false}
+                min={0}
+                step={1}
+                onChange={this.handleEditNumber('delay')}
+              />
+              <Select
+                label="Assigned folder"
+                id="select-folder"
+                name="select-folder"
+                options={folderLabels}
+                value={assignedFolder.id}
+                onChange={this.handleEdit<string>('folderId')}
+              />
+              <Checkbox
+                label="Stop after first success"
+                id="checkbox-stop-after-first-success"
+                name="checkbox-stop-after-first-success"
+                helpText="Enable for HITs that you only want one of, such as surveys."
+                checked={watcher.stopAfterFirstSuccess}
+                onChange={this.handleEdit<boolean>('stopAfterFirstSuccess')}
+              />
+            </FormLayout>
+          </div>
         </Card.Section>
         <Card.Section subdued>
           <WatcherStatistics groupId={watcher.groupId} />
