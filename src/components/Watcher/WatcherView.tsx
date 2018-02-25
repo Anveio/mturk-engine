@@ -37,7 +37,7 @@ interface Handlers {
   ) => void;
 }
 
-class WatcherCard extends React.PureComponent<
+class WatcherView extends React.PureComponent<
   OwnProps & Props & Handlers,
   never
 > {
@@ -91,4 +91,4 @@ const mapDispatch = (dispatch: Dispatch<WatcherAction>): Handlers => ({
     dispatch(editWatcher(id, field, value))
 });
 
-export default connect(mapState, mapDispatch)(WatcherCard);
+export default connect(mapState, mapDispatch)(WatcherView);

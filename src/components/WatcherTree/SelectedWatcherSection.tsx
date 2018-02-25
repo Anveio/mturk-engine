@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { NonIdealState } from '@blueprintjs/core';
 import { Layout } from '@shopify/polaris';
 import { RootState, SelectionKind } from '../../types';
-import WatcherCard from '../Watcher/WatcherCard';
+import WatcherView from '../Watcher/WatcherView';
 import WatcherFolder from '../WatcherFolder/WatcherFolder';
 import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
 
@@ -16,7 +16,7 @@ class SelectedWatcherSection extends React.Component<Props, never> {
   private static renderFolderOrWatcher = (kind: SelectionKind, id: string) => {
     switch (kind) {
       case 'groupId':
-        return <WatcherCard watcherId={id} />;
+        return <WatcherView watcherId={id} />;
       case 'folder':
         return <WatcherFolder folderId={id} />;
       default:
