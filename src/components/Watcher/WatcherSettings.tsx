@@ -19,6 +19,7 @@ import { EditableWatcherField } from '../../actions/watcher';
 import { plainToast } from '../../utils/toaster';
 import { watcherFoldersSortedByCreationDate } from '../../selectors/watcherFolders';
 import WatcherStatistics from './WatcherStatistics';
+import { validatePositiveNumber } from '../../utils/validation';
 
 interface OwnProps {
   readonly watcher: Watcher;
@@ -55,7 +56,10 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
   private handleEditNumber = (field: EditableWatcherField) => (
     value: string
   ) => {
-    this.props.onEdit(this.props.watcher.groupId, field, +value);
+    const valid = validatePositiveNumber(value) || value === '';
+    if (valid) {
+      this.props.onEdit(this.props.watcher.groupId, field, +value);
+    }
   };
 
   private generateOptions = () =>
