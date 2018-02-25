@@ -1,4 +1,4 @@
-import { Watcher, SearchResult } from '../types';
+import { Watcher, SearchResult, WatcherStatistics } from '../types';
 import { formatAsCurrency } from './formatting';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
 import { WatcherTreeNode } from './tree';
@@ -69,3 +69,8 @@ export const watchersArrayToTreeNodes = (
     label: watcher.title,
     kind: 'groupId'
   }));
+
+export const defaultWatcherStats: WatcherStatistics = {
+  failures: 0,
+  successes: 0
+};
