@@ -60,7 +60,11 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
   ) => {
     const valid = validatePositiveNumber(value) || value === '';
     if (valid) {
-      this.props.onEdit(this.props.watcher.groupId, field, +value);
+      this.props.onEdit(
+        this.props.watcher.groupId,
+        field,
+        Math.min(+value, 9999999)
+      );
     }
   };
 
@@ -101,7 +105,7 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
                 type="number"
                 spellCheck={false}
                 autoComplete={false}
-                min={0}
+                maxLength={6}
                 step={1}
                 onChange={this.handleEditNumber('delay')}
               />
