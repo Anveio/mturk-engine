@@ -69,6 +69,7 @@ class WatcherInfo extends React.PureComponent<Props, State> {
               selectAllOnFocus
               confirmOnEnterKey
               isEditing={this.state.editable}
+              onEdit={this.toggleEditableState}
               value={this.state.description}
               maxLength={1500}
               onChange={this.handleChange}
