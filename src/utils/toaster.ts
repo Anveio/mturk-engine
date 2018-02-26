@@ -1,5 +1,5 @@
 import { TopRightToaster } from '../';
-import { truncate } from './formatting';
+import { truncate, pluralize } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsCurrency } from './formatting';
 import { Toaster, Position, Intent, IToastProps } from '@blueprintjs/core';
@@ -134,8 +134,10 @@ export const refreshDbSuccessToast = (
   numNewResults: number
 ) =>
   TopRightToaster.show({
-    message: `Refreshed database and found HITS across ${uniqueDates} unique dates. 
-    Found ${numNewResults} previously unfound HITS`,
+    message: `Refreshed database and found HITs across ${uniqueDates} unique dates. 
+    Found ${numNewResults} previously unfound ${pluralize('HIT', 'HITs')(
+      numNewResults
+    )}.`,
     intent: 1,
     timeout: 5000
   });
