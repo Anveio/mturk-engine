@@ -15,6 +15,7 @@ import WatcherInfo from './WatcherInfo';
 import WatcherSettings from './WatcherSettings';
 import InfoCallout from './InfoCallout';
 import WatcherActions from './WatcherActions';
+import WatcherProgressBar from './WatcherProgressBar';
 import { normalizedWatchers } from '../../selectors/watchers';
 
 interface OwnProps {
@@ -72,6 +73,7 @@ class WatcherView extends React.PureComponent<
           onToggle={this.handleToggle}
         />
         <InfoCallout />
+        <WatcherProgressBar id={watcher.groupId} />
         <WatcherActions
           watcherActive={watcherActive}
           onDelete={this.handleDelete}

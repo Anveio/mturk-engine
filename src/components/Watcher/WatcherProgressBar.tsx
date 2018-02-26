@@ -27,7 +27,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   private static readonly tickRate: number = 100;
   private timerId: number;
   private dateNumNextSearch: number;
-  private delay: number;
+  private timeBetweenStartAndEnd: number;
 
   public readonly state: State = { timeUntilNextSearch: null };
 
@@ -35,7 +35,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     const { timeOfNextSearch } = this.props;
     if (timeOfNextSearch) {
       this.dateNumNextSearch = timeOfNextSearch.valueOf();
-      this.delay = WatcherTimer.calculateTimeUntilNextSearch(
+      this.timeBetweenStartAndEnd = WatcherTimer.calculateTimeUntilNextSearch(
         this.dateNumNextSearch
       );
       this.startTimer();
@@ -46,7 +46,7 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     clearInterval(this.timerId);
     if (nextProps.timeOfNextSearch) {
       this.dateNumNextSearch = nextProps.timeOfNextSearch.valueOf();
-      this.delay = WatcherTimer.calculateTimeUntilNextSearch(
+      this.timeBetweenStartAndEnd = WatcherTimer.calculateTimeUntilNextSearch(
         this.dateNumNextSearch
       );
       this.startTimer();
@@ -66,10 +66,10 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
   };
 
   private static calculateProgress = (
-    delay: number,
-    timeLeft: number
+    timeLeft: number,
+    total: number
   ): number => {
-    return 1 - timeLeft / delay;
+    return 1 - timeLeft / total;
   };
 
   private startTimer = () => {
@@ -92,7 +92,10 @@ class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
     const spinnerProgress =
       timeUntilNextSearch === null
         ? 0
-        : WatcherTimer.calculateProgress(this.delay, timeUntilNextSearch);
+        : WatcherTimer.calculateProgress(
+            timeUntilNextSearch,
+            this.timeBetweenStartAndEnd
+          );
 
     return <ProgressBar value={spinnerProgress} />;
   }
