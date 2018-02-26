@@ -35,7 +35,6 @@ interface InputState {
 }
 
 interface ErrorState {
-  readonly helpText: string | null;
   readonly error: string | null;
 }
 
@@ -49,8 +48,7 @@ class CreateWatcherForm extends React.PureComponent<
     groupIdInput: '',
     titleInput: '',
     descriptionInput: '',
-    error: null,
-    helpText: null
+    error: null
   };
 
   private createWatcher = (groupId: string, folderId: string): Watcher => ({
