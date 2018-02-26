@@ -44,6 +44,15 @@ interface Option {
 }
 
 class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
+  private static generateOptions = (folders: WatcherFolderMap) =>
+    folders.reduce(
+      (acc: Option[], folder: WatcherFolder): Option[] => [
+        ...acc,
+        { value: folder.id, label: folder.name }
+      ],
+      []
+    );
+
   private copyId = () => {
     copy(this.props.watcher.groupId);
     plainToast(`"${this.props.watcher.groupId}" copied to clipboard.`);
@@ -68,20 +77,11 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
     }
   };
 
-  private generateOptions = () =>
-    this.props.watcherFolders.reduce(
-      (acc: Option[], folder: WatcherFolder): Option[] => [
-        ...acc,
-        { value: folder.id, label: folder.name }
-      ],
-      []
-    );
-
   private handleEnterKeyPress = watchForEnter(this.props.onToggle);
 
   public render() {
-    const { watcher, assignedFolder } = this.props;
-    const folderLabels = this.generateOptions();
+    const { watcherFolders, watcher, assignedFolder } = this.props;
+    const folderLabels = WatcherSettings.generateOptions(watcherFolders);
 
     return (
       <Card
