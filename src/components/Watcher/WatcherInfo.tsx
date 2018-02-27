@@ -44,22 +44,15 @@ class WatcherInfo extends React.PureComponent<Props, State> {
       editable: false
     }));
 
-  private startEditingAction = {
-    content: 'Edit description',
-    onAction: this.toggleEditableState
-  };
-
-  private endEditingAction = {
-    content: 'Stop editing',
-    onAction: this.toggleEditableState
-  };
-
   public render() {
     return (
       <Card
         title={`Description`}
         actions={[
-          this.state.editable ? this.endEditingAction : this.startEditingAction
+          {
+            content: this.state.editable ? 'Stop editing' : 'Edit description',
+            onAction: this.toggleEditableState
+          }
         ]}
       >
         <Card.Section>
@@ -68,8 +61,6 @@ class WatcherInfo extends React.PureComponent<Props, State> {
               multiline
               selectAllOnFocus
               confirmOnEnterKey
-              isEditing={this.state.editable}
-              onEdit={this.toggleEditableState}
               value={this.state.description}
               maxLength={1500}
               onChange={this.handleChange}
