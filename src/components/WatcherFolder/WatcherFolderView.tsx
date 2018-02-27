@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Stack, Card } from '@shopify/polaris';
-import { WatcherFolder, RootState, WatcherTimerMap } from '../../types';
+import { Stack } from '@shopify/polaris';
+import { WatcherFolder, RootState } from '../../types';
 import { getWatcherIdsAssignedToFolder } from '../../selectors/watcherFolders';
 
 import {
@@ -10,9 +10,9 @@ import {
   deleteWatcherFolder
 } from '../../actions/watcherFolders';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../../constants/misc';
-import { scheduleWatcher, cancelNextWatcherTick } from '../../actions/watcher';
 import WatcherFolderHeading from './WatcherFolderHeading';
 import CreateWatcherForm from './CreateWatcherForm';
+import WatcherFolderInfo from './WatcherFolderInfo';
 import InfoCallout from './InfoCallout';
 import WatcherFolderActions from './WatcherFolderActions';
 
@@ -23,32 +23,17 @@ interface OwnProps {
 interface Props {
   readonly folder: WatcherFolder;
   readonly assignedWatcherIds: string[];
-  readonly watcherTimers: WatcherTimerMap;
 }
 
 interface Handlers {
   readonly onEdit: (id: string, field: 'name', value: string | number) => void;
   readonly onDeleteFolder: (id: string) => void;
-  readonly onScheduleWatcher: (id: string) => void;
-  readonly onCancelWatcher: (id: string) => void;
 }
 
-class WatcherFolderInfo extends React.PureComponent<
+class WatcherFolderView extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
-  private scheduleAllWatchersInFolder = () =>
-    this.props.assignedWatcherIds.forEach(watcherId => {
-      if (!this.props.watcherTimers.has(watcherId)) {
-        this.props.onScheduleWatcher(watcherId);
-      }
-    });
-
-  private cancelAllWatchersInFolder = () =>
-    this.props.assignedWatcherIds.forEach(watcherId =>
-      this.props.onCancelWatcher(watcherId)
-    );
-
   private handleDeleteFolder = () =>
     this.props.onDeleteFolder(this.props.folderId);
 
@@ -61,17 +46,7 @@ class WatcherFolderInfo extends React.PureComponent<
           editable={folder.id !== DEFAULT_WATCHER_FOLDER_ID}
           onChange={(value: string) => onEdit(folder.id, 'name', value)}
         />
-        <Card
-          sectioned
-          title={`${assignedWatcherIds.length} watchers in this folder.`}
-          actions={[
-            {
-              content: 'Start all',
-              onAction: this.scheduleAllWatchersInFolder
-            },
-            { content: 'Stop all', onAction: this.cancelAllWatchersInFolder }
-          ]}
-        />
+        <WatcherFolderInfo folderId={folder.id} />
         <CreateWatcherForm folderId={folder.id} />
         <InfoCallout />
         <WatcherFolderActions
@@ -87,16 +62,13 @@ class WatcherFolderInfo extends React.PureComponent<
 
 const mapState = (state: RootState, { folderId }: OwnProps): Props => ({
   folder: state.watcherFolders.get(folderId),
-  assignedWatcherIds: getWatcherIdsAssignedToFolder(folderId)(state),
-  watcherTimers: state.watcherTimes
+  assignedWatcherIds: getWatcherIdsAssignedToFolder(folderId)(state)
 });
 
 const mapDispatch = (dispatch: Dispatch<WatcherFolderAction>): Handlers => ({
   onEdit: (id: string, field: 'name', value: string) =>
     dispatch(editWatcherFolder(id, field, value)),
-  onDeleteFolder: (id: string) => dispatch(deleteWatcherFolder(id)),
-  onCancelWatcher: (id: string) => dispatch(cancelNextWatcherTick(id)),
-  onScheduleWatcher: (id: string) => dispatch(scheduleWatcher(id))
+  onDeleteFolder: (id: string) => dispatch(deleteWatcherFolder(id))
 });
 
-export default connect(mapState, mapDispatch)(WatcherFolderInfo);
+export default connect(mapState, mapDispatch)(WatcherFolderView);
