@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Stack, Card } from '@shopify/polaris';
-import { WatcherFolder, RootState } from '../../types';
+import { WatcherFolder, RootState, WatcherTimerMap } from '../../types';
 import { getWatcherIdsAssignedToFolder } from '../../selectors/watcherFolders';
 
 import {
@@ -22,7 +22,8 @@ interface OwnProps {
 
 interface Props {
   readonly folder: WatcherFolder;
-  readonly assignedWatchers: string[];
+  readonly assignedWatcherIds: string[];
+  readonly watcherTimers: WatcherTimerMap;
 }
 
 interface Handlers {
@@ -37,12 +38,14 @@ class WatcherFolderInfo extends React.PureComponent<
   never
 > {
   private scheduleAllWatchersInFolder = () =>
-    this.props.assignedWatchers.forEach(watcherId =>
-      this.props.onScheduleWatcher(watcherId)
-    );
+    this.props.assignedWatcherIds.forEach(watcherId => {
+      if (!this.props.watcherTimers.has(watcherId)) {
+        this.props.onScheduleWatcher(watcherId);
+      }
+    });
 
   private cancelAllWatchersInFolder = () =>
-    this.props.assignedWatchers.forEach(watcherId =>
+    this.props.assignedWatcherIds.forEach(watcherId =>
       this.props.onCancelWatcher(watcherId)
     );
 
@@ -50,7 +53,7 @@ class WatcherFolderInfo extends React.PureComponent<
     this.props.onDeleteFolder(this.props.folderId);
 
   public render() {
-    const { folder, assignedWatchers, onEdit } = this.props;
+    const { folder, assignedWatcherIds, onEdit } = this.props;
     return (
       <Stack vertical>
         <WatcherFolderHeading
@@ -60,10 +63,10 @@ class WatcherFolderInfo extends React.PureComponent<
         />
         <Card
           sectioned
-          title={`${assignedWatchers.length} watchers in this folder.`}
+          title={`${assignedWatcherIds.length} watchers in this folder.`}
           actions={[
             {
-              content: 'Restart all',
+              content: 'Start all',
               onAction: this.scheduleAllWatchersInFolder
             },
             { content: 'Stop all', onAction: this.cancelAllWatchersInFolder }
@@ -73,7 +76,7 @@ class WatcherFolderInfo extends React.PureComponent<
         <InfoCallout />
         <WatcherFolderActions
           folderId={folder.id}
-          numWatchers={assignedWatchers.length}
+          numWatchers={assignedWatcherIds.length}
           deletable={folder.id !== DEFAULT_WATCHER_FOLDER_ID}
           onDelete={this.handleDeleteFolder}
         />
@@ -84,7 +87,8 @@ class WatcherFolderInfo extends React.PureComponent<
 
 const mapState = (state: RootState, { folderId }: OwnProps): Props => ({
   folder: state.watcherFolders.get(folderId),
-  assignedWatchers: getWatcherIdsAssignedToFolder(folderId)(state)
+  assignedWatcherIds: getWatcherIdsAssignedToFolder(folderId)(state),
+  watcherTimers: state.watcherTimes
 });
 
 const mapDispatch = (dispatch: Dispatch<WatcherFolderAction>): Handlers => ({
