@@ -5,7 +5,8 @@ import { Card, FormLayout, TextField, Button } from '@shopify/polaris';
 import {
   determineInputType,
   parseProjectIdFromProjectLink,
-  parseGroupId
+  parseGroupId,
+  createDefaultWatcher
 } from '../../utils/watchers';
 import { watchForEnter } from '../../utils/watchForEnter';
 import { Watcher, RootState, WatcherMap } from '../../types';
@@ -52,13 +53,11 @@ class CreateWatcherForm extends React.PureComponent<
   };
 
   private createWatcher = (groupId: string, folderId: string): Watcher => ({
-    groupId: groupId,
-    delay: 5,
+    ...createDefaultWatcher(groupId),
     description: this.state.descriptionInput,
     folderId: folderId,
     title: this.state.titleInput || groupId,
-    createdOn: new Date(),
-    stopAfterFirstSuccess: true
+    createdOn: new Date()
   });
 
   private confirmSubmit = (id: string, valid: boolean) => {

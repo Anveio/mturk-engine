@@ -11,7 +11,8 @@ export const createDefaultWatcher = (id: string): Watcher => ({
   folderId: DEFAULT_WATCHER_FOLDER_ID,
   title: 'Untitled Watcher',
   createdOn: new Date(0),
-  stopAfterFirstSuccess: true
+  stopAfterFirstSuccess: true,
+  playSoundAfterSuccess: false
 });
 
 export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
@@ -21,7 +22,8 @@ export const watcherFromSearchResult = (hit: SearchResult): Watcher => ({
   delay: 5,
   createdOn: new Date(),
   folderId: DEFAULT_WATCHER_FOLDER_ID,
-  stopAfterFirstSuccess: true
+  stopAfterFirstSuccess: true,
+  playSoundAfterSuccess: false
 });
 
 export const pandaLinkValidators: ((i: string) => boolean)[] = [
