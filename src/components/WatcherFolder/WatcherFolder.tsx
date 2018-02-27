@@ -3,8 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import { Stack, Card } from '@shopify/polaris';
 import { WatcherFolder, RootState } from '../../types';
 import { getWatcherIdsAssignedToFolder } from '../../selectors/watcherFolders';
-import WatcherFolderActions from './WatcherFolderActions';
-import WatcherFolderHeading from './WatcherFolderHeading';
+
 import {
   editWatcherFolder,
   WatcherFolderAction,
@@ -12,7 +11,10 @@ import {
 } from '../../actions/watcherFolders';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../../constants/misc';
 import { scheduleWatcher, cancelNextWatcherTick } from '../../actions/watcher';
+import WatcherFolderHeading from './WatcherFolderHeading';
 import CreateWatcherForm from './CreateWatcherForm';
+import InfoCallout from './InfoCallout';
+import WatcherFolderActions from './WatcherFolderActions';
 
 interface OwnProps {
   readonly folderId: string;
@@ -68,6 +70,7 @@ class WatcherFolderInfo extends React.PureComponent<
           ]}
         />
         <CreateWatcherForm folderId={folder.id} />
+        <InfoCallout />
         <WatcherFolderActions
           folderId={folder.id}
           numWatchers={assignedWatchers.length}
