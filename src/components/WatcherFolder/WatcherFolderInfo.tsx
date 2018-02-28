@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { RootState, WatcherTimerMap } from '../../types';
+import { RootState, WatcherTimerMap, WatcherFolder } from '../../types';
 import { Card } from '@shopify/polaris';
 import { cancelNextWatcherTick, scheduleWatcher } from '../../actions/watcher';
 import { getWatcherIdsAssignedToFolder } from '../../selectors/watcherFolders';
 import { WatcherFolderAction } from '../../actions/watcherFolders';
+import { DEFAULT_WATCHER_FOLDER_ID } from '../../constants/misc';
 
 interface OwnProps {
-  readonly folderId: string;
+  readonly folder: WatcherFolder;
 }
 
 interface Props {
@@ -20,7 +21,10 @@ interface Handlers {
   readonly onCancelWatcher: (id: string) => void;
 }
 
-class WatcherFolderInfo extends React.PureComponent<Props & Handlers, never> {
+class WatcherFolderInfo extends React.PureComponent<
+  Props & OwnProps & Handlers,
+  never
+> {
   private startInactiveWatchers = () =>
     this.props.assignedWatcherIds.forEach(watcherId => {
       if (!this.props.watcherTimers.has(watcherId)) {
@@ -33,11 +37,17 @@ class WatcherFolderInfo extends React.PureComponent<Props & Handlers, never> {
       this.props.onCancelWatcher(watcherId)
     );
 
+  private createdOnInfoMarkup = () =>
+    this.props.folder.id === DEFAULT_WATCHER_FOLDER_ID
+      ? 'This is the default folder and cannot be deleted or edited.'
+      : `Created on ${new Date(
+          this.props.folder.dateNumCreation
+        ).toLocaleString()}`;
+
   public render() {
     const { assignedWatcherIds } = this.props;
     return (
       <Card
-        sectioned
         title={`${assignedWatcherIds.length} watchers in this folder.`}
         actions={[
           {
@@ -46,13 +56,15 @@ class WatcherFolderInfo extends React.PureComponent<Props & Handlers, never> {
           },
           { content: 'Stop all', onAction: this.cancelAllWatchers }
         ]}
-      />
+      >
+        <Card.Section>{this.createdOnInfoMarkup()}</Card.Section>
+      </Card>
     );
   }
 }
 
-const mapState = (state: RootState, { folderId }: OwnProps): Props => ({
-  assignedWatcherIds: getWatcherIdsAssignedToFolder(folderId)(state),
+const mapState = (state: RootState, { folder }: OwnProps): Props => ({
+  assignedWatcherIds: getWatcherIdsAssignedToFolder(folder.id)(state),
   watcherTimers: state.watcherTimes
 });
 

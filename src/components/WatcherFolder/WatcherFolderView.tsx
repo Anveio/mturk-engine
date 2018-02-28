@@ -46,7 +46,7 @@ class WatcherFolderView extends React.PureComponent<
           editable={folder.id !== DEFAULT_WATCHER_FOLDER_ID}
           onChange={(value: string) => onEdit(folder.id, 'name', value)}
         />
-        <WatcherFolderInfo folderId={folder.id} />
+        <WatcherFolderInfo folder={folder} />
         <CreateWatcherForm folderId={folder.id} />
         <InfoCallout />
         <WatcherFolderActions
