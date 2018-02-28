@@ -35,7 +35,7 @@ export const pandaLinkValidators: ((i: string) => boolean)[] = [
 export const parseGroupId = (input: string): string =>
   input.split('groupId=')[1];
 
-export const projectIdFromProjectLinkRegex = /\/projects\/(.*)\//i;
+export const projectIdFromProjectLinkRegex = /\/projects\/(.*?)\//i;
 
 export const parseProjectIdFromProjectLink = (input: string) =>
   executeRegex(input)(projectIdFromProjectLinkRegex);
