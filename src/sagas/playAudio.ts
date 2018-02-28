@@ -1,17 +1,16 @@
 import { call, select } from 'redux-saga/effects';
 import { PlayAudio } from '../actions/audio';
 import { RootState } from '../types';
+import { AudioSources } from '../constants/audio';
 
-const playAudioFile = async (file: HTMLAudioElement, volume: number) => {
-  try {
-    file.volume = volume * volume;
-    return await file.play();
-  } catch (e) {
-    console.warn(e);
-  }
+const audioFiles = {
+  [AudioSources.NEW_SEARCH_RESULT]: new Audio(AudioSources.NEW_SEARCH_RESULT),
+  [AudioSources.SUCCESSFUL_WATCHER_ACCEPT]: new Audio(
+    AudioSources.SUCCESSFUL_WATCHER_ACCEPT
+  )
 };
 
-export function* playAudio(action: PlayAudio) {
+export function* playAudioSaga(action: PlayAudio) {
   const audioEnabled: boolean = yield select(
     (state: RootState) => state.audioSettingsV1.enabled
   );
@@ -21,9 +20,24 @@ export function* playAudio(action: PlayAudio) {
       const volume: number = yield select(
         (state: RootState) => state.audioSettingsV1.volume
       );
-      yield call(playAudioFile, action.file, volume);
+      yield call(playAudioFile, action.fileSrc, volume);
     }
   } catch (e) {
     console.warn('Playing audio failed.');
   }
 }
+
+const playAudioFile = async (audioSrc: string, volume: number) => {
+  const audioElement = audioFiles[audioSrc];
+
+  if (!audioElement) {
+    return;
+  }
+
+  /**
+   * Squaring the volume evens out perceived loudness.
+   */
+  audioElement.volume = volume * volume;
+
+  return await audioElement.play();
+};

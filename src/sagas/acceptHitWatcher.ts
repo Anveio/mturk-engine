@@ -55,7 +55,7 @@ function* handleSuccessfulAccept(
 
     if (watcher && watcher.playSoundAfterSuccess) {
       yield put<PlayAudio>(
-        playAudioFile(new Audio(AudioSources.SUCCESSFUL_WATCHER_ACCEPT))
+        playAudioFile(AudioSources.SUCCESSFUL_WATCHER_ACCEPT)
       );
     }
 

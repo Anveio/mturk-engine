@@ -11,11 +11,11 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onNewSearchResult: (file: HTMLAudioElement) => void;
+  readonly onNewSearchResult: (audioSrc: string) => void;
 }
 
 class NewResultAudioLayer extends React.Component<Props & Handlers, never> {
-  public static audioFile = new Audio(AudioSources.NEW_SEARCH_RESULT);
+  public static audioFile = AudioSources.NEW_SEARCH_RESULT;
 
   componentWillReceiveProps(nextProps: Props) {
     if (!nextProps.unreadResults.isSubset(this.props.unreadResults)) {
@@ -33,8 +33,8 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<PlayAudio>): Handlers => ({
-  onNewSearchResult: (file: HTMLAudioElement) => {
-    dispatch(playAudioFile(file));
+  onNewSearchResult: (audioSrc: string) => {
+    dispatch(playAudioFile(audioSrc));
   }
 });
 

@@ -8,7 +8,7 @@ import { AudioSettings } from '../types';
 
 export interface PlayAudio {
   readonly type: PLAY_AUDIO;
-  readonly file: HTMLAudioElement;
+  readonly fileSrc: string;
 }
 
 export interface EditAudioSource {
@@ -35,9 +35,9 @@ export const editAudioSrc = (
   value
 });
 
-export const playAudioFile = (file: HTMLAudioElement): PlayAudio => ({
+export const playAudioFile = (fileSrc: string): PlayAudio => ({
   type: PLAY_AUDIO,
-  file
+  fileSrc
 });
 
 export const changeVolume = (value: number): ChangeVolume => ({

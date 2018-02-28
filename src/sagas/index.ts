@@ -52,7 +52,7 @@ import { handleStatusDetailRequest } from './statusDetail';
 import { handleStatusSummaryRequest } from './statusSummary';
 import { handleStatusSummarySuccess } from './refreshHitDb';
 import { downloadPersistedState, importPersistedState } from './backup';
-import { playAudio } from './playAudio';
+import { playAudioSaga } from './playAudio';
 import { handleFileUploadRequest } from './uploadFile';
 import {
   resolveNotificationPermissionRequest,
@@ -110,7 +110,7 @@ export default function* rootSaga() {
     SCHEDULE_NEXT_WATCHER_TICK,
     acceptHitAfterWatcherDelay
   );
-  yield takeEvery<PlayAudio>(PLAY_AUDIO, playAudio);
+  yield takeEvery<PlayAudio>(PLAY_AUDIO, playAudioSaga);
   yield takeEvery<ReadPersistedState>(
     READ_PERSISTED_STATE,
     downloadPersistedState
