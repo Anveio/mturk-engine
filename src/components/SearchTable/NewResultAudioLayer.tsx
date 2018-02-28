@@ -2,8 +2,9 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { List } from 'immutable';
 import { RootState } from '../../types';
-import { PlayAudio, playAudio } from '../../actions/audio';
+import { PlayAudio, playAudioFile } from '../../actions/audio';
 import { newResultsGroupIdsList } from '../../selectors/search';
+import { AudioSources } from '../../constants/audio';
 
 interface Props {
   readonly unreadResults: List<string>;
@@ -14,9 +15,7 @@ interface Handlers {
 }
 
 class NewResultAudioLayer extends React.Component<Props & Handlers, never> {
-  public static audioFile = new Audio(
-    'https://k003.kiwi6.com/hotlink/w9aqj8az8t/ping.wav'
-  );
+  public static audioFile = new Audio(AudioSources.NEW_SEARCH_RESULT);
 
   componentWillReceiveProps(nextProps: Props) {
     if (!nextProps.unreadResults.isSubset(this.props.unreadResults)) {
@@ -35,7 +34,7 @@ const mapState = (state: RootState): Props => ({
 
 const mapDispatch = (dispatch: Dispatch<PlayAudio>): Handlers => ({
   onNewSearchResult: (file: HTMLAudioElement) => {
-    dispatch(playAudio(file));
+    dispatch(playAudioFile(file));
   }
 });
 

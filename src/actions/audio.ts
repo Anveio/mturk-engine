@@ -35,7 +35,7 @@ export const editAudioSrc = (
   value
 });
 
-export const playAudio = (file: HTMLAudioElement): PlayAudio => ({
+export const playAudioFile = (file: HTMLAudioElement): PlayAudio => ({
   type: PLAY_AUDIO,
   file
 });
