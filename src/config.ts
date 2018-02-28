@@ -4,6 +4,7 @@ import {
   PERSISTED_STATE_WHITELIST,
   IMMUTABLE_PERSISTED_STATE_WHITELIST
 } from './constants/settings';
+import { compose } from 'redux';
 
 export const config = {
   reduxPersistSettings: {
@@ -22,9 +23,8 @@ export const config = {
             err
         )
       : undefined,
-  // tslint:disable:no-any
   // tslint:disable:no-string-literal
   devtools: window['__REDUX_DEVTOOLS_EXTENSION__']
     ? window['__REDUX_DEVTOOLS_EXTENSION__']()
-    : () => ({})
+    : compose
 };
