@@ -3,7 +3,10 @@ import { watcherFoldersSelector } from './index';
 import { Watcher, WatcherFolder, WatcherFolderMap } from '../types';
 import { normalizedWatchers } from './watchers';
 import { Map, Set } from 'immutable';
-import { sortWatcherFoldersNewestFirst } from '../utils/sorting';
+import {
+  sortWatcherFoldersNewestFirst,
+  sortWatchersNewestFirst
+} from '../utils/sorting';
 
 export const watcherFoldersSortedByCreationDate = createSelector(
   [watcherFoldersSelector],
@@ -12,8 +15,8 @@ export const watcherFoldersSortedByCreationDate = createSelector(
 
 export const watchersToFolderWatcherMap = createSelector(
   [normalizedWatchers, watcherFoldersSelector],
-  (watchers, folders) => {
-    return watchers.reduce(
+  (watchers, folders) =>
+    watchers.reduce(
       (acc: Map<string, Watcher[]>, cur: Watcher) =>
         acc.update(
           cur.folderId,
@@ -23,8 +26,15 @@ export const watchersToFolderWatcherMap = createSelector(
               : [cur]
         ),
       Map<string, Watcher[]>()
-    );
-  }
+    )
+);
+
+export const sortedFolderWatcherMap = createSelector(
+  [watchersToFolderWatcherMap],
+  watcherFolderMap =>
+    watcherFolderMap.map((watchers: Watcher[]) =>
+      watchers.sort(sortWatchersNewestFirst)
+    ) as Map<string, Watcher[]>
 );
 
 export const getWatchersAssignedToFolder = (folderId: string) =>

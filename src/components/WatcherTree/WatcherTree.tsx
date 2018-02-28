@@ -16,8 +16,8 @@ import {
 import { toggleWatcherFolderExpand } from '../../actions/watcherTree';
 import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
 import {
-  watchersToFolderWatcherMap,
-  watcherFoldersSortedByCreationDate
+  watcherFoldersSortedByCreationDate,
+  sortedFolderWatcherMap
 } from '../../selectors/watcherFolders';
 import SelectedWatcherSection from './SelectedWatcherSection';
 import WatcherProgress from './WatcherProgress';
@@ -72,7 +72,7 @@ class WatcherTree extends React.Component<
           iconName: expandedFolderIds.has(folder.id)
             ? 'folder-open'
             : 'folder-close',
-          childNodes: WatcherTree.assignWatchersToFolder(
+          childNodes: WatcherTree.createWatcherNodeArray(
             watcherFolderMap.get(folder.id, []),
             selectionId || null
           ),
@@ -82,12 +82,13 @@ class WatcherTree extends React.Component<
       []
     );
 
-  static assignWatchersToFolder = (
+  static createWatcherNodeArray = (
     watchers: Watcher[],
     selectionId: string | null
-  ): WatcherTreeNode[] => watchers.map(WatcherTree.createWatcher(selectionId));
+  ): WatcherTreeNode[] =>
+    watchers.map(WatcherTree.createWatcherNode(selectionId));
 
-  static createWatcher = (selectionId: string | null) => ({
+  static createWatcherNode = (selectionId: string | null) => ({
     groupId,
     title
   }: Watcher): WatcherTreeNode => ({
@@ -145,7 +146,7 @@ class WatcherTree extends React.Component<
 const mapState = (state: RootState): Props => ({
   expandedFolders: state.watcherTree.expandedFolderIds,
   watcherFolders: watcherFoldersSortedByCreationDate(state),
-  watcherFolderMap: watchersToFolderWatcherMap(state),
+  watcherFolderMap: sortedFolderWatcherMap(state),
   currentlySelectedWatcherId: getCurrentSelectionIdOrNull(state)
 });
 
