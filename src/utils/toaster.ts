@@ -50,12 +50,6 @@ export const copyMarkdownToast = (title: string) =>
     message: `HIT: "${title}"'s markdown was added to your clipboard.`
   });
 
-export const addWatcherToast = (title: string) =>
-  TopRightToaster.show({
-    message: `Watcher added. Look for "${title}" in the watchers tab.`,
-    intent: 0
-  });
-
 export const failedSearchToast = () => {
   TopRightToaster.show({
     message: `Your search returned no results. Make sure you're logged in and check your search settings.`,
@@ -219,17 +213,22 @@ export const failedAcceptToast = (hit: SearchResult): IToastProps => ({
     onClick: () => {
       const newWatcher = watcherFromSearchResult(hit);
       store.dispatch(addWatcher(newWatcher));
-      TopRightToaster.show({
-        message: `Watcher with title: ${hit.title} added.`,
-        intent: Intent.PRIMARY,
-        action: {
-          text: 'Start watcher',
-          onClick: () => store.dispatch(scheduleWatcher(hit.groupId))
-        }
-      });
+      watcherAddedToast(hit);
     }
   }
 });
+
+export const watcherAddedToast = (hit: SearchResult) =>
+  TopRightToaster.show({
+    message: `Watcher added. Look for "${
+      hit.title
+    }" in the Unsorted Watchers folder.`,
+    intent: Intent.PRIMARY,
+    action: {
+      text: 'Start watcher',
+      onClick: () => store.dispatch(scheduleWatcher(hit.groupId))
+    }
+  });
 
 export const errorAcceptToast = {
   message: `There was a problem accepting this HIT. Make sure you're still logged into MTurk and try again.`,

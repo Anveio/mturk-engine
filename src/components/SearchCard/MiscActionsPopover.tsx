@@ -5,7 +5,7 @@ import * as copy from 'copy-to-clipboard';
 import { SearchResult } from '../../types';
 import { connect, Dispatch } from 'react-redux';
 import { RootState } from '../../types';
-import { addWatcherToast, copyMarkdownToast } from '../../utils/toaster';
+import { watcherAddedToast, copyMarkdownToast } from '../../utils/toaster';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { watcherFromSearchResult } from '../../utils/watchers';
 import { generateHwtfUrl } from '../../utils/export';
@@ -18,7 +18,7 @@ const mapState = (state: RootState, ownProps: Props): Props => ({
 const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
   onAddWatcher: (hit: SearchResult) => {
     dispatch(addWatcher(watcherFromSearchResult(hit)));
-    addWatcherToast(hit.title);
+    watcherAddedToast(hit);
   }
 });
 
