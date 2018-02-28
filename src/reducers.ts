@@ -15,7 +15,6 @@ import { default as topticonSettings } from './reducers/topticonSettings';
 import { default as requesterBlocklist } from './reducers/requesterBlocklist';
 import { default as audioSettingsV1 } from './reducers/audioSettings';
 import { default as selectedHitDbDate } from './reducers/selectedHitDbDate';
-import { default as audioFiles } from './reducers/audioFiles';
 import { default as hitDatabase } from './reducers/hitDatabase';
 import { default as dailyEarningsGoal } from './reducers/dailyEarningsGoal';
 import { default as waitingForHitDbRefresh } from './reducers/waitingForHitDbRefresh';
@@ -35,7 +34,6 @@ export const rootReducer = combineReducers<RootState>({
   search,
   account,
   watchers,
-  audioFiles,
   watcherTree,
   hitDatabase,
   hitBlocklist,

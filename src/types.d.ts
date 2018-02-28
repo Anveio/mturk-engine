@@ -24,7 +24,6 @@ export interface RootState {
   readonly requesterBlocklist: RequesterBlockMap;
   readonly audioSettingsV1: AudioSettings;
   readonly watcherTimes: WatcherTimerMap;
-  readonly audioFiles: AudioFiles;
   readonly uploadedState: Partial<PersistedState> | null;
   readonly expandedSearchResults: ExpandedSearchResultsMap;
   readonly notificationSettings: NotificationSettings;
@@ -298,6 +297,7 @@ export interface WorkerQualification {
 
 export interface AudioFiles {
   readonly audioNewSearch: HTMLAudioElement;
+  readonly audioWatcherSuccess: HTMLAudioElement;
 }
 
 export interface HeatMapValue {

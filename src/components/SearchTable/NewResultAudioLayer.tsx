@@ -5,19 +5,22 @@ import { RootState } from '../../types';
 import { PlayAudio, playAudio } from '../../actions/audio';
 import { newResultsGroupIdsList } from '../../selectors/search';
 
-export interface Props {
-  readonly audioNewSearch: HTMLAudioElement;
+interface Props {
   readonly unreadResults: List<string>;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onNewSearchResult: (file: HTMLAudioElement) => void;
 }
 
 class NewResultAudioLayer extends React.Component<Props & Handlers, never> {
+  public static audioFile = new Audio(
+    'https://k003.kiwi6.com/hotlink/w9aqj8az8t/ping.wav'
+  );
+
   componentWillReceiveProps(nextProps: Props) {
     if (!nextProps.unreadResults.isSubset(this.props.unreadResults)) {
-      this.props.onNewSearchResult(this.props.audioNewSearch);
+      this.props.onNewSearchResult(NewResultAudioLayer.audioFile);
     }
   }
 
@@ -27,8 +30,7 @@ class NewResultAudioLayer extends React.Component<Props & Handlers, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  unreadResults: newResultsGroupIdsList(state),
-  audioNewSearch: state.audioFiles.audioNewSearch
+  unreadResults: newResultsGroupIdsList(state)
 });
 
 const mapDispatch = (dispatch: Dispatch<PlayAudio>): Handlers => ({
