@@ -44,17 +44,27 @@ class WatcherFolderInfo extends React.PureComponent<
           this.props.folder.dateNumCreation
         ).toLocaleString()}`;
 
+  private startAllAction = (numWatchers: number) => ({
+    content: 'Start all',
+    onAction: this.startInactiveWatchers,
+    disabled: numWatchers === 0
+  });
+
+  private stopAllAction = (numWatchers: number) => ({
+    content: 'Stop all',
+    onAction: this.cancelAllWatchers,
+    disabled: numWatchers === 0
+  });
+
   public render() {
     const { assignedWatcherIds } = this.props;
+    const numWatchers = assignedWatcherIds.length;
     return (
       <Card
-        title={`${assignedWatcherIds.length} watchers in this folder.`}
+        title={`${numWatchers} watchers in this folder.`}
         actions={[
-          {
-            content: 'Start all',
-            onAction: this.startInactiveWatchers
-          },
-          { content: 'Stop all', onAction: this.cancelAllWatchers }
+          this.startAllAction(numWatchers),
+          this.stopAllAction(numWatchers)
         ]}
       >
         <Card.Section>{this.createdOnInfoMarkup()}</Card.Section>
