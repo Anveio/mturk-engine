@@ -125,6 +125,13 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
                 checked={watcher.stopAfterFirstSuccess}
                 onChange={this.handleEdit<boolean>('stopAfterFirstSuccess')}
               />
+              <Checkbox
+                label="Play sound after successful accept"
+                id="checkbox-play-sound"
+                name="checkbox-play-sound"
+                checked={watcher.playSoundAfterSuccess}
+                onChange={this.handleEdit<boolean>('playSoundAfterSuccess')}
+              />
             </FormLayout>
           </div>
         </Card.Section>

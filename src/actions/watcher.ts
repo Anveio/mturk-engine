@@ -6,12 +6,16 @@ import {
   CANCEL_NEXT_WATCHER_TICK,
   SET_WATCHER_TIMER
 } from '../constants';
-
 import { Watcher, Primitive } from '../types';
 
 export type EditableWatcherField = keyof Pick<
   Watcher,
-  'title' | 'delay' | 'description' | 'folderId' | 'stopAfterFirstSuccess'
+  | 'title'
+  | 'delay'
+  | 'description'
+  | 'folderId'
+  | 'stopAfterFirstSuccess'
+  | 'playSoundAfterSuccess'
 >;
 
 export interface AddWatcher {
