@@ -2,9 +2,8 @@
 
 [Download](https://raw.githubusercontent.com/Anveio/mturk-engine/master/build/mturk-engine.latest.user.js)
 
-[Download (Lite version)](https://greasyfork.org/en/scripts/33403-mturk-engine-lite)
+[Download (Greasyfork)](https://greasyfork.org/en/scripts/33403-mturk-engine)
 
-The Lite version pulls Mturk Engine from a CDN and caches it in your browser. Use it if the main installation link isn't working.
 
 This is a userscript. You must install it with a userscript manager (e.g. TamperMonkey for Chrome) and then nagivate to https://worker.mturk.com/?mturkengine while logged in to your Mturk account in order to use it.
 
@@ -12,7 +11,7 @@ This is a userscript. You must install it with a userscript manager (e.g. Tamper
 
 ## What is Mturk Engine?
 
-Mturk Engine is a free and open source user script for Chrome that enables you to be more productive on Amazon's Mechanical Turk work platform. You install it with one of the download links above and then navigate to https://worker.mturk.com/?mturkengine while logged in to use it. Mturk Engine brings everything you do on Amazon's Mechanical Turk work platform into a single page. You can search for HITs, accept HITs, add HITs to be auto accepted, monitor your queue, monitor your dashboard, keep track of all the HITs you've submitted and their statuses, and return HITs all in a single browser tab without ever having to wait for a to page reload.
+Mturk Engine is a free and open source user script for Chrome & Firefox that enables you to be more productive on Amazon's Mechanical Turk work platform. You install it with one of the download links above and then navigate to https://worker.mturk.com/?mturkengine while logged in to use it. Mturk Engine brings everything you do on Amazon's Mechanical Turk work platform into a single page. You can search for HITs, accept HITs, add HITs to be auto accepted, monitor your queue, monitor your dashboard, keep track of all the HITs you've submitted and their statuses, and return HITs all in a single browser tab without ever having to wait for a to page reload.
 
 Scroll down to the animated gifs and get a sense of what Mturk Engine looks like and what you can do with it.
 
