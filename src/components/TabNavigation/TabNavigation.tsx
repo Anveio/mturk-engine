@@ -8,7 +8,7 @@ import QueueTable from '../Queue/QueueTable';
 import SearchTab from './SearchTab';
 import Account from '../Account/Account';
 import BlockLists from '../BlockList/BlockLists';
-import SettingsTab from '../SettingsTab/SettingsTab';
+import SettingsTab from './SettingsTab';
 import Watchers from '../WatcherTree/DoubleClickHandler';
 
 export interface Props {
