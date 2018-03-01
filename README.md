@@ -4,7 +4,6 @@
 
 [Download (Greasyfork)](https://greasyfork.org/en/scripts/33403-mturk-engine)
 
-
 This is a userscript. You must install it with a userscript manager (e.g. TamperMonkey for Chrome) and then nagivate to https://worker.mturk.com/?mturkengine while logged in to your Mturk account in order to use it.
 
 ### Mturk Engine only works on this page: https://worker.mturk.com/?mturkengine
@@ -12,8 +11,6 @@ This is a userscript. You must install it with a userscript manager (e.g. Tamper
 ## What is Mturk Engine?
 
 Mturk Engine is a free and open source user script for Chrome & Firefox that enables you to be more productive on Amazon's Mechanical Turk work platform. You install it with one of the download links above and then navigate to https://worker.mturk.com/?mturkengine while logged in to use it. Mturk Engine brings everything you do on Amazon's Mechanical Turk work platform into a single page. You can search for HITs, accept HITs, add HITs to be auto accepted, monitor your queue, monitor your dashboard, keep track of all the HITs you've submitted and their statuses, and return HITs all in a single browser tab without ever having to wait for a to page reload.
-
-Scroll down to the animated gifs and get a sense of what Mturk Engine looks like and what you can do with it.
 
 ## Why use Mturk Engine? What does it do that HitScraper/HitFinder & PandaCrazy don't?
 
@@ -37,7 +34,7 @@ Mturk Engine is under active development so feel free to suggest features or sub
 
 1. You'll need a userscript manager to use Mturk Engine. If you're using Chrome download [TamperMonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en). If you already have a userscript manager you're good to move on to the next step.
 
-2. [Download Mturk Engine here.](https://raw.githubusercontent.com/Anveio/mturk-engine/master/build/mturk-engine.latest.user.js) Your userscript manager should prompt you to install the script. An alternative is to download the lite version here: https://greasyfork.org/en/scripts/33403-mturk-engine-lite
+2. [Download Mturk Engine here.](https://raw.githubusercontent.com/Anveio/mturk-engine/master/build/mturk-engine.latest.user.js) Your userscript manager should prompt you to install the script. An alternative is to download the script from Greasyfork: https://greasyfork.org/en/scripts/33403-mturk-engine
 
 3. Navigate to https://worker.mturk.com/?mturkengine with your Amazon Mechanical Turk account to begin using Mturk Engine. It's a good idea to bookmark this link if you intend on using it frequently.
 
@@ -58,23 +55,23 @@ Check out the [Developer Guide](https://github.com/Anveio/mturk-engine/blob/mast
 
 ### The Mturk Engine UI
 
-<img src="https://i.imgur.com/JE0M8RB.png" alt="Still image showing the UI for searching for HITs, seeing unread HITS, hiding HITs, and blocking requesters."/>
+<img src="https://i.imgur.com/JE0M8RB.png" alt="UI for searching for HITs, seeing unread HITS, hiding HITs, and blocking requesters."/>
 
 ### Keep track of your work with the Account tab
 
-<img src="https://i.imgur.com/q764FG0.gif" alt="Animated Gif showing the usage of the account tab to monitor your dashboard, update your HIT database, and edit bonuses"/>
+<img src="https://i.imgur.com/q764FG0.gif" alt="Usage of the account tab to monitor your dashboard, update your HIT database, and edit bonuses"/>
 
 ### Search for HITs and block requesters.
 
-<img src="https://i.imgur.com/Z5UEVbs.gif" alt="Animated GIF showing the normal flow of searching for HITs, hiding HITs, blocking requesters, accepting HITs, viewing your queue, and returning a HIT"/>
+<img src="https://i.imgur.com/Z5UEVbs.gif" alt="The normal flow of searching for HITs, hiding HITs, blocking requesters, accepting HITs, viewing your queue, and returning a HIT"/>
 
 ### Add watchers to automatically accept HITs
 
-<img src="https://i.imgur.com/XRMcGtz.gif" alt="Animated GIF showing a search result being added as a watcher, switching to the watcher tab, starting the watcher to automatically accept the HIT periodically, edit the time between auto-accepts to 1 second, and add a custom description."/>
+<img src="https://i.imgur.com/XRMcGtz.gif" alt="Search result being added as a watcher, switching to the watcher tab, starting the watcher to automatically accept the HIT periodically, edit the time between auto-accepts to 1 second, and add a custom description."/>
 
 ### Backup your data
 
-<img src="https://i.imgur.com/HYR5MSJ.gif" alt="Animated GIF demonstrating how to import from a backup file" />
+<img src="https://i.imgur.com/HYR5MSJ.gif" alt="How to import from a backup file" />
 
 ## Features
 
