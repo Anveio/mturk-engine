@@ -4,7 +4,7 @@
 
 [Download (Greasyfork)](https://greasyfork.org/en/scripts/33403-mturk-engine)
 
-This is a userscript. You must install it with a userscript manager (e.g. TamperMonkey for Chrome) and then nagivate to https://worker.mturk.com/?mturkengine while logged in to your Mturk account in order to use it.
+This is a userscript. You must install it with a userscript manager (e.g. TamperMonkey for Chrome) and then nagivate to https://worker.mturk.com/?mturkengine while logged in to your Mturk account in order to use it. **Firefox users: Mturk Engine is not compatible with Greasemonkey, use [TamperMonkey for Firefox instead.](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)**
 
 ### Mturk Engine only works on this page: https://worker.mturk.com/?mturkengine
 
@@ -32,11 +32,11 @@ Mturk Engine is under active development so feel free to suggest features or sub
 
 ## Installation & Usage
 
-1. You'll need a userscript manager to use Mturk Engine. If you're using Chrome download [TamperMonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en). If you already have a userscript manager you're good to move on to the next step.
+1.  You'll need a userscript manager to use Mturk Engine. If you're using Chrome download [TamperMonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en). **Firefox users: Mturk Engine is not compatible with Greasemonkey, use [TamperMonkey for Firefox instead.](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)** If you already have a userscript manager you're good to move on to the next step.
 
-2. [Download Mturk Engine here.](https://raw.githubusercontent.com/Anveio/mturk-engine/master/build/mturk-engine.latest.user.js) Your userscript manager should prompt you to install the script. An alternative is to download the script from Greasyfork: https://greasyfork.org/en/scripts/33403-mturk-engine
+2.  [Download Mturk Engine here.](https://raw.githubusercontent.com/Anveio/mturk-engine/master/build/mturk-engine.latest.user.js) Your userscript manager should prompt you to install the script. An alternative is to download the script from Greasyfork: https://greasyfork.org/en/scripts/33403-mturk-engine
 
-3. Navigate to https://worker.mturk.com/?mturkengine with your Amazon Mechanical Turk account to begin using Mturk Engine. It's a good idea to bookmark this link if you intend on using it frequently.
+3.  Navigate to https://worker.mturk.com/?mturkengine with your Amazon Mechanical Turk account to begin using Mturk Engine. It's a good idea to bookmark this link if you intend on using it frequently.
 
 ## Developer Guide
 
