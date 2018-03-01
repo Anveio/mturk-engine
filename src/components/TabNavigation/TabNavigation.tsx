@@ -14,6 +14,7 @@ import Watchers from '../WatcherTree/DoubleClickHandler';
 export interface Props {
   readonly selected: number;
   readonly queueSize: number;
+  readonly numActiveWatchers: number;
 }
 
 export interface Handlers {
@@ -21,6 +22,7 @@ export interface Handlers {
 }
 
 const TabNavigation: React.SFC<Props & Handlers> = ({
+  numActiveWatchers,
   onSelectTab,
   queueSize,
   selected
@@ -38,7 +40,11 @@ const TabNavigation: React.SFC<Props & Handlers> = ({
         title={`Queue (${queueSize})`}
         panel={<QueueTable />}
       />
-      <Tab id={TabIndex.WATCHERS} title="Watchers" panel={<Watchers />} />
+      <Tab
+        id={TabIndex.WATCHERS}
+        title={`Watchers (${numActiveWatchers})`}
+        panel={<Watchers />}
+      />
       <Tab id={TabIndex.BLOCKLIST} title="Blocklist" panel={<BlockLists />} />
       <Tab id={TabIndex.ACCOUNT} title="Account" panel={<Account />} />
       <Tab id={TabIndex.SETTINGS} title="Settings" panel={<SettingsTab />} />
@@ -48,7 +54,8 @@ const TabNavigation: React.SFC<Props & Handlers> = ({
 
 const mapState = (state: RootState): Props => ({
   selected: state.tab,
-  queueSize: state.queue.size
+  queueSize: state.queue.size,
+  numActiveWatchers: state.watcherTimes.size
 });
 
 const mapDispatch = (dispatch: Dispatch<ChangeTab>): Handlers => ({
