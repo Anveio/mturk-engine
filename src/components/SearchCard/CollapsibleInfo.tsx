@@ -5,6 +5,7 @@ import { SearchResult, RootState } from '../../types';
 import MiscActionsPopover from './MiscActionsPopover';
 import ExternalPlainButtons from './ExternalPlainButtons';
 import BlockRequesterButton from './BlockRequesterButton';
+import AddAsWatcherButton from './AddAsWatcherButton';
 import KnownRequesterButton from './KnownRequesterButton';
 
 import { secondsToMinutes } from '../../utils/dates';
@@ -53,6 +54,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
             <Stack vertical={false} alignment="center">
               <MiscActionsPopover hit={hit} />
               <BlockRequesterButton requester={requester} />
+              <AddAsWatcherButton hit={hit} />
               <ExternalPlainButtons hit={hit} />
             </Stack>
           </Stack>
