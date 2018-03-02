@@ -49,10 +49,6 @@ export interface Handlers {
 }
 
 class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
-  shouldComponentUpdate() {
-    return true;
-  }
-
   private static generateNewResultHighlightStyle = (markedAsRead?: boolean) =>
     markedAsRead ? {} : { backgroundColor: '#EBF5FA' };
 
