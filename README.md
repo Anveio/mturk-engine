@@ -4,7 +4,7 @@
 
 [Download (Greasyfork)](https://greasyfork.org/en/scripts/33403-mturk-engine)
 
-This is a userscript. You must install it with a userscript manager (e.g. TamperMonkey for Chrome) and then nagivate to https://worker.mturk.com/?mturkengine while logged in to your Mturk account in order to use it. **Firefox users: Mturk Engine is not compatible with Greasemonkey, use [TamperMonkey for Firefox instead.](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)**
+This is a userscript. In order to use it, install Mturk Engine with a userscript manager (e.g. TamperMonkey) and then nagivate to https://worker.mturk.com/?mturkengine while logged in to your Mturk account. **Firefox users: Mturk Engine is not compatible with Greasemonkey, use [TamperMonkey for Firefox instead.](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)**
 
 ### Mturk Engine only works on this page: https://worker.mturk.com/?mturkengine
 
