@@ -53,8 +53,8 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
     return true;
   }
 
-  private static generateStyle = (markedAsRead?: boolean) =>
-    markedAsRead ? {} : { backgroundColor: 'rgba(72, 175, 240, 0.15)' };
+  private static generateNewResultHighlightStyle = (markedAsRead?: boolean) =>
+    markedAsRead ? {} : { backgroundColor: '#EBF5FA' };
 
   static resourceListItemClass = 'Polaris-ResourceList__Item Polaris-ResourceList__Item--focused';
 
@@ -128,7 +128,7 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
       <React.Fragment>
         <div
           onClick={this.handleExpand}
-          style={SearchCard.generateStyle(!!markedAsRead)}
+          style={SearchCard.generateNewResultHighlightStyle(!!markedAsRead)}
         >
           <ResourceList.Item
             actions={this.generateActions(!!markedAsRead)}
