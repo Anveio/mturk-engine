@@ -3,11 +3,9 @@ import { Button } from '@shopify/polaris';
 import { Popover, Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as copy from 'copy-to-clipboard';
 import { SearchResult } from '../../types';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState } from '../../types';
-import { watcherAddedToast, copyMarkdownToast } from '../../utils/toaster';
-import { AddWatcher, addWatcher } from '../../actions/watcher';
-import { watcherFromSearchResult } from '../../utils/watchers';
+import { copyMarkdownToast } from '../../utils/toaster';
 import { generateHwtfUrl } from '../../utils/export';
 import { generateContactLinkSearchResult } from '../../utils/urls';
 
@@ -15,26 +13,13 @@ const mapState = (state: RootState, ownProps: Props): Props => ({
   hit: ownProps.hit
 });
 
-const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
-  onAddWatcher: (hit: SearchResult) => {
-    dispatch(addWatcher(watcherFromSearchResult(hit)));
-    watcherAddedToast(hit);
-  }
-});
-
 import { generateMarkdownExport } from '../../utils/export';
 
-export interface Props {
+interface Props {
   readonly hit: SearchResult;
 }
 
-export interface Handlers {
-  readonly onAddWatcher: (hit: SearchResult) => void;
-}
-
-class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
-  private handleAddWatcher = () => this.props.onAddWatcher(this.props.hit);
-
+class MiscActionsPopOver extends React.PureComponent<Props, never> {
   private handleCopyMarkDown = () => {
     {
       copy(generateMarkdownExport(this.props.hit));
@@ -48,12 +33,6 @@ class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
         <Button size="slim" icon="horizontalDots" />
         <Menu>
           <MenuDivider title="HIT Actions" />
-          <MenuItem
-            iconName="new-object"
-            onClick={this.handleAddWatcher}
-            text="Add as Watcher"
-            target="_blank"
-          />
           <MenuItem
             iconName="person"
             target="_blank"
@@ -78,4 +57,4 @@ class MiscActionsPopOver extends React.PureComponent<Props & Handlers, never> {
   }
 }
 
-export default connect(mapState, mapDispatch)(MiscActionsPopOver);
+export default connect(mapState)(MiscActionsPopOver);
