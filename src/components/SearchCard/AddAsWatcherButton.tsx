@@ -1,21 +1,42 @@
 import * as React from 'react';
-import { SearchResult } from '../../types';
+import { SearchResult, RootState, WatcherMap } from '../../types';
 import { Button } from '@shopify/polaris';
 import { connect, Dispatch } from 'react-redux';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { watcherFromSearchResult } from '../../utils/watchers';
-import { watcherAddedToast } from '../../utils/toaster';
+import { watcherAddedToast, genericPlainToast } from '../../utils/toaster';
+import { normalizedWatchers } from '../../selectors/watchers';
 
 interface OwnProps {
   readonly hit: SearchResult;
+}
+
+interface Props {
+  readonly watchers: WatcherMap;
 }
 
 interface Handlers {
   readonly onAddWatcher: (hit: SearchResult) => void;
 }
 
-class AddAsWatcherButton extends React.Component<OwnProps & Handlers, never> {
+class AddAsWatcherButton extends React.Component<
+  Props & OwnProps & Handlers,
+  never
+> {
   private handleAddAsWatcher = () => {
+    const { hit: { groupId }, watchers } = this.props;
+
+    const maybeDuplicateWatcher = watchers.get(groupId);
+
+    if (maybeDuplicateWatcher) {
+      genericPlainToast(
+        `A watcher for this project already exists. Look for "${
+          maybeDuplicateWatcher.title
+        }" in the 'Watchers' tab.`
+      );
+      return;
+    }
+
     this.props.onAddWatcher(this.props.hit);
   };
 
@@ -35,4 +56,8 @@ const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
   }
 });
 
-export default connect(null, mapDispatch)(AddAsWatcherButton);
+const mapState = (state: RootState): Props => ({
+  watchers: normalizedWatchers(state)
+});
+
+export default connect(mapState, mapDispatch)(AddAsWatcherButton);
