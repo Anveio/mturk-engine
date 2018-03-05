@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DisplayText, TextStyle } from '@shopify/polaris';
+import { Stack, DisplayText, TextStyle, Caption } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
 
 interface Props {
@@ -50,21 +50,28 @@ class WatcherFolderHeading extends React.Component<Props, State> {
 
   public render() {
     return (
-      <DisplayText size="small" element="h2">
-        <TextStyle variation="strong">
-          <EditableText
-            confirmOnEnterKey
-            disabled={!this.props.editable}
-            isEditing={this.state.editing}
-            value={this.state.title}
-            onCancel={this.resetTitle}
-            onEdit={this.toggleEditingState}
-            onConfirm={this.handleConfirmEdit}
-            onChange={this.handleChange}
-            maxLength={50}
-          />
-        </TextStyle>
-      </DisplayText>
+      <Stack vertical={false} alignment="baseline">
+        <Stack.Item fill>
+          <DisplayText size="small" element="h2">
+            <TextStyle variation="strong">
+              <EditableText
+                confirmOnEnterKey
+                disabled={!this.props.editable}
+                isEditing={this.state.editing}
+                value={this.state.title}
+                onCancel={this.resetTitle}
+                onEdit={this.toggleEditingState}
+                onConfirm={this.handleConfirmEdit}
+                onChange={this.handleChange}
+                maxLength={50}
+              />
+            </TextStyle>
+          </DisplayText>
+        </Stack.Item>
+        {this.props.editable ? (
+          <Caption>(click folder name to edit)</Caption>
+        ) : null}
+      </Stack>
     );
   }
 }
