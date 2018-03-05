@@ -17,9 +17,10 @@ class WatcherFolderHeading extends React.Component<Props, State> {
   public readonly state: State = { title: this.props.title, editing: false };
 
   componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.title !== this.state.title) {
+    if (nextProps.title !== this.props.title) {
       this.setState((prevState: State): Partial<State> => ({
-        title: nextProps.title
+        title: nextProps.title,
+        editing: false
       }));
     }
   }
