@@ -36,7 +36,6 @@ class ConfirmDeleteWatcherFolder extends React.Component<
     const numWatchers = assignedWatchers.length;
     const primaryAction = {
       content: 'Delete Folder',
-      icon: 'import',
       destructive: true,
       onAction: onSubmit
     };
