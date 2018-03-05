@@ -61,6 +61,8 @@ export type PersistedStateKey =
   | 'searchOptions'
   | 'topticonSettings'
   | 'watchers'
+  | 'watcherFolders'
+  | 'watcherTree'
   | 'audioSettingsV1'
   | 'dailyEarningsGoal'
   | 'notificationSettings';
@@ -69,6 +71,7 @@ export type ImmutablePersistedStateKey =
   | 'hitDatabase'
   | 'hitBlocklist'
   | 'watchers'
+  | 'watcherFolders'
   | 'requesterBlocklist';
 
 export type ImmutablePersistedDataType =
