@@ -90,7 +90,9 @@ export const stateKeyMap = new Map<PersistedStateKey, string>([
   ['topticonSettings', 'Turkopticon Settings'],
   ['watchers', 'Watchers'],
   ['audioSettingsV1', 'Audio Settings'],
-  ['dailyEarningsGoal', 'Daily Earnings Goal']
+  ['dailyEarningsGoal', 'Daily Earnings Goal'],
+  ['notificationSettings', 'Notification Settings'],
+  ['watcherFolders', 'WatcherFolders']
 ]);
 
 /**
