@@ -47,6 +47,6 @@ class SelectedWatcherSection extends React.Component<Props, never> {
 
 const mapState = (state: RootState): Props => ({
   currentSelectionId: getCurrentSelectionIdOrNull(state),
-  selectionKind: state.watcherTree.selectionKind
+  selectionKind: state.watcherTreeSettings.selectionKind
 });
 export default connect(mapState)(SelectedWatcherSection);

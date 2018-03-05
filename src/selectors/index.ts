@@ -31,7 +31,7 @@ export const uploadedStateSelector = (state: RootState) => state.uploadedState;
  */
 export const watchersSelector = (state: RootState) => state.watchers;
 
-export const watcherTreeSelector = (state: RootState) => state.watcherTree;
+export const watcherTreeSelector = (state: RootState) => state.watcherTreeSettings;
 
 export const watcherFoldersSelector = (state: RootState) =>
   state.watcherFolders;

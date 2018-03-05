@@ -28,7 +28,7 @@ export interface RootState {
   readonly expandedSearchResults: ExpandedSearchResultsMap;
   readonly notificationSettings: NotificationSettings;
   readonly loggedSearchResults: SearchResults;
-  readonly watcherTree: WatcherTreeSettings;
+  readonly watcherTreeSettings: WatcherTreeSettings;
   readonly watcherFolders: WatcherFolderMap;
   readonly watcherStatistics: WatcherStatisticsMap;
 }
@@ -62,7 +62,7 @@ export type PersistedStateKey =
   | 'topticonSettings'
   | 'watchers'
   | 'watcherFolders'
-  | 'watcherTree'
+  | 'watcherTreeSettings'
   | 'audioSettingsV1'
   | 'dailyEarningsGoal'
   | 'notificationSettings';

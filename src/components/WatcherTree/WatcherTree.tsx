@@ -144,7 +144,7 @@ class WatcherTree extends React.Component<
 }
 
 const mapState = (state: RootState): Props => ({
-  expandedFolders: state.watcherTree.expandedFolderIds,
+  expandedFolders: state.watcherTreeSettings.expandedFolderIds,
   watcherFolders: watcherFoldersSortedByCreationDate(state),
   watcherFolderMap: sortedFolderWatcherMap(state),
   currentlySelectedWatcherId: getCurrentSelectionIdOrNull(state)

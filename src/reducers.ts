@@ -24,7 +24,7 @@ import { default as expandedSearchResults } from './reducers/expandedSearchResul
 import { default as legacyLinksEnabled } from './reducers/legacyLinksEnabled';
 import { default as notificationSettings } from './reducers/notificationSettings';
 import { default as loggedSearchResults } from './reducers/loggedSearchResults';
-import { default as watcherTree } from './reducers/watcherTree';
+import { default as watcherTreeSettings } from './reducers/watcherTreeSettings';
 import { default as watcherFolders } from './reducers/watcherFolders';
 import { default as watcherStatistics } from './reducers/watcherStatistics';
 
@@ -34,7 +34,6 @@ export const rootReducer = combineReducers<RootState>({
   search,
   account,
   watchers,
-  watcherTree,
   hitDatabase,
   hitBlocklist,
   watcherTimes,
@@ -52,6 +51,7 @@ export const rootReducer = combineReducers<RootState>({
   selectedHitDbDate,
   requesterBlocklist,
   legacyLinksEnabled,
+  watcherTreeSettings,
   loggedSearchResults,
   notificationSettings,
   expandedSearchResults,

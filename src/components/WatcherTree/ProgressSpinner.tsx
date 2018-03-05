@@ -26,7 +26,7 @@ class ProgressSpinner extends React.PureComponent<Props & OwnProps, never> {
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  isSelected: state.watcherTree.selectionId === ownProps.id
+  isSelected: state.watcherTreeSettings.selectionId === ownProps.id
 });
 
 export default connect(mapState)(ProgressSpinner);
