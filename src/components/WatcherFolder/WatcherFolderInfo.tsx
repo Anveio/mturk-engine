@@ -6,6 +6,7 @@ import { cancelNextWatcherTick, scheduleWatcher } from '../../actions/watcher';
 import { getWatcherIdsAssignedToFolder } from '../../selectors/watcherFolders';
 import { WatcherFolderAction } from '../../actions/watcherFolders';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../../constants/misc';
+import { pluralize } from '../../utils/formatting';
 
 interface OwnProps {
   readonly folder: WatcherFolder;
@@ -61,7 +62,9 @@ class WatcherFolderInfo extends React.PureComponent<
     const numWatchers = assignedWatcherIds.length;
     return (
       <Card
-        title={`${numWatchers} watchers in this folder.`}
+        title={`${numWatchers} ${pluralize('watcher', 'watchers')(
+          numWatchers
+        )} in this folder.`}
         actions={[
           this.startAllAction(numWatchers),
           this.stopAllAction(numWatchers)
