@@ -21,5 +21,6 @@ export const IMMUTABLE_PERSISTED_STATE_WHITELIST: ImmutablePersistedStateKey[] =
   'hitBlocklist',
   'requesterBlocklist',
   'watchers',
+  'watcherFolders',
   'hitDatabase'
 ];
