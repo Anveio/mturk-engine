@@ -71,29 +71,3 @@ const resolveUserQualificationValue = (
     return 'Not assigned.';
   }
 };
-
-export var x = {
-  qualification_type_id: '3V75YMGIEXYVCDJFPSK5TD5CAIB4NZ',
-  comparator: 'GreaterThan',
-  worker_action: 'PreviewHit',
-  qualification_values: ['0'],
-  caller_meets_requirement: false,
-  qualification_type: {
-    qualification_type_id: '3V75YMGIEXYVCDJFPSK5TD5CAIB4NZ',
-    name: 'rekognition internal',
-    visibility: true,
-    description: 'internal workers',
-    has_test: false,
-    is_requestable: true,
-    keywords: null
-  },
-  caller_qualification_value: {
-    integer_value: null,
-    locale_value: {
-      country: null,
-      subdivision: null
-    }
-  },
-  qualification_request_url:
-    '/qualifications/3V75YMGIEXYVCDJFPSK5TD5CAIB4NZ/request'
-};
