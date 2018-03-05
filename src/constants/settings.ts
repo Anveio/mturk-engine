@@ -10,6 +10,8 @@ export const PERSISTED_STATE_WHITELIST: PersistedStateKey[] = [
   'searchOptions',
   'topticonSettings',
   'watchers',
+  'watcherFolders',
+  'watcherTreeSettings',
   'audioSettingsV1',
   'dailyEarningsGoal',
   'notificationSettings'
