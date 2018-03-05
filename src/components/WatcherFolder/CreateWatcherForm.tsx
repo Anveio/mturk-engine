@@ -16,6 +16,7 @@ import {
 } from '../../utils/validation';
 import { normalizedWatchers } from '../../selectors/watchers';
 import { truncate } from '../../utils/formatting';
+import { plainToast } from '../../utils/toaster';
 
 interface OwnProps {
   readonly folderId: string;
@@ -74,6 +75,7 @@ class CreateWatcherForm extends React.PureComponent<
     }
 
     this.props.onAddWatcher(this.createWatcher(id, this.props.folderId));
+    plainToast(`Watcher with ID: ${id} created.`);
   };
 
   private handleSubmit = () => {
