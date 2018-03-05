@@ -54,6 +54,13 @@ const transformProjectRequirements = (
     qualificationValues: qual.qualification_values
   }));
 
+/**
+ * Most of the time the value of a qualification is stored in `integer_value`.
+ * In which case we just return `integer_value. But if integer_value is null,
+ * that means the qualification involves a country and a subdivision or it's
+ * not assigned at all.
+ * @param qual
+ */
 const resolveUserQualificationValue = (
   qual: WorkerApiQualification
 ): string | number => {
@@ -61,6 +68,7 @@ const resolveUserQualificationValue = (
     integer_value,
     locale_value: { country, subdivision }
   } = qual.caller_qualification_value;
+
   if (integer_value !== null && Number.isFinite(integer_value)) {
     return integer_value;
   } else if (!!country && !!subdivision) {
