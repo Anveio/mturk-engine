@@ -30,6 +30,7 @@ export interface RootState {
   readonly loggedSearchResults: SearchResults;
   readonly watcherTreeSettings: WatcherTreeSettings;
   readonly watcherFolders: WatcherFolderMap;
+  readonly expandedWatcherFolderIds: Set<string>
   readonly watcherStatistics: WatcherStatisticsMap;
 }
 
@@ -316,7 +317,6 @@ export interface DailyEarnings {
 export interface WatcherTreeSettings {
   readonly selectionKind: SelectionKind;
   readonly selectionId: string | null;
-  readonly expandedFolderIds: Set<string>;
 }
 
 export type WatcherKind = 'groupId' | 'searchTerm' | 'requesterId';

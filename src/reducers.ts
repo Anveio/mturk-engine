@@ -27,6 +27,7 @@ import { default as loggedSearchResults } from './reducers/loggedSearchResults';
 import { default as watcherTreeSettings } from './reducers/watcherTreeSettings';
 import { default as watcherFolders } from './reducers/watcherFolders';
 import { default as watcherStatistics } from './reducers/watcherStatistics';
+import { default as expandedWatcherFolderIds } from './reducers/expandedWatcherFolderIds';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -55,5 +56,6 @@ export const rootReducer = combineReducers<RootState>({
   loggedSearchResults,
   notificationSettings,
   expandedSearchResults,
-  waitingForHitDbRefresh
+  waitingForHitDbRefresh,
+  expandedWatcherFolderIds
 });

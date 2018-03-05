@@ -10,7 +10,6 @@ export const PERSISTED_STATE_WHITELIST: PersistedStateKey[] = [
   'searchOptions',
   'topticonSettings',
   'watchers',
-  'watcherFolders',
   'watcherTreeSettings',
   'audioSettingsV1',
   'dailyEarningsGoal',
@@ -21,6 +20,5 @@ export const IMMUTABLE_PERSISTED_STATE_WHITELIST: ImmutablePersistedStateKey[] =
   'hitBlocklist',
   'requesterBlocklist',
   'watchers',
-  'watcherFolders',
   'hitDatabase'
 ];

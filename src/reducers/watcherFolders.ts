@@ -4,15 +4,14 @@ import {
   CREATE_WATCHER_FOLDER,
   DELETE_WATCHER_FOLDER
 } from '../constants';
-import { WatcherFolder, Watcher } from '../types';
+import { WatcherFolder, WatcherFolderMap } from '../types';
 import { Map } from 'immutable';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
 
-const initial = Map<string, WatcherFolder>({
+const initial: WatcherFolderMap = Map<string, WatcherFolder>({
   [DEFAULT_WATCHER_FOLDER_ID]: {
     id: DEFAULT_WATCHER_FOLDER_ID,
     name: 'Unsorted Watchers',
-    watchers: Map<string, Watcher>(),
     dateNumCreation: 0
   } as WatcherFolder
 });
@@ -20,7 +19,7 @@ const initial = Map<string, WatcherFolder>({
 export default (
   state = initial,
   action: WatcherFolderAction
-): Map<string, WatcherFolder> => {
+): WatcherFolderMap => {
   switch (action.type) {
     case CREATE_WATCHER_FOLDER:
       return state.set(action.payload.id, action.payload);
