@@ -35,10 +35,7 @@ export const sendHitAcceptRequest = async (
       successful: validateHitAccept(response.data)
     };
   } catch (e) {
-    /**
-     * Errors that dont' have response at all should result in a failure.
-     */
-    if (!e.response || (e.response && failureStatusCodes[e.response.status])) {
+    if (e.response && failureStatusCodes[e.response.status]) {
       return {
         successful: false
       };
