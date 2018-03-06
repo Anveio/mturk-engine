@@ -24,7 +24,7 @@ Mturk Engine combines much of the functionality of other tools like Hit Scraper,
 
 **3. It's easy to use**
 
-Mturk Engine's interface is intuitive and clear. You (hopefully) won't need to read a manual to find out what a button or setting does. Mturk Engine's design abides by many of the principles laid out in [Shopify's Polaris documentation](https://polaris.shopify.com/principles/principles) such as "empower but don't overwhelm" and "be polished but not ornamental." Accessibility is also a top priority. If something is difficult to read or a color difficult to see, feel free to [post an issue on Github](https://github.com/Anveio/mturk-engine/issues.
+Mturk Engine's interface is intuitive and clear. You (hopefully) won't need to read a manual to find out what a button or setting does. Mturk Engine's design abides by many of the principles laid out in [Shopify's Polaris documentation](https://polaris.shopify.com/principles/principles) such as "empower but don't overwhelm" and "be polished but not ornamental." Accessibility is also a top priority. If something is difficult to read or a color difficult to see, feel free to [post an issue on Github](https://github.com/Anveio/mturk-engine/issues).
 
 ## Installation & Usage
 
