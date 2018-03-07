@@ -2,7 +2,7 @@ import { SearchResult } from '../types';
 import { formatAsCurrency } from './formatting';
 import { secondsToMinutes } from './dates';
 
-export var requestNotificationPermission = async (): Promise<
+export const requestNotificationPermission = async (): Promise<
   NotificationPermission
 > => {
   try {
