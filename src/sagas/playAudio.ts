@@ -28,7 +28,7 @@ export function* playAudioSaga(action: PlayAudio) {
 }
 
 const playAudioFile = async (audioSrc: string, volume: number) => {
-  const audioElement = audioFiles[audioSrc];
+  const audioElement: HTMLAudioElement | undefined = audioFiles[audioSrc];
 
   if (!audioElement) {
     return;
