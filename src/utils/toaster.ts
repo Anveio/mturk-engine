@@ -45,11 +45,6 @@ export const genericWarningToast = (message: string) =>
     intent: Intent.WARNING
   });
 
-export const copyMarkdownToast = (title: string) =>
-  TopRightToaster.show({
-    message: `HIT: "${title}"'s markdown was added to your clipboard.`
-  });
-
 export const failedSearchToast = () => {
   TopRightToaster.show({
     message: `Your search returned no results. Make sure you're logged in and check your search settings.`,

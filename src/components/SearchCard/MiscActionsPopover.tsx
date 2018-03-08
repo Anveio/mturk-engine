@@ -5,7 +5,6 @@ import * as copy from 'copy-to-clipboard';
 import { SearchResult } from '../../types';
 import { connect } from 'react-redux';
 import { RootState } from '../../types';
-import { copyMarkdownToast } from '../../utils/toaster';
 import { generateHwtfUrl } from '../../utils/export';
 import { generateContactLinkSearchResult } from '../../utils/urls';
 
@@ -14,20 +13,22 @@ const mapState = (state: RootState, ownProps: Props): Props => ({
 });
 
 import { generateMarkdownExport } from '../../utils/export';
+import { plainToast } from '../../utils/toaster';
 
 interface Props {
   readonly hit: SearchResult;
 }
 
 class MiscActionsPopOver extends React.PureComponent<Props, never> {
-  private handleCopyMarkDown = () => {
+  private static handleCopyMarkDown = (hit: SearchResult) => () => {
     {
-      copy(generateMarkdownExport(this.props.hit));
-      copyMarkdownToast(this.props.hit.title);
+      copy(generateMarkdownExport(hit));
+      plainToast(`Markdown for "${hit.title}" was added to your clipboard.`);
     }
   };
 
   public render() {
+    const { hit } = this.props;
     return (
       <Popover>
         <Button size="slim" icon="horizontalDots" />
@@ -37,18 +38,18 @@ class MiscActionsPopOver extends React.PureComponent<Props, never> {
             iconName="person"
             target="_blank"
             text="Contact Requester"
-            href={generateContactLinkSearchResult(this.props.hit)}
+            href={generateContactLinkSearchResult(hit)}
           />
           <MenuDivider title="Share" />
           <MenuItem
             iconName="share"
-            href={generateHwtfUrl(this.props.hit)}
+            href={generateHwtfUrl(hit)}
             target="_blank"
             text="Post to HWTF"
           />
           <MenuItem
             iconName="duplicate"
-            onClick={this.handleCopyMarkDown}
+            onClick={MiscActionsPopOver.handleCopyMarkDown(hit)}
             text="Copy to Clipboard"
           />
         </Menu>
