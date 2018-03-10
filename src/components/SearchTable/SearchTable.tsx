@@ -5,8 +5,7 @@ import { RootState } from '../../types';
 import SearchCard from '../SearchCard/SearchCard';
 import SearchTableHeading from './SearchTableHeading';
 import EmptySearchTable from './EmptySearchTable';
-import NewResultAudioLayer from './NewResultAudioLayer';
-import NewResultNotificationLayer from './NewResultNotificationLayer';
+
 import { List } from 'immutable';
 import { filteredResultsGroupId } from '../../selectors/search';
 
@@ -28,14 +27,10 @@ class SearchTable extends React.Component<Props, never> {
     ) : (
       <Card>
         <SearchTableHeading displayedResultsSize={numResults} />
-        <NewResultAudioLayer>
-          <NewResultNotificationLayer>
-            <ResourceList
-              items={resultsIds.toArray()}
-              renderItem={(id: string) => <SearchCard key={id} groupId={id} />}
-            />
-          </NewResultNotificationLayer>
-        </NewResultAudioLayer>
+        <ResourceList
+          items={resultsIds.toArray()}
+          renderItem={(id: string) => <SearchCard key={id} groupId={id} />}
+        />
       </Card>
     );
   }

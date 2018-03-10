@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { List } from 'immutable';
-import { RootState } from '../../types';
-import { PlayAudio, playAudioFile } from '../../actions/audio';
-import { newResultsGroupIdsList } from '../../selectors/search';
-import { AudioSources } from '../../constants/audio';
+import { RootState } from '../types';
+import { PlayAudio, playAudioFile } from '../actions/audio';
+import { newResultsGroupIdsList } from '../selectors/search';
+import { AudioSources } from '../constants/audio';
 
 interface Props {
   readonly unreadResults: List<string>;

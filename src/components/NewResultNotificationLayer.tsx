@@ -6,15 +6,12 @@ import {
   SearchResult,
   SearchResults,
   NotificationSettings
-} from '../../types';
-import {
-  sendNotification,
-  SendNotification
-} from '../../actions/notifications';
+} from '../types';
+import { sendNotification, SendNotification } from '../actions/notifications';
 import {
   topThreePayingResultsSuitableForNotification,
   topThreePayingResultsGroupIds
-} from '../../selectors/notificationSettings';
+} from '../selectors/notificationSettings';
 
 interface Props {
   readonly notificationSettings: NotificationSettings;
