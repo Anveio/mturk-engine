@@ -1,5 +1,5 @@
-import { determineInputType } from '../utils/watchers';
-import { validateProjectIdLink } from '../utils/validation';
+import { determineInputType } from '../../utils/watchers';
+import { validateProjectIdLink } from '../../utils/validation';
 
 const workerLink =
   'https://worker.mturk.com/projects/3MQJWSYXOHGDXJ3GAF96UH2MB215O3/tasks/accept_random?ref=w_pl_prvw';

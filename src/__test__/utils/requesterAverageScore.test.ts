@@ -1,5 +1,5 @@
-import { calculateWeightedAverageScore } from '../utils/turkopticon';
-import { RequesterAttributes, AttributeWeights } from '../types';
+import { calculateWeightedAverageScore } from '../../utils/turkopticon';
+import { RequesterAttributes, AttributeWeights } from '../../types';
 
 describe('Calculating requester average T.O. score', () => {
   test('equalized weights and no undefined attributes', () => {

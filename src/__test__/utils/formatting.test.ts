@@ -1,4 +1,4 @@
-import { pluralize } from '../utils/formatting';
+import { pluralize } from '../../utils/formatting';
 
 describe('Pluralizing the word "HIT"', () => {
   const pluralizeHits = pluralize('HIT', 'HITs');
