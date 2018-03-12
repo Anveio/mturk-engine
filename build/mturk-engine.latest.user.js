@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name         Mturk Engine
 // @namespace    https://github.com/Anveio/mturk-engine/
-// @version      1.6.1
+// @version      1.6.2
 // @description  Earn money more efficiently on Amazon's Mechanical Turk work platform.
 // @author       Anveio (Shovon Hasan)
 // @match        https://worker.mturk.com/?mturkengine
 // @match        https://www.mturk.com/?mturkengine
-// @require      https://cdn.rawgit.com/Anveio/mturk-engine/0c97084b513560427e687e1299575a67cecc9ca3/build/mturk-engine.latest.raw.user.js
+// @require      https://cdn.rawgit.com/Anveio/mturk-engine/5c8343842113b9beaf26148b0a327fe9a4c17c6f/build/mturk-engine.latest.raw.user.js
 // @grant        none
 // ==/UserScript==
 
