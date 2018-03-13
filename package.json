@@ -32,6 +32,7 @@
     "uuid": "^3.1.0"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.1.9",
     "@types/jest": "^21.1.8",
     "@types/node": "^8.0.53",
     "@types/qs": "^6.5.1",
@@ -40,6 +41,7 @@
     "@types/react-helmet": "^5.0.3",
     "@types/react-redux": "^5.0.12",
     "@types/uuid": "^3.4.3",
+    "enzyme": "^3.3.0",
     "react-scripts-ts": "^2.8.0",
     "typescript": "^2.6.2"
   },
