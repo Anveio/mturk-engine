@@ -39,7 +39,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
   }
 
   private toggleOpen = (nextState: boolean) =>
-    this.setState((): Partial<State> => ({
+    this.setState(() => ({
       isOpen: nextState
     }));
 
@@ -47,7 +47,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
     const { value } = this.state;
     validatePositiveNumber(value)
       ? this.handleSuccessfulSubmit(value)
-      : this.setState((prevState: State): Partial<State> => ({
+      : this.setState((prevState: State) => ({
           value: prevState.value,
           error: `That's not a valid bonus.`
         }));
@@ -56,7 +56,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
   private handleSuccessfulSubmit = (value: string) => {
     this.props.onEditBonus(this.props.hitId, parseFloat(value));
     successfulEditBonusToast(value);
-    this.setState((): Partial<State> => ({
+    this.setState(() => ({
       value,
       error: undefined,
       isOpen: false
@@ -64,7 +64,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
   };
 
   private handleInput = (value: string) => {
-    this.setState((): Partial<State> => ({
+    this.setState(() => ({
       value,
       error: undefined
     }));

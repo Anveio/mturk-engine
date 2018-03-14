@@ -21,7 +21,7 @@ class KnownRequesterButton extends React.PureComponent<Props, State> {
   public readonly state: State = { modalOpen: false };
 
   private toggleModal = () =>
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       modalOpen: !prevState.modalOpen
     }));
 

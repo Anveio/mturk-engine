@@ -5,6 +5,7 @@ import {
   ImmutablePersistedStateKey
 } from '../types';
 import * as transit from 'transit-immutable-js';
+import { Set } from 'immutable';
 
 export const persistedStateToJsonString = async () => {
   try {
@@ -98,22 +99,19 @@ export const stateKeyMap = new Map<PersistedStateKey, string>([
 /**
  * Provides O(1) lookup to determine if a key is for an immutable object.
  */
-export const immutableStateKeyLookup = new Map<
-  ImmutablePersistedStateKey,
-  boolean
->([
-  ['hitBlocklist', true],
-  ['hitDatabase', true],
-  ['requesterBlocklist', true],
-  ['watchers', true]
+export const immutableStateKeySet = Set<ImmutablePersistedStateKey>([
+  'hitBlocklist',
+  'hitDatabase',
+  'requesterBlocklist',
+  'watchers'
 ]);
 
-export type CheckedStateKeyMap = Map<PersistedStateKey, boolean>;
+type CheckedStateKeyMap = Map<PersistedStateKey, boolean>;
 
 export const generateCheckStateKeysMap = (status: boolean) => (
   payload: Partial<PersistedState>
 ): CheckedStateKeyMap =>
-  Object.keys(payload).reduce(
+  (Object.keys(payload) as PersistedStateKey[]).reduce(
     (acc: CheckedStateKeyMap, cur: PersistedStateKey) => acc.set(cur, status),
     new Map<PersistedStateKey, boolean>()
   );

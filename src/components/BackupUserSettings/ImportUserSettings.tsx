@@ -41,7 +41,7 @@ class ImportUserSettings extends React.Component<Props & Handlers, State> {
   };
 
   private removeUploadedFile = () => {
-    this.setState((): Partial<State> => ({ filename: '' }));
+    this.setState(() => ({ filename: '' }));
     this.props.onRemoveUploadedFile();
   };
 

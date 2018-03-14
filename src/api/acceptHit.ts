@@ -18,6 +18,12 @@ export interface HitAcceptResponse {
  * 6. Otherwise, it was successful.
  */
 
+const failureStatusCodes = {
+  404: true,
+  429: true,
+  500: true
+};
+
 export const sendHitAcceptRequest = async (
   groupId: string
 ): Promise<HitAcceptResponse> => {
@@ -45,10 +51,4 @@ export const sendHitAcceptRequest = async (
       };
     }
   }
-};
-
-const failureStatusCodes = {
-  404: true,
-  429: true,
-  500: true
 };

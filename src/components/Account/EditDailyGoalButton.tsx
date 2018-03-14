@@ -18,20 +18,20 @@ export interface Props {
   readonly dailyEarningsGoal: number;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onChange: (value: number) => void;
 }
 
-export interface State {
+interface State {
   readonly value: string;
-  readonly error?: string;
   readonly isOpen: boolean;
+  readonly error?: string;
 }
 
 class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
   constructor(props: Props & Handlers) {
     super(props);
-    
+
     this.state = {
       value: props.dailyEarningsGoal.toFixed(2),
       isOpen: false
@@ -39,7 +39,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
   }
 
   private toggleOpen = (nextState: boolean) =>
-    this.setState((): Partial<State> => ({
+    this.setState(() => ({
       isOpen: nextState
     }));
 
@@ -47,7 +47,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
     const { value } = this.state;
     validatePositiveNumber(value)
       ? this.handleSuccessfulSubmit(value)
-      : this.setState((prevState: State): Partial<State> => ({
+      : this.setState((prevState: State) => ({
           value: prevState.value,
           error: `That's not a valid number`
         }));
@@ -60,7 +60,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
   private handleSuccessfulSubmit = (value: string) => {
     this.props.onChange(parseFloat(value));
     successfulEditDailyGoalToast(value);
-    this.setState((): Partial<State> => ({
+    this.setState(() => ({
       value,
       isOpen: false,
       error: undefined
@@ -68,7 +68,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
   };
 
   private handleInput = (value: string) => {
-    this.setState((): Partial<State> => ({
+    this.setState(() => ({
       value,
       error: undefined
     }));

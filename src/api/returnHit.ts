@@ -1,7 +1,7 @@
 import axios from 'axios';
-import * as qs from 'qs';
 import { API_URL } from '../constants';
 import { QueueItem } from '../types';
+import * as qs from 'qs';
 
 export const sendReturnHitRequest = async (
   queueItem: QueueItem,
@@ -9,15 +9,21 @@ export const sendReturnHitRequest = async (
 ) => {
   try {
     const { groupId, taskId, hitId } = queueItem;
+    const formPayload = qs.stringify({
+      _method: 'delete',
+      authenticity_token: token
+    });
+
     const response = await axios.post(
       `${API_URL}/projects/${groupId}/tasks/${taskId}`,
-      formatFormPayload(token),
+      formPayload,
       {
         params: {
           assignment_id: hitId
         }
       }
     );
+
     return response.status === 302;
   } catch (e) {
     // tslint:disable:max-line-length
@@ -29,9 +35,3 @@ export const sendReturnHitRequest = async (
     return true;
   }
 };
-
-const formatFormPayload = (token: string): string =>
-  qs.stringify({
-    _method: 'delete',
-    authenticity_token: token
-  });

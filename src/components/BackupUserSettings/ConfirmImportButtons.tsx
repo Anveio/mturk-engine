@@ -43,7 +43,7 @@ class ConfirmImportButtons extends React.PureComponent<
     });
 
   private toggleCheckbox = (key: PersistedStateKey, value: boolean) => {
-    this.setState((prevState: State): Partial<State> => {
+    this.setState((prevState: State) => {
       const newState = new Map<PersistedStateKey, boolean>(
         prevState.checkedStateKeysMap
       );
@@ -63,7 +63,7 @@ class ConfirmImportButtons extends React.PureComponent<
   };
 
   private toggleModal = () =>
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       modalOpen: !prevState.modalOpen
     }));
 
@@ -88,7 +88,6 @@ class ConfirmImportButtons extends React.PureComponent<
           <StateKeyCheckboxList
             checkedStateKeysMap={this.state.checkedStateKeysMap}
             onClick={this.toggleCheckbox}
-            
           />
         </SelectSettingsDialog>
       </ButtonGroup>

@@ -17,24 +17,24 @@ class WatcherHeading extends React.Component<Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.title !== this.state.title) {
-      this.setState((prevState: State): Partial<State> => ({
+      this.setState((prevState: State) => ({
         title: nextProps.title
       }));
     }
   }
 
   private toggleEditingState = () =>
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       editing: !prevState.editing
     }));
 
   private handleChange = (value: string) =>
-    this.setState((): Partial<State> => ({
+    this.setState(() => ({
       title: value
     }));
 
   private resetTitle = () =>
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       title: this.props.title,
       editing: false
     }));

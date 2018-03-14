@@ -17,7 +17,7 @@ export interface State {
 }
 
 class SelectedHitDate extends React.PureComponent<Props, State> {
-  private maxPage: number;
+  private maxPage = 0;
   constructor(props: Props) {
     super(props);
     this.state = { page: 0 };
@@ -30,7 +30,7 @@ class SelectedHitDate extends React.PureComponent<Props, State> {
     );
 
     if (nextProps.selectedDate !== this.props.selectedDate) {
-      this.setState((): Partial<State> => ({
+      this.setState(() => ({
         page: 0
       }));
     }
@@ -42,17 +42,16 @@ class SelectedHitDate extends React.PureComponent<Props, State> {
   private calculateHasPrevious = (page: number) => page > 0;
 
   private onNext = () =>
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       page: Math.min(prevState.page + 1, this.maxPage)
     }));
 
   private onPrevious = () =>
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       page: Math.max(prevState.page - 1, 0)
     }));
 
   public render() {
-    // console.log(this.props.numResults, this.maxPage);
     const hasNext = this.calculateHasNext(this.state.page, this.maxPage);
     const hasPrevious = this.calculateHasPrevious(this.state.page);
 

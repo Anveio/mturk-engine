@@ -11,7 +11,9 @@ export const validateHitReturn = (html: Document): HitReturnStatus => {
   return !!alertBox ? validateAlertBoxText(alertBox) : 'error';
 };
 
-export const validateAlertBoxText = (el: Element | undefined): HitReturnStatus => {
+export const validateAlertBoxText = (
+  el: Element | undefined
+): HitReturnStatus => {
   if (el === undefined) {
     return 'error';
   }

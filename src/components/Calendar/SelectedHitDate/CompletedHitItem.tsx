@@ -29,7 +29,7 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.hit.id !== this.props.hit.id) {
-      this.setState((): Partial<State> => ({
+      this.setState(() => ({
         expanded: false
       }));
     }
@@ -57,7 +57,7 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
   ];
 
   private handleExpand = () => {
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       expanded: !prevState.expanded
     }));
   };

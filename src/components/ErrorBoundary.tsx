@@ -10,7 +10,7 @@ class ErrorBoundary extends React.PureComponent<{}, State> {
   public readonly state: State = { error: false };
 
   componentDidCatch(errorDetails: Error) {
-    this.setState((): Partial<State> => ({
+    this.setState(() => ({
       error: true,
       errorDetails
     }));

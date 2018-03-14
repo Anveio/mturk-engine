@@ -17,7 +17,7 @@ class WatcherFolderActions extends React.Component<Props, State> {
   public readonly state: State = { modalOpen: false };
 
   private toggleModalOpen = () => {
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       modalOpen: !prevState.modalOpen
     }));
   };

@@ -2,11 +2,11 @@ import * as React from 'react';
 import { Caption } from '@shopify/polaris';
 import { displaySecondsAsHHMMSS } from '../../utils/dates';
 
-export interface Props {
+interface Props {
   readonly initialTimeLeft: number;
 }
 
-export interface State {
+interface State {
   readonly secondsUntilExpiration: number;
 }
 

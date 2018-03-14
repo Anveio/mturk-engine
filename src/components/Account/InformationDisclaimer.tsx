@@ -24,7 +24,7 @@ class InformationDisclaimer extends React.PureComponent<Handlers, State> {
   // };
 
   private toggleVisibility = () =>
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       visible: !prevState.visible
     }));
 

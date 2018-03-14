@@ -4,19 +4,17 @@ import { Checkbox } from '@shopify/polaris';
 import { PersistedStateKey, RootState } from '../../types';
 import { stateKeyMap } from '../../utils/backup';
 import { numImmutableEntries } from '../../selectors/uploadedState';
-// import { PersistedState } from '../../types';
 
-export interface OwnProps {
+interface OwnProps {
   readonly stateKey: PersistedStateKey;
   readonly checked: boolean;
 }
 
-export interface Props {
+interface Props {
   readonly immutableEntriesSize: number | null;
 }
 
-export interface Handlers {
-  // tslint:disable-next-line:no-any
+interface Handlers {
   readonly onClick: (key: PersistedStateKey, value: boolean) => void;
 }
 

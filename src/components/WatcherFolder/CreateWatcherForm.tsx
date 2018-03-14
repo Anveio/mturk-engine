@@ -40,6 +40,8 @@ interface ErrorState {
   readonly error: string | null;
 }
 
+type InputField = keyof InputState;
+
 type State = InputState & ErrorState;
 
 class CreateWatcherForm extends React.PureComponent<
@@ -109,17 +111,20 @@ class CreateWatcherForm extends React.PureComponent<
   };
 
   private displayInvalidIdError = () =>
-    this.setState((): Partial<State> => ({
+    this.setState(() => ({
       error: `That doesn't appear to be a valid project ID or project link.`
     }));
 
   private displayDuplicateWatcherError = (watcher: Watcher) =>
-    this.setState((): Partial<State> => ({
+    this.setState(() => ({
       error: `Watcher "${truncate(watcher.title, 55)}" has duplicate ID.`
     }));
 
-  private handleInput = (field: keyof InputState) => (value: string) =>
-    this.setState((): Partial<State> => ({ [field]: value, error: null }));
+  private handleInput = (field: InputField) => (value: string) =>
+    this.setState((): Pick<State, 'error'> => ({
+      [field]: value,
+      error: null
+    }));
 
   private handleEnterKeyPress = watchForEnter<HTMLDivElement>(
     this.handleSubmit

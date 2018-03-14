@@ -21,7 +21,7 @@ class WatcherInfo extends React.PureComponent<Props, State> {
 
   componentWillReceiveProps(nextProps: Props) {
     if (nextProps.id !== this.props.id) {
-      this.setState((prevState: State): Partial<State> => ({
+      this.setState((prevState: State) => ({
         description: nextProps.description,
         editable: false
       }));
@@ -29,17 +29,17 @@ class WatcherInfo extends React.PureComponent<Props, State> {
   }
 
   private toggleEditableState = () =>
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       editable: !prevState.editable
     }));
 
   private handleChange = (value: string) =>
-    this.setState((): Partial<State> => ({
+    this.setState(() => ({
       description: value
     }));
 
   private resetDescription = () =>
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       description: this.props.description,
       editable: false
     }));

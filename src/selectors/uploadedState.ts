@@ -4,18 +4,19 @@ import {
   RootState,
   PersistedState,
   ImmutablePersistedStateKey,
-  ImmutablePersistedDataType
+  ImmutablePersistedDataType,
+  PersistedStateKey
 } from '../types';
 import {
   validatePersistedStateKey,
   selectReduxPersistStateKey
 } from '../utils/validation';
-import { immutableStateKeyLookup, parseImmutableJson } from '../utils/backup';
+import { immutableStateKeySet, parseImmutableJson } from '../utils/backup';
 import { uploadedStateSelector } from './index';
 
 export const validUploadedState = createSelector(
   [uploadedStateSelector],
-  (uploadedState: Object) => {
+  (uploadedState: Partial<PersistedState> | null) => {
     if (!uploadedState) {
       return null;
     }
@@ -36,7 +37,7 @@ export const validUploadedState = createSelector(
 
 const getUploadedStateKeyValue = (
   state: RootState,
-  stateKeyProp: string
+  stateKeyProp: PersistedStateKey
 ): string | null => {
   if (!state.uploadedState) {
     return null;
@@ -47,9 +48,12 @@ const getUploadedStateKeyValue = (
 
 const uploadedStateKeyIsImmutableObject = (
   state: RootState,
-  stateKeyProp: ImmutablePersistedStateKey
+  stateKeyProp: PersistedStateKey
 ): boolean => {
-  return !!state.uploadedState && immutableStateKeyLookup.has(stateKeyProp);
+  return (
+    !!state.uploadedState &&
+    immutableStateKeySet.has(stateKeyProp as ImmutablePersistedStateKey)
+  );
 };
 
 const immutableStateKeyValue = createSelector(

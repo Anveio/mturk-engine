@@ -36,7 +36,7 @@ class CrashScreen extends React.PureComponent<Props, State> {
   };
 
   private toggleCollapse = () =>
-    this.setState((prevState: State): Partial<State> => ({
+    this.setState((prevState: State) => ({
       collapseOpen: !prevState.collapseOpen
     }));
 

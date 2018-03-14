@@ -24,7 +24,7 @@ class RejectionThreshold extends React.PureComponent<Props, State> {
 
   private onChange = (value: string) => {
     if (validateRejectionThreshold(value)) {
-      this.setState((): Partial<State> => ({
+      this.setState(() => ({
         minimumRate: parseFloat(value) || 0
       }));
     }
@@ -38,7 +38,7 @@ class RejectionThreshold extends React.PureComponent<Props, State> {
       <div style={{ maxWidth: '285px' }}>
         <Card title="Acceptance Rate Calculator">
           <Card.Section>
-            Enter a minimum acceptance rate: {' '}
+            Enter a minimum acceptance rate:{' '}
             <EditableText
               intent={0}
               maxLength={3}

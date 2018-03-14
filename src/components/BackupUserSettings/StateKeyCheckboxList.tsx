@@ -9,7 +9,7 @@ import {
 } from '../../types';
 import StateKeyCheckbox from './StateKeyCheckbox';
 import { validUploadedState } from '../../selectors/uploadedState';
-import { immutableStateKeyLookup } from '../../utils/backup';
+import { immutableStateKeySet } from '../../utils/backup';
 
 export interface Props {
   readonly uploadedState: Partial<PersistedState> | null;
@@ -30,11 +30,11 @@ class StateKeyCheckboxList extends React.Component<
 > {
   static keysGroupedImmutableFirst = (
     uploadedState: Partial<PersistedState>
-  ) => {
+  ): PersistedStateKey[] => {
     return Object.keys(uploadedState).sort(
       (a, b) =>
-        immutableStateKeyLookup.has(a as ImmutablePersistedStateKey) ? -1 : 1
-    );
+        immutableStateKeySet.has(a as ImmutablePersistedStateKey) ? -1 : 1
+    ) as PersistedStateKey[];
   };
 
   public render() {
