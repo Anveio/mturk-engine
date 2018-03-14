@@ -1,5 +1,13 @@
 import { calculateWeightedAverageScore } from '../../utils/turkopticon';
-import { RequesterAttributes, AttributeWeights } from '../../types';
+import {
+  noUndefinedAttributeScores,
+  equalizedWeights,
+  equalizedButAtNotOne,
+  someUndefinedAttributeScores,
+  allUndefinedAttributeScores,
+  allZeroWeights,
+  payEmphasizingWeights
+} from './fixtures';
 
 describe('Calculating requester average T.O. score', () => {
   test('equalized weights and no undefined attributes', () => {
@@ -86,45 +94,3 @@ describe('Calculating requester average T.O. score', () => {
     ).toEqual(null);
   });
 });
-
-const equalizedWeights: AttributeWeights = {
-  commWeight: 1,
-  fairWeight: 1,
-  fastWeight: 1,
-  payWeight: 1
-};
-
-const equalizedButAtNotOne: AttributeWeights = {
-  commWeight: 2,
-  fairWeight: 2,
-  fastWeight: 2,
-  payWeight: 2
-};
-
-const payEmphasizingWeights: AttributeWeights = {
-  commWeight: 1,
-  fairWeight: 1,
-  fastWeight: 1,
-  payWeight: 5
-};
-
-const allZeroWeights: AttributeWeights = {
-  commWeight: 0,
-  fairWeight: 0,
-  fastWeight: 0,
-  payWeight: 0
-};
-
-const noUndefinedAttributeScores: RequesterAttributes = {
-  comm: 2,
-  fair: 3,
-  fast: 4,
-  pay: 5
-};
-
-const someUndefinedAttributeScores: Partial<RequesterAttributes> = {
-  comm: 5,
-  fast: 4
-};
-
-const allUndefinedAttributeScores: Partial<RequesterAttributes> = {};
