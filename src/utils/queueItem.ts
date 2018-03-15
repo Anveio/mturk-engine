@@ -1,15 +1,5 @@
-import { Props as ItemProps } from '@shopify/polaris/types/components/ResourceList/Item';
 import { QueueItem, SearchResult } from '../types';
-import { truncate } from './formatting';
 import * as v4 from 'uuid/v4';
-
-export const generateItemProps = (hit: QueueItem): ItemProps => {
-  const { requester, title } = hit;
-  return {
-    attributeOne: truncate(requester.name, 40),
-    attributeTwo: truncate(title, 75)
-  };
-};
 
 export const blankQueueItem = (groupId: string): QueueItem => ({
   groupId,

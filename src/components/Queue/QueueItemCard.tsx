@@ -2,10 +2,11 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, QueueItem } from '../../types';
 import { ResourceList } from '@shopify/polaris';
+import { Props as ItemProps } from '@shopify/polaris/types/components/ResourceList/Item';
 import QueueItemInfo from './QueueItemInfo';
 import { ReturnAction, returnHitRequest } from '../../actions/return';
-import { generateItemProps } from '../../utils/queueItem';
 import { generateContinueWorkUrl } from '../../utils/urls';
+import { truncate } from 'utils/formatting';
 
 export interface Props {
   readonly hit: QueueItem;
@@ -23,6 +24,14 @@ class QueueItemCard extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
+  private static generateItemProps = (hit: QueueItem): ItemProps => {
+    const { requester, title } = hit;
+    return {
+      attributeOne: truncate(requester.name, 40),
+      attributeTwo: truncate(title, 75)
+    };
+  };
+
   public render() {
     const { hit } = this.props;
     const { reward, timeLeftInSeconds } = hit;
@@ -43,7 +52,7 @@ class QueueItemCard extends React.PureComponent<
     return (
       <ResourceList.Item
         actions={actions}
-        {...generateItemProps(hit)}
+        {...QueueItemCard.generateItemProps(hit)}
         attributeThree={
           <QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />
           // tslint:disable-next-line:jsx-curly-spacing
