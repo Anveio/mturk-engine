@@ -4,9 +4,9 @@ import { truncate } from './formatting';
 import * as v4 from 'uuid/v4';
 
 export const generateItemProps = (hit: QueueItem): ItemProps => {
-  const { requesterName, title } = hit;
+  const { requester, title } = hit;
   return {
-    attributeOne: truncate(requesterName, 40),
+    attributeOne: truncate(requester.name, 40),
     attributeTwo: truncate(title, 75)
   };
 };
@@ -14,7 +14,10 @@ export const generateItemProps = (hit: QueueItem): ItemProps => {
 export const blankQueueItem = (groupId: string): QueueItem => ({
   groupId,
   hitId: '[REFRESH_REQUIRED]' + v4(),
-  requesterName: 'REFRESH_REQUIRED',
+  requester: {
+    name: '[REFRESH_REQUIRED]',
+    id: '[REFRESH_REQUIRED]' + v4()
+  },
   reward: 0,
   taskId: 'REFRESH_REQUIRED',
   timeLeftInSeconds: 10000,
@@ -29,7 +32,7 @@ export const queueItemFromSearchResult = (hit: SearchResult): QueueItem => {
     reward,
     taskId: '[REFRESH_REQUIRED]' + v4(),
     timeLeftInSeconds: timeAllottedInSeconds,
-    requesterName: requester.name,
+    requester: requester,
     title: '[REFRESH_REQUIRED]' + title
   };
 };

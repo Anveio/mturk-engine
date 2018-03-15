@@ -30,7 +30,7 @@ export interface RootState {
   readonly loggedSearchResults: SearchResults;
   readonly watcherTreeSettings: WatcherTreeSettings;
   readonly watcherFolders: WatcherFolderMap;
-  readonly expandedWatcherFolderIds: Set<string>
+  readonly expandedWatcherFolderIds: Set<string>;
   readonly watcherStatistics: WatcherStatisticsMap;
 }
 
@@ -185,7 +185,7 @@ export type HitDatabaseEntry = LegacyHitDatabaseEntry | WorkerHitDatabaseEntry;
 
 export interface QueueItem {
   readonly title: string;
-  readonly requesterName: string;
+  readonly requester: Requester;
   readonly hitId: string;
   readonly groupId: string;
   readonly taskId: string;
