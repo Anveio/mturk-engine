@@ -1,3 +1,5 @@
+export const APPLICATION_TITLE = 'Mturk Engine';
+
 export type DATE_FORMAT = WORKER_DATE_FORMAT | LEGACY_DATE_FORMAT;
 
 export const WORKER_DATE_FORMAT = 'YYYY-MM-DD';
