@@ -39,7 +39,7 @@ export const GUTTER_SIZE = 1;
 export const WEEKDAY_LABELS = ['', 'Mon', '', 'Wed', '', 'Fri', ''];
 export const WEEKDAY_LABEL_SIZE = 30;
 export const SQUARE_SIZE_WITH_GUTTER = SQUARE_SIZE + GUTTER_SIZE;
-export const WEEK_WIDTH = DAYS_IN_WEEK * SQUARE_SIZE_WITH_GUTTER;
+export const WEEK_HEIGHT = DAYS_IN_WEEK * SQUARE_SIZE_WITH_GUTTER;
 
 export const RESULTS_PER_PAGE = 25;
 export const STATUS_DETAIL_RESULTS_PER_PAGE = 20;
