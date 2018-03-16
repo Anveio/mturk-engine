@@ -1,25 +1,25 @@
 import * as React from 'react';
-import { Page } from '@shopify/polaris';
 import ErrorBoundary from './ErrorBoundary';
 import TabNavigation from './TabNavigation/TabNavigation';
 import CustomHead from './CustomHead';
 import NewResultAudioLayer from './NewResultAudioLayer';
 import NewResultNotificationLayer from './NewResultNotificationLayer';
 import Footer from './Footer';
+import PageWrapper from './PageWrapper';
 
 const App: React.SFC<{}> = () => {
   return (
     <main>
       <CustomHead />
       <ErrorBoundary>
-        <Page title="Mturk Engine">
+        <PageWrapper>
           <NewResultNotificationLayer>
             <NewResultAudioLayer>
               <TabNavigation />
               <Footer />
             </NewResultAudioLayer>
           </NewResultNotificationLayer>
-        </Page>
+        </PageWrapper>
       </ErrorBoundary>
     </main>
   );
