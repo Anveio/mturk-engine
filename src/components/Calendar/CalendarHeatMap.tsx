@@ -22,7 +22,7 @@ import {
   MONTH_LABEL_SIZE,
   MONTH_LABELS,
   SQUARE_SIZE,
-  WEEK_WIDTH,
+  WEEK_HEIGHT,
   SQUARE_BORDER_RADIUS
 } from '../../constants/misc';
 
@@ -100,7 +100,7 @@ class CalendarHeatMap extends React.Component<Props, never> {
     GUTTER_SIZE +
     WEEKDAY_LABEL_SIZE;
 
-  private getHeight = () => WEEK_WIDTH + (MONTH_LABEL_SIZE - GUTTER_SIZE);
+  private getHeight = () => WEEK_HEIGHT + MONTH_LABEL_SIZE;
 
   private getViewBox = () =>
     `0 0 ${this.getWidth() + SQUARE_BORDER_RADIUS} ${this.getHeight() +
