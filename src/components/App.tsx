@@ -7,22 +7,20 @@ import NewResultNotificationLayer from './NewResultNotificationLayer';
 import Footer from './Footer';
 import PageWrapper from './PageWrapper';
 
-const App: React.SFC<{}> = () => {
-  return (
-    <main>
-      <CustomHead />
-      <ErrorBoundary>
-        <PageWrapper>
-          <NewResultNotificationLayer>
-            <NewResultAudioLayer>
-              <TabNavigation />
-              <Footer />
-            </NewResultAudioLayer>
-          </NewResultNotificationLayer>
-        </PageWrapper>
-      </ErrorBoundary>
-    </main>
-  );
-};
+const App: React.SFC<{}> = () => (
+  <main>
+    <CustomHead />
+    <ErrorBoundary>
+      <PageWrapper>
+        <NewResultNotificationLayer>
+          <NewResultAudioLayer>
+            <TabNavigation />
+            <Footer />
+          </NewResultAudioLayer>
+        </NewResultNotificationLayer>
+      </PageWrapper>
+    </ErrorBoundary>
+  </main>
+);
 
 export default App;
