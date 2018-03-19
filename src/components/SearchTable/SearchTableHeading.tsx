@@ -5,12 +5,12 @@ import { Card, Stack, Heading } from '@shopify/polaris';
 import { resultsLengthSelector, newResults } from '../../selectors/search';
 import SearchTableButtons from './SearchTableButtons';
 
-export interface Props {
+interface Props {
   readonly rawResultsSize: number;
   readonly numNewHits: number;
 }
 
-export interface OwnProps {
+interface OwnProps {
   readonly displayedResultsSize: number;
 }
 

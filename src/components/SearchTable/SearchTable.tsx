@@ -9,24 +9,26 @@ import EmptySearchTable from './EmptySearchTable';
 import { List } from 'immutable';
 import { filteredResultsGroupId } from '../../selectors/search';
 
-export interface Props {
+interface Props {
+  readonly rawResultsSize: number;
   readonly resultsIds: List<string>;
 }
 
 class SearchTable extends React.Component<Props, never> {
   shouldComponentUpdate(nextProps: Props) {
-    return !this.props.resultsIds.equals(nextProps.resultsIds);
+    return (
+      !this.props.resultsIds.equals(nextProps.resultsIds) ||
+      this.props.rawResultsSize !== nextProps.rawResultsSize
+    );
   }
 
   public render() {
-    const { resultsIds } = this.props;
-    const numResults = resultsIds.size;
-
-    return numResults === 0 ? (
+    const { resultsIds, rawResultsSize } = this.props;
+    return rawResultsSize === 0 ? (
       <EmptySearchTable />
     ) : (
       <Card>
-        <SearchTableHeading displayedResultsSize={numResults} />
+        <SearchTableHeading displayedResultsSize={resultsIds.size} />
         <ResourceList
           items={resultsIds.toArray()}
           renderItem={(id: string) => <SearchCard key={id} groupId={id} />}
@@ -37,7 +39,8 @@ class SearchTable extends React.Component<Props, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  resultsIds: filteredResultsGroupId(state)
+  resultsIds: filteredResultsGroupId(state),
+  rawResultsSize: state.search.size
 });
 
 export default connect(mapState)(SearchTable);
