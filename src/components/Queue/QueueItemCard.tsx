@@ -1,22 +1,22 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { RootState, QueueItem } from '../../types';
+import { RootState, QueueItem } from 'types';
 import { ResourceList } from '@shopify/polaris';
 import { Props as ItemProps } from '@shopify/polaris/types/components/ResourceList/Item';
 import QueueItemInfo from './QueueItemInfo';
-import { ReturnAction, returnHitRequest } from '../../actions/return';
-import { generateContinueWorkUrl } from '../../utils/urls';
+import { ReturnAction, returnHitRequest } from 'actions/return';
+import { generateContinueWorkUrl } from 'utils/urls';
 import { truncate } from 'utils/formatting';
 
-export interface Props {
+interface Props {
   readonly hit: QueueItem;
 }
 
-export interface OwnProps {
+interface OwnProps {
   readonly hitId: string;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onReturn: (queueItem: QueueItem) => void;
 }
 
