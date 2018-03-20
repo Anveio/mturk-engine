@@ -28,7 +28,7 @@ class QueueItemCard extends React.PureComponent<
     const { requester, title } = hit;
     return {
       attributeOne: truncate(requester.name, 40),
-      attributeTwo: truncate(title, 75)
+      attributeTwo: truncate(title, 120)
     };
   };
 
