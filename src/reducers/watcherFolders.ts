@@ -12,7 +12,7 @@ const defaultWatcherFolder: WatcherFolder = {
   id: DEFAULT_WATCHER_FOLDER_ID,
   name: 'Unsorted Watchers',
   dateNumCreation: 0
-}
+};
 
 const initial: WatcherFolderMap = Map<string, WatcherFolder>({
   [DEFAULT_WATCHER_FOLDER_ID]: defaultWatcherFolder
