@@ -8,12 +8,14 @@ import { WatcherFolder, WatcherFolderMap } from '../types';
 import { Map } from 'immutable';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
 
+const defaultWatcherFolder: WatcherFolder = {
+  id: DEFAULT_WATCHER_FOLDER_ID,
+  name: 'Unsorted Watchers',
+  dateNumCreation: 0
+}
+
 const initial: WatcherFolderMap = Map<string, WatcherFolder>({
-  [DEFAULT_WATCHER_FOLDER_ID]: {
-    id: DEFAULT_WATCHER_FOLDER_ID,
-    name: 'Unsorted Watchers',
-    dateNumCreation: 0
-  } as WatcherFolder
+  [DEFAULT_WATCHER_FOLDER_ID]: defaultWatcherFolder
 });
 
 export default (
