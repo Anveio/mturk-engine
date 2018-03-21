@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Anveio/mturk-engine.svg?branch=master)](https://travis-ci.org/Anveio/mturk-engine)
+
 # Mturk Engine
 
 [Download](https://raw.githubusercontent.com/Anveio/mturk-engine/master/build/mturk-engine.latest.user.js)
