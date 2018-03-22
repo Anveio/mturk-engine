@@ -11,16 +11,15 @@ import StateKeyCheckbox from './StateKeyCheckbox';
 import { validUploadedState } from '../../selectors/uploadedState';
 import { immutableStateKeySet } from '../../utils/backup';
 
-export interface Props {
+interface Props {
   readonly uploadedState: Partial<PersistedState> | null;
 }
 
-export interface OwnProps {
+interface OwnProps {
   readonly checkedStateKeysMap: Map<PersistedStateKey, boolean>;
 }
 
-export interface Handlers {
-  // tslint:disable-next-line:no-any
+interface Handlers {
   readonly onClick: (key: PersistedStateKey, value: boolean) => void;
 }
 
