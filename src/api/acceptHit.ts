@@ -18,11 +18,7 @@ export interface HitAcceptResponse {
  * 6. Otherwise, it was successful.
  */
 
-const failureStatusCodes = {
-  404: true,
-  429: true,
-  500: true
-};
+const failureStatusCodes = new Set([403, 404, 429, 500]);
 
 export const sendHitAcceptRequest = async (
   groupId: string
@@ -41,7 +37,7 @@ export const sendHitAcceptRequest = async (
       successful: validateHitAccept(response.data)
     };
   } catch (e) {
-    if (e.response && failureStatusCodes[e.response.status]) {
+    if (e.response && failureStatusCodes.has(e.response.status)) {
       return {
         successful: false
       };
