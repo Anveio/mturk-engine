@@ -2,7 +2,6 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Collapsible, Card, Stack, Caption } from '@shopify/polaris';
 import { SearchResult, RootState } from '../../types';
-import MiscActionsPopover from './MiscActionsPopover';
 import ExternalPlainButtons from './ExternalPlainButtons';
 import BlockRequesterButton from './BlockRequesterButton';
 import AddAsWatcherButton from './AddAsWatcherButton';
@@ -10,6 +9,8 @@ import KnownRequesterButton from './KnownRequesterButton';
 
 import { secondsToMinutes } from '../../utils/dates';
 import QualificationsButton from './QualificationsButton';
+import SearchResultMenu from './SearchResultMenu';
+import MenuActivator from '../MenuActivator';
 
 interface Props {
   readonly hit: SearchResult;
@@ -52,7 +53,9 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
               undefined
             )}
             <Stack vertical={false} alignment="center">
-              <MiscActionsPopover hit={hit} />
+              <MenuActivator>
+                <SearchResultMenu hit={hit} />
+              </MenuActivator>
               <BlockRequesterButton requester={requester} />
               <AddAsWatcherButton hit={hit} />
               <ExternalPlainButtons hit={hit} />
