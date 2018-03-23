@@ -1,5 +1,4 @@
 import {
-  SearchResult,
   RequesterInfo,
   WorkerQualification,
   HumanIntelligenceTask
@@ -18,13 +17,13 @@ import { secondsToMinutes } from './dates';
 const requesterSearchBaseUrl =
   'https://www.mturk.com/mturk/searchbar?requesterId=';
 
-export const generateHwtfUrl = (hit: SearchResult): string => `
+export const generateHwtfUrl = (hit: HumanIntelligenceTask): string => `
 https://www.reddit.com/r/HITsWorthTurkingFor/submit?selftext=true&title=${generateHwtfTitle(
   hit
 )}&text=${hwtfText}
 `;
 
-const generateHwtfTitle = (hit: SearchResult): string => {
+const generateHwtfTitle = (hit: HumanIntelligenceTask): string => {
   return `US - ${hit.title} - ${hit.requester.name} - ${formatAsCurrency(
     hit.reward
   )}/X:XX - (${generateQuals(hit.qualsRequired)})`;
