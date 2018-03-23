@@ -7,9 +7,12 @@ import QueueItemInfo from './QueueItemInfo';
 import { ReturnAction, returnHitRequest } from 'actions/return';
 import { generateContinueWorkUrl } from 'utils/urls';
 import { truncate } from 'utils/formatting';
+import QueueCollapsibleInfo from './QueueCollapsibleInfo';
+import { hitDatabaseToRequesterMap } from 'selectors/hitDatabase';
 
 interface Props {
   readonly hit: QueueItem;
+  readonly knownRequester: boolean;
 }
 
 interface OwnProps {
@@ -33,7 +36,7 @@ class QueueItemCard extends React.PureComponent<
   };
 
   public render() {
-    const { hit } = this.props;
+    const { hit, knownRequester } = this.props;
     const { reward, timeLeftInSeconds } = hit;
     const actions = [
       {
@@ -50,21 +53,33 @@ class QueueItemCard extends React.PureComponent<
     ];
 
     return (
-      <ResourceList.Item
-        actions={actions}
-        {...QueueItemCard.generateItemProps(hit)}
-        attributeThree={
-          <QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />
-          // tslint:disable-next-line:jsx-curly-spacing
-        }
-      />
+      <React.Fragment>
+        <ResourceList.Item
+          actions={actions}
+          {...QueueItemCard.generateItemProps(hit)}
+          attributeThree={
+            <QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />
+            // tslint:disable-next-line:jsx-curly-spacing
+          }
+        />
+        <QueueCollapsibleInfo
+          hitId={hit.hitId}
+          knownRequester={knownRequester}
+          requesterId={hit.requester.id}
+          requesterName={hit.requester.name}
+        />
+      </React.Fragment>
     );
   }
 }
 
-const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  hit: state.queue.get(ownProps.hitId)
-});
+const mapState = (state: RootState, ownProps: OwnProps): Props => {
+  const hit = state.queue.get(ownProps.hitId);
+  return {
+    hit,
+    knownRequester: !!hitDatabaseToRequesterMap(state).get(hit.requester.id)
+  };
+};
 
 const mapDispatch = (dispatch: Dispatch<ReturnAction>): Handlers => ({
   onReturn: (queueItem: QueueItem) => dispatch(returnHitRequest(queueItem))

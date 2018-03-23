@@ -9,7 +9,7 @@ export interface OwnProps {
   readonly hit: SearchResult;
 }
 
-class MiscActionsPopOver extends React.PureComponent<OwnProps, never> {
+class ExternalPlainButtons extends React.PureComponent<OwnProps, never> {
   public render() {
     const { hit: { groupId, requester, qualified, canPreview } } = this.props;
 
@@ -42,4 +42,4 @@ class MiscActionsPopOver extends React.PureComponent<OwnProps, never> {
     );
   }
 }
-export default MiscActionsPopOver;
+export default ExternalPlainButtons;
