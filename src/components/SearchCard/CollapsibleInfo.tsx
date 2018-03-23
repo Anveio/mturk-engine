@@ -9,8 +9,8 @@ import KnownRequesterButton from './KnownRequesterButton';
 
 import { secondsToMinutes } from '../../utils/dates';
 import QualificationsButton from './QualificationsButton';
-import SearchResultMenu from './SearchResultMenu';
 import MenuActivator from '../MenuActivator';
+import HitMenu from '../HitMenu';
 
 interface Props {
   readonly hit: SearchResult;
@@ -54,7 +54,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
             )}
             <Stack vertical={false} alignment="center">
               <MenuActivator>
-                <SearchResultMenu hit={hit} />
+                <HitMenu hit={hit} />
               </MenuActivator>
               <BlockRequesterButton requester={requester} />
               <AddAsWatcherButton hit={hit} />
