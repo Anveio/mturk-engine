@@ -1,4 +1,9 @@
-import { SearchResult, RequesterInfo, WorkerQualification } from '../types';
+import {
+  SearchResult,
+  RequesterInfo,
+  WorkerQualification,
+  HumanIntelligenceTask
+} from '../types';
 import {
   baseTaskUrlWorker,
   baseRequesterUrlWorker,
@@ -35,7 +40,7 @@ const hwtfText =
   `**Placeholder (Delete this when you're done):** Remember to fill in the (X:XX) with the approximate time it took you to complete the HIT. Mturk Engine assumes that the HIT is US by default but if international workers are allowed to work on this HIT, change "US" to "ICA". For more information, see HWTF's contribution guidelines at https://www.reddit.com/r/HITsWorthTurkingFor/wiki/index#wiki_contributing_to_the_community_pool
   `;
 
-export const generateMarkdownExport = (hit: SearchResult): string => {
+export const generateMarkdownExport = (hit: HumanIntelligenceTask): string => {
   const {
     title,
     groupId,
