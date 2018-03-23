@@ -1,5 +1,9 @@
 import * as qs from 'qs';
-import { QueueItem, SearchResult, WorkerHitDatabaseEntry } from '../types';
+import {
+  QueueItem,
+  WorkerHitDatabaseEntry,
+  HumanIntelligenceTask
+} from 'types';
 import {
   baseContactUrlWorker,
   baseAcceptUrlLegacy,
@@ -69,7 +73,7 @@ export const generateContactLink = (hit: WorkerHitDatabaseEntry) => {
   );
 };
 
-export const generateContactLinkSearchResult = (hit: SearchResult) => {
+export const generateContactLinkSearchResult = (hit: HumanIntelligenceTask) => {
   const { requester, groupId, title } = hit;
   return (
     baseContactUrlWorker +
