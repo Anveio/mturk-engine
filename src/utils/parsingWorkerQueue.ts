@@ -18,6 +18,7 @@ const createQueueItem = (input: WorkerQueueItem): QueueItem => ({
     id: input.project.requester_id,
     name: input.project.requester_name
   },
+  description: input.project.description,
   reward: input.project.monetary_reward.amount_in_dollars,
   timeLeftInSeconds: input.time_to_deadline_in_seconds
 });

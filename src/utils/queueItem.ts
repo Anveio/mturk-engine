@@ -10,8 +10,9 @@ export const blankQueueItem = (groupId: string): QueueItem => ({
   },
   reward: 0,
   taskId: 'REFRESH_REQUIRED',
-  timeLeftInSeconds: 10000,
-  title: 'REFRESH_REQUIRED'
+  timeLeftInSeconds: 0,
+  title: '[REFRESH_REQUIRED]',
+  description: '[REFRESH_REQUIRED]'
 });
 
 export const queueItemFromSearchResult = (hit: SearchResult): QueueItem => {
@@ -23,6 +24,7 @@ export const queueItemFromSearchResult = (hit: SearchResult): QueueItem => {
     taskId: '[REFRESH_REQUIRED]' + v4(),
     timeLeftInSeconds: timeAllottedInSeconds,
     requester: requester,
-    title: '[REFRESH_REQUIRED]' + title
+    title: '[REFRESH_REQUIRED]' + title,
+    description: '[REFRESH_REQUIRED]'
   };
 };

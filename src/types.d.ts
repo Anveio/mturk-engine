@@ -183,13 +183,10 @@ export interface WorkerHitDatabaseEntry extends LegacyHitDatabaseEntry {
 
 export type HitDatabaseEntry = LegacyHitDatabaseEntry | WorkerHitDatabaseEntry;
 
-export interface QueueItem {
-  readonly title: string;
-  readonly requester: Requester;
+export interface QueueItem extends HumanIntelligenceTask {
+  readonly description: string;
   readonly hitId: string;
-  readonly groupId: string;
   readonly taskId: string;
-  readonly reward: number;
   readonly timeLeftInSeconds: number;
 }
 
