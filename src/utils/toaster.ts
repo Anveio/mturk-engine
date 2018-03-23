@@ -3,11 +3,15 @@ import { truncate, pluralize } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsCurrency } from './formatting';
 import { Toaster, Position, Intent, IToastProps } from '@blueprintjs/core';
-import { ImmutablePersistedStateKey, SearchResult } from '../types';
+import {
+  ImmutablePersistedStateKey,
+  SearchResult,
+  HumanIntelligenceTask
+} from '../types';
 import { GenericWaitingToast } from '../components/Toasts';
 import store from '../store';
 import { addWatcher, scheduleWatcher } from '../actions/watcher';
-import { watcherFromSearchResult } from './watchers';
+import { createWatcherWithInfo } from './watchers';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
 
@@ -206,14 +210,14 @@ export const failedAcceptToast = (hit: SearchResult): IToastProps => ({
   action: {
     text: 'Add as watcher',
     onClick: () => {
-      const newWatcher = watcherFromSearchResult(hit);
+      const newWatcher = createWatcherWithInfo(hit);
       store.dispatch(addWatcher(newWatcher));
       watcherAddedToast(hit);
     }
   }
 });
 
-export const watcherAddedToast = (hit: SearchResult) =>
+export const watcherAddedToast = (hit: HumanIntelligenceTask) =>
   TopRightToaster.show({
     message: `Watcher added. Look for "${
       hit.title

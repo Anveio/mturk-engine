@@ -1,14 +1,18 @@
 import * as React from 'react';
-import { SearchResult, RootState, WatcherMap } from '../../types';
+import {
+  RootState,
+  WatcherMap,
+  HumanIntelligenceTask
+} from '../../types';
 import { Button } from '@shopify/polaris';
 import { connect, Dispatch } from 'react-redux';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
-import { watcherFromSearchResult } from '../../utils/watchers';
+import { createWatcherWithInfo } from '../../utils/watchers';
 import { watcherAddedToast, plainToast } from '../../utils/toaster';
 import { normalizedWatchers } from '../../selectors/watchers';
 
 interface OwnProps {
-  readonly hit: SearchResult;
+  readonly hit: HumanIntelligenceTask;
 }
 
 interface Props {
@@ -16,7 +20,7 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onAddWatcher: (hit: SearchResult) => void;
+  readonly onAddWatcher: (hit: HumanIntelligenceTask) => void;
 }
 
 class AddAsWatcherButton extends React.Component<
@@ -51,8 +55,8 @@ class AddAsWatcherButton extends React.Component<
 }
 
 const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
-  onAddWatcher: (hit: SearchResult) => {
-    dispatch(addWatcher(watcherFromSearchResult(hit)));
+  onAddWatcher: (hit: HumanIntelligenceTask) => {
+    dispatch(addWatcher(createWatcherWithInfo(hit)));
     watcherAddedToast(hit);
   }
 });
