@@ -139,6 +139,7 @@ export interface HumanIntelligenceTask {
   readonly reward: number;
   readonly groupId: string;
   readonly description: string;
+  readonly timeAllottedInSeconds: number;
 }
 
 export interface SearchResult extends HumanIntelligenceTask {
@@ -147,7 +148,6 @@ export interface SearchResult extends HumanIntelligenceTask {
   readonly markedAsRead?: boolean;
   readonly batchSize: number;
   readonly qualified: boolean;
-  readonly timeAllottedInSeconds: number;
   readonly qualsRequired: WorkerQualification[];
   readonly canPreview: boolean;
 }
