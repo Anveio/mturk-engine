@@ -140,6 +140,7 @@ export interface HumanIntelligenceTask {
   readonly groupId: string;
   readonly description: string;
   readonly timeAllottedInSeconds: number;
+  readonly qualsRequired: WorkerQualification[];
   readonly batchSize: number;
 }
 
@@ -148,7 +149,6 @@ export interface SearchResult extends HumanIntelligenceTask {
   readonly lastUpdatedTime: number; // Date converted to number
   readonly markedAsRead?: boolean;
   readonly qualified: boolean;
-  readonly qualsRequired: WorkerQualification[];
   readonly canPreview: boolean;
 }
 

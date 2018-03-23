@@ -14,7 +14,8 @@ export const blankQueueItem = (groupId: string): QueueItem => ({
   timeAllottedInSeconds: 0,
   title: '[REFRESH_REQUIRED]',
   description: '[REFRESH_REQUIRED]',
-  batchSize: 0
+  batchSize: 0,
+  qualsRequired: []
 });
 
 export const queueItemFromSearchResult = (hit: SearchResult): QueueItem => {
@@ -29,6 +30,7 @@ export const queueItemFromSearchResult = (hit: SearchResult): QueueItem => {
     title: '[REFRESH_REQUIRED]' + title,
     description: '[REFRESH_REQUIRED]',
     timeAllottedInSeconds: hit.timeAllottedInSeconds,
-    batchSize: hit.batchSize
+    batchSize: hit.batchSize,
+    qualsRequired: hit.qualsRequired
   };
 };

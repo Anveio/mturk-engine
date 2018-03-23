@@ -1,6 +1,7 @@
 import { Map } from 'immutable';
 import { QueueMap, QueueItem } from '../types';
 import { WorkerQueueItem } from '../worker-mturk-api';
+import { transformProjectRequirements } from './qualifications';
 
 export const tabulateQueueData = (input: WorkerQueueItem[]): QueueMap =>
   input.reduce(
@@ -22,5 +23,6 @@ const createQueueItem = (input: WorkerQueueItem): QueueItem => ({
   reward: input.project.monetary_reward.amount_in_dollars,
   timeLeftInSeconds: input.time_to_deadline_in_seconds,
   timeAllottedInSeconds: input.project.assignment_duration_in_seconds,
-  batchSize: input.project.assignable_hits_count
+  batchSize: input.project.assignable_hits_count,
+  qualsRequired: transformProjectRequirements(input.project.hit_requirements)
 });
