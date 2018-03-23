@@ -9,15 +9,16 @@ import {
   blockRequester
 } from '../../actions/blockRequester';
 
-export interface OwnProps {
+interface OwnProps {
   readonly requester: Requester;
+  readonly withToast: boolean;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onBlockRequester: (requester: BlockedRequester) => void;
 }
 
-export interface State {
+interface State {
   readonly hovering: boolean;
 }
 
