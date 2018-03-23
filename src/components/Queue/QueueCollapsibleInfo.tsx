@@ -5,6 +5,8 @@ import { RootState, QueueItem } from '../../types';
 import KnownRequesterButton from '../SearchCard/KnownRequesterButton';
 import BlockRequesterButton from '../SearchCard/BlockRequesterButton';
 import AddAsWatcherButton from '../SearchCard/AddAsWatcherButton';
+import MenuActivator from '../MenuActivator';
+import HitMenu from '../HitMenu';
 
 interface Props {
   readonly hit: QueueItem;
@@ -37,6 +39,9 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
               undefined
             )}
             <Stack vertical={false} alignment="center">
+              <MenuActivator>
+                <HitMenu hit={hit} />
+              </MenuActivator>
               <BlockRequesterButton requester={requester} />
               <AddAsWatcherButton hit={hit} />
             </Stack>
