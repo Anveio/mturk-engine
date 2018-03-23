@@ -8,6 +8,7 @@ import {
   BlockRequesterAction,
   blockRequester
 } from '../../actions/blockRequester';
+import { plainToast } from 'utils/toaster';
 
 interface OwnProps {
   readonly requester: Requester;
@@ -26,12 +27,17 @@ class BlockRequesterButton extends React.PureComponent<
   OwnProps & Handlers,
   State
 > {
-  state: State = {
+  public readonly state: State = {
     hovering: false
   };
 
   private handleBlockRequester = () => {
     this.props.onBlockRequester(blockedRequesterFactory(this.props.requester));
+    if (this.props.withToast) {
+      plainToast(
+        `${this.props.requester.name} has been added to your blocklist.`
+      );
+    }
   };
 
   private handleMouseEnter = () => {

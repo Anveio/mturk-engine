@@ -42,6 +42,8 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
               <MenuActivator>
                 <HitMenu hit={hit} />
               </MenuActivator>
+              {/* We want to display a toast when a requester is blocked via the 
+              queue because they have no feedback the button worked otherwise. */}
               <BlockRequesterButton requester={requester} withToast={true} />
               <AddAsWatcherButton hit={hit} />
             </Stack>
