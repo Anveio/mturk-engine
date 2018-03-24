@@ -7,11 +7,11 @@ import {
   TextField,
   Button as PolarisButton
 } from '@shopify/polaris';
-import { validatePositiveNumber } from '../../../utils/validation';
-import { formatAsCurrency } from '../../../utils/formatting';
-import { EditBonus, editBonus } from '../../../actions/bonus';
-import { successfulEditBonusToast } from '../../../utils/toaster';
-import { watchForEnter } from '../../../utils/watchForEnter';
+import { validatePositiveNumber } from 'utils/validation';
+import { formatAsCurrency } from 'utils/formatting';
+import { EditBonus, editBonus } from 'actions/bonus';
+import { successfulEditBonusToast } from 'utils/toaster';
+import { watchForEnter } from 'utils/watchForEnter';
 
 export interface OwnProps {
   readonly bonus: number;

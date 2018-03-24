@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Card, ButtonGroup, Button } from '@shopify/polaris';
-import { RootState } from '../../../types';
+import { RootState } from 'types';
 import {
   FetchStatusDetailRequest,
   statusDetailRequest
-} from '../../../actions/statusDetail';
-import { stringToDate } from '../../../utils/dates';
-import { LEGACY_DATE_FORMAT } from '../../../constants/misc';
+} from 'actions/statusDetail';
+import { stringToDate } from 'utils/dates';
+import { LEGACY_DATE_FORMAT } from 'constants/misc';
 
 interface Props {
   readonly selectedDate: string | null;

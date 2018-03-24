@@ -1,22 +1,18 @@
 import * as React from 'react';
-import {
-  RootState,
-  HitDatabaseEntry,
-  WorkerHitDatabaseEntry
-} from '../../../types';
+import { RootState, HitDatabaseEntry, WorkerHitDatabaseEntry } from 'types';
 import { connect } from 'react-redux';
 import { ResourceList } from '@shopify/polaris';
-import { generateReviewLink } from '../../../utils/turkopticon';
-import { generateHitStatusBadge } from '../../../utils/badges';
-import { truncate, formatAsCurrency } from '../../../utils/formatting';
+import { generateReviewLink } from 'utils/turkopticon';
+import { generateHitStatusBadge } from 'utils/badges';
+import { truncate, formatAsCurrency } from 'utils/formatting';
 import HitDbEntryCollapsible from './HitDbEntryCollapsible';
-import { generateContactLink } from '../../../utils/urls';
+import { generateContactLink } from 'utils/urls';
 
-export interface OwnProps {
+interface OwnProps {
   readonly id: string;
 }
 
-export interface Props {
+interface Props {
   readonly hit: HitDatabaseEntry;
 }
 

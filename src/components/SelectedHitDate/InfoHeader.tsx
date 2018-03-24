@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RootState, DailyEarnings } from '../../../types';
+import { RootState, DailyEarnings } from 'types';
 import { Card, Stack, Heading } from '@shopify/polaris';
-import { formatAsCurrency } from '../../../utils/formatting';
+import { formatAsCurrency } from 'utils/formatting';
 import {
   earningsOnDate,
   pendingEarningsOnDate,
   hitsOnSelectedDateIds
-} from '../../../selectors/hitDatabaseDay';
+} from 'selectors/hitDatabaseDay';
 import PaginationButtons, {
   Handlers as PaginationHandlers,
   Props as PaginationProps

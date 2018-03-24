@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Collapsible, Card, Stack, TextStyle, Caption } from '@shopify/polaris';
-import { HitDatabaseEntry } from '../../../types';
+import { HitDatabaseEntry } from 'types';
 import EditBonusButton from './EditBonusButton';
 
 export interface Props {

@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import { Card } from '@shopify/polaris';
 import { Button } from '@blueprintjs/core';
 
 export interface Props {

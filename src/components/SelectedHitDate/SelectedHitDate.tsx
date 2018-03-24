@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RootState } from '../../../types';
-import { RESULTS_PER_PAGE } from '../../../constants/misc';
-import { hitsOnSelectedDateIds } from '../../../selectors/hitDatabaseDay';
+import { RootState } from 'types';
+import { RESULTS_PER_PAGE } from 'constants/misc';
+import { hitsOnSelectedDateIds } from 'selectors/hitDatabaseDay';
 import CompletedHitList from './CompletedHitList';
 import DateDisplayCard from './DateDisplayCard';
 import InfoHeader from './InfoHeader';
