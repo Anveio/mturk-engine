@@ -2,13 +2,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Collapsible, Card, Stack, Caption } from '@shopify/polaris';
 import { SearchResult, RootState } from '../../types';
-import ExternalPlainButtons from './ExternalPlainButtons';
-import BlockRequesterButton from './BlockRequesterButton';
-import AddAsWatcherButton from './AddAsWatcherButton';
-import KnownRequesterButton from './KnownRequesterButton';
+import ExternalPlainButtons from '../Buttons/ExternalPlainButtons';
+import BlockRequesterButton from '../Buttons/BlockRequesterButton';
+import AddAsWatcherButton from '../Buttons/AddAsWatcherButton';
+import KnownRequesterButton from '../Buttons/KnownRequesterButton';
 
 import { secondsToMinutes } from '../../utils/dates';
-import QualificationsButton from './QualificationsButton';
+import QualificationsButton from '../Buttons/QualificationsButton';
 import MenuActivator from '../MenuActivator';
 import HitMenu from '../HitMenu';
 

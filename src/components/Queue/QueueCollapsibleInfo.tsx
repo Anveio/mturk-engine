@@ -2,9 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Collapsible, Card, Stack, Caption } from '@shopify/polaris';
 import { RootState, QueueItem } from '../../types';
-import KnownRequesterButton from '../SearchCard/KnownRequesterButton';
-import BlockRequesterButton from '../SearchCard/BlockRequesterButton';
-import AddAsWatcherButton from '../SearchCard/AddAsWatcherButton';
+import KnownRequesterButton from '../Buttons/KnownRequesterButton';
+import BlockRequesterButton from '../Buttons/BlockRequesterButton';
+import AddAsWatcherButton from '../Buttons/AddAsWatcherButton';
 import MenuActivator from '../MenuActivator';
 import HitMenu from '../HitMenu';
 
