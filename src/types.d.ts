@@ -25,7 +25,7 @@ export interface RootState {
   readonly audioSettingsV1: AudioSettings;
   readonly watcherTimes: WatcherTimerMap;
   readonly uploadedState: Partial<PersistedState> | null;
-  readonly expandedSearchResults: ExpandedSearchResultsMap;
+  readonly expandedSearchResults: ExpandedSearchResultsSet;
   readonly notificationSettings: NotificationSettings;
   readonly loggedSearchResults: SearchResults;
   readonly watcherTreeSettings: WatcherTreeSettings;
@@ -43,7 +43,7 @@ export type WatcherMap = Map<string, Watcher>; // indexed by groupId
 export type WatcherTimerMap = Map<string, WatcherTimer>; // indexed by groupId
 export type WatcherFolderMap = Map<string, WatcherFolder>; // indexed by folderId
 export type HitDatabaseMap = Map<string, HitDatabaseEntry>; // indexed by LEGACY_DATE_FORMAT string
-export type ExpandedSearchResultsMap = Map<string, true>; // indexed by groupId
+export type ExpandedSearchResultsSet = Set<string>; // indexed by groupId
 export type WatcherStatisticsMap = Map<string, WatcherStatistics>; // indexed by groupId
 
 export type Primitive = string | number | boolean;
