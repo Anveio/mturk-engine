@@ -28,7 +28,7 @@ import {
 } from '../../selectors/hitDatabase';
 import { uniqueGroupIdsInQueueHistogram } from '../../selectors/queue';
 import { searchResultSelector } from '../../selectors/index';
-import { RESOURCE_LIST_ITEM_CLASS } from 'constants/misc';
+import { clickDidNotOccurOnActionButton } from 'utils/resourceList';
 
 export interface Props {
   readonly hit: SearchResult;
@@ -53,13 +53,8 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
   private static generateNewResultHighlightStyle = (markedAsRead?: boolean) =>
     markedAsRead ? {} : { backgroundColor: '#EBF5FA' };
 
-  static clickDidNotOccurOnActionButton = (
-    e: React.MouseEvent<HTMLDivElement>
-  ): boolean =>
-    (e.target as Element).getAttribute('class') === RESOURCE_LIST_ITEM_CLASS;
-
   private handleExpand = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (SearchCard.clickDidNotOccurOnActionButton(e)) {
+    if (clickDidNotOccurOnActionButton(e)) {
       this.props.onToggleExpand(this.props.hit);
     }
   };
@@ -105,7 +100,6 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
     const {
       hit,
       knownRequester,
-
       hitsInQueue,
       weightedToScore,
       requesterWorkHistory
