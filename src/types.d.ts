@@ -26,6 +26,7 @@ export interface RootState {
   readonly watcherTimes: WatcherTimerMap;
   readonly uploadedState: Partial<PersistedState> | null;
   readonly expandedSearchResults: ExpandedSearchResultsSet;
+  readonly expandedQueueItems: ExpandedQueueItemsSet;
   readonly notificationSettings: NotificationSettings;
   readonly loggedSearchResults: SearchResults;
   readonly watcherTreeSettings: WatcherTreeSettings;
@@ -44,6 +45,7 @@ export type WatcherTimerMap = Map<string, WatcherTimer>; // indexed by groupId
 export type WatcherFolderMap = Map<string, WatcherFolder>; // indexed by folderId
 export type HitDatabaseMap = Map<string, HitDatabaseEntry>; // indexed by LEGACY_DATE_FORMAT string
 export type ExpandedSearchResultsSet = Set<string>; // indexed by groupId
+export type ExpandedQueueItemsSet = Set<string>; // indexed by hitId
 export type WatcherStatisticsMap = Map<string, WatcherStatistics>; // indexed by groupId
 
 export type Primitive = string | number | boolean;

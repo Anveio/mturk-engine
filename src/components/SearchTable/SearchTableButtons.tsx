@@ -3,7 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import { MarkAllHitsAsRead, markAllHitsAsRead } from '../../actions/markAsRead';
 import {
   CollapseAllResults,
-  collapseAllResults
+  collapseAllSearchResults
 } from '../../actions/toggleExpand';
 import SortingMenu from './SortingMenu';
 import { ButtonGroup, Button } from '@shopify/polaris';
@@ -35,7 +35,7 @@ const mapDispatch = (
   dispatch: Dispatch<SearchTableButtonsAction>
 ): Handlers => ({
   onMarkAllAsRead: () => dispatch(markAllHitsAsRead()),
-  collapseAllResults: () => dispatch(collapseAllResults())
+  collapseAllResults: () => dispatch(collapseAllSearchResults())
 });
 
 export default connect(null, mapDispatch)(SearchTableButtons);

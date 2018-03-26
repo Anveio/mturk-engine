@@ -28,6 +28,7 @@ import { default as watcherTreeSettings } from './reducers/watcherTreeSettings';
 import { default as watcherFolders } from './reducers/watcherFolders';
 import { default as watcherStatistics } from './reducers/watcherStatistics';
 import { default as expandedWatcherFolderIds } from './reducers/expandedWatcherFolderIds';
+import { default as expandedQueueItems } from './reducers/expandedQueueItems';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -52,6 +53,7 @@ export const rootReducer = combineReducers<RootState>({
   selectedHitDbDate,
   requesterBlocklist,
   legacyLinksEnabled,
+  expandedQueueItems,
   watcherTreeSettings,
   loggedSearchResults,
   notificationSettings,

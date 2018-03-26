@@ -12,7 +12,7 @@ import { AcceptAction, acceptHitRequestfromSearch } from '../../actions/accept';
 import { MarkHitAsRead, markHitAsRead } from '../../actions/markAsRead';
 import { BlockHitAction, blockHitGroup } from '../../actions/blockHitGroup';
 import {
-  ExpandAction,
+  SearchExpandAction,
   toggleSearchResultExpand
 } from '../../actions/toggleExpand';
 import InfoContainer from './InfoContainer';
@@ -151,7 +151,7 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
 type SearchTableAction =
   | AcceptAction
   | BlockHitAction
-  | ExpandAction
+  | SearchExpandAction
   | MarkHitAsRead;
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => {

@@ -1,6 +1,6 @@
 import { Set } from 'immutable';
 import { ExpandedSearchResultsSet } from '../types';
-import { ExpandAction } from '../actions/toggleExpand';
+import { SearchExpandAction } from '../actions/toggleExpand';
 import {
   TOGGLE_SEARCH_RESULT_EXPAND,
   COLLAPSE_ALL_SEARCH_RESULTS
@@ -8,7 +8,7 @@ import {
 
 const initial: ExpandedSearchResultsSet = Set<string>([]);
 
-export default (state = initial, action: ExpandAction) => {
+export default (state = initial, action: SearchExpandAction) => {
   switch (action.type) {
     case TOGGLE_SEARCH_RESULT_EXPAND:
       return state.get(action.hit.groupId)
