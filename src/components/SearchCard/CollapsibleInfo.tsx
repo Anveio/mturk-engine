@@ -69,7 +69,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   hit: state.search.get(ownProps.groupId),
-  expanded: !!state.expandedSearchResults.get(ownProps.groupId)
+  expanded: state.expandedSearchResults.has(ownProps.groupId)
 });
 
 export default connect(mapState)(CollapsibleInfo);

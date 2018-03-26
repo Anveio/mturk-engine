@@ -56,7 +56,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   hit: state.queue.get(ownProps.hitId),
-  expanded: true
+  expanded: state.expandedQueueItems.has(ownProps.hitId)
 });
 
 export default connect(mapState)(CollapsibleInfo);
