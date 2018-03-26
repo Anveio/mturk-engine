@@ -4,7 +4,7 @@ import UserInfo from './UserInfo';
 import Calendar from '../Calendar/Calendar';
 import EarningsSummary from './EarningsSummary';
 import InformationDisclaimer from './InformationDisclaimer';
-import SelectedHitDate from '../Calendar/SelectedHitDate/SelectedHitDate';
+import SelectedHitDate from '../SelectedHitDate/SelectedHitDate';
 
 class ConnectedAccountLayout extends React.PureComponent<{}, never> {
   public render() {
