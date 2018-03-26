@@ -9,6 +9,8 @@ import { generateContinueWorkUrl } from 'utils/urls';
 import { truncate } from 'utils/formatting';
 import QueueCollapsibleInfo from './QueueCollapsibleInfo';
 import { hitDatabaseToRequesterMap } from 'selectors/hitDatabase';
+import { clickDidNotOccurOnActionButton } from 'utils/resourceList';
+import { toggleQueueItemExpand } from 'actions/toggleExpand';
 
 interface Props {
   readonly hit: QueueItem;
@@ -21,12 +23,19 @@ interface OwnProps {
 
 interface Handlers {
   readonly onReturn: (queueItem: QueueItem) => void;
+  readonly onToggleExpand: (hitId: string) => void;
 }
 
 class QueueItemCard extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
+  private handleExpand = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (clickDidNotOccurOnActionButton(e)) {
+      this.props.onToggleExpand(this.props.hitId);
+    }
+  };
+
   private static generateItemProps = (hit: QueueItem): ItemProps => {
     const { requester, title } = hit;
     return {
@@ -54,14 +63,16 @@ class QueueItemCard extends React.PureComponent<
 
     return (
       <React.Fragment>
-        <ResourceList.Item
-          actions={actions}
-          {...QueueItemCard.generateItemProps(hit)}
-          attributeThree={
-            <QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />
-            // tslint:disable-next-line:jsx-curly-spacing
-          }
-        />
+        <div onClick={this.handleExpand}>
+          <ResourceList.Item
+            actions={actions}
+            {...QueueItemCard.generateItemProps(hit)}
+            attributeThree={
+              <QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />
+              // tslint:disable-next-line:jsx-curly-spacing
+            }
+          />
+        </div>
         <QueueCollapsibleInfo
           hitId={hit.hitId}
           knownRequester={knownRequester}
@@ -82,7 +93,8 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
 };
 
 const mapDispatch = (dispatch: Dispatch<ReturnAction>): Handlers => ({
-  onReturn: (queueItem: QueueItem) => dispatch(returnHitRequest(queueItem))
+  onReturn: (queueItem: QueueItem) => dispatch(returnHitRequest(queueItem)),
+  onToggleExpand: (hitId: string) => dispatch(toggleQueueItemExpand(hitId))
 });
 
 export default connect(mapState, mapDispatch)(QueueItemCard);
