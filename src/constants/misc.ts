@@ -50,3 +50,6 @@ export const DEFAULT_WATCHER_FOLDER_ID = '___UNSORTED_WATCHER_FOLDER___';
 
 export const DEFAULT_NEW_WATCHER_FOLDER_NAME = 'New Folder';
 export const WATCHER_FOLDER_NAME_SUFFIX_CONNECTOR = '-';
+
+export const RESOURCE_LIST_ITEM_CLASS =
+  'Polaris-ResourceList__Item Polaris-ResourceList__Item--focused';

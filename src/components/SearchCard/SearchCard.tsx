@@ -28,6 +28,7 @@ import {
 } from '../../selectors/hitDatabase';
 import { uniqueGroupIdsInQueueHistogram } from '../../selectors/queue';
 import { searchResultSelector } from '../../selectors/index';
+import { RESOURCE_LIST_ITEM_CLASS } from 'constants/misc';
 
 export interface Props {
   readonly hit: SearchResult;
@@ -52,13 +53,10 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
   private static generateNewResultHighlightStyle = (markedAsRead?: boolean) =>
     markedAsRead ? {} : { backgroundColor: '#EBF5FA' };
 
-  static resourceListItemClass = 'Polaris-ResourceList__Item Polaris-ResourceList__Item--focused';
-
   static clickDidNotOccurOnActionButton = (
     e: React.MouseEvent<HTMLDivElement>
   ): boolean =>
-    (e.target as Element).getAttribute('class') ===
-    SearchCard.resourceListItemClass;
+    (e.target as Element).getAttribute('class') === RESOURCE_LIST_ITEM_CLASS;
 
   private handleExpand = (e: React.MouseEvent<HTMLDivElement>) => {
     if (SearchCard.clickDidNotOccurOnActionButton(e)) {
