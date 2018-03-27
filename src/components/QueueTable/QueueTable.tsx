@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Card, ResourceList, Stack, Button } from '@shopify/polaris';
+import { Card, ResourceList } from '@shopify/polaris';
 import { RootState } from '../../types';
 import { queueItemsIds } from '../../selectors/queue';
 import { FetchQueueRequest, fetchQueueRequest } from '../../actions/queue';
 import { TabIndex } from '../../constants/tabs';
 import EmptyQueue from './EmptyQueue';
 import QueueItemCard from '../Queue/QueueItemCard';
+import QueueTableHeading from './QueueTableHeading';
 
 interface Props {
   readonly selectedTabIndex: number;
@@ -39,17 +40,16 @@ class QueueTable extends React.PureComponent<Props & Handlers, State> {
     return queueItemIds.length === 0 ? (
       <EmptyQueue onRefresh={onRefresh} />
     ) : (
-      <Stack vertical>
-        <Card sectioned>
-          <Button onClick={onRefresh}>Refresh queue.</Button>
-        </Card>
-        <Card>
-          <ResourceList
-            items={queueItemIds}
-            renderItem={(hitId: string) => <QueueItemCard hitId={hitId} />}
-          />
-        </Card>
-      </Stack>
+      <Card>
+        <QueueTableHeading
+          queueSize={queueItemIds.length}
+          onRefresh={onRefresh}
+        />
+        <ResourceList
+          items={queueItemIds}
+          renderItem={(hitId: string) => <QueueItemCard hitId={hitId} />}
+        />
+      </Card>
     );
   }
 }
