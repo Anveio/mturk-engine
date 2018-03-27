@@ -63,7 +63,7 @@ Check out the [Developer Guide](https://github.com/Anveio/mturk-engine/blob/mast
 
 ### Add watchers to automatically accept HITs
 
-<img src="https://i.imgur.com/XRMcGtz.gif" alt="Search result being added as a watcher, switching to the watcher tab, starting the watcher to automatically accept the HIT periodically, edit the time between auto-accepts to 1 second, and add a custom description."/>
+<img src="https://camo.githubusercontent.com/c3580ddb2458ad778f1d7ecefaf61366dd6f680f/68747470733a2f2f692e696d6775722e636f6d2f4d4544694d45682e676966" alt="Search result being added as a watcher, switching to the watcher tab, starting the watcher to automatically accept the HIT periodically, edit the time between auto-accepts to 1 second, and add a custom description."/>
 
 ### Backup your data
 
