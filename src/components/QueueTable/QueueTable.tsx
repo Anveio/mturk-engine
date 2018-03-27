@@ -4,9 +4,9 @@ import { Card, ResourceList, Stack, Button } from '@shopify/polaris';
 import { RootState } from '../../types';
 import { queueItemsIds } from '../../selectors/queue';
 import { FetchQueueRequest, fetchQueueRequest } from '../../actions/queue';
-import EmptyQueue from './EmptyQueue';
-import QueueCard from './QueueItemCard';
 import { TabIndex } from '../../constants/tabs';
+import EmptyQueue from './EmptyQueue';
+import QueueItemCard from '../Queue/QueueItemCard';
 
 interface Props {
   readonly selectedTabIndex: number;
@@ -46,7 +46,7 @@ class QueueTable extends React.PureComponent<Props & Handlers, State> {
         <Card>
           <ResourceList
             items={queueItemIds}
-            renderItem={(hitId: string) => <QueueCard hitId={hitId} />}
+            renderItem={(hitId: string) => <QueueItemCard hitId={hitId} />}
           />
         </Card>
       </Stack>
