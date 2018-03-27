@@ -1,13 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import {
-  Layout,
-  Card,
-  ResourceList,
-  Stack,
-  Banner,
-  Button
-} from '@shopify/polaris';
+import { Card, ResourceList, Stack, Button } from '@shopify/polaris';
 import { RootState } from '../../types';
 import { queueItemsIds } from '../../selectors/queue';
 import { FetchQueueRequest, fetchQueueRequest } from '../../actions/queue';
@@ -15,12 +8,12 @@ import EmptyQueue from './EmptyQueue';
 import QueueCard from './QueueItemCard';
 import { TabIndex } from '../../constants/tabs';
 
-export interface Props {
+interface Props {
   readonly selectedTabIndex: number;
   readonly queueItemIds: string[];
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onRefresh: () => void;
 }
 
@@ -40,37 +33,23 @@ class QueueTable extends React.PureComponent<Props & Handlers, State> {
     }
   }
 
-  private dismissBanner = () => this.setState({ bannerVisible: false });
-
   public render() {
     const { queueItemIds, onRefresh } = this.props;
 
     return queueItemIds.length === 0 ? (
       <EmptyQueue onRefresh={onRefresh} />
     ) : (
-      <Layout>
-        <Layout.Section>
-          <Stack vertical>
-            {this.state.bannerVisible ? (
-              <Banner status="warning" onDismiss={this.dismissBanner}>
-                Mturk Engine incorrectly reports a successful accept when
-                encountering a CAPTCHA. If you refresh your queue and your HIT
-                isn't there, accept it manually and successfully complete the
-                CAPTCHA.
-              </Banner>
-            ) : null}
-            <Card sectioned>
-              <Button onClick={onRefresh}>Refresh queue.</Button>
-            </Card>
-            <Card>
-              <ResourceList
-                items={queueItemIds}
-                renderItem={(hitId: string) => <QueueCard hitId={hitId} />}
-              />
-            </Card>
-          </Stack>
-        </Layout.Section>
-      </Layout>
+      <Stack vertical>
+        <Card sectioned>
+          <Button onClick={onRefresh}>Refresh queue.</Button>
+        </Card>
+        <Card>
+          <ResourceList
+            items={queueItemIds}
+            renderItem={(hitId: string) => <QueueCard hitId={hitId} />}
+          />
+        </Card>
+      </Stack>
     );
   }
 }
