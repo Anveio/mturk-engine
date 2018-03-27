@@ -12,7 +12,7 @@ This is a userscript. In order to use it, install Mturk Engine with a userscript
 
 ## What is Mturk Engine?
 
-Mturk Engine is a free and open source user script for Chrome & Firefox that enables you to be more productive on Amazon's Mechanical Turk work platform. You install it with one of the download links above and then navigate to https://worker.mturk.com/?mturkengine while logged in to use it. Mturk Engine brings everything you do on Amazon's Mechanical Turk work platform into a single page. You can search for HITs, accept HITs, add HITs to be auto accepted, monitor your queue, monitor your dashboard, keep track of all the HITs you've submitted and their statuses, and return HITs all in a single browser tab without ever having to wait for a to page reload.
+Mturk Engine is a free and open source user script for Chrome & Firefox that enables you to be more productive on Amazon's Mechanical Turk work platform. You install it with one of the download links above and then navigate to https://worker.mturk.com/?mturkengine while logged in to use it. Mturk Engine brings everything you do on Amazon's Mechanical Turk work platform into a single page. You can search for HITs, accept HITs, add HITs to be auto accepted, monitor your queue, monitor your dashboard, keep track of all the HITs you've submitted and their statuses, and return HITs all in a single browser tab without ever waiting for a full page reload.
 
 ## Why use Mturk Engine? What does it do that other tools don't?
 
