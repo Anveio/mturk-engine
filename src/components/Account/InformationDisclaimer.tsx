@@ -1,9 +1,4 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
-import {
-  FetchStatusSummaryRequest,
-  statusSummaryRequest
-} from '../../actions/statusSummary';
 
 import { Layout, Banner } from '@shopify/polaris';
 
@@ -11,17 +6,8 @@ interface State {
   readonly visible: boolean;
 }
 
-interface Handlers {
-  readonly onRefreshDb: () => void;
-}
-
-class InformationDisclaimer extends React.PureComponent<Handlers, State> {
-  state: State = { visible: true };
-
-  // private handleRefresh = () => {
-  //   this.props.onRefreshDb();
-  //   this.toggleVisibility();
-  // };
+class InformationDisclaimer extends React.PureComponent<{}, State> {
+  public readonly state: State = { visible: true };
 
   private toggleVisibility = () =>
     this.setState((prevState: State) => ({
@@ -42,10 +28,4 @@ class InformationDisclaimer extends React.PureComponent<Handlers, State> {
   }
 }
 
-const mapDispatch = (
-  dispatch: Dispatch<FetchStatusSummaryRequest>
-): Handlers => ({
-  onRefreshDb: () => dispatch(statusSummaryRequest())
-});
-
-export default connect(null, mapDispatch)(InformationDisclaimer);
+export default InformationDisclaimer;
