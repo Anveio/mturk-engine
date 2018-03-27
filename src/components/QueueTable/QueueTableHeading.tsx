@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Card, Stack, Heading, Button } from '@shopify/polaris';
+import { pluralize } from 'utils/formatting';
 
 interface Props {
   readonly queueSize: number;
@@ -16,7 +17,9 @@ class QueueTableHeading extends React.Component<Props & Handlers, never> {
       <Card.Section>
         <Stack vertical={false}>
           <Stack.Item fill>
-            <Heading>{queueSize} items in queue.</Heading>
+            <Heading>
+              {queueSize} {pluralize('item', 'items')(queueSize)} in queue.
+            </Heading>
           </Stack.Item>
           <Stack.Item>
             <Button plain onClick={onRefresh}>
