@@ -4,20 +4,20 @@ import { Tabs2 as Tabs, Tab2 as Tab } from '@blueprintjs/core';
 import { RootState } from '../../types';
 import { changeTab, ChangeTab } from '../../actions/updateValue';
 import { TabIndex } from '../../constants/tabs';
-import QueueTable from '../Queue/QueueTable';
 import SearchTab from './SearchTab';
-import Account from '../Account/Account';
-import BlockLists from '../BlockList/BlockLists';
-import SettingsTab from './SettingsTab';
+import QueueTab from './QueueTab';
 import Watchers from '../WatcherTree/DoubleClickHandler';
+import BlockLists from '../BlockList/BlockLists';
+import Account from '../Account/Account';
+import SettingsTab from './SettingsTab';
 
-export interface Props {
+interface Props {
   readonly selected: number;
   readonly queueSize: number;
   readonly numActiveWatchers: number;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onSelectTab: (selectedTabIndex: number) => void;
 }
 
@@ -38,7 +38,7 @@ const TabNavigation: React.SFC<Props & Handlers> = ({
       <Tab
         id={TabIndex.QUEUE}
         title={`Queue (${queueSize})`}
-        panel={<QueueTable />}
+        panel={<QueueTab />}
       />
       <Tab
         id={TabIndex.WATCHERS}
