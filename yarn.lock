@@ -17,8 +17,8 @@
     js-tokens "^3.0.0"
 
 "@blueprintjs/core@^1.35.1":
-  version "1.35.5"
-  resolved "https://registry.yarnpkg.com/@blueprintjs/core/-/core-1.35.5.tgz#0474a3c701f93cc533d42a2b3546d094c1d0a0dd"
+  version "1.35.7"
+  resolved "https://registry.yarnpkg.com/@blueprintjs/core/-/core-1.35.7.tgz#e0e8042dd5b4d0a02cdbc65bbd1cb0b985f6bf32"
   dependencies:
     "@types/dom4" "^1.5.20"
     "@types/tether" "^1.1.27"
@@ -43,8 +43,8 @@
     lodash-decorators "^4.3.5"
 
 "@shopify/polaris@^1.10.2":
-  version "1.12.2"
-  resolved "https://registry.yarnpkg.com/@shopify/polaris/-/polaris-1.12.2.tgz#83792a6095f8df688a45811ee0ac919b0c1ab35c"
+  version "1.12.4"
+  resolved "https://registry.yarnpkg.com/@shopify/polaris/-/polaris-1.12.4.tgz#70abb444c1bcef4ca7a09c1d061a03b3496380db"
   dependencies:
     "@shopify/images" "^1.1.0"
     "@shopify/javascript-utilities" "^2.1.0"
@@ -96,16 +96,16 @@
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-21.1.10.tgz#dcacb5217ddf997a090cc822bba219b4b2fd7984"
 
 "@types/lodash@^4.14.65":
-  version "4.14.104"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.104.tgz#53ee2357fa2e6e68379341d92eb2ecea4b11bb80"
+  version "4.14.106"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.106.tgz#6093e9a02aa567ddecfe9afadca89e53e5dce4dd"
 
 "@types/node@*":
-  version "9.4.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.4.7.tgz#57d81cd98719df2c9de118f2d5f3b1120dcd7275"
+  version "9.6.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.0.tgz#d3480ee666df9784b1001a1872a2f6ccefb6c2d7"
 
 "@types/node@^8.0.41", "@types/node@^8.0.53":
-  version "8.9.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.9.5.tgz#162b864bc70be077e6db212b322754917929e976"
+  version "8.10.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.10.0.tgz#f5d649cc49af8ed6507d15dc6e9b43fe8b927540"
 
 "@types/prop-types@^15.5.2":
   version "15.5.2"
@@ -142,8 +142,8 @@
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^16.0.10", "@types/react@^16.0.2", "@types/react@^16.0.25":
-  version "16.0.40"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.40.tgz#caabc2296886f40b67f6fc80f0f3464476461df9"
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.1.0.tgz#6c0e9955ce73f332b4a1948d45decaf18c764c6e"
 
 "@types/tether@^1.1.27":
   version "1.4.3"
@@ -1828,7 +1828,11 @@ core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
 
-core-js@^2.4.0, core-js@^2.5.0, core-js@^2.5.1:
+core-js@^2.4.0, core-js@^2.5.1:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.4.tgz#f2c8bf181f2a80b92f360121429ce63a2f0aeae0"
+
+core-js@^2.5.0:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.3.tgz#8acc38345824f16d8365b7c9b4259168e8ed603e"
 
@@ -7378,8 +7382,8 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
 typescript@^2.6.2:
-  version "2.7.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.2.tgz#2d615a1ef4aee4f574425cdff7026edf81919836"
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.8.1.tgz#6160e4f8f195d5ba81d4876f9c0cc1fbc0820624"
 
 ua-parser-js@^0.7.9:
   version "0.7.17"
