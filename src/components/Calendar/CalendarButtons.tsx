@@ -44,11 +44,7 @@ class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
     return (
       <Stack vertical>
         <div className="pt-button-group pt-minimal">
-          <Tooltip
-            content={tooltipContent}
-            isOpen={this.state.hovering}
-            position={Position.TOP_LEFT}
-          >
+          <Tooltip content={tooltipContent} position={Position.TOP_LEFT}>
             <Button
               loading={this.props.waitingForHitDbRefresh}
               iconName="pt-icon-database"
