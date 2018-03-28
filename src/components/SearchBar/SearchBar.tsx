@@ -9,15 +9,15 @@ import { RootState } from '../../types';
 import SearchTimer from './SearchTimer';
 import SearchSettings from './SearchSettings';
 
-export interface Props {
+interface Props {
   readonly searchActive: boolean;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onToggleSearch: () => void;
 }
 
-class SearchButtons extends React.PureComponent<Props & Handlers, never> {
+class SearchBar extends React.PureComponent<Props & Handlers, never> {
   private handleSearch = () => {
     this.props.onToggleSearch();
   };
@@ -40,7 +40,7 @@ class SearchButtons extends React.PureComponent<Props & Handlers, never> {
               onClick={this.handleSearch}
               destructive={searchActive}
             >
-              {SearchButtons.searchButtonText(searchActive)}
+              {SearchBar.searchButtonText(searchActive)}
             </Button>
             <SearchSettings />
           </ButtonGroup>
@@ -59,4 +59,4 @@ const mapDispatch = (dispatch: Dispatch<ToggleSearchActive>): Handlers => ({
   onToggleSearch: () => dispatch(toggleSearchActive())
 });
 
-export default connect(mapState, mapDispatch)(SearchButtons);
+export default connect(mapState, mapDispatch)(SearchBar);
