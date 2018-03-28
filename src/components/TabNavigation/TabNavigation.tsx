@@ -3,13 +3,13 @@ import { connect, Dispatch } from 'react-redux';
 import { Tabs2 as Tabs, Tab2 as Tab } from '@blueprintjs/core';
 import { RootState } from '../../types';
 import { changeTab, ChangeTab } from '../../actions/updateValue';
-import { TabIndex } from '../../constants/tabs';
 import SearchTab from './SearchTab';
 import QueueTab from './QueueTab';
 import Watchers from '../WatcherTree/DoubleClickHandler';
 import BlockLists from '../BlockList/BlockLists';
 import Account from '../Account/Account';
 import SettingsTab from './SettingsTab';
+import { TabIndex } from 'constants/enums';
 
 interface Props {
   readonly selected: number;

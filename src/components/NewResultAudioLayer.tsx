@@ -4,7 +4,7 @@ import { List } from 'immutable';
 import { RootState } from '../types';
 import { PlayAudio, playAudioFile } from '../actions/audio';
 import { newResultsGroupIdsList } from '../selectors/search';
-import { AudioSources } from '../constants/audio';
+import { AudioSources } from 'constants/enums';
 
 interface Props {
   readonly unreadResults: List<string>;

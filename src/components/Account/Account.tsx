@@ -7,7 +7,7 @@ import {
   connectAccountRequest,
   ConnectAccountRequest
 } from '../../actions/connectAccount';
-import { TabIndex } from '../../constants/tabs';
+import { TabIndex } from 'constants/enums';
 
 interface Props {
   readonly selectedTabIndex: number;

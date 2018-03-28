@@ -4,10 +4,10 @@ import { Card, ResourceList } from '@shopify/polaris';
 import { RootState } from '../../types';
 import { queueItemsIds } from '../../selectors/queue';
 import { FetchQueueRequest, fetchQueueRequest } from '../../actions/queue';
-import { TabIndex } from '../../constants/tabs';
 import EmptyQueue from './EmptyQueue';
 import QueueItemCard from '../Queue/QueueItemCard';
 import QueueTableHeading from './QueueTableHeading';
+import { TabIndex } from 'constants/enums';
 
 interface Props {
   readonly selectedTabIndex: number;

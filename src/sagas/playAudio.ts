@@ -1,7 +1,7 @@
 import { call, select } from 'redux-saga/effects';
 import { PlayAudio } from '../actions/audio';
 import { RootState } from '../types';
-import { AudioSources } from '../constants/audio';
+import { AudioSources } from 'constants/enums';
 
 const audioFiles = {
   [AudioSources.NEW_SEARCH_RESULT]: new Audio(AudioSources.NEW_SEARCH_RESULT),

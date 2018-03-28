@@ -19,7 +19,7 @@ import { TopRightToaster } from '../index';
 import { blankQueueItem } from '../utils/queueItem';
 import { getWatcher } from '../selectors/watchers';
 import { PlayAudio, playAudioFile } from '../actions/audio';
-import { AudioSources } from '../constants/audio';
+import { AudioSources } from 'constants/enums';
 
 export function* acceptHitFromWatcher(action: AcceptHitRequestFromWatcher) {
   try {
