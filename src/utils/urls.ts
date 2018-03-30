@@ -39,18 +39,21 @@ export const generateContactLink = (hit: WorkerHitDatabaseEntry) => {
   );
 };
 
-export const generateContactLinkSearchResult = (hit: HumanIntelligenceTask) => {
-  const { requester, groupId, title } = hit;
+export const generateContactLinkQueue = (hit: QueueItem) => {
+  const { assignmentId, groupId, title, description, requester } = hit;
   return (
     baseContactUrl +
     qs.stringify(
       {
-        assignment_message: {
-          subject: `Regarding Amazon Mechanical Turk group ID ${groupId}`
-        },
+        assignment_id: assignmentId,
+        hit_type_message: {
+          hit_description: description,
+          hit_title: title,
+          hit_type_id: hit.groupId,
         requester_id: requester.id,
         requester_name: requester.name,
-        title: title
+          subject: `Regarding Amazon Mechanical Turk Project (HIT Type) ${groupId}`
+        }
       },
       { arrayFormat: 'brackets' }
     )
