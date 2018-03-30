@@ -189,6 +189,7 @@ export interface QueueItem extends HumanIntelligenceTask {
   readonly description: string;
   readonly hitId: string;
   readonly taskId: string;
+  readonly assignmentId: string;
   readonly timeLeftInSeconds: number;
 }
 
