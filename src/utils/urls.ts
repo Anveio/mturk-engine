@@ -4,18 +4,14 @@ import {
   WorkerHitDatabaseEntry,
   HumanIntelligenceTask
 } from 'types';
-import {
-  baseContactUrlWorker,
-  baseAcceptUrlWorker,
-  basePreviewUrlWorker
-} from '../constants/urls';
+import { baseContactUrl, baseProjectUrl } from '../constants/urls';
 import { legacyDateFormatToContactDateFormat } from './dates';
 
 export const generateAcceptUrl = (groupId: string) =>
-  `${baseAcceptUrlWorker}${groupId}/tasks/accept_random`;
+  `${baseProjectUrl}${groupId}/tasks/accept_random`;
 
 export const generatePreviewUrl = (groupId: string) =>
-  `${basePreviewUrlWorker}${groupId}/tasks`;
+  `${baseProjectUrl}${groupId}/tasks`;
 
 export const generateContinueWorkUrl = (hit: QueueItem) =>
   `https://worker.mturk.com/projects/${hit.groupId}/tasks/${
@@ -25,7 +21,7 @@ export const generateContinueWorkUrl = (hit: QueueItem) =>
 export const generateContactLink = (hit: WorkerHitDatabaseEntry) => {
   const { requester, id, assignmentId, title } = hit;
   return (
-    baseContactUrlWorker +
+    baseContactUrl +
     qs.stringify(
       {
         assignment_message: {
@@ -46,7 +42,7 @@ export const generateContactLink = (hit: WorkerHitDatabaseEntry) => {
 export const generateContactLinkSearchResult = (hit: HumanIntelligenceTask) => {
   const { requester, groupId, title } = hit;
   return (
-    baseContactUrlWorker +
+    baseContactUrl +
     qs.stringify(
       {
         assignment_message: {

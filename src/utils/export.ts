@@ -4,8 +4,8 @@ import {
   HumanIntelligenceTask
 } from '../types';
 import {
-  baseTaskUrlWorker,
-  baseRequesterUrlWorker,
+  baseTaskUrl,
+  baseRequesterUrl,
   turkopticonBaseUrl,
   turkopticonTwoBaseUrl
 } from '../constants/urls';
@@ -56,7 +56,7 @@ export const generateMarkdownExport = (hit: HumanIntelligenceTask): string => {
 
   // tslint:disable:max-line-length
   return `**Title:** [${title}](${generateAcceptUrl(groupId)})  
-    **Worker:** [Preview](${baseTaskUrlWorker}${groupId}/tasks) | [Accept](${baseTaskUrlWorker}${groupId}/tasks/accept_random) | [Requester](${baseRequesterUrlWorker}${
+    **Worker:** [Preview](${baseTaskUrl}${groupId}/tasks) | [Accept](${baseTaskUrl}${groupId}/tasks/accept_random) | [Requester](${baseRequesterUrl}${
     requester.id
   }/projects)  
     **Requester:** [${requester.name}](${requesterSearchBaseUrl}${requester.id})

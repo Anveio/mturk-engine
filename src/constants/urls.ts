@@ -7,13 +7,11 @@ export const turkopticonBaseUrl = `https://turkopticon.ucsd.edu/`;
 
 export const turkopticonTwoBaseUrl = `https://turkopticon.info/requesters/`;
 
-export const baseTaskUrlWorker = 'https://worker.mturk.com/projects/';
+export const baseTaskUrl = 'https://worker.mturk.com/projects/';
 
-export const baseRequesterUrlWorker = 'https://worker.mturk.com/requesters/';
+export const baseRequesterUrl = 'https://worker.mturk.com/requesters/';
 
-export const baseContactUrlWorker =
+export const baseContactUrl =
   'https://worker.mturk.com/contact_requester/assignment_messages/new?';
 
-export const baseAcceptUrlWorker = 'https://worker.mturk.com/projects/';
-
-export const basePreviewUrlWorker = 'https://worker.mturk.com/projects/';
+export const baseProjectUrl = 'https://worker.mturk.com/projects/';
