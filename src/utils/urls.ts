@@ -1,9 +1,5 @@
 import * as qs from 'qs';
-import {
-  QueueItem,
-  WorkerHitDatabaseEntry,
-  HumanIntelligenceTask
-} from 'types';
+import { QueueItem, WorkerHitDatabaseEntry } from 'types';
 import { baseContactUrl, baseProjectUrl } from '../constants/urls';
 import { legacyDateFormatToContactDateFormat } from './dates';
 
@@ -50,8 +46,8 @@ export const generateContactLinkQueue = (hit: QueueItem) => {
           hit_description: description,
           hit_title: title,
           hit_type_id: hit.groupId,
-        requester_id: requester.id,
-        requester_name: requester.name,
+          requester_id: requester.id,
+          requester_name: requester.name,
           subject: `Regarding Amazon Mechanical Turk Project (HIT Type) ${groupId}`
         }
       },
