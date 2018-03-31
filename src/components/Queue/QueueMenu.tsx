@@ -1,28 +1,26 @@
 import * as React from 'react';
 import { Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as copy from 'copy-to-clipboard';
-import { HumanIntelligenceTask } from '../types';
+import { HumanIntelligenceTask, QueueItem } from 'types';
 import { connect } from 'react-redux';
-import { RootState } from '../types';
-import { generateHwtfUrl } from '../utils/export';
-import { generateContactLinkSearchResult } from '../utils/urls';
-import { generateMarkdownExport } from '../utils/export';
-import { plainToast } from '../utils/toaster';
+import { RootState } from 'types';
+import { generateHwtfUrl } from 'utils/export';
+import { generateMarkdownExport } from 'utils/export';
+import { plainToast } from 'utils/toaster';
+import { generateContactLinkQueue } from 'utils/urls';
 
 const mapState = (state: RootState, ownProps: Props): Props => ({
   hit: ownProps.hit
 });
 
 interface Props {
-  readonly hit: HumanIntelligenceTask;
+  readonly hit: QueueItem;
 }
 
 class SearchResultMenu extends React.PureComponent<Props, never> {
   private static handleCopyMarkDown = (hit: HumanIntelligenceTask) => () => {
-    {
-      copy(generateMarkdownExport(hit));
-      plainToast(`Markdown for "${hit.title}" was added to your clipboard.`);
-    }
+    copy(generateMarkdownExport(hit));
+    plainToast(`Markdown for "${hit.title}" was added to your clipboard.`);
   };
 
   public render() {
@@ -34,7 +32,7 @@ class SearchResultMenu extends React.PureComponent<Props, never> {
           iconName="person"
           target="_blank"
           text="Contact Requester"
-          href={generateContactLinkSearchResult(hit)}
+          href={generateContactLinkQueue(hit)}
         />
         <MenuDivider title="Share" />
         <MenuItem
