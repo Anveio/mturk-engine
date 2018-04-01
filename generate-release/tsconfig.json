@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-    "outDir": "build/dist",
+    "baseUrl": "../",
     "module": "commonjs",
     "target": "es5",
     "lib": ["es2017", "dom"],
@@ -9,7 +8,7 @@
     "allowJs": true,
     "jsx": "react",
     "moduleResolution": "node",
-    "rootDir": "src",
+    "rootDir": "../",
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -30,7 +29,6 @@
     "acceptance-tests",
     "webpack",
     "jest",
-    "generate-release",
     "src/setupTests.ts"
   ],
   "types": ["typePatches"]

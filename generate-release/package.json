@@ -1,0 +1,21 @@
+{
+  "name": "mturk-engine-generate-release-script",
+  "version": "1.0.0",
+  "author": {
+    "name": "Shovon Hasan",
+    "url": "https://www.shovonhasan.com"
+  },
+  "repository": {
+    "url": "https://github.com/Anveio/mturk-engine"
+  },
+  "private": true,
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "@types/fs-extra": "^5.0.1",
+    "ts-node": "^5.0.1",
+    "typescript": "^2.8.1"
+  },
+  "scripts": {
+    "release": "ts-node ./generateRelease"
+  }
+}
