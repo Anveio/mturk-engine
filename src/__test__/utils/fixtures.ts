@@ -1,5 +1,13 @@
 import { AttributeWeights, RequesterAttributes } from '../../types';
 
+export const projectAcceptRandomLink =
+  'https://worker.mturk.com/projects/3MQJWSYXOHGDXJ3GAF96UH2MB215O3/tasks/accept_random?ref=w_pl_prvw';
+
+export const projectId = '3MQJWSYXOHGDXJ3GAF96UH2MB215O3';
+
+export const legacyLink =
+  'https://www.mturk.com/mturk/previewandaccept?groupId=3CRC4NO2BIQQWQ3GX0HLFPTFOD30SA';
+
 export const equalizedWeights: AttributeWeights = {
   commWeight: 1,
   fairWeight: 1,
