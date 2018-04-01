@@ -34,16 +34,16 @@ yarn start
 
 `yarn install` will install all of Mturk Engine's dependencies. `yarn start` will compile the dependencies and the application's source code and launch a browser tab running the application. Any changes you save to files in the `/src` folder will cause the application to reload with your changes.
 
-## Sending authenticated requests to Mturk.
+## Sending authenticated requests to worker.mturk.com.
 
-There are 2 things we need to do in order to send requests to Mturk:
+There are 2 things we need to do in order to send authenticated requests to worker.mturk.com:
 
 1.  Satisfy Mturk's CORS policy
 2.  Send along our credentials (e.g. so we can accept and return HITs)
 
 ### Satisfying Mturk's CORS policy.
 
-Sending network requests to `https://www.mturk.com` from `localhost:8000` will not work because mturk's CORS policy blocks requests from origins that aren't 'www.mturk.com'. In order to bypass this, Mturk Engine uses a proxy server, located in the `server` folder, that will take network requests sent to it and pipe them to mturk with the proper headers.
+Sending network requests to `https://worker.mturk.com` from `localhost:8000` will not work because the site's CORS policy blocks requests from origins that aren't 'worker.mturk.com'. In order to bypass this, Mturk Engine uses a proxy server, located in the `server` folder, that will take network requests sent to it and pipe them to mturk with the proper headers.
 
 ### Sending credentials with our requests
 
@@ -55,7 +55,7 @@ touch ./server/cookie.js && echo "module.exports = " >> ./server/cookie.js
 
 **IMPORTANT: It's important that the file be called `cookie.js` so that it's ignored by git (as specified in .gitignore). It will contain sensitive data so make sure you don't upload its contents to a repo somewhere.**
 
-After logging into Mturk, open the developer tools with F12 and switch to the "Network" tab (you may need to refresh the page). Examine the "Request Headers" section and copy the contents following "Cookie" and paste it between quotes after `module.exports =` in your `./server/cookie.js` file. Ensure you didn't accidentally copy any new-line symbols as that will cause 'illegal character' errors.
+After logging into Mturk, open the developer tools with F12, switch to the "Network" tab (you may need to refresh the page) and click the top most entry. Examine the "Request Headers" section and copy the contents following "Cookie" and paste it between quotes after `module.exports =` in your `./server/cookie.js` file. Ensure you didn't accidentally copy any new-line symbols as that will cause 'illegal character' errors.
 
 Now you can start up the proxy server. Assuming you're in the project's top level directory:
 
@@ -72,7 +72,7 @@ When running in development, Mturk Engine will send requests to this proxy serve
 Creating a build of Mturk Engine is simple and done with a single command:
 
 ```shell
-yarn run build
+yarn build
 ```
 
 This will make a minified production build suitable to be used in browsers in the `./build/static/js` folder. The location of the file is not optimal (and it's set by ts-react-scripts) so you can optionally run the release script located in the `generate-release` folder. First you'll need to install the packages specified in that directory's `package.json` which shouldn't take too long.
