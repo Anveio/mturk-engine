@@ -53,7 +53,7 @@ export const failedSearchToast = () => {
   TopRightToaster.show({
     message: `Your search returned no results. Make sure you're logged in and check your search settings.`,
     action: loginLink,
-    intent: 2,
+    intent: Intent.WARNING,
     timeout: 3000
   });
 };
@@ -64,7 +64,7 @@ export const generateQueueToast = (notEmpty: boolean): IToastProps =>
 export const failedQueueToast = {
   message: `There was a problem refreshing your queue. Make sure you're still logged in.`,
   action: loginLink,
-  intent: 2,
+  intent: Intent.WARNING,
   timeout: 5000
 };
 
@@ -73,20 +73,20 @@ export const generateReturnToast = (successful: boolean, title: string) => {
 };
 
 export const statusDetailToast = (dateStr: string, noDataFound: boolean) => {
-  const toastHeader = `Refreshed HITs for the day of 
-    ${dateStringToLocaleDateString(dateStr)} 
-    . `;
+  const toastHeader = `Refreshed HITs for the day of ${dateStringToLocaleDateString(
+    dateStr
+  )}. `;
 
   noDataFound
     ? TopRightToaster.show({
         message: toastHeader + 'No activity was found for this day.',
-        intent: 0
+        intent: Intent.PRIMARY
       })
     : TopRightToaster.show({
         message:
           toastHeader +
           'Your database has been updated with any new information.',
-        intent: 1
+        intent: Intent.SUCCESS
       });
 };
 
@@ -95,13 +95,13 @@ export const statusDetailErrorToast = (dateStr: string) =>
     message: `Problem getting data for ${dateStringToLocaleDateString(
       dateStr
     )}. This is most likely because you have been logged out of MTurk. Try logging in again.`,
-    intent: 2,
+    intent: Intent.WARNING,
     timeout: 5000
   });
 
 export const accountConnectionSuccessfulToast = {
   message: 'Your dashboard has been refreshed.',
-  intent: 0,
+  intent: Intent.PRIMARY,
   timeout: 1000
 };
 
@@ -109,7 +109,7 @@ export const accountConnectionFailedToast = {
   message:
     "Couldn't fetch your dashboard. Make sure you're logged into MTurk and try again.",
   action: loginLink,
-  intent: 2,
+  intent: Intent.WARNING,
   timeout: 5000
 };
 
@@ -117,7 +117,7 @@ export const emptySummaryPageToast = () =>
   TopRightToaster.show({
     message:
       "No work history found. Make sure you're still logged in and have done a HIT in the past 45 days and try again.",
-    intent: 2,
+    intent: Intent.WARNING,
     action: loginLink,
     timeout: 5000
   });
@@ -131,7 +131,7 @@ export const refreshDbSuccessToast = (
     Found ${numNewResults} previously unfound ${pluralize('HIT', 'HITs')(
       numNewResults
     )}.`,
-    intent: 1,
+    intent: Intent.SUCCESS,
     timeout: 5000
   });
 
@@ -139,7 +139,7 @@ export const refreshDbErrorToast = () =>
   TopRightToaster.show({
     message:
       'There was an error while refreshing your database. You may have been logged out or lost connection while refreshing.',
-    intent: 2,
+    intent: Intent.WARNING,
     timeout: 5000
   });
 
@@ -161,7 +161,7 @@ export const deletePersistedStateToast = (key: ImmutablePersistedStateKey) =>
   TopRightToaster.show({
     message: `${key} deleted. Refresh the page to see if your issue was resolved.`,
     timeout: 10000,
-    intent: 0
+    intent: Intent.PRIMARY
   });
 
 export const failedUploadToast = () =>
@@ -169,21 +169,21 @@ export const failedUploadToast = () =>
     message: `There was a problem with the uploaded file. Your settings have not changed. 
     Make sure you've uploaded a valid Mturk Engine backup file and try again.`,
     timeout: 5000,
-    intent: 3
+    intent: Intent.DANGER
   });
 
 export const failedDownloadStateToast = () =>
   TopRightToaster.show({
     message: 'There was a problem retrieving your settings.',
     timeout: 5000,
-    intent: 3
+    intent: Intent.DANGER
   });
 
 export const successfulDownloadStateToast = () =>
   TopRightToaster.show({
     message:
       'Your settings have been successfully copied and are ready for download.',
-    intent: 0
+    intent: Intent.PRIMARY
   });
 
 export const failedImportPersistedState = () =>
@@ -191,14 +191,14 @@ export const failedImportPersistedState = () =>
     message:
       'There was a problem importing the settins from your backup file. Make sure your backup file is valid and try again.',
     timeout: 5000,
-    intent: 3
+    intent: Intent.DANGER
   });
 
 export const successfulAcceptToast = (title?: string) => ({
   message: title
     ? `"${truncate(title, 45)}" was added to your queue.`
     : 'A hit was added to your queue',
-  intent: 1,
+  intent: Intent.SUCCESS,
   timeout: 5000
 });
 
@@ -206,7 +206,7 @@ export const failedAcceptToast = (hit: SearchResult): IToastProps => ({
   message: hit.title
     ? `Failed to add "${hit.title}" to your queue.`
     : `Couldn't add that HIT to your queue.`,
-  intent: 2,
+  intent: Intent.WARNING,
   action: {
     text: 'Add as watcher',
     onClick: () => {
@@ -273,5 +273,5 @@ const errorReturnToast = (title: string) => ({
     title,
     20
   )}. It's likely no longer in your queue. Refresh your queue for the most up to date information.`,
-  intent: 2
+  intent: Intent.WARNING
 });
