@@ -3,14 +3,15 @@ import { QueueMap, QueueItem } from '../types';
 import { WorkerQueueItem } from '../worker-mturk-api';
 import { transformProjectRequirements } from './qualifications';
 
-export const tabulateQueueData = (input: WorkerQueueItem[]): QueueMap =>
+export const tabulateQueueApiResponse = (input: WorkerQueueItem[]): QueueMap =>
   input.reduce(
     (map: QueueMap, hit: WorkerQueueItem) =>
-      map.set(hit.assignment_id, createQueueItem(hit)),
+      map.set(hit.assignment_id, createFreshQueueItem(hit)),
     Map<string, QueueItem>()
   );
 
-const createQueueItem = (input: WorkerQueueItem): QueueItem => ({
+const createFreshQueueItem = (input: WorkerQueueItem): QueueItem => ({
+  fresh: true,
   title: input.project.title,
   hitId: input.assignment_id,
   groupId: input.project.hit_set_id,

@@ -186,6 +186,10 @@ export interface WorkerHitDatabaseEntry extends LegacyHitDatabaseEntry {
 export type HitDatabaseEntry = LegacyHitDatabaseEntry | WorkerHitDatabaseEntry;
 
 export interface QueueItem extends HumanIntelligenceTask {
+  /**
+   * fresh will be false when QueueItems are not created from an API response.
+   */
+  readonly fresh: boolean;
   readonly description: string;
   readonly hitId: string;
   readonly taskId: string;

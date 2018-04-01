@@ -4,6 +4,7 @@ import * as v4 from 'uuid/v4';
 const NEEDS_REFRESH_PREFIX = '[REFRESH_REQUIRED]';
 
 export const blankQueueItem = (groupId: string): QueueItem => ({
+  fresh: false,
   groupId,
   hitId: NEEDS_REFRESH_PREFIX + v4(),
   assignmentId: NEEDS_REFRESH_PREFIX + v4(),
@@ -24,6 +25,7 @@ export const blankQueueItem = (groupId: string): QueueItem => ({
 export const queueItemFromSearchResult = (hit: SearchResult): QueueItem => {
   const { groupId, reward, timeAllottedInSeconds, requester, title } = hit;
   return {
+    fresh: false,
     groupId,
     hitId: NEEDS_REFRESH_PREFIX + v4(),
     assignmentId: NEEDS_REFRESH_PREFIX + v4(),
