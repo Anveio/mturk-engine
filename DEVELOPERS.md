@@ -9,13 +9,10 @@ This guide will walk you through the following:
 
 This guide assumes you're in a Unix-like environment, which includes Mac, Linux, and Windows Subsystem for Linux.
 
-You'll also need `npm` installed on your machine. npm comes packaged with node so it's likely that you already have it. If not, run the following command in your terminal:
+You'll need `yarn` and the latest version of `node` installed on your machine.
 
-```shell
-curl -L https://www.npmjs.com/install.sh | sh
-```
-
-You can find additional installation instructions if necessary on [npm's github page](https://github.com/npm/npm).
+* [Node installation instructions](https://nodejs.org/en/download/package-manager/)
+* [Yarn installation instructions](https://yarnpkg.com/lang/en/docs/install/)
 
 # Starting Mturk Engine in development.
 
@@ -26,31 +23,31 @@ git clone https://github.com/Anveio/mturk-engine.git
 cd mturk-engine
 ```
 
-Be warned that I frequently push to master so cloning from the above URL may give you some unfinished or experimental code. You can use the GitHub user interface to browse the repo as it was during specific versions and clone from there, for example: https://github.com/Anveio/mturk-engine/tree/1.4.2  
+Be warned that I frequently push to master so cloning from the above URL may give you some unfinished or experimental code. You can use the GitHub user interface to browse the repo as it was during specific versions and clone from there, for example: https://github.com/Anveio/mturk-engine/tree/1.4.2
 
 Then run the following:
 
 ```shell
-npm install
-npm start
+yarn install
+yarn start
 ```
 
-`npm install` will install all of Mturk Engine's dependencies. `npm start` will compile the dependencies and the application's source code and launch a browser tab running the application. Any changes you save to files in the `/src` folder will cause the application to reload with your changes.
+`yarn install` will install all of Mturk Engine's dependencies. `yarn start` will compile the dependencies and the application's source code and launch a browser tab running the application. Any changes you save to files in the `/src` folder will cause the application to reload with your changes.
 
 ## Sending authenticated requests to Mturk.
 
 There are 2 things we need to do in order to send requests to Mturk:
 
-1. Satisfy Mturk's CORS policy
-2. Send authenticated requests (e.g. so we can accept and return HITs)
+1.  Satisfy Mturk's CORS policy
+2.  Send along our credentials (e.g. so we can accept and return HITs)
 
 ### Satisfying Mturk's CORS policy.
 
 Sending network requests to `https://www.mturk.com` from `localhost:8000` will not work because mturk's CORS policy blocks requests from origins that aren't 'www.mturk.com'. In order to bypass this, Mturk Engine uses a proxy server, located in the `server` folder, that will take network requests sent to it and pipe them to mturk with the proper headers.
 
-### Sending authenticated requests
+### Sending credentials with our requests
 
-We can send authenticated requests the same way we do in the browser: cookies. The proxy server will attach cookies to the request but we have to provide them. Create a file in the `server` folder called `cookie.js` with the following command:
+We can send our credentials the same way we do in the browser: cookies. The proxy server will attach cookies to the request but we have to provide them. Create a file in the `server` folder called `cookie.js` with the following command:
 
 ```shell
 touch ./server/cookie.js && echo "module.exports = " >> ./server/cookie.js
@@ -64,7 +61,8 @@ Now you can start up the proxy server. Assuming you're in the project's top leve
 
 ```shell
 cd server
-npm start
+yarn install
+yarn start
 ```
 
 When running in development, Mturk Engine will send requests to this proxy server (running on port 7777).
@@ -74,13 +72,21 @@ When running in development, Mturk Engine will send requests to this proxy serve
 Creating a build of Mturk Engine is simple and done with a single command:
 
 ```shell
-npm run build
+yarn run build
 ```
 
-This will make a minified production build suitable to be used in browsers in the `./build/static/js` folder. The location of the file is not optimal (and it's set by ts-react-scripts) so you can optionally run the `generate-release` shell script in the project's root directory to move it to the proper folder and name it appropriately. In order to generate version `2.0.0` for example, run:
+This will make a minified production build suitable to be used in browsers in the `./build/static/js` folder. The location of the file is not optimal (and it's set by ts-react-scripts) so you can optionally run the release script located in the `generate-release` folder. First you'll need to install the packages specified in that directory's `package.json` which shouldn't take too long.
 
 ```shell
-bash ./generate-release.sh 2.0.0
+cd ./generate-release
+yarn install
+cd ..
+```
+
+Then to create a release with the version number 2.0.0, for example, you could run
+
+```shell
+yarn release 2.0.0
 ```
 
 # Technologies Used in Mturk Engine
