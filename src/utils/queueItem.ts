@@ -1,20 +1,22 @@
 import { QueueItem, SearchResult } from '../types';
 import * as v4 from 'uuid/v4';
 
+const NEEDS_REFRESH_PREFIX = '[REFRESH_REQUIRED]';
+
 export const blankQueueItem = (groupId: string): QueueItem => ({
   groupId,
-  hitId: '[REFRESH_REQUIRED]' + v4(),
-  assignmentId: '[REFRESH_REQUIRED]' + v4(),
+  hitId: NEEDS_REFRESH_PREFIX + v4(),
+  assignmentId: NEEDS_REFRESH_PREFIX + v4(),
   requester: {
-    name: '[REFRESH_REQUIRED]',
-    id: '[REFRESH_REQUIRED]' + v4()
+    name: NEEDS_REFRESH_PREFIX,
+    id: NEEDS_REFRESH_PREFIX + v4()
   },
   reward: 0,
-  taskId: 'REFRESH_REQUIRED',
+  taskId: NEEDS_REFRESH_PREFIX + v4(),
   timeLeftInSeconds: 0,
   timeAllottedInSeconds: 0,
-  title: '[REFRESH_REQUIRED]',
-  description: '[REFRESH_REQUIRED]',
+  title: NEEDS_REFRESH_PREFIX,
+  description: NEEDS_REFRESH_PREFIX,
   batchSize: 0,
   qualsRequired: []
 });
@@ -23,14 +25,14 @@ export const queueItemFromSearchResult = (hit: SearchResult): QueueItem => {
   const { groupId, reward, timeAllottedInSeconds, requester, title } = hit;
   return {
     groupId,
-    hitId: '[REFRESH_REQUIRED]' + v4(),
-    assignmentId: '[REFRESH_REQUIRED]' + v4(),
-    taskId: '[REFRESH_REQUIRED]' + v4(),
+    hitId: NEEDS_REFRESH_PREFIX + v4(),
+    assignmentId: NEEDS_REFRESH_PREFIX + v4(),
+    taskId: NEEDS_REFRESH_PREFIX + v4(),
     reward,
     timeLeftInSeconds: timeAllottedInSeconds,
     requester: requester,
-    title: '[REFRESH_REQUIRED]' + title,
-    description: '[REFRESH_REQUIRED]',
+    title: NEEDS_REFRESH_PREFIX + title,
+    description: NEEDS_REFRESH_PREFIX,
     timeAllottedInSeconds: hit.timeAllottedInSeconds,
     batchSize: hit.batchSize,
     qualsRequired: hit.qualsRequired
