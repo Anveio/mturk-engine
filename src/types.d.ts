@@ -332,10 +332,3 @@ export interface WatcherFolder {
   readonly name: string;
   readonly dateNumCreation: number;
 }
-
-export type AcceptHitFailureReason =
-  | 'CAPTCHA'
-  | 'NO_AVAILABILITY'
-  | 'EXCEEDED_RATE_LIMIT'
-  | 'UNQUALIFIED'
-  | 'UNKNOWN';

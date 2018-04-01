@@ -1,7 +1,5 @@
-import { AcceptHitFailureReason } from '../types';
 import { errorBanner } from '../constants/querySelectors';
 import { removeCurrencyFormatting } from './formatting';
-import { ErrorBannerProps } from '../worker-mturk-api';
 
 export const parseStringProperty = (queryString: string, fallback: string) => (
   input: Document | Element
@@ -78,44 +76,6 @@ const getDataReactProps = (dataNode: Element): string => {
     throw new Error(`No react props found on node.`);
   } else {
     return reactProps;
-  }
-};
-
-export const parseAcceptFailureReason = (
-  input: Document
-): AcceptHitFailureReason => {
-  /**
-   * TODO: This does not actually work yet. The banner doesn't seem to render when failing to accept a HIT via XHR.
-   */
-  if (findCaptchaContainer(input)) {
-    return 'CAPTCHA';
-  }
-
-  const errorDiv = findErrorDiv(input);
-  if (!errorDiv) {
-    return 'UNKNOWN';
-  }
-
-  const errorInfo: ErrorBannerProps = JSON.parse(getDataReactProps(errorDiv));
-  if (errorInfo.header === 'There are no more of these HITs available') {
-    return 'NO_AVAILABILITY';
-  } else {
-    return 'UNKNOWN';
-  }
-};
-
-export const failureReasonToWords = (input: AcceptHitFailureReason): string => {
-  switch (input) {
-    case 'CAPTCHA':
-      return `You must successfully complete a CAPTCHA before accepting any more HITs.`;
-    case 'EXCEEDED_RATE_LIMIT':
-      return `You've made too many requests to Mturk recently. Wait a few moments and then try again.`;
-    case 'NO_AVAILABILITY':
-      return `There are no more HITs available in this group.`;
-    case 'UNQUALIFIED':
-      return `You're not qualified to accept that HIT.`;
-    default:
-      return '';
   }
 };
 
