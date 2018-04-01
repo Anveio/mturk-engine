@@ -31,7 +31,8 @@ class QueueItemCard extends React.PureComponent<
   never
 > {
   private handleExpand = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (clickDidNotOccurOnActionButton(e)) {
+    const fresh = this.props.hit.fresh;
+    if (clickDidNotOccurOnActionButton(e) && fresh) {
       this.props.onToggleExpand(this.props.hitId);
     }
   };
