@@ -1,4 +1,6 @@
+import { Set } from 'immutable';
 import { AttributeWeights, RequesterAttributes } from '../../types';
+import { DEFAULT_NEW_WATCHER_FOLDER_NAME } from '../../constants/misc';
 
 export const projectIdLink =
   'https://worker.mturk.com/projects/3MQJWSYXOHGDXJ3GAF96UH2MB215O3/tasks/accept_random?ref=w_pl_prvw';
@@ -7,6 +9,14 @@ export const projectId = '3MQJWSYXOHGDXJ3GAF96UH2MB215O3';
 
 export const legacyLink =
   'https://www.mturk.com/mturk/previewandaccept?groupId=3CRC4NO2BIQQWQ3GX0HLFPTFOD30SA';
+
+export const extantWatcherFolderNames = Set([
+  DEFAULT_NEW_WATCHER_FOLDER_NAME,
+  'New Folder-1',
+  'New Folder-2'
+]);
+
+export const emptySet = Set([]);
 
 export const equalizedWeights: AttributeWeights = {
   commWeight: 1,
