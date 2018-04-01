@@ -16,7 +16,7 @@ import { getHitAuthToken } from '../api/getHitAuthToken';
 
 export function* returnHit(action: ReturnHitRequest) {
   const { title, hitId } = action.queueItem;
-  const toasterKey = createGenericWaitingToast(`Returning "${title}" ...`);
+  const toasterKey = createGenericWaitingToast(`Returning HIT...`);
 
   try {
     const authToken: string | null = yield call(
