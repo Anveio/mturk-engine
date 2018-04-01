@@ -1,6 +1,6 @@
 import { AttributeWeights, RequesterAttributes } from '../../types';
 
-export const projectAcceptRandomLink =
+export const projectIdLink =
   'https://worker.mturk.com/projects/3MQJWSYXOHGDXJ3GAF96UH2MB215O3/tasks/accept_random?ref=w_pl_prvw';
 
 export const projectId = '3MQJWSYXOHGDXJ3GAF96UH2MB215O3';
