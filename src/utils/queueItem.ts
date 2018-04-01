@@ -4,6 +4,7 @@ import * as v4 from 'uuid/v4';
 export const blankQueueItem = (groupId: string): QueueItem => ({
   groupId,
   hitId: '[REFRESH_REQUIRED]' + v4(),
+  assignmentId: '[REFRESH_REQUIRED]' + v4(),
   requester: {
     name: '[REFRESH_REQUIRED]',
     id: '[REFRESH_REQUIRED]' + v4()
@@ -23,8 +24,9 @@ export const queueItemFromSearchResult = (hit: SearchResult): QueueItem => {
   return {
     groupId,
     hitId: '[REFRESH_REQUIRED]' + v4(),
-    reward,
+    assignmentId: '[REFRESH_REQUIRED]' + v4(),
     taskId: '[REFRESH_REQUIRED]' + v4(),
+    reward,
     timeLeftInSeconds: timeAllottedInSeconds,
     requester: requester,
     title: '[REFRESH_REQUIRED]' + title,

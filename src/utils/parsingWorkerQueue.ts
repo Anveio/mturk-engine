@@ -14,6 +14,7 @@ const createQueueItem = (input: WorkerQueueItem): QueueItem => ({
   title: input.project.title,
   hitId: input.assignment_id,
   groupId: input.project.hit_set_id,
+  assignmentId: input.assignment_id,
   taskId: input.task_id,
   requester: {
     id: input.project.requester_id,
