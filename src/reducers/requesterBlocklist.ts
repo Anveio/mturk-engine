@@ -1,11 +1,14 @@
-import { BlockedRequester, RequesterBlockMap } from '../types';
+import { BlockedRequester, RequesterBlockMap, RequesterId } from '../types';
 import { BlockRequesterAction } from '../actions/blockRequester';
 import { BLOCK_REQUESTER, UNBLOCK_REQUESTER } from '../constants';
 import { Map } from 'immutable';
 
-const initial: RequesterBlockMap = Map<string, BlockedRequester>();
+const initial: RequesterBlockMap = Map<RequesterId, BlockedRequester>();
 
-export default (state = initial, action: BlockRequesterAction): RequesterBlockMap => {
+export default (
+  state = initial,
+  action: BlockRequesterAction
+): RequesterBlockMap => {
   switch (action.type) {
     case BLOCK_REQUESTER:
       return state.set(action.data.id, action.data);

@@ -1,12 +1,12 @@
 import { Set } from 'immutable';
-import { ExpandedQueueItemsSet } from 'types';
+import { ExpandedQueueItemsSet, HitId } from 'types';
 import { QueueExpandAction } from 'actions/toggleExpand';
 import {
   TOGGLE_QUEUE_ITEM_EXPAND,
   COLLAPSE_ALL_QUEUE_ITEMS
 } from '../constants';
 
-const initial: ExpandedQueueItemsSet = Set<string>([]);
+const initial: ExpandedQueueItemsSet = Set<HitId>([]);
 
 export default (state = initial, action: QueueExpandAction) => {
   switch (action.type) {

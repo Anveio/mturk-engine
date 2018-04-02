@@ -1,9 +1,9 @@
-import { SearchResult, SearchResults } from '../types';
+import { SearchResult, SearchResults, GroupId } from '../types';
 import { SEND_NOTIFICATION } from '../constants';
 import { Map } from 'immutable';
 import { SendNotification } from '../actions/notifications';
 
-const initial: SearchResults = Map<string, SearchResult>();
+const initial: SearchResults = Map<GroupId, SearchResult>();
 
 export default (state = initial, action: SendNotification): SearchResults => {
   switch (action.type) {

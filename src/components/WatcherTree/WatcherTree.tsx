@@ -3,7 +3,14 @@ import { connect, Dispatch } from 'react-redux';
 import { Map, Set } from 'immutable';
 import { Tree, Classes } from '@blueprintjs/core';
 import { Layout, Stack, DisplayText } from '@shopify/polaris';
-import { RootState, SelectionKind, Watcher, WatcherFolder } from '../../types';
+import {
+  RootState,
+  SelectionKind,
+  Watcher,
+  WatcherFolder,
+  WatcherFolderMap,
+  FolderId
+} from '../../types';
 import {
   GenericTreeNode,
   WatcherTreeNode,
@@ -29,9 +36,9 @@ interface OwnHandlers {
 }
 
 interface Props {
-  readonly watcherFolders: Map<string, WatcherFolder>;
-  readonly watcherFolderMap: Map<string, Watcher[]>;
-  readonly expandedFolders: Set<string>;
+  readonly watcherFolders: WatcherFolderMap;
+  readonly watcherFolderMap: Map<FolderId, Watcher[]>;
+  readonly expandedFolders: Set<FolderId>;
   readonly currentlySelectedWatcherId: string | null;
 }
 
@@ -56,9 +63,9 @@ class WatcherTree extends React.Component<
   };
 
   static createFolders = (
-    folders: Map<string, WatcherFolder>,
-    watcherFolderMap: Map<string, Watcher[]>,
-    expandedFolderIds: Set<string>
+    folders: Map<FolderId, WatcherFolder>,
+    watcherFolderMap: Map<FolderId, Watcher[]>,
+    expandedFolderIds: Set<FolderId>
   ) => (selectionId: string | null): FolderTreeNode[] =>
     folders.reduce(
       (acc: FolderTreeNode[], folder: WatcherFolder): FolderTreeNode[] => [

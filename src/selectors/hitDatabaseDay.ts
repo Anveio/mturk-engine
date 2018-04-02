@@ -1,5 +1,11 @@
 // tslint:disable:align
-import { HitDatabaseMap, HitDatabaseEntry, DailyEarnings } from '../types';
+import {
+  HitDatabaseMap,
+  HitDatabaseEntry,
+  DailyEarnings,
+  HitId,
+  LegacyDateFormat
+} from '../types';
 import { createSelector } from 'reselect';
 import { isPaidOrApproved, isPending } from '../utils/hitDatabase';
 import { Map } from 'immutable';
@@ -7,9 +13,9 @@ import { selectedHitDbDateSelector, hitDatabaseSelector } from './index';
 
 export const hitsOnSelectedDate = createSelector(
   [hitDatabaseSelector, selectedHitDbDateSelector],
-  (database: HitDatabaseMap, date: string | null) => {
+  (database: HitDatabaseMap, date: LegacyDateFormat | null) => {
     return date === null
-      ? Map<string, HitDatabaseEntry>()
+      ? Map<HitId, HitDatabaseEntry>()
       : (database.filter(
           (entry: HitDatabaseEntry) => entry.date === date
         ) as HitDatabaseMap);

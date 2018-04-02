@@ -1,4 +1,4 @@
-import { WatcherMap, Watcher } from '../types';
+import { WatcherMap, Watcher, GroupId } from '../types';
 import { WatcherAction } from '../actions/watcher';
 import {
   ADD_WATCHER,
@@ -9,7 +9,7 @@ import {
 import { Map } from 'immutable';
 import { DeleteWatcherFolder } from '../actions/watcherFolders';
 
-const initial: WatcherMap = Map<string, Watcher>();
+const initial: WatcherMap = Map<GroupId, Watcher>();
 
 export default (
   state = initial,

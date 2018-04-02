@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RootState } from 'types';
+import { RootState, HitId } from 'types';
 import { List } from 'immutable';
 import { ResourceList } from '@shopify/polaris';
 import { hitsOnSelectedDateIds } from 'selectors/hitDatabaseDay';
@@ -9,7 +9,7 @@ import CompletedHitItem from './CompletedHitItem';
 import NoActivity from './NoActivity';
 
 export interface Props {
-  readonly hitIds: List<string>;
+  readonly hitIds: List<HitId>;
 }
 
 export interface OwnProps {

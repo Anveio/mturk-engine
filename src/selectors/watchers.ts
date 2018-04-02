@@ -1,5 +1,11 @@
 import { createSelector } from 'reselect';
-import { Watcher, WatcherMap, RootState, WatcherFolderMap } from '../types';
+import {
+  Watcher,
+  WatcherMap,
+  RootState,
+  WatcherFolderMap,
+  GroupId
+} from '../types';
 import { watchersSelector, watcherFoldersSelector } from './index';
 import { Map } from 'immutable';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
@@ -21,7 +27,7 @@ const updateLegacyWatchers = createSelector(
             ? cur.folderId
             : DEFAULT_WATCHER_FOLDER_ID
         }),
-      Map<string, Watcher>()
+      Map<GroupId, Watcher>()
     )
 );
 

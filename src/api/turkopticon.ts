@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { List } from 'immutable';
-import { TOpticonResponse } from '../types';
+import { TOpticonResponse, RequesterId } from '../types';
 import { turkopticonApiMulti } from '../constants/urls';
 
-export const batchFetchTOpticon = async (requesterIds: List<string>) => {
+export const batchFetchTOpticon = async (requesterIds: List<RequesterId>) => {
   try {
     const t0 = performance.now();
     const response = await axios.get<TOpticonResponse>(turkopticonApiMulti, {

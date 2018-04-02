@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { ResourceList, Card } from '@shopify/polaris';
-import { RootState } from '../../types';
+import { RootState, GroupId } from '../../types';
 import SearchCard from '../SearchCard/SearchCard';
 import SearchTableHeading from './SearchTableHeading';
 import EmptySearchTable from './EmptySearchTable';
@@ -11,7 +11,7 @@ import { filteredResultsGroupId } from '../../selectors/search';
 
 interface Props {
   readonly rawResultsSize: number;
-  readonly resultsIds: List<string>;
+  readonly resultsIds: List<GroupId>;
 }
 
 class SearchTable extends React.Component<Props, never> {

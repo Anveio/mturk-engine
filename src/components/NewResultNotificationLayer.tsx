@@ -5,7 +5,8 @@ import {
   RootState,
   SearchResult,
   SearchResults,
-  NotificationSettings
+  NotificationSettings,
+  GroupId
 } from '../types';
 import { sendNotification, SendNotification } from '../actions/notifications';
 import {
@@ -16,7 +17,7 @@ import {
 interface Props {
   readonly notificationSettings: NotificationSettings;
   readonly newResults: SearchResults;
-  readonly newResultsGroupIds: List<string>;
+  readonly newResultsGroupIds: List<GroupId>;
 }
 
 interface Handlers {

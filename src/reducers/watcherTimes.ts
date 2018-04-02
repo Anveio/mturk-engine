@@ -1,4 +1,4 @@
-import { WatcherTimerMap, WatcherTimer } from '../types';
+import { WatcherTimerMap, WatcherTimer, GroupId } from '../types';
 import {
   SetWatcherTimer,
   CancelWatcherTick,
@@ -12,7 +12,7 @@ import {
 import { Map } from 'immutable';
 import { calculateTimeFromDelay } from '../utils/dates';
 
-const initial: WatcherTimerMap = Map<string, WatcherTimer>();
+const initial: WatcherTimerMap = Map<GroupId, WatcherTimer>();
 
 type WatcherTimerAction = CancelWatcherTick | SetWatcherTimer | DeleteWatcher;
 

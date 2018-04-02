@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { SearchResult, SearchResults } from '../types';
+import { SearchResult, SearchResults, GroupId } from '../types';
 import { WorkerSearchResult } from '../worker-mturk-api';
 import {
   calculateIfQualified,
@@ -16,7 +16,7 @@ export const tabulateSearchData = (
         ...createWorkerSearchItem(hit),
         markedAsRead: !!freshSearch
       }),
-    Map<string, SearchResult>()
+    Map<GroupId, SearchResult>()
   );
 
 const createWorkerSearchItem = (hit: WorkerSearchResult): SearchResult => ({

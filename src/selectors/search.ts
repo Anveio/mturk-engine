@@ -5,7 +5,8 @@ import {
   HitBlockMap,
   RequesterBlockMap,
   SortingOption,
-  AttributeWeights
+  AttributeWeights,
+  RequesterId
 } from '../types';
 import {
   filterBelowTOThreshold,
@@ -109,7 +110,8 @@ export const getSearchResultRequesterIds = createSelector(
     searchResults
       .filter(noTurkopticon)
       .reduce(
-        (acc: List<string>, cur: SearchResult) => acc.push(cur.requester.id),
-        List<string>([])
+        (acc: List<RequesterId>, cur: SearchResult) =>
+          acc.push(cur.requester.id),
+        List<RequesterId>([])
       )
 );

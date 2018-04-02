@@ -1,12 +1,12 @@
 import { Set } from 'immutable';
-import { ExpandedSearchResultsSet } from '../types';
+import { ExpandedSearchResultsSet, GroupId } from '../types';
 import { SearchExpandAction } from '../actions/toggleExpand';
 import {
   TOGGLE_SEARCH_RESULT_EXPAND,
   COLLAPSE_ALL_SEARCH_RESULTS
 } from '../constants';
 
-const initial: ExpandedSearchResultsSet = Set<string>([]);
+const initial: ExpandedSearchResultsSet = Set<GroupId>([]);
 
 export default (state = initial, action: SearchExpandAction) => {
   switch (action.type) {

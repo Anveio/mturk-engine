@@ -1,4 +1,4 @@
-import { SearchResult, SearchResults } from '../types';
+import { SearchResult, SearchResults, GroupId } from '../types';
 import { SearchAction } from '../actions/search';
 import { TOpticonAction } from '../actions/turkopticon';
 import { MarkAction } from '../actions/markAsRead';
@@ -17,7 +17,7 @@ import {
 import { noTurkopticon } from '../utils/turkopticon';
 // import sampleHits from '../utils/sampleHits';
 
-const initial: SearchResults = Map<string, SearchResult>();
+const initial: SearchResults = Map<GroupId, SearchResult>();
 
 type SearchResultAction = SearchAction | MarkAction | TOpticonAction;
 

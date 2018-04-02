@@ -1,10 +1,10 @@
-import { WatcherStatistics, WatcherStatisticsMap } from '../types';
+import { WatcherStatistics, WatcherStatisticsMap, GroupId } from '../types';
 import { AcceptHitSuccess, AcceptHitFailure } from '../actions/accept';
 import { ACCEPT_HIT_SUCCESS, ACCEPT_HIT_FAILURE } from '../constants';
 import { Map } from 'immutable';
 import { defaultWatcherStats } from '../utils/watchers';
 
-const initial: WatcherStatisticsMap = Map<string, WatcherStatistics>();
+const initial: WatcherStatisticsMap = Map<GroupId, WatcherStatistics>();
 
 type WatcherStatisticsAction = AcceptHitFailure | AcceptHitSuccess;
 

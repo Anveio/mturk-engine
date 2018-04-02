@@ -7,6 +7,7 @@ import {
   MOMENT_LOCALE
 } from '../constants/misc';
 import { range } from './arrays';
+import { LegacyDateFormat } from 'types';
 
 /**
  * Worker's date URL's are in YYYY-MM-DD
@@ -18,7 +19,9 @@ export const dateObjectTo = (date: Date) => (format: DATE_FORMAT) =>
 export const stringToDate = (dateString: string) => (format: DATE_FORMAT) =>
   moment(dateString, format).toDate();
 
-export const workerDateFormatToLegacyDateFormat = (dateString: string) =>
+export const workerDateFormatToLegacyDateFormat = (
+  dateString: string
+): LegacyDateFormat =>
   moment(dateString, WORKER_DATE_FORMAT).format(LEGACY_DATE_FORMAT);
 
 export const legacyDateFormatToContactDateFormat = (dateString: string) =>
@@ -51,7 +54,7 @@ export const dateRange = (
   numDays = 365
 ): List<string> =>
   range(numDays).reduce(
-    (acc: List<string>, cur: number) =>
+    (acc: List<LegacyDateFormat>, cur: number) =>
       acc.unshift(
         startDate
           .clone()

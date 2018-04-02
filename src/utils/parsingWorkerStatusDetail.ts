@@ -1,7 +1,9 @@
 import {
   HitDatabaseEntry,
   HitDatabaseMap,
-  WorkerHitDatabaseEntry
+  WorkerHitDatabaseEntry,
+  HitId,
+  LegacyDateFormat
 } from '../types';
 import { Map } from 'immutable';
 import { StatusDetailPageInfo } from '../api/statusDetail';
@@ -13,7 +15,7 @@ import { STATUS_DETAIL_RESULTS_PER_PAGE } from '../constants/misc';
 
 export const parseStatusDetailPage = (
   data: StatusDetailApiResponse,
-  legacyDateString: string
+  legacyDateString: LegacyDateFormat
 ): StatusDetailPageInfo => {
   try {
     return {
@@ -23,7 +25,7 @@ export const parseStatusDetailPage = (
   } catch (e) {
     console.warn(e);
     return {
-      data: Map<string, HitDatabaseEntry>(),
+      data: Map<HitId, HitDatabaseEntry>(),
       morePages: false
     };
   }
@@ -31,16 +33,16 @@ export const parseStatusDetailPage = (
 
 const tabulateHitDbEntries = (
   hits: WorkerSubmittedHit[],
-  legacyDateString: string
+  legacyDateString: LegacyDateFormat
 ): HitDatabaseMap =>
   hits.reduce((map: HitDatabaseMap, hit: WorkerSubmittedHit) => {
     return map.set(hit.hit_id, generateHitDbEntry(hit, legacyDateString));
     // tslint:disable-next-line:align
-  }, Map<string, WorkerHitDatabaseEntry>());
+  }, Map<HitId, WorkerHitDatabaseEntry>());
 
 const generateHitDbEntry = (
   submittedHit: WorkerSubmittedHit,
-  dateString: string
+  dateString: LegacyDateFormat
 ): WorkerHitDatabaseEntry => {
   const {
     hit_id,

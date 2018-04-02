@@ -1,6 +1,6 @@
 import { call, put, select } from 'redux-saga/effects';
 import { List } from 'immutable';
-import { TOpticonResponse } from '../types';
+import { TOpticonResponse, RequesterId } from '../types';
 import {
   FetchTOpticonRequest,
   FetchTOpticonSuccess,
@@ -16,7 +16,7 @@ import { getSearchResultRequesterIds } from '../selectors/search';
 
 export function* fetchTurkopticon(action: FetchTOpticonRequest) {
   try {
-    const requesterIds: List<string> = yield select(
+    const requesterIds: List<RequesterId> = yield select(
       getSearchResultRequesterIds
     );
 

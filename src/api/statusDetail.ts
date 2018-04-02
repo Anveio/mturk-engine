@@ -25,6 +25,7 @@ export const fetchStatusDetailPage = async (encodedDate: string, page = 1) => {
         responseType: 'json'
       }
     );
+
     return parseStatusDetailPage(
       response.data,
       workerDateFormatToLegacyDateFormat(encodedDate)

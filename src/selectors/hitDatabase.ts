@@ -4,7 +4,10 @@ import {
   HitDatabaseMap,
   HeatMapValue,
   RequesterMap,
-  Requester
+  Requester,
+  HitId,
+  RequesterId,
+  LegacyDateFormat
 } from '../types';
 import {
   generateOneYearOfDates,
@@ -16,11 +19,9 @@ import {
   isPending,
   isApprovedButNotPaid
 } from '../utils/hitDatabase';
-
-// import { selectedHitDbDateSelector } from './hitDatabaseDay';
 import { Map, List } from 'immutable';
-import { LEGACY_DATE_FORMAT } from '../constants/misc';
 import { hitDatabaseSelector } from './index';
+import { LEGACY_DATE_FORMAT } from 'constants/misc';
 
 export const pendingEarningsSelector = createSelector(
   [hitDatabaseSelector],
@@ -45,30 +46,33 @@ export const approvedButNotPaidEarnings = createSelector(
 // tslint:disable:align
 export const dateMoneyMap = createSelector(
   [hitDatabaseSelector],
-  (hitDatabase): Map<string, number> =>
+  (hitDatabase): Map<HitId, number> =>
     hitDatabase.reduce(
-      (acc: Map<string, number>, el: HitDatabaseEntry) =>
+      (acc: Map<LegacyDateFormat, number>, el: HitDatabaseEntry) =>
         acc.update(
           el.date,
           (reward: number) =>
             reward ? reward + rewardAndBonus(el) : rewardAndBonus(el)
         ),
-      Map<string, number>()
+      Map<LegacyDateFormat, number>()
     )
 );
 
 // tslint:disable:align
 export const oneYearOfData = createSelector(
   [dateMoneyMap],
-  (moneyEarnedPerDay: Map<string, number>): List<HeatMapValue> => {
+  (moneyEarnedPerDay: Map<LegacyDateFormat, number>): List<HeatMapValue> => {
     const oneYearOfDates = generateOneYearOfDates();
-    return oneYearOfDates.reduce((acc: List<HeatMapValue>, date: string) => {
-      const count: number | undefined = moneyEarnedPerDay.get(date);
-      const data = count
-        ? { date, count: Math.round(count * 100) / 100 }
-        : { date, count: 0 };
-      return acc.push(data);
-    }, List());
+    return oneYearOfDates.reduce(
+      (acc: List<HeatMapValue>, date: LegacyDateFormat) => {
+        const count: number | undefined = moneyEarnedPerDay.get(date);
+        const data = count
+          ? { date, count: Math.round(count * 100) / 100 }
+          : { date, count: 0 };
+        return acc.push(data);
+      },
+      List()
+    );
   }
 );
 
@@ -97,7 +101,7 @@ export const hitDatabaseToRequesterMap = createSelector(
     database.reduce(
       (acc: RequesterMap, cur: HitDatabaseEntry): RequesterMap =>
         acc.set(cur.requester.id, cur.requester),
-      Map<string, Requester>()
+      Map<RequesterId, Requester>()
     )
 );
 
@@ -105,13 +109,13 @@ export const hitDatabaseToRequesterWorkHistoryMap = createSelector(
   [hitDatabaseSelector],
   database =>
     database.reduce(
-      (acc: Map<string, List<HitDatabaseEntry>>, cur: HitDatabaseEntry) =>
+      (acc: Map<RequesterId, List<HitDatabaseEntry>>, cur: HitDatabaseEntry) =>
         acc.update(
           cur.requester.id,
           (submittedHits: List<HitDatabaseEntry>) =>
             submittedHits ? submittedHits.push(cur) : List([cur])
         ),
-      Map<string, List<HitDatabaseEntry>>()
+      Map<RequesterId, List<HitDatabaseEntry>>()
     )
 );
 

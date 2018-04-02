@@ -1,9 +1,9 @@
-import { BlockedHit, HitBlockMap } from '../types';
+import { BlockedHit, HitBlockMap, GroupId } from '../types';
 import { BlockHitAction } from '../actions/blockHitGroup';
 import { BLOCK_HIT_GROUP, UNBLOCK_HIT_GROUP } from '../constants';
 import { Map } from 'immutable';
 
-const initial: HitBlockMap = Map<string, BlockedHit>();
+const initial: HitBlockMap = Map<GroupId, BlockedHit>();
 
 export default (state = initial, action: BlockHitAction): HitBlockMap => {
   switch (action.type) {

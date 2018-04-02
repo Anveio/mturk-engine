@@ -1,4 +1,4 @@
-import { QueueItem, QueueMap } from '../types';
+import { QueueItem, QueueMap, HitId } from '../types';
 import { QueueAction } from '../actions/queue';
 import { ReturnAction } from '../actions/return';
 import { AcceptAction } from '../actions/accept';
@@ -9,7 +9,7 @@ import {
 } from '../constants';
 import { Map } from 'immutable';
 
-const initial: QueueMap = Map<string, QueueItem>();
+const initial: QueueMap = Map<HitId, QueueItem>();
 
 type QueueTableAction = QueueAction | ReturnAction | AcceptAction;
 

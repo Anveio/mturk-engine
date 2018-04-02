@@ -20,7 +20,7 @@ export interface RootState {
   readonly hitDatabase: HitDatabaseMap;
   readonly topticonSettings: TOpticonSettings;
   readonly hitBlocklist: HitBlockMap;
-  readonly selectedHitDbDate: string | null;
+  readonly selectedHitDbDate: LegacyDateFormat | null;
   readonly requesterBlocklist: RequesterBlockMap;
   readonly audioSettingsV1: AudioSettings;
   readonly watcherTimes: WatcherTimerMap;
@@ -31,24 +31,32 @@ export interface RootState {
   readonly loggedSearchResults: SearchResults;
   readonly watcherTreeSettings: WatcherTreeSettings;
   readonly watcherFolders: WatcherFolderMap;
-  readonly expandedWatcherFolderIds: Set<string>;
+  readonly expandedWatcherFolderIds: Set<GroupId>;
   readonly watcherStatistics: WatcherStatisticsMap;
 }
 
-export type SearchResults = Map<string, SearchResult>; // indexed by groupId
-export type QueueMap = Map<string, QueueItem>; // indexed by hitId
-export type RequesterMap = Map<string, Requester>; // indexed by requesterId
-export type HitBlockMap = Map<string, BlockedHit>; // indexed by groupId
-export type RequesterBlockMap = Map<string, BlockedRequester>; // indexed by requesterId
-export type WatcherMap = Map<string, Watcher>; // indexed by groupId
-export type WatcherTimerMap = Map<string, WatcherTimer>; // indexed by groupId
-export type WatcherFolderMap = Map<string, WatcherFolder>; // indexed by folderId
-export type HitDatabaseMap = Map<string, HitDatabaseEntry>; // indexed by LEGACY_DATE_FORMAT string
-export type ExpandedSearchResultsSet = Set<string>; // indexed by groupId
-export type ExpandedQueueItemsSet = Set<string>; // indexed by hitId
-export type WatcherStatisticsMap = Map<string, WatcherStatistics>; // indexed by groupId
-
 export type Primitive = string | number | boolean;
+
+export type GroupId = string;
+export type HitId = string;
+export type RequesterId = string;
+export type FolderId = string;
+export type LegacyDateFormat = string;
+export type AssignmentId = string;
+export type TaskId = string;
+
+export type SearchResults = Map<GroupId, SearchResult>;
+export type QueueMap = Map<HitId, QueueItem>;
+export type RequesterMap = Map<RequesterId, Requester>;
+export type HitBlockMap = Map<GroupId, BlockedHit>;
+export type RequesterBlockMap = Map<RequesterId, BlockedRequester>;
+export type WatcherMap = Map<GroupId, Watcher>;
+export type WatcherTimerMap = Map<GroupId, WatcherTimer>;
+export type WatcherFolderMap = Map<FolderId, WatcherFolder>;
+export type HitDatabaseMap = Map<HitId, HitDatabaseEntry>;
+export type ExpandedSearchResultsSet = Set<GroupId>;
+export type ExpandedQueueItemsSet = Set<HitId>;
+export type WatcherStatisticsMap = Map<GroupId, WatcherStatistics>;
 
 /**
  * The keys of RootState that are persisted by redux-persist.
@@ -94,7 +102,6 @@ export type MaybeAccount = AccountInfo | null;
 export type FormTarget =
   | 'searchOptions'
   | 'topticonSettings'
-  | 'useLegacyLinks'
   | 'notificationSettings';
 
 export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
@@ -155,32 +162,29 @@ export interface SearchResult extends HumanIntelligenceTask {
 }
 
 export interface LoggedSearchResult {
-  readonly groupId: string;
+  readonly groupId: GroupId;
   readonly markedAsRead: boolean;
   readonly notificationSent: boolean;
 }
 
 export interface LegacyHitDatabaseEntry {
-  readonly id: string;
-  /**
-   * In 'MMDDYYYY' Format
-   */
-  readonly date: string;
+  readonly id: HitId;
+  readonly date: LegacyDateFormat;
   readonly title: string;
   readonly reward: number;
   readonly bonus: number;
   readonly status: HitStatus;
   readonly requester: {
-    readonly id: string;
+    readonly id: RequesterId;
     readonly name: string;
   };
-  readonly groupId?: string;
+  readonly groupId?: GroupId;
   readonly feedback?: string;
-  readonly assignmentId?: string;
+  readonly assignmentId?: AssignmentId;
 }
 
 export interface WorkerHitDatabaseEntry extends LegacyHitDatabaseEntry {
-  readonly assignmentId: string;
+  readonly assignmentId: AssignmentId;
 }
 
 export type HitDatabaseEntry = LegacyHitDatabaseEntry | WorkerHitDatabaseEntry;
@@ -191,9 +195,9 @@ export interface QueueItem extends HumanIntelligenceTask {
    */
   readonly fresh: boolean;
   readonly description: string;
-  readonly hitId: string;
-  readonly taskId: string;
-  readonly assignmentId: string;
+  readonly hitId: HitId;
+  readonly taskId: TaskId;
+  readonly assignmentId: AssignmentId;
   readonly timeLeftInSeconds: number;
 }
 
@@ -205,14 +209,14 @@ export interface NotificationSettings {
 }
 
 export interface BlockedHit {
-  readonly groupId: string;
+  readonly groupId: GroupId;
   readonly title: string;
   readonly requester: Requester;
   readonly dateBlocked: Date;
 }
 
 export interface Requester {
-  readonly id: string;
+  readonly id: RequesterId;
   readonly name: string;
   readonly turkopticon?: RequesterInfo;
 }
@@ -266,7 +270,7 @@ export interface AttributeWeights {
 }
 
 export interface Watcher {
-  readonly groupId: string;
+  readonly groupId: GroupId;
   readonly title: string;
   readonly delay: number;
   readonly description: string;
@@ -320,7 +324,7 @@ export interface DailyEarnings {
 
 export interface WatcherTreeSettings {
   readonly selectionKind: SelectionKind;
-  readonly selectionId: string | null;
+  readonly selectionId: FolderId | GroupId | null;
 }
 
 export type WatcherKind = 'groupId' | 'searchTerm' | 'requesterId';
@@ -328,7 +332,7 @@ export type WatcherKind = 'groupId' | 'searchTerm' | 'requesterId';
 export type SelectionKind = WatcherKind | 'folder' | 'none';
 
 export interface WatcherFolder {
-  readonly id: string;
+  readonly id: FolderId;
   readonly name: string;
   readonly dateNumCreation: number;
 }
