@@ -32,7 +32,6 @@ const TabNavigation: React.SFC<Props & Handlers> = ({
       id="tab-navigation"
       selectedTabId={selected}
       onChange={onSelectTab}
-      animate
     >
       <Tab id={TabIndex.SEARCH} title="Search" panel={<SearchTab />} />
       <Tab
