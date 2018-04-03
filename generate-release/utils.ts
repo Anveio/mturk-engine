@@ -53,6 +53,7 @@ const generateUserScriptBoilerplate = () =>
 // @version      ${constants.VERSION_NUMBER}
 // @description  Earn money more efficiently on Amazon's Mechanical Turk work platform.
 // @author       Anveio (Shovon Hasan)
+// @license      MIT
 // @match        https://worker.mturk.com/?mturkengine
 // @match        https://www.mturk.com/?mturkengine
 // @grant        none
