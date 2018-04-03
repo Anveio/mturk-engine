@@ -5,18 +5,20 @@ import { Card, ResourceList } from '@shopify/polaris';
 import BlockedHitCard from './BlockedHitCard';
 import { recentlyBlockedHitIds } from '../../selectors/hitBlocklist';
 
-export interface Props {
+interface Props {
   readonly blockedHitIds: string[];
+  readonly blocklistSize: number;
 }
 
 class HitBlockList extends React.PureComponent<Props, never> {
   public render() {
-    return this.props.blockedHitIds.length === 0 ? (
+    const { blockedHitIds, blocklistSize } = this.props;
+    return blockedHitIds.length === 0 ? (
       <div />
     ) : (
-      <Card title="Recently blocked HITs">
+      <Card title={`Recently blocked HITs (${blocklistSize} total)`}>
         <ResourceList
-          items={this.props.blockedHitIds}
+          items={blockedHitIds}
           renderItem={(id: string) => (
             <BlockedHitCard key={id} blockedHitId={id} />
           )}
@@ -27,7 +29,8 @@ class HitBlockList extends React.PureComponent<Props, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  blockedHitIds: recentlyBlockedHitIds(state)
+  blockedHitIds: recentlyBlockedHitIds(state),
+  blocklistSize: state.hitBlocklist.size
 });
 
 export default connect(mapState)(HitBlockList);

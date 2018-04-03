@@ -5,18 +5,23 @@ import { RootState } from '../../types';
 import { recentlyBlockedRequesterIds } from '../../selectors/requesterBlocklist';
 import BlockedRequesterTag from './BlockedRequesterTag';
 
-export interface Props {
+interface Props {
   readonly blockedRequesterIds: string[];
+  readonly blocklistSize: number;
 }
 
 class RequesterBlockList extends React.PureComponent<Props, never> {
   public render() {
-    return this.props.blockedRequesterIds.length === 0 ? (
+    const { blockedRequesterIds, blocklistSize } = this.props;
+    return blockedRequesterIds.length === 0 ? (
       <div />
     ) : (
-      <Card sectioned title="Recently blocked requesters">
+      <Card
+        sectioned
+        title={`Recently blocked requesters (${blocklistSize} total)`}
+      >
         <Stack>
-          {this.props.blockedRequesterIds.map((id: string) => (
+          {blockedRequesterIds.map((id: string) => (
             <BlockedRequesterTag blockedRequesterId={id} key={id} />
           ))}
         </Stack>
@@ -26,7 +31,8 @@ class RequesterBlockList extends React.PureComponent<Props, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  blockedRequesterIds: recentlyBlockedRequesterIds(state)
+  blockedRequesterIds: recentlyBlockedRequesterIds(state),
+  blocklistSize: state.requesterBlocklist.size
 });
 
 export default connect(mapState)(RequesterBlockList);
