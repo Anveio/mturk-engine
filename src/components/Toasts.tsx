@@ -14,21 +14,3 @@ export const GenericWaitingToast = ({ message }: GenericProps) => (
     <TextContainer>{message}</TextContainer>
   </Stack>
 );
-
-interface UploadProps {
-  readonly progress: number;
-}
-
-export const UploadProgressToast = ({ progress }: UploadProps) => {
-  return progress < 100 ? (
-    <Stack>
-      <Spinner
-        size="small"
-        accessibilityLabel="Your file has not finished uploading"
-      />
-      <TextContainer>Uploading your file...</TextContainer>
-    </Stack>
-  ) : (
-    'File upload complete'
-  );
-};

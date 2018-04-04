@@ -10,22 +10,23 @@ import {
   readUploadedFileAsText,
   parseUploadedBackupFile
 } from '../utils/backup';
-import { failedUploadToast } from '../utils/toaster';
-import { PersistedState } from '../types';
 import {
-  createProgressToast,
-  updateProgressToast
-} from '../utils/uploadToaster';
+  failedUploadToast,
+  createGenericWaitingToast,
+  updateTopRightToaster,
+  plainToast
+} from '../utils/toaster';
+import { PersistedState } from '../types';
 
 export function* handleFileUploadRequest(action: UploadRequest) {
   try {
     const { payload } = action;
 
-    const toastKey = createProgressToast();
+    const toastKey = createGenericWaitingToast('Uploading your file...');
 
     const data: string = yield call(readUploadedFileAsText, payload);
 
-    updateProgressToast(toastKey, 100);
+    updateTopRightToaster(toastKey, plainToast('File upload complete.'));
 
     const parsedData: Partial<PersistedState> = parseUploadedBackupFile(data);
     yield put<UploadSuccess>(uploadSuccess(parsedData));
