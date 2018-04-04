@@ -33,6 +33,7 @@ export interface RootState {
   readonly watcherFolders: WatcherFolderMap;
   readonly expandedWatcherFolderIds: Set<GroupId>;
   readonly watcherStatistics: WatcherStatisticsMap;
+  readonly queueSortingOption: QueueSortingOption;
 }
 
 export type Primitive = string | number | boolean;
@@ -343,3 +344,5 @@ export interface WatcherFolder {
   readonly name: string;
   readonly dateNumCreation: number;
 }
+
+export type QueueSortingOption = 'REWARD_DESC' | 'TIME_LEFT_ASC'; 
