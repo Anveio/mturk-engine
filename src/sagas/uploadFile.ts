@@ -12,7 +12,7 @@ import {
 } from '../utils/backup';
 import {
   failedUploadToast,
-  createGenericWaitingToast,
+  showWaitingToast,
   updateTopRightToaster,
   plainToast
 } from '../utils/toaster';
@@ -22,7 +22,7 @@ export function* handleFileUploadRequest(action: UploadRequest) {
   try {
     const { payload } = action;
 
-    const toastKey = createGenericWaitingToast('Uploading your file...');
+    const toastKey = showWaitingToast('Uploading your file...');
 
     const data: string = yield call(readUploadedFileAsText, payload);
 

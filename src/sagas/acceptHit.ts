@@ -9,7 +9,7 @@ import {
 import { sendHitAcceptRequest, HitAcceptResponse } from '../api/acceptHit';
 import {
   successfulAcceptToast,
-  createGenericWaitingToast,
+  showWaitingToast,
   updateTopRightToaster,
   errorAcceptToast,
   failedAcceptToast
@@ -18,7 +18,7 @@ import { queueItemFromSearchResult } from '../utils/queueItem';
 import { SearchResult } from '../types';
 
 export function* acceptHit(action: AcceptHitRequest) {
-  const toasterKey = createGenericWaitingToast(`Accepting HIT...`);
+  const toasterKey = showWaitingToast(`Accepting HIT...`);
   const { searchResult } = action;
 
   try {
