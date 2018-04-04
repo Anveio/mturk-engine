@@ -1,8 +1,9 @@
 import { DatabaseDateSelectionAction } from '../actions/selectDatabaseDate';
 import { SELECT_DATABASE_DATE, CLEAR_DATABASE_DATE_SELECT } from '../constants';
+import { LegacyDateFormat } from 'types';
 
 export default (
-  state: string | null = null,
+  state: LegacyDateFormat | null = null,
   action: DatabaseDateSelectionAction
 ) => {
   switch (action.type) {

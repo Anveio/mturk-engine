@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { RootState, HeatMapValue } from '../../types';
+import { RootState, HeatMapValue, LegacyDateFormat } from '../../types';
 import { SQUARE_SIZE, SQUARE_BORDER_RADIUS } from '../../constants/misc';
 import {
   SelectDatabaseDate,
@@ -19,7 +19,7 @@ export interface Props {
 }
 
 export interface Handlers {
-  readonly onSelect: (dateString: string) => void;
+  readonly onSelect: (dateString: LegacyDateFormat) => void;
   readonly clearSelect: () => void;
 }
 

@@ -41,12 +41,16 @@ export type GroupId = string;
 export type HitId = string;
 export type RequesterId = string;
 export type FolderId = string;
+export type AssignmentId = string;
+export type TaskId = string;
 /**
  * Format: MMDDYYY
  */
 export type LegacyDateFormat = string;
-export type AssignmentId = string;
-export type TaskId = string;
+/**
+ * Format: YYYY-MM-DD
+ */
+export type WorkerDateFormat = string;
 
 export type SearchResults = Map<GroupId, SearchResult>;
 export type QueueMap = Map<HitId, QueueItem>;

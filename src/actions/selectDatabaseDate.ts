@@ -1,8 +1,9 @@
 import { SELECT_DATABASE_DATE, CLEAR_DATABASE_DATE_SELECT } from '../constants';
+import { LegacyDateFormat } from 'types';
 
 export interface SelectDatabaseDate {
   readonly type: SELECT_DATABASE_DATE;
-  readonly dateString: string;
+  readonly dateString: LegacyDateFormat;
 }
 
 export interface ClearDatabaseSelection {
@@ -13,7 +14,9 @@ export type DatabaseDateSelectionAction =
   | ClearDatabaseSelection
   | SelectDatabaseDate;
 
-export const selectDatabaseDate = (dateString: string): SelectDatabaseDate => ({
+export const selectDatabaseDate = (
+  dateString: LegacyDateFormat
+): SelectDatabaseDate => ({
   type: SELECT_DATABASE_DATE,
   dateString
 });

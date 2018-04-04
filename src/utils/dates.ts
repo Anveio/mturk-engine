@@ -7,12 +7,8 @@ import {
   MOMENT_LOCALE
 } from '../constants/misc';
 import { range } from './arrays';
-import { LegacyDateFormat } from 'types';
+import { LegacyDateFormat, WorkerDateFormat } from 'types';
 
-/**
- * Worker's date URL's are in YYYY-MM-DD
- * @param dateString
- */
 export const dateObjectTo = (date: Date) => (format: DATE_FORMAT) =>
   moment(date).format(format);
 
@@ -20,7 +16,7 @@ export const stringToDate = (dateString: string) => (format: DATE_FORMAT) =>
   moment(dateString, format).toDate();
 
 export const workerDateFormatToLegacyDateFormat = (
-  dateString: string
+  dateString: WorkerDateFormat
 ): LegacyDateFormat =>
   moment(dateString, WORKER_DATE_FORMAT).format(LEGACY_DATE_FORMAT);
 
