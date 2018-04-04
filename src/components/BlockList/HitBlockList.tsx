@@ -13,9 +13,7 @@ interface Props {
 class HitBlockList extends React.PureComponent<Props, never> {
   public render() {
     const { blockedHitIds, blocklistSize } = this.props;
-    return blockedHitIds.length === 0 ? (
-      <div />
-    ) : (
+    return blockedHitIds.length === 0 ? null : (
       <Card title={`Recently blocked HITs (${blocklistSize} total)`}>
         <ResourceList
           items={blockedHitIds}

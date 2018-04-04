@@ -14,7 +14,7 @@ class RequesterBlockList extends React.PureComponent<Props, never> {
   public render() {
     const { blockedRequesterIds, blocklistSize } = this.props;
     return blockedRequesterIds.length === 0 ? (
-      <div />
+      null
     ) : (
       <Card
         sectioned
