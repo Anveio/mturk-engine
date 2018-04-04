@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import { tabulateQueueApiResponse } from '../utils/parsingWorkerQueue';
+import { tabulateQueueApiResponse } from '../utils/parsingQueue';
 import { QueueApiResponse } from '../worker-mturk-api';
 
 export const getQueuePage = async () => {

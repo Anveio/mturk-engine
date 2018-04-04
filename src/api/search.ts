@@ -3,7 +3,7 @@ import * as qs from 'qs';
 import { SearchOptions } from '../types';
 import { API_URL } from '../constants';
 import { generateParams } from '../utils/searchOptions';
-import { tabulateSearchData } from '../utils/parsingWorkerSearch';
+import { tabulateSearchData } from '../utils/parsingSearch';
 import { SearchResultsApiResponse } from '../worker-mturk-api';
 
 export const searchHits = async (options: SearchOptions, fresh?: boolean) => {
