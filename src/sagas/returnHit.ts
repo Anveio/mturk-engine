@@ -9,14 +9,14 @@ import {
 import { sendReturnHitRequest } from '../api/returnHit';
 import {
   generateReturnToast,
-  createGenericWaitingToast,
+  showWaitingToast,
   updateTopRightToaster
 } from '../utils/toaster';
 import { getHitAuthToken } from '../api/getHitAuthToken';
 
 export function* returnHit(action: ReturnHitRequest) {
   const { title, hitId } = action.queueItem;
-  const toasterKey = createGenericWaitingToast(`Returning HIT...`);
+  const toasterKey = showWaitingToast(`Returning HIT...`);
 
   try {
     const authToken: string | null = yield call(

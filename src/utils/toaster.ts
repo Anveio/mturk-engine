@@ -29,7 +29,7 @@ export const createToastLayer = () =>
 export const updateTopRightToaster = (key: string, newToast: IToastProps) =>
   TopRightToaster.update(key, newToast);
 
-export const createGenericWaitingToast = (message: string) =>
+export const showWaitingToast = (message: string) =>
   TopRightToaster.show({
     message: GenericWaitingToast({ message }),
     intent: Intent.NONE,

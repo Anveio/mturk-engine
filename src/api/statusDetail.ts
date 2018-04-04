@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { HitDatabaseMap } from '../types';
 import { API_URL } from '../constants';
-import { parseStatusDetailPage } from '../utils/parsingWorkerStatusDetail';
+import { parseStatusDetailPage } from '../utils/parsingStatusDetail';
 import { StatusDetailApiResponse } from '../worker-mturk-api';
 import { workerDateFormatToLegacyDateFormat } from '../utils/dates';
 

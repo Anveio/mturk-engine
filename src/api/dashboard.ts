@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_URL } from '../constants';
-import { generateAccountInfo } from '../utils/parsingWorkerAccount';
-import { parseWorkedDates } from '../utils/parsingWorkerHitHistory';
+import { generateAccountInfo } from '../utils/parsingAccount';
+import { parseWorkedDates } from '../utils/parsingHitHistory';
 import { DashboardApiResponse } from '../worker-mturk-api';
 
 export const fetchDashboard = async () => {

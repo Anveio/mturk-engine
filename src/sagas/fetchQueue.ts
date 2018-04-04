@@ -11,12 +11,12 @@ import {
   generateQueueToast,
   failedQueueToast,
   updateTopRightToaster,
-  createGenericWaitingToast
+  showWaitingToast
 } from '../utils/toaster';
 import { QueueMap } from '../types';
 
 export function* fetchUserQueue(action: FetchQueueRequest) {
-  const toasterKey = createGenericWaitingToast('Fetching your queue...');
+  const toasterKey = showWaitingToast('Fetching your queue...');
   try {
     const queuePageData: QueueMap = yield call(getQueuePage);
 

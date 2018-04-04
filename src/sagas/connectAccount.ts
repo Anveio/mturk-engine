@@ -10,12 +10,12 @@ import { fetchDashboard } from '../api/dashboard';
 import {
   accountConnectionFailedToast,
   accountConnectionSuccessfulToast,
-  createGenericWaitingToast,
+  showWaitingToast,
   updateTopRightToaster
 } from '../utils/toaster';
 
 export function* fetchAccountInfo(action: ConnectAccountRequest) {
-  const toasterKey = createGenericWaitingToast('Fetching your dashboard...');
+  const toasterKey = showWaitingToast('Fetching your dashboard...');
   try {
     const accountData = yield call(fetchDashboard);
     updateTopRightToaster(toasterKey, accountConnectionSuccessfulToast);
