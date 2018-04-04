@@ -41,6 +41,9 @@ export type GroupId = string;
 export type HitId = string;
 export type RequesterId = string;
 export type FolderId = string;
+/**
+ * Format: MMDDYYY
+ */
 export type LegacyDateFormat = string;
 export type AssignmentId = string;
 export type TaskId = string;
