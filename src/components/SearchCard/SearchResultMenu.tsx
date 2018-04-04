@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { RootState } from 'types';
 import { generateHwtfUrl } from 'utils/export';
 import { generateMarkdownExport } from 'utils/export';
-import { plainToast } from 'utils/toaster';
+import { showPlainToast } from 'utils/toaster';
 import { SearchResult } from 'types';
 
 const mapState = (state: RootState, ownProps: Props): Props => ({
@@ -20,7 +20,7 @@ interface Props {
 class SearchResultMenu extends React.PureComponent<Props, never> {
   private static handleCopyMarkDown = (hit: HumanIntelligenceTask) => () => {
     copy(generateMarkdownExport(hit));
-    plainToast(`Markdown for "${hit.title}" was added to your clipboard.`);
+    showPlainToast(`Markdown for "${hit.title}" was added to your clipboard.`);
   };
 
   public render() {

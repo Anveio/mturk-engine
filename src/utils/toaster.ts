@@ -36,11 +36,14 @@ export const createGenericWaitingToast = (message: string) =>
     timeout: 0
   });
 
-export const plainToast = (message: string, timeout = 2000) =>
-  TopRightToaster.show({
-    message,
-    timeout
-  });
+export const showPlainToast = (message: string, timeout = 2000) =>
+  TopRightToaster.show(plainToast(message, timeout));
+
+export const plainToast = (message: string, timeout = 2000): IToastProps => ({
+  message,
+  timeout,
+  intent: Intent.NONE
+});
 
 export const genericWarningToast = (message: string) =>
   TopRightToaster.show({

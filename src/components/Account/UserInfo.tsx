@@ -10,7 +10,7 @@ import {
 } from '../../actions/connectAccount';
 import UsernameButton from './UsernameButton';
 import RejectionThreshold from './RejectionThreshold';
-import { plainToast } from '../../utils/toaster';
+import { showPlainToast } from '../../utils/toaster';
 
 export interface Props {
   readonly accountInfo: MaybeAccount;
@@ -23,7 +23,7 @@ export interface Handlers {
 class UserInfo extends React.PureComponent<Props & Handlers, never> {
   private handleIdClick = (id: string) => () => {
     copy(id);
-    plainToast('Worker ID copied to clipboard.');
+    showPlainToast('Worker ID copied to clipboard.');
   };
 
   public render() {

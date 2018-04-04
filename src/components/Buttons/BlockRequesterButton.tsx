@@ -8,7 +8,7 @@ import {
   BlockRequesterAction,
   blockRequester
 } from '../../actions/blockRequester';
-import { plainToast } from 'utils/toaster';
+import { showPlainToast } from 'utils/toaster';
 
 interface OwnProps {
   readonly requester: Requester;
@@ -34,7 +34,7 @@ class BlockRequesterButton extends React.PureComponent<
   private handleBlockRequester = () => {
     this.props.onBlockRequester(blockedRequesterFactory(this.props.requester));
     if (this.props.withToast) {
-      plainToast(
+      showPlainToast(
         `${this.props.requester.name} has been added to your blocklist.`
       );
     }

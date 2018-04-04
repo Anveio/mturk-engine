@@ -8,7 +8,7 @@ import { Button } from '@shopify/polaris';
 import { connect, Dispatch } from 'react-redux';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { createWatcherWithInfo } from '../../utils/watchers';
-import { watcherAddedToast, plainToast } from '../../utils/toaster';
+import { watcherAddedToast, showPlainToast } from '../../utils/toaster';
 import { normalizedWatchers } from '../../selectors/watchers';
 
 interface OwnProps {
@@ -33,7 +33,7 @@ class AddAsWatcherButton extends React.Component<
     const maybeDuplicateWatcher = watchers.get(groupId);
 
     if (maybeDuplicateWatcher) {
-      plainToast(
+      showPlainToast(
         `A watcher for this project already exists. Look for "${
           maybeDuplicateWatcher.title
         }" in the 'Watchers' tab.`,

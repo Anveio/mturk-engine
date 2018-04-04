@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Page } from '@shopify/polaris';
 import { RootState } from 'types';
 import { APPLICATION_TITLE } from 'constants/misc';
-import { plainToast } from 'utils/toaster';
+import { showPlainToast } from 'utils/toaster';
 
 interface Props {
   readonly workerId: string | null;
@@ -15,7 +15,7 @@ class PageWrapper extends React.PureComponent<Props, never> {
     content: 'Copy ID',
     onAction: () => {
       copy(id);
-      plainToast('Worker ID copied to clipboard.');
+      showPlainToast('Worker ID copied to clipboard.');
     }
   });
 

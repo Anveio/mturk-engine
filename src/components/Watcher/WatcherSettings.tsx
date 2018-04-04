@@ -16,7 +16,7 @@ import {
   Primitive
 } from '../../types';
 import { EditableWatcherField } from '../../actions/watcher';
-import { plainToast } from '../../utils/toaster';
+import { showPlainToast } from '../../utils/toaster';
 import { watcherFoldersSortedByCreationDate } from '../../selectors/watcherFolders';
 import WatcherStatistics from './WatcherStatistics';
 import { validatePositiveNumber } from '../../utils/validation';
@@ -55,7 +55,7 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
 
   private copyId = () => {
     copy(this.props.watcher.groupId);
-    plainToast(`"${this.props.watcher.groupId}" copied to clipboard.`);
+    showPlainToast(`"${this.props.watcher.groupId}" copied to clipboard.`);
   };
 
   private handleEdit = <T extends string | boolean>(
