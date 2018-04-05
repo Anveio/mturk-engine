@@ -1,4 +1,4 @@
-import { HitDatabaseEntry } from '../types';
+import { HitDatabaseEntry, HitStatus } from '../types';
 
 export const conflictsPreserveBonus = (
   oldEntry: HitDatabaseEntry,
@@ -10,19 +10,32 @@ export const conflictsPreserveBonus = (
   };
 };
 
+const paidOrApprovedStatuses = new Set<HitStatus>([
+  'Paid',
+  'Pending Payment',
+  'Approved'
+]);
+
+const pendingStatuses = new Set<HitStatus>([
+  'Pending Approval',
+  'Pending Payment',
+  'Submitted',
+  'Approved'
+]);
+
+const approvedButNotPaidStatuses = new Set<HitStatus>([
+  'Pending Approval',
+  'Approved'
+]);
+
 export const isPaidOrApproved = (el: HitDatabaseEntry) =>
-  el.status === 'Paid' ||
-  el.status === 'Pending Payment' ||
-  el.status === 'Approved';
+  paidOrApprovedStatuses.has(el.status);
 
 export const isPending = (el: HitDatabaseEntry) =>
-  el.status === 'Pending Approval' ||
-  el.status === 'Submitted' ||
-  el.status === 'Approved' ||
-  el.status === 'Pending Payment';
+  pendingStatuses.has(el.status);
 
 export const isApprovedButNotPaid = (el: HitDatabaseEntry) =>
-  el.status === 'Pending Approval' || el.status === 'Approved';
+  approvedButNotPaidStatuses.has(el.status);
 
 export const calculateAcceptanceRate = (total: number, rejected: number) =>
   (total - rejected) / total * 100;
