@@ -1,12 +1,12 @@
-import { CHANGE_SORTING_OPTION } from '../constants';
+import { CHANGE_SEARCH_RESULT_SORT } from '../constants';
 import { SortingOption } from '../types';
 
-export interface ChangeSorting {
-  readonly type: CHANGE_SORTING_OPTION;
+export interface ChangeSearchResultSort {
+  readonly type: CHANGE_SEARCH_RESULT_SORT;
   readonly data: SortingOption;
 }
 
-export const changeSorting = (data: SortingOption): ChangeSorting => ({
-  type: CHANGE_SORTING_OPTION,
+export const changeSorting = (data: SortingOption): ChangeSearchResultSort => ({
+  type: CHANGE_SEARCH_RESULT_SORT,
   data
 });

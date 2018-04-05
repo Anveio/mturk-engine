@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { ChangeSorting, changeSorting } from '../../actions/sorting';
+import { ChangeSearchResultSort, changeSorting } from '../../actions/sorting';
 import { SortingOption, RootState } from '../../types';
 import { Button } from '@shopify/polaris';
 import {
@@ -71,7 +71,7 @@ class SortingMenu extends React.PureComponent<Props & Handlers, never> {
   }
 }
 
-const mapDispatch = (dispatch: Dispatch<ChangeSorting>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch<ChangeSearchResultSort>): Handlers => ({
   onChange: (option: SortingOption) => {
     dispatch(changeSorting(option));
   }

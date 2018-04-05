@@ -1,10 +1,10 @@
-import { ChangeSorting } from '../actions/sorting';
+import { ChangeSearchResultSort } from '../actions/sorting';
 import { SortingOption } from '../types';
-import { CHANGE_SORTING_OPTION } from '../constants';
+import { CHANGE_SEARCH_RESULT_SORT } from '../constants';
 
-export default (state: SortingOption = 'Latest', action: ChangeSorting) => {
+export default (state: SortingOption = 'Latest', action: ChangeSearchResultSort) => {
   switch (action.type) {
-    case CHANGE_SORTING_OPTION:
+    case CHANGE_SEARCH_RESULT_SORT:
       return action.data;
     default:
       return state;
