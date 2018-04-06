@@ -2,7 +2,8 @@ import {
   CHANGE_DAILY_GOAL,
   CHANGE_SELECTED_TAB,
   TOGGLE_SEARCH_ACTIVITY,
-  TOGGLE_LEGACY_LINKS
+  TOGGLE_LEGACY_LINKS,
+  TOGGLE_SEARCH_AUDIO
 } from '../constants';
 import { Primitive } from '../types';
 
@@ -24,6 +25,10 @@ export interface ToggleLegacyLinks {
   readonly type: TOGGLE_LEGACY_LINKS;
 }
 
+export interface ToggleSearchAudio {
+  readonly type: TOGGLE_SEARCH_AUDIO;
+}
+
 export const updateValue = <T extends Primitive>(type: string) => (
   data: T
 ) => ({
@@ -37,3 +42,4 @@ export const changeDailyGoal = updateValue<number>(CHANGE_DAILY_GOAL);
 export const changeTab = updateValue<number>(CHANGE_SELECTED_TAB);
 export const toggleSearchActive = toggleValue(TOGGLE_SEARCH_ACTIVITY);
 export const toggleLegacyLinks = toggleValue(TOGGLE_LEGACY_LINKS);
+export const toggleSearchAudio = toggleValue(TOGGLE_SEARCH_AUDIO);
