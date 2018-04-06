@@ -21,7 +21,6 @@ import { default as waitingForHitDbRefresh } from './reducers/waitingForHitDbRef
 import { default as watcherTimes } from './reducers/watcherTimes';
 import { default as uploadedState } from './reducers/uploadedState';
 import { default as expandedSearchResults } from './reducers/expandedSearchResults';
-import { default as legacyLinksEnabled } from './reducers/legacyLinksEnabled';
 import { default as notificationSettings } from './reducers/notificationSettings';
 import { default as loggedSearchResults } from './reducers/loggedSearchResults';
 import { default as watcherTreeSettings } from './reducers/watcherTreeSettings';
@@ -54,7 +53,6 @@ export const rootReducer = combineReducers<RootState>({
   selectedHitDbDate,
   requesterBlocklist,
   searchAudioEnabled,
-  legacyLinksEnabled,
   expandedQueueItems,
   watcherTreeSettings,
   loggedSearchResults,
