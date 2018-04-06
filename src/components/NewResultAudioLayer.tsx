@@ -8,6 +8,7 @@ import { AudioSources } from 'constants/enums';
 
 interface Props {
   readonly unreadResults: List<GroupId>;
+  readonly searchAudioEnabled: boolean;
 }
 
 interface Handlers {
@@ -18,6 +19,10 @@ class NewResultAudioLayer extends React.Component<Props & Handlers, never> {
   public static audioFile = AudioSources.NEW_SEARCH_RESULT;
 
   componentWillReceiveProps(nextProps: Props) {
+    if (!this.props.searchAudioEnabled) {
+      return;
+    }
+
     if (!nextProps.unreadResults.isSubset(this.props.unreadResults)) {
       this.props.onNewSearchResult(NewResultAudioLayer.audioFile);
     }
@@ -29,7 +34,8 @@ class NewResultAudioLayer extends React.Component<Props & Handlers, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  unreadResults: newResultsGroupIdsList(state)
+  unreadResults: newResultsGroupIdsList(state),
+  searchAudioEnabled: state.searchAudioEnabled
 });
 
 const mapDispatch = (dispatch: Dispatch<PlayAudio>): Handlers => ({
