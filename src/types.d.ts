@@ -86,7 +86,8 @@ export type PersistedStateKey =
   | 'watcherTreeSettings'
   | 'audioSettingsV1'
   | 'dailyEarningsGoal'
-  | 'notificationSettings';
+  | 'notificationSettings'
+  | 'searchAudioEnabled';
 
 export type ImmutablePersistedStateKey =
   | 'hitDatabase'

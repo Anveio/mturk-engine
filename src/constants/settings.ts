@@ -13,7 +13,8 @@ export const PERSISTED_STATE_WHITELIST: PersistedStateKey[] = [
   'watcherFolders',
   'audioSettingsV1',
   'dailyEarningsGoal',
-  'notificationSettings'
+  'notificationSettings',
+  'searchAudioEnabled'
 ];
 
 export const IMMUTABLE_PERSISTED_STATE_WHITELIST: ImmutablePersistedStateKey[] = [

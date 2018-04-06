@@ -93,7 +93,8 @@ export const stateKeyMap = new Map<PersistedStateKey, string>([
   ['audioSettingsV1', 'Audio Settings'],
   ['dailyEarningsGoal', 'Daily Earnings Goal'],
   ['notificationSettings', 'Notification Settings'],
-  ['watcherFolders', 'Watcher Folders']
+  ['watcherFolders', 'Watcher Folders'],
+  ['searchAudioEnabled', 'Search Audio Enabled']
 ]);
 
 /**
