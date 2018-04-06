@@ -7,6 +7,7 @@ import {
 } from '../../actions/toggleExpand';
 import SortingMenu from './SortingMenu';
 import { ButtonGroup, Button } from '@shopify/polaris';
+import ToggleSearchAudioButton from '../Buttons/ToggleSearchAudioButton';
 
 export interface Handlers {
   readonly onMarkAllAsRead: () => void;
@@ -24,6 +25,7 @@ class SearchTableButtons extends React.PureComponent<Handlers, never> {
           Collapse all
         </Button>
         <SortingMenu />
+        <ToggleSearchAudioButton />
       </ButtonGroup>
     );
   }
