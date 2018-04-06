@@ -3,6 +3,7 @@ import {
   WorkerSubmittedHitState,
   QualificationComparator
 } from './worker-mturk-api';
+import searchAudioEnabled from 'reducers/searchAudioEnabled';
 
 export interface RootState {
   readonly account: MaybeAccount;
@@ -30,6 +31,7 @@ export interface RootState {
   readonly notificationSettings: NotificationSettings;
   readonly loggedSearchResults: SearchResults;
   readonly watcherTreeSettings: WatcherTreeSettings;
+  readonly searchAudioEnabled: boolean;
   readonly watcherFolders: WatcherFolderMap;
   readonly expandedWatcherFolderIds: Set<GroupId>;
   readonly watcherStatistics: WatcherStatisticsMap;
@@ -345,4 +347,4 @@ export interface WatcherFolder {
   readonly dateNumCreation: number;
 }
 
-export type QueueSortingOption = 'REWARD_DESC' | 'TIME_LEFT_ASC'; 
+export type QueueSortingOption = 'REWARD_DESC' | 'TIME_LEFT_ASC';
