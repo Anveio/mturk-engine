@@ -5,6 +5,7 @@ import {
   TOGGLE_AUDIO_ENABLED
 } from '../constants';
 import { AudioSettings } from '../types';
+import { AudioSources } from 'constants/enums';
 
 export interface PlayAudio {
   readonly type: PLAY_AUDIO;
@@ -35,9 +36,14 @@ export const editAudioSrc = (
   value
 });
 
-export const playAudioFile = (fileSrc: string): PlayAudio => ({
+export const playNewSearchResultAudio = (): PlayAudio => ({
   type: PLAY_AUDIO,
-  fileSrc
+  fileSrc: AudioSources.NEW_SEARCH_RESULT
+});
+
+export const playWatcherSuccessAudio = (): PlayAudio => ({
+  type: PLAY_AUDIO,
+  fileSrc: AudioSources.SUCCESSFUL_WATCHER_ACCEPT
 });
 
 export const changeVolume = (value: number): ChangeVolume => ({

@@ -2,9 +2,8 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { List } from 'immutable';
 import { RootState, GroupId } from '../types';
-import { PlayAudio, playAudioFile } from '../actions/audio';
+import { PlayAudio, playNewSearchResultAudio } from '../actions/audio';
 import { newResultsGroupIdsList } from '../selectors/search';
-import { AudioSources } from 'constants/enums';
 
 interface Props {
   readonly unreadResults: List<GroupId>;
@@ -12,19 +11,17 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onNewSearchResult: (audioSrc: string) => void;
+  readonly onNewSearchResult: () => void;
 }
 
 class NewResultAudioLayer extends React.Component<Props & Handlers, never> {
-  public static audioFile = AudioSources.NEW_SEARCH_RESULT;
-
   componentWillReceiveProps(nextProps: Props) {
     if (!this.props.searchAudioEnabled) {
       return;
     }
 
     if (!nextProps.unreadResults.isSubset(this.props.unreadResults)) {
-      this.props.onNewSearchResult(NewResultAudioLayer.audioFile);
+      this.props.onNewSearchResult();
     }
   }
 
@@ -39,8 +36,8 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<PlayAudio>): Handlers => ({
-  onNewSearchResult: (audioSrc: string) => {
-    dispatch(playAudioFile(audioSrc));
+  onNewSearchResult: () => {
+    dispatch(playNewSearchResultAudio());
   }
 });
 

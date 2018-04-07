@@ -18,8 +18,7 @@ import { RootState, Watcher } from '../types';
 import { TopRightToaster } from '../index';
 import { blankQueueItem } from '../utils/queueItem';
 import { getWatcher } from '../selectors/watchers';
-import { PlayAudio, playAudioFile } from '../actions/audio';
-import { AudioSources } from 'constants/enums';
+import { PlayAudio, playWatcherSuccessAudio } from '../actions/audio';
 
 export function* acceptHitFromWatcher(action: AcceptHitRequestFromWatcher) {
   try {
@@ -54,9 +53,7 @@ function* handleSuccessfulAccept(
     );
 
     if (watcher && watcher.playSoundAfterSuccess) {
-      yield put<PlayAudio>(
-        playAudioFile(AudioSources.SUCCESSFUL_WATCHER_ACCEPT)
-      );
+      yield put<PlayAudio>(playWatcherSuccessAudio());
     }
 
     /**
