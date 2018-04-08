@@ -47,7 +47,7 @@ class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
           <Tooltip content={tooltipContent} position={Position.TOP_LEFT}>
             <Button
               loading={this.props.waitingForHitDbRefresh}
-              iconName="pt-icon-database"
+              icon="database"
               onClick={this.props.onRefreshDb}
               onMouseEnter={this.handleMouseEnter}
               onMouseLeave={this.handleMouseLeave}
@@ -55,10 +55,7 @@ class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
               Refresh Database
             </Button>
           </Tooltip>
-          <Button
-            iconName="pt-icon-calendar"
-            onClick={this.props.onRefreshToday}
-          >
+          <Button icon="calendar" onClick={this.props.onRefreshToday}>
             Refresh {new Date().toLocaleDateString()} (Today)
           </Button>
         </div>

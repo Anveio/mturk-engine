@@ -39,7 +39,6 @@ class EditVolume extends React.PureComponent<Props & Handlers, never> {
       <Stack vertical spacing="loose">
         <Slider
           disabled={!this.props.enabled}
-          renderLabel={true}
           value={+this.props.value}
           max={1}
           min={0}

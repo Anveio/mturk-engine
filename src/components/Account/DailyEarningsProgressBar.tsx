@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { ProgressBar } from '@blueprintjs/core';
-// import { Card, Stack, DisplayText } from '@shopify/polaris';
+import { ProgressBar, Intent } from '@blueprintjs/core';
 import { RootState } from '../../types';
 import { todaysProjectedEarnings } from '../../selectors/hitDatabase';
 
@@ -22,7 +21,7 @@ class DailyEarningsProgressBar extends React.PureComponent<Props, never> {
           todaysEarnings,
           dailyEarningsGoal
         )}
-        intent={1}
+        intent={Intent.SUCCESS}
       />
     );
   }

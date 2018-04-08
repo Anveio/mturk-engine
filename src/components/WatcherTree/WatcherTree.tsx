@@ -76,7 +76,7 @@ class WatcherTree extends React.Component<
           isExpanded: expandedFolderIds.has(folder.id),
           kind: 'folder',
           isSelected: selectionId === folder.id,
-          iconName: expandedFolderIds.has(folder.id)
+          icon: expandedFolderIds.has(folder.id)
             ? 'folder-open'
             : 'folder-close',
           childNodes: WatcherTree.createWatcherNodeArray(
@@ -101,7 +101,7 @@ class WatcherTree extends React.Component<
   }: Watcher): WatcherTreeNode => ({
     id: groupId,
     isSelected: selectionId === groupId ? true : false,
-    iconName: 'document',
+    icon: 'document',
     secondaryLabel: <WatcherProgress id={groupId} />,
     label: title,
     kind: 'groupId'

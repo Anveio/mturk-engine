@@ -36,7 +36,7 @@ class WatcherFolderListItem extends React.PureComponent<
       <Card sectioned>
         <Stack alignment="baseline" wrap={false}>
           <Stack.Item>
-            <Icon iconName="document" />
+            <Icon icon="document" />
           </Stack.Item>
           <Stack.Item fill>
             <TextContainer>{truncate(watcher.title)}</TextContainer>

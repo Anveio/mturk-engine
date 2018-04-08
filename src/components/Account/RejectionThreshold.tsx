@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card, TextContainer, TextStyle } from '@shopify/polaris';
-import { EditableText } from '@blueprintjs/core';
+import { EditableText, Intent } from '@blueprintjs/core';
 import { RootState, AccountInfo } from '../../types';
 import {
   calculateThreshold,
@@ -40,7 +40,7 @@ class RejectionThreshold extends React.PureComponent<Props, State> {
           <Card.Section>
             Enter a minimum acceptance rate:{' '}
             <EditableText
-              intent={0}
+              intent={Intent.PRIMARY}
               maxLength={3}
               value={minimumRate.toString()}
               selectAllOnFocus

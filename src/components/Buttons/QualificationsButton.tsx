@@ -1,6 +1,11 @@
 import * as React from 'react';
 // import { connect } from 'react-redux';
-import { Popover, Button, PopoverInteractionKind } from '@blueprintjs/core';
+import {
+  Popover,
+  Button,
+  PopoverInteractionKind,
+  Intent
+} from '@blueprintjs/core';
 import {
   Card,
   List,
@@ -11,6 +16,7 @@ import {
 } from '@shopify/polaris';
 import { WorkerQualification } from '../../types';
 import { qualificationToSentence } from '../../utils/export';
+import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 
 interface Props {
   readonly qualifications: WorkerQualification[];
@@ -39,9 +45,9 @@ class ViewQualificationsButton extends React.PureComponent<Props, never> {
     return (
       <Popover interactionKind={PopoverInteractionKind.CLICK}>
         <Button
-          intent={0}
-          className="pt-button pt-small pt-minimal"
-          iconName="pt-icon-comparison"
+          intent={Intent.PRIMARY}
+          className={SMALL_MINIMAL_BUTTON}
+          icon="comparison"
         >
           View qualifications
         </Button>

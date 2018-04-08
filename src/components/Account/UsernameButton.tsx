@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Popover, Position, Button } from '@blueprintjs/core';
+import { Popover, Position, Button, Intent } from '@blueprintjs/core';
 import AccountStatisticsTable from './AccountStatisticsTable';
+import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 
 export interface Props {
   readonly fullName: string;
@@ -11,9 +12,9 @@ class UsernameButton extends React.PureComponent<Props, never> {
     return (
       <Popover position={Position.BOTTOM}>
         <Button
-          intent={0}
-          className="pt-button pt-small pt-minimal"
-          rightIconName="pt-icon-th-list"
+          intent={Intent.PRIMARY}
+          className={SMALL_MINIMAL_BUTTON}
+          rightIcon="th-list"
         >
           {this.props.fullName}
         </Button>

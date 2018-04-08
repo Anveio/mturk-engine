@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Avatar, Stack, Card } from '@shopify/polaris';
-import { Popover, Button, Position } from '@blueprintjs/core';
+import { Popover, Button, Position, Intent } from '@blueprintjs/core';
 import * as copy from 'copy-to-clipboard';
 import {
   connectAccountRequest,
@@ -47,18 +47,18 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
             <UsernameButton fullName={accountInfo.fullName} />
 
             <Button
-              rightIconName="duplicate"
+              rightIcon="duplicate"
               className="pt-button pt-small pt-minimal"
               onClick={this.handleIdClick(accountInfo.id)}
-              intent={-1}
+              intent={Intent.NONE}
             >
               {accountInfo.id}
             </Button>
             <Popover position={Position.BOTTOM_LEFT}>
               <Button
-                rightIconName="calculator"
+                rightIcon="calculator"
                 className="pt-button pt-small pt-minimal"
-                intent={-1}
+                intent={Intent.NONE}
               >
                 Acceptance Rate Calculator
               </Button>

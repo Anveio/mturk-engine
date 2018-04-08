@@ -6,7 +6,7 @@ const NoActivity: React.SFC<{}> = () => (
   <Card.Section>
     <NonIdealState
       title="No activity recorded for this day."
-      visual="pt-icon-calendar"
+      visual="calendar"
     />
   </Card.Section>
 );

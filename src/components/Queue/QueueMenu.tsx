@@ -29,20 +29,20 @@ class SearchResultMenu extends React.PureComponent<Props, never> {
       <Menu>
         <MenuDivider title="HIT Actions" />
         <MenuItem
-          iconName="person"
+          icon="person"
           target="_blank"
           text="Contact Requester"
           href={generateContactLinkQueue(hit)}
         />
         <MenuDivider title="Share" />
         <MenuItem
-          iconName="share"
+          icon="share"
           href={generateHwtfUrl(hit)}
           target="_blank"
           text="Post to HWTF"
         />
         <MenuItem
-          iconName="duplicate"
+          icon="duplicate"
           onClick={SearchResultMenu.handleCopyMarkDown(hit)}
           text="Copy to Clipboard"
         />

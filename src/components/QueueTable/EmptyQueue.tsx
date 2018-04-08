@@ -12,7 +12,7 @@ const EmptyQueue: React.SFC<Handlers> = ({ onRefresh }) => {
     <NonIdealState
       title="Your queue is empty."
       description="Accept HITs from the search tab and they'll show up here."
-      visual="pt-icon-projects"
+      visual="projects"
       action={
         <Button primary onClick={onRefresh}>
           Refresh

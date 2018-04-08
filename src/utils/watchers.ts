@@ -67,7 +67,7 @@ export const watchersArrayToTreeNodes = (
 ): WatcherTreeNode[] =>
   watchers.map((watcher: Watcher): WatcherTreeNode => ({
     id: watcher.groupId,
-    iconName: 'document',
+    icon: 'document',
     label: watcher.title,
     kind: 'groupId'
   }));

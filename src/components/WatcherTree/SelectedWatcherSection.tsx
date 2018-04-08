@@ -28,7 +28,7 @@ class SelectedWatcherSection extends React.Component<Props, never> {
     <NonIdealState
       title="Select a Watcher"
       description="Watchers let you accept many of the same HIT or snag a rare one."
-      visual="pt-icon-folder-shared-open"
+      visual="folder-shared-open"
     />
   );
 

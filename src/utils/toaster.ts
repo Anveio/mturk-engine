@@ -27,7 +27,7 @@ export const createToastLayer = () =>
   });
 
 export const updateTopRightToaster = (key: string, newToast: IToastProps) =>
-  TopRightToaster.update(key, newToast);
+  TopRightToaster.show(newToast, key);
 
 export const showWaitingToast = (message: string) =>
   TopRightToaster.show({

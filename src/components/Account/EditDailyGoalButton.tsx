@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Popover, Button } from '@blueprintjs/core';
+import { Popover, Button, Intent } from '@blueprintjs/core';
 import {
   Card,
   FormLayout,
@@ -81,9 +81,9 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
         onInteraction={(nextState: boolean) => this.toggleOpen(nextState)}
       >
         <Button
-          intent={0}
+          intent={Intent.PRIMARY}
           className="pt-button pt-small pt-minimal"
-          iconName="manually-entered-data"
+          icon="manually-entered-data"
         >
           Edit daily goal
         </Button>

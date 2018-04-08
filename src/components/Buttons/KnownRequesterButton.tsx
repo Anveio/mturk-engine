@@ -3,10 +3,12 @@ import {
   Popover,
   Button,
   PopoverInteractionKind,
-  Dialog
+  Dialog,
+  Intent
 } from '@blueprintjs/core';
 import RecentlySubmittedHits from '../RequesterWorkHistory/RecentlySubmittedHits ';
 import RequesterWorkHistory from '../RequesterWorkHistory/RequesterWorkHistory';
+import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 
 interface Props {
   readonly requesterId: string;
@@ -30,9 +32,9 @@ class KnownRequesterButton extends React.PureComponent<Props, State> {
       <React.Fragment>
         <Popover interactionKind={PopoverInteractionKind.HOVER}>
           <Button
-            intent={0}
-            className="pt-button pt-small pt-minimal"
-            iconName="pt-icon-history"
+            intent={Intent.PRIMARY}
+            className={SMALL_MINIMAL_BUTTON}
+            icon="history"
             onClick={this.toggleModal}
           >
             View requester work history

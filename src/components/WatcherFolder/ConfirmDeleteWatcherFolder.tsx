@@ -48,7 +48,7 @@ class ConfirmDeleteWatcherFolder extends React.Component<
     return (
       <Dialog
         isOpen={modalOpen}
-        iconName="delete"
+        icon="delete"
         title={`Confirm folder deletion. `}
         onClose={onClose}
       >

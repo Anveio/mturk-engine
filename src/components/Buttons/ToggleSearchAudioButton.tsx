@@ -56,9 +56,8 @@ class ToggleSearchAudioButton extends React.PureComponent<
     return (
       <Tooltip content={tooltipContent} position={Position.TOP_LEFT}>
         <Button
-          label={tooltipContent}
           className={Classes.MINIMAL + ' ' + Classes.SMALL}
-          iconName={ToggleSearchAudioButton.generateButtonIcon(
+          icon={ToggleSearchAudioButton.generateButtonIcon(
             globalAudioEnabled,
             searchAudioEnabled
           )}

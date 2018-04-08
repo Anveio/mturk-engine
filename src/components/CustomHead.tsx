@@ -28,12 +28,17 @@ class CustomHead extends React.PureComponent<Props, never> {
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://unpkg.com/normalize.css@^4.1.1"
+          href="https://unpkg.com/normalize.css@^7.0.0"
         />
         <link
           rel="stylesheet"
           type="text/css"
-          href="https://unpkg.com/@blueprintjs/core@^1.11.0/dist/blueprint.css"
+          href="https://unpkg.com/@blueprintjs/core@^2.0.0/lib/css/blueprint.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://unpkg.com/@blueprintjs/icons@^2.0.0/lib/css/blueprint-icons.css"
         />
         <link
           rel="stylesheet"

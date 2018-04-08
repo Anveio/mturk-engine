@@ -33,7 +33,7 @@ class SelectSettingsDialog extends React.PureComponent<
     return (
       <Dialog
         isOpen={this.props.modalOpen}
-        iconName="changes"
+        icon="changes"
         title="Pick which settings you would like to import."
         onClose={this.props.onClose}
       >

@@ -22,7 +22,7 @@ export interface Handlers {
 
 class SortingMenu extends React.PureComponent<Props & Handlers, never> {
   private generateIntent = (option: SortingOption): Intent => {
-    return option !== this.props.value ? 0 : -1;
+    return option !== this.props.value ? Intent.PRIMARY : Intent.NONE;
   };
 
   private handleChange = (option: SortingOption) => () =>
@@ -39,21 +39,21 @@ class SortingMenu extends React.PureComponent<Props & Handlers, never> {
           <MenuDivider title="Sorting Options" />
           <MenuItem
             shouldDismissPopover={false}
-            iconName="time"
+            icon="time"
             intent={this.generateIntent('Latest')}
             onClick={this.handleChange('Latest')}
             text="Latest"
           />
           <MenuItem
             shouldDismissPopover={false}
-            iconName="pt-icon-series-derived"
+            icon="series-derived"
             intent={this.generateIntent('Weighted T.O.')}
             onClick={this.handleChange('Weighted T.O.')}
             text="Weighted T.O."
           />
           <MenuItem
             shouldDismissPopover={false}
-            iconName="dollar"
+            icon="dollar"
             intent={this.generateIntent('Reward')}
             onClick={this.handleChange('Reward')}
             text="Reward"
@@ -61,7 +61,7 @@ class SortingMenu extends React.PureComponent<Props & Handlers, never> {
           <MenuItem
             shouldDismissPopover={false}
             intent={this.generateIntent('Batch Size')}
-            iconName="pt-icon-sort-numerical-desc"
+            icon="sort-numerical-desc"
             onClick={this.handleChange('Batch Size')}
             text="Batch Size"
           />

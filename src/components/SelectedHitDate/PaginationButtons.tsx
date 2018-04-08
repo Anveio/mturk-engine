@@ -18,10 +18,10 @@ class PaginationButtons extends React.PureComponent<Props & Handlers, never> {
       <div className="pt-button-group pt-minimal">
         <Button
           disabled={!hasPrevious}
-          iconName="arrow-left"
+          icon="arrow-left"
           onClick={onPrevious}
         />
-        <Button disabled={!hasNext} iconName="arrow-right" onClick={onNext} />
+        <Button disabled={!hasNext} icon="arrow-right" onClick={onNext} />
       </div>
     );
   }

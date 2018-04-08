@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Tabs2 as Tabs, Tab2 as Tab } from '@blueprintjs/core';
+import { Tabs, Tab } from '@blueprintjs/core';
 import { RootState } from '../../types';
 import { changeTab, ChangeTab } from '../../actions/updateValue';
 import SearchTab from './SearchTab';

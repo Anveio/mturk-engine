@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Callout, IconClasses } from '@blueprintjs/core';
+import { Callout } from '@blueprintjs/core';
 
 const InfoCallout = () => {
   return (
-    <Callout className={IconClasses.INFO_SIGN}>
+    <Callout className={'pt-icon-info-sign'}>
       You can expand or collapse a folder by double clicking on it in the
       watcher menu.
     </Callout>
