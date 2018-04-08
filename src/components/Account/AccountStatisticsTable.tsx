@@ -20,7 +20,7 @@ class AccountStatisticsTable extends React.PureComponent<Props, never> {
     return (
       <Card title="Account Statistics">
         <Card.Section>
-          <table className="pt-table pt-condensed">
+          <table className="pt-html-table pt-condensed">
             <thead>
               <tr>
                 <th>Earnings</th>
@@ -48,7 +48,7 @@ class AccountStatisticsTable extends React.PureComponent<Props, never> {
           </table>
         </Card.Section>
         <Card.Section>
-          <table className="pt-table pt-condensed">
+          <table className="pt-html-table pt-condensed">
             <thead>
               <tr>
                 <th>Hit Statistics</th>
