@@ -11,6 +11,7 @@ import {
 import UsernameButton from './UsernameButton';
 import RejectionThreshold from './RejectionThreshold';
 import { showPlainToast } from '../../utils/toaster';
+import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 
 export interface Props {
   readonly accountInfo: MaybeAccount;
@@ -48,7 +49,7 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
 
             <Button
               rightIcon="duplicate"
-              className="pt-button pt-small pt-minimal"
+              className={SMALL_MINIMAL_BUTTON}
               onClick={this.handleIdClick(accountInfo.id)}
               intent={Intent.NONE}
             >
@@ -57,7 +58,7 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
             <Popover position={Position.BOTTOM_LEFT}>
               <Button
                 rightIcon="calculator"
-                className="pt-button pt-small pt-minimal"
+                className={SMALL_MINIMAL_BUTTON}
                 intent={Intent.NONE}
               >
                 Acceptance Rate Calculator

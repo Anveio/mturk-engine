@@ -13,6 +13,7 @@ import { ChangeDailyGoal, changeDailyGoal } from '../../actions/updateValue';
 import { validatePositiveNumber } from '../../utils/validation';
 import { successfulEditDailyGoalToast } from '../../utils/toaster';
 import { watchForEnter } from '../../utils/watchForEnter';
+import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 
 export interface Props {
   readonly dailyEarningsGoal: number;
@@ -82,7 +83,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
       >
         <Button
           intent={Intent.PRIMARY}
-          className="pt-button pt-small pt-minimal"
+          className={SMALL_MINIMAL_BUTTON}
           icon="manually-entered-data"
         >
           Edit daily goal
