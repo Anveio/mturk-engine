@@ -17,17 +17,20 @@ interface Props {
 
 class EnableNotifications extends React.Component<Props & Handlers, never> {
   public render() {
-    return !this.props.enabled ? (
+    const { enabled, onToggle } = this.props;
+
+    return (
       <SettingToggle
-        enabled={this.props.enabled}
+        enabled={enabled}
         action={{
-          content: 'Enable',
-          onAction: this.props.onToggle
+          content: enabled ? 'Disable' : ' Enable',
+          onAction: onToggle
         }}
       >
-        Desktop notifications are currently <strong>disabled</strong>.
+        Desktop notifications are currently{' '}
+        <strong>{enabled ? 'enabled' : ' disabled'}</strong>.
       </SettingToggle>
-    ) : null;
+    );
   }
 }
 
