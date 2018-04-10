@@ -53,7 +53,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
               undefined
             )}
             <Stack vertical={false} alignment="center">
-              <MenuActivator>
+              <MenuActivator accessibilityLabel="Additional actions">
                 <SearchResultMenu hit={hit} />
               </MenuActivator>
               <BlockRequesterButton requester={requester} withToast={false} />

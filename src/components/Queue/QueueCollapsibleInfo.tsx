@@ -39,7 +39,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
               undefined
             )}
             <Stack vertical={false} alignment="center">
-              <MenuActivator>
+              <MenuActivator accessibilityLabel="Additional actions">
                 <QueueMenu hit={hit} />
               </MenuActivator>
               {/* We want to display a toast when a requester is blocked via the 
