@@ -71,4 +71,11 @@ export const generateSearchCardExceptions = (
     qualException(qualified),
     knownRequesterException(requesterExceptionData),
     hitsInQueueException(hitsInQueue)
-  ].filter(maybeException => maybeException !== null) as ExceptionDescriptor[];
+  ].filter(maybeException => !!maybeException) as ExceptionDescriptor[];
+
+export const generateQueueCardExceptions = (
+  requesterExceptionData: RequesterExceptionData
+): ExceptionDescriptor[] =>
+  [knownRequesterException(requesterExceptionData)].filter(
+    maybeException => !!maybeException
+  ) as ExceptionDescriptor[];

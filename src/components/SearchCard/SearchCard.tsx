@@ -25,7 +25,7 @@ import { uniqueGroupIdsInQueueHistogram } from '../../selectors/queue';
 import { searchResultSelector } from '../../selectors/index';
 import { clickDidNotOccurOnActionButton } from 'utils/resourceList';
 
-export interface Props {
+interface Props {
   readonly hit: SearchResult;
   readonly knownRequester: boolean;
   readonly weightedToScore: number | null;
@@ -34,11 +34,11 @@ export interface Props {
   readonly hitsInQueue: number;
 }
 
-export interface OwnProps {
+interface OwnProps {
   readonly groupId: string;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onAccept: (hit: SearchResult) => void;
   readonly onToggleExpand: (hit: SearchResult) => void;
   readonly onHide: (hit: BlockedHit) => void;
