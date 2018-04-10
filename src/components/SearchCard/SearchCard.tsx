@@ -18,7 +18,8 @@ import { blockedHitFactory } from '../../utils/blocklist';
 import { searchResultsToWeightedToMap } from '../../selectors/turkopticon';
 import {
   hitDatabaseToRequesterMap,
-  numPreviouslySubmittedHitsToRequester
+  numSubmittedHitsToRequester,
+  numRejectedHitsToRequester
 } from '../../selectors/hitDatabase';
 import { uniqueGroupIdsInQueueHistogram } from '../../selectors/queue';
 import { searchResultSelector } from '../../selectors/index';
@@ -29,6 +30,7 @@ export interface Props {
   readonly knownRequester: boolean;
   readonly weightedToScore: number | null;
   readonly requesterWorkHistorySize: number;
+  readonly requesterRejectedHitsSize: number;
   readonly hitsInQueue: number;
 }
 
@@ -96,7 +98,8 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
       knownRequester,
       hitsInQueue,
       weightedToScore,
-      requesterWorkHistorySize
+      requesterWorkHistorySize,
+      requesterRejectedHitsSize
     } = this.props;
     const { groupId, qualified, title, requester, markedAsRead } = hit;
 
@@ -105,7 +108,7 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
       {
         knownRequester,
         numSubmittedHits: requesterWorkHistorySize,
-        numRejectedHits: 1
+        numRejectedHits: requesterRejectedHitsSize
       },
       hitsInQueue
     );
@@ -155,9 +158,12 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
     knownRequester: !!hitDatabaseToRequesterMap(state).get(hit.requester.id),
     hitsInQueue:
       uniqueGroupIdsInQueueHistogram(state).get(ownProps.groupId) || 0,
-    requesterWorkHistorySize: numPreviouslySubmittedHitsToRequester(
-      hit.requester.id
-    )(state)
+    requesterWorkHistorySize: numSubmittedHitsToRequester(hit.requester.id)(
+      state
+    ),
+    requesterRejectedHitsSize: numRejectedHitsToRequester(hit.requester.id)(
+      state
+    )
   };
 };
 

@@ -124,10 +124,17 @@ const getAllHitsSubmittedToRequester = (requesterId: string) =>
     workHistory.get(requesterId, List([]))
   );
 
-export const numPreviouslySubmittedHitsToRequester = (requesterId: string) =>
+export const numSubmittedHitsToRequester = (requesterId: string) =>
   createSelector(
     [getAllHitsSubmittedToRequester(requesterId)],
     hits => hits.size
+  );
+
+export const numRejectedHitsToRequester = (requesterId: string) =>
+  createSelector(
+    [getAllHitsSubmittedToRequester(requesterId)],
+    hits =>
+      hits.filter((hit: HitDatabaseEntry) => hit.status === 'Rejected').size
   );
 
 export const allHitsSubmittedToRequesterRecentFirst = (requesterId: string) =>
