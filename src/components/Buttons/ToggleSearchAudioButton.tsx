@@ -8,7 +8,14 @@ import {
   Classes
 } from '@blueprintjs/core';
 import { RootState } from 'types';
-import { ToggleSearchAudio, toggleSearchAudio } from 'actions/updateValue';
+import {
+  ToggleSearchAudio,
+  toggleSearchAudio,
+  changeTab
+} from 'actions/updateValue';
+import { TabIndex } from 'constants/enums';
+
+type AudioState = 'GLOBALLY_DISABLED' | 'ENABLED' | 'DISABLED';
 
 interface Props {
   readonly globalAudioEnabled: boolean;
@@ -16,52 +23,80 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onClick: () => void;
+  readonly onToggle: () => void;
+  readonly onChangeTab: () => void;
 }
 
 class ToggleSearchAudioButton extends React.PureComponent<
   Props & Handlers,
   never
 > {
-  private static generateTooltipContent = (
+  private static calculateAudioState = (
     globalAudioEnabled: boolean,
     searchAudioEnabled: boolean
-  ) => {
+  ): AudioState => {
     if (!globalAudioEnabled) {
-      return 'Audio is globally disabled from the settings tab.';
+      return 'GLOBALLY_DISABLED';
     }
 
-    return searchAudioEnabled
-      ? 'Sound will play for new results.'
-      : 'Sound will not play for new results.';
+    return searchAudioEnabled ? 'ENABLED' : 'DISABLED';
   };
 
-  private static generateButtonIcon = (
-    globalAudioEnabled: boolean,
-    searchAudioEnabled: boolean
-  ): IconName => {
-    if (!globalAudioEnabled) {
-      return 'volume-off';
+  private static generateTooltipContent = (audioState: AudioState) => {
+    switch (audioState) {
+      case 'GLOBALLY_DISABLED':
+        return 'Audio is globally disabled from the settings tab.';
+      case 'ENABLED':
+        return 'Sound will play for new results.';
+      case 'DISABLED':
+      default:
+        return 'Sound will not play for new results.';
     }
+  };
 
-    return searchAudioEnabled ? 'volume-up' : 'volume-off';
+  private static generateButtonIcon = (audioState: AudioState): IconName => {
+    switch (audioState) {
+      case 'GLOBALLY_DISABLED':
+        return 'volume-off';
+      case 'ENABLED':
+        return 'volume-up';
+      case 'DISABLED':
+      default:
+        return 'volume-off';
+    }
+  };
+
+  private handleClick = (audioState: AudioState) => () => {
+    switch (audioState) {
+      case 'GLOBALLY_DISABLED':
+        this.props.onChangeTab();
+        break;
+      default:
+        this.props.onToggle();
+    }
+    return;
   };
 
   public render() {
-    const { searchAudioEnabled, globalAudioEnabled, onClick } = this.props;
-    const tooltipContent = ToggleSearchAudioButton.generateTooltipContent(
+    const { searchAudioEnabled, globalAudioEnabled } = this.props;
+    const {
+      calculateAudioState,
+      generateTooltipContent,
+      generateButtonIcon
+    } = ToggleSearchAudioButton;
+
+    const audioState = calculateAudioState(
       globalAudioEnabled,
       searchAudioEnabled
     );
+    const tooltipContent = generateTooltipContent(audioState);
+
     return (
       <Tooltip content={tooltipContent} position={Position.TOP}>
         <Button
           className={Classes.MINIMAL + ' ' + Classes.SMALL}
-          icon={ToggleSearchAudioButton.generateButtonIcon(
-            globalAudioEnabled,
-            searchAudioEnabled
-          )}
-          onClick={onClick}
+          icon={generateButtonIcon(audioState)}
+          onClick={this.handleClick(audioState)}
         />
       </Tooltip>
     );
@@ -74,7 +109,8 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<ToggleSearchAudio>): Handlers => ({
-  onClick: () => dispatch(toggleSearchAudio())
+  onToggle: () => dispatch(toggleSearchAudio()),
+  onChangeTab: () => dispatch(changeTab(TabIndex.SETTINGS))
 });
 
 export default connect(mapState, mapDispatch)(ToggleSearchAudioButton);
