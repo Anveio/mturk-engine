@@ -1,12 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { List } from 'immutable';
-import {
-  SearchResult,
-  BlockedHit,
-  RootState,
-  HitDatabaseEntry
-} from '../../types';
+import { SearchResult, BlockedHit, RootState } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import { AcceptAction, acceptHitRequestfromSearch } from '../../actions/accept';
 import { MarkHitAsRead, markHitAsRead } from '../../actions/markAsRead';
@@ -24,7 +18,7 @@ import { blockedHitFactory } from '../../utils/blocklist';
 import { searchResultsToWeightedToMap } from '../../selectors/turkopticon';
 import {
   hitDatabaseToRequesterMap,
-  getAllHitsSubmittedToRequester
+  numPreviouslySubmittedHitsToRequester
 } from '../../selectors/hitDatabase';
 import { uniqueGroupIdsInQueueHistogram } from '../../selectors/queue';
 import { searchResultSelector } from '../../selectors/index';
@@ -34,7 +28,7 @@ export interface Props {
   readonly hit: SearchResult;
   readonly knownRequester: boolean;
   readonly weightedToScore: number | null;
-  readonly requesterWorkHistory: List<HitDatabaseEntry>;
+  readonly requesterWorkHistorySize: number;
   readonly hitsInQueue: number;
 }
 
@@ -102,13 +96,17 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
       knownRequester,
       hitsInQueue,
       weightedToScore,
-      requesterWorkHistory
+      requesterWorkHistorySize
     } = this.props;
     const { groupId, qualified, title, requester, markedAsRead } = hit;
 
     const exceptions = generateSearchCardExceptions(
       { qualified, qualifications: hit.qualsRequired },
-      { knownRequester, numPreviouslySubmittedHits: requesterWorkHistory.size },
+      {
+        knownRequester,
+        numSubmittedHits: requesterWorkHistorySize,
+        numRejectedHits: 1
+      },
       hitsInQueue
     );
 
@@ -157,9 +155,9 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
     knownRequester: !!hitDatabaseToRequesterMap(state).get(hit.requester.id),
     hitsInQueue:
       uniqueGroupIdsInQueueHistogram(state).get(ownProps.groupId) || 0,
-    requesterWorkHistory: getAllHitsSubmittedToRequester(hit.requester.id)(
-      state
-    )
+    requesterWorkHistorySize: numPreviouslySubmittedHitsToRequester(
+      hit.requester.id
+    )(state)
   };
 };
 
