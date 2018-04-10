@@ -7,8 +7,6 @@ import {
   removeUploadedFile
 } from '../../actions/upload';
 
-interface Props {}
-
 interface Handlers {
   readonly onUpload: (file: File) => void;
   readonly onRemoveUploadedFile: () => void;
@@ -18,7 +16,7 @@ interface State {
   readonly filename?: string;
 }
 
-class ImportUserSettings extends React.Component<Props & Handlers, State> {
+class ImportUserSettings extends React.Component<Handlers, State> {
   public readonly state: State = {};
 
   private generateInputText = () => {
@@ -65,7 +63,7 @@ class ImportUserSettings extends React.Component<Props & Handlers, State> {
     return (
       <Stack alignment="baseline">
         <TextContainer>Upload Backup File</TextContainer>
-        <label className="pt-file-upload">
+        <label className="pt-file-input">
           <input type="file" onChange={this.uploadFile} accept=".json" />
           <span className="pt-file-upload-input">
             {this.generateInputText()}
