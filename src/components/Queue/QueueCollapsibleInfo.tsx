@@ -26,7 +26,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
     const { description, requester } = hit;
 
     return (
-      <Collapsible open={expanded}>
+      <Collapsible open={expanded} id={hit.hitId}>
         <Card.Section>
           <Stack vertical spacing="loose">
             <Caption>{`Requester: ${requester.name}`}</Caption>

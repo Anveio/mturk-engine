@@ -12,18 +12,18 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
   public render() {
     const { open, hit: { id, feedback, requester, bonus } } = this.props;
     return (
-      <Collapsible open={open}>
+      <Collapsible open={open} id={id}>
         <Card.Section>
           <Stack vertical spacing="loose" distribution="equalSpacing">
             <Caption>
               Hit ID: <TextStyle variation="strong">{id}</TextStyle>
             </Caption>
             <Caption>
-              Requester: {' '}
+              Requester:{' '}
               <TextStyle variation="strong">{requester.name}</TextStyle>
             </Caption>
             <Caption>
-              Feedback: {' '}
+              Feedback:{' '}
               <TextStyle variation="strong">
                 {feedback || 'No feedback given.'}
               </TextStyle>
