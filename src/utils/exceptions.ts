@@ -14,7 +14,8 @@ interface ExceptionGenerator<T = boolean> {
 
 interface RequesterExceptionData {
   readonly knownRequester: boolean;
-  readonly numPreviouslySubmittedHits: number;
+  readonly numSubmittedHits: number;
+  readonly numRejectedHits: number;
 }
 
 interface QualificationExceptionData {
@@ -40,15 +41,16 @@ const qualException = ({
 
 const knownRequesterException: ExceptionGenerator<RequesterExceptionData> = ({
   knownRequester,
-  numPreviouslySubmittedHits
+  numSubmittedHits,
+  numRejectedHits
 }: RequesterExceptionData) =>
   knownRequester
     ? {
         status: 'neutral',
         title: `Requester in database`,
-        description: `${numPreviouslySubmittedHits} ${pluralize('HIT', 'HITs')(
-          numPreviouslySubmittedHits
-        )} found`
+        description: `${numSubmittedHits} ${pluralize('HIT', 'HITs')(
+          numSubmittedHits
+        )}, ${numRejectedHits} rejected.`
       }
     : null;
 
