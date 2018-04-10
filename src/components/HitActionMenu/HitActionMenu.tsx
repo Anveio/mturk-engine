@@ -1,32 +1,38 @@
 import * as React from 'react';
 import { Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as copy from 'copy-to-clipboard';
-import { HumanIntelligenceTask } from 'types';
-import { connect } from 'react-redux';
-import { RootState } from 'types';
+import { HumanIntelligenceTask, QueueItem } from 'types';
 import { generateHwtfUrl } from 'utils/export';
 import { generateMarkdownExport } from 'utils/export';
 import { showPlainToast } from 'utils/toaster';
-import { SearchResult } from 'types';
-
-const mapState = (state: RootState, ownProps: Props): Props => ({
-  hit: ownProps.hit
-});
+import { generateContactLinkQueue } from 'utils/urls';
 
 interface Props {
-  readonly hit: SearchResult;
+  readonly hit: HumanIntelligenceTask;
+  readonly queueItem?: QueueItem;
 }
 
-class SearchResultMenu extends React.PureComponent<Props, never> {
+class HitActionMenu extends React.PureComponent<Props, never> {
   private static handleCopyMarkDown = (hit: HumanIntelligenceTask) => () => {
     copy(generateMarkdownExport(hit));
     showPlainToast(`Markdown for "${hit.title}" was added to your clipboard.`);
   };
 
   public render() {
-    const { hit } = this.props;
+    const { hit, queueItem } = this.props;
     return (
       <Menu>
+        {queueItem ? (
+          <React.Fragment>
+            <MenuDivider title="HIT Actions" />
+            <MenuItem
+              icon="person"
+              target="_blank"
+              text="Contact Requester"
+              href={generateContactLinkQueue(queueItem)}
+            />
+          </React.Fragment>
+        ) : null}
         <MenuDivider title="Share" />
         <MenuItem
           icon="share"
@@ -36,7 +42,7 @@ class SearchResultMenu extends React.PureComponent<Props, never> {
         />
         <MenuItem
           icon="duplicate"
-          onClick={SearchResultMenu.handleCopyMarkDown(hit)}
+          onClick={HitActionMenu.handleCopyMarkDown(hit)}
           text="Copy to Clipboard"
         />
       </Menu>
@@ -44,4 +50,4 @@ class SearchResultMenu extends React.PureComponent<Props, never> {
   }
 }
 
-export default connect(mapState)(SearchResultMenu);
+export default HitActionMenu;

@@ -5,8 +5,8 @@ import { RootState, QueueItem } from '../../types';
 import KnownRequesterButton from '../Buttons/KnownRequesterButton';
 import BlockRequesterButton from '../Buttons/BlockRequesterButton';
 import AddAsWatcherButton from '../Buttons/AddAsWatcherButton';
-import MenuActivator from '../MenuActivator';
-import QueueMenu from './QueueMenu';
+import MenuActivator from '../HitActionMenu/MenuActivator';
+import HitActionMenu from '../HitActionMenu/HitActionMenu';
 
 interface Props {
   readonly hit: QueueItem;
@@ -40,7 +40,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
             )}
             <Stack vertical={false} alignment="center">
               <MenuActivator accessibilityLabel="Additional actions">
-                <QueueMenu hit={hit} />
+                <HitActionMenu hit={hit} queueItem={hit} />
               </MenuActivator>
               {/* We want to display a toast when a requester is blocked via the 
               queue because they have no feedback the button worked otherwise. */}
