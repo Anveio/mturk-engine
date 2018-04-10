@@ -89,7 +89,7 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
   const hit = state.queue.get(ownProps.hitId);
   return {
     hit,
-    knownRequester: !!hitDatabaseToRequesterMap(state).get(hit.requester.id)
+    knownRequester: hitDatabaseToRequesterMap(state).has(hit.requester.id)
   };
 };
 

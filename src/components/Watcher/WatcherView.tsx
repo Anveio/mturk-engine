@@ -86,7 +86,7 @@ class WatcherView extends React.PureComponent<
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   watcher: normalizedWatchers(state).get(ownProps.watcherId),
-  watcherActive: !!state.watcherTimes.get(ownProps.watcherId)
+  watcherActive: state.watcherTimes.has(ownProps.watcherId)
 });
 
 const mapDispatch = (dispatch: Dispatch<WatcherAction>): Handlers => ({

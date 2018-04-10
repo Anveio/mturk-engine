@@ -50,7 +50,7 @@ class WatcherFolderListItem extends React.PureComponent<
 
 const mapState = (state: RootState, { watcherId }: OwnProps): Props => ({
   watcher: normalizedWatchers(state).get(watcherId),
-  watcherActive: !!state.watcherTimes.get(watcherId)
+  watcherActive: state.watcherTimes.has(watcherId)
 });
 
 export default connect(mapState)(WatcherFolderListItem);

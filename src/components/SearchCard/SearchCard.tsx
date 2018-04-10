@@ -117,7 +117,7 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
       <React.Fragment>
         <div
           onClick={this.handleExpand}
-          style={SearchCard.generateNewResultHighlightStyle(!!markedAsRead)}
+          style={SearchCard.generateNewResultHighlightStyle(markedAsRead)}
         >
           <ResourceList.Item
             actions={this.generateActions(!!markedAsRead)}
@@ -155,7 +155,7 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
   return {
     hit,
     weightedToScore: searchResultsToWeightedToMap(state).get(hit.groupId, null),
-    knownRequester: !!hitDatabaseToRequesterMap(state).get(hit.requester.id),
+    knownRequester: hitDatabaseToRequesterMap(state).has(hit.requester.id),
     hitsInQueue:
       uniqueGroupIdsInQueueHistogram(state).get(ownProps.groupId) || 0,
     requesterWorkHistorySize: numSubmittedHitsToRequester(hit.requester.id)(

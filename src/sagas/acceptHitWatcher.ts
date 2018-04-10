@@ -89,8 +89,8 @@ function* handleWatcherScheduling(watcher: Watcher) {
   /**
    * If a user cancels a watcher before the request resolves, don't schedule it.
    */
-  const watcherActive: boolean = yield select(
-    (state: RootState) => !!state.watcherTimes.get(watcher.groupId)
+  const watcherActive: boolean = yield select((state: RootState) =>
+    state.watcherTimes.has(watcher.groupId)
   );
 
   if (watcher && watcherActive) {

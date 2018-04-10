@@ -19,7 +19,7 @@ class ErrorBoundary extends React.PureComponent<{}, State> {
   public render() {
     const { error, errorDetails } = this.state;
 
-    return !!error && !!errorDetails ? (
+    return error && !!errorDetails ? (
       <CrashScreen errorDetails={errorDetails} />
     ) : (
       this.props.children

@@ -21,9 +21,8 @@ interface Handlers {
 }
 
 class DoubleClickHandler extends React.PureComponent<Props & Handlers, never> {
-  private watcherIsActive = (nodeData: WatcherTreeNode) => {
-    return !!this.props.watcherTimers.get(nodeData.id);
-  };
+  private watcherIsActive = (nodeData: WatcherTreeNode) =>
+    this.props.watcherTimers.has(nodeData.id);
 
   private handleNodeDoubleClick = (nodeData: GenericTreeNode) => {
     const { id } = nodeData;
