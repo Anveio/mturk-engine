@@ -7,10 +7,9 @@ class Footer extends React.PureComponent<Props, never> {
   public render() {
     return (
       <FooterHelp>
-        The new Worker website is constantly changing, and changes can break
-        Mturk Engine.{' '}
+        Issues? Feature suggestions?{' '}
         <Link external url="https://github.com/Anveio/mturk-engine/issues">
-          Visit Mturk Engine's GitHub page to submit issues.
+          Visit Mturk Engine's GitHub page to submit them.
         </Link>
       </FooterHelp>
     );
