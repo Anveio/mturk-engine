@@ -66,6 +66,18 @@ class ToggleSearchAudioButton extends React.PureComponent<
     }
   };
 
+  private static audioStateToUiText = (audioState: AudioState) => {
+    switch (audioState) {
+      case 'GLOBALLY_DISABLED':
+        return 'off';
+      case 'ENABLED':
+        return 'on';
+      case 'DISABLED':
+      default:
+        return 'off';
+    }
+  };
+
   private handleClick = (audioState: AudioState) => () => {
     switch (audioState) {
       case 'GLOBALLY_DISABLED':
@@ -82,7 +94,8 @@ class ToggleSearchAudioButton extends React.PureComponent<
     const {
       calculateAudioState,
       generateTooltipContent,
-      generateButtonIcon
+      generateButtonIcon,
+      audioStateToUiText
     } = ToggleSearchAudioButton;
 
     const audioState = calculateAudioState(
@@ -94,6 +107,7 @@ class ToggleSearchAudioButton extends React.PureComponent<
     return (
       <Tooltip content={tooltipContent} position={Position.TOP}>
         <Button
+          aria-label={`Search audio is ${audioStateToUiText(audioState)}`}
           className={Classes.MINIMAL + ' ' + Classes.SMALL}
           icon={generateButtonIcon(audioState)}
           onClick={this.handleClick(audioState)}
