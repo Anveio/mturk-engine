@@ -50,7 +50,7 @@ const knownRequesterException: ExceptionGenerator<RequesterExceptionData> = ({
         title: `Requester in database`,
         description: `${numSubmittedHits} ${pluralize('HIT', 'HITs')(
           numSubmittedHits
-        )}, ${numRejectedHits} rejected.`
+        )}, ${numRejectedHits} rejections.`
       }
     : null;
 
