@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Tooltip, Button, Position, Collapse } from '@blueprintjs/core';
+import { Tooltip, Button, Position, Collapse, AnchorButton } from '@blueprintjs/core';
 import { Stack, Caption } from '@shopify/polaris';
 import { RootState } from 'types';
 import {
@@ -49,7 +49,7 @@ class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
             position={Position.TOP_LEFT}
             isOpen={this.state.hovering}
           >
-            <Button
+            <AnchorButton
               loading={this.props.waitingForHitDbRefresh}
               icon="database"
               onClick={this.props.onRefreshDb}
@@ -57,7 +57,7 @@ class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
               onMouseLeave={this.handleMouseLeave}
             >
               Refresh Database
-            </Button>
+            </AnchorButton>
           </Tooltip>
           <Button icon="refresh" onClick={this.props.onRefreshToday}>
             Refresh {new Date().toLocaleDateString()} (Today)
