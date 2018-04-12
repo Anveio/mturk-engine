@@ -5,9 +5,8 @@ import { connect } from 'react-redux';
 import { List } from 'immutable';
 import { oneYearOfData } from '../../selectors/hitDatabase';
 import CalendarHeatMap from './CalendarHeatMap';
-import CalendarButtons from './CalendarButtons';
-// import SelectedHitDate from './SelectedHitDate/SelectedHitDate';
 import { dateStringToLocaleDateString } from '../../utils/dates';
+import CalendarButtons from '../Buttons/CalendarButtons';
 
 interface Props {
   readonly values: List<HeatMapValue>;
