@@ -11,7 +11,11 @@ import {
   fetchStatusDetailPage,
   StatusDetailPageInfo
 } from '../api/statusDetail';
-import { statusDetailToast, statusDetailErrorToast } from '../utils/toaster';
+import {
+  statusDetailToast,
+  statusDetailErrorToast,
+  showWaitingToast
+} from '../utils/toaster';
 import { dateObjectTo } from '../utils/dates';
 import { WORKER_DATE_FORMAT } from '../constants/misc';
 
@@ -19,6 +23,9 @@ export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
   try {
     const { date, page } = action;
     const encodedDateString = dateObjectTo(date)(WORKER_DATE_FORMAT);
+
+    const toasterKey = conditionallyDisplayWaitingToast(action);
+
     const pageInfo: StatusDetailPageInfo = yield call(
       fetchStatusDetailPage,
       encodedDateString,
@@ -32,7 +39,7 @@ export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
       yield put<FetchStatusDetailSuccess>(statusDetailSuccess(data));
     }
 
-    conditionallyDisplayToast(action, data.isEmpty());
+    conditionallyDisplaySuccessToast(action, data.isEmpty(), toasterKey);
 
     /**
      * Recursively call this function with page+1.
@@ -47,11 +54,22 @@ export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
   }
 }
 
-const conditionallyDisplayToast = (
+const conditionallyDisplaySuccessToast = (
   action: FetchStatusDetailRequest,
-  noDataFound: boolean
+  noDataFound: boolean,
+  key?: string
 ) => {
-  if (action.withToast) {
-    statusDetailToast(action.date.toLocaleDateString(), noDataFound);
+  if (action.withToast && key) {
+    statusDetailToast(action.date.toLocaleDateString(), noDataFound, key);
   }
+};
+
+const conditionallyDisplayWaitingToast = (
+  action: FetchStatusDetailRequest
+): string | undefined => {
+  if (!action.withToast) {
+    return undefined;
+  }
+
+  return showWaitingToast(`Refreshing HITs on day of ${action.date}`);
 };

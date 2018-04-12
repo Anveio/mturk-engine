@@ -75,22 +75,32 @@ export const generateReturnToast = (successful: boolean, title: string) => {
   return successful ? successfulReturnToast(title) : errorReturnToast(title);
 };
 
-export const statusDetailToast = (dateStr: string, noDataFound: boolean) => {
+export const statusDetailToast = (
+  dateStr: string,
+  noDataFound: boolean,
+  key: string
+) => {
   const toastHeader = `Refreshed HITs for the day of ${dateStringToLocaleDateString(
     dateStr
   )}. `;
 
   noDataFound
-    ? TopRightToaster.show({
-        message: toastHeader + 'No activity was found for this day.',
-        intent: Intent.PRIMARY
-      })
-    : TopRightToaster.show({
-        message:
-          toastHeader +
-          'Your database has been updated with any new information.',
-        intent: Intent.SUCCESS
-      });
+    ? TopRightToaster.show(
+        {
+          message: toastHeader + 'No activity was found for this day.',
+          intent: Intent.PRIMARY
+        },
+        key
+      )
+    : TopRightToaster.show(
+        {
+          message:
+            toastHeader +
+            'Your database has been updated with any new information.',
+          intent: Intent.SUCCESS
+        },
+        key
+      );
 };
 
 export const statusDetailErrorToast = (dateStr: string) =>
