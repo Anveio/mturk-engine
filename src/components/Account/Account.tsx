@@ -30,10 +30,10 @@ class Account extends React.PureComponent<Props & Handlers, never> {
   }
 
   public render() {
-    return !this.props.account ? (
-      <DisconectedAccount />
-    ) : (
+    return this.props.account ? (
       <ConnectedAccountLayout />
+    ) : (
+      <DisconectedAccount />
     );
   }
 }
