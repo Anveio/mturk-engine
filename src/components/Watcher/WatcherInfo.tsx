@@ -19,13 +19,11 @@ class WatcherInfo extends React.PureComponent<Props, State> {
     editable: false
   };
 
-  componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.id !== this.props.id) {
-      this.setState((prevState: State) => ({
-        description: nextProps.description,
-        editable: false
-      }));
-    }
+  static getDerivedStateFromProps(nextProps: Props): Partial<State> {
+    return {
+      description: nextProps.description,
+      editable: false
+    };
   }
 
   private toggleEditableState = () =>

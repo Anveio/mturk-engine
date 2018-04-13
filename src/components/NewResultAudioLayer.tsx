@@ -15,12 +15,12 @@ interface Handlers {
 }
 
 class NewResultAudioLayer extends React.Component<Props & Handlers, never> {
-  componentWillReceiveProps(nextProps: Props) {
-    if (!this.props.searchAudioEnabled) {
+  componentDidUpdate(nextProps: Props) {
+    if (!nextProps.searchAudioEnabled) {
       return;
     }
 
-    if (!nextProps.unreadResults.isSubset(this.props.unreadResults)) {
+    if (!this.props.unreadResults.isSubset(nextProps.unreadResults)) {
       this.props.onNewSearchResult();
     }
   }

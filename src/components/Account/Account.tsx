@@ -19,13 +19,14 @@ interface Handlers {
 }
 
 class Account extends React.PureComponent<Props & Handlers, never> {
-  componentWillReceiveProps({ selectedTabIndex }: Props & Handlers) {
+  componentDidUpdate(nextProps: Props & Handlers) {
+    const { selectedTabIndex, account, onConnect } = this.props;
     if (
-      this.props.selectedTabIndex !== selectedTabIndex &&
-      this.props.account &&
+      selectedTabIndex !== nextProps.selectedTabIndex &&
+      account &&
       selectedTabIndex === TabIndex.ACCOUNT
     ) {
-      this.props.onConnect();
+      onConnect();
     }
   }
 

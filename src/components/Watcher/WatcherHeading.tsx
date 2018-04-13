@@ -15,12 +15,11 @@ interface State {
 class WatcherHeading extends React.Component<Props, State> {
   public readonly state: State = { title: this.props.title, editing: false };
 
-  componentWillReceiveProps(nextProps: Props) {
-    if (nextProps.title !== this.state.title) {
-      this.setState((prevState: State) => ({
-        title: nextProps.title
-      }));
-    }
+  static getDerivedStateFromProps(nextProps: Props): Partial<State> {
+    return {
+      title: nextProps.title,
+      editing: false
+    };
   }
 
   private toggleEditingState = () =>

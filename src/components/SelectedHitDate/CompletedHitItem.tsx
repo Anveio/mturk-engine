@@ -21,9 +21,9 @@ interface State {
 }
 
 class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
-  state: State = { expanded: false };
+  public readonly state: State = { expanded: false };
 
-  componentWillReceiveProps(nextProps: Props) {
+  componentDidUpdate(nextProps: Props) {
     if (nextProps.hit.id !== this.props.hit.id) {
       this.setState(() => ({
         expanded: false

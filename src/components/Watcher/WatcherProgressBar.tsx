@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../types';
-// import { Caption } from '@shopify/polaris';
 import { ProgressBar } from '@blueprintjs/core';
 
 interface OwnProps {
@@ -13,7 +12,8 @@ interface Props {
 }
 
 interface State {
-  readonly timeUntilNextSearch: number | null;
+  readonly spinnerProgress: number;
+  readonly startTime: number;
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => {
@@ -23,82 +23,85 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
   };
 };
 
-class WatcherTimer extends React.PureComponent<OwnProps & Props, State> {
+class WatcherProgressBar extends React.PureComponent<OwnProps & Props, State> {
   private static readonly tickRate: number = 100;
   private timerId: number;
-  private dateNumNextSearch: number;
-  private timeBetweenStartAndEnd: number;
 
-  public readonly state: State = { timeUntilNextSearch: null };
+  public readonly state: State = WatcherProgressBar.defaultState;
 
-  componentDidMount() {
-    const { timeOfNextSearch } = this.props;
-    if (timeOfNextSearch) {
-      this.dateNumNextSearch = timeOfNextSearch.valueOf();
-      this.timeBetweenStartAndEnd = WatcherTimer.calculateTimeUntilNextSearch(
-        this.dateNumNextSearch
-      );
-      this.startTimer();
+  private static defaultState: State = {
+    startTime: Date.now(),
+    spinnerProgress: 0
+  };
+
+  static getDerivedStateFromProps(nextProps: OwnProps & Props): Partial<State> {
+    if (!nextProps.timeOfNextSearch) {
+      return WatcherProgressBar.defaultState;
     }
+
+    return {
+      startTime: Date.now(),
+      spinnerProgress: 0
+    };
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    clearInterval(this.timerId);
-    if (nextProps.timeOfNextSearch) {
-      this.dateNumNextSearch = nextProps.timeOfNextSearch.valueOf();
-      this.timeBetweenStartAndEnd = WatcherTimer.calculateTimeUntilNextSearch(
-        this.dateNumNextSearch
-      );
-      this.startTimer();
-    } else {
-      this.setState({ timeUntilNextSearch: null });
-    }
+  componentDidMount() {
+    this.startTimer();
   }
 
   componentWillUnmount() {
     clearInterval(this.timerId);
   }
 
-  private static calculateTimeUntilNextSearch = (
-    nextSearch: number
+  private static calculateTimeBetweenStartAndEnd = (
+    startTime: number,
+    dateNumNextSearch: number
   ): number => {
-    return Math.max(nextSearch - Date.now(), 0);
+    return Math.max(dateNumNextSearch - startTime, 0);
   };
 
   private static calculateProgress = (
     timeLeft: number,
     total: number
   ): number => {
+    if (total === 0) {
+      return 1;
+    }
+
     return 1 - timeLeft / total;
   };
 
   private startTimer = () => {
-    this.timerId = window.setInterval(() => this.tick(), WatcherTimer.tickRate);
+    clearInterval(this.timerId);
+    this.timerId = window.setInterval(
+      () => this.tick(),
+      WatcherProgressBar.tickRate
+    );
   };
 
   private tick = () => {
-    if (this.props.timeOfNextSearch) {
-      this.setState({
-        timeUntilNextSearch: WatcherTimer.calculateTimeUntilNextSearch(
-          this.dateNumNextSearch
-        )
-      });
+    const { timeOfNextSearch } = this.props;
+
+    if (!timeOfNextSearch) {
+      return;
     }
+
+    const dateNumNextSearch = timeOfNextSearch.valueOf();
+
+    this.setState({
+      spinnerProgress: WatcherProgressBar.calculateProgress(
+        dateNumNextSearch - Date.now(),
+        WatcherProgressBar.calculateTimeBetweenStartAndEnd(
+          this.state.startTime,
+          dateNumNextSearch
+        )
+      )
+    });
   };
 
   public render() {
-    const { timeUntilNextSearch } = this.state;
-
-    const spinnerProgress =
-      timeUntilNextSearch === null
-        ? 0
-        : WatcherTimer.calculateProgress(
-            timeUntilNextSearch,
-            this.timeBetweenStartAndEnd
-          );
-
-    return <ProgressBar value={spinnerProgress} />;
+    return <ProgressBar value={this.state.spinnerProgress} />;
   }
 }
 
-export default connect(mapState)(WatcherTimer);
+export default connect(mapState)(WatcherProgressBar);
