@@ -15,7 +15,7 @@ interface Handlers {
 }
 
 class NewResultAudioLayer extends React.Component<Props & Handlers, never> {
-  componentWillReceiveProps(nextProps: Props) {
+  componentWillUpdate(nextProps: Props) {
     if (!this.props.searchAudioEnabled) {
       return;
     }

@@ -25,12 +25,13 @@ interface State {
 class QueueTable extends React.PureComponent<Props & Handlers, State> {
   public readonly state: State = { bannerVisible: true };
 
-  componentWillReceiveProps({ selectedTabIndex }: Props & Handlers) {
+  componentDidUpdate(nextProps: Props & Handlers) {
+    const { selectedTabIndex, onRefresh } = this.props;
     if (
-      this.props.selectedTabIndex !== selectedTabIndex &&
+      selectedTabIndex !== nextProps.selectedTabIndex &&
       selectedTabIndex === TabIndex.QUEUE
     ) {
-      this.props.onRefresh();
+      onRefresh();
     }
   }
 

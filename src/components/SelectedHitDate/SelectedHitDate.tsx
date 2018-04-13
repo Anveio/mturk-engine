@@ -23,7 +23,7 @@ class SelectedHitDate extends React.PureComponent<Props, State> {
     this.state = { page: 0 };
   }
 
-  componentWillReceiveProps(nextProps: Props) {
+  componentDidUpdate(nextProps: Props) {
     this.maxPage = this.calculateMaxPage(
       nextProps.numResults,
       RESULTS_PER_PAGE

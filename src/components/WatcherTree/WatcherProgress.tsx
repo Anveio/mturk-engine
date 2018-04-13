@@ -12,7 +12,8 @@ interface Props {
 }
 
 interface State {
-  readonly timeUntilNextSearch: number | null;
+  readonly spinnerProgress: number;
+  readonly startTime: number;
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => {
@@ -25,43 +26,38 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
 class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
   private static readonly tickRate: number = 100;
   private timerId: number;
-  private dateNumNextSearch: number;
-  private timeBetweenStartAndEnd: number;
 
-  public readonly state: State = { timeUntilNextSearch: null };
+  public readonly state: State = {
+    startTime: Date.now(),
+    spinnerProgress: 0
+  };
 
-  componentDidMount() {
-    const { timeOfNextSearch } = this.props;
-    if (timeOfNextSearch) {
-      this.dateNumNextSearch = timeOfNextSearch.valueOf();
-      this.timeBetweenStartAndEnd = WatcherProgress.calculateTimeUntilNextSearch(
-        this.dateNumNextSearch
-      );
-      this.startTimer();
+  static getDerivedStateFromProps(
+    nextProps: OwnProps & Props
+  ): Partial<State> | null {
+    if (!nextProps.timeOfNextSearch) {
+      return null;
     }
+
+    return {
+      startTime: Date.now(),
+      spinnerProgress: 0
+    };
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    clearInterval(this.timerId);
-    if (nextProps.timeOfNextSearch) {
-      this.dateNumNextSearch = nextProps.timeOfNextSearch.valueOf();
-      this.timeBetweenStartAndEnd = WatcherProgress.calculateTimeUntilNextSearch(
-        this.dateNumNextSearch
-      );
-      this.startTimer();
-    } else {
-      this.setState({ timeUntilNextSearch: null });
-    }
+  componentDidMount() {
+    this.startTimer();
   }
 
   componentWillUnmount() {
     clearInterval(this.timerId);
   }
 
-  private static calculateTimeUntilNextSearch = (
+  private static calculateTimeBetweenStartAndEnd = (
+    startTime: number,
     dateNumNextSearch: number
   ): number => {
-    return Math.max(dateNumNextSearch - Date.now(), 0);
+    return Math.max(dateNumNextSearch - startTime, 0);
   };
 
   private static calculateProgress = (
@@ -76,6 +72,7 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
   };
 
   private startTimer = () => {
+    clearInterval(this.timerId);
     this.timerId = window.setInterval(
       () => this.tick(),
       WatcherProgress.tickRate
@@ -83,28 +80,27 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
   };
 
   private tick = () => {
-    if (this.props.timeOfNextSearch) {
-      this.setState({
-        timeUntilNextSearch: WatcherProgress.calculateTimeUntilNextSearch(
-          this.dateNumNextSearch
-        )
-      });
+    const { timeOfNextSearch } = this.props;
+    if (!timeOfNextSearch) {
+      return;
     }
+
+    const dateNumNextSearch = timeOfNextSearch.valueOf();
+
+    this.setState({
+      spinnerProgress: WatcherProgress.calculateProgress(
+        dateNumNextSearch - Date.now(),
+        WatcherProgress.calculateTimeBetweenStartAndEnd(
+          this.state.startTime,
+          dateNumNextSearch
+        )
+      )
+    });
   };
 
   public render() {
     const { id, timeOfNextSearch } = this.props;
-    const { timeUntilNextSearch } = this.state;
-
-    const spinnerProgress =
-      timeUntilNextSearch === null
-        ? 0
-        : WatcherProgress.calculateProgress(
-            timeUntilNextSearch,
-            this.timeBetweenStartAndEnd
-          );
-
-    // console.log(progress);
+    const { spinnerProgress } = this.state;
     return timeOfNextSearch ? (
       <div style={{ paddingTop: '0.75em' }}>
         <ProgressSpinner id={id} progress={spinnerProgress} />

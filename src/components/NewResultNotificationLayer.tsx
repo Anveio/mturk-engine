@@ -28,7 +28,7 @@ class NewResultsNotificationLayer extends React.Component<
   Props & Handlers,
   never
 > {
-  componentWillReceiveProps(nextProps: Props) {
+  componentWillUpdate(nextProps: Props) {
     const { notificationSettings, newResultsGroupIds, newResults } = nextProps;
     if (
       notificationSettings.enabled &&
