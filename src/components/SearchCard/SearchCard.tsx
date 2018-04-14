@@ -61,14 +61,12 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
     }
   };
 
-  private unReadActions = () => [
-    {
-      content: 'Mark as Read',
-      accessibilityLabel: 'Mark as Read',
-      icon: 'view',
-      onClick: this.handleMarkingAsRead
-    }
-  ];
+  private markAsReadButton = () => ({
+    content: 'Mark as Read',
+    accessibilityLabel: 'Mark as Read',
+    icon: 'view',
+    onClick: this.handleMarkingAsRead
+  });
 
   private readActions = () => [
     {
@@ -86,11 +84,10 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
     }
   ];
 
-  private generateActions = (markedAsRead: boolean) => {
-    return markedAsRead
+  private generateActions = (markedAsRead: boolean) =>
+    markedAsRead
       ? this.readActions()
-      : [...this.unReadActions(), ...this.readActions()];
-  };
+      : [this.markAsReadButton(), ...this.readActions()];
 
   public render() {
     const {
