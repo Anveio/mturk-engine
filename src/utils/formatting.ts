@@ -4,6 +4,8 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 2
 });
 
+export const formatAsUsd = currencyFormatter.format;
+
 /**
  * Trims leading and trailing whitespace and line terminators and replaces all
  * characters after character 90 with an ellipsis.
@@ -13,8 +15,6 @@ export const truncate = (str: string, max = 90): string => {
   const trimmed = str.trim();
   return trimmed.length > max ? trimmed.slice(0, max).concat(' ...') : trimmed;
 };
-
-export const formatAsCurrency = currencyFormatter.format;
 
 export const removeCurrencyFormatting = (input: string) =>
   input.replace(/[^\d.]/g, '');

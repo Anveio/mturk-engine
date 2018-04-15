@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card, TextStyle } from '@shopify/polaris';
 import { RootState, MaybeAccount } from '../../types';
-import { formatAsCurrency } from '../../utils/formatting';
+import { formatAsUsd } from '../../utils/formatting';
 
 import AcceptanceRateText from './AcceptanceRateText';
 
@@ -30,17 +30,17 @@ class AccountStatisticsTable extends React.PureComponent<Props, never> {
             <tbody>
               <tr>
                 <td>Earnings from HITs</td>
-                <td>{formatAsCurrency(accountInfo.lifetimeHitEarnings)}</td>
+                <td>{formatAsUsd(accountInfo.lifetimeHitEarnings)}</td>
               </tr>
               <tr>
                 <td>Earnings from Bonuses</td>
-                <td>{formatAsCurrency(accountInfo.lifetimeBonusEarnings)}</td>
+                <td>{formatAsUsd(accountInfo.lifetimeBonusEarnings)}</td>
               </tr>
               <tr>
                 <td>Total</td>
                 <td>
                   <TextStyle variation="strong">
-                    {formatAsCurrency(accountInfo.lifetimeTotalEarnings)}
+                    {formatAsUsd(accountInfo.lifetimeTotalEarnings)}
                   </TextStyle>
                 </td>
               </tr>

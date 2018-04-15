@@ -8,7 +8,7 @@ import {
   Button as PolarisButton
 } from '@shopify/polaris';
 import { validatePositiveNumber } from 'utils/validation';
-import { formatAsCurrency } from 'utils/formatting';
+import { formatAsUsd } from 'utils/formatting';
 import { EditBonus, editBonus } from 'actions/bonus';
 import { successfulEditBonusToast } from 'utils/toaster';
 import { watchForEnter } from 'utils/watchForEnter';
@@ -86,7 +86,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
           className={SMALL_MINIMAL_BUTTON}
           icon="manually-entered-data"
         >
-          Bonus: {formatAsCurrency(this.props.bonus)} (Edit)
+          Bonus: {formatAsUsd(this.props.bonus)} (Edit)
         </Button>
         <Card sectioned title="Enter a new bonus.">
           <div onKeyPress={this.handleEnterKeyPress}>

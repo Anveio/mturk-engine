@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, DailyEarnings } from 'types';
 import { Card, Stack, Heading } from '@shopify/polaris';
-import { formatAsCurrency } from 'utils/formatting';
+import { formatAsUsd } from 'utils/formatting';
 import {
   earningsOnDate,
   pendingEarningsOnDate,
@@ -24,14 +24,14 @@ class InfoHeader extends React.PureComponent<
   never
 > {
   private static showPendingEarnings = (earningsPending: number) =>
-    earningsPending > 0 ? `${formatAsCurrency(earningsPending)} pending. ` : '';
+    earningsPending > 0 ? `${formatAsUsd(earningsPending)} pending. ` : '';
 
   private static showEarnings = (reward: number, bonus: number) =>
     bonus > 0
-      ? `${formatAsCurrency(reward)} + ${formatAsCurrency(
+      ? `${formatAsUsd(reward)} + ${formatAsUsd(
           bonus
         )} (in bonuses) paid.`
-      : `${formatAsCurrency(reward)} paid.`;
+      : `${formatAsUsd(reward)} paid.`;
 
   private generateCardTitle = () => {
     const {

@@ -1,5 +1,5 @@
 import { SearchResult } from '../types';
-import { formatAsCurrency } from './formatting';
+import { formatAsUsd } from './formatting';
 import { secondsToMinutes } from './dates';
 
 export const requestNotificationPermission = async (): Promise<
@@ -17,7 +17,7 @@ export const createNotificationFromSearchResult = (
 ): Notification => {
   const { title, reward, description, timeAllottedInSeconds } = hit;
   const notification = new Notification(
-    `${formatAsCurrency(reward)} - ${title}`,
+    `${formatAsUsd(reward)} - ${title}`,
     {
       body: `Click to accept - ${secondsToMinutes(
         timeAllottedInSeconds

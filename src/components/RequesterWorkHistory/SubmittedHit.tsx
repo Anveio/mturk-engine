@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { List, Badge, Caption } from '@shopify/polaris';
-import { formatAsCurrency } from '../../utils/formatting';
+import { formatAsUsd } from '../../utils/formatting';
 import { stringToDate } from '../../utils/dates';
 import { LEGACY_DATE_FORMAT } from '../../constants/misc';
 import { HitDatabaseEntry } from '../../types';
@@ -16,7 +16,7 @@ const SubmittedHit: React.SFC<Props> = ({ hit }) => (
     <Badge status={generateHitStatusBadge(hit.status).status}>
       {generateHitStatusBadge(hit.status).content}
     </Badge>
-    <Caption>{`${formatAsCurrency(hit.reward)} - Submitted ${stringToDate(
+    <Caption>{`${formatAsUsd(hit.reward)} - Submitted ${stringToDate(
       hit.date
     )(LEGACY_DATE_FORMAT).toLocaleDateString()}`}</Caption>
   </List.Item>

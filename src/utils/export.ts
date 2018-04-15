@@ -9,7 +9,7 @@ import {
   turkopticonBaseUrl,
   turkopticonTwoBaseUrl
 } from '../constants/urls';
-import { formatAsCurrency } from './formatting';
+import { formatAsUsd } from './formatting';
 import { QualificationComparator } from '../worker-mturk-api';
 import { generateAcceptUrl } from './urls';
 import { secondsToMinutes } from './dates';
@@ -24,7 +24,7 @@ https://www.reddit.com/r/HITsWorthTurkingFor/submit?selftext=true&title=${genera
 `;
 
 const generateHwtfTitle = (hit: HumanIntelligenceTask): string => {
-  return `US - ${hit.title} - ${hit.requester.name} - ${formatAsCurrency(
+  return `US - ${hit.title} - ${hit.requester.name} - ${formatAsUsd(
     hit.reward
   )}/X:XX - (${generateQuals(hit.qualsRequired)})`;
 };
@@ -65,7 +65,7 @@ export const generateMarkdownExport = (hit: HumanIntelligenceTask): string => {
   }) / [TO2](${turkopticonTwoBaseUrl}${requester.id})] : ${ratingsToWords(
     requester.turkopticon
   )}**
-    **Reward:** ${formatAsCurrency(reward)} 
+    **Reward:** ${formatAsUsd(reward)} 
     **Duration:** ${secondsToMinutes(timeAllottedInSeconds)} minutes.  
     **Available:** ${batchSize}  
     **Description:** ${description}

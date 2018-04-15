@@ -1,7 +1,7 @@
 import { TopRightToaster } from '../';
 import { truncate, pluralize } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
-import { formatAsCurrency } from './formatting';
+import { formatAsUsd } from './formatting';
 import { Toaster, Position, Intent, IToastProps } from '@blueprintjs/core';
 import {
   ImmutablePersistedStateKey,
@@ -158,13 +158,13 @@ export const refreshDbErrorToast = () =>
 
 export const successfulEditDailyGoalToast = (value: string) =>
   TopRightToaster.show({
-    message: `Daily goal of ${formatAsCurrency(parseFloat(value))} was set.`,
+    message: `Daily goal of ${formatAsUsd(parseFloat(value))} was set.`,
     timeout: 2000
   });
 
 export const successfulEditBonusToast = (value: string) =>
   TopRightToaster.show({
-    message: `Bonus of ${formatAsCurrency(
+    message: `Bonus of ${formatAsUsd(
       parseFloat(value)
     )} was set for this HIT.`,
     timeout: 2000

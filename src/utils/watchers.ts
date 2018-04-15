@@ -1,5 +1,5 @@
 import { Watcher, WatcherStatistics, HumanIntelligenceTask } from '../types';
-import { formatAsCurrency } from './formatting';
+import { formatAsUsd } from './formatting';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
 import { WatcherTreeNode } from './tree';
 import { executeRegex } from './parsing';
@@ -17,7 +17,7 @@ export const createDefaultWatcher = (id: string): Watcher => ({
 
 export const createWatcherWithInfo = (hit: HumanIntelligenceTask): Watcher => ({
   title: hit.title,
-  description: `${formatAsCurrency(hit.reward)} - ${hit.description}`,
+  description: `${formatAsUsd(hit.reward)} - ${hit.description}`,
   groupId: hit.groupId,
   delay: 5,
   createdOn: new Date(),

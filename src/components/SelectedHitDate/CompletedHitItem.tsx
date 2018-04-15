@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { ResourceList } from '@shopify/polaris';
 import { generateReviewLink } from 'utils/turkopticon';
 import { generateHitStatusBadge } from 'utils/badges';
-import { truncate, formatAsCurrency } from 'utils/formatting';
+import { truncate, formatAsUsd } from 'utils/formatting';
 import HitDbEntryCollapsible from './HitDbEntryCollapsible';
 import { generateContactLink } from 'utils/urls';
 
@@ -33,8 +33,8 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
 
   private static displayEarnings = (reward: number, bonus: number) =>
     bonus > 0
-      ? `${formatAsCurrency(reward)} + ${formatAsCurrency(bonus)}`
-      : `${formatAsCurrency(reward)}`;
+      ? `${formatAsUsd(reward)} + ${formatAsUsd(bonus)}`
+      : `${formatAsUsd(reward)}`;
 
   private generateActions = (assignmentId?: string) => [
     {

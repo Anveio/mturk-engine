@@ -7,7 +7,7 @@ import {
   todaysProjectedEarnings,
   approvedButNotPaidEarnings
 } from '../../selectors/hitDatabase';
-import { formatAsCurrency } from '../../utils/formatting';
+import { formatAsUsd } from '../../utils/formatting';
 import DailyEarningsProgressBar from './DailyEarningsProgressBar';
 import EditDailyGoalButton from './EditDailyGoalButton';
 import { generateTransferEarningsUrl } from '../../utils/urls';
@@ -39,7 +39,7 @@ class EarningsSummary extends React.PureComponent<Props, never> {
       <>
         Pending.{' '}
         <TextStyle variation={'positive'}>
-          {formatAsCurrency(earningsApprovedButNotPaid)}
+          {formatAsUsd(earningsApprovedButNotPaid)}
         </TextStyle>{' '}
         already approved
       </>
@@ -68,7 +68,7 @@ class EarningsSummary extends React.PureComponent<Props, never> {
         <Card.Section>
           <EarningsSummary.Field caption="Available for transfer">
             <TextStyle variation="positive">
-              {formatAsCurrency(accountInfo.availableEarnings)}
+              {formatAsUsd(accountInfo.availableEarnings)}
             </TextStyle>
           </EarningsSummary.Field>
         </Card.Section>
@@ -77,14 +77,14 @@ class EarningsSummary extends React.PureComponent<Props, never> {
           <EarningsSummary.Field
             caption={this.generateApprovalCaption(earningsApprovedButNotPaid)}
           >
-            {formatAsCurrency(pendingEarnings)}
+            {formatAsUsd(pendingEarnings)}
           </EarningsSummary.Field>
         </Card.Section>
 
         <Card.Section>
           <Stack vertical>
             <EarningsSummary.Field caption="Projected for today">
-              {formatAsCurrency(todaysEarnings)}
+              {formatAsUsd(todaysEarnings)}
             </EarningsSummary.Field>
             <DailyEarningsProgressBar />
             <EditDailyGoalButton />
