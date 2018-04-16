@@ -1,8 +1,7 @@
-import { TopRightToaster } from '../';
 import { truncate, pluralize } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsUsd } from './formatting';
-import { Toaster, Position, Intent, IToastProps } from '@blueprintjs/core';
+import { Intent, IToastProps } from '@blueprintjs/core';
 import {
   ImmutablePersistedStateKey,
   SearchResult,
@@ -12,6 +11,7 @@ import { GenericWaitingToast } from '../components/Toasts';
 import store from '../store';
 import { addWatcher, scheduleWatcher } from '../actions/watcher';
 import { createWatcherWithInfo } from './watchers';
+import { TopRightToaster } from '..';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
 
@@ -21,13 +21,11 @@ const loginLink = {
   text: 'Login Page'
 };
 
-export const createToastLayer = () =>
-  Toaster.create({
-    position: Position.TOP_RIGHT
-  });
-
 export const updateTopRightToaster = (key: string, newToast: IToastProps) =>
   TopRightToaster.show(newToast, key);
+
+export const sendToTopRightToaster = (toast: IToastProps) =>
+  TopRightToaster.show(toast);
 
 export const showWaitingToast = (message: string) =>
   TopRightToaster.show({
@@ -164,9 +162,7 @@ export const successfulEditDailyGoalToast = (value: string) =>
 
 export const successfulEditBonusToast = (value: string) =>
   TopRightToaster.show({
-    message: `Bonus of ${formatAsUsd(
-      parseFloat(value)
-    )} was set for this HIT.`,
+    message: `Bonus of ${formatAsUsd(parseFloat(value))} was set for this HIT.`,
     timeout: 2000
   });
 

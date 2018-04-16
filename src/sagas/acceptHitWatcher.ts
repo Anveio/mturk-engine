@@ -13,9 +13,8 @@ import {
   cancelNextWatcherTick
 } from '../actions/watcher';
 import { sendHitAcceptRequest, HitAcceptResponse } from '../api/acceptHit';
-import { successfulAcceptToast } from '../utils/toaster';
+import { successfulAcceptToast, sendToTopRightToaster } from '../utils/toaster';
 import { RootState, Watcher } from '../types';
-import { TopRightToaster } from '../index';
 import { blankQueueItem } from '../utils/queueItem';
 import { getWatcher } from '../selectors/watchers';
 import { PlayAudio, playWatcherSuccessAudio } from '../actions/audio';
@@ -47,7 +46,7 @@ function* handleSuccessfulAccept(
   watcher?: Watcher
 ) {
   try {
-    TopRightToaster.show(successfulAcceptToast());
+    sendToTopRightToaster(successfulAcceptToast());
     yield put<AcceptHitSuccess>(
       acceptHitSuccessFromWatcher(blankQueueItem(action.groupId))
     );
@@ -68,7 +67,7 @@ function* handleSuccessfulAccept(
     /**
      * Even if there is an error at this point, the hit was successfuly accepted.
      */
-    TopRightToaster.show(successfulAcceptToast());
+    sendToTopRightToaster(successfulAcceptToast());
   }
 }
 
