@@ -31,15 +31,17 @@ export function* fetchSearchResults(action: SearchRequest) {
       searchSize === 0
     );
 
-    if (hitData.isEmpty()) {
+    /**
+     * Provide feedback to the user if a singular search request returns 0 results.
+     */
+    if (hitData.isEmpty() && !action.continuous) {
       failedSearchToast();
-      return yield put<SearchFailure>(searchFailure());
-    } else {
-      yield put<SearchSuccess>(searchSuccess(hitData));
-      yield put<FetchTOpticonRequest>(
-        fetchTOpticonRequest(hitData.map(selectHitRequester).toArray())
-      );
     }
+
+    yield put<SearchSuccess>(searchSuccess(hitData));
+    yield put<FetchTOpticonRequest>(
+      fetchTOpticonRequest(hitData.map(selectHitRequester).toArray())
+    );
 
     if (action.continuous) {
       yield put<ScheduleNextSearch>(
