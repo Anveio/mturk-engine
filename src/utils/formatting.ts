@@ -19,6 +19,7 @@ export const truncate = (str: string, max = 90): string => {
 export const removeCurrencyFormatting = (input: string) =>
   input.replace(/[^\d.]/g, '');
 
-export const pluralize = (nonPluralForm: string, pluralForm: string) => (
-  groupSize = 2
-) => (groupSize === 1 ? nonPluralForm : pluralForm);
+export const pluralize = (
+  nonPluralForm: string,
+  pluralForm = nonPluralForm + 's'
+) => (groupSize = 2) => (groupSize === 1 ? nonPluralForm : pluralForm);

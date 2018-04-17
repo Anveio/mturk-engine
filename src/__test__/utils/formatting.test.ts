@@ -7,6 +7,10 @@ describe('Pluralizing the word "HIT"', () => {
     expect(pluralizeHits()).toBe('HITs');
   });
 
+  test('No plural form passed should add s by default', () => {
+    expect(pluralize('HIT')(2)).toBe('HITs');
+  });
+
   test('0 should be "HITs"', () => {
     expect(pluralizeHits(0)).toBe('HITs');
   });
