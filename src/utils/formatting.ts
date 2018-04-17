@@ -23,3 +23,5 @@ export const pluralize = (
   nonPluralForm: string,
   pluralForm = nonPluralForm + 's'
 ) => (groupSize = 2) => (groupSize === 1 ? nonPluralForm : pluralForm);
+
+export const pluralizeHits = pluralize('HIT');

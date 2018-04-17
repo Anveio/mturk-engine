@@ -1,4 +1,4 @@
-import { truncate, pluralize } from './formatting';
+import { truncate, pluralizeHits } from './formatting';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsUsd } from './formatting';
 import { Intent, IToastProps } from '@blueprintjs/core';
@@ -139,9 +139,7 @@ export const refreshDbSuccessToast = (
 ) =>
   TopRightToaster.show({
     message: `Refreshed database and found HITs across ${uniqueDates} unique dates. 
-    Found ${numNewResults} previously unfound ${pluralize('HIT', 'HITs')(
-      numNewResults
-    )}.`,
+    Found ${numNewResults} previously unfound ${pluralizeHits(numNewResults)}.`,
     intent: Intent.SUCCESS,
     timeout: 5000
   });

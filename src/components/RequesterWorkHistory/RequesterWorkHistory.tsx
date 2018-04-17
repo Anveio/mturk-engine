@@ -7,7 +7,7 @@ import {
   allHitsSubmittedToRequesterRecentFirst,
   hitDatabaseToRequesterMap
 } from '../../selectors/hitDatabase';
-import { pluralize } from '../../utils/formatting';
+import { pluralizeHits } from '../../utils/formatting';
 import SubmittedHitsCaptionedList from './SubmittedHitsCaptionedList';
 
 interface OwnProps {
@@ -28,9 +28,9 @@ class RequesterWorkHistory extends React.PureComponent<
     return (
       <Card
         sectioned
-        title={`Found ${hits.size} ${pluralize('HIT', 'HITS')(
-          hits.size
-        )} submitted to ${requester.name}`}
+        title={`Found ${hits.size} ${pluralizeHits(hits.size)} submitted to ${
+          requester.name
+        }`}
       >
         <SubmittedHitsCaptionedList numbered hits={hits} />
       </Card>

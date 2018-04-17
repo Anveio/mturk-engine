@@ -4,7 +4,7 @@ import { List } from 'immutable';
 import { RootState, HitDatabaseEntry } from '../../types';
 import { Card, TextContainer, Heading, Stack } from '@shopify/polaris';
 import { allHitsSubmittedToRequesterRecentFirst } from '../../selectors/hitDatabase';
-import { pluralize } from '../../utils/formatting';
+import { pluralizeHits } from '../../utils/formatting';
 import SubmittedHitsCaptionedList from './SubmittedHitsCaptionedList';
 
 interface OwnProps {
@@ -27,7 +27,7 @@ class RecentlySubmittedHits extends React.PureComponent<
         <Stack vertical>
           <TextContainer>
             <Heading>
-              {`${hits.size} ${pluralize('HIT', 'HITs')(
+              {`${hits.size} ${pluralizeHits(
                 hits.size
               )} from "${requesterName}" found in your database.`}
             </Heading>

@@ -1,4 +1,4 @@
-import { pluralize } from './formatting';
+import { pluralizeHits } from './formatting';
 import { WorkerQualification } from '../types';
 
 type ExceptionStatus = 'neutral' | 'warning' | 'critical';
@@ -48,7 +48,7 @@ const knownRequesterException: ExceptionGenerator<RequesterExceptionData> = ({
     ? {
         status: 'neutral',
         title: `Requester in database`,
-        description: `${numSubmittedHits} ${pluralize('HIT', 'HITs')(
+        description: `${numSubmittedHits} ${pluralizeHits(
           numSubmittedHits
         )}, ${numRejectedHits} rejections.`
       }
