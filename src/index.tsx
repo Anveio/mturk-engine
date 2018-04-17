@@ -4,9 +4,9 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { API_URL } from './constants';
 import { clearDom, createRootDiv } from './utils/config';
-import { createToastLayer } from './utils/toaster';
 
 import App from './components/App';
+import { createToastLayer } from 'utils/createToastLayer';
 
 // If not in development, kick off production configurations.
 if (API_URL !== 'http://localhost:7777') {
