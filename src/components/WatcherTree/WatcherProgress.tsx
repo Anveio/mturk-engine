@@ -101,11 +101,13 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
   public render() {
     const { id, timeOfNextSearch } = this.props;
     const { spinnerProgress } = this.state;
-    return timeOfNextSearch ? (
-      <div style={{ paddingTop: '0.75em' }}>
-        <ProgressSpinner id={id} progress={spinnerProgress} />
-      </div>
-    ) : null;
+    return (
+      timeOfNextSearch && (
+        <div style={{ paddingTop: '0.75em' }}>
+          <ProgressSpinner id={id} progress={spinnerProgress} />
+        </div>
+      )
+    );
   }
 }
 

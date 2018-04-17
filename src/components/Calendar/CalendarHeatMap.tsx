@@ -119,11 +119,14 @@ class CalendarHeatMap extends React.Component<Props, never> {
         (weekIndex + 1) * DAYS_IN_WEEK
       );
       const [x, y] = CalendarHeatMap.getMonthLabelCoordinates(weekIndex);
-      return endOfWeek.getDate() >= 1 && endOfWeek.getDate() <= DAYS_IN_WEEK ? (
-        <text key={weekIndex} x={x} y={y}>
-          {MONTH_LABELS[endOfWeek.getMonth()]}
-        </text>
-      ) : null;
+      return (
+        endOfWeek.getDate() >= 1 &&
+        endOfWeek.getDate() <= DAYS_IN_WEEK && (
+          <text key={weekIndex} x={x} y={y}>
+            {MONTH_LABELS[endOfWeek.getMonth()]}
+          </text>
+        )
+      );
     });
   };
 

@@ -28,9 +28,7 @@ class InfoHeader extends React.PureComponent<
 
   private static showEarnings = (reward: number, bonus: number) =>
     bonus > 0
-      ? `${formatAsUsd(reward)} + ${formatAsUsd(
-          bonus
-        )} (in bonuses) paid.`
+      ? `${formatAsUsd(reward)} + ${formatAsUsd(bonus)} (in bonuses) paid.`
       : `${formatAsUsd(reward)} paid.`;
 
   private generateCardTitle = () => {
@@ -46,14 +44,16 @@ class InfoHeader extends React.PureComponent<
   };
 
   public render() {
-    return this.props.numSubmitted > 0 ? (
-      <Card.Section>
-        <Stack vertical={false} spacing="tight" alignment="baseline">
-          <PaginationButtons {...this.props} />
-          <Heading>{this.generateCardTitle()}</Heading>
-        </Stack>
-      </Card.Section>
-    ) : null;
+    return (
+      this.props.numSubmitted > 0 && (
+        <Card.Section>
+          <Stack vertical={false} spacing="tight" alignment="baseline">
+            <PaginationButtons {...this.props} />
+            <Heading>{this.generateCardTitle()}</Heading>
+          </Stack>
+        </Card.Section>
+      )
+    );
   }
 }
 

@@ -67,9 +67,7 @@ class WatcherFolderHeading extends React.Component<Props, State> {
             </TextStyle>
           </DisplayText>
         </Stack.Item>
-        {this.props.editable ? (
-          <Caption>(click folder name to edit)</Caption>
-        ) : null}
+        {this.props.editable && <Caption>(click folder name to edit)</Caption>}
       </Stack>
     );
   }

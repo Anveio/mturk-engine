@@ -54,45 +54,45 @@ class EarningsSummary extends React.PureComponent<Props, never> {
       todaysEarnings,
       earningsApprovedButNotPaid
     } = this.props;
-    return accountInfo ? (
-      <Card
-        title="Earnings Summary"
-        actions={[
-          {
-            content: 'Transfer earnings',
-            url: generateTransferEarningsUrl(),
-            external: true
-          }
-        ]}
-      >
-        <Card.Section>
-          <EarningsSummary.Field caption="Available for transfer">
-            <TextStyle variation="positive">
-              {formatAsUsd(accountInfo.availableEarnings)}
-            </TextStyle>
-          </EarningsSummary.Field>
-        </Card.Section>
-
-        <Card.Section>
-          <EarningsSummary.Field
-            caption={this.generateApprovalCaption(earningsApprovedButNotPaid)}
-          >
-            {formatAsUsd(pendingEarnings)}
-          </EarningsSummary.Field>
-        </Card.Section>
-
-        <Card.Section>
-          <Stack vertical>
-            <EarningsSummary.Field caption="Projected for today">
-              {formatAsUsd(todaysEarnings)}
+    return (
+      accountInfo && (
+        <Card
+          title="Earnings Summary"
+          actions={[
+            {
+              content: 'Transfer earnings',
+              url: generateTransferEarningsUrl(),
+              external: true
+            }
+          ]}
+        >
+          <Card.Section>
+            <EarningsSummary.Field caption="Available for transfer">
+              <TextStyle variation="positive">
+                {formatAsUsd(accountInfo.availableEarnings)}
+              </TextStyle>
             </EarningsSummary.Field>
-            <DailyEarningsProgressBar />
-            <EditDailyGoalButton />
-          </Stack>
-        </Card.Section>
-      </Card>
-    ) : (
-      <div />
+          </Card.Section>
+
+          <Card.Section>
+            <EarningsSummary.Field
+              caption={this.generateApprovalCaption(earningsApprovedButNotPaid)}
+            >
+              {formatAsUsd(pendingEarnings)}
+            </EarningsSummary.Field>
+          </Card.Section>
+
+          <Card.Section>
+            <Stack vertical>
+              <EarningsSummary.Field caption="Projected for today">
+                {formatAsUsd(todaysEarnings)}
+              </EarningsSummary.Field>
+              <DailyEarningsProgressBar />
+              <EditDailyGoalButton />
+            </Stack>
+          </Card.Section>
+        </Card>
+      )
     );
   }
 }

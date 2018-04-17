@@ -42,15 +42,9 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
                 timeAllottedInSeconds
               )} minutes.`}
             </Caption>
-            {knownRequester ? (
-              <KnownRequesterButton {...this.props} />
-            ) : (
-              undefined
-            )}
-            {!hit.qualified ? (
+            {knownRequester && <KnownRequesterButton {...this.props} />}
+            {!hit.qualified && (
               <QualificationsButton qualifications={hit.qualsRequired} />
-            ) : (
-              undefined
             )}
             <Stack vertical={false} alignment="center">
               <MenuActivator accessibilityLabel="Additional actions">

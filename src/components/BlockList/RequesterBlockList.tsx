@@ -13,19 +13,19 @@ interface Props {
 class RequesterBlockList extends React.PureComponent<Props, never> {
   public render() {
     const { blockedRequesterIds, blocklistSize } = this.props;
-    return blockedRequesterIds.length === 0 ? (
-      null
-    ) : (
-      <Card
-        sectioned
-        title={`Recently blocked requesters (${blocklistSize} total)`}
-      >
-        <Stack>
-          {blockedRequesterIds.map((id: string) => (
-            <BlockedRequesterTag blockedRequesterId={id} key={id} />
-          ))}
-        </Stack>
-      </Card>
+    return (
+      blockedRequesterIds.length !== 0 && (
+        <Card
+          sectioned
+          title={`Recently blocked requesters (${blocklistSize} total)`}
+        >
+          <Stack>
+            {blockedRequesterIds.map((id: string) => (
+              <BlockedRequesterTag blockedRequesterId={id} key={id} />
+            ))}
+          </Stack>
+        </Card>
+      )
     );
   }
 }

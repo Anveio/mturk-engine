@@ -26,23 +26,25 @@ class EditNotificationSettings extends React.PureComponent<
   public render() {
     const { enabled } = this.props.notificationSettings;
 
-    return enabled ? (
-      <Card
-        sectioned
-        title="Edit notification settings"
-        actions={[
-          {
-            content: 'Request Permission',
-            onAction: this.props.onRequestPermission
-          }
-        ]}
-      >
-        <FormLayout>
-          <EditNotificationThresholdField />
-          <EditNotificationDurationField />
-        </FormLayout>
-      </Card>
-    ) : null;
+    return (
+      enabled && (
+        <Card
+          sectioned
+          title="Edit notification settings"
+          actions={[
+            {
+              content: 'Request Permission',
+              onAction: this.props.onRequestPermission
+            }
+          ]}
+        >
+          <FormLayout>
+            <EditNotificationThresholdField />
+            <EditNotificationDurationField />
+          </FormLayout>
+        </Card>
+      )
+    );
   }
 }
 

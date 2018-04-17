@@ -31,9 +31,7 @@ class BackupUserSettings extends React.PureComponent<Props, never> {
         <Card sectioned>
           <ImportUserSettings />
         </Card>
-        {this.props.fileUploaded
-          ? BackupUserSettings.uploadedFileMarkup()
-          : null}
+        {this.props.fileUploaded && BackupUserSettings.uploadedFileMarkup()}
       </Layout.AnnotatedSection>
     );
   }

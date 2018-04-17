@@ -33,11 +33,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
             <Caption>
               {`Description: ${description || 'No description.'}`}
             </Caption>
-            {knownRequester ? (
-              <KnownRequesterButton {...this.props} />
-            ) : (
-              undefined
-            )}
+            {knownRequester && <KnownRequesterButton {...this.props} />}
             <Stack vertical={false} alignment="center">
               <MenuActivator accessibilityLabel="Additional actions">
                 <HitActionMenu hit={hit} queueItem={hit} />

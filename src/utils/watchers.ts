@@ -17,7 +17,7 @@ export const createDefaultWatcher = (id: string): Watcher => ({
 
 export const createWatcherWithInfo = (hit: HumanIntelligenceTask): Watcher => ({
   title: hit.title,
-  description: `${formatAsUsd(hit.reward)} - ${hit.description}`,
+  description: generateWatcherDescription(hit),
   groupId: hit.groupId,
   delay: 5,
   createdOn: new Date(),
@@ -76,3 +76,8 @@ export const defaultWatcherStats: WatcherStatistics = {
   failures: 0,
   successes: 0
 };
+
+const generateWatcherDescription = (hit: HumanIntelligenceTask): string =>
+  `${formatAsUsd(hit.reward)} - ${hit.description} - Requester: ${
+    hit.requester.name
+  } (ID: ${hit.requester.id})`;

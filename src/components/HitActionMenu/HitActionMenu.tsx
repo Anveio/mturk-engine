@@ -22,7 +22,7 @@ class HitActionMenu extends React.PureComponent<Props, never> {
     const { hit, queueItem } = this.props;
     return (
       <Menu>
-        {queueItem ? (
+        {queueItem && (
           <React.Fragment>
             <MenuDivider title="HIT Actions" />
             <MenuItem
@@ -32,7 +32,7 @@ class HitActionMenu extends React.PureComponent<Props, never> {
               href={generateContactLinkQueue(queueItem)}
             />
           </React.Fragment>
-        ) : null}
+        )}
         <MenuDivider title="Share" />
         <MenuItem
           icon="share"

@@ -44,11 +44,11 @@ class ImportUserSettings extends React.Component<Handlers, State> {
   };
 
   private clearUploadButton = (hasFile: boolean) =>
-    hasFile ? (
+    hasFile && (
       <Button plain onClick={this.removeUploadedFile}>
         Remove Uploaded File
       </Button>
-    ) : null;
+    );
 
   static validateFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event && event.target && event.target.files) {

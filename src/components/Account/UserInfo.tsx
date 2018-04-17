@@ -30,46 +30,46 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
   public render() {
     const { accountInfo, onRefresh } = this.props;
 
-    return accountInfo ? (
-      <Card
-        sectioned
-        title={'Account Dashboard'}
-        actions={[{ content: 'Refresh dashboard', onAction: onRefresh }]}
-      >
-        <Stack vertical={false}>
-          <Avatar
-            customer
-            size="large"
-            name={accountInfo.fullName}
-            initials={accountInfo.fullName}
-            accessibilityLabel="Your first and last name on Mechanical Turk."
-          />
-          <Stack vertical spacing="tight">
-            <UsernameButton fullName={accountInfo.fullName} />
+    return (
+      accountInfo && (
+        <Card
+          sectioned
+          title={'Account Dashboard'}
+          actions={[{ content: 'Refresh dashboard', onAction: onRefresh }]}
+        >
+          <Stack vertical={false}>
+            <Avatar
+              customer
+              size="large"
+              name={accountInfo.fullName}
+              initials={accountInfo.fullName}
+              accessibilityLabel="Your first and last name on Mechanical Turk."
+            />
+            <Stack vertical spacing="tight">
+              <UsernameButton fullName={accountInfo.fullName} />
 
-            <Button
-              rightIcon="duplicate"
-              className={SMALL_MINIMAL_BUTTON}
-              onClick={this.handleIdClick(accountInfo.id)}
-              intent={Intent.NONE}
-            >
-              {accountInfo.id}
-            </Button>
-            <Popover position={Position.BOTTOM_LEFT}>
               <Button
-                rightIcon="calculator"
+                rightIcon="duplicate"
                 className={SMALL_MINIMAL_BUTTON}
+                onClick={this.handleIdClick(accountInfo.id)}
                 intent={Intent.NONE}
               >
-                Acceptance Rate Calculator
+                {accountInfo.id}
               </Button>
-              <RejectionThreshold />
-            </Popover>
+              <Popover position={Position.BOTTOM_LEFT}>
+                <Button
+                  rightIcon="calculator"
+                  className={SMALL_MINIMAL_BUTTON}
+                  intent={Intent.NONE}
+                >
+                  Acceptance Rate Calculator
+                </Button>
+                <RejectionThreshold />
+              </Popover>
+            </Stack>
           </Stack>
-        </Stack>
-      </Card>
-    ) : (
-      <div />
+        </Card>
+      )
     );
   }
 }

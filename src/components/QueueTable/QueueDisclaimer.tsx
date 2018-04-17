@@ -14,15 +14,17 @@ class QueueDisclaimer extends React.PureComponent<{}, State> {
     }));
 
   public render() {
-    return this.state.visible ? (
-      <Layout.Section>
-        <Banner status="warning" onDismiss={this.dismissBanner}>
-          Mturk Engine incorrectly reports a successful accept when encountering
-          a CAPTCHA. If you refresh your queue and your HIT isn't there, accept
-          it manually and successfully complete the CAPTCHA.
-        </Banner>
-      </Layout.Section>
-    ) : null;
+    return (
+      this.state.visible && (
+        <Layout.Section>
+          <Banner status="warning" onDismiss={this.dismissBanner}>
+            Mturk Engine incorrectly reports a successful accept when
+            encountering a CAPTCHA. If you refresh your queue and your HIT isn't
+            there, accept it manually and successfully complete the CAPTCHA.
+          </Banner>
+        </Layout.Section>
+      )
+    );
   }
 }
 

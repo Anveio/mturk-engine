@@ -39,20 +39,22 @@ class StateKeyCheckboxList extends React.Component<
   public render() {
     const { uploadedState, checkedStateKeysMap, onClick } = this.props;
 
-    return uploadedState ? (
-      <FormLayout>
-        {StateKeyCheckboxList.keysGroupedImmutableFirst(uploadedState).map(
-          (stateKey: PersistedStateKey) => (
-            <StateKeyCheckbox
-              key={stateKey}
-              stateKey={stateKey}
-              checked={checkedStateKeysMap.get(stateKey) || false}
-              onClick={onClick}
-            />
-          )
-        )}
-      </FormLayout>
-    ) : null;
+    return (
+      uploadedState && (
+        <FormLayout>
+          {StateKeyCheckboxList.keysGroupedImmutableFirst(uploadedState).map(
+            (stateKey: PersistedStateKey) => (
+              <StateKeyCheckbox
+                key={stateKey}
+                stateKey={stateKey}
+                checked={checkedStateKeysMap.get(stateKey) || false}
+                onClick={onClick}
+              />
+            )
+          )}
+        </FormLayout>
+      )
+    );
   }
 }
 
