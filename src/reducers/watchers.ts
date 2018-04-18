@@ -14,7 +14,7 @@ const initial: WatcherMap = Map<GroupId, Watcher>();
 export default (
   state = initial,
   action: WatcherAction | DeleteWatcherFolder
-) => {
+): WatcherMap => {
   switch (action.type) {
     case ADD_WATCHER:
       return state.set(action.watcher.groupId, action.watcher);
@@ -28,7 +28,7 @@ export default (
     case DELETE_WATCHER_FOLDER:
       return state.filterNot(
         (watcher: Watcher) => watcher.folderId === action.folderId
-      );
+      ) as WatcherMap;
     default:
       return state;
   }
