@@ -237,4 +237,7 @@ export type ADD_WATCHER_FOLDER = typeof ADD_WATCHER_FOLDER;
 export const DELETE_WATCHER_FOLDER = 'DELETE_WATCHER_FOLDER';
 export type DELETE_WATCHER_FOLDER = typeof DELETE_WATCHER_FOLDER;
 
+export const UPDATE_QUEUE_SORT = 'UPDATE_QUEUE_SORT';
+export type UPDATE_QUEUE_SORT = typeof UPDATE_QUEUE_SORT;
+
 export const API_URL = configureApiRoot();

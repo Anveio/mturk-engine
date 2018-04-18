@@ -29,6 +29,7 @@ import { default as watcherStatistics } from './reducers/watcherStatistics';
 import { default as expandedWatcherFolderIds } from './reducers/expandedWatcherFolderIds';
 import { default as expandedQueueItems } from './reducers/expandedQueueItems';
 import { default as searchAudioEnabled } from './reducers/searchAudioEnabled';
+import { default as queueSortingOption } from './reducers/queueSortingOption';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -52,6 +53,7 @@ export const rootReducer = combineReducers<RootState>({
   dailyEarningsGoal,
   selectedHitDbDate,
   requesterBlocklist,
+  queueSortingOption,
   searchAudioEnabled,
   expandedQueueItems,
   watcherTreeSettings,
@@ -59,5 +61,5 @@ export const rootReducer = combineReducers<RootState>({
   notificationSettings,
   expandedSearchResults,
   waitingForHitDbRefresh,
-  expandedWatcherFolderIds
+  expandedWatcherFolderIds,
 });

@@ -3,9 +3,10 @@ import {
   CHANGE_SELECTED_TAB,
   TOGGLE_SEARCH_ACTIVITY,
   TOGGLE_LEGACY_LINKS,
-  TOGGLE_SEARCH_AUDIO
+  TOGGLE_SEARCH_AUDIO,
+  UPDATE_QUEUE_SORT
 } from '../constants';
-import { Primitive } from '../types';
+import { Primitive, QueueSortingOption } from '../types';
 
 export interface ChangeTab {
   readonly type: CHANGE_SELECTED_TAB;
@@ -15,6 +16,11 @@ export interface ChangeTab {
 export interface ChangeDailyGoal {
   readonly type: CHANGE_DAILY_GOAL;
   readonly data: number;
+}
+
+export interface ChangeQueueSort {
+  readonly type: UPDATE_QUEUE_SORT;
+  readonly data: QueueSortingOption;
 }
 
 export interface ToggleSearchActive {
