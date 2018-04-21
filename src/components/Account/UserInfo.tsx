@@ -3,15 +3,14 @@ import { connect, Dispatch } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Avatar, Stack, Card } from '@shopify/polaris';
 import { Popover, Button, Position, Intent } from '@blueprintjs/core';
-import * as copy from 'copy-to-clipboard';
 import {
   connectAccountRequest,
   ConnectAccountRequest
 } from '../../actions/connectAccount';
 import UsernameButton from './UsernameButton';
 import RejectionThreshold from './RejectionThreshold';
-import { showPlainToast } from '../../utils/toaster';
 import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
+import CopyTextButton from '../Buttons/CopyTextButton';
 
 export interface Props {
   readonly accountInfo: MaybeAccount;
@@ -22,11 +21,6 @@ export interface Handlers {
 }
 
 class UserInfo extends React.PureComponent<Props & Handlers, never> {
-  private handleIdClick = (id: string) => () => {
-    copy(id);
-    showPlainToast('Worker ID copied to clipboard.');
-  };
-
   public render() {
     const { accountInfo, onRefresh } = this.props;
 
@@ -47,15 +41,10 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
             />
             <Stack vertical spacing="tight">
               <UsernameButton fullName={accountInfo.fullName} />
-
-              <Button
-                rightIcon="duplicate"
-                className={SMALL_MINIMAL_BUTTON}
-                onClick={this.handleIdClick(accountInfo.id)}
-                intent={Intent.NONE}
-              >
-                {accountInfo.id}
-              </Button>
+              <CopyTextButton
+                copyText={accountInfo.id}
+                toastText={'Worker ID copied to clipboard.'}
+              />
               <Popover position={Position.BOTTOM_LEFT}>
                 <Button
                   rightIcon="calculator"
