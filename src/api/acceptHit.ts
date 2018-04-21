@@ -41,10 +41,9 @@ export const sendHitAcceptRequest = async (
       return {
         successful: false
       };
-    } else {
-      return {
-        successful: true
-      };
     }
+    return {
+      successful: true
+    };
   }
 };
