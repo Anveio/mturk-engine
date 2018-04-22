@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as copy from 'copy-to-clipboard';
-import { Button, Intent } from '@blueprintjs/core';
+import { Intent, Button } from '@blueprintjs/core';
 import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 import { showPlainToast } from 'utils/toaster';
 
@@ -9,6 +9,7 @@ interface Props {
   readonly primary?: boolean;
   readonly buttonText?: string;
   readonly toastText?: string;
+  readonly textOnly?: boolean;
 }
 
 class CopyTextButton extends React.PureComponent<Props, never> {
@@ -21,15 +22,15 @@ class CopyTextButton extends React.PureComponent<Props, never> {
   };
 
   public render() {
-    const { primary, buttonText, copyText } = this.props;
+    const { primary, buttonText, copyText, textOnly } = this.props;
     return (
       <Button
-        intent={primary ? Intent.PRIMARY : Intent.NONE}
         className={SMALL_MINIMAL_BUTTON}
-        rightIcon="duplicate"
+        intent={primary ? Intent.PRIMARY : Intent.NONE}
+        rightIcon={textOnly ? undefined : 'duplicate'}
         onClick={this.copyOnClick(copyText)}
       >
-        {buttonText || copyText}
+        {buttonText !== undefined ? buttonText : copyText}
       </Button>
     );
   }
