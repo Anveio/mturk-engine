@@ -34,6 +34,13 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
             <Caption>
               Requester:{' '}
               <TextStyle variation="strong">{requester.name}</TextStyle>
+              <CopyTextButton
+                textOnly
+                primary
+                copyText={requester.name}
+                buttonText="Copy"
+                toastText={'Requester name copied to clipboard.'}
+              />
             </Caption>
             <Caption>
               Feedback:{' '}
