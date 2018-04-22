@@ -2,22 +2,35 @@ import * as React from 'react';
 import { Collapsible, Card, Stack, TextStyle, Caption } from '@shopify/polaris';
 import { HitDatabaseEntry } from 'types';
 import EditBonusButton from './EditBonusButton';
+import CopyTextButton from '../Buttons/CopyTextButton';
 
-export interface Props {
+interface Props {
   readonly open: boolean;
   readonly hit: HitDatabaseEntry;
 }
 
 class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
   public render() {
-    const { open, hit: { id, feedback, requester, bonus } } = this.props;
+    const {
+      open,
+      hit: { id, feedback, requester, bonus }
+    } = this.props;
     return (
       <Collapsible open={open} id={id}>
         <Card.Section>
-          <Stack vertical spacing="loose" distribution="equalSpacing">
-            <Caption>
-              Hit ID: <TextStyle variation="strong">{id}</TextStyle>
-            </Caption>
+          <Stack vertical distribution="equalSpacing">
+            <Stack vertical={false}>
+              <Caption>
+                Hit ID: <TextStyle variation="strong">{id}</TextStyle>
+                <CopyTextButton
+                  textOnly
+                  primary
+                  copyText={id}
+                  buttonText="Copy"
+                  toastText={'HIT ID copied to clipboard.'}
+                />
+              </Caption>
+            </Stack>
             <Caption>
               Requester:{' '}
               <TextStyle variation="strong">{requester.name}</TextStyle>
