@@ -12,11 +12,11 @@ import RejectionThreshold from './RejectionThreshold';
 import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 import CopyTextButton from '../Buttons/CopyTextButton';
 
-export interface Props {
+interface Props {
   readonly accountInfo: MaybeAccount;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onRefresh: () => void;
 }
 
@@ -44,6 +44,7 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
               <CopyTextButton
                 copyText={accountInfo.id}
                 toastText={'Worker ID copied to clipboard.'}
+                helpText={'Copy your worker ID.'}
               />
               <Popover position={Position.BOTTOM_LEFT}>
                 <Button
