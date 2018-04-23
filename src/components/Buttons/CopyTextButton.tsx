@@ -6,6 +6,7 @@ import { showPlainToast } from 'utils/toaster';
 
 interface Props {
   readonly copyText: string;
+  readonly helpText?: string;
   readonly primary?: boolean;
   readonly buttonText?: string;
   readonly toastText?: string;
@@ -22,13 +23,14 @@ class CopyTextButton extends React.PureComponent<Props, never> {
   };
 
   public render() {
-    const { primary, buttonText, copyText, textOnly } = this.props;
+    const { primary, buttonText, copyText, textOnly, helpText } = this.props;
     return (
       <Button
         className={SMALL_MINIMAL_BUTTON}
         intent={primary ? Intent.PRIMARY : Intent.NONE}
         rightIcon={textOnly ? undefined : 'duplicate'}
         onClick={this.copyOnClick(copyText)}
+        aria-label={helpText}
       >
         {buttonText !== undefined ? buttonText : copyText}
       </Button>
