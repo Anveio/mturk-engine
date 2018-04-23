@@ -4,6 +4,7 @@ import { validateHitAccept } from '../utils/parsing';
 
 export interface HitAcceptResponse {
   readonly successful: boolean;
+  readonly rateLimitExceeded: boolean;
 }
 
 /**
@@ -34,16 +35,25 @@ export const sendHitAcceptRequest = async (
       }
     );
     return {
-      successful: validateHitAccept(response.data)
+      successful: validateHitAccept(response.data),
+      rateLimitExceeded: false
     };
   } catch (e) {
-    if (e.response && failureStatusCodes.has(e.response.status)) {
+    if (e.response && e.response.status === 429) {
       return {
-        successful: false
+        successful: false,
+        rateLimitExceeded: true
+      };
+    } else if (e.response && failureStatusCodes.has(e.response.status)) {
+      return {
+        successful: false,
+        rateLimitExceeded: false
+      };
+    } else {
+      return {
+        successful: true,
+        rateLimitExceeded: false
       };
     }
-    return {
-      successful: true
-    };
   }
 };
