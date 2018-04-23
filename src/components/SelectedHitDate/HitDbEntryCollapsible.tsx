@@ -19,21 +19,23 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
       <Collapsible open={open} id={id}>
         <Card.Section>
           <Stack vertical distribution="equalSpacing">
-            <Stack vertical={false}>
+            <Stack vertical={false} alignment="center">
               <Caption>
                 Hit ID: <TextStyle variation="strong">{id}</TextStyle>
-                <CopyTextButton
-                  textOnly
-                  primary
-                  copyText={id}
-                  buttonText="Copy"
-                  toastText={'HIT ID copied to clipboard.'}
-                />
               </Caption>
+              <CopyTextButton
+                textOnly
+                primary
+                copyText={id}
+                buttonText="Copy"
+                toastText={'HIT ID copied to clipboard.'}
+              />
             </Stack>
-            <Caption>
-              Requester:{' '}
-              <TextStyle variation="strong">{requester.name}</TextStyle>
+            <Stack vertical={false} alignment="center">
+              <Caption>
+                Requester:{' '}
+                <TextStyle variation="strong">{requester.name}</TextStyle>
+              </Caption>
               <CopyTextButton
                 textOnly
                 primary
@@ -41,7 +43,7 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
                 buttonText="Copy"
                 toastText={'Requester name copied to clipboard.'}
               />
-            </Caption>
+            </Stack>
             <Caption>
               Feedback:{' '}
               <TextStyle variation="strong">
