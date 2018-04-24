@@ -137,10 +137,9 @@ class CreateWatcherForm extends React.PureComponent<
           <FormLayout>
             <TextField
               autoFocus
-              label="Project ID (required)"
+              label="Project ID"
               id="new-watcher-id"
-              name="new-watcher-id"
-              placeholder="Project ID or 'Preview & Work' link"
+              helpText="Can also be the URL of a 'Preview & Work' link."
               value={this.state.groupIdInput}
               error={this.state.error || false}
               onChange={this.handleInput('groupIdInput')}
@@ -150,7 +149,6 @@ class CreateWatcherForm extends React.PureComponent<
             <TextField
               label="Title (optional)"
               id="new-watcher-title"
-              name="new-watcher-title"
               value={this.state.titleInput}
               onChange={this.handleInput('titleInput')}
               autoComplete={false}
@@ -159,7 +157,6 @@ class CreateWatcherForm extends React.PureComponent<
             <TextField
               label="Description (optional)"
               id="new-watcher-description"
-              name="new-watcher-description"
               value={this.state.descriptionInput}
               onChange={this.handleInput('descriptionInput')}
               autoComplete={false}
