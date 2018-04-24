@@ -106,6 +106,7 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
                 spellCheck={false}
                 autoComplete={false}
                 maxLength={6}
+                min={1}
                 step={1}
                 onChange={this.handleEditNumber('delay')}
                 helpText={
