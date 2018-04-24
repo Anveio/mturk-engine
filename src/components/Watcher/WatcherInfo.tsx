@@ -57,7 +57,6 @@ class WatcherInfo extends React.PureComponent<Props, State> {
           {this.state.editable ? (
             <EditableText
               multiline
-              selectAllOnFocus
               confirmOnEnterKey
               value={this.state.description}
               maxLength={1500}
