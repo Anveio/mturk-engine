@@ -8,9 +8,9 @@ import {
   ConnectAccountRequest
 } from '../../actions/connectAccount';
 import UsernameButton from './UsernameButton';
-import RejectionThreshold from './RejectionThreshold';
 import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 import CopyTextButton from '../Buttons/CopyTextButton';
+import AcceptanceRateCalculator from './AcceptanceRateCalculator';
 
 interface Props {
   readonly accountInfo: MaybeAccount;
@@ -54,7 +54,7 @@ class UserInfo extends React.PureComponent<Props & Handlers, never> {
                 >
                   Acceptance Rate Calculator
                 </Button>
-                <RejectionThreshold />
+                <AcceptanceRateCalculator />
               </Popover>
             </Stack>
           </Stack>

@@ -9,17 +9,17 @@ import {
 } from '../../utils/hitDatabase';
 import { validateRejectionThreshold } from '../../utils/validation';
 
-export interface Props {
+interface Props {
   readonly numPending: number;
   readonly numSubmitted: number;
   readonly numRejected: number;
 }
 
-export interface State {
+interface State {
   readonly minimumRate: number;
 }
 
-class RejectionThreshold extends React.PureComponent<Props, State> {
+class AcceptanceRateCalculator extends React.PureComponent<Props, State> {
   public readonly state: State = { minimumRate: 95 };
 
   private onChange = (value: string) => {
@@ -85,4 +85,4 @@ const mapState = (state: RootState): Props => ({
   numSubmitted: (state.account as AccountInfo).lifetimeSubmitted
 });
 
-export default connect(mapState)(RejectionThreshold);
+export default connect(mapState)(AcceptanceRateCalculator);
