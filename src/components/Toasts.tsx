@@ -6,7 +6,7 @@ interface GenericProps {
 }
 
 export const GenericWaitingToast = ({ message }: GenericProps) => (
-  <Stack>
+  <Stack vertical={false} wrap={false}>
     <Spinner
       size="small"
       accessibilityLabel="Waiting for a response from MTurk."
