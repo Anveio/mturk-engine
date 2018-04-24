@@ -35,6 +35,7 @@ interface OwnProps {
 interface Props {
   readonly watcherFolders: WatcherFolderMap;
   readonly assignedFolder: WatcherFolder;
+  readonly audioGloballyEnabled: boolean;
 }
 
 interface Option {
@@ -80,7 +81,12 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
   private handleEnterKeyPress = watchForEnter(this.props.onToggle);
 
   public render() {
-    const { watcherFolders, watcher, assignedFolder } = this.props;
+    const {
+      watcherFolders,
+      watcher,
+      assignedFolder,
+      audioGloballyEnabled
+    } = this.props;
     const folderLabels = WatcherSettings.generateOptions(watcherFolders);
 
     return (
@@ -137,6 +143,11 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
                 name="checkbox-play-sound"
                 checked={watcher.playSoundAfterSuccess}
                 onChange={this.handleEdit<boolean>('playSoundAfterSuccess')}
+                error={
+                  watcher.playSoundAfterSuccess && !audioGloballyEnabled
+                    ? 'Audio is currently globally disabled. Enable it from the settings tab.'
+                    : undefined
+                }
               />
             </FormLayout>
           </div>
@@ -151,7 +162,8 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   watcherFolders: watcherFoldersSortedByCreationDate(state),
-  assignedFolder: state.watcherFolders.get(ownProps.watcher.folderId)
+  assignedFolder: state.watcherFolders.get(ownProps.watcher.folderId),
+  audioGloballyEnabled: state.audioSettingsV1.enabled
 });
 
 export default connect(mapState)(WatcherSettings);
