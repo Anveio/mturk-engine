@@ -3,81 +3,96 @@ import { connect } from 'react-redux';
 import { Card, TextStyle } from '@shopify/polaris';
 import { RootState, MaybeAccount } from '../../types';
 import { formatAsUsd } from '../../utils/formatting';
+import { calculateAcceptanceRate } from 'utils/hitDatabase';
 
-import AcceptanceRateText from './AcceptanceRateText';
-
-export interface Props {
+interface Props {
   readonly accountInfo: MaybeAccount;
 }
 
 class AccountStatisticsTable extends React.PureComponent<Props, never> {
+  private static AcceptanceRateText: React.SFC<{
+    readonly lifetimeSubmitted: number;
+    readonly lifetimeRejected: number;
+  }> = props => {
+    const acceptanceRate = calculateAcceptanceRate(
+      props.lifetimeSubmitted,
+      props.lifetimeRejected
+    );
+
+    return acceptanceRate > 99 ? (
+      <TextStyle variation="positive">{acceptanceRate.toFixed(3)}%</TextStyle>
+    ) : (
+      <span>{acceptanceRate.toFixed(3)}%</span>
+    );
+  };
+
   public render() {
     const { accountInfo } = this.props;
-    if (!accountInfo) {
-      return <div />;
-    }
-
     return (
-      <Card title="Account Statistics">
-        <Card.Section>
-          <table className="pt-html-table pt-condensed">
-            <thead>
-              <tr>
-                <th>Earnings</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Earnings from HITs</td>
-                <td>{formatAsUsd(accountInfo.lifetimeHitEarnings)}</td>
-              </tr>
-              <tr>
-                <td>Earnings from Bonuses</td>
-                <td>{formatAsUsd(accountInfo.lifetimeBonusEarnings)}</td>
-              </tr>
-              <tr>
-                <td>Total</td>
-                <td>
-                  <TextStyle variation="strong">
-                    {formatAsUsd(accountInfo.lifetimeTotalEarnings)}
-                  </TextStyle>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </Card.Section>
-        <Card.Section>
-          <table className="pt-html-table pt-condensed">
-            <thead>
-              <tr>
-                <th>Hit Statistics</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Submitted</td>
-                <td>{accountInfo.lifetimeSubmitted.toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td>Approved</td>
-                <td>{accountInfo.lifetimeApproved.toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td>Rejected</td>
-                <td>{accountInfo.lifetimeRejected.toLocaleString()}</td>
-              </tr>
-              <tr>
-                <td>Acceptance Rate</td>
-                <td>
-                  <AcceptanceRateText {...accountInfo} />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </Card.Section>
-      </Card>
+      accountInfo && (
+        <Card title="Account Statistics">
+          <Card.Section>
+            <table className="pt-html-table pt-condensed">
+              <thead>
+                <tr>
+                  <th>Earnings</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Earnings from HITs</td>
+                  <td>{formatAsUsd(accountInfo.lifetimeHitEarnings)}</td>
+                </tr>
+                <tr>
+                  <td>Earnings from Bonuses</td>
+                  <td>{formatAsUsd(accountInfo.lifetimeBonusEarnings)}</td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td>
+                    <TextStyle variation="strong">
+                      {formatAsUsd(accountInfo.lifetimeTotalEarnings)}
+                    </TextStyle>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Card.Section>
+          <Card.Section>
+            <table className="pt-html-table pt-condensed">
+              <thead>
+                <tr>
+                  <th>Hit Statistics</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Submitted</td>
+                  <td>{accountInfo.lifetimeSubmitted.toLocaleString()}</td>
+                </tr>
+                <tr>
+                  <td>Approved</td>
+                  <td>{accountInfo.lifetimeApproved.toLocaleString()}</td>
+                </tr>
+                <tr>
+                  <td>Rejected</td>
+                  <td>{accountInfo.lifetimeRejected.toLocaleString()}</td>
+                </tr>
+                <tr>
+                  <td>Acceptance Rate</td>
+                  <td>
+                    <AccountStatisticsTable.AcceptanceRateText
+                      {...accountInfo}
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Card.Section>
+        </Card>
+      )
     );
   }
 }
