@@ -108,6 +108,11 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
                 maxLength={6}
                 step={1}
                 onChange={this.handleEditNumber('delay')}
+                helpText={
+                  watcher.delay < 5
+                    ? 'Setting this too low can cause you to be temporarily locked out of using MTurk.'
+                    : undefined
+                }
               />
               <Select
                 label="Assigned folder"
