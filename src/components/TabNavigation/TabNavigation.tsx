@@ -55,7 +55,7 @@ const TabNavigation: React.SFC<Props & Handlers> = ({
 const mapState = (state: RootState): Props => ({
   selected: state.tab,
   queueSize: state.queue.size,
-  numActiveWatchers: state.watcherTimes.size
+  numActiveWatchers: state.watcherTimers.size
 });
 
 const mapDispatch = (dispatch: Dispatch<ChangeTab>): Handlers => ({

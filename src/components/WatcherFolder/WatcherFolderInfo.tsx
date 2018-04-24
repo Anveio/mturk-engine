@@ -78,7 +78,7 @@ class WatcherFolderInfo extends React.PureComponent<
 
 const mapState = (state: RootState, { folder }: OwnProps): Props => ({
   assignedWatcherIds: getWatcherIdsAssignedToFolder(folder.id)(state),
-  watcherTimers: state.watcherTimes
+  watcherTimers: state.watcherTimers
 });
 
 const mapDispatch = (dispatch: Dispatch<WatcherFolderAction>): Handlers => ({

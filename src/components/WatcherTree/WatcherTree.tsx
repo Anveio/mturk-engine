@@ -30,6 +30,7 @@ import SelectedWatcherSection from './SelectedWatcherSection';
 import WatcherProgress from './WatcherProgress';
 import CreateFolderButton from './CreateFolderButton';
 import { WatcherFolderAction } from '../../actions/watcherFolders';
+import WatcherFolderActiveCount from './WatcherFolderActiveCount';
 
 interface OwnHandlers {
   readonly handleDoubleClick: (nodeData: GenericTreeNode) => void;
@@ -83,7 +84,8 @@ class WatcherTree extends React.Component<
             watcherFolderMap.get(folder.id, []),
             selectionId || null
           ),
-          hasCaret: watcherFolderMap.has(folder.id)
+          hasCaret: watcherFolderMap.has(folder.id),
+          secondaryLabel: <WatcherFolderActiveCount id={folder.id} />
         }
       ],
       []

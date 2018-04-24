@@ -51,7 +51,7 @@ function* waitForWatcherDelay(watcherId: string, delayInSeconds: number) {
      * It's possible that a watcher is cancelled during the delay.
      */
     const watcherTimer: WatcherTimer | undefined = yield select(
-      (state: RootState) => state.watcherTimes.get(watcherId)
+      (state: RootState) => state.watcherTimers.get(watcherId)
     );
 
     /**

@@ -17,7 +17,7 @@ interface State {
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => {
-  const watcherTimer = state.watcherTimes.get(ownProps.id);
+  const watcherTimer = state.watcherTimers.get(ownProps.id);
   return {
     timeOfNextSearch: (watcherTimer && watcherTimer.date) || null
   };

@@ -18,7 +18,7 @@ import { default as selectedHitDbDate } from './reducers/selectedHitDbDate';
 import { default as hitDatabase } from './reducers/hitDatabase';
 import { default as dailyEarningsGoal } from './reducers/dailyEarningsGoal';
 import { default as waitingForHitDbRefresh } from './reducers/waitingForHitDbRefresh';
-import { default as watcherTimes } from './reducers/watcherTimes';
+import { default as watcherTimers } from './reducers/watcherTimers';
 import { default as uploadedState } from './reducers/uploadedState';
 import { default as expandedSearchResults } from './reducers/expandedSearchResults';
 import { default as notificationSettings } from './reducers/notificationSettings';
@@ -39,7 +39,7 @@ export const rootReducer = combineReducers<RootState>({
   watchers,
   hitDatabase,
   hitBlocklist,
-  watcherTimes,
+  watcherTimers,
   searchOptions,
   sortingOption,
   uploadedState,
@@ -61,5 +61,5 @@ export const rootReducer = combineReducers<RootState>({
   notificationSettings,
   expandedSearchResults,
   waitingForHitDbRefresh,
-  expandedWatcherFolderIds,
+  expandedWatcherFolderIds
 });

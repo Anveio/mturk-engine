@@ -24,7 +24,7 @@ export interface RootState {
   readonly selectedHitDbDate: LegacyDateFormat | null;
   readonly requesterBlocklist: RequesterBlockMap;
   readonly audioSettingsV1: AudioSettings;
-  readonly watcherTimes: WatcherTimerMap;
+  readonly watcherTimers: WatcherTimerMap;
   readonly uploadedState: Partial<PersistedState> | null;
   readonly expandedSearchResults: ExpandedSearchResultsSet;
   readonly expandedQueueItems: ExpandedQueueItemsSet;

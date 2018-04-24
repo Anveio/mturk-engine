@@ -42,7 +42,7 @@ class DoubleClickHandler extends React.PureComponent<Props & Handlers, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  watcherTimers: state.watcherTimes
+  watcherTimers: state.watcherTimers
 });
 
 const mapDispatch = (
