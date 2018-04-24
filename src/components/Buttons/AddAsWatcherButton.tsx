@@ -1,9 +1,5 @@
 import * as React from 'react';
-import {
-  RootState,
-  WatcherMap,
-  HumanIntelligenceTask
-} from '../../types';
+import { RootState, WatcherMap, HumanIntelligenceTask } from '../../types';
 import { Button } from '@shopify/polaris';
 import { connect, Dispatch } from 'react-redux';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
@@ -28,9 +24,9 @@ class AddAsWatcherButton extends React.Component<
   never
 > {
   private handleAddAsWatcher = () => {
-    const { hit: { groupId }, watchers } = this.props;
+    const { hit, watchers, onAddWatcher } = this.props;
 
-    const maybeDuplicateWatcher = watchers.get(groupId);
+    const maybeDuplicateWatcher = watchers.get(hit.groupId);
 
     if (maybeDuplicateWatcher) {
       showPlainToast(
@@ -42,7 +38,8 @@ class AddAsWatcherButton extends React.Component<
       return;
     }
 
-    this.props.onAddWatcher(this.props.hit);
+    onAddWatcher(hit);
+    watcherAddedToast(hit);
   };
 
   public render() {
@@ -57,7 +54,6 @@ class AddAsWatcherButton extends React.Component<
 const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
   onAddWatcher: (hit: HumanIntelligenceTask) => {
     dispatch(addWatcher(createWatcherWithInfo(hit)));
-    watcherAddedToast(hit);
   }
 });
 
