@@ -1,24 +1,24 @@
-import { BLOCK_HIT_GROUP, UNBLOCK_HIT_GROUP } from '../constants';
+import { BLOCK_HIT, UNBLOCK_HIT } from '../constants';
 import { BlockedHit } from '../types';
 
-export interface BlockHitGroup {
-  readonly type: BLOCK_HIT_GROUP;
+export interface BlockHit {
+  readonly type: BLOCK_HIT;
   readonly data: BlockedHit;
 }
 
-export interface UnblockHitGroup {
-  readonly type: UNBLOCK_HIT_GROUP;
+export interface UnblockHit {
+  readonly type: UNBLOCK_HIT;
   readonly groupId: string;
 }
 
-export type BlockHitAction = BlockHitGroup | UnblockHitGroup;
+export type BlockHitAction = BlockHit | UnblockHit;
 
-export const blockHitGroup = (data: BlockedHit): BlockHitGroup => ({
-  type: BLOCK_HIT_GROUP,
+export const blockHitGroup = (data: BlockedHit): BlockHit => ({
+  type: BLOCK_HIT,
   data
 });
 
-export const unblockHitGroup = (groupId: string): UnblockHitGroup => ({
-  type: UNBLOCK_HIT_GROUP,
+export const unblockHitGroup = (groupId: string): UnblockHit => ({
+  type: UNBLOCK_HIT,
   groupId
 });
