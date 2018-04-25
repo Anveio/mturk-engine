@@ -108,6 +108,9 @@ export type BLOCK_HIT = typeof BLOCK_HIT;
 export const UNBLOCK_HIT = 'UNBLOCK_HIT';
 export type UNBLOCK_HIT = typeof UNBLOCK_HIT;
 
+export const UNBLOCK_MULTIPLE_HITS = 'UNBLOCK_MULTIPLE_HITS';
+export type UNBLOCK_MULTIPLE_HITS = typeof UNBLOCK_MULTIPLE_HITS;
+
 export const BLOCK_REQUESTER = 'BLOCK_REQUESTER';
 export type BLOCK_REQUESTER = typeof BLOCK_REQUESTER;
 
