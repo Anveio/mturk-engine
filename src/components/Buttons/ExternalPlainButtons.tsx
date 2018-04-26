@@ -10,34 +10,59 @@ export interface OwnProps {
 }
 
 class ExternalPlainButtons extends React.PureComponent<OwnProps, never> {
+  public static AcceptButton: React.SFC<{
+    groupId: string;
+    qualified: boolean;
+  }> = props => (
+    <Button
+      plain
+      external
+      url={generateAcceptUrl(props.groupId)}
+      disabled={!props.qualified}
+    >
+      Accept
+    </Button>
+  );
+
+  public static PreviewButton: React.SFC<{
+    groupId: string;
+    canPreview: boolean;
+  }> = props => (
+    <Button
+      plain
+      external
+      url={generatePreviewUrl(props.groupId)}
+      disabled={!props.canPreview}
+    >
+      Preview
+    </Button>
+  );
+
+  public static TurkopticonTwoLinkButton: React.SFC<{
+    requesterId: string;
+  }> = props => (
+    <Button plain external url={turkopticonTwoBaseUrl + props.requesterId}>
+      T.O. 2 Page
+    </Button>
+  );
+
   public render() {
-    const { hit: { groupId, requester, qualified, canPreview } } = this.props;
+    const { hit } = this.props;
+    const {
+      AcceptButton,
+      PreviewButton,
+      TurkopticonTwoLinkButton
+    } = ExternalPlainButtons;
 
     return (
       <ButtonGroup>
-        <Button
-          plain
-          external
-          url={generateAcceptUrl(groupId)}
-          disabled={!qualified}
-        >
-          Accept
-        </Button>
-        <Button
-          plain
-          external
-          url={generatePreviewUrl(groupId)}
-          disabled={!canPreview}
-        >
-          Preview
-        </Button>
+        <AcceptButton {...hit} />
+        <PreviewButton {...hit} />
         <TOpticonButton
-          requesterId={requester.id}
-          turkopticon={requester.turkopticon}
+          requesterId={hit.requester.id}
+          turkopticon={hit.requester.turkopticon}
         />
-        <Button plain external url={turkopticonTwoBaseUrl + requester.id}>
-          T.O. 2 Page
-        </Button>
+        <TurkopticonTwoLinkButton requesterId={hit.requester.id} />
       </ButtonGroup>
     );
   }
