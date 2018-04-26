@@ -1,12 +1,20 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Collapsible, Card, Stack, Caption } from '@shopify/polaris';
+import {
+  Collapsible,
+  Card,
+  Stack,
+  Caption,
+  ButtonGroup
+} from '@shopify/polaris';
 import { RootState, QueueItem } from '../../types';
 import KnownRequesterButton from '../Buttons/KnownRequesterButton';
 import BlockRequesterButton from '../Buttons/BlockRequesterButton';
 import AddAsWatcherButton from '../Buttons/AddAsWatcherButton';
 import MenuActivator from '../HitActionMenu/MenuActivator';
 import HitActionMenu from '../HitActionMenu/HitActionMenu';
+import ExternalPlainButtons from '../Buttons/ExternalPlainButtons';
+import TOpticonButton from '../Buttons/TOpticonButton';
 
 interface Props {
   readonly hit: QueueItem;
@@ -42,6 +50,15 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
               queue because they have no feedback the button worked otherwise. */}
               <BlockRequesterButton requester={requester} withToast={true} />
               <AddAsWatcherButton hit={hit} />
+              <ButtonGroup>
+                <TOpticonButton
+                  requesterId={hit.requester.id}
+                  turkopticon={hit.requester.turkopticon}
+                />
+                <ExternalPlainButtons.TurkopticonTwoLinkButton
+                  requesterId={hit.requester.id}
+                />
+              </ButtonGroup>
             </Stack>
           </Stack>
         </Card.Section>
