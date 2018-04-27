@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Card, Stack } from '@shopify/polaris';
+import { Card, Stack, Heading, Button } from '@shopify/polaris';
 import { RootState } from '../../types';
 import { recentlyBlockedRequesterIds } from '../../selectors/requesterBlocklist';
 import BlockedRequesterTag from './BlockedRequesterTag';
@@ -14,15 +14,27 @@ class RequesterBlockList extends React.PureComponent<Props, never> {
   public render() {
     const { blockedRequesterIds, blocklistSize } = this.props;
     return (
-      blockedRequesterIds.length !== 0 && (
-        <Card
-          sectioned
-          title={`Recently blocked requesters (${blocklistSize} total)`}
-        >
-          <Stack>
-            {blockedRequesterIds.map((id: string) => (
-              <BlockedRequesterTag blockedRequesterId={id} key={id} />
-            ))}
+      blockedRequesterIds.length > 0 && (
+        <Card sectioned>
+          <Stack vertical={true}>
+            <Stack vertical={false}>
+              <Stack.Item fill>
+                <Heading>
+                  Recently blocked requesters ({blocklistSize} total)
+                </Heading>
+              </Stack.Item>
+
+              <Stack.Item>
+                <Button plain disclosure>
+                  Sweep
+                </Button>
+              </Stack.Item>
+            </Stack>
+            <Stack>
+              {blockedRequesterIds.map((id: string) => (
+                <BlockedRequesterTag blockedRequesterId={id} key={id} />
+              ))}
+            </Stack>
           </Stack>
         </Card>
       )
