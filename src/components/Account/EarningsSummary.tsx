@@ -9,8 +9,8 @@ import {
 } from '../../selectors/hitDatabase';
 import { formatAsUsd } from '../../utils/formatting';
 import DailyEarningsProgressBar from './DailyEarningsProgressBar';
-import EditDailyGoalButton from './EditDailyGoalButton';
 import { generateTransferEarningsUrl } from '../../utils/urls';
+import EditDailyGoalButton from '../Buttons/EditDailyGoalButton';
 
 interface Props {
   readonly accountInfo: MaybeAccount;
