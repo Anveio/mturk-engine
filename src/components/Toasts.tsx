@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Stack, Spinner, TextContainer } from '@shopify/polaris';
 
-interface GenericProps {
+interface Props {
   readonly message: string;
 }
 
-export const GenericWaitingToast = ({ message }: GenericProps) => (
+export const GenericWaitingToast = ({ message }: Props) => (
   <Stack vertical={false} wrap={false}>
     <Spinner
       size="small"
