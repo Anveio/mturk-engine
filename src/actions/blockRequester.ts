@@ -1,5 +1,9 @@
-import { BLOCK_REQUESTER, UNBLOCK_REQUESTER } from '../constants';
-import { BlockedRequester } from '../types';
+import {
+  BLOCK_REQUESTER,
+  UNBLOCK_REQUESTER,
+  UNBLOCK_MULTIPLE_REQUESTERS
+} from '../constants';
+import { BlockedRequester, RequesterId } from '../types';
 
 export interface BlockRequester {
   readonly type: BLOCK_REQUESTER;
@@ -9,6 +13,11 @@ export interface BlockRequester {
 export interface UnblockRequester {
   readonly type: UNBLOCK_REQUESTER;
   readonly requesterId: string;
+}
+
+export interface UnblockMultipleRequesters {
+  readonly type: UNBLOCK_MULTIPLE_REQUESTERS;
+  readonly requesterIds: Set<RequesterId>;
 }
 
 export type BlockRequesterAction = BlockRequester | UnblockRequester;
