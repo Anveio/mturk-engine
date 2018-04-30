@@ -4,6 +4,7 @@ import {
   UNBLOCK_MULTIPLE_REQUESTERS
 } from '../constants';
 import { BlockedRequester, RequesterId } from '../types';
+import { Set } from 'immutable';
 
 export interface BlockRequester {
   readonly type: BLOCK_REQUESTER;
