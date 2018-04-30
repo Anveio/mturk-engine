@@ -3,9 +3,12 @@ import {
   HitBlockMap,
   BlockedHit,
   RequesterBlockMap,
-  BlockedRequester
+  BlockedRequester,
+  RequesterId
 } from '../types';
 import { hitBlocklistSelector, requesterBlocklistSelector } from './index';
+import { isOlderThan } from 'utils/dates';
+import { Set } from 'immutable';
 
 export const blockListsAreEmpty = createSelector(
   [hitBlocklistSelector, requesterBlocklistSelector],
@@ -47,3 +50,17 @@ export const recentlyBlockedRequesterIds = createSelector(
       .slice(0, 30)
       .toSet()
 );
+
+export const blockedRequesterIdsOlderThan = (numDaysBefore: number) =>
+  createSelector([sortedRequesterBlockList], requesters =>
+    requesters
+      .filter(requesterIsOlderThan(numDaysBefore))
+      .reduce(
+        (acc: Set<RequesterId>, el: BlockedRequester) => acc.add(el.id),
+        Set([])
+      )
+  );
+
+const requesterIsOlderThan = (daysBefore: number) => (
+  requester: BlockedRequester
+) => isOlderThan(requester.dateBlocked, daysBefore, new Date());
