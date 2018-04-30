@@ -41,8 +41,9 @@ export const todayFormatted = (): string => moment().format(LEGACY_DATE_FORMAT);
 export const dateStringToLocaleDateString = (dateString: string): string =>
   moment(dateString, LEGACY_DATE_FORMAT).format(MOMENT_LOCALE);
 
-export const generateOneYearOfDates = (startDate = moment()) => {
-  return dateRange(startDate, 365 + startDate.day());
+export const generateOneYearOfDates = (startDate: Date) => {
+  const startMoment = moment(startDate);
+  return dateRange(startMoment, 365 + startMoment.day());
 };
 
 export const dateRange = (
@@ -60,8 +61,8 @@ export const dateRange = (
     List()
   );
 
-export const isOlderThan = (date: Date, daysBefore: number) => {
-  const daysBeforeNow = moment().subtract(daysBefore, 'days');
+export const isOlderThan = (date: Date, daysBefore: number, start: Date) => {
+  const daysBeforeNow = moment(start).subtract(daysBefore, 'days');
   return moment(date).isBefore(daysBeforeNow);
 };
 

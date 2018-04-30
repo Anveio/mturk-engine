@@ -62,7 +62,7 @@ export const dateMoneyMap = createSelector(
 export const oneYearOfData = createSelector(
   [dateMoneyMap],
   (moneyEarnedPerDay: Map<LegacyDateFormat, number>): List<HeatMapValue> => {
-    const oneYearOfDates = generateOneYearOfDates();
+    const oneYearOfDates = generateOneYearOfDates(new Date());
     return oneYearOfDates.reduce(
       (acc: List<HeatMapValue>, date: LegacyDateFormat) => {
         const count: number | undefined = moneyEarnedPerDay.get(date);
