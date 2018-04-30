@@ -21,7 +21,10 @@ export interface UnblockMultipleRequesters {
   readonly requesterIds: Set<RequesterId>;
 }
 
-export type BlockRequesterAction = BlockRequester | UnblockRequester;
+export type BlockRequesterAction =
+  | BlockRequester
+  | UnblockRequester
+  | UnblockMultipleRequesters;
 
 export const blockRequester = (data: BlockedRequester): BlockRequester => ({
   type: BLOCK_REQUESTER,
