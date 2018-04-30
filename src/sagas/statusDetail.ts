@@ -70,5 +70,7 @@ const conditionallyDisplayWaitingToast = (
     return undefined;
   }
 
-  return showWaitingToast(`Refreshing HITs on day of ${action.date}`);
+  return showWaitingToast(
+    `Refreshing HITs for ${action.date.toLocaleDateString()}`
+  );
 };
