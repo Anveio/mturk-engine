@@ -5,7 +5,7 @@ import { RootState } from '../../types';
 import BlockedRequesterTag from './BlockedRequesterTag';
 import { Popover, Position } from '@blueprintjs/core';
 import SweepMenu from './SweepMenu';
-import { Set } from 'immutable';
+import { Set, List } from 'immutable';
 import {
   recentlyBlockedRequesterIds,
   blockedRequesterIdsOlderThan
@@ -17,7 +17,8 @@ import {
 
 interface Props {
   readonly blockedRequesterIds: {
-    readonly recent: Set<string>;
+    // recent needs to be displayed in order and Sets don't have a defined iteration order
+    readonly recent: List<string>;
     readonly olderThanThirtyDays: Set<string>;
     readonly olderThanSixtyDays: Set<string>;
     readonly olderThanNinetyDays: Set<string>;
