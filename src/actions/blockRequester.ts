@@ -1,44 +1,39 @@
 import {
-  BLOCK_REQUESTER,
-  UNBLOCK_REQUESTER,
-  UNBLOCK_MULTIPLE_REQUESTERS
+  REQUESTER_BLOCKLIST_ADD,
+  REQUESTER_BLOCKLIST_REMOVE
 } from '../constants';
 import { BlockedRequester, RequesterId } from '../types';
 import { Set } from 'immutable';
 
 export interface BlockRequester {
-  readonly type: BLOCK_REQUESTER;
-  readonly data: BlockedRequester;
+  readonly type: REQUESTER_BLOCKLIST_ADD;
+  readonly data: Set<BlockedRequester>;
 }
 
 export interface UnblockRequester {
-  readonly type: UNBLOCK_REQUESTER;
-  readonly requesterId: string;
-}
-
-export interface UnblockMultipleRequesters {
-  readonly type: UNBLOCK_MULTIPLE_REQUESTERS;
+  readonly type: REQUESTER_BLOCKLIST_REMOVE;
   readonly requesterIds: Set<RequesterId>;
 }
 
-export type BlockRequesterAction =
-  | BlockRequester
-  | UnblockRequester
-  | UnblockMultipleRequesters;
+export type BlockRequesterAction = BlockRequester | UnblockRequester;
 
-export const blockRequester = (data: BlockedRequester): BlockRequester => ({
-  type: BLOCK_REQUESTER,
-  data
+export const blockSingleRequester = (
+  requester: BlockedRequester
+): BlockRequester => ({
+  type: REQUESTER_BLOCKLIST_ADD,
+  data: Set([requester])
 });
 
-export const unblockRequester = (requesterId: string): UnblockRequester => ({
-  type: UNBLOCK_REQUESTER,
-  requesterId
+export const unblockSingleRequester = (
+  requesterId: string
+): UnblockRequester => ({
+  type: REQUESTER_BLOCKLIST_REMOVE,
+  requesterIds: Set([requesterId])
 });
 
 export const unblockMultipleRequesters = (
   requesterIds: Set<RequesterId>
-): UnblockMultipleRequesters => ({
-  type: UNBLOCK_MULTIPLE_REQUESTERS,
+): UnblockRequester => ({
+  type: REQUESTER_BLOCKLIST_REMOVE,
   requesterIds
 });

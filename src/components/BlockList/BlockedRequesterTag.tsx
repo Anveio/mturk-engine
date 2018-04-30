@@ -4,7 +4,7 @@ import { RootState, BlockedRequester } from '../../types';
 import { Tag } from '@shopify/polaris';
 import {
   UnblockRequester,
-  unblockRequester
+  unblockSingleRequester
 } from '../../actions/blockRequester';
 
 import { truncate } from '../../utils/formatting';
@@ -41,7 +41,7 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
 });
 
 const mapDispatch = (dispatch: Dispatch<UnblockRequester>): Handlers => ({
-  onUnblock: (id: string) => dispatch(unblockRequester(id))
+  onUnblock: (id: string) => dispatch(unblockSingleRequester(id))
 });
 
 export default connect(mapState, mapDispatch)(BlockedHitCard);

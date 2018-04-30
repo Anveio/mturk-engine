@@ -4,7 +4,7 @@ import { SearchResult, BlockedHit, RootState } from '../../types';
 import { ResourceList } from '@shopify/polaris';
 import { AcceptAction, acceptHitRequestfromSearch } from '../../actions/accept';
 import { MarkHitAsRead, markHitAsRead } from '../../actions/markAsRead';
-import { BlockHitAction, blockHitGroup } from '../../actions/blockHitGroup';
+import { BlockHitAction, blockSingleHit } from 'actions/blockHit';
 import {
   SearchExpandAction,
   toggleSearchResultExpand
@@ -169,7 +169,7 @@ const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
     dispatch(acceptHitRequestfromSearch(hit));
   },
   onHide: (hit: BlockedHit) => {
-    dispatch(blockHitGroup(hit));
+    dispatch(blockSingleHit(hit));
   },
   onToggleExpand: (hit: SearchResult) => {
     dispatch(toggleSearchResultExpand(hit));

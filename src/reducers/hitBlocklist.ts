@@ -1,17 +1,18 @@
 import { BlockedHit, HitBlockMap, GroupId } from '../types';
-import { BlockHitAction } from '../actions/blockHitGroup';
-import { BLOCK_HIT, UNBLOCK_HIT, UNBLOCK_MULTIPLE_HITS } from '../constants';
+import { BlockHitAction } from 'actions/blockHit';
+import { HIT_BLOCKLIST_ADD, HIT_BLOCKLIST_REMOVE } from '../constants';
 import { Map } from 'immutable';
 
 const initial: HitBlockMap = Map<GroupId, BlockedHit>();
 
 export default (state = initial, action: BlockHitAction): HitBlockMap => {
   switch (action.type) {
-    case BLOCK_HIT:
-      return state.set(action.data.groupId, action.data);
-    case UNBLOCK_HIT:
-      return state.delete(action.groupId);
-    case UNBLOCK_MULTIPLE_HITS:
+    case HIT_BLOCKLIST_ADD:
+      return action.data.reduce(
+        (acc: HitBlockMap, cur: BlockedHit) => acc.set(cur.groupId, cur),
+        state
+      );
+    case HIT_BLOCKLIST_REMOVE:
       return state.filterNot((blockedHit: BlockedHit) =>
         action.groupIds.has(blockedHit.groupId)
       ) as HitBlockMap;

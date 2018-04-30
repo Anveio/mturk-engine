@@ -6,7 +6,7 @@ import { blockedRequesterFactory } from '../../utils/blocklist';
 import { connect, Dispatch } from 'react-redux';
 import {
   BlockRequesterAction,
-  blockRequester
+  blockSingleRequester
 } from '../../actions/blockRequester';
 import { showPlainToast } from 'utils/toaster';
 
@@ -70,7 +70,7 @@ class BlockRequesterButton extends React.PureComponent<
 
 const mapDispatch = (dispatch: Dispatch<BlockRequesterAction>): Handlers => ({
   onBlockRequester: (requester: BlockedRequester) => {
-    dispatch(blockRequester(requester));
+    dispatch(blockSingleRequester(requester));
   }
 });
 

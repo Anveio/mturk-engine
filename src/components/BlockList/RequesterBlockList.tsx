@@ -11,8 +11,8 @@ import {
   blockedRequesterIdsOlderThan
 } from 'selectors/blocklists';
 import {
-  UnblockMultipleRequesters,
-  unblockMultipleRequesters
+  unblockMultipleRequesters,
+  UnblockRequester
 } from 'actions/blockRequester';
 
 interface Props {
@@ -78,9 +78,7 @@ const mapState = (state: RootState): Props => ({
   blocklistSize: state.requesterBlocklist.size
 });
 
-const mapDispatch = (
-  dispatch: Dispatch<UnblockMultipleRequesters>
-): Handlers => ({
+const mapDispatch = (dispatch: Dispatch<UnblockRequester>): Handlers => ({
   massUnblock: (ids: Set<string>) => dispatch(unblockMultipleRequesters(ids))
 });
 
