@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { RootState } from '../../types';
 import { Card, ResourceList } from '@shopify/polaris';
 import BlockedHitCard from './BlockedHitCard';
-import { recentlyBlockedHitIds } from '../../selectors/hitBlocklist';
+import { recentlyBlockedHitIds } from 'selectors/blocklists';
 
 interface Props {
   readonly blockedHitIds: string[];

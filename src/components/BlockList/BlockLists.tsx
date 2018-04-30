@@ -5,9 +5,9 @@ import { RootState } from '../../types';
 import HitBlockList from './HitBlockList';
 import RequesterBlockList from './RequesterBlockList';
 import EmptyBlockList from './EmptyBlockList';
-import { blockListsAreEmpty } from '../../selectors/blocklist';
+import { blockListsAreEmpty } from 'selectors/blocklists';
 
-export interface Props {
+interface Props {
   readonly empty: boolean;
 }
 
