@@ -45,8 +45,12 @@ class WatcherProgressBar extends React.PureComponent<OwnProps & Props, State> {
     };
   }
 
-  componentDidMount() {
-    this.startTimer();
+  componentDidUpdate() {
+    if (this.props.timeOfNextSearch !== null) {
+      this.startTimer();
+    } else {
+      clearInterval(this.timerId);
+    }
   }
 
   componentWillUnmount() {
@@ -73,10 +77,7 @@ class WatcherProgressBar extends React.PureComponent<OwnProps & Props, State> {
 
   private startTimer = () => {
     clearInterval(this.timerId);
-    this.timerId = window.setInterval(
-      () => this.tick(),
-      WatcherProgressBar.tickRate
-    );
+    this.timerId = window.setInterval(this.tick, WatcherProgressBar.tickRate);
   };
 
   private tick = () => {
