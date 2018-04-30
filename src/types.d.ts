@@ -68,6 +68,8 @@ export type ExpandedSearchResultsSet = Set<GroupId>;
 export type ExpandedQueueItemsSet = Set<HitId>;
 export type WatcherStatisticsMap = Map<GroupId, WatcherStatistics>;
 
+export type BlockList = RequesterBlockMap | HitBlockMap;
+
 /**
  * The keys of RootState that are persisted by redux-persist.
  * See `PERSISTED_STATE_WHITELIST` in ./constants/settings
