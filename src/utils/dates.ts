@@ -60,6 +60,11 @@ export const dateRange = (
     List()
   );
 
+export const isOlderThan = (date: Date, daysBefore: number) => {
+  const daysBeforeNow = moment().subtract(daysBefore, 'days');
+  return moment(date).isBefore(daysBeforeNow);
+};
+
 export const secondsToMinutes = (numSeconds: number): number =>
   Math.floor(numSeconds / 60);
 
