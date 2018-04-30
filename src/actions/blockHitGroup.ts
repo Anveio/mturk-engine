@@ -1,5 +1,5 @@
 import { BLOCK_HIT, UNBLOCK_HIT, UNBLOCK_MULTIPLE_HITS } from '../constants';
-import { BlockedHit } from '../types';
+import { BlockedHit, GroupId } from '../types';
 import { Set } from 'immutable';
 
 export interface BlockHit {
@@ -14,7 +14,7 @@ export interface UnblockHit {
 
 export interface UnblockMultipleHits {
   readonly type: UNBLOCK_MULTIPLE_HITS;
-  readonly groupIds: Set<string>;
+  readonly groupIds: Set<GroupId>;
 }
 
 export type BlockHitAction = BlockHit | UnblockHit | UnblockMultipleHits;
