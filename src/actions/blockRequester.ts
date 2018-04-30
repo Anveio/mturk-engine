@@ -31,3 +31,10 @@ export const unblockRequester = (requesterId: string): UnblockRequester => ({
   type: UNBLOCK_REQUESTER,
   requesterId
 });
+
+export const unblockMultipleRequesters = (
+  requesterIds: Set<RequesterId>
+): UnblockMultipleRequesters => ({
+  type: UNBLOCK_MULTIPLE_REQUESTERS,
+  requesterIds
+});

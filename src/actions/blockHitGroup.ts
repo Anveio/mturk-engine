@@ -28,3 +28,10 @@ export const unblockHitGroup = (groupId: string): UnblockHit => ({
   type: UNBLOCK_HIT,
   groupId
 });
+
+export const unblockMultipleHits = (
+  groupIds: Set<GroupId>
+): UnblockMultipleHits => ({
+  type: UNBLOCK_MULTIPLE_HITS,
+  groupIds
+});
