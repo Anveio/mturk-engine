@@ -17,7 +17,7 @@ class ToggleAudio extends React.PureComponent<Props & Handlers> {
     active ? 'Disable' : 'Enable';
 
   private static calculateBodyContent = (active: boolean) =>
-    active ? '' : <TextStyle variation="strong">not</TextStyle>;
+    active ? 'enabled' : <TextStyle variation="strong">disabled</TextStyle>;
 
   public render() {
     const { value, onChange } = this.props;
@@ -30,7 +30,7 @@ class ToggleAudio extends React.PureComponent<Props & Handlers> {
         }}
         enabled={value}
       >
-        Audio is {ToggleAudio.calculateBodyContent(value)} enabled.
+        Audio is globally {ToggleAudio.calculateBodyContent(value)}.
       </SettingToggle>
     );
   }

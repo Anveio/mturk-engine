@@ -26,11 +26,6 @@ const mapState = (state: RootState): Props => ({
 });
 
 class EditVolume extends React.PureComponent<Props & Handlers, never> {
-  private static generateHelpText = (active: boolean) =>
-    active
-      ? 'Sound notifications will play at this volume'
-      : 'Sound notifications are globally disabled.';
-
   private handleChange = (value: number) =>
     this.props.onChange(value.toFixed(2));
 
@@ -45,11 +40,6 @@ class EditVolume extends React.PureComponent<Props & Handlers, never> {
           onChange={this.handleChange}
           stepSize={0.01}
         />
-        <label className="pt-label .pt-inline">
-          <span className="pt-text-muted">
-            {EditVolume.generateHelpText(this.props.enabled)}
-          </span>
-        </label>
       </Stack>
     );
   }
