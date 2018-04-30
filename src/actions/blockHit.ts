@@ -24,6 +24,11 @@ export const unblockSingleHit = (groupId: string): UnblockHit => ({
   groupIds: Set([groupId])
 });
 
+export const blockMultipleHits = (data: Set<BlockedHit>): BlockHit => ({
+  type: HIT_BLOCKLIST_ADD,
+  data
+});
+
 export const unblockMultipleHits = (groupIds: Set<GroupId>): UnblockHit => ({
   type: HIT_BLOCKLIST_REMOVE,
   groupIds

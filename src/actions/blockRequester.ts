@@ -31,6 +31,13 @@ export const unblockSingleRequester = (
   requesterIds: Set([requesterId])
 });
 
+export const blockMultipleRequesters = (
+  data: Set<BlockedRequester>
+): BlockRequester => ({
+  type: REQUESTER_BLOCKLIST_ADD,
+  data
+});
+
 export const unblockMultipleRequesters = (
   requesterIds: Set<RequesterId>
 ): UnblockRequester => ({
