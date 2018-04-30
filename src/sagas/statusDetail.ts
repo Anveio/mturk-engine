@@ -20,12 +20,11 @@ import { dateObjectTo } from '../utils/dates';
 import { WORKER_DATE_FORMAT } from '../constants/misc';
 
 export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
+  const { date, page } = action;
+  const toasterKey = conditionallyDisplayWaitingToast(action);
+  const encodedDateString = dateObjectTo(date)(WORKER_DATE_FORMAT);
+
   try {
-    const { date, page } = action;
-    const encodedDateString = dateObjectTo(date)(WORKER_DATE_FORMAT);
-
-    const toasterKey = conditionallyDisplayWaitingToast(action);
-
     const pageInfo: StatusDetailPageInfo = yield call(
       fetchStatusDetailPage,
       encodedDateString,
@@ -48,7 +47,7 @@ export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
       yield put<FetchStatusDetailRequest>(statusDetailRequest(date, page + 1));
     }
   } catch (e) {
-    statusDetailErrorToast(action.date.toLocaleDateString());
+    statusDetailErrorToast(action.date.toLocaleDateString(), toasterKey);
     console.warn(e);
     yield put<FetchStatusDetailFailure>(statusDetailFailure());
   }

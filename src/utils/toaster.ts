@@ -101,14 +101,17 @@ export const statusDetailToast = (
       );
 };
 
-export const statusDetailErrorToast = (dateStr: string) =>
-  TopRightToaster.show({
-    message: `Problem getting data for ${dateStringToLocaleDateString(
-      dateStr
-    )}. This is most likely because you have been logged out of MTurk. Try logging in again.`,
-    intent: Intent.WARNING,
-    timeout: 5000
-  });
+export const statusDetailErrorToast = (dateStr: string, key?: string) =>
+  TopRightToaster.show(
+    {
+      message: `Problem getting data for ${dateStringToLocaleDateString(
+        dateStr
+      )}. This is most likely because you have been logged out of MTurk. Try logging in again.`,
+      intent: Intent.WARNING,
+      timeout: 5000
+    },
+    key
+  );
 
 export const accountConnectionSuccessfulToast = {
   message: 'Your dashboard has been refreshed.',
