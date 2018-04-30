@@ -12,12 +12,12 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onSweep: (ids: Set<string>) => void;
+  readonly onMenuClick: (ids: Set<string>) => void;
 }
 
 class SweepMenu extends React.Component<Props & Handlers, never> {
   private handleClickForEntries = (entries: Set<string>) => () =>
-    this.props.onSweep(entries);
+    this.props.onMenuClick(entries);
 
   public render() {
     const {
