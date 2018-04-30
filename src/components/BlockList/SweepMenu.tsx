@@ -1,23 +1,35 @@
 import * as React from 'react';
 import { Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
 import { Set } from 'immutable';
+import { massUnblockToast } from 'utils/toaster';
+import { BlockedRequester } from 'types';
 
 interface Props {
   readonly title: string;
   readonly entries: {
-    readonly olderThanThirtyDays: Set<string>;
-    readonly olderThanSixtyDays: Set<string>;
-    readonly olderThanNinetyDays: Set<string>;
+    readonly olderThanThirtyDays: Set<BlockedRequester>;
+    readonly olderThanSixtyDays: Set<BlockedRequester>;
+    readonly olderThanNinetyDays: Set<BlockedRequester>;
   };
 }
 
 interface Handlers {
   readonly onMenuClick: (ids: Set<string>) => void;
+  readonly onUndo: (entries: Set<BlockedRequester>) => void;
 }
 
 class SweepMenu extends React.Component<Props & Handlers, never> {
-  private handleClickForEntries = (entries: Set<string>) => () =>
-    this.props.onMenuClick(entries);
+  private static entriesToIdSet = (entries: Set<BlockedRequester>) =>
+    entries.reduce(
+      (acc: Set<string>, cur: BlockedRequester) => acc.add(cur.id),
+      Set([])
+    );
+
+  private handleClickForEntries = (entries: Set<BlockedRequester>) => () => {
+    const ids = SweepMenu.entriesToIdSet(entries);
+    this.props.onMenuClick(ids);
+    massUnblockToast(() => this.props.onUndo(entries), entries.size);
+  };
 
   public render() {
     const {

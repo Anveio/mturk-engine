@@ -260,6 +260,16 @@ export const notificationPermissionBlockedToast = () =>
     timeout: 9000
   });
 
+export const massUnblockToast = (onClick: () => void, numEntries: number) =>
+  TopRightToaster.show({
+    message: `Cleared ${numEntries} entries from this blocklist.`,
+    intent: Intent.PRIMARY,
+    action: {
+      text: 'Undo',
+      onClick
+    }
+  });
+
 const successfulQueueToast = {
   message: 'Your queue has been refreshed.',
   intent: Intent.PRIMARY,
