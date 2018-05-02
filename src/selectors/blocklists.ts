@@ -6,7 +6,7 @@ import {
   BlockedRequester
 } from '../types';
 import { hitBlocklistSelector, requesterBlocklistSelector } from './index';
-import { isOlderThan } from 'utils/dates';
+import { isOlderThan, isYoungerThan } from 'utils/dates';
 import { List } from 'immutable';
 
 export const blockListsAreEmpty = createSelector(
@@ -51,9 +51,18 @@ export const recentlyBlockedRequesters = createSelector(
 
 export const blockedRequestersOlderThan = (numDaysBefore: number) =>
   createSelector([sortedRequesterBlockList], requesters =>
-    requesters.filter(requesterIsOlderThan(numDaysBefore)).toSet()
+    requesters.filter(requesterBlockedAfter(numDaysBefore)).toSet()
   );
 
-const requesterIsOlderThan = (daysBefore: number) => (
+const requesterBlockedAfter = (daysBefore: number) => (
   requester: BlockedRequester
 ) => isOlderThan(requester.dateBlocked, daysBefore, new Date());
+
+export const blockedRequestersInLast = (timeInSeconds: number) =>
+  createSelector([sortedRequesterBlockList], requesters =>
+    requesters.filter(requesterBlockedWithin(timeInSeconds)).toSet()
+  );
+
+const requesterBlockedWithin = (timeInSeconds: number) => (
+  requester: BlockedRequester
+) => isYoungerThan(requester.dateBlocked, timeInSeconds, new Date());
