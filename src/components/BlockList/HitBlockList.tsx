@@ -16,11 +16,6 @@ import {
   unblockMultipleHits,
   blockMultipleHits
 } from 'actions/blockHit';
-import {
-  SECONDS_IN_HOUR,
-  SECONDS_IN_DAY,
-  SECONDS_IN_WEEK
-} from 'constants/dates';
 import { Duration } from 'constants/enums';
 
 interface Props {
@@ -98,9 +93,9 @@ const mapState = (state: RootState): Props => ({
     recent: recentlyBlockedHits(state),
     entries: {
       inThePast: {
-        hour: blockedHitsInLast(SECONDS_IN_HOUR, Duration.SECONDS)(state),
-        day: blockedHitsInLast(SECONDS_IN_DAY, Duration.SECONDS)(state),
-        week: blockedHitsInLast(SECONDS_IN_WEEK, Duration.SECONDS)(state)
+        hour: blockedHitsInLast(1, Duration.HOURS)(state),
+        day: blockedHitsInLast(1, Duration.DAYS)(state),
+        week: blockedHitsInLast(1, Duration.WEEKS)(state)
       },
       olderThan: {
         thirtyDays: blockedHitsOlderThan(30, Duration.DAYS)(state),

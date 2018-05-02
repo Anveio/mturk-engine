@@ -14,5 +14,7 @@ export enum TabIndex {
 
 export enum Duration {
   SECONDS = 'seconds',
-  DAYS = 'days'
+  HOURS = 'hours',
+  DAYS = 'days',
+  WEEKS = 'weeks'
 }

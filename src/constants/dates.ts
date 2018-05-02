@@ -10,9 +10,6 @@ export type LEGACY_DATE_FORMAT = typeof LEGACY_DATE_FORMAT;
 
 export const HHMMSS_FORMAT = 'HH:mm:ss';
 
-export const SECONDS_IN_HOUR = 3600;
-export const SECONDS_IN_DAY = 86400;
-export const SECONDS_IN_WEEK = 604800;
 export const MILLISECONDS_IN_ONE_DAY = 86400000;
 
 export const DAYS_IN_WEEK = 7;
