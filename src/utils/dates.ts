@@ -12,6 +12,8 @@ import { range } from './arrays';
 import { LegacyDateFormat, WorkerDateFormat } from 'types';
 import { TimeUnit } from 'constants/enums';
 
+export type DurationUnit = moment.DurationInputArg2;
+
 export const dateObjectTo = (date: Date) => (format: DATE_FORMAT) =>
   moment(date).format(format);
 
@@ -64,19 +66,22 @@ export const dateRange = (
     List()
   );
 
-export const isOlderThan = (date: Date, daysBefore: number, start: Date) => {
-  const daysBeforeNow = moment(start).subtract(daysBefore, TimeUnit.DAYS);
+export const isOlderThan = (
+  date: Date,
+  timeBefore: number,
+  start: Date,
+  unit: moment.DurationInputArg2
+) => {
+  const daysBeforeNow = moment(start).subtract(timeBefore, unit);
   return moment(date).isBefore(daysBeforeNow);
 };
 
 export const isYoungerThan = (
   date: Date,
-  timeBeforeInSeconds: number,
-  start: Date
-) =>
-  moment(date).isAfter(
-    moment(start).subtract(timeBeforeInSeconds, TimeUnit.SECONDS)
-  );
+  timeBefore: number,
+  start: Date,
+  unit: moment.DurationInputArg2
+) => moment(date).isAfter(moment(start).subtract(timeBefore, unit));
 
 export const secondsToMinutes = (numSeconds: number): number =>
   Math.floor(numSeconds / 60);
