@@ -54,17 +54,19 @@ export const generateOneYearOfDates = (startDate: Date) => {
 export const dateRange = (
   startDate: moment.Moment,
   numDays = 365
-): List<string> =>
-  range(numDays).reduce(
-    (acc: List<LegacyDateFormat>, cur: number) =>
-      acc.unshift(
-        startDate
-          .clone()
-          .subtract(cur, Duration.DAYS)
-          .format(LEGACY_DATE_FORMAT)
-      ),
-    List()
-  );
+): List<LegacyDateFormat> =>
+  range(numDays)
+    .reduce(
+      (acc: List<LegacyDateFormat>, cur: number) =>
+        acc.push(
+          startDate
+            .clone()
+            .subtract(cur, Duration.DAYS)
+            .format(LEGACY_DATE_FORMAT)
+        ),
+      List()
+    )
+    .reverse() as List<LegacyDateFormat>;
 
 export const isOlderThan = (
   date: Date,
