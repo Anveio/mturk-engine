@@ -39,21 +39,23 @@ class SweepMenu extends React.Component<Props & Handlers, never> {
     return (
       <Menu>
         <MenuDivider title={title} />
-        <MenuItem
-          icon="time"
-          onClick={this.handleClickForEntries(olderThanThirtyDays)}
-          text="Older than 30 days"
-        />
-        <MenuItem
-          icon="time"
-          onClick={this.handleClickForEntries(olderThanSixtyDays)}
-          text="Older than 60 days"
-        />
-        <MenuItem
-          icon="time"
-          onClick={this.handleClickForEntries(olderThanNinetyDays)}
-          text="Older than 90 days"
-        />
+        <MenuItem text="Older than...">
+          <MenuItem
+            icon="time"
+            onClick={this.handleClickForEntries(olderThanThirtyDays)}
+            text="30 days"
+          />
+          <MenuItem
+            icon="time"
+            onClick={this.handleClickForEntries(olderThanSixtyDays)}
+            text="60 days"
+          />
+          <MenuItem
+            icon="time"
+            onClick={this.handleClickForEntries(olderThanNinetyDays)}
+            text="90 days"
+          />
+        </MenuItem>
       </Menu>
     );
   }
