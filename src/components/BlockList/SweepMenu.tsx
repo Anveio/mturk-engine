@@ -7,9 +7,16 @@ import { BlockedRequester } from 'types';
 interface Props {
   readonly title: string;
   readonly entries: {
-    readonly olderThanThirtyDays: Set<BlockedRequester>;
-    readonly olderThanSixtyDays: Set<BlockedRequester>;
-    readonly olderThanNinetyDays: Set<BlockedRequester>;
+    readonly inThePast: {
+      readonly hour: Set<BlockedRequester>;
+      readonly day: Set<BlockedRequester>;
+      readonly week: Set<BlockedRequester>;
+    };
+    readonly olderThan: {
+      readonly thirtyDays: Set<BlockedRequester>;
+      readonly sixtyDays: Set<BlockedRequester>;
+      readonly ninetyDays: Set<BlockedRequester>;
+    };
   };
 }
 
@@ -34,25 +41,42 @@ class SweepMenu extends React.Component<Props & Handlers, never> {
   public render() {
     const {
       title,
-      entries: { olderThanThirtyDays, olderThanSixtyDays, olderThanNinetyDays }
+      entries: { olderThan, inThePast }
     } = this.props;
     return (
       <Menu>
         <MenuDivider title={title} />
-        <MenuItem text="Older than...">
+        <MenuItem text="In the past">
           <MenuItem
             icon="time"
-            onClick={this.handleClickForEntries(olderThanThirtyDays)}
+            onClick={this.handleClickForEntries(inThePast.hour)}
+            text="Hour"
+          />
+          <MenuItem
+            icon="time"
+            onClick={this.handleClickForEntries(inThePast.day)}
+            text="24 hours"
+          />
+          <MenuItem
+            icon="time"
+            onClick={this.handleClickForEntries(inThePast.week)}
+            text="7 days"
+          />
+        </MenuItem>
+        <MenuItem text="Older than">
+          <MenuItem
+            icon="time"
+            onClick={this.handleClickForEntries(olderThan.thirtyDays)}
             text="30 days"
           />
           <MenuItem
             icon="time"
-            onClick={this.handleClickForEntries(olderThanSixtyDays)}
+            onClick={this.handleClickForEntries(olderThan.sixtyDays)}
             text="60 days"
           />
           <MenuItem
             icon="time"
-            onClick={this.handleClickForEntries(olderThanNinetyDays)}
+            onClick={this.handleClickForEntries(olderThan.ninetyDays)}
             text="90 days"
           />
         </MenuItem>

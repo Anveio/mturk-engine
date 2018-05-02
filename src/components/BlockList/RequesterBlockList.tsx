@@ -8,21 +8,36 @@ import SweepMenu from './SweepMenu';
 import { Set, List } from 'immutable';
 import {
   recentlyBlockedRequesters,
-  blockedRequestersOlderThan
+  blockedRequestersOlderThan,
+  blockedRequestersInLast
 } from 'selectors/blocklists';
 import {
   unblockMultipleRequesters,
   UnblockRequester,
   blockMultipleRequesters
 } from 'actions/blockRequester';
+import {
+  SECONDS_IN_HOUR,
+  SECONDS_IN_DAY,
+  SECONDS_IN_WEEK
+} from 'constants/dates';
 
 interface Props {
   readonly blockedRequesters: {
     // recent needs to be displayed in order and Sets dont have a defined iteration order.
     readonly recent: List<BlockedRequester>;
-    readonly olderThanThirtyDays: Set<BlockedRequester>;
-    readonly olderThanSixtyDays: Set<BlockedRequester>;
-    readonly olderThanNinetyDays: Set<BlockedRequester>;
+    readonly entries: {
+      readonly inThePast: {
+        readonly hour: Set<BlockedRequester>;
+        readonly day: Set<BlockedRequester>;
+        readonly week: Set<BlockedRequester>;
+      };
+      readonly olderThan: {
+        readonly thirtyDays: Set<BlockedRequester>;
+        readonly sixtyDays: Set<BlockedRequester>;
+        readonly ninetyDays: Set<BlockedRequester>;
+      };
+    };
   };
   readonly blocklistSize: number;
 }
@@ -58,7 +73,7 @@ class RequesterBlockList extends React.Component<Props & Handlers, never> {
                   </Button>
                   <SweepMenu
                     title={'Unblock requesters...'}
-                    entries={blockedRequesters}
+                    entries={blockedRequesters.entries}
                     onMenuClick={massUnblock}
                     onUndo={undoMassUnblock}
                   />
@@ -80,9 +95,18 @@ class RequesterBlockList extends React.Component<Props & Handlers, never> {
 const mapState = (state: RootState): Props => ({
   blockedRequesters: {
     recent: recentlyBlockedRequesters(state),
-    olderThanThirtyDays: blockedRequestersOlderThan(30)(state),
-    olderThanSixtyDays: blockedRequestersOlderThan(60)(state),
-    olderThanNinetyDays: blockedRequestersOlderThan(90)(state)
+    entries: {
+      inThePast: {
+        hour: blockedRequestersInLast(SECONDS_IN_HOUR)(state),
+        day: blockedRequestersInLast(SECONDS_IN_DAY)(state),
+        week: blockedRequestersInLast(SECONDS_IN_WEEK)(state)
+      },
+      olderThan: {
+        thirtyDays: blockedRequestersOlderThan(30)(state),
+        sixtyDays: blockedRequestersOlderThan(60)(state),
+        ninetyDays: blockedRequestersOlderThan(90)(state)
+      }
+    }
   },
   blocklistSize: state.requesterBlocklist.size
 });
