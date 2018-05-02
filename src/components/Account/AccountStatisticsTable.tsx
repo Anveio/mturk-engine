@@ -4,6 +4,7 @@ import { Card, TextStyle } from '@shopify/polaris';
 import { RootState, MaybeAccount } from '../../types';
 import { formatAsUsd } from '../../utils/formatting';
 import { calculateAcceptanceRate } from 'utils/hitDatabase';
+import { CONDENSED_TABLE } from 'constants/blueprint';
 
 interface Props {
   readonly accountInfo: MaybeAccount;
@@ -32,7 +33,7 @@ class AccountStatisticsTable extends React.PureComponent<Props, never> {
       accountInfo && (
         <Card title="Account Statistics">
           <Card.Section>
-            <table className="pt-html-table pt-condensed">
+            <table className={CONDENSED_TABLE}>
               <thead>
                 <tr>
                   <th>Earnings</th>
@@ -60,7 +61,7 @@ class AccountStatisticsTable extends React.PureComponent<Props, never> {
             </table>
           </Card.Section>
           <Card.Section>
-            <table className="pt-html-table pt-condensed">
+            <table className={CONDENSED_TABLE}>
               <thead>
                 <tr>
                   <th>Hit Statistics</th>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, TOpticonSettings } from '../../types';
 import { FormUpdate, updateForm } from '../../actions/form';
-import { Slider } from '@blueprintjs/core';
+import { Slider, Classes } from '@blueprintjs/core';
 import { Stack } from '@shopify/polaris';
 
 interface Props {
@@ -53,8 +53,8 @@ class EditMinTO extends React.PureComponent<Props & Handlers, never> {
           onChange={this.handleChange}
           stepSize={0.05}
         />
-        <label className="pt-label .pt-inline">
-          <span className="pt-text-muted">
+        <label className={`${Classes.LABEL}`}>
+          <span className={`${Classes.TEXT_MUTED}`}>
             {EditMinTO.generateHelpText(this.props.enabled)}
           </span>
         </label>

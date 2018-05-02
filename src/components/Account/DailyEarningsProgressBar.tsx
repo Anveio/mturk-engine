@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { ProgressBar, Intent } from '@blueprintjs/core';
+import { ProgressBar, Intent, Classes } from '@blueprintjs/core';
 import { RootState } from '../../types';
 import { todaysProjectedEarnings } from '../../selectors/hitDatabase';
 
@@ -10,13 +10,16 @@ export interface Props {
 }
 
 class DailyEarningsProgressBar extends React.PureComponent<Props, never> {
-  private static calculateProgress = (value: number, goal: number) => value / goal;
+  private static calculateProgress = (value: number, goal: number) =>
+    value / goal;
 
   public render() {
     const { dailyEarningsGoal, todaysEarnings } = this.props;
     return (
       <ProgressBar
-        className="pt-no-stripes pt-no-animation"
+        className={`${Classes.PROGRESS_NO_STRIPES} ${
+          Classes.PROGRESS_NO_ANIMATION
+        }`}
         value={DailyEarningsProgressBar.calculateProgress(
           todaysEarnings,
           dailyEarningsGoal

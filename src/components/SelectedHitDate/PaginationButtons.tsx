@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button } from '@blueprintjs/core';
+import { MINIMAL_BUTTON_GROUP } from 'constants/blueprint';
 
 export interface Props {
   readonly hasNext: boolean;
@@ -15,7 +16,7 @@ class PaginationButtons extends React.PureComponent<Props & Handlers, never> {
   public render() {
     const { hasNext, hasPrevious, onNext, onPrevious } = this.props;
     return (
-      <div className="pt-button-group pt-minimal">
+      <div className={MINIMAL_BUTTON_GROUP}>
         <Button
           disabled={!hasPrevious}
           icon="arrow-left"

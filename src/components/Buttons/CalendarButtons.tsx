@@ -1,6 +1,12 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Tooltip, Button, Position, Collapse, AnchorButton } from '@blueprintjs/core';
+import {
+  Tooltip,
+  Button,
+  Position,
+  Collapse,
+  AnchorButton
+} from '@blueprintjs/core';
 import { Stack, Caption } from '@shopify/polaris';
 import { RootState } from 'types';
 import {
@@ -8,6 +14,7 @@ import {
   statusSummaryRequest
 } from 'actions/statusSummary';
 import { statusDetailRequest } from 'actions/statusDetail';
+import { MINIMAL_BUTTON_GROUP } from 'constants/blueprint';
 
 export interface Props {
   readonly waitingForHitDbRefresh: boolean;
@@ -43,7 +50,7 @@ class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
     const { tooltipContent, captionContent } = CalendarButtons;
     return (
       <Stack vertical>
-        <div className="pt-button-group pt-minimal">
+        <div className={MINIMAL_BUTTON_GROUP}>
           <Tooltip
             content={tooltipContent}
             position={Position.TOP_LEFT}

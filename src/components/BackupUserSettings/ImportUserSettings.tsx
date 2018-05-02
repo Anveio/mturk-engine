@@ -6,6 +6,7 @@ import {
   uploadRequest,
   removeUploadedFile
 } from '../../actions/upload';
+import { Classes } from '@blueprintjs/core';
 
 interface Handlers {
   readonly onUpload: (file: File) => void;
@@ -63,9 +64,9 @@ class ImportUserSettings extends React.Component<Handlers, State> {
     return (
       <Stack alignment="baseline">
         <TextContainer>Upload Backup File</TextContainer>
-        <label className="pt-file-input">
+        <label className={`${Classes.FILE_INPUT}`}>
           <input type="file" onChange={this.uploadFile} accept=".json" />
-          <span className="pt-file-upload-input">
+          <span className={`${Classes.FILE_UPLOAD_INPUT}`}>
             {this.generateInputText()}
           </span>
         </label>
