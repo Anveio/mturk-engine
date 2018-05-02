@@ -1,12 +1,12 @@
 import { call, select } from 'redux-saga/effects';
 import { PlayAudio } from '../actions/audio';
 import { RootState } from '../types';
-import { AudioSources } from 'constants/enums';
+import { AudioSource } from 'constants/enums';
 
 const audioFiles = {
-  [AudioSources.NEW_SEARCH_RESULT]: new Audio(AudioSources.NEW_SEARCH_RESULT),
-  [AudioSources.SUCCESSFUL_WATCHER_ACCEPT]: new Audio(
-    AudioSources.SUCCESSFUL_WATCHER_ACCEPT
+  [AudioSource.NEW_SEARCH_RESULT]: new Audio(AudioSource.NEW_SEARCH_RESULT),
+  [AudioSource.SUCCESSFUL_WATCHER_ACCEPT]: new Audio(
+    AudioSource.SUCCESSFUL_WATCHER_ACCEPT
   )
 };
 
