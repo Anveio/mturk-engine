@@ -69,6 +69,7 @@ export type ExpandedQueueItemsSet = Set<HitId>;
 export type WatcherStatisticsMap = Map<GroupId, WatcherStatistics>;
 
 export type BlockList = RequesterBlockMap | HitBlockMap;
+export type BlockedEntry = BlockedHit | BlockedRequester;
 
 /**
  * The keys of RootState that are persisted by redux-persist.
