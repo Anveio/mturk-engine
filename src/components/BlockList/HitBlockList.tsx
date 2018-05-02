@@ -21,7 +21,7 @@ import {
   SECONDS_IN_DAY,
   SECONDS_IN_WEEK
 } from 'constants/dates';
-import { TimeUnit } from 'constants/enums';
+import { Duration } from 'constants/enums';
 
 interface Props {
   readonly blockedHits: {
@@ -98,14 +98,14 @@ const mapState = (state: RootState): Props => ({
     recent: recentlyBlockedHits(state),
     entries: {
       inThePast: {
-        hour: blockedHitsInLast(SECONDS_IN_HOUR, TimeUnit.SECONDS)(state),
-        day: blockedHitsInLast(SECONDS_IN_DAY, TimeUnit.SECONDS)(state),
-        week: blockedHitsInLast(SECONDS_IN_WEEK, TimeUnit.SECONDS)(state)
+        hour: blockedHitsInLast(SECONDS_IN_HOUR, Duration.SECONDS)(state),
+        day: blockedHitsInLast(SECONDS_IN_DAY, Duration.SECONDS)(state),
+        week: blockedHitsInLast(SECONDS_IN_WEEK, Duration.SECONDS)(state)
       },
       olderThan: {
-        thirtyDays: blockedHitsOlderThan(30, TimeUnit.DAYS)(state),
-        sixtyDays: blockedHitsOlderThan(60, TimeUnit.DAYS)(state),
-        ninetyDays: blockedHitsOlderThan(90, TimeUnit.DAYS)(state)
+        thirtyDays: blockedHitsOlderThan(30, Duration.DAYS)(state),
+        sixtyDays: blockedHitsOlderThan(60, Duration.DAYS)(state),
+        ninetyDays: blockedHitsOlderThan(90, Duration.DAYS)(state)
       }
     }
   },

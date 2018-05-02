@@ -12,7 +12,7 @@ export enum TabIndex {
   SETTINGS = 5
 }
 
-export enum TimeUnit {
-  DAYS = 'days',
-  SECONDS = 'seconds'
+export enum Duration {
+  SECONDS = 'seconds',
+  DAYS = 'days'
 }

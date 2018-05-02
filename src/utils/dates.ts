@@ -10,7 +10,7 @@ import {
 } from '../constants/dates';
 import { range } from './arrays';
 import { LegacyDateFormat, WorkerDateFormat } from 'types';
-import { TimeUnit } from 'constants/enums';
+import { Duration } from 'constants/enums';
 
 export type DurationUnit = moment.DurationInputArg2;
 
@@ -31,13 +31,13 @@ export const legacyDateFormatToContactDateFormat = (dateString: string) =>
 // returns a new date shifted a certain number of days (can be negative)
 export const shiftDate = (date: Date, numDays: number) => {
   return moment(date)
-    .add(numDays, TimeUnit.DAYS)
+    .add(numDays, Duration.DAYS)
     .toDate();
 };
 
 export const shiftDateString = (dateString: string, numDays: number) => {
   return moment(dateString, LEGACY_DATE_FORMAT)
-    .subtract(numDays, TimeUnit.DAYS)
+    .subtract(numDays, Duration.DAYS)
     .format(LEGACY_DATE_FORMAT);
 };
 
@@ -60,7 +60,7 @@ export const dateRange = (
       acc.unshift(
         startDate
           .clone()
-          .subtract(cur, TimeUnit.DAYS)
+          .subtract(cur, Duration.DAYS)
           .format(LEGACY_DATE_FORMAT)
       ),
     List()
