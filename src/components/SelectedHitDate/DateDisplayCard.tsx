@@ -7,7 +7,7 @@ import {
   statusDetailRequest
 } from 'actions/statusDetail';
 import { dateStringToLocaleDateString, stringToDate } from 'utils/dates';
-import { LEGACY_DATE_FORMAT } from 'constants/misc';
+import { LEGACY_DATE_FORMAT } from 'constants/dates';
 
 export interface Props {
   readonly selectedDate: string | null;

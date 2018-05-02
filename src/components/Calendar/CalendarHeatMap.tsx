@@ -13,20 +13,22 @@ import { oneYearOfData } from '../../selectors/hitDatabase';
 import {
   HEATMAP_CSS_PREFIX,
   GUTTER_SIZE,
-  LEGACY_DATE_FORMAT,
   WEEKDAY_LABELS,
   WEEKDAY_LABEL_SIZE,
-  DAYS_IN_WEEK,
   SQUARE_SIZE_WITH_GUTTER,
   MONTH_LABEL_GUTTER_SIZE,
   MONTH_LABEL_SIZE,
-  MONTH_LABELS,
   SQUARE_SIZE,
   WEEK_HEIGHT,
   SQUARE_BORDER_RADIUS
-} from '../../constants/misc';
+} from 'constants/misc';
 
 import CalendarDay from './CalendarDay';
+import {
+  LEGACY_DATE_FORMAT,
+  DAYS_IN_WEEK,
+  MONTH_LABELS
+} from 'constants/dates';
 
 export interface Props {
   readonly values: List<HeatMapValue>;

@@ -5,7 +5,7 @@ import {
   WORKER_DATE_FORMAT,
   DATE_FORMAT,
   MOMENT_LOCALE
-} from '../constants/misc';
+} from '../constants/dates';
 import { range } from './arrays';
 import { LegacyDateFormat, WorkerDateFormat } from 'types';
 

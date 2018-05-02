@@ -21,7 +21,7 @@ import {
 } from '../utils/hitDatabase';
 import { Map, List } from 'immutable';
 import { hitDatabaseSelector } from './index';
-import { LEGACY_DATE_FORMAT } from 'constants/misc';
+import { LEGACY_DATE_FORMAT } from 'constants/dates';
 
 export const pendingEarningsSelector = createSelector(
   [hitDatabaseSelector],

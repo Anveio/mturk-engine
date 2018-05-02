@@ -17,7 +17,7 @@ import {
   showWaitingToast
 } from '../utils/toaster';
 import { dateObjectTo } from '../utils/dates';
-import { WORKER_DATE_FORMAT } from '../constants/misc';
+import { WORKER_DATE_FORMAT } from 'constants/dates';
 
 export function* handleStatusDetailRequest(action: FetchStatusDetailRequest) {
   const { date, page } = action;

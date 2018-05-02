@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { List, Badge, Caption } from '@shopify/polaris';
-import { formatAsUsd } from '../../utils/formatting';
-import { stringToDate } from '../../utils/dates';
-import { LEGACY_DATE_FORMAT } from '../../constants/misc';
-import { HitDatabaseEntry } from '../../types';
-import { generateHitStatusBadge } from '../../utils/badges';
+import { formatAsUsd } from 'utils/formatting';
+import { stringToDate } from 'utils/dates';
+import { HitDatabaseEntry } from 'types';
+import { generateHitStatusBadge } from 'utils/badges';
+import { LEGACY_DATE_FORMAT } from 'constants/dates';
 
 interface Props {
   readonly hit: HitDatabaseEntry;
@@ -16,9 +16,9 @@ const SubmittedHit: React.SFC<Props> = ({ hit }) => (
     <Badge status={generateHitStatusBadge(hit.status).status}>
       {generateHitStatusBadge(hit.status).content}
     </Badge>
-    <Caption>{`${formatAsUsd(hit.reward)} - Submitted ${stringToDate(
-      hit.date
-    )(LEGACY_DATE_FORMAT).toLocaleDateString()}`}</Caption>
+    <Caption>{`${formatAsUsd(hit.reward)} - Submitted ${stringToDate(hit.date)(
+      LEGACY_DATE_FORMAT
+    ).toLocaleDateString()}`}</Caption>
   </List.Item>
 );
 
