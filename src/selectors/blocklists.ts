@@ -3,7 +3,8 @@ import {
   HitBlockMap,
   BlockedHit,
   RequesterBlockMap,
-  BlockedRequester
+  BlockedRequester,
+  BlockedEntry
 } from '../types';
 import { hitBlocklistSelector, requesterBlocklistSelector } from './index';
 import { isOlderThan, isYoungerThan } from 'utils/dates';
@@ -18,19 +19,34 @@ export const blockListsAreEmpty = createSelector(
 const sortedHitBlocklist = createSelector(
   [hitBlocklistSelector],
   (blockedHits: HitBlockMap) =>
-    blockedHits.sort(
-      (a: BlockedHit, b: BlockedHit) => +b.dateBlocked - +a.dateBlocked
-    )
+    blockedHits
+      .sort((a: BlockedHit, b: BlockedHit) => +b.dateBlocked - +a.dateBlocked)
+      .toList()
 );
 
-export const recentlyBlockedHitIds = createSelector(
+export const recentlyBlockedHits = createSelector(
   [sortedHitBlocklist],
-  (blockedHits: HitBlockMap) =>
-    blockedHits
-      .map((el: BlockedHit) => el.groupId)
-      .slice(0, 20)
-      .toArray()
+  (blockedHits: List<BlockedHit>) =>
+    blockedHits.slice(0, 20) as List<BlockedHit>
 );
+
+const blockedAfter = <T extends BlockedEntry>(daysBefore: number) => (
+  entry: T
+) => isOlderThan(entry.dateBlocked, daysBefore, new Date());
+
+const blockedWithin = <T extends BlockedEntry>(timeInSeconds: number) => (
+  entry: T
+) => isYoungerThan(entry.dateBlocked, timeInSeconds, new Date());
+
+export const blockedHitsOlderThan = (numDaysBefore: number) =>
+  createSelector([sortedHitBlocklist], hits =>
+    hits.filter(blockedAfter<BlockedHit>(numDaysBefore)).toSet()
+  );
+
+export const blockedHitsInLast = (timeInSeconds: number) =>
+  createSelector([sortedHitBlocklist], hits =>
+    hits.filter(blockedWithin<BlockedHit>(timeInSeconds)).toSet()
+  );
 
 export const sortedRequesterBlockList = createSelector(
   [requesterBlocklistSelector],
@@ -51,18 +67,10 @@ export const recentlyBlockedRequesters = createSelector(
 
 export const blockedRequestersOlderThan = (numDaysBefore: number) =>
   createSelector([sortedRequesterBlockList], requesters =>
-    requesters.filter(requesterBlockedAfter(numDaysBefore)).toSet()
+    requesters.filter(blockedAfter<BlockedRequester>(numDaysBefore)).toSet()
   );
-
-const requesterBlockedAfter = (daysBefore: number) => (
-  requester: BlockedRequester
-) => isOlderThan(requester.dateBlocked, daysBefore, new Date());
 
 export const blockedRequestersInLast = (timeInSeconds: number) =>
   createSelector([sortedRequesterBlockList], requesters =>
-    requesters.filter(requesterBlockedWithin(timeInSeconds)).toSet()
+    requesters.filter(blockedWithin<BlockedRequester>(timeInSeconds)).toSet()
   );
-
-const requesterBlockedWithin = (timeInSeconds: number) => (
-  requester: BlockedRequester
-) => isYoungerThan(requester.dateBlocked, timeInSeconds, new Date());
