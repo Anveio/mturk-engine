@@ -2,38 +2,48 @@ import * as React from 'react';
 import { Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
 import { Set } from 'immutable';
 import { massUnblockToast } from 'utils/toaster';
-import { BlockedRequester } from 'types';
+import { BlockedEntry, BlockedHit, BlockedRequester } from 'types';
 
 interface Props {
   readonly title: string;
+  readonly kind: 'requester' | 'hit';
   readonly entries: {
     readonly inThePast: {
-      readonly hour: Set<BlockedRequester>;
-      readonly day: Set<BlockedRequester>;
-      readonly week: Set<BlockedRequester>;
+      readonly hour: Set<BlockedEntry>;
+      readonly day: Set<BlockedEntry>;
+      readonly week: Set<BlockedEntry>;
     };
     readonly olderThan: {
-      readonly thirtyDays: Set<BlockedRequester>;
-      readonly sixtyDays: Set<BlockedRequester>;
-      readonly ninetyDays: Set<BlockedRequester>;
+      readonly thirtyDays: Set<BlockedEntry>;
+      readonly sixtyDays: Set<BlockedEntry>;
+      readonly ninetyDays: Set<BlockedEntry>;
     };
   };
 }
 
 interface Handlers {
   readonly onMenuClick: (ids: Set<string>) => void;
-  readonly onUndo: (entries: Set<BlockedRequester>) => void;
+  readonly onUndo: (entries: Set<BlockedEntry>) => void;
 }
 
 class SweepMenu extends React.Component<Props & Handlers, never> {
-  private static entriesToIdSet = (entries: Set<BlockedRequester>) =>
+  private static blockedRequestersToIdSet = (entries: Set<BlockedRequester>) =>
     entries.reduce(
       (acc: Set<string>, cur: BlockedRequester) => acc.add(cur.id),
       Set([])
     );
 
-  private handleClickForEntries = (entries: Set<BlockedRequester>) => () => {
-    const ids = SweepMenu.entriesToIdSet(entries);
+  private static blockedHitsToIdSet = (entries: Set<BlockedHit>) =>
+    entries.reduce(
+      (acc: Set<string>, cur: BlockedHit) => acc.add(cur.groupId),
+      Set([])
+    );
+
+  private handleClickForEntries = (entries: Set<BlockedEntry>) => () => {
+    const ids =
+      this.props.kind === 'requester'
+        ? SweepMenu.blockedRequestersToIdSet(entries as Set<BlockedRequester>)
+        : SweepMenu.blockedHitsToIdSet(entries as Set<BlockedHit>);
     this.props.onMenuClick(ids);
     massUnblockToast(() => this.props.onUndo(entries), entries.size);
   };

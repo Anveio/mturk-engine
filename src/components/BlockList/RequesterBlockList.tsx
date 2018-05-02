@@ -72,6 +72,7 @@ class RequesterBlockList extends React.Component<Props & Handlers, never> {
                     Sweep
                   </Button>
                   <SweepMenu
+                    kind="requester"
                     title={'Unblock requesters...'}
                     entries={blockedRequesters.entries}
                     onMenuClick={massUnblock}
