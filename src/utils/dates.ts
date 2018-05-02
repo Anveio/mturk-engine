@@ -66,6 +66,13 @@ export const isOlderThan = (date: Date, daysBefore: number, start: Date) => {
   return moment(date).isBefore(daysBeforeNow);
 };
 
+export const isYoungerThan = (
+  date: Date,
+  timeBeforeInSeconds: number,
+  start: Date
+) =>
+  moment(date).isAfter(moment(start).subtract(timeBeforeInSeconds, 'seconds'));
+
 export const secondsToMinutes = (numSeconds: number): number =>
   Math.floor(numSeconds / 60);
 
