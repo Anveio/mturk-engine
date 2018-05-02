@@ -11,3 +11,8 @@ export enum TabIndex {
   ACCOUNT = 4,
   SETTINGS = 5
 }
+
+export enum TimeUnit {
+  DAYS = 'days',
+  SECONDS = 'seconds'
+}

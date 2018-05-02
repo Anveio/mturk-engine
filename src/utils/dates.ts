@@ -4,10 +4,13 @@ import {
   LEGACY_DATE_FORMAT,
   WORKER_DATE_FORMAT,
   DATE_FORMAT,
-  MOMENT_LOCALE
+  MOMENT_LOCALE,
+  HHMMSS_FORMAT,
+  CONTACT_DATE_FORMAT
 } from '../constants/dates';
 import { range } from './arrays';
 import { LegacyDateFormat, WorkerDateFormat } from 'types';
+import { TimeUnit } from 'constants/enums';
 
 export const dateObjectTo = (date: Date) => (format: DATE_FORMAT) =>
   moment(date).format(format);
@@ -21,18 +24,18 @@ export const workerDateFormatToLegacyDateFormat = (
   moment(dateString, WORKER_DATE_FORMAT).format(LEGACY_DATE_FORMAT);
 
 export const legacyDateFormatToContactDateFormat = (dateString: string) =>
-  moment(dateString, LEGACY_DATE_FORMAT).format('YYYY-MM-DD');
+  moment(dateString, LEGACY_DATE_FORMAT).format(CONTACT_DATE_FORMAT);
 
 // returns a new date shifted a certain number of days (can be negative)
 export const shiftDate = (date: Date, numDays: number) => {
   return moment(date)
-    .add(numDays, 'days')
+    .add(numDays, TimeUnit.DAYS)
     .toDate();
 };
 
 export const shiftDateString = (dateString: string, numDays: number) => {
   return moment(dateString, LEGACY_DATE_FORMAT)
-    .subtract(numDays, 'days')
+    .subtract(numDays, TimeUnit.DAYS)
     .format(LEGACY_DATE_FORMAT);
 };
 
@@ -55,14 +58,14 @@ export const dateRange = (
       acc.unshift(
         startDate
           .clone()
-          .subtract(cur, 'days')
+          .subtract(cur, TimeUnit.DAYS)
           .format(LEGACY_DATE_FORMAT)
       ),
     List()
   );
 
 export const isOlderThan = (date: Date, daysBefore: number, start: Date) => {
-  const daysBeforeNow = moment(start).subtract(daysBefore, 'days');
+  const daysBeforeNow = moment(start).subtract(daysBefore, TimeUnit.DAYS);
   return moment(date).isBefore(daysBeforeNow);
 };
 
@@ -71,13 +74,15 @@ export const isYoungerThan = (
   timeBeforeInSeconds: number,
   start: Date
 ) =>
-  moment(date).isAfter(moment(start).subtract(timeBeforeInSeconds, 'seconds'));
+  moment(date).isAfter(
+    moment(start).subtract(timeBeforeInSeconds, TimeUnit.SECONDS)
+  );
 
 export const secondsToMinutes = (numSeconds: number): number =>
   Math.floor(numSeconds / 60);
 
 export const displaySecondsAsHHMMSS = (numSeconds: number): string =>
-  moment.utc(numSeconds * 1000).format('HH:mm:ss');
+  moment.utc(numSeconds * 1000).format(HHMMSS_FORMAT);
 
 /**
  * Takes a delay (in seconds), and returns the Date number that many seconds ahead.
