@@ -3,12 +3,17 @@ export type DATE_FORMAT = WORKER_DATE_FORMAT | LEGACY_DATE_FORMAT;
 export const WORKER_DATE_FORMAT = 'YYYY-MM-DD';
 export type WORKER_DATE_FORMAT = typeof WORKER_DATE_FORMAT;
 
+export const CONTACT_DATE_FORMAT = WORKER_DATE_FORMAT;
+
 export const LEGACY_DATE_FORMAT = 'MMDDYYYY';
 export type LEGACY_DATE_FORMAT = typeof LEGACY_DATE_FORMAT;
+
+export const HHMMSS_FORMAT = 'HH:mm:ss';
 
 export const SECONDS_IN_HOUR = 3600;
 export const SECONDS_IN_DAY = 86400;
 export const SECONDS_IN_WEEK = 604800;
+export const MILLISECONDS_IN_ONE_DAY = 86400000;
 
 export const DAYS_IN_WEEK = 7;
 export const MONTH_LABELS = [
@@ -25,8 +30,6 @@ export const MONTH_LABELS = [
   'Nov',
   'Dec'
 ];
-
-export const MILLISECONDS_IN_ONE_DAY = 86400000;
 
 /**
  * To be passed in as the argument for moment().format()
