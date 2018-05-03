@@ -240,4 +240,7 @@ export type DELETE_WATCHER_FOLDER = typeof DELETE_WATCHER_FOLDER;
 export const UPDATE_QUEUE_SORT = 'UPDATE_QUEUE_SORT';
 export type UPDATE_QUEUE_SORT = typeof UPDATE_QUEUE_SORT;
 
+export const API_LIMIT_EXCEEDED = 'API_LIMIT_EXCEEDED';
+export type API_LIMIT_EXCEEDED = typeof API_LIMIT_EXCEEDED;
+
 export const API_URL = configureApiRoot();
