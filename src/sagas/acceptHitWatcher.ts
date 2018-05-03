@@ -18,6 +18,7 @@ import { RootState, Watcher } from '../types';
 import { blankQueueItem } from '../utils/queueItem';
 import { getWatcher } from '../selectors/watchers';
 import { PlayAudio, playWatcherSuccessAudio } from '../actions/audio';
+import { ApiRateLimitExceeded, watcherExceededApiLimit } from 'actions/api';
 
 export function* acceptHitFromWatcher(action: AcceptHitRequestFromWatcher) {
   try {
@@ -26,7 +27,7 @@ export function* acceptHitFromWatcher(action: AcceptHitRequestFromWatcher) {
       action.groupId
     );
 
-    const { successful } = response;
+    const { successful, rateLimitExceeded } = response;
 
     const watcher: Watcher | undefined = yield select(
       getWatcher(action.groupId)
@@ -34,7 +35,7 @@ export function* acceptHitFromWatcher(action: AcceptHitRequestFromWatcher) {
 
     return yield successful
       ? handleSuccessfulAccept(action, watcher)
-      : handleFailedAccept(action, watcher);
+      : handleFailedAccept(action, rateLimitExceeded, watcher);
   } catch (e) {
     yield put<AcceptHitFailure>(acceptHitFailureFromWatcher(action.groupId));
     yield put<CancelWatcherTick>(cancelNextWatcherTick(action.groupId));
@@ -73,9 +74,16 @@ function* handleSuccessfulAccept(
 
 function* handleFailedAccept(
   action: AcceptHitRequestFromWatcher,
+  rateLimitExceeded: boolean,
   watcher?: Watcher
 ) {
   yield put<AcceptHitFailure>(acceptHitFailureFromWatcher(action.groupId));
+
+  if (rateLimitExceeded) {
+    return yield put<ApiRateLimitExceeded>(
+      watcherExceededApiLimit(action.groupId)
+    );
+  }
 
   if (watcher) {
     return yield handleWatcherScheduling(watcher);
