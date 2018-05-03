@@ -7,14 +7,20 @@ import {
 import {
   SET_WATCHER_TIMER,
   CANCEL_NEXT_WATCHER_TICK,
-  DELETE_WATCHER
+  DELETE_WATCHER,
+  API_LIMIT_EXCEEDED
 } from '../constants';
 import { Map } from 'immutable';
 import { calculateTimeFromDelay } from '../utils/dates';
+import { ApiRateLimitExceeded } from 'actions/api';
 
 const initial: WatcherTimerMap = Map<GroupId, WatcherTimer>();
 
-type WatcherTimerAction = CancelWatcherTick | SetWatcherTimer | DeleteWatcher;
+type WatcherTimerAction =
+  | CancelWatcherTick
+  | SetWatcherTimer
+  | DeleteWatcher
+  | ApiRateLimitExceeded;
 
 export default (state = initial, action: WatcherTimerAction) => {
   switch (action.type) {
@@ -23,6 +29,8 @@ export default (state = initial, action: WatcherTimerAction) => {
         date: calculateTimeFromDelay(action.delayInSeconds),
         origin: action.origin
       });
+    case API_LIMIT_EXCEEDED:
+      return state.delete(action.watcherId);
     case DELETE_WATCHER:
     case CANCEL_NEXT_WATCHER_TICK:
       return state.delete(action.groupId);
