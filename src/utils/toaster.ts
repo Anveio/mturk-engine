@@ -1,17 +1,16 @@
-import { truncate, pluralizeHits } from './formatting';
-import { dateStringToLocaleDateString } from './dates';
-import { formatAsUsd } from './formatting';
-import { Intent, IToastProps } from '@blueprintjs/core';
-import {
-  ImmutablePersistedStateKey,
-  SearchResult,
-  HumanIntelligenceTask
-} from '../types';
+import { IToastProps, Intent } from '@blueprintjs/core';
+import { TopRightToaster } from '..';
+import { addWatcher, scheduleWatcher } from '../actions/watcher';
 import { GenericWaitingToast } from '../components/Toasts';
 import store from '../store';
-import { addWatcher, scheduleWatcher } from '../actions/watcher';
+import {
+  HumanIntelligenceTask,
+  ImmutablePersistedStateKey,
+  SearchResult
+} from '../types';
+import { dateStringToLocaleDateString } from './dates';
+import { formatAsUsd, pluralizeHits, truncate } from './formatting';
 import { createWatcherWithInfo } from './watchers';
-import { TopRightToaster } from '..';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
 
@@ -267,7 +266,8 @@ export const massUnblockToast = (onClick: () => void, numEntries: number) =>
     action: {
       text: 'Undo',
       onClick
-    }
+    },
+    timeout: 8000
   });
 
 const successfulQueueToast = {
