@@ -1,4 +1,10 @@
-import { Caption, Card, Collapsible, Stack } from '@shopify/polaris';
+import {
+  Card,
+  Collapsible,
+  Stack,
+  TextContainer,
+  TextStyle
+} from '@shopify/polaris';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, SearchResult } from '../../types';
@@ -32,14 +38,15 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
       <Collapsible open={expanded} id={hit.groupId}>
         <Card.Section>
           <Stack vertical>
-            <Caption>
+            <TextContainer>
               {`Description: ${description || 'No description.'}`}
-            </Caption>
-            <Caption>
-              {`Time allotted: ${secondsToMinutes(
-                timeAllottedInSeconds
-              )} minutes.`}
-            </Caption>
+            </TextContainer>
+            <TextContainer>
+              Time allotted:{' '}
+              <TextStyle variation="strong">
+                {secondsToMinutes(timeAllottedInSeconds)} minutes.
+              </TextStyle>
+            </TextContainer>
             {knownRequester && <KnownRequesterButton {...this.props} />}
             {!hit.qualified && (
               <QualificationsButton qualifications={hit.qualsRequired} />
