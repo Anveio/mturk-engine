@@ -1,9 +1,8 @@
-import * as React from 'react';
 import { Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
 import * as copy from 'copy-to-clipboard';
+import * as React from 'react';
 import { HumanIntelligenceTask, QueueItem } from 'types';
-import { generateHwtfUrl } from 'utils/export';
-import { generateMarkdownExport } from 'utils/export';
+import { generateHwtfUrl, generateMarkdownExport } from 'utils/export';
 import { showPlainToast } from 'utils/toaster';
 import { generateContactLinkQueue } from 'utils/urls';
 
@@ -13,9 +12,9 @@ interface Props {
 }
 
 class HitActionMenu extends React.PureComponent<Props, never> {
-  private static handleCopyMarkDown = (hit: HumanIntelligenceTask) => () => {
-    copy(generateMarkdownExport(hit));
-    showPlainToast(`Markdown for "${hit.title}" was added to your clipboard.`);
+  private static handleCopy = (copyText: string, toastText: string) => () => {
+    copy(copyText);
+    showPlainToast(toastText);
   };
 
   public render() {
@@ -24,7 +23,7 @@ class HitActionMenu extends React.PureComponent<Props, never> {
       <Menu>
         {queueItem && (
           <React.Fragment>
-            <MenuDivider title="HIT Actions" />
+            <MenuDivider title="Contact" />
             <MenuItem
               icon="person"
               target="_blank"
@@ -33,17 +32,37 @@ class HitActionMenu extends React.PureComponent<Props, never> {
             />
           </React.Fragment>
         )}
+        <MenuDivider title="Copy" />
+        <MenuItem
+          icon="duplicate"
+          onClick={HitActionMenu.handleCopy(
+            generateMarkdownExport(hit),
+            `Markdown for "${hit.title}" copied clipboard.`
+          )}
+          text="Markdown"
+        />
+        <MenuItem
+          icon="duplicate"
+          onClick={HitActionMenu.handleCopy(
+            hit.requester.name,
+            `"${hit.requester.name}" copied to clipboard.`
+          )}
+          text="Requester name"
+        />
+        <MenuItem
+          icon="duplicate"
+          onClick={HitActionMenu.handleCopy(
+            hit.requester.id,
+            `Requester ID copied to clipboard.`
+          )}
+          text="Requester ID"
+        />
         <MenuDivider title="Share" />
         <MenuItem
           icon="share"
           href={generateHwtfUrl(hit)}
           target="_blank"
           text="Post to HWTF"
-        />
-        <MenuItem
-          icon="duplicate"
-          onClick={HitActionMenu.handleCopyMarkDown(hit)}
-          text="Copy to Clipboard"
         />
       </Menu>
     );

@@ -1,16 +1,15 @@
+import { Caption, Card, Collapsible, Stack } from '@shopify/polaris';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Collapsible, Card, Stack, Caption } from '@shopify/polaris';
-import { SearchResult, RootState } from '../../types';
-import ExternalPlainButtons from '../Buttons/ExternalPlainButtons';
-import BlockRequesterButton from '../Buttons/BlockRequesterButton';
-import AddAsWatcherButton from '../Buttons/AddAsWatcherButton';
-import KnownRequesterButton from '../Buttons/KnownRequesterButton';
-
+import { RootState, SearchResult } from '../../types';
 import { secondsToMinutes } from '../../utils/dates';
+import AddAsWatcherButton from '../Buttons/AddAsWatcherButton';
+import BlockRequesterButton from '../Buttons/BlockRequesterButton';
+import ExternalPlainButtons from '../Buttons/ExternalPlainButtons';
+import KnownRequesterButton from '../Buttons/KnownRequesterButton';
 import QualificationsButton from '../Buttons/QualificationsButton';
-import MenuActivator from '../HitActionMenu/MenuActivator';
 import HitActionMenu from '../HitActionMenu/HitActionMenu';
+import MenuActivator from '../HitActionMenu/MenuActivator';
 
 interface Props {
   readonly hit: SearchResult;
@@ -32,8 +31,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
     return (
       <Collapsible open={expanded} id={hit.groupId}>
         <Card.Section>
-          <Stack vertical spacing="loose">
-            <Caption>{`Requester: ${requester.name}`}</Caption>
+          <Stack vertical>
             <Caption>
               {`Description: ${description || 'No description.'}`}
             </Caption>
