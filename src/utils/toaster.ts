@@ -9,7 +9,7 @@ import {
   SearchResult
 } from '../types';
 import { dateStringToLocaleDateString } from './dates';
-import { formatAsUsd, pluralizeHits, truncate } from './formatting';
+import { formatAsUsd, pluralize, pluralizeHits, truncate } from './formatting';
 import { createWatcherWithInfo } from './watchers';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
@@ -261,7 +261,9 @@ export const notificationPermissionBlockedToast = () =>
 
 export const massUnblockToast = (onClick: () => void, numEntries: number) =>
   TopRightToaster.show({
-    message: `Cleared ${numEntries} entries from this blocklist.`,
+    message: `Cleared ${numEntries} ${pluralize('entry', 'entries')(
+      numEntries
+    )} from this blocklist.`,
     intent: Intent.PRIMARY,
     action: {
       text: 'Undo',
