@@ -1,22 +1,22 @@
-import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
-import { RootState, BlockedHit } from '../../types';
-import { Card, Stack, Heading, Button, ResourceList } from '@shopify/polaris';
 import { Popover, Position } from '@blueprintjs/core';
-import BlockedHitCard from './BlockedHitCard';
-import {
-  recentlyBlockedHits,
-  blockedHitsInLast,
-  blockedHitsOlderThan
-} from 'selectors/blocklists';
-import SweepMenu from './SweepMenu';
-import { Set, List } from 'immutable';
+import { Button, Card, Heading, ResourceList, Stack } from '@shopify/polaris';
 import {
   UnblockHit,
-  unblockMultipleHits,
-  blockMultipleHits
+  blockMultipleHits,
+  unblockMultipleHits
 } from 'actions/blockHit';
 import { Duration } from 'constants/enums';
+import { List, Set } from 'immutable';
+import * as React from 'react';
+import { Dispatch, connect } from 'react-redux';
+import {
+  blockedHitsInLast,
+  blockedHitsOlderThan,
+  recentlyBlockedHits
+} from 'selectors/blocklists';
+import { BlockedHit, RootState } from '../../types';
+import BlockedHitCard from './BlockedHitCard';
+import SweepMenu from './SweepMenu';
 
 interface Props {
   readonly blockedHits: {
@@ -27,6 +27,7 @@ interface Props {
         readonly hour: Set<BlockedHit>;
         readonly day: Set<BlockedHit>;
         readonly week: Set<BlockedHit>;
+        readonly month: Set<BlockedHit>;
       };
       readonly olderThan: {
         readonly thirtyDays: Set<BlockedHit>;
@@ -95,7 +96,8 @@ const mapState = (state: RootState): Props => ({
       inThePast: {
         hour: blockedHitsInLast(1, Duration.HOURS)(state),
         day: blockedHitsInLast(1, Duration.DAYS)(state),
-        week: blockedHitsInLast(1, Duration.WEEKS)(state)
+        week: blockedHitsInLast(1, Duration.WEEKS)(state),
+        month: blockedHitsInLast(1, Duration.MONTHS)(state)
       },
       olderThan: {
         thirtyDays: blockedHitsOlderThan(30, Duration.DAYS)(state),

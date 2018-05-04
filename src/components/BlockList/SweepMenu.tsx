@@ -1,8 +1,8 @@
-import * as React from 'react';
 import { Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
 import { Set } from 'immutable';
-import { massUnblockToast } from 'utils/toaster';
+import * as React from 'react';
 import { BlockedEntry, BlockedHit, BlockedRequester } from 'types';
+import { massUnblockToast } from 'utils/toaster';
 
 interface Props {
   readonly title: string;
@@ -12,6 +12,7 @@ interface Props {
       readonly hour: Set<BlockedEntry>;
       readonly day: Set<BlockedEntry>;
       readonly week: Set<BlockedEntry>;
+      readonly month: Set<BlockedEntry>;
     };
     readonly olderThan: {
       readonly thirtyDays: Set<BlockedEntry>;
@@ -71,6 +72,11 @@ class SweepMenu extends React.Component<Props & Handlers, never> {
             icon="time"
             onClick={this.handleClickForEntries(inThePast.week)}
             text="7 days"
+          />
+          <MenuItem
+            icon="time"
+            onClick={this.handleClickForEntries(inThePast.month)}
+            text="30 days"
           />
         </MenuItem>
         <MenuItem text="Older than">

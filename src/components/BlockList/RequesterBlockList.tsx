@@ -1,22 +1,22 @@
-import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
-import { Card, Stack, Heading, Button } from '@shopify/polaris';
-import { RootState, BlockedRequester } from '../../types';
-import BlockedRequesterTag from './BlockedRequesterTag';
 import { Popover, Position } from '@blueprintjs/core';
-import SweepMenu from './SweepMenu';
-import { Set, List } from 'immutable';
+import { Button, Card, Heading, Stack } from '@shopify/polaris';
 import {
-  recentlyBlockedRequesters,
-  blockedRequestersOlderThan,
-  blockedRequestersInLast
-} from 'selectors/blocklists';
-import {
-  unblockMultipleRequesters,
   UnblockRequester,
-  blockMultipleRequesters
+  blockMultipleRequesters,
+  unblockMultipleRequesters
 } from 'actions/blockRequester';
 import { Duration } from 'constants/enums';
+import { List, Set } from 'immutable';
+import * as React from 'react';
+import { Dispatch, connect } from 'react-redux';
+import {
+  blockedRequestersInLast,
+  blockedRequestersOlderThan,
+  recentlyBlockedRequesters
+} from 'selectors/blocklists';
+import { BlockedRequester, RootState } from '../../types';
+import BlockedRequesterTag from './BlockedRequesterTag';
+import SweepMenu from './SweepMenu';
 
 interface Props {
   readonly blockedRequesters: {
@@ -27,6 +27,7 @@ interface Props {
         readonly hour: Set<BlockedRequester>;
         readonly day: Set<BlockedRequester>;
         readonly week: Set<BlockedRequester>;
+        readonly month: Set<BlockedRequester>;
       };
       readonly olderThan: {
         readonly thirtyDays: Set<BlockedRequester>;
@@ -96,7 +97,8 @@ const mapState = (state: RootState): Props => ({
       inThePast: {
         hour: blockedRequestersInLast(1, Duration.HOURS)(state),
         day: blockedRequestersInLast(1, Duration.DAYS)(state),
-        week: blockedRequestersInLast(1, Duration.WEEKS)(state)
+        week: blockedRequestersInLast(1, Duration.WEEKS)(state),
+        month: blockedRequestersInLast(1, Duration.MONTHS)(state)
       },
       olderThan: {
         thirtyDays: blockedRequestersOlderThan(30, Duration.DAYS)(state),
