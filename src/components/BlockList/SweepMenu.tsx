@@ -3,7 +3,7 @@ import { Set } from 'immutable';
 import * as React from 'react';
 import { BlockedEntry, BlockedHit, BlockedRequester } from 'types';
 import { BlocklistProps } from 'utils/blocklist';
-import { massUnblockToast } from 'utils/toaster';
+import { massUnblockToast, showPlainToast } from 'utils/toaster';
 
 interface Props extends BlocklistProps<BlockedEntry> {
   readonly title: string;
@@ -33,6 +33,14 @@ class SweepMenu extends React.Component<Props & Handlers, never> {
       this.props.kind === 'requester'
         ? SweepMenu.blockedRequestersToIdSet(entries as Set<BlockedRequester>)
         : SweepMenu.blockedHitsToIdSet(entries as Set<BlockedHit>);
+
+    if (ids.size === 0) {
+      showPlainToast(
+        `Nothing was blocked in the selected time period. Your blocklist is unchanged.`
+      );
+      return;
+    }
+
     this.props.onMenuClick(ids);
     massUnblockToast(() => this.props.onUndo(entries), entries.size);
   };
