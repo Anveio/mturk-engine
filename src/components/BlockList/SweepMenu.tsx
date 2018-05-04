@@ -2,24 +2,12 @@ import { Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
 import { Set } from 'immutable';
 import * as React from 'react';
 import { BlockedEntry, BlockedHit, BlockedRequester } from 'types';
+import { BlocklistProps } from 'utils/blocklist';
 import { massUnblockToast } from 'utils/toaster';
 
-interface Props {
+interface Props extends BlocklistProps<BlockedEntry> {
   readonly title: string;
   readonly kind: 'requester' | 'hit';
-  readonly entries: {
-    readonly inThePast: {
-      readonly hour: Set<BlockedEntry>;
-      readonly day: Set<BlockedEntry>;
-      readonly week: Set<BlockedEntry>;
-      readonly month: Set<BlockedEntry>;
-    };
-    readonly olderThan: {
-      readonly thirtyDays: Set<BlockedEntry>;
-      readonly sixtyDays: Set<BlockedEntry>;
-      readonly ninetyDays: Set<BlockedEntry>;
-    };
-  };
 }
 
 interface Handlers {

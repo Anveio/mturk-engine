@@ -6,7 +6,7 @@ import {
   unblockMultipleHits
 } from 'actions/blockHit';
 import { Duration } from 'constants/enums';
-import { List, Set } from 'immutable';
+import { Set } from 'immutable';
 import * as React from 'react';
 import { Dispatch, connect } from 'react-redux';
 import {
@@ -14,28 +14,13 @@ import {
   blockedHitsOlderThan,
   recentlyBlockedHits
 } from 'selectors/blocklists';
+import { BlocklistProps } from 'utils/blocklist';
 import { BlockedHit, RootState } from '../../types';
 import BlockedHitCard from './BlockedHitCard';
 import SweepMenu from './SweepMenu';
 
 interface Props {
-  readonly blockedHits: {
-    // recent needs to be displayed in order and Sets dont have a defined iteration order.
-    readonly recent: List<BlockedHit>;
-    readonly entries: {
-      readonly inThePast: {
-        readonly hour: Set<BlockedHit>;
-        readonly day: Set<BlockedHit>;
-        readonly week: Set<BlockedHit>;
-        readonly month: Set<BlockedHit>;
-      };
-      readonly olderThan: {
-        readonly thirtyDays: Set<BlockedHit>;
-        readonly sixtyDays: Set<BlockedHit>;
-        readonly ninetyDays: Set<BlockedHit>;
-      };
-    };
-  };
+  readonly blockedHits: BlocklistProps<BlockedHit>;
   readonly blocklistSize: number;
 }
 
@@ -69,9 +54,9 @@ class HitBlockList extends React.PureComponent<Props & Handlers, never> {
                   <SweepMenu
                     kind="hit"
                     title={'Unblock HITs...'}
-                    entries={blockedHits.entries}
                     onMenuClick={massUnblock}
                     onUndo={undoMassUnblock}
+                    {...blockedHits}
                   />
                 </Popover>
               </Stack.Item>

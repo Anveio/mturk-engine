@@ -6,7 +6,7 @@ import {
   unblockMultipleRequesters
 } from 'actions/blockRequester';
 import { Duration } from 'constants/enums';
-import { List, Set } from 'immutable';
+import { Set } from 'immutable';
 import * as React from 'react';
 import { Dispatch, connect } from 'react-redux';
 import {
@@ -14,28 +14,13 @@ import {
   blockedRequestersOlderThan,
   recentlyBlockedRequesters
 } from 'selectors/blocklists';
+import { BlocklistProps } from 'utils/blocklist';
 import { BlockedRequester, RootState } from '../../types';
 import BlockedRequesterTag from './BlockedRequesterTag';
 import SweepMenu from './SweepMenu';
 
 interface Props {
-  readonly blockedRequesters: {
-    // recent needs to be displayed in order and Sets dont have a defined iteration order.
-    readonly recent: List<BlockedRequester>;
-    readonly entries: {
-      readonly inThePast: {
-        readonly hour: Set<BlockedRequester>;
-        readonly day: Set<BlockedRequester>;
-        readonly week: Set<BlockedRequester>;
-        readonly month: Set<BlockedRequester>;
-      };
-      readonly olderThan: {
-        readonly thirtyDays: Set<BlockedRequester>;
-        readonly sixtyDays: Set<BlockedRequester>;
-        readonly ninetyDays: Set<BlockedRequester>;
-      };
-    };
-  };
+  readonly blockedRequesters: BlocklistProps<BlockedRequester>;
   readonly blocklistSize: number;
 }
 
@@ -71,9 +56,9 @@ class RequesterBlockList extends React.Component<Props & Handlers, never> {
                   <SweepMenu
                     kind="requester"
                     title={'Unblock requesters...'}
-                    entries={blockedRequesters.entries}
                     onMenuClick={massUnblock}
                     onUndo={undoMassUnblock}
+                    {...blockedRequesters}
                   />
                 </Popover>
               </Stack.Item>
