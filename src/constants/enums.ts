@@ -16,5 +16,6 @@ export enum Duration {
   SECONDS = 'seconds',
   HOURS = 'hours',
   DAYS = 'days',
-  WEEKS = 'weeks'
+  WEEKS = 'weeks',
+  MONTHS = 'months'
 }
