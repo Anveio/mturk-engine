@@ -1,11 +1,12 @@
+import { Callout, Intent } from '@blueprintjs/core';
+import { Layout } from '@shopify/polaris';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Layout } from '@shopify/polaris';
+import { blockListsAreEmpty } from 'selectors/blocklists';
 import { RootState } from '../../types';
+import EmptyBlockList from './EmptyBlockList';
 import HitBlockList from './HitBlockList';
 import RequesterBlockList from './RequesterBlockList';
-import EmptyBlockList from './EmptyBlockList';
-import { blockListsAreEmpty } from 'selectors/blocklists';
 
 interface Props {
   readonly empty: boolean;
@@ -22,6 +23,12 @@ class BlockLists extends React.PureComponent<Props, never> {
         </Layout.Section>
         <Layout.Section>
           <HitBlockList />
+        </Layout.Section>
+        <Layout.Section>
+          <Callout intent={Intent.SUCCESS} icon="info-sign">
+            Large blocklists do not slow down Mturk Engine. Feel free to grow
+            them as large as you like.
+          </Callout>
         </Layout.Section>
       </Layout>
     );
