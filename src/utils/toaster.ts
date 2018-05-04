@@ -243,6 +243,13 @@ export const errorAcceptToast = {
   intent: Intent.WARNING
 };
 
+export const watcherExceededApiLimitToast = (title: string) =>
+  sendToTopRightToaster({
+    message: `Watcher titled "${title}" has sent too many requests to MTurk and has been automatically stopped.`,
+    timeout: 3000,
+    intent: Intent.WARNING
+  });
+
 export const notificationPermissionGrantedToast = () =>
   TopRightToaster.show({
     message:

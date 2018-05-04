@@ -1,24 +1,28 @@
+import { ApiRateLimitExceeded, watcherExceededApiLimit } from 'actions/api';
 import { call, put, select } from 'redux-saga/effects';
 import {
-  acceptHitFailureFromWatcher,
   AcceptHitFailure,
-  AcceptHitSuccess,
   AcceptHitRequestFromWatcher,
+  AcceptHitSuccess,
+  acceptHitFailureFromWatcher,
   acceptHitSuccessFromWatcher
 } from '../actions/accept';
+import { PlayAudio, playWatcherSuccessAudio } from '../actions/audio';
 import {
-  ScheduleWatcherTick,
-  scheduleWatcher,
   CancelWatcherTick,
-  cancelNextWatcherTick
+  ScheduleWatcherTick,
+  cancelNextWatcherTick,
+  scheduleWatcher
 } from '../actions/watcher';
-import { sendHitAcceptRequest, HitAcceptResponse } from '../api/acceptHit';
-import { successfulAcceptToast, sendToTopRightToaster } from '../utils/toaster';
+import { HitAcceptResponse, sendHitAcceptRequest } from '../api/acceptHit';
+import { getWatcher } from '../selectors/watchers';
 import { RootState, Watcher } from '../types';
 import { blankQueueItem } from '../utils/queueItem';
-import { getWatcher } from '../selectors/watchers';
-import { PlayAudio, playWatcherSuccessAudio } from '../actions/audio';
-import { ApiRateLimitExceeded, watcherExceededApiLimit } from 'actions/api';
+import {
+  sendToTopRightToaster,
+  successfulAcceptToast,
+  watcherExceededApiLimitToast
+} from '../utils/toaster';
 
 export function* acceptHitFromWatcher(action: AcceptHitRequestFromWatcher) {
   try {
@@ -79,17 +83,18 @@ function* handleFailedAccept(
 ) {
   yield put<AcceptHitFailure>(acceptHitFailureFromWatcher(action.groupId));
 
+  if (!watcher) {
+    return yield put<CancelWatcherTick>(cancelNextWatcherTick(action.groupId));
+  }
+
   if (rateLimitExceeded) {
+    watcherExceededApiLimitToast(watcher.title);
     return yield put<ApiRateLimitExceeded>(
       watcherExceededApiLimit(action.groupId)
     );
   }
 
-  if (watcher) {
-    return yield handleWatcherScheduling(watcher);
-  }
-
-  yield put<CancelWatcherTick>(cancelNextWatcherTick(action.groupId));
+  return yield handleWatcherScheduling(watcher);
 }
 
 function* handleWatcherScheduling(watcher: Watcher) {
