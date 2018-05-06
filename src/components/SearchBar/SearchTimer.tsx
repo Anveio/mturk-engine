@@ -45,8 +45,12 @@ class SearchTimer extends React.PureComponent<Props, State> {
     };
   }
 
-  componentDidMount() {
-    this.startTimer();
+  componentDidUpdate() {
+    if (this.props.timeNextSearch !== null) {
+      this.startTimer();
+    } else {
+      clearInterval(this.timerId);
+    }
   }
 
   componentWillUnmount() {
@@ -68,7 +72,7 @@ class SearchTimer extends React.PureComponent<Props, State> {
 
   private startTimer = () => {
     clearInterval(this.timerId);
-    this.timerId = window.setInterval(() => this.tick(), SearchTimer.tickRate);
+    this.timerId = window.setInterval(this.tick, SearchTimer.tickRate);
   };
 
   private tick = () => {
