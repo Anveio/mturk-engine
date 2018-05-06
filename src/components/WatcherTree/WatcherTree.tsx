@@ -53,6 +53,22 @@ class WatcherTree extends React.Component<
   Props & OwnHandlers & Handlers,
   never
 > {
+  shouldComponentUpdate(nextProps: Props & Handlers) {
+    if (
+      !nextProps.watcherFolderMap.equals(this.props.watcherFolderMap) ||
+      !nextProps.watcherFolders.equals(this.props.watcherFolders) ||
+      !nextProps.expandedFolders.equals(this.props.expandedFolders) ||
+      !(
+        nextProps.currentlySelectedWatcherId ===
+        this.props.currentlySelectedWatcherId
+      )
+    ) {
+      return true;
+    }
+
+    return true;
+  }
+
   private handleNodeClick = (nodeData: GenericTreeNode) => {
     this.props.onSelectTreeNode(nodeData.id, nodeData.kind);
   };
