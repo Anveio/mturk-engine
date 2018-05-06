@@ -11,18 +11,21 @@ export const getCurrentSelectionIdOrNull = createSelector(
       return null;
     }
 
+    const maybeSelectedFolder: WatcherFolder | undefined = watcherFolders.get(
+      selectionId,
+      undefined
+    );
+
+    const maybeSelectedWatcher: Watcher | undefined = watchers.get(
+      selectionId,
+      undefined
+    );
+
     switch (selectionKind) {
       case 'folder': {
-        const maybeSelectedFolder:
-          | WatcherFolder
-          | undefined = watcherFolders.get(selectionId, undefined);
         return maybeSelectedFolder ? maybeSelectedFolder.id : null;
       }
       default: {
-        const maybeSelectedWatcher: Watcher | undefined = watchers.get(
-          selectionId,
-          undefined
-        );
         return maybeSelectedWatcher ? maybeSelectedWatcher.groupId : null;
       }
     }
