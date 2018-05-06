@@ -1,10 +1,17 @@
 import * as React from 'react';
 import { DisplayText } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
+import { connect } from 'react-redux';
+import { RootState } from 'types';
+import { normalizedWatchers } from 'selectors/watchers';
+
+interface OwnProps {
+  readonly watcherId: string;
+  readonly onChange: (value: string) => void;
+}
 
 interface Props {
   readonly title: string;
-  readonly onChange: (value: string) => void;
 }
 
 interface State {
@@ -12,10 +19,10 @@ interface State {
   readonly editing: boolean;
 }
 
-class WatcherHeading extends React.Component<Props, State> {
+class WatcherHeading extends React.Component<Props & OwnProps, State> {
   public readonly state: State = { title: this.props.title, editing: false };
 
-  static getDerivedStateFromProps(nextProps: Props): Partial<State> {
+  static getDerivedStateFromProps(nextProps: Props & OwnProps): Partial<State> {
     return {
       title: nextProps.title,
       editing: false
@@ -64,4 +71,8 @@ class WatcherHeading extends React.Component<Props, State> {
   }
 }
 
-export default WatcherHeading;
+const mapState = (state: RootState, ownProps: OwnProps): Props => ({
+  title: normalizedWatchers(state).get(ownProps.watcherId).title
+});
+
+export default connect(mapState)(WatcherHeading);
