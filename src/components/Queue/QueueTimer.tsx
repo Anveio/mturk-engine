@@ -20,6 +20,12 @@ class QueueTimer extends React.PureComponent<Props, State> {
     this.state = { secondsUntilExpiration: props.initialTimeLeft };
   }
 
+  static getDerivedStateFromProps(nextProps: Props): Partial<State> {
+    return {
+      secondsUntilExpiration: nextProps.initialTimeLeft
+    };
+  }
+
   componentDidMount() {
     this.startTimer();
   }
@@ -34,7 +40,7 @@ class QueueTimer extends React.PureComponent<Props, State> {
   private startTimer = () => {
     clearInterval(this.timerId);
     this.resetDateNumExpiration(this.props.initialTimeLeft);
-    this.timerId = window.setInterval(() => this.tick(), QueueTimer.tickRate);
+    this.timerId = window.setInterval(this.tick, QueueTimer.tickRate);
   };
 
   private tick = () =>
