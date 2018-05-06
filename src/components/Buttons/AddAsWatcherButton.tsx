@@ -1,18 +1,20 @@
 import * as React from 'react';
-import { RootState, WatcherMap, HumanIntelligenceTask } from '../../types';
+import { RootState, HumanIntelligenceTask, GroupId } from '../../types';
 import { Button } from '@shopify/polaris';
 import { connect, Dispatch } from 'react-redux';
 import { AddWatcher, addWatcher } from '../../actions/watcher';
 import { createWatcherWithInfo } from '../../utils/watchers';
 import { watcherAddedToast, showPlainToast } from '../../utils/toaster';
-import { normalizedWatchers } from '../../selectors/watchers';
+import { watcherIdsSet, watcherTitlesMap } from '../../selectors/watchers';
+import { Set, Map } from 'immutable';
 
 interface OwnProps {
   readonly hit: HumanIntelligenceTask;
 }
 
 interface Props {
-  readonly watchers: WatcherMap;
+  readonly watcherIds: Set<string>;
+  readonly watcherTitles: Map<GroupId, string>;
 }
 
 interface Handlers {
@@ -24,15 +26,15 @@ class AddAsWatcherButton extends React.Component<
   never
 > {
   private handleAddAsWatcher = () => {
-    const { hit, watchers, onAddWatcher } = this.props;
+    const { hit, watcherIds, watcherTitles, onAddWatcher } = this.props;
 
-    const maybeDuplicateWatcher = watchers.get(hit.groupId);
+    const maybeDuplicateWatcher = watcherIds.has(hit.groupId);
 
     if (maybeDuplicateWatcher) {
       showPlainToast(
-        `A watcher for this project already exists. Look for "${
-          maybeDuplicateWatcher.title
-        }" in the 'Watchers' tab.`,
+        `A watcher for this project already exists. Look for "${watcherTitles.get(
+          hit.groupId
+        )}" in the 'Watchers' tab.`,
         4000
       );
       return;
@@ -58,7 +60,8 @@ const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
 });
 
 const mapState = (state: RootState): Props => ({
-  watchers: normalizedWatchers(state)
+  watcherIds: watcherIdsSet(state),
+  watcherTitles: watcherTitlesMap(state)
 });
 
 export default connect(mapState, mapDispatch)(AddAsWatcherButton);
