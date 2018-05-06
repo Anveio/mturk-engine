@@ -1,11 +1,17 @@
 import * as React from 'react';
 import { Card, TextContainer } from '@shopify/polaris';
 import { EditableText } from '@blueprintjs/core';
+import { connect } from 'react-redux';
+import { RootState } from 'types';
+import { normalizedWatchers } from 'selectors/watchers';
+
+interface OwnProps {
+  readonly watcherId: string;
+  readonly onChangeDescription: (value: string) => void;
+}
 
 interface Props {
-  readonly id: string;
   readonly description: string;
-  readonly onChangeDescription: (value: string) => void;
 }
 
 interface State {
@@ -13,13 +19,13 @@ interface State {
   readonly editable: boolean;
 }
 
-class WatcherInfo extends React.PureComponent<Props, State> {
+class WatcherInfo extends React.PureComponent<Props & OwnProps, State> {
   public readonly state: State = {
     description: this.props.description,
     editable: false
   };
 
-  static getDerivedStateFromProps(nextProps: Props): Partial<State> {
+  static getDerivedStateFromProps(nextProps: Props & OwnProps): Partial<State> {
     return {
       description: nextProps.description,
       editable: false
@@ -75,5 +81,8 @@ class WatcherInfo extends React.PureComponent<Props, State> {
     );
   }
 }
+const mapState = (state: RootState, ownProps: OwnProps): Props => ({
+  description: normalizedWatchers(state).get(ownProps.watcherId).description
+});
 
-export default WatcherInfo;
+export default connect(mapState)(WatcherInfo);
