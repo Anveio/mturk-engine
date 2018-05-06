@@ -13,7 +13,8 @@ import {
   RootState,
   WatcherFolderMap,
   WatcherFolder,
-  Primitive
+  Primitive,
+  GroupId
 } from '../../types';
 import { EditableWatcherField } from '../../actions/watcher';
 import { showPlainToast } from '../../utils/toaster';
@@ -21,9 +22,10 @@ import { watcherFoldersSortedByCreationDate } from '../../selectors/watcherFolde
 import WatcherStatistics from './WatcherStatistics';
 import { validatePositiveNumber } from '../../utils/validation';
 import { watchForEnter } from '../../utils/watchForEnter';
+import { normalizedWatchers } from 'selectors/watchers';
 
 interface OwnProps {
-  readonly watcher: Watcher;
+  readonly watcherId: GroupId;
   readonly onEdit: (
     id: string,
     field: EditableWatcherField,
@@ -33,6 +35,7 @@ interface OwnProps {
 }
 
 interface Props {
+  readonly watcher: Watcher;
   readonly watcherFolders: WatcherFolderMap;
   readonly assignedFolder: WatcherFolder;
   readonly audioGloballyEnabled: boolean;
@@ -113,7 +116,7 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
                 autoComplete={false}
                 maxLength={6}
                 min={0.5}
-                step={1}
+                step={0.5}
                 onChange={this.handleEditNumber('delay')}
                 helpText={
                   watcher.delay < 5
@@ -160,10 +163,15 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
   }
 }
 
-const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  watcherFolders: watcherFoldersSortedByCreationDate(state),
-  assignedFolder: state.watcherFolders.get(ownProps.watcher.folderId),
-  audioGloballyEnabled: state.audioSettingsV1.enabled
-});
+const mapState = (state: RootState, ownProps: OwnProps): Props => {
+  const watcher = normalizedWatchers(state).get(ownProps.watcherId);
+
+  return {
+    watcher,
+    watcherFolders: watcherFoldersSortedByCreationDate(state),
+    assignedFolder: state.watcherFolders.get(watcher.folderId),
+    audioGloballyEnabled: state.audioSettingsV1.enabled
+  };
+};
 
 export default connect(mapState)(WatcherSettings);
