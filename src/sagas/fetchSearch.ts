@@ -45,7 +45,7 @@ export function* fetchSearchResults(action: SearchRequest) {
 
     if (action.continuous) {
       yield put<ScheduleNextSearch>(
-        scheduleSearch(calculateTimeFromDelay(+options.delay))
+        scheduleSearch(calculateTimeFromDelay(Date.now(), +options.delay))
       );
     }
   } catch (e) {

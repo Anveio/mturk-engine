@@ -26,7 +26,7 @@ export default (state = initial, action: WatcherTimerAction) => {
   switch (action.type) {
     case SET_WATCHER_TIMER:
       return state.set(action.id, {
-        date: calculateTimeFromDelay(action.delayInSeconds),
+        date: calculateTimeFromDelay(action.origin, action.delayInSeconds),
         origin: action.origin
       });
     case API_LIMIT_EXCEEDED:

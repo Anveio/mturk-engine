@@ -32,41 +32,41 @@ export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
 }
 
 function* waitForWatcherDelay(watcherId: string, delayInSeconds: number) {
+  const origin = Date.now();
+  yield put<SetWatcherTimer>(
+    setWatcherTimer(watcherId, delayInSeconds, origin)
+  );
+
   try {
-    const origin = Date.now();
-    yield put<SetWatcherTimer>(
-      setWatcherTimer(watcherId, delayInSeconds, origin)
-    );
-
     yield delay(delayInSeconds * 1000);
-
-    /**
-     * It's possible that a watcher is deleted during the delay.
-     */
-    const watcher: Watcher | undefined = yield select((state: RootState) =>
-      state.watchers.get(watcherId)
-    );
-
-    /**
-     * It's possible that a watcher is cancelled during the delay.
-     */
-    const watcherTimer: WatcherTimer | undefined = yield select(
-      (state: RootState) => state.watcherTimers.get(watcherId)
-    );
-
-    /**
-     * If the origin of the watcher after the delay and the origin from the action
-     * are not the same, that means the user cancelled the original watcher and
-     * restarted it during the delay. In that case, return false.
-     */
-
-    if (watcher && watcherTimer && watcherTimer.origin === origin) {
-      return yield true;
-    } else {
-      return yield false;
-    }
   } catch (e) {
     console.warn(e);
     return false;
+  }
+
+  /**
+   * It's possible that a watcher is deleted during the delay.
+   */
+  const watcher: Watcher | undefined = yield select((state: RootState) =>
+    state.watchers.get(watcherId)
+  );
+
+  /**
+   * It's possible that a watcher is cancelled during the delay.
+   */
+  const watcherTimer: WatcherTimer | undefined = yield select(
+    (state: RootState) => state.watcherTimers.get(watcherId)
+  );
+
+  /**
+   * If the origin of the watcher after the delay and the origin from the action
+   * are not the same, that means the user cancelled the original watcher and
+   * restarted it during the delay. In that case, return false.
+   */
+
+  if (watcher && watcherTimer && watcherTimer.origin === origin) {
+    return yield true;
+  } else {
+    return yield false;
   }
 }
