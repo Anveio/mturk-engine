@@ -1,8 +1,6 @@
 import { IToastProps, Intent } from '@blueprintjs/core';
 import { TopRightToaster } from '..';
-import { scheduleWatcher } from '../actions/watcher';
 import { GenericWaitingToast } from '../components/Toasts';
-import store from '../store';
 import {
   HumanIntelligenceTask,
   ImmutablePersistedStateKey,
@@ -224,7 +222,10 @@ export const failedAcceptToast = (
   }
 });
 
-export const watcherAddedToast = (hit: HumanIntelligenceTask) =>
+export const watcherAddedToast = (
+  hit: HumanIntelligenceTask,
+  onStartWatcher: () => void
+) =>
   TopRightToaster.show({
     message: `Watcher added. Look for "${
       hit.title
@@ -232,7 +233,7 @@ export const watcherAddedToast = (hit: HumanIntelligenceTask) =>
     intent: Intent.PRIMARY,
     action: {
       text: 'Start watcher',
-      onClick: () => store.dispatch(scheduleWatcher(hit.groupId, Date.now()))
+      onClick: onStartWatcher
     }
   });
 

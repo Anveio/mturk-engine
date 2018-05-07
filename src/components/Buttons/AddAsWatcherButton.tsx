@@ -2,7 +2,7 @@ import * as React from 'react';
 import { RootState, HumanIntelligenceTask, GroupId } from '../../types';
 import { Button } from '@shopify/polaris';
 import { connect, Dispatch } from 'react-redux';
-import { AddWatcher, addWatcher } from '../../actions/watcher';
+import { AddWatcher, addWatcher, scheduleWatcher } from '../../actions/watcher';
 import { createWatcherWithInfo } from '../../utils/watchers';
 import { watcherAddedToast, showPlainToast } from '../../utils/toaster';
 import { watcherIdsSet, watcherTitlesMap } from '../../selectors/watchers';
@@ -19,6 +19,7 @@ interface Props {
 
 interface Handlers {
   readonly onAddWatcher: (hit: HumanIntelligenceTask) => void;
+  readonly onScheduleWatcher: (id: string, origin: number) => void;
 }
 
 class AddAsWatcherButton extends React.Component<
@@ -26,7 +27,13 @@ class AddAsWatcherButton extends React.Component<
   never
 > {
   private handleAddAsWatcher = () => {
-    const { hit, watcherIds, watcherTitles, onAddWatcher } = this.props;
+    const {
+      hit,
+      watcherIds,
+      watcherTitles,
+      onAddWatcher,
+      onScheduleWatcher
+    } = this.props;
 
     const maybeDuplicateWatcher = watcherIds.has(hit.groupId);
 
@@ -41,7 +48,9 @@ class AddAsWatcherButton extends React.Component<
     }
 
     onAddWatcher(hit);
-    watcherAddedToast(hit);
+    watcherAddedToast(hit, () => {
+      onScheduleWatcher(hit.groupId, Date.now());
+    });
   };
 
   public render() {
@@ -56,7 +65,9 @@ class AddAsWatcherButton extends React.Component<
 const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
   onAddWatcher: (hit: HumanIntelligenceTask) => {
     dispatch(addWatcher(createWatcherWithInfo(hit)));
-  }
+  },
+  onScheduleWatcher: (id: string, origin: number) =>
+    dispatch(scheduleWatcher(id, origin))
 });
 
 const mapState = (state: RootState): Props => ({

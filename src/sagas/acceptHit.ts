@@ -19,7 +19,7 @@ import {
 import { queueItemFromSearchResult } from '../utils/queueItem';
 import { SearchResult } from '../types';
 import { createWatcherWithInfo } from 'utils/watchers';
-import { addWatcher } from 'actions/watcher';
+import { addWatcher, scheduleWatcher } from 'actions/watcher';
 
 export function* acceptHit(action: AcceptHitRequest) {
   const toasterKey = showWaitingToast(`Accepting HIT...`);
@@ -64,7 +64,10 @@ function* handleFailedAccept(key: string, hit: SearchResult) {
      */
     store.dispatch(addWatcher(newWatcher));
 
-    watcherAddedToast(hit);
+    const onStartWatcherFn = () =>
+      store.dispatch(scheduleWatcher(hit.groupId, Date.now()));
+
+    watcherAddedToast(hit, onStartWatcherFn);
   };
 
   updateTopRightToaster(key, failedAcceptToast(hit, addAsWatcherFn));
