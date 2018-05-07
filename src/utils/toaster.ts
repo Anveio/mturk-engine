@@ -1,6 +1,6 @@
 import { IToastProps, Intent } from '@blueprintjs/core';
 import { TopRightToaster } from '..';
-import { addWatcher, scheduleWatcher } from '../actions/watcher';
+import { scheduleWatcher } from '../actions/watcher';
 import { GenericWaitingToast } from '../components/Toasts';
 import store from '../store';
 import {
@@ -10,7 +10,6 @@ import {
 } from '../types';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsUsd, pluralize, pluralizeHits, truncate } from './formatting';
-import { createWatcherWithInfo } from './watchers';
 // tslint:disable:max-line-length
 // tslint:disable:quotemark
 
@@ -211,18 +210,17 @@ export const successfulAcceptToast = (title?: string) => ({
   timeout: 5000
 });
 
-export const failedAcceptToast = (hit: SearchResult): IToastProps => ({
+export const failedAcceptToast = (
+  hit: SearchResult,
+  onAddAsWatcher: () => void
+): IToastProps => ({
   message: hit.title
     ? `Failed to add "${hit.title}" to your queue.`
     : `Couldn't add that HIT to your queue.`,
   intent: Intent.WARNING,
   action: {
     text: 'Add as watcher',
-    onClick: () => {
-      const newWatcher = createWatcherWithInfo(hit);
-      store.dispatch(addWatcher(newWatcher));
-      watcherAddedToast(hit);
-    }
+    onClick: onAddAsWatcher
   }
 });
 

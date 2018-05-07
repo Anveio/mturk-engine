@@ -1,3 +1,4 @@
+import store from 'store';
 import { call, put } from 'redux-saga/effects';
 import {
   AcceptHitRequest,
@@ -12,10 +13,13 @@ import {
   showWaitingToast,
   updateTopRightToaster,
   errorAcceptToast,
-  failedAcceptToast
+  failedAcceptToast,
+  watcherAddedToast
 } from '../utils/toaster';
 import { queueItemFromSearchResult } from '../utils/queueItem';
 import { SearchResult } from '../types';
+import { createWatcherWithInfo } from 'utils/watchers';
+import { addWatcher } from 'actions/watcher';
 
 export function* acceptHit(action: AcceptHitRequest) {
   const toasterKey = showWaitingToast(`Accepting HIT...`);
@@ -49,5 +53,19 @@ function* handleSuccessfulAccept(
 
 function* handleFailedAccept(key: string, hit: SearchResult) {
   yield put<AcceptHitFailure>(acceptHitFailure(hit.groupId));
-  updateTopRightToaster(key, failedAcceptToast(hit));
+
+  const addAsWatcherFn = () => {
+    const newWatcher = createWatcherWithInfo(hit);
+
+    /**
+     * yield put(addWatcher(newWatcher)) wont work because this can't be a
+     * generator function since it's being passed to an event handler on a
+     * DOM element.
+     */
+    store.dispatch(addWatcher(newWatcher));
+
+    watcherAddedToast(hit);
+  };
+
+  updateTopRightToaster(key, failedAcceptToast(hit, addAsWatcherFn));
 }
