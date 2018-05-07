@@ -79,7 +79,7 @@ class QueueItemCard extends React.PureComponent<
             attributeOne={truncate(hit.requester.name, 40)}
             attributeTwo={truncate(hit.title, 120)}
             attributeThree={
-              <QueueItemInfo reward={reward} timeLeft={timeLeftInSeconds} />
+              <QueueItemInfo reward={reward} timeLeftInSeconds={timeLeftInSeconds} />
               // tslint:disable-next-line:jsx-curly-spacing
             }
             exceptions={exceptions}

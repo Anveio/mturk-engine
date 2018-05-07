@@ -6,13 +6,13 @@ import QueueTimer from './QueueTimer';
 
 interface Props {
   readonly reward: number;
-  readonly timeLeft: number;
+  readonly timeLeftInSeconds: number;
 }
 
-const QueueItemInfo: React.SFC<Props> = ({ reward, timeLeft }) => {
+const QueueItemInfo: React.SFC<Props> = ({ reward, timeLeftInSeconds }) => {
   return (
     <Stack vertical={false} spacing={'tight'} alignment="baseline">
-      <QueueTimer initialTimeLeft={timeLeft} />
+      <QueueTimer timeLeftInSeconds={timeLeftInSeconds} />
       <DisplayText size="small">{formatAsUsd(reward)}</DisplayText>
     </Stack>
   );
