@@ -38,6 +38,7 @@ export interface DeleteWatcher {
 export interface ScheduleWatcherTick {
   readonly type: SCHEDULE_NEXT_WATCHER_TICK;
   readonly id: string;
+  readonly origin: number;
 }
 
 export interface CancelWatcherTick {
@@ -80,9 +81,13 @@ export const deleteWatcher = (groupId: string): DeleteWatcher => ({
   groupId
 });
 
-export const scheduleWatcher = (id: string): ScheduleWatcherTick => ({
+export const scheduleWatcher = (
+  id: string,
+  origin: number
+): ScheduleWatcherTick => ({
   type: SCHEDULE_NEXT_WATCHER_TICK,
-  id
+  id,
+  origin
 });
 
 export const cancelNextWatcherTick = (groupId: string): CancelWatcherTick => ({

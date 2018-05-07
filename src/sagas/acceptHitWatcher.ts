@@ -64,7 +64,7 @@ function* handleSuccessfulAccept(
      * If a user deletes a watcher before the request resolves, don't schedule it.
      */
     if (watcher && !watcher.stopAfterFirstSuccess) {
-      return yield handleWatcherScheduling(watcher);
+      return yield handleWatcherScheduling(watcher, Date.now());
     }
 
     yield put<CancelWatcherTick>(cancelNextWatcherTick(action.groupId));
@@ -94,10 +94,10 @@ function* handleFailedAccept(
     );
   }
 
-  return yield handleWatcherScheduling(watcher);
+  return yield handleWatcherScheduling(watcher, Date.now());
 }
 
-function* handleWatcherScheduling(watcher: Watcher) {
+function* handleWatcherScheduling(watcher: Watcher, origin: number) {
   /**
    * If a user cancels a watcher before the request resolves, don't schedule it.
    */
@@ -106,6 +106,6 @@ function* handleWatcherScheduling(watcher: Watcher) {
   );
 
   if (watcher && watcherActive) {
-    yield put<ScheduleWatcherTick>(scheduleWatcher(watcher.groupId));
+    yield put<ScheduleWatcherTick>(scheduleWatcher(watcher.groupId, origin));
   }
 }

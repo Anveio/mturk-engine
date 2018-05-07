@@ -234,7 +234,7 @@ export const watcherAddedToast = (hit: HumanIntelligenceTask) =>
     intent: Intent.PRIMARY,
     action: {
       text: 'Start watcher',
-      onClick: () => store.dispatch(scheduleWatcher(hit.groupId))
+      onClick: () => store.dispatch(scheduleWatcher(hit.groupId, Date.now()))
     }
   });
 

@@ -15,7 +15,7 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onScheduleWatcher: (id: string) => void;
+  readonly onScheduleWatcher: (id: string, origin: number) => void;
   readonly onCancelWatcher: (id: string) => void;
   readonly onToggleFolderExpand: (folderId: string) => void;
 }
@@ -32,7 +32,7 @@ class DoubleClickHandler extends React.PureComponent<Props & Handlers, never> {
     } else if (nodeData.kind === 'groupId') {
       this.watcherIsActive(nodeData)
         ? this.props.onCancelWatcher(id)
-        : this.props.onScheduleWatcher(id);
+        : this.props.onScheduleWatcher(id, Date.now());
     }
   };
 
@@ -49,7 +49,8 @@ const mapDispatch = (
   dispatch: Dispatch<ScheduleAction | ToggleWatcherFolderExpand>
 ): Handlers => ({
   onCancelWatcher: (id: string) => dispatch(cancelNextWatcherTick(id)),
-  onScheduleWatcher: (id: string) => dispatch(scheduleWatcher(id)),
+  onScheduleWatcher: (id: string, origin: number) =>
+    dispatch(scheduleWatcher(id, origin)),
   onToggleFolderExpand: (id: string) => dispatch(toggleWatcherFolderExpand(id))
 });
 

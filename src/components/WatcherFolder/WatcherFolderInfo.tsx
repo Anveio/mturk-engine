@@ -18,7 +18,7 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onScheduleWatcher: (id: string) => void;
+  readonly onScheduleWatcher: (id: string, origin: number) => void;
   readonly onCancelWatcher: (id: string) => void;
 }
 
@@ -29,7 +29,7 @@ class WatcherFolderInfo extends React.PureComponent<
   private startInactiveWatchers = () =>
     this.props.assignedWatcherIds.forEach(watcherId => {
       if (!this.props.watcherTimers.has(watcherId)) {
-        this.props.onScheduleWatcher(watcherId);
+        this.props.onScheduleWatcher(watcherId, Date.now());
       }
     });
 
@@ -83,7 +83,8 @@ const mapState = (state: RootState, { folder }: OwnProps): Props => ({
 
 const mapDispatch = (dispatch: Dispatch<WatcherFolderAction>): Handlers => ({
   onCancelWatcher: (id: string) => dispatch(cancelNextWatcherTick(id)),
-  onScheduleWatcher: (id: string) => dispatch(scheduleWatcher(id))
+  onScheduleWatcher: (id: string, origin: number) =>
+    dispatch(scheduleWatcher(id, origin))
 });
 
 export default connect(mapState, mapDispatch)(WatcherFolderInfo);

@@ -17,7 +17,7 @@ export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
     const watcher: Watcher = yield select(getWatcher(action.id));
 
     const readyToAccept: boolean = yield waitForWatcherDelay(
-      watcher.groupId,
+      action,
       watcher.delay
     );
 
@@ -31,11 +31,11 @@ export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
   }
 }
 
-function* waitForWatcherDelay(watcherId: string, delayInSeconds: number) {
-  const origin = Date.now();
-  yield put<SetWatcherTimer>(
-    setWatcherTimer(watcherId, delayInSeconds, origin)
-  );
+function* waitForWatcherDelay(
+  { id, origin }: ScheduleWatcherTick,
+  delayInSeconds: number
+) {
+  yield put<SetWatcherTimer>(setWatcherTimer(id, delayInSeconds, origin));
 
   try {
     yield delay(delayInSeconds * 1000);
@@ -48,14 +48,14 @@ function* waitForWatcherDelay(watcherId: string, delayInSeconds: number) {
    * It's possible that a watcher is deleted during the delay.
    */
   const watcher: Watcher | undefined = yield select((state: RootState) =>
-    state.watchers.get(watcherId)
+    state.watchers.get(id)
   );
 
   /**
    * It's possible that a watcher is cancelled during the delay.
    */
   const watcherTimer: WatcherTimer | undefined = yield select(
-    (state: RootState) => state.watcherTimers.get(watcherId)
+    (state: RootState) => state.watcherTimers.get(id)
   );
 
   /**
