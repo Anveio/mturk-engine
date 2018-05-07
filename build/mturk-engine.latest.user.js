@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Mturk Engine
 // @namespace    https://github.com/Anveio/mturk-engine/
-// @version      1.7.1
+// @version      1.7.2
 // @description  Earn money more efficiently on Amazon's Mechanical Turk work platform.
 // @author       Anveio (Shovon Hasan)
 // @match        https://worker.mturk.com/?mturkengine
