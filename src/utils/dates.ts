@@ -88,7 +88,7 @@ export const isYoungerThan = (
 export const secondsToMinutes = (numSeconds: number): number =>
   Math.floor(numSeconds / 60);
 
-export const displaySecondsAsHHMMSS = (numSeconds: number): string =>
+export const formatSecondsAsHhMmSs = (numSeconds: number): string =>
   moment.utc(numSeconds * 1000).format(HHMMSS_FORMAT);
 
 /**
