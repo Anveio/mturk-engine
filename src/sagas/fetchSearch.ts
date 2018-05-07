@@ -14,7 +14,7 @@ import {
 } from '../actions/turkopticon';
 import { searchHits } from '../api/search';
 import { selectHitRequester } from '../utils/turkopticon';
-import { calculateTimeFromDelay } from '../utils/dates';
+import { calculateDateAfterDelay } from '../utils/dates';
 import { failedSearchToast } from '../utils/toaster';
 
 const getSearchOptions = (state: RootState) => state.searchOptions;
@@ -45,7 +45,7 @@ export function* fetchSearchResults(action: SearchRequest) {
 
     if (action.continuous) {
       yield put<ScheduleNextSearch>(
-        scheduleSearch(calculateTimeFromDelay(Date.now(), +options.delay))
+        scheduleSearch(calculateDateAfterDelay(Date.now(), +options.delay))
       );
     }
   } catch (e) {

@@ -11,7 +11,7 @@ import {
   API_LIMIT_EXCEEDED
 } from '../constants';
 import { Map } from 'immutable';
-import { calculateTimeFromDelay } from '../utils/dates';
+import { calculateDateAfterDelay } from '../utils/dates';
 import { ApiRateLimitExceeded } from 'actions/api';
 
 const initial: WatcherTimerMap = Map<GroupId, WatcherTimer>();
@@ -26,7 +26,7 @@ export default (state = initial, action: WatcherTimerAction) => {
   switch (action.type) {
     case SET_WATCHER_TIMER:
       return state.set(action.id, {
-        date: calculateTimeFromDelay(action.origin, action.delayInSeconds),
+        date: calculateDateAfterDelay(action.origin, action.delayInSeconds),
         origin: action.origin
       });
     case API_LIMIT_EXCEEDED:
