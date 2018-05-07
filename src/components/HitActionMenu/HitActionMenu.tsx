@@ -44,6 +44,14 @@ class HitActionMenu extends React.PureComponent<Props, never> {
         <MenuItem
           icon="duplicate"
           onClick={HitActionMenu.handleCopy(
+            hit.title,
+            `"${hit.title}" copied to clipboard.`
+          )}
+          text="HIT title"
+        />
+        <MenuItem
+          icon="duplicate"
+          onClick={HitActionMenu.handleCopy(
             hit.requester.name,
             `"${hit.requester.name}" copied to clipboard.`
           )}
