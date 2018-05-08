@@ -16,10 +16,7 @@ interface Props {
 
 class SearchTable extends React.Component<Props, never> {
   shouldComponentUpdate(nextProps: Props) {
-    return (
-      this.props.rawResultsSize !== nextProps.rawResultsSize ||
-      !this.props.resultsIds.equals(nextProps.resultsIds)
-    );
+    return !this.props.resultsIds.equals(nextProps.resultsIds);
   }
 
   public render() {
