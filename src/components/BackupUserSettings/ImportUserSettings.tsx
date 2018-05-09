@@ -4,7 +4,8 @@ import { Stack, TextContainer, Button } from '@shopify/polaris';
 import {
   UploadRequest,
   uploadRequest,
-  removeUploadedFile
+  removeUploadedFile,
+  RemoveUploadedFile
 } from '../../actions/upload';
 import { Classes } from '@blueprintjs/core';
 
@@ -76,7 +77,9 @@ class ImportUserSettings extends React.Component<Handlers, State> {
   }
 }
 
-const mapDispatch = (dispatch: Dispatch<UploadRequest>): Handlers => ({
+const mapDispatch = (
+  dispatch: Dispatch<UploadRequest | RemoveUploadedFile>
+): Handlers => ({
   onUpload: (file: File) => dispatch(uploadRequest(file)),
   onRemoveUploadedFile: () => dispatch(removeUploadedFile())
 });

@@ -3,12 +3,15 @@ import { connect, Dispatch } from 'react-redux';
 import { RootState, WatcherTimerMap } from '../../types';
 import WatcherTree from './WatcherTree';
 import { GenericTreeNode, WatcherTreeNode } from '../../utils/tree';
-import { cancelNextWatcherTick, scheduleWatcher } from '../../actions/watcher';
+import {
+  cancelNextWatcherTick,
+  scheduleWatcher,
+  WatcherAction
+} from '../../actions/watcher';
 import {
   toggleWatcherFolderExpand,
   ToggleWatcherFolderExpand
 } from '../../actions/watcherTree';
-import { ScheduleAction } from '../../actions/scheduler';
 
 interface Props {
   readonly watcherTimers: WatcherTimerMap;
@@ -46,7 +49,7 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (
-  dispatch: Dispatch<ScheduleAction | ToggleWatcherFolderExpand>
+  dispatch: Dispatch<WatcherAction | ToggleWatcherFolderExpand>
 ): Handlers => ({
   onCancelWatcher: (id: string) => dispatch(cancelNextWatcherTick(id)),
   onScheduleWatcher: (id: string, origin: number) =>
