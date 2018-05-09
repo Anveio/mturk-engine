@@ -33,7 +33,7 @@ const hideBlockedHits = createSelector(
   [searchResultSelector, hitBlocklistSelector],
   (hits: SearchResults, blockedHits: HitBlockMap) =>
     hits.filter(
-      (hit: SearchResult) => !blockedHits.get(hit.groupId)
+      (hit: SearchResult) => !blockedHits.has(hit.groupId)
     ) as SearchResults
 );
 
@@ -41,7 +41,7 @@ export const hideBlockedRequesters = createSelector(
   [searchResultSelector, requesterBlocklistSelector],
   (hits: SearchResults, blockedRequesters: RequesterBlockMap) =>
     hits.filter(
-      (hit: SearchResult) => !blockedRequesters.get(hit.requester.id)
+      (hit: SearchResult) => !blockedRequesters.has(hit.requester.id)
     ) as SearchResults
 );
 
@@ -52,7 +52,7 @@ const hideBlockedRequestersAndHits = createSelector(
     blockedRequesters: RequesterBlockMap
   ) =>
     resultsFilteredByBlockedIds.filter(
-      (result: SearchResult) => !blockedRequesters.get(result.requester.id)
+      (result: SearchResult) => !blockedRequesters.has(result.requester.id)
     ) as SearchResults
 );
 
