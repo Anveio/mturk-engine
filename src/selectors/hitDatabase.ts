@@ -17,7 +17,8 @@ import {
 import {
   rewardAndBonus,
   isPending,
-  isApprovedButNotPaid
+  isApprovedButNotPaid,
+  isNotRejected
 } from '../utils/hitDatabase';
 import { Map, List } from 'immutable';
 import { hitDatabaseSelector } from './index';
@@ -88,7 +89,7 @@ export const hitsCompletedToday = createSelector(
 
 export const unRejectedHitsCompletedToday = createSelector(
   [hitsCompletedToday],
-  hits => hits.filter((hit: HitDatabaseEntry) => hit.status !== 'Rejected')
+  hits => hits.filter(isNotRejected)
 );
 
 export const todaysProjectedEarnings = createSelector(
@@ -138,8 +139,7 @@ export const numSubmittedHitsToRequester = (requesterId: string) =>
 export const numRejectedHitsToRequester = (requesterId: string) =>
   createSelector(
     [getAllHitsSubmittedToRequester(requesterId)],
-    hits =>
-      hits.filter((hit: HitDatabaseEntry) => hit.status === 'Rejected').size
+    hits => hits.filter(isNotRejected).size
   );
 
 export const allHitsSubmittedToRequesterRecentFirst = (requesterId: string) =>

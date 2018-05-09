@@ -10,22 +10,31 @@ export const conflictsPreserveBonus = (
   };
 };
 
+enum Status {
+  SUBMITTED = 'Submitted',
+  PENDING_PAYMENT = 'Pending Payment',
+  PENDING_APPROVAL = 'Pending Approval',
+  APROVED = 'Approved',
+  PAID = 'Paid',
+  REJECTED = 'Rejected'
+}
+
 const paidOrApprovedStatuses = new Set<HitStatus>([
-  'Paid',
-  'Pending Payment',
-  'Approved'
+  Status.PAID,
+  Status.PENDING_PAYMENT,
+  Status.APROVED
 ]);
 
 const pendingStatuses = new Set<HitStatus>([
-  'Pending Approval',
-  'Pending Payment',
-  'Submitted',
-  'Approved'
+  Status.PENDING_APPROVAL,
+  Status.PENDING_PAYMENT,
+  Status.SUBMITTED,
+  Status.APROVED
 ]);
 
 const approvedButNotPaidStatuses = new Set<HitStatus>([
-  'Pending Approval',
-  'Approved'
+  Status.PENDING_APPROVAL,
+  Status.APROVED
 ]);
 
 export const isPaidOrApproved = (el: HitDatabaseEntry) =>
@@ -36,6 +45,9 @@ export const isPending = (el: HitDatabaseEntry) =>
 
 export const isApprovedButNotPaid = (el: HitDatabaseEntry) =>
   approvedButNotPaidStatuses.has(el.status);
+
+export const isNotRejected = (el: HitDatabaseEntry) =>
+  el.status !== Status.REJECTED;
 
 export const calculateAcceptanceRate = (total: number, rejected: number) =>
   (total - rejected) / total * 100;
