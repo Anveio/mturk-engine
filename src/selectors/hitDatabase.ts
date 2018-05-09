@@ -86,8 +86,13 @@ export const hitsCompletedToday = createSelector(
   }
 );
 
-export const todaysProjectedEarnings = createSelector(
+export const unRejectedHitsCompletedToday = createSelector(
   [hitsCompletedToday],
+  hits => hits.filter((hit: HitDatabaseEntry) => hit.status !== 'Rejected')
+);
+
+export const todaysProjectedEarnings = createSelector(
+  [unRejectedHitsCompletedToday],
   hits =>
     hits.reduce(
       (acc: number, cur: HitDatabaseEntry) => acc + rewardAndBonus(cur),
