@@ -1,19 +1,20 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { RootState, BlockedHit } from '../../types';
-import { ResourceList } from '@shopify/polaris';
-import { truncate } from '../../utils/formatting';
+import { ResourceList, Stack, TextStyle } from '@shopify/polaris';
+// import { truncate } from '../../utils/formatting';
 import { BlockHitAction, unblockSingleHit } from 'actions/blockHit';
+import { Text } from '@blueprintjs/core';
 
-export interface Props {
+interface Props {
   readonly blockedHit: BlockedHit;
 }
 
-export interface OwnProps {
+interface OwnProps {
   readonly blockedHitId: string;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onUnblock: (groupId: string) => void;
 }
 
@@ -22,7 +23,7 @@ class BlockedHitCard extends React.PureComponent<
   never
 > {
   public render() {
-    const { title, requester, dateBlocked, groupId } = this.props.blockedHit;
+    const { title, requester, groupId, dateBlocked } = this.props.blockedHit;
     const actions = [
       {
         content: 'Unblock',
@@ -33,11 +34,24 @@ class BlockedHitCard extends React.PureComponent<
 
     return (
       <ResourceList.Item
-        actions={actions}
-        attributeOne={truncate(requester.name, 30)}
-        attributeTwo={truncate(title, 80)}
-        attributeThree={`Blocked on: ${dateBlocked.toLocaleDateString()}`}
-      />
+        id={groupId}
+        onClick={console.log}
+        shortcutActions={actions}
+      >
+        <Stack vertical={false} wrap={false}>
+          <Stack.Item>
+            <TextStyle variation="strong">
+              <Text>{requester.name}</Text>
+            </TextStyle>
+          </Stack.Item>
+          <Stack.Item fill>
+            <Text ellipsize>{title}</Text>
+          </Stack.Item>
+          <Stack.Item>
+            <p>Blocked on: {dateBlocked.toLocaleDateString()}</p>
+          </Stack.Item>
+        </Stack>
+      </ResourceList.Item>
     );
   }
 }
