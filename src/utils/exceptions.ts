@@ -1,11 +1,11 @@
 import { pluralizeHits } from './formatting';
 import { WorkerQualification } from '../types';
 
-type ExceptionStatus = 'neutral' | 'warning' | 'critical';
 interface ExceptionDescriptor {
-  readonly status?: ExceptionStatus;
-  readonly title?: string;
-  readonly description?: string;
+  status?: 'critical' | 'warning';
+  title?: string;
+  description: string;
+  truncate?: boolean;
 }
 
 interface ExceptionGenerator<T = boolean> {
@@ -20,7 +20,7 @@ interface RequesterExceptionData {
 
 interface QualificationExceptionData {
   readonly qualified: boolean;
-  readonly qualifications: WorkerQualification[];
+  readonly qualsRequired: WorkerQualification[];
 }
 
 const testAvailable = (quals: WorkerQualification[]): boolean =>
@@ -28,14 +28,13 @@ const testAvailable = (quals: WorkerQualification[]): boolean =>
 
 const qualException = ({
   qualified,
-  qualifications
+  qualsRequired
 }: QualificationExceptionData): ExceptionDescriptor | null =>
   !qualified
     ? {
         status: 'critical',
-        title: `Not qualified ${
-          testAvailable(qualifications) ? ' - Test available' : ''
-        }`
+        title: `Not qualified `,
+        description: `${testAvailable(qualsRequired) ? ' Test available' : ''}`
       }
     : null;
 
@@ -46,8 +45,7 @@ const knownRequesterException: ExceptionGenerator<RequesterExceptionData> = ({
 }: RequesterExceptionData) =>
   knownRequester
     ? {
-        status: 'neutral',
-        title: `Requester in database`,
+        title: `Requester in database `,
         description: `${numSubmittedHits} ${pluralizeHits(
           numSubmittedHits
         )}, ${numRejectedHits} rejections.`
@@ -57,8 +55,8 @@ const knownRequesterException: ExceptionGenerator<RequesterExceptionData> = ({
 const hitsInQueueException: ExceptionGenerator<number> = hitsInQueue =>
   hitsInQueue > 0
     ? {
-        status: 'neutral',
-        title: `${hitsInQueue} HIT${hitsInQueue > 1 ? 's' : ''} in queue`
+        title: `${hitsInQueue} HIT${hitsInQueue > 1 ? 's' : ''} in queue`,
+        description: ''
       }
     : null;
 
