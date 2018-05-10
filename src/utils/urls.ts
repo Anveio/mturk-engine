@@ -1,6 +1,10 @@
 import * as qs from 'qs';
 import { QueueItem, WorkerHitDatabaseEntry } from 'types';
-import { baseContactUrl, baseProjectUrl } from '../constants/urls';
+import {
+  baseContactUrlHistory,
+  baseProjectUrl,
+  baseContactUrlQueue
+} from '../constants/urls';
 import { legacyDateFormatToContactDateFormat } from './dates';
 import { MTURK_URL_ENCODING_FORMAT } from 'constants/misc';
 
@@ -18,7 +22,7 @@ export const generateContinueWorkUrl = (hit: QueueItem) =>
 export const generateContactLink = (hit: WorkerHitDatabaseEntry) => {
   const { requester, id, assignmentId, title } = hit;
   return (
-    baseContactUrl +
+    baseContactUrlHistory +
     qs.stringify(
       {
         assignment_message: {
@@ -39,7 +43,7 @@ export const generateContactLink = (hit: WorkerHitDatabaseEntry) => {
 export const generateContactLinkQueue = (hit: QueueItem) => {
   const { assignmentId, groupId, title, description, requester } = hit;
   return (
-    baseContactUrl +
+    baseContactUrlQueue +
     qs.stringify(
       {
         assignment_id: assignmentId,

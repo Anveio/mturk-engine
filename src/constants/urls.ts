@@ -11,7 +11,10 @@ export const baseTaskUrl = 'https://worker.mturk.com/projects/';
 
 export const baseRequesterUrl = 'https://worker.mturk.com/requesters/';
 
-export const baseContactUrl =
+export const baseContactUrlHistory =
   'https://worker.mturk.com/contact_requester/assignment_messages/new?';
+
+export const baseContactUrlQueue =
+  'https://worker.mturk.com/contact_requester/hit_type_messages/new?';
 
 export const baseProjectUrl = 'https://worker.mturk.com/projects/';
