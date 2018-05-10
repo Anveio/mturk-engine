@@ -4,7 +4,7 @@ import { Card, FormLayout } from '@shopify/polaris';
 import { NotificationSettings, RootState } from '../../types';
 import {
   notificationPermissionRequest,
-  NotificationAction
+  NotificationPermissionRequest
 } from '../../actions/notifications';
 import {
   EditNotificationThresholdField,
@@ -52,7 +52,9 @@ const mapState = (state: RootState): Props => ({
   notificationSettings: state.notificationSettings
 });
 
-const mapDispatch = (dispatch: Dispatch<NotificationAction>): Handlers => ({
+const mapDispatch = (
+  dispatch: Dispatch<NotificationPermissionRequest>
+): Handlers => ({
   onRequestPermission: () => dispatch(notificationPermissionRequest())
 });
 

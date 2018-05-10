@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Tabs, Tab } from '@blueprintjs/core';
 import { RootState } from '../../types';
-import { changeTab, ChangeTab } from '../../actions/updateValue';
+import { changeTab } from '../../actions/updateValue';
 import SearchTab from './SearchTab';
 import QueueTab from './QueueTab';
 import Watchers from '../WatcherTree/DoubleClickHandler';
@@ -58,7 +58,7 @@ const mapState = (state: RootState): Props => ({
   numActiveWatchers: state.watcherTimers.size
 });
 
-const mapDispatch = (dispatch: Dispatch<ChangeTab>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch): Handlers => ({
   onSelectTab: (selectedTabIndex: number) => {
     dispatch(changeTab(selectedTabIndex));
   }

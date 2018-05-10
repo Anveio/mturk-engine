@@ -5,7 +5,8 @@ import { SQUARE_SIZE, SQUARE_BORDER_RADIUS } from '../../constants/misc';
 import {
   SelectDatabaseDate,
   selectDatabaseDate,
-  clearDatabaseDateSelection
+  clearDatabaseDateSelection,
+  ClearDatabaseSelection
 } from '../../actions/selectDatabaseDate';
 
 export interface OwnProps {
@@ -87,7 +88,9 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   selected: ownProps.value.date === state.selectedHitDbDate
 });
 
-const mapDispatch = (dispatch: Dispatch<SelectDatabaseDate>): Handlers => ({
+const mapDispatch = (
+  dispatch: Dispatch<SelectDatabaseDate | ClearDatabaseSelection>
+): Handlers => ({
   onSelect: (date: string) => dispatch(selectDatabaseDate(date)),
   clearSelect: () => dispatch(clearDatabaseDateSelection())
 });

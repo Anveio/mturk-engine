@@ -13,7 +13,10 @@ import {
   FetchStatusSummaryRequest,
   statusSummaryRequest
 } from 'actions/statusSummary';
-import { statusDetailRequest } from 'actions/statusDetail';
+import {
+  statusDetailRequest,
+  FetchStatusDetailRequest
+} from 'actions/statusDetail';
 import { MINIMAL_BUTTON_GROUP } from 'constants/blueprint';
 
 export interface Props {
@@ -83,7 +86,7 @@ const mapState = (state: RootState): Props => ({
 });
 
 const mapDispatch = (
-  dispatch: Dispatch<FetchStatusSummaryRequest>
+  dispatch: Dispatch<FetchStatusSummaryRequest | FetchStatusDetailRequest>
 ): Handlers => ({
   onRefreshDb: () => dispatch(statusSummaryRequest()),
   onRefreshToday: () => dispatch(statusDetailRequest(new Date(), 1, true))

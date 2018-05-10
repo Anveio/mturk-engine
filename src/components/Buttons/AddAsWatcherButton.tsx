@@ -2,7 +2,12 @@ import * as React from 'react';
 import { RootState, HumanIntelligenceTask, GroupId } from '../../types';
 import { Button } from '@shopify/polaris';
 import { connect, Dispatch } from 'react-redux';
-import { AddWatcher, addWatcher, scheduleWatcher } from '../../actions/watcher';
+import {
+  AddWatcher,
+  addWatcher,
+  scheduleWatcher,
+  ScheduleWatcherTick
+} from '../../actions/watcher';
 import { createWatcherWithInfo } from '../../utils/watchers';
 import { watcherAddedToast, showPlainToast } from '../../utils/toaster';
 import { watcherIdsSet, watcherTitlesMap } from '../../selectors/watchers';
@@ -62,7 +67,9 @@ class AddAsWatcherButton extends React.Component<
   }
 }
 
-const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
+const mapDispatch = (
+  dispatch: Dispatch<AddWatcher | ScheduleWatcherTick>
+): Handlers => ({
   onAddWatcher: (hit: HumanIntelligenceTask) => {
     dispatch(addWatcher(createWatcherWithInfo(hit)));
   },

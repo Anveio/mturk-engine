@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
 import { Card, Stack, ButtonGroup, Button } from '@shopify/polaris';
-import {
-  toggleSearchActive,
-  ToggleSearchActive
-} from '../../actions/updateValue';
+import { toggleSearchActive } from '../../actions/updateValue';
 import { RootState } from '../../types';
 import SearchTimer from './SearchTimer';
 import SearchSettings from './SearchSettings';
@@ -55,7 +52,7 @@ const mapState = (state: RootState): Props => ({
   searchActive: state.searchingActive
 });
 
-const mapDispatch = (dispatch: Dispatch<ToggleSearchActive>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch): Handlers => ({
   onToggleSearch: () => dispatch(toggleSearchActive())
 });
 

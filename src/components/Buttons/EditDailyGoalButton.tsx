@@ -8,7 +8,7 @@ import {
   Button as PolarisButton
 } from '@shopify/polaris';
 import { RootState } from '../../types';
-import { ChangeDailyGoal, changeDailyGoal } from '../../actions/updateValue';
+import { changeDailyGoal } from '../../actions/updateValue';
 
 import { validatePositiveNumber } from '../../utils/validation';
 import { successfulEditDailyGoalToast } from '../../utils/toaster';
@@ -117,7 +117,7 @@ const mapState = (state: RootState): Props => ({
   dailyEarningsGoal: state.dailyEarningsGoal
 });
 
-const mapDispatch = (dispatch: Dispatch<ChangeDailyGoal>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch): Handlers => ({
   onChange: (value: number) => dispatch(changeDailyGoal(value))
 });
 

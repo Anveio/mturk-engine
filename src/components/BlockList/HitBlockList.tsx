@@ -1,9 +1,9 @@
 import { Popover, Position } from '@blueprintjs/core';
 import { Button, Card, Heading, ResourceList, Stack } from '@shopify/polaris';
 import {
-  UnblockHit,
   blockMultipleHits,
-  unblockMultipleHits
+  unblockMultipleHits,
+  BlockHitAction
 } from 'actions/blockHit';
 import { Duration } from 'constants/enums';
 import { Set } from 'immutable';
@@ -94,7 +94,7 @@ const mapState = (state: RootState): Props => ({
   blocklistSize: state.hitBlocklist.size
 });
 
-const mapDispatch = (dispatch: Dispatch<UnblockHit>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch<BlockHitAction>): Handlers => ({
   massUnblock: (ids: Set<string>) => dispatch(unblockMultipleHits(ids)),
   undoMassUnblock: (hits: Set<BlockedHit>) => dispatch(blockMultipleHits(hits))
 });

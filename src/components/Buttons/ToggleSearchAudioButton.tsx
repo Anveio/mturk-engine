@@ -8,11 +8,7 @@ import {
   Classes
 } from '@blueprintjs/core';
 import { RootState } from 'types';
-import {
-  ToggleSearchAudio,
-  toggleSearchAudio,
-  changeTab
-} from 'actions/updateValue';
+import { toggleSearchAudio, changeTab } from 'actions/updateValue';
 import { TabIndex } from 'constants/enums';
 
 type AudioState = 'GLOBALLY_DISABLED' | 'ENABLED' | 'DISABLED';
@@ -122,7 +118,7 @@ const mapState = (state: RootState): Props => ({
   searchAudioEnabled: state.searchAudioEnabled
 });
 
-const mapDispatch = (dispatch: Dispatch<ToggleSearchAudio>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch): Handlers => ({
   onToggle: () => dispatch(toggleSearchAudio()),
   onChangeTab: () => dispatch(changeTab(TabIndex.SETTINGS))
 });
