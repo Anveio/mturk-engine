@@ -1,37 +1,29 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { SearchResult, BlockedHit, RootState } from '../../types';
-import { ResourceList } from '@shopify/polaris';
-import { AcceptAction, acceptHitRequestfromSearch } from '../../actions/accept';
-import { MarkHitAsRead, markHitAsRead } from '../../actions/markAsRead';
+import { SearchResult, BlockedHit, RootState, GroupId } from 'types';
+import { ResourceList, Stack, DisableableAction } from '@shopify/polaris';
+import { AcceptAction, acceptHitRequestfromSearch } from 'actions/accept';
+import { MarkHitAsRead, markHitAsRead } from 'actions/markAsRead';
 import { BlockHitAction, blockSingleHit } from 'actions/blockHit';
 import {
   SearchExpandAction,
   toggleSearchResultExpand
-} from '../../actions/toggleExpand';
+} from 'actions/toggleExpand';
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
-import { truncate } from '../../utils/formatting';
-import { generateSearchCardExceptions } from '../../utils/exceptions';
-import { generateTOpticonBadge } from '../../utils/badges';
-import { blockedHitFactory } from '../../utils/blocklist';
-import { searchResultsToWeightedToMap } from '../../selectors/turkopticon';
-import {
-  hitDatabaseToRequesterMap,
-  numSubmittedHitsToRequester,
-  numRejectedHitsToRequester
-} from '../../selectors/hitDatabase';
-import { uniqueGroupIdsInQueueHistogram } from '../../selectors/queue';
-import { searchResultSelector } from '../../selectors/index';
-import { clickDidNotOccurOnActionButton } from 'utils/resourceList';
+// import { generateSearchCardExceptions } from 'utils/exceptions';
+// import { generateTOpticonBadge } from 'utils/badges';
+import { blockedHitFactory } from 'utils/blocklist';
+import { searchResultSelector } from 'selectors/index';
+import { Text } from '@blueprintjs/core';
+import RequesterName from './RequesterName';
+import SearchResultExceptionList from './SearchResultExceptionList';
+// import TOpticonBadge from './TOpticonBadge';
+// import { clickDidNotOccurOnActionButton } from 'utils/resourceList';
 
 interface Props {
   readonly hit: SearchResult;
-  readonly knownRequester: boolean;
-  readonly weightedToScore: number | null;
-  readonly requesterWorkHistorySize: number;
-  readonly requesterRejectedHitsSize: number;
-  readonly hitsInQueue: number;
+  readonly expanded: boolean;
 }
 
 interface OwnProps {
@@ -40,7 +32,7 @@ interface OwnProps {
 
 interface Handlers {
   readonly onAccept: (hit: SearchResult) => void;
-  readonly onToggleExpand: (hit: SearchResult) => void;
+  readonly onToggleExpand: (groupId: GroupId) => void;
   readonly onHide: (hit: BlockedHit) => void;
   readonly markHitAsRead: (groupId: string) => void;
 }
@@ -49,89 +41,68 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
   private static generateNewResultHighlightStyle = (markedAsRead?: boolean) =>
     markedAsRead ? {} : { backgroundColor: '#EBF5FA' };
 
-  private handleExpand = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (clickDidNotOccurOnActionButton(e)) {
-      this.props.onToggleExpand(this.props.hit);
-    }
-  };
-
   private handleMarkingAsRead = () => {
-    if (!this.props.hit.markedAsRead) {
-      this.props.markHitAsRead(this.props.hit.groupId);
-    }
+    this.props.markHitAsRead(this.props.hit.groupId);
   };
 
   private markAsReadButton = () => ({
     content: 'Mark as Read',
     accessibilityLabel: 'Mark as Read',
     icon: 'view',
-    onClick: this.handleMarkingAsRead
+    onAction: this.handleMarkingAsRead
   });
 
   private readActions = () => [
     {
       content: 'Hide',
-      accessibilityLabel: 'Hide',
       icon: 'disable',
-      onClick: () => this.props.onHide(blockedHitFactory(this.props.hit))
+      onAction: () => this.props.onHide(blockedHitFactory(this.props.hit))
     },
     {
       content: 'Add',
-      accessibilityLabel: 'Add',
       icon: 'add',
       primary: true,
-      onClick: () => this.props.onAccept(this.props.hit)
+      onAction: () => {
+        this.props.onAccept(this.props.hit);
+      }
     }
   ];
 
-  private generateActions = (markedAsRead: boolean) =>
+  private generateActions = (markedAsRead?: boolean): DisableableAction[] =>
     markedAsRead
       ? this.readActions()
       : [this.markAsReadButton(), ...this.readActions()];
 
   public render() {
-    const {
-      hit,
-      knownRequester,
-      hitsInQueue,
-      weightedToScore,
-      requesterWorkHistorySize,
-      requesterRejectedHitsSize
-    } = this.props;
-    const { groupId, qualified, title, requester, markedAsRead } = hit;
-
-    const exceptions = generateSearchCardExceptions(
-      { qualified, qualifications: hit.qualsRequired },
-      {
-        knownRequester,
-        numSubmittedHits: requesterWorkHistorySize,
-        numRejectedHits: requesterRejectedHitsSize
-      },
-      hitsInQueue
-    );
+    const { hit, expanded, onToggleExpand } = this.props;
+    const { groupId, requester, markedAsRead } = hit;
 
     return (
       <React.Fragment>
-        <div
-          onClick={this.handleExpand}
-          style={SearchCard.generateNewResultHighlightStyle(markedAsRead)}
-        >
+        <div style={SearchCard.generateNewResultHighlightStyle(markedAsRead)}>
           <ResourceList.Item
-            actions={this.generateActions(!!markedAsRead)}
-            exceptions={exceptions}
-            badges={generateTOpticonBadge(weightedToScore)}
-            attributeOne={truncate(requester.name, 40)}
-            attributeTwo={truncate(title, 120)}
-            attributeThree={
-              <InfoContainer reward={hit.reward} batchSize={hit.batchSize} />
-              // tslint:disable-next-line:jsx-curly-spacing
-            }
-          />
+            id={hit.groupId}
+            onClick={onToggleExpand}
+            shortcutActions={this.generateActions(hit.markedAsRead)}
+            ariaExpanded={expanded}
+          >
+            <Stack vertical={false} wrap={false} alignment="center">
+              <Stack.Item>
+                <RequesterName requesterName={hit.requester.name} />
+              </Stack.Item>
+              <Stack.Item fill>
+                <Text ellipsize>{hit.title}</Text>
+              </Stack.Item>
+              <Stack.Item>
+                <InfoContainer hit={hit} />
+              </Stack.Item>
+            </Stack>
+            <SearchResultExceptionList hit={hit} />
+          </ResourceList.Item>
         </div>
 
         <CollapsibleInfo
           groupId={groupId}
-          knownRequester={knownRequester}
           requesterId={requester.id}
           requesterName={requester.name}
         />
@@ -146,23 +117,10 @@ type SearchTableAction =
   | SearchExpandAction
   | MarkHitAsRead;
 
-const mapState = (state: RootState, ownProps: OwnProps): Props => {
-  const hit = searchResultSelector(state).get(ownProps.groupId);
-
-  return {
-    hit,
-    weightedToScore: searchResultsToWeightedToMap(state).get(hit.groupId, null),
-    knownRequester: hitDatabaseToRequesterMap(state).has(hit.requester.id),
-    hitsInQueue:
-      uniqueGroupIdsInQueueHistogram(state).get(ownProps.groupId) || 0,
-    requesterWorkHistorySize: numSubmittedHitsToRequester(hit.requester.id)(
-      state
-    ),
-    requesterRejectedHitsSize: numRejectedHitsToRequester(hit.requester.id)(
-      state
-    )
-  };
-};
+const mapState = (state: RootState, { groupId }: OwnProps): Props => ({
+  hit: searchResultSelector(state).get(groupId),
+  expanded: state.expandedSearchResults.has(groupId)
+});
 
 const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   onAccept: (hit: SearchResult) => {
@@ -171,8 +129,8 @@ const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   onHide: (hit: BlockedHit) => {
     dispatch(blockSingleHit(hit));
   },
-  onToggleExpand: (hit: SearchResult) => {
-    dispatch(toggleSearchResultExpand(hit));
+  onToggleExpand: (groupId: string) => {
+    dispatch(toggleSearchResultExpand(groupId));
   },
   markHitAsRead: (groupId: string) => {
     dispatch(markHitAsRead(groupId));
