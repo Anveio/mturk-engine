@@ -4,11 +4,11 @@ import {
   TOGGLE_QUEUE_ITEM_EXPAND,
   COLLAPSE_ALL_QUEUE_ITEMS
 } from '../constants';
-import { SearchResult } from '../types';
+import { GroupId } from '../types';
 
 export interface ToggleSearchResultExpand {
   readonly type: TOGGLE_SEARCH_RESULT_EXPAND;
-  readonly hit: SearchResult;
+  readonly groupId: GroupId;
 }
 
 export interface CollapseAllResults {
@@ -28,10 +28,10 @@ export type SearchExpandAction = ToggleSearchResultExpand | CollapseAllResults;
 export type QueueExpandAction = ToggleQueueItemExpand | CollapseAllQueueItems;
 
 export const toggleSearchResultExpand = (
-  hit: SearchResult
+  groupId: GroupId
 ): ToggleSearchResultExpand => ({
   type: TOGGLE_SEARCH_RESULT_EXPAND,
-  hit
+  groupId
 });
 
 export const collapseAllSearchResults = (): CollapseAllResults => ({

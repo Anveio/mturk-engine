@@ -11,9 +11,9 @@ const initial: ExpandedSearchResultsSet = Set<GroupId>([]);
 export default (state = initial, action: SearchExpandAction) => {
   switch (action.type) {
     case TOGGLE_SEARCH_RESULT_EXPAND:
-      return state.has(action.hit.groupId)
-        ? state.delete(action.hit.groupId)
-        : state.add(action.hit.groupId);
+      return state.has(action.groupId)
+        ? state.delete(action.groupId)
+        : state.add(action.groupId);
     case COLLAPSE_ALL_SEARCH_RESULTS:
       return state.clear();
     default:
