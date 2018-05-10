@@ -49,6 +49,9 @@ export const isApprovedButNotPaid = (el: HitDatabaseEntry) =>
 export const isNotRejected = (el: HitDatabaseEntry) =>
   el.status !== Status.REJECTED;
 
+export const isRejected = (el: HitDatabaseEntry) =>
+  el.status === Status.REJECTED;
+
 export const calculateAcceptanceRate = (total: number, rejected: number) =>
   (total - rejected) / total * 100;
 

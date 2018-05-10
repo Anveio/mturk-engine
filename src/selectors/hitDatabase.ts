@@ -18,7 +18,8 @@ import {
   rewardAndBonus,
   isPending,
   isApprovedButNotPaid,
-  isNotRejected
+  isNotRejected,
+  isRejected
 } from '../utils/hitDatabase';
 import { Map, List } from 'immutable';
 import { hitDatabaseSelector } from './index';
@@ -139,7 +140,7 @@ export const numSubmittedHitsToRequester = (requesterId: string) =>
 export const numRejectedHitsToRequester = (requesterId: string) =>
   createSelector(
     [getAllHitsSubmittedToRequester(requesterId)],
-    hits => hits.filter(isNotRejected).size
+    hits => hits.filter(isRejected).size
   );
 
 export const allHitsSubmittedToRequesterRecentFirst = (requesterId: string) =>
