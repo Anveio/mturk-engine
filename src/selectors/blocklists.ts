@@ -19,15 +19,15 @@ export const blockListsAreEmpty = createSelector(
 const sortedHitBlocklist = createSelector(
   [hitBlocklistSelector],
   (blockedHits: HitBlockMap) =>
-    blockedHits
-      .sort((a: BlockedHit, b: BlockedHit) => +b.dateBlocked - +a.dateBlocked)
-      .toList()
+    blockedHits.sort(
+      (a: BlockedHit, b: BlockedHit) => +b.dateBlocked - +a.dateBlocked
+    )
 );
 
 export const recentlyBlockedHits = createSelector(
   [sortedHitBlocklist],
-  (blockedHits: List<BlockedHit>) =>
-    blockedHits.slice(0, 20) as List<BlockedHit>
+  (blockedHits: HitBlockMap) =>
+    blockedHits.toList().slice(0, 20) as List<BlockedHit>
 );
 
 const blockedAfter = <T extends BlockedEntry>(
@@ -57,18 +57,16 @@ export const blockedHitsInLast = (time: number, unit: DurationUnit) =>
 export const sortedRequesterBlockList = createSelector(
   [requesterBlocklistSelector],
   (blockedRequesters: RequesterBlockMap) =>
-    blockedRequesters
-      .sort(
-        (a: BlockedRequester, b: BlockedRequester) =>
-          b.dateBlocked.valueOf() - a.dateBlocked.valueOf()
-      )
-      .toList()
+    blockedRequesters.sort(
+      (a: BlockedRequester, b: BlockedRequester) =>
+        b.dateBlocked.valueOf() - a.dateBlocked.valueOf()
+    )
 );
 
 export const recentlyBlockedRequesters = createSelector(
   [sortedRequesterBlockList],
-  (blockedRequesters: List<BlockedRequester>) =>
-    blockedRequesters.slice(0, 30) as List<BlockedRequester>
+  (blockedRequesters: RequesterBlockMap) =>
+    blockedRequesters.toList().slice(0, 30) as List<BlockedRequester>
 );
 
 export const blockedRequestersOlderThan = (
