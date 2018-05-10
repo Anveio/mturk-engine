@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { ChangeTab, changeTab } from '../../actions/updateValue';
+import { changeTab } from '../../actions/updateValue';
 import { Button } from '@shopify/polaris';
 import { NonIdealState } from '@blueprintjs/core';
 
@@ -24,7 +24,7 @@ const EmptyQueue = ({ onChangeTab }: Handlers) => {
   );
 };
 
-const mapDispatch = (dispatch: Dispatch<ChangeTab>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch): Handlers => ({
   onChangeTab: () => dispatch(changeTab(0))
 });
 

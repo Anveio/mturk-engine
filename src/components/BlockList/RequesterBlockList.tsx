@@ -1,9 +1,9 @@
 import { Popover, Position } from '@blueprintjs/core';
 import { Button, Card, Heading, Stack } from '@shopify/polaris';
 import {
-  UnblockRequester,
   blockMultipleRequesters,
-  unblockMultipleRequesters
+  unblockMultipleRequesters,
+  BlockRequesterAction
 } from 'actions/blockRequester';
 import { Duration } from 'constants/enums';
 import { Set } from 'immutable';
@@ -95,7 +95,7 @@ const mapState = (state: RootState): Props => ({
   blocklistSize: state.requesterBlocklist.size
 });
 
-const mapDispatch = (dispatch: Dispatch<UnblockRequester>): Handlers => ({
+const mapDispatch = (dispatch: Dispatch<BlockRequesterAction>): Handlers => ({
   massUnblock: (ids: Set<string>) => dispatch(unblockMultipleRequesters(ids)),
   undoMassUnblock: (requesters: Set<BlockedRequester>) =>
     dispatch(blockMultipleRequesters(requesters))
