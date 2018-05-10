@@ -16,17 +16,18 @@ import KnownRequesterButton from '../Buttons/KnownRequesterButton';
 import QualificationsButton from '../Buttons/QualificationsButton';
 import HitActionMenu from '../HitActionMenu/HitActionMenu';
 import MenuActivator from '../HitActionMenu/MenuActivator';
+import { hitDatabaseToRequesterMap } from 'selectors/hitDatabase';
 
 interface Props {
   readonly hit: SearchResult;
   readonly expanded: boolean;
+  readonly knownRequester: boolean;
 }
 
 interface OwnProps {
   readonly groupId: string;
   readonly requesterId: string;
   readonly requesterName: string;
-  readonly knownRequester: boolean;
 }
 
 class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
@@ -68,7 +69,8 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   hit: state.search.get(ownProps.groupId),
-  expanded: state.expandedSearchResults.has(ownProps.groupId)
+  expanded: state.expandedSearchResults.has(ownProps.groupId),
+  knownRequester: hitDatabaseToRequesterMap(state).has(ownProps.requesterId)
 });
 
 export default connect(mapState)(CollapsibleInfo);
