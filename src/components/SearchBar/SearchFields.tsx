@@ -14,7 +14,7 @@ interface Handlers {
 
 interface State {
   readonly value: string;
-  readonly error: string | null;
+  readonly error?: string;
 }
 
 const createMapDispatchFn = (field: keyof SearchOptions) => (
@@ -35,13 +35,12 @@ class SearchDelayField extends React.PureComponent<Props & Handlers, State> {
   constructor(props: Props & Handlers) {
     super(props);
     this.state = {
-      error: null,
       value: props.value.toString()
     };
   }
 
   private handleChange = (value: string) => {
-    this.setState({ value, error: null });
+    this.setState({ value, error: undefined });
     this.setErrorIfAny(value);
     const parsedValue = +value;
     if (!Number.isNaN(parsedValue)) {
@@ -67,7 +66,7 @@ class SearchDelayField extends React.PureComponent<Props & Handlers, State> {
         spellCheck={false}
         value={this.state.value}
         onChange={this.handleChange}
-        error={this.state.error || false}
+        error={this.state.error}
       />
     );
   }
@@ -77,13 +76,12 @@ class MinimumRewardField extends React.PureComponent<Props & Handlers, State> {
   constructor(props: Props & Handlers) {
     super(props);
     this.state = {
-      error: null,
       value: props.value.toString()
     };
   }
 
   private handleChange = (value: string) => {
-    this.setState({ value, error: null });
+    this.setState({ value, error: undefined });
     const parsedValue = +value;
     if (!Number.isNaN(parsedValue)) {
       this.props.onChange(parsedValue);

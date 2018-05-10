@@ -37,7 +37,7 @@ interface InputState {
 }
 
 interface ErrorState {
-  readonly error: string | null;
+  readonly error?: string;
 }
 
 type InputField = keyof InputState;
@@ -51,8 +51,7 @@ class CreateWatcherForm extends React.PureComponent<
   public readonly state: State = {
     groupIdInput: '',
     titleInput: '',
-    descriptionInput: '',
-    error: null
+    descriptionInput: ''
   };
 
   private createWatcher = (groupId: string, folderId: string): Watcher => ({
@@ -123,7 +122,7 @@ class CreateWatcherForm extends React.PureComponent<
   private handleInput = (field: InputField) => (value: string) =>
     this.setState((): Pick<State, 'error'> => ({
       [field]: value,
-      error: null
+      error: undefined
     }));
 
   private handleEnterKeyPress = watchForEnter<HTMLDivElement>(
@@ -141,7 +140,7 @@ class CreateWatcherForm extends React.PureComponent<
               id="new-watcher-id"
               helpText="Can also be the URL of a 'Preview & Work' link."
               value={this.state.groupIdInput}
-              error={this.state.error || false}
+              error={this.state.error}
               onChange={this.handleInput('groupIdInput')}
               autoComplete={false}
               spellCheck={false}

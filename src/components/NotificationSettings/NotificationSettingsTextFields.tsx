@@ -15,7 +15,7 @@ interface Handlers {
 
 interface State {
   readonly value: string;
-  readonly error: null | string;
+  readonly error?: string;
 }
 
 const createMapDispatchFn = (field: keyof NotificationSettings) => (
@@ -41,13 +41,12 @@ class NotificationThresholdField extends React.PureComponent<
   constructor(props: Props & Handlers) {
     super(props);
     this.state = {
-      error: null,
       value: props.value.toString()
     };
   }
 
   private handleChange = (value: string) => {
-    this.setState({ value, error: null });
+    this.setState({ value, error: undefined });
     this.setErrorIfAny(value);
     this.props.onChange(Math.max(+value, 0) || 0);
   };
@@ -74,7 +73,7 @@ class NotificationThresholdField extends React.PureComponent<
         value={this.state.value}
         onChange={this.handleChange}
         min={0}
-        error={this.state.error || false}
+        error={this.state.error || undefined}
       />
     );
   }
@@ -87,13 +86,12 @@ class NotificationDurationField extends React.PureComponent<
   constructor(props: Props & Handlers) {
     super(props);
     this.state = {
-      error: null,
       value: props.value.toString()
     };
   }
 
   private handleChange = (value: string) => {
-    this.setState({ value, error: null });
+    this.setState({ value, error: undefined });
     this.setErrorIfAny(value);
     this.props.onChange(Math.max(+value, 0) || 1);
   };
@@ -119,7 +117,7 @@ class NotificationDurationField extends React.PureComponent<
         value={this.state.value}
         onChange={this.handleChange}
         min={1}
-        error={this.state.error || false}
+        error={this.state.error}
       />
     );
   }
