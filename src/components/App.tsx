@@ -6,12 +6,12 @@ import NewResultAudioLayer from './NewResultAudioLayer';
 import NewResultNotificationLayer from './NewResultNotificationLayer';
 import Footer from './Footer';
 import PageWrapper from './PageWrapper';
-import { AppProvider } from '@shopify/polaris';
+import { AppProvider as PolarisProvider } from '@shopify/polaris';
 
 const App: React.SFC<{}> = () => (
   <main>
     <CustomHead />
-    <AppProvider >
+    <PolarisProvider>
       <ErrorBoundary>
         <PageWrapper>
           <NewResultNotificationLayer>
@@ -22,7 +22,7 @@ const App: React.SFC<{}> = () => (
           </NewResultNotificationLayer>
         </PageWrapper>
       </ErrorBoundary>
-    </AppProvider>
+    </PolarisProvider>
   </main>
 );
 
