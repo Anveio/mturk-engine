@@ -1,6 +1,7 @@
 import { DAYS_IN_WEEK } from './dates';
 
 export const APPLICATION_TITLE = 'Mturk Engine';
+export const MTURK_URL_ENCODING_FORMAT = 'RFC1738';
 
 export const SQUARE_SIZE = 10;
 export const MONTH_LABEL_GUTTER_SIZE = 4;

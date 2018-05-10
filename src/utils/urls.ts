@@ -2,6 +2,7 @@ import * as qs from 'qs';
 import { QueueItem, WorkerHitDatabaseEntry } from 'types';
 import { baseContactUrl, baseProjectUrl } from '../constants/urls';
 import { legacyDateFormatToContactDateFormat } from './dates';
+import { MTURK_URL_ENCODING_FORMAT } from 'constants/misc';
 
 export const generateAcceptUrl = (groupId: string) =>
   `${baseProjectUrl}${groupId}/tasks/accept_random`;
@@ -30,7 +31,7 @@ export const generateContactLink = (hit: WorkerHitDatabaseEntry) => {
         requester_name: requester.name,
         title: title
       },
-      { arrayFormat: 'brackets' }
+      { format: MTURK_URL_ENCODING_FORMAT, arrayFormat: 'brackets' }
     )
   );
 };
@@ -51,7 +52,7 @@ export const generateContactLinkQueue = (hit: QueueItem) => {
           subject: `Regarding Amazon Mechanical Turk Project (HIT Type) ${groupId}`
         }
       },
-      { arrayFormat: 'brackets' }
+      { format: MTURK_URL_ENCODING_FORMAT, arrayFormat: 'brackets' }
     )
   );
 };

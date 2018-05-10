@@ -5,6 +5,7 @@ import { API_URL } from '../constants';
 import { generateParams } from '../utils/searchOptions';
 import { tabulateSearchData } from '../utils/parsingSearch';
 import { SearchResultsApiResponse } from '../worker-mturk-api';
+import { MTURK_URL_ENCODING_FORMAT } from 'constants/misc';
 
 export const searchHits = async (options: SearchOptions, fresh?: boolean) => {
   try {
@@ -12,7 +13,10 @@ export const searchHits = async (options: SearchOptions, fresh?: boolean) => {
     const response = await axios.get<SearchResultsApiResponse>(`${API_URL}`, {
       params: generateParams(options),
       paramsSerializer: params =>
-        qs.stringify(params, { arrayFormat: 'brackets' }),
+        qs.stringify(params, {
+          format: MTURK_URL_ENCODING_FORMAT,
+          arrayFormat: 'brackets'
+        }),
       responseType: 'json'
     });
     // tslint:disable-next-line:no-console
