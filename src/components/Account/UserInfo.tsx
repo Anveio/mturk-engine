@@ -1,12 +1,9 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState, MaybeAccount } from '../../types';
 import { Avatar, Stack, Card } from '@shopify/polaris';
 import { Popover, Button, Position, Intent } from '@blueprintjs/core';
-import {
-  connectAccountRequest,
-  ConnectAccountRequest
-} from '../../actions/connectAccount';
+import { connectAccountRequest } from '../../actions/connectAccount';
 import UsernameButton from './UsernameButton';
 import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 import CopyTextButton from '../Buttons/CopyTextButton';
@@ -68,8 +65,8 @@ const mapState = (state: RootState): Props => ({
   accountInfo: state.account
 });
 
-const mapDispatch = (dispatch: Dispatch<ConnectAccountRequest>): Handlers => ({
-  onRefresh: () => dispatch(connectAccountRequest())
-});
+const mapDispatch: Handlers = {
+  onRefresh: connectAccountRequest
+};
 
 export default connect(mapState, mapDispatch)(UserInfo);

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState } from '../../types';
-import { ChangeVolume, changeVolume } from '../../actions/audio';
+import { changeVolume } from '../../actions/audio';
 import { Slider } from '@blueprintjs/core';
 import { Stack } from '@shopify/polaris';
 
@@ -11,23 +11,11 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onChange: (value: string) => void;
+  readonly onChange: (value: number) => void;
 }
 
-const mapDispatch = (dispatch: Dispatch<ChangeVolume>): Handlers => ({
-  onChange: (value: string) => {
-    dispatch(changeVolume(+value));
-  }
-});
-
-const mapState = (state: RootState): Props => ({
-  value: state.audioSettingsV1.volume.toString(),
-  enabled: state.audioSettingsV1.enabled
-});
-
 class EditVolume extends React.PureComponent<Props & Handlers, never> {
-  private handleChange = (value: number) =>
-    this.props.onChange(value.toFixed(2));
+  private handleChange = (value: number) => this.props.onChange(value);
 
   public render() {
     return (
@@ -44,5 +32,14 @@ class EditVolume extends React.PureComponent<Props & Handlers, never> {
     );
   }
 }
+
+const mapDispatch: Handlers = {
+  onChange: changeVolume
+};
+
+const mapState = (state: RootState): Props => ({
+  value: state.audioSettingsV1.volume.toString(),
+  enabled: state.audioSettingsV1.enabled
+});
 
 export default connect(mapState, mapDispatch)(EditVolume);

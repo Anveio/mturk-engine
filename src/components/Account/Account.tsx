@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { MaybeAccount, RootState } from '../../types';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import DisconectedAccount from './DisconnectedAccount';
 import ConnectedAccountLayout from './ConnectedAccountLayout';
-import {
-  connectAccountRequest,
-  ConnectAccountRequest
-} from '../../actions/connectAccount';
+import { connectAccountRequest } from '../../actions/connectAccount';
 import { TabIndex } from 'constants/enums';
 
 interface Props {
@@ -44,8 +41,8 @@ const mapState = (state: RootState): Props => ({
   account: state.account
 });
 
-const mapDispatch = (dispatch: Dispatch<ConnectAccountRequest>): Handlers => ({
-  onConnect: () => dispatch(connectAccountRequest())
-});
+const mapDispatch: Handlers = {
+  onConnect: connectAccountRequest
+};
 
-export default connect(mapState, mapDispatch)(Account);
+export default connect<Props, Handlers>(mapState, mapDispatch)(Account);

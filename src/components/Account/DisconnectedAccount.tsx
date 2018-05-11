@@ -1,11 +1,8 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { NonIdealState, Button } from '@blueprintjs/core';
 import { Layout } from '@shopify/polaris';
-import {
-  connectAccountRequest,
-  ConnectAccountRequest
-} from '../../actions/connectAccount';
+import { connectAccountRequest } from '../../actions/connectAccount';
 
 export interface Handlers {
   readonly onConnect: () => void;
@@ -32,8 +29,8 @@ class DisconnectedAccount extends React.PureComponent<Handlers, never> {
   }
 }
 
-const mapDispatch = (dispatch: Dispatch<ConnectAccountRequest>): Handlers => ({
-  onConnect: () => dispatch(connectAccountRequest())
-});
+const mapDispatch: Handlers = {
+  onConnect: connectAccountRequest
+};
 
 export default connect(null, mapDispatch)(DisconnectedAccount);
