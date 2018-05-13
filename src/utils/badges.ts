@@ -13,19 +13,24 @@ export const assignScoreColor = (score: number): Status => {
   }
 };
 
-export const generateHitStatusBadge = (status: HitStatus): Status => {
+interface BadgeDescriptor {
+  readonly content: string;
+  readonly status: Status;
+}
+
+export const generateHitStatusBadge = (status: HitStatus): BadgeDescriptor => {
   switch (status) {
     case 'Paid':
-      return 'success';
+      return { content: 'Paid', status: 'success' };
     case 'Approved':
     case 'Pending Payment':
-      return 'success';
+      return { content: 'Approved', status: 'success' };
     case 'Rejected':
-      return 'warning';
+      return { content: 'Rejected', status: 'warning' };
     case 'Submitted':
     case 'Pending Approval':
-      return 'info';
+      return { content: 'Pending', status: 'info' };
     default:
-      return 'info';
+      return { content: 'Pending', status: 'info' };
   }
 };
