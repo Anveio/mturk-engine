@@ -56,7 +56,7 @@ export const failedSearchToast = () => {
 };
 
 export const generateQueueToast = (notEmpty: boolean): IToastProps =>
-  notEmpty ? successfulQueueToast : emptyQueueToast;
+  notEmpty ? successfulQueueToast : emptyQueueToast(new Date());
 
 export const failedQueueToast = {
   message: `There was a problem refreshing your queue. Make sure you're still logged in.`,
@@ -284,11 +284,11 @@ const successfulQueueToast = {
   timeout: 1000
 };
 
-const emptyQueueToast = {
-  message: 'Your queue is empty as of ' + new Date().toLocaleTimeString(),
+const emptyQueueToast = (date: Date) => ({
+  message: 'Your queue is empty as of ' + date.toLocaleTimeString(),
   intent: Intent.NONE,
   timeout: 2000
-};
+});
 
 const successfulReturnToast = (title: string) => ({
   message: `"${truncate(title, 20)}" has been removed from your queue.`,
