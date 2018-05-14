@@ -54,8 +54,8 @@ function* handleSuccessfulAccept(
 function* handleFailedAccept(key: string, hit: SearchResult) {
   yield put<AcceptHitFailure>(acceptHitFailure(hit.groupId));
 
-  const addAsWatcherFn = () => {
-    const newWatcher = createWatcherWithInfo(hit);
+  const addAsWatcherFn = (date: Date) => () => {
+    const newWatcher = createWatcherWithInfo(hit, date);
 
     /**
      * yield put(addWatcher(newWatcher)) wont work because this can't be a
@@ -70,5 +70,8 @@ function* handleFailedAccept(key: string, hit: SearchResult) {
     watcherAddedToast(hit, onStartWatcherFn);
   };
 
-  updateTopRightToaster(key, failedAcceptToast(hit, addAsWatcherFn));
+  updateTopRightToaster(
+    key,
+    failedAcceptToast(hit, addAsWatcherFn(new Date()))
+  );
 }

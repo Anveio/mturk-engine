@@ -23,7 +23,7 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onAddWatcher: (hit: HumanIntelligenceTask) => void;
+  readonly onAddWatcher: (hit: HumanIntelligenceTask, date: Date) => void;
   readonly onScheduleWatcher: (id: string, origin: number) => void;
 }
 
@@ -52,7 +52,7 @@ class AddAsWatcherButton extends React.Component<
       return;
     }
 
-    onAddWatcher(hit);
+    onAddWatcher(hit, new Date());
     watcherAddedToast(hit, () => {
       onScheduleWatcher(hit.groupId, Date.now());
     });
@@ -70,8 +70,8 @@ class AddAsWatcherButton extends React.Component<
 const mapDispatch = (
   dispatch: Dispatch<AddWatcher | ScheduleWatcherTick>
 ): Handlers => ({
-  onAddWatcher: (hit: HumanIntelligenceTask) => {
-    dispatch(addWatcher(createWatcherWithInfo(hit)));
+  onAddWatcher: (hit: HumanIntelligenceTask, date: Date) => {
+    dispatch(addWatcher(createWatcherWithInfo(hit, date)));
   },
   onScheduleWatcher: (id: string, origin: number) =>
     dispatch(scheduleWatcher(id, origin))

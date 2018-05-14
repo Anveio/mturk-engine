@@ -15,12 +15,15 @@ export const createDefaultWatcher = (id: string): Watcher => ({
   playSoundAfterSuccess: false
 });
 
-export const createWatcherWithInfo = (hit: HumanIntelligenceTask): Watcher => ({
+export const createWatcherWithInfo = (
+  hit: HumanIntelligenceTask,
+  date: Date
+): Watcher => ({
   title: hit.title,
   description: generateWatcherDescription(hit),
   groupId: hit.groupId,
   delay: 5,
-  createdOn: new Date(),
+  createdOn: date,
   folderId: DEFAULT_WATCHER_FOLDER_ID,
   stopAfterFirstSuccess: true,
   playSoundAfterSuccess: false
