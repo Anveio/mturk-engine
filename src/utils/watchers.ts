@@ -4,29 +4,32 @@ import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
 import { WatcherTreeNode } from './tree';
 import { executeRegex } from './parsing';
 
-export const createDefaultWatcher = (id: string): Watcher => ({
-  groupId: id,
+type DefaultWatcherFields =
+  | 'delay'
+  | 'description'
+  | 'folderId'
+  | 'title'
+  | 'stopAfterFirstSuccess'
+  | 'playSoundAfterSuccess';
+
+export const watcherDefaults: Pick<Watcher, DefaultWatcherFields> = {
   delay: 5,
   description: '',
   folderId: DEFAULT_WATCHER_FOLDER_ID,
   title: 'Untitled Watcher',
-  createdOn: new Date(0),
   stopAfterFirstSuccess: true,
   playSoundAfterSuccess: false
-});
+};
 
 export const createWatcherWithInfo = (
   hit: HumanIntelligenceTask,
   date: Date
 ): Watcher => ({
+  ...watcherDefaults,
+  groupId: hit.groupId,
   title: hit.title,
   description: generateWatcherDescription(hit),
-  groupId: hit.groupId,
-  delay: 5,
-  createdOn: date,
-  folderId: DEFAULT_WATCHER_FOLDER_ID,
-  stopAfterFirstSuccess: true,
-  playSoundAfterSuccess: false
+  createdOn: date
 });
 
 export const pandaLinkValidators: ((i: string) => boolean)[] = [

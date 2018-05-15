@@ -6,7 +6,7 @@ import {
   determineInputType,
   parseProjectIdFromProjectLink,
   parseGroupId,
-  createDefaultWatcher
+  watcherDefaults
 } from '../../utils/watchers';
 import { watchForEnter } from '../../utils/watchForEnter';
 import { Watcher, RootState, WatcherMap } from '../../types';
@@ -55,7 +55,8 @@ class CreateWatcherForm extends React.PureComponent<
   };
 
   private createWatcher = (groupId: string, folderId: string): Watcher => ({
-    ...createDefaultWatcher(groupId),
+    ...watcherDefaults,
+    groupId,
     description: this.state.descriptionInput,
     folderId: folderId,
     title: this.state.titleInput || groupId,

@@ -9,7 +9,7 @@ import {
 import { watchersSelector, watcherFoldersSelector } from './index';
 import { Map, Set } from 'immutable';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../constants/misc';
-import { createDefaultWatcher } from '../utils/watchers';
+import { watcherDefaults } from '../utils/watchers';
 
 /**
  * For backwards compatibility. Legacy watchers won't have certain properties.
@@ -21,7 +21,7 @@ const updateLegacyWatchers = createSelector(
     watchers.reduce(
       (acc: WatcherMap, cur: Watcher) =>
         acc.set(cur.groupId, {
-          ...createDefaultWatcher(cur.groupId),
+          ...watcherDefaults,
           ...cur,
           folderId: folders.has(cur.folderId)
             ? cur.folderId
