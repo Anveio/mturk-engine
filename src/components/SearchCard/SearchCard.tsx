@@ -11,15 +11,11 @@ import {
 } from 'actions/toggleExpand';
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
-// import { generateSearchCardExceptions } from 'utils/exceptions';
-// import { generateTOpticonBadge } from 'utils/badges';
 import { blockedHitFactory } from 'utils/blocklist';
 import { searchResultSelector } from 'selectors/index';
 import { Text } from '@blueprintjs/core';
 import RequesterName from './RequesterName';
 import SearchResultExceptionList from './SearchResultExceptionList';
-// import TOpticonBadge from './TOpticonBadge';
-// import { clickDidNotOccurOnActionButton } from 'utils/resourceList';
 
 interface Props {
   readonly hit: SearchResult;
