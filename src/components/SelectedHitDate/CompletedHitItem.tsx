@@ -1,12 +1,18 @@
 import * as React from 'react';
 import { RootState, HitDatabaseEntry, WorkerHitDatabaseEntry } from 'types';
 import { connect } from 'react-redux';
-import { ResourceList } from '@shopify/polaris';
-import { generateReviewLink } from 'utils/turkopticon';
-import { generateHitStatusBadge } from 'utils/badges';
-import { truncate, formatAsUsd } from 'utils/formatting';
+import {
+  ResourceList,
+  Truncate,
+  Badge,
+  Stack,
+  TextStyle
+} from '@shopify/polaris';
+import { Text } from '@blueprintjs/core';
 import HitDbEntryCollapsible from './HitDbEntryCollapsible';
+import { generateReviewLink } from 'utils/turkopticon';
 import { generateContactLink } from 'utils/urls';
+import { formatAsUsd } from 'utils/formatting';
 
 interface OwnProps {
   readonly id: string;
@@ -59,24 +65,38 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
   };
 
   public render() {
-    const {
-      hit: { title, requester, reward, bonus, status, assignmentId }
-    } = this.props;
+    const { hit } = this.props;
     return (
       <React.Fragment>
-        <div onClick={this.handleExpand}>
-          <ResourceList.Item
-            attributeOne={CompletedHitItem.displayEarnings(reward, bonus)}
-            attributeTwo={truncate(title, 100)}
-            attributeThree={truncate(requester.name, 30)}
-            badges={[generateHitStatusBadge(status)]}
-            actions={this.generateActions(assignmentId)}
-          />
-        </div>
-        <HitDbEntryCollapsible
-          open={this.state.expanded}
-          hit={this.props.hit}
-        />
+        <ResourceList.Item
+          id={hit.id}
+          onClick={this.handleExpand}
+          shortcutActions={this.generateActions(hit.assignmentId)}
+        >
+          <Stack vertical={false} wrap={false} alignment="center">
+            <Stack.Item>
+              <TextStyle variation="strong">
+                <Truncate>{hit.requester.name}</Truncate>
+              </TextStyle>
+            </Stack.Item>
+            <Stack.Item fill>
+              <Text ellipsize>{hit.title}</Text>
+            </Stack.Item>
+            <Stack.Item>
+              <Stack vertical={false}>
+                <Stack.Item>
+                  <TextStyle variation="strong">
+                    {CompletedHitItem.displayEarnings(hit.reward, hit.bonus)}
+                  </TextStyle>
+                </Stack.Item>
+                <Stack.Item>
+                  <Badge status={'success'}>Paid</Badge>
+                </Stack.Item>
+              </Stack>
+            </Stack.Item>
+          </Stack>
+        </ResourceList.Item>
+        <HitDbEntryCollapsible open={this.state.expanded} hit={hit} />
       </React.Fragment>
     );
   }
