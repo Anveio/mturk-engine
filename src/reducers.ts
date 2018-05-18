@@ -1,37 +1,36 @@
 import { RootState } from './types';
 import { combineReducers } from 'redux';
-import {
-  tab,
-  searchingActive,
-  account,
-  search,
-  queue,
-  watchers,
-  searchOptions,
-  sortingOption,
-  hitBlocklist,
-  timeNextSearch,
-  waitingForMturk,
-  topticonSettings,
-  requesterBlocklist,
-  audioSettingsV1,
-  selectedHitDbDate,
-  hitDatabase,
-  dailyEarningsGoal,
-  waitingForHitDbRefresh,
-  watcherTimers,
-  uploadedState,
-  expandedSearchResults,
-  notificationSettings,
-  loggedSearchResults,
-  watcherTreeSettings,
-  watcherFolders,
-  watcherStatistics,
-  expandedWatcherFolderIds,
-  expandedQueueItems,
-  searchAudioEnabled,
-  queueSortingOption
-} from './reducers/index';
+import tab from './reducers/tab';
+import searchingActive from './reducers/searchingActive';
+import account from './reducers/account';
+import search from './reducers/search';
+import queue from './reducers/queue';
+import watchers from './reducers/watchers';
+import searchOptions from './reducers/searchOptions';
+import sortingOption from './reducers/sortingOption';
+import hitBlocklist from './reducers/hitBlocklist';
+import timeNextSearch from './reducers/timeNextSearch';
+import waitingForMturk from './reducers/waitingForMturk';
+import topticonSettings from './reducers/topticonSettings';
+import requesterBlocklist from './reducers/requesterBlocklist';
+import audioSettingsV1 from './reducers/audioSettings';
+import selectedHitDbDate from './reducers/selectedHitDbDate';
+import hitDatabase from './reducers/hitDatabase';
+import dailyEarningsGoal from './reducers/dailyEarningsGoal';
+import waitingForHitDbRefresh from './reducers/waitingForHitDbRefresh';
+import watcherTimers from './reducers/watcherTimers';
+import uploadedState from './reducers/uploadedState';
+import expandedSearchResults from './reducers/expandedSearchResults';
+import notificationSettings from './reducers/notificationSettings';
+import loggedSearchResults from './reducers/loggedSearchResults';
+import watcherTreeSettings from './reducers/watcherTreeSettings';
+import watcherFolders from './reducers/watcherFolders';
+import watcherStatistics from './reducers/watcherStatistics';
+import expandedWatcherFolderIds from './reducers/expandedWatcherFolderIds';
+import expandedQueueItems from './reducers/expandedQueueItems';
+import searchAudioEnabled from './reducers/searchAudioEnabled';
+import queueSortingOption from './reducers/queueSortingOption';
+import databaseFilterSettings from './reducers/databaseFilterSettings';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -62,6 +61,7 @@ export const rootReducer = combineReducers<RootState>({
   loggedSearchResults,
   notificationSettings,
   expandedSearchResults,
+  databaseFilterSettings,
   waitingForHitDbRefresh,
   expandedWatcherFolderIds
 });
