@@ -36,6 +36,7 @@ export interface RootState {
   readonly expandedWatcherFolderIds: Set<GroupId>;
   readonly watcherStatistics: WatcherStatisticsMap;
   readonly queueSortingOption: QueueSortingOption;
+  readonly databaseFilterSettings: DatabaseFilterSettings;
 }
 
 export type Primitive = string | number | boolean;
@@ -202,6 +203,10 @@ export interface WorkerHitDatabaseEntry extends LegacyHitDatabaseEntry {
 }
 
 export type HitDatabaseEntry = LegacyHitDatabaseEntry | WorkerHitDatabaseEntry;
+
+interface DatabaseFilterSettings {
+  readonly searchTerm: string;
+}
 
 export interface QueueItem extends HumanIntelligenceTask {
   /**
