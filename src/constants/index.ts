@@ -243,4 +243,7 @@ export type UPDATE_QUEUE_SORT = typeof UPDATE_QUEUE_SORT;
 export const API_LIMIT_EXCEEDED = 'API_LIMIT_EXCEEDED';
 export type API_LIMIT_EXCEEDED = typeof API_LIMIT_EXCEEDED;
 
+export const UPDATE_DB_SEARCH_TERM = 'UPDATE_DB_SEARCH_TERM';
+export type UPDATE_DB_SEARCH_TERM = typeof UPDATE_DB_SEARCH_TERM;
+
 export const API_URL = configureApiRoot();
