@@ -1,25 +1,23 @@
 import * as React from 'react';
-import { Card, ResourceList } from '@shopify/polaris';
+import { Card, ResourceList, Pagination } from '@shopify/polaris';
 import { connect } from 'react-redux';
 import { RootState, HitId } from 'types';
-import { hitsOnSelectedDateIds } from 'selectors/hitDatabaseDay';
 import CompletedHitItem from '../SelectedHitDate/CompletedHitItem';
+import { hitDatabaseFilteredBySearchTerm } from 'selectors/databaseFilterSettings';
+import { changeSearchTerm } from 'actions/databaseFilterSettings';
 
 interface Props {
   readonly hitIds: HitId[];
+  readonly searchTerm: string;
 }
 
-interface State {
-  readonly searchTerm: string;
+interface Handlers {
+  readonly onSearchChange: (value: string) => void;
 }
 
 // tslint:disable:no-console
 
-class DatabaseFilter extends React.PureComponent<Props, State> {
-  public readonly state: State = {
-    searchTerm: 'USA'
-  };
-
+class DatabaseFilter extends React.Component<Props & Handlers, never> {
   public render() {
     return (
       <Card title="Search your HIT database">
@@ -27,13 +25,9 @@ class DatabaseFilter extends React.PureComponent<Props, State> {
           showHeader
           filterControl={
             <ResourceList.FilterControl
-              searchValue={this.state.searchTerm}
-              onSearchChange={searchValue => {
-                console.log(
-                  `Search value changed to ${searchValue}.`,
-                  'Todo: use setState to apply this change.'
-                );
-              }}
+              searchValue={this.props.searchTerm}
+              onSearchChange={this.props.onSearchChange}
+              appliedFilters={[]}
               additionalAction={{
                 content: 'Save',
                 onAction: () => console.log('Todo: handle save filters.')
@@ -44,13 +38,19 @@ class DatabaseFilter extends React.PureComponent<Props, State> {
           items={this.props.hitIds}
           renderItem={(id: string) => <CompletedHitItem id={id} />}
         />
+        <Pagination hasNext={this.props.hitIds.length > 20} />
       </Card>
     );
   }
 }
 
 const mapState = (state: RootState): Props => ({
-  hitIds: hitsOnSelectedDateIds(state).toArray()
+  searchTerm: state.databaseFilterSettings.searchTerm,
+  hitIds: hitDatabaseFilteredBySearchTerm(state).toArray()
 });
 
-export default connect(mapState)(DatabaseFilter);
+const mapDispatch: Handlers = {
+  onSearchChange: changeSearchTerm
+};
+
+export default connect(mapState, mapDispatch)(DatabaseFilter);
