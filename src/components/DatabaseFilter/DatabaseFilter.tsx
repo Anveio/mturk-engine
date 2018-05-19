@@ -27,11 +27,6 @@ class DatabaseFilter extends React.Component<Props & Handlers, never> {
             <ResourceList.FilterControl
               searchValue={this.props.searchTerm}
               onSearchChange={this.props.onSearchChange}
-              appliedFilters={[]}
-              additionalAction={{
-                content: 'Save',
-                onAction: () => console.log('Todo: handle save filters.')
-              }}
             />
           }
           resourceName={{ singular: 'HIT', plural: 'HITs' }}
