@@ -10,6 +10,8 @@ import RequesterBlockList from './RequesterBlockList';
 
 interface Props {
   readonly empty: boolean;
+  // readonly blockedHitIds: Set<GroupId>;
+  // readonly blockedRequesterIds: Set<RequesterId>;
 }
 
 class BlockLists extends React.Component<Props, never> {
@@ -19,7 +21,7 @@ class BlockLists extends React.Component<Props, never> {
     ) : (
       <Layout>
         <Layout.Section>
-          <RequesterBlockList />
+          <RequesterBlockList/>
         </Layout.Section>
         <Layout.Section>
           <HitBlockList />
@@ -37,6 +39,8 @@ class BlockLists extends React.Component<Props, never> {
 
 const mapState = (state: RootState): Props => ({
   empty: blockListsAreEmpty(state)
+  // blockedHitIds: hitBlocklistIds(state),
+  // blockedRequesterIds: requesterBlocklistIds(state)
 });
 
 export default connect(mapState)(BlockLists);
