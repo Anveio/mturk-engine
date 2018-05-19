@@ -10,19 +10,21 @@ import RequesterBlockList from './RequesterBlockList';
 
 interface Props {
   readonly empty: boolean;
+  // readonly blockedHitIds: Set<GroupId>;
+  // readonly blockedRequesterIds: Set<RequesterId>;
 }
 
-class BlockLists extends React.PureComponent<Props, never> {
+class BlockLists extends React.Component<Props, never> {
   public render() {
     return this.props.empty ? (
       <EmptyBlockList />
     ) : (
       <Layout>
         <Layout.Section>
-          <RequesterBlockList />
+          <RequesterBlockList now={new Date()} />
         </Layout.Section>
         <Layout.Section>
-          <HitBlockList />
+          <HitBlockList now={new Date()} />
         </Layout.Section>
         <Layout.Section>
           <Callout intent={Intent.SUCCESS} icon="info-sign">
@@ -37,6 +39,8 @@ class BlockLists extends React.PureComponent<Props, never> {
 
 const mapState = (state: RootState): Props => ({
   empty: blockListsAreEmpty(state)
+  // blockedHitIds: hitBlocklistIds(state),
+  // blockedRequesterIds: requesterBlocklistIds(state)
 });
 
 export default connect(mapState)(BlockLists);
