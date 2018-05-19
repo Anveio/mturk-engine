@@ -5,22 +5,16 @@ import {
   unblockMultipleRequesters,
   BlockRequesterAction
 } from 'actions/blockRequester';
-import { Duration } from 'constants/enums';
-import { Set } from 'immutable';
+import { Set, List } from 'immutable';
 import * as React from 'react';
 import { Dispatch, connect } from 'react-redux';
-import {
-  blockedRequestersInLast,
-  blockedRequestersOlderThan,
-  recentlyBlockedRequesters
-} from 'selectors/blocklists';
-import { BlocklistProps } from 'utils/blocklist';
 import { BlockedRequester, RootState } from '../../types';
 import BlockedRequesterTag from './BlockedRequesterTag';
 import SweepMenu from './SweepMenu';
+import { sortedRequesterBlockList } from 'selectors/blocklists';
 
 interface Props {
-  readonly blockedRequesters: BlocklistProps<BlockedRequester>;
+  readonly blockedRequestersSortedRecentFirst: List<BlockedRequester>;
   readonly blocklistSize: number;
 }
 
@@ -32,7 +26,7 @@ interface Handlers {
 class RequesterBlockList extends React.Component<Props & Handlers, never> {
   public render() {
     const {
-      blockedRequesters,
+      blockedRequestersSortedRecentFirst,
       blocklistSize,
       massUnblock,
       undoMassUnblock
@@ -58,15 +52,17 @@ class RequesterBlockList extends React.Component<Props & Handlers, never> {
                     title={'Unblock requesters...'}
                     onMenuClick={massUnblock}
                     onUndo={undoMassUnblock}
-                    {...blockedRequesters}
+                    blockedEntries={blockedRequestersSortedRecentFirst}
                   />
                 </Popover>
               </Stack.Item>
             </Stack>
             <Stack>
-              {blockedRequesters.recent.map(({ id }: BlockedRequester) => (
-                <BlockedRequesterTag blockedRequesterId={id} key={id} />
-              ))}
+              {blockedRequestersSortedRecentFirst
+                .slice(0, 30)
+                .map(({ id }: BlockedRequester) => (
+                  <BlockedRequesterTag blockedRequesterId={id} key={id} />
+                ))}
             </Stack>
           </Stack>
         </Card>
@@ -76,23 +72,8 @@ class RequesterBlockList extends React.Component<Props & Handlers, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  blockedRequesters: {
-    recent: recentlyBlockedRequesters(state),
-    entries: {
-      inThePast: {
-        hour: blockedRequestersInLast(1, Duration.HOURS)(state),
-        day: blockedRequestersInLast(1, Duration.DAYS)(state),
-        week: blockedRequestersInLast(1, Duration.WEEKS)(state),
-        month: blockedRequestersInLast(1, Duration.MONTHS)(state)
-      },
-      olderThan: {
-        thirtyDays: blockedRequestersOlderThan(30, Duration.DAYS)(state),
-        sixtyDays: blockedRequestersOlderThan(60, Duration.DAYS)(state),
-        ninetyDays: blockedRequestersOlderThan(90, Duration.DAYS)(state)
-      }
-    }
-  },
-  blocklistSize: state.requesterBlocklist.size
+  blockedRequestersSortedRecentFirst: sortedRequesterBlockList(state),
+  blocklistSize: state.hitBlocklist.size
 });
 
 const mapDispatch = (dispatch: Dispatch<BlockRequesterAction>): Handlers => ({

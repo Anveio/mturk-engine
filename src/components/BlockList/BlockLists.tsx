@@ -12,7 +12,7 @@ interface Props {
   readonly empty: boolean;
 }
 
-class BlockLists extends React.PureComponent<Props, never> {
+class BlockLists extends React.Component<Props, never> {
   public render() {
     return this.props.empty ? (
       <EmptyBlockList />

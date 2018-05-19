@@ -68,21 +68,30 @@ export const dateRange = (
     )
     .reverse() as List<LegacyDateFormat>;
 
-export const isOlderThan = (
-  date: Date,
-  timeBefore: number,
-  start: Date,
-  unit: moment.DurationInputArg2
+export interface DateComparatorFunction {
+  (
+    date: Date,
+    timeBefore: number,
+    start: Date,
+    unit: moment.DurationInputArg2
+  ): boolean;
+}
+
+export const olderThan: DateComparatorFunction = (
+  date,
+  timeBefore,
+  start,
+  unit
 ) => {
   const daysBeforeNow = moment(start).subtract(timeBefore, unit);
   return moment(date).isBefore(daysBeforeNow);
 };
 
-export const isYoungerThan = (
-  date: Date,
-  timeBefore: number,
-  start: Date,
-  unit: moment.DurationInputArg2
+export const youngerThan: DateComparatorFunction = (
+  date,
+  timeBefore,
+  start,
+  unit
 ) => moment(date).isAfter(moment(start).subtract(timeBefore, unit));
 
 export const secondsToMinutes = (numSeconds: number): number =>

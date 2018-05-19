@@ -1,9 +1,16 @@
 import { Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
-import { Set } from 'immutable';
+import { Set, List } from 'immutable';
 import * as React from 'react';
 import { BlockedEntry, BlockedHit, BlockedRequester } from 'types';
 import { BlocklistProps } from 'utils/blocklist';
 import { massUnblockToast, showPlainToast } from 'utils/toaster';
+import {
+  DurationUnit,
+  DateComparatorFunction,
+  youngerThan,
+  olderThan
+} from 'utils/dates';
+import { Duration } from 'constants/enums';
 
 interface Props extends BlocklistProps<BlockedEntry> {
   readonly title: string;
@@ -16,23 +23,46 @@ interface Handlers {
 }
 
 class SweepMenu extends React.Component<Props & Handlers, never> {
-  private static blockedRequestersToIdSet = (entries: Set<BlockedRequester>) =>
+  private static blockedEntriesInTimeSpan = <T extends BlockedEntry>(
+    entries: List<T>,
+    comparatorFunction: DateComparatorFunction
+  ) => (now: Date, duration: number, unit: DurationUnit) =>
+    entries.filter((entry: T) =>
+      comparatorFunction(entry.dateBlocked, duration, now, unit)
+    );
+
+  private static blockedRequestersToIdSet = (entries: List<BlockedRequester>) =>
     entries.reduce(
       (acc: Set<string>, cur: BlockedRequester) => acc.add(cur.id),
       Set([])
     );
 
-  private static blockedHitsToIdSet = (entries: Set<BlockedHit>) =>
+  private static blockedHitsToIdSet = (entries: List<BlockedHit>) =>
     entries.reduce(
       (acc: Set<string>, cur: BlockedHit) => acc.add(cur.groupId),
       Set([])
     );
 
-  private handleClickForEntries = (entries: Set<BlockedEntry>) => () => {
+  private handleClickForEntries = (
+    comparatorFunction: DateComparatorFunction,
+    duration: number,
+    unit: DurationUnit
+  ) => () => {
+    const {
+      blockedEntriesInTimeSpan,
+      blockedRequestersToIdSet,
+      blockedHitsToIdSet
+    } = SweepMenu;
+
+    const entriesInTimeSpan = blockedEntriesInTimeSpan(
+      this.props.blockedEntries,
+      comparatorFunction
+    )(new Date(), duration, unit);
+
     const ids =
       this.props.kind === 'requester'
-        ? SweepMenu.blockedRequestersToIdSet(entries as Set<BlockedRequester>)
-        : SweepMenu.blockedHitsToIdSet(entries as Set<BlockedHit>);
+        ? blockedRequestersToIdSet(entriesInTimeSpan as List<BlockedRequester>)
+        : blockedHitsToIdSet(entriesInTimeSpan as List<BlockedHit>);
 
     if (ids.size === 0) {
       showPlainToast(
@@ -41,54 +71,54 @@ class SweepMenu extends React.Component<Props & Handlers, never> {
       return;
     }
 
-    this.props.onMenuClick(ids);
-    massUnblockToast(() => this.props.onUndo(entries), entries.size);
+    this.props.onMenuClick(ids.toSet());
+    massUnblockToast(
+      () => this.props.onUndo(entriesInTimeSpan.toSet()),
+      entriesInTimeSpan.size
+    );
   };
 
   public render() {
-    const {
-      title,
-      entries: { olderThan, inThePast }
-    } = this.props;
+    const { title } = this.props;
     return (
       <Menu>
         <MenuDivider title={title} />
         <MenuItem text="In the past">
           <MenuItem
             icon="time"
-            onClick={this.handleClickForEntries(inThePast.hour)}
+            onClick={this.handleClickForEntries(youngerThan, 1, Duration.HOURS)}
             text="Hour"
           />
           <MenuItem
             icon="time"
-            onClick={this.handleClickForEntries(inThePast.day)}
+            onClick={this.handleClickForEntries(youngerThan, 1, Duration.DAYS)}
             text="24 hours"
           />
           <MenuItem
             icon="time"
-            onClick={this.handleClickForEntries(inThePast.week)}
+            onClick={this.handleClickForEntries(youngerThan, 7, Duration.DAYS)}
             text="7 days"
           />
           <MenuItem
             icon="time"
-            onClick={this.handleClickForEntries(inThePast.month)}
+            onClick={this.handleClickForEntries(youngerThan, 30, Duration.DAYS)}
             text="30 days"
           />
         </MenuItem>
         <MenuItem text="Older than">
           <MenuItem
             icon="time"
-            onClick={this.handleClickForEntries(olderThan.thirtyDays)}
+            onClick={this.handleClickForEntries(olderThan, 30, Duration.DAYS)}
             text="30 days"
           />
           <MenuItem
             icon="time"
-            onClick={this.handleClickForEntries(olderThan.sixtyDays)}
+            onClick={this.handleClickForEntries(olderThan, 60, Duration.DAYS)}
             text="60 days"
           />
           <MenuItem
             icon="time"
-            onClick={this.handleClickForEntries(olderThan.ninetyDays)}
+            onClick={this.handleClickForEntries(olderThan, 90, Duration.DAYS)}
             text="90 days"
           />
         </MenuItem>

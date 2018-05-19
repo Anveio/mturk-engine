@@ -5,22 +5,16 @@ import {
   unblockMultipleHits,
   BlockHitAction
 } from 'actions/blockHit';
-import { Duration } from 'constants/enums';
-import { Set } from 'immutable';
+import { Set, List } from 'immutable';
 import * as React from 'react';
 import { Dispatch, connect } from 'react-redux';
-import {
-  blockedHitsInLast,
-  blockedHitsOlderThan,
-  recentlyBlockedHits
-} from 'selectors/blocklists';
-import { BlocklistProps } from 'utils/blocklist';
 import { BlockedHit, RootState } from '../../types';
 import BlockedHitCard from './BlockedHitCard';
 import SweepMenu from './SweepMenu';
+import { sortedHitBlocklist } from 'selectors/blocklists';
 
 interface Props {
-  readonly blockedHits: BlocklistProps<BlockedHit>;
+  readonly blockedHitsSortedRecentFirst: List<BlockedHit>;
   readonly blocklistSize: number;
 }
 
@@ -29,11 +23,11 @@ interface Handlers {
   readonly undoMassUnblock: (requesters: Set<BlockedHit>) => void;
 }
 
-class HitBlockList extends React.PureComponent<Props & Handlers, never> {
+class HitBlockList extends React.Component<Props & Handlers, never> {
   public render() {
     const {
       blocklistSize,
-      blockedHits,
+      blockedHitsSortedRecentFirst,
       massUnblock,
       undoMassUnblock
     } = this.props;
@@ -56,14 +50,14 @@ class HitBlockList extends React.PureComponent<Props & Handlers, never> {
                     title={'Unblock HITs...'}
                     onMenuClick={massUnblock}
                     onUndo={undoMassUnblock}
-                    {...blockedHits}
+                    blockedEntries={blockedHitsSortedRecentFirst}
                   />
                 </Popover>
               </Stack.Item>
             </Stack>
           </Card.Section>
           <ResourceList
-            items={blockedHits.recent.toArray()}
+            items={blockedHitsSortedRecentFirst.toArray()}
             renderItem={({ groupId }: BlockedHit) => (
               <BlockedHitCard key={groupId} blockedHitId={groupId} />
             )}
@@ -75,22 +69,7 @@ class HitBlockList extends React.PureComponent<Props & Handlers, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  blockedHits: {
-    recent: recentlyBlockedHits(state),
-    entries: {
-      inThePast: {
-        hour: blockedHitsInLast(1, Duration.HOURS)(state),
-        day: blockedHitsInLast(1, Duration.DAYS)(state),
-        week: blockedHitsInLast(1, Duration.WEEKS)(state),
-        month: blockedHitsInLast(1, Duration.MONTHS)(state)
-      },
-      olderThan: {
-        thirtyDays: blockedHitsOlderThan(30, Duration.DAYS)(state),
-        sixtyDays: blockedHitsOlderThan(60, Duration.DAYS)(state),
-        ninetyDays: blockedHitsOlderThan(90, Duration.DAYS)(state)
-      }
-    }
-  },
+  blockedHitsSortedRecentFirst: sortedHitBlocklist(state),
   blocklistSize: state.hitBlocklist.size
 });
 
