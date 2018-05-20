@@ -3,7 +3,6 @@ import {
   WorkerSubmittedHitState,
   QualificationComparator
 } from './worker-mturk-api';
-import searchAudioEnabled from 'reducers/searchAudioEnabled';
 
 export interface RootState {
   readonly account: MaybeAccount;
@@ -204,8 +203,11 @@ export interface WorkerHitDatabaseEntry extends LegacyHitDatabaseEntry {
 
 export type HitDatabaseEntry = LegacyHitDatabaseEntry | WorkerHitDatabaseEntry;
 
+export type StatusFilter = 'PENDING' | 'APPROVED' | 'PAID' | 'REJECTED';
+
 interface DatabaseFilterSettings {
   readonly searchTerm: string;
+  readonly statusFilter: Set<StatusFilter>;
 }
 
 export interface QueueItem extends HumanIntelligenceTask {
