@@ -62,6 +62,7 @@ class SearchDelayField extends React.PureComponent<Props & Handlers, State> {
         label="Time Between Searches"
         type="number"
         suffix="seconds"
+        min={0}
         autoComplete={false}
         spellCheck={false}
         value={this.state.value}
