@@ -23,7 +23,7 @@ class DatabaseFilter extends React.Component<Props, State> {
   public readonly state: State = { page: 0, maxPage: 0 };
 
   shouldComponentUpdate(nextProps: Props) {
-    return nextProps.hitIds.equals(this.props.hitIds);
+    return !nextProps.hitIds.equals(this.props.hitIds);
   }
 
   static getDerivedStateFromProps(nextProps: Props): State {
