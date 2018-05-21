@@ -80,7 +80,9 @@ class CrashScreen extends React.PureComponent<Props, State> {
               </Card.Section>
               <Card.Section>
                 <Collapse isOpen={this.state.collapseOpen}>
-                  <pre>{this.props.errorDetails || 'No error logs found'}</pre>
+                  <pre>
+                    {`${this.props.errorDetails}` || 'No error logs found'}
+                  </pre>
                 </Collapse>
               </Card.Section>
             </Card>
