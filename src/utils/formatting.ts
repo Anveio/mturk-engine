@@ -24,4 +24,7 @@ export const pluralize = (
   pluralForm = nonPluralForm + 's'
 ) => (groupSize = 2) => (groupSize === 1 ? nonPluralForm : pluralForm);
 
+export const escapeUserInputForRegex = (userInput: string) =>
+  userInput.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
 export const pluralizeHits = pluralize('HIT');
