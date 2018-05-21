@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import { HitDatabaseEntry, HitDatabaseMap, StatusFilterType } from 'types';
 import { filterBy, createFilterFn } from 'utils/databaseFilter';
 import { Map } from 'immutable';
+import { escapeUserInputForRegex } from 'utils/formatting';
 
 export const hitDatabaseFilteredByStatus = createSelector(
   [hitDatabaseSelector, databaseFilterSettingsSelector],
@@ -29,7 +30,7 @@ export const hitDatabaseFilteredByStatus = createSelector(
 export const hitDatabaseFilteredBySearchTerm = createSelector(
   [hitDatabaseFilteredByStatus, databaseFilterSettingsSelector],
   (hitDatabase, { searchTerm }) => {
-    const searchRegex = new RegExp(searchTerm, 'i');
+    const searchRegex = new RegExp(escapeUserInputForRegex(searchTerm), 'i');
     const hitMatchesSearchTerm = createFilterFn(searchTerm, searchRegex);
 
     return hitDatabase

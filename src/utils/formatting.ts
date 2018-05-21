@@ -24,6 +24,10 @@ export const pluralize = (
   pluralForm = nonPluralForm + 's'
 ) => (groupSize = 2) => (groupSize === 1 ? nonPluralForm : pluralForm);
 
+/**
+ * Credit to: https://codereview.stackexchange.com/a/153702
+ * @param userInput
+ */
 export const escapeUserInputForRegex = (userInput: string) =>
   userInput.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
