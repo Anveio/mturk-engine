@@ -1,4 +1,4 @@
-import { pluralizeHits } from './formatting';
+import { pluralizeHits, pluralize } from './formatting';
 import { WorkerQualification } from '../types';
 
 interface ExceptionDescriptor {
@@ -48,7 +48,9 @@ const knownRequesterException: ExceptionGenerator<RequesterExceptionData> = ({
         title: `Requester in database `,
         description: `${numSubmittedHits} ${pluralizeHits(
           numSubmittedHits
-        )}, ${numRejectedHits} rejections.`
+        )}, ${numRejectedHits} ${pluralize('rejection', 'rejections')(
+          numRejectedHits
+        )}.`
       }
     : null;
 
