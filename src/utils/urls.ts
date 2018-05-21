@@ -56,7 +56,7 @@ export const generateContactLinkQueue = (hit: QueueItem) => {
           subject: `Regarding Amazon Mechanical Turk Project (HIT Type) ${groupId}`
         }
       },
-      { arrayFormat: 'brackets' }
+      { format: MTURK_URL_ENCODING_FORMAT, arrayFormat: 'brackets' }
     )
   );
 };
