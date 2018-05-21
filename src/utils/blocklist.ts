@@ -34,19 +34,4 @@ export const blockedWithin = <T extends BlockedEntry>(
 
 export interface BlocklistProps<T extends BlockedEntry> {
   readonly blockedEntries: List<T>;
-  // recent needs to be displayed in order and Sets dont have a defined iteration order.
-  // readonly recent: List<T>;
-  // readonly entries: {
-  //   readonly inThePast: {
-  //     readonly hour: Set<T>;
-  //     readonly day: Set<T>;
-  //     readonly week: Set<T>;
-  //     readonly month: Set<T>;
-  //   };
-  //   readonly olderThan: {
-  //     readonly thirtyDays: Set<T>;
-  //     readonly sixtyDays: Set<T>;
-  //     readonly ninetyDays: Set<T>;
-  //   };
-  // };
 }
