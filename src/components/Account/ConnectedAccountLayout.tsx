@@ -23,7 +23,7 @@ class ConnectedAccountLayout extends React.PureComponent<{}, never> {
         </Layout.Section>
         <Layout.Section>
           <DatabaseFilter />
-        </Layout.Section>}
+        </Layout.Section>
         <Layout.Section>
           <SelectedHitDate />
         </Layout.Section>
