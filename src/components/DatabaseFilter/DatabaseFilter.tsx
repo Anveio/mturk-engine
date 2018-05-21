@@ -31,13 +31,11 @@ interface Handlers {
 
 class DatabaseFilter extends React.Component<Props & Handlers, never> {
   private handleFilterChange = (filters: AppliedHitDatabaseFilter[]) => {
-    console.log(filters);
     const newFilters = appliedFiltersToStatusFilterTypeSet(filters);
     this.props.onFilterChange(newFilters);
   };
 
   public render() {
-    console.log(this.props.statusFilters.toArray());
     const filters = statusFiltersToAppliedFilterArray(this.props.statusFilters);
     return (
       <Card title="Search your HIT database">
