@@ -42,5 +42,5 @@ export const watcherFoldersSelector = (state: RootState) =>
 export const turkopticonSettingsSelector = (state: RootState) =>
   state.topticonSettings;
 
-export const databaseFIlterSettingsSelector = (state: RootState) =>
+export const databaseFilterSettingsSelector = (state: RootState) =>
   state.databaseFilterSettings;
