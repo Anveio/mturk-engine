@@ -1,7 +1,7 @@
 import { hitDatabaseSelector, databaseFilterSettingsSelector } from './index';
 import { createSelector } from 'reselect';
 import { HitDatabaseEntry, HitDatabaseMap, StatusFilterType } from 'types';
-import { filterBy } from 'utils/databaseFilter';
+import { filterBy, createFilterFn } from 'utils/databaseFilter';
 import { Map } from 'immutable';
 
 export const hitDatabaseFilteredByStatus = createSelector(
@@ -28,8 +28,12 @@ export const hitDatabaseFilteredByStatus = createSelector(
 
 export const hitDatabaseFilteredBySearchTerm = createSelector(
   [hitDatabaseFilteredByStatus, databaseFilterSettingsSelector],
-  (hitDatabase, { searchTerm }) =>
-    hitDatabase
-      .filter((hit: HitDatabaseEntry) => hit.title.search(searchTerm) !== -1)
-      .map((el: HitDatabaseEntry) => el.id)
+  (hitDatabase, { searchTerm }) => {
+    const searchRegex = new RegExp(searchTerm, 'i');
+    const hitMatchesSearchTerm = createFilterFn(searchRegex);
+
+    return hitDatabase
+      .filter(hitMatchesSearchTerm)
+      .map((el: HitDatabaseEntry) => el.id);
+  }
 );
