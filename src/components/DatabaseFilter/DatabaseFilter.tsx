@@ -7,7 +7,7 @@ import { Iterable } from 'immutable';
 import DatabaseFilterPagination, {
   DatabaseFilterPaginationProps
 } from './DatabaseFilterPagination';
-import { RESULTS_PER_PAGE } from 'constants/misc';
+import { DATABASE_RESULTS_PER_PAGE } from 'constants/misc';
 import ResultsList from './ResultsList';
 
 interface Props {
@@ -31,7 +31,7 @@ class DatabaseFilter extends React.Component<Props, State> {
       page: 0,
       maxPage: DatabaseFilter.calculateMaxPage(
         nextProps.hitIds.size,
-        RESULTS_PER_PAGE
+        DATABASE_RESULTS_PER_PAGE
       )
     };
   }
@@ -63,7 +63,7 @@ class DatabaseFilter extends React.Component<Props, State> {
       hasPrevious,
       onNext: this.onNext,
       onPrevious: this.onPrevious,
-      shouldRender: this.props.hitIds.size > RESULTS_PER_PAGE
+      shouldRender: this.props.hitIds.size > DATABASE_RESULTS_PER_PAGE
     };
 
     return (

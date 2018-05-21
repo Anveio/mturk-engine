@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from 'types';
-import { RESULTS_PER_PAGE } from 'constants/misc';
+import { DATABASE_RESULTS_PER_PAGE } from 'constants/misc';
 import { hitsOnSelectedDateIds } from 'selectors/hitDatabaseDay';
 import CompletedHitList from './CompletedHitList';
 import DateDisplayCard from './DateDisplayCard';
@@ -26,7 +26,7 @@ class SelectedHitDate extends React.PureComponent<Props, State> {
   componentDidUpdate(nextProps: Props) {
     this.maxPage = this.calculateMaxPage(
       nextProps.numResults,
-      RESULTS_PER_PAGE
+      DATABASE_RESULTS_PER_PAGE
     );
 
     if (nextProps.selectedDate !== this.props.selectedDate) {

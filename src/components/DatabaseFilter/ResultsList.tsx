@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState, HitId, StatusFilterType } from 'types';
 import { ResourceList } from '@shopify/polaris';
-import { RESULTS_PER_PAGE } from 'constants/misc';
+import { DATABASE_RESULTS_PER_PAGE } from 'constants/misc';
 import CompletedHitItem from '../SelectedHitDate/CompletedHitItem';
 import {
   statusFiltersToAppliedFilterArray,
@@ -40,8 +40,8 @@ class ResultsList extends React.Component<Props & OwnProps & Handlers, never> {
 
   public render() {
     const { hitIds, page } = this.props;
-    const start = RESULTS_PER_PAGE * page;
-    const end = start + RESULTS_PER_PAGE;
+    const start = DATABASE_RESULTS_PER_PAGE * page;
+    const end = start + DATABASE_RESULTS_PER_PAGE;
     const itemsToShow = hitIds.slice(start, end);
     const filters = statusFiltersToAppliedFilterArray(this.props.statusFilters);
 

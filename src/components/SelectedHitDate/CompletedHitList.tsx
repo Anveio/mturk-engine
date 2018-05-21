@@ -4,7 +4,7 @@ import { RootState, HitId } from 'types';
 import { List } from 'immutable';
 import { ResourceList } from '@shopify/polaris';
 import { hitsOnSelectedDateIds } from 'selectors/hitDatabaseDay';
-import { RESULTS_PER_PAGE } from 'constants/misc';
+import { DATABASE_RESULTS_PER_PAGE } from 'constants/misc';
 import CompletedHitItem from './CompletedHitItem';
 import NoActivity from './NoActivity';
 
@@ -19,8 +19,8 @@ export interface OwnProps {
 class CompletedHitList extends React.PureComponent<Props & OwnProps, never> {
   public render() {
     const { hitIds, page } = this.props;
-    const start = RESULTS_PER_PAGE * page;
-    const end = start + RESULTS_PER_PAGE;
+    const start = DATABASE_RESULTS_PER_PAGE * page;
+    const end = start + DATABASE_RESULTS_PER_PAGE;
     const itemsToShow = hitIds.slice(start, end);
 
     return hitIds.size > 0 ? (
