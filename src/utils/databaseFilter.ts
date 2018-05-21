@@ -1,4 +1,9 @@
-import { StatusFilterType } from 'types';
+import {
+  StatusFilterType,
+  HitDatabaseMap,
+  HitDatabaseEntry,
+  HitStatus
+} from 'types';
 import { Map, Set } from 'immutable';
 import { AppliedFilter, FilterType } from '@shopify/polaris';
 
@@ -65,3 +70,31 @@ export const statusFiltersToAppliedFilterArray = (
     value: filter,
     label: `Status: ${statusFilterTypeToLabel.get(filter)}`
   }));
+
+const hitStatusToStatusFilterType = (
+  hitStatus: HitStatus
+): StatusFilterType => {
+  switch (hitStatus) {
+    case 'Paid':
+      return 'PAID';
+    case 'Approved':
+    case 'Pending Payment':
+      return 'APPROVED';
+    case 'Rejected':
+      return 'REJECTED';
+    case 'Submitted':
+    case 'Pending Approval':
+      return 'PENDING';
+    default:
+      throw new Error('Invalid HIT status');
+  }
+};
+
+export const filterBy = (database: HitDatabaseMap) => (
+  statusFilter: StatusFilterType
+): HitDatabaseMap => {
+  // tslint:disable
+  return database.filter((hit: HitDatabaseEntry) => {
+    return hitStatusToStatusFilterType(hit.status) === statusFilter;
+  }) as HitDatabaseMap;
+};
