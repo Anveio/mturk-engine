@@ -1,20 +1,27 @@
-import { UPDATE_DB_SEARCH_TERM } from '../constants';
-import { DatabaseFilterSettings } from 'types';
-import { UpdateDatabaseSearchTerm } from 'actions/databaseFilterSettings';
+import { UPDATE_DB_SEARCH_TERM, UPDATE_DB_STATUS_FILTERS } from '../constants';
+import { DatabaseFilterSettings, StatusFilterType } from 'types';
+import { DatabaseFilterAction } from 'actions/databaseFilterSettings';
+import { Set } from 'immutable';
 
 const initial: DatabaseFilterSettings = {
-  searchTerm: ''
+  searchTerm: '',
+  statusFilters: Set<StatusFilterType>([])
 };
 
 export default (
   state = initial,
-  action: UpdateDatabaseSearchTerm
+  action: DatabaseFilterAction
 ): DatabaseFilterSettings => {
   switch (action.type) {
     case UPDATE_DB_SEARCH_TERM:
       return {
         ...state,
         searchTerm: action.data
+      };
+    case UPDATE_DB_STATUS_FILTERS:
+      return {
+        ...state,
+        statusFilters: action.data
       };
     default:
       return state;
