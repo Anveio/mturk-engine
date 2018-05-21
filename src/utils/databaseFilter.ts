@@ -92,17 +92,17 @@ const hitStatusToStatusFilterType = (
 
 export const filterBy = (database: HitDatabaseMap) => (
   statusFilter: StatusFilterType
-): HitDatabaseMap => {
-  // tslint:disable
-  return database.filter((hit: HitDatabaseEntry) => {
-    return hitStatusToStatusFilterType(hit.status) === statusFilter;
-  }) as HitDatabaseMap;
-};
+): HitDatabaseMap =>
+  database.filter(
+    (hit: HitDatabaseEntry) =>
+      hitStatusToStatusFilterType(hit.status) === statusFilter
+  ) as HitDatabaseMap;
 
-export const createFilterFn = (searchRegex: RegExp) => (
+export const createFilterFn = (searchTerm: string, searchRegex: RegExp) => (
   hit: HitDatabaseEntry
 ) =>
+  hit.id === searchTerm ||
+  (hit.assignmentId && hit.assignmentId === searchTerm) ||
+  hit.requester.id === searchTerm ||
   searchRegex.test(hit.title) ||
-  searchRegex.test(hit.requester.name) ||
-  (hit.assignmentId && searchRegex.test(hit.assignmentId)) ||
-  searchRegex.test(hit.id);
+  searchRegex.test(hit.requester.name);

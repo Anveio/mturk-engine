@@ -30,7 +30,7 @@ export const hitDatabaseFilteredBySearchTerm = createSelector(
   [hitDatabaseFilteredByStatus, databaseFilterSettingsSelector],
   (hitDatabase, { searchTerm }) => {
     const searchRegex = new RegExp(searchTerm, 'i');
-    const hitMatchesSearchTerm = createFilterFn(searchRegex);
+    const hitMatchesSearchTerm = createFilterFn(searchTerm, searchRegex);
 
     return hitDatabase
       .filter(hitMatchesSearchTerm)
