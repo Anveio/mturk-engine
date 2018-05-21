@@ -6,9 +6,10 @@ import { DATABASE_FILTER_RESULTS_PER_PAGE } from 'constants/misc';
 import CompletedHitItem from '../SelectedHitDate/CompletedHitItem';
 import { hitDatabaseFilteredBySearchTerm } from 'selectors/databaseFilterSettings';
 import DatabaseFilterControl from './DatabaseFilterControl';
+import { Iterable } from 'immutable';
 
 interface Props {
-  readonly hitIds: HitId[];
+  readonly hitIds: Iterable<HitId, HitId>;
 }
 
 interface OwnProps {
@@ -20,7 +21,7 @@ class ResultsList extends React.PureComponent<Props & OwnProps, never> {
     const { hitIds, page } = this.props;
     const start = DATABASE_FILTER_RESULTS_PER_PAGE * page;
     const end = start + DATABASE_FILTER_RESULTS_PER_PAGE;
-    const itemsToShow = hitIds.slice(start, end);
+    const itemsToShow = hitIds.slice(start, end).toArray();
 
     return (
       <ResourceList
@@ -35,7 +36,7 @@ class ResultsList extends React.PureComponent<Props & OwnProps, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  hitIds: hitDatabaseFilteredBySearchTerm(state).toArray()
+  hitIds: hitDatabaseFilteredBySearchTerm(state)
 });
 
 export default connect(mapState)(ResultsList);
