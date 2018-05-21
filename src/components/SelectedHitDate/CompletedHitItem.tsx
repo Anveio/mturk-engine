@@ -13,6 +13,7 @@ import HitDbEntryCollapsible from './HitDbEntryCollapsible';
 import { generateReviewLink } from 'utils/turkopticon';
 import { generateContactLink } from 'utils/urls';
 import { formatAsUsd } from 'utils/formatting';
+import { generateHitStatusBadge } from 'utils/badges';
 
 interface OwnProps {
   readonly id: string;
@@ -66,6 +67,7 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
 
   public render() {
     const { hit } = this.props;
+    const { status, content } = generateHitStatusBadge(hit.status);
     return (
       <React.Fragment>
         <ResourceList.Item
@@ -90,7 +92,7 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
                   </TextStyle>
                 </Stack.Item>
                 <Stack.Item>
-                  <Badge status={'success'}>Paid</Badge>
+                  <Badge status={status}>{content}</Badge>
                 </Stack.Item>
               </Stack>
             </Stack.Item>
