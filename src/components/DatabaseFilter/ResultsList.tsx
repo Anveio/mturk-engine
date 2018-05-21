@@ -16,7 +16,11 @@ interface OwnProps {
   readonly page: number;
 }
 
-class ResultsList extends React.PureComponent<Props & OwnProps, never> {
+class ResultsList extends React.Component<Props & OwnProps, never> {
+  shouldComponentUpdate(nextProps: Props) {
+    return !nextProps.hitIds.equals(this.props.hitIds);
+  }
+
   public render() {
     const { hitIds, page } = this.props;
     const start = DATABASE_FILTER_RESULTS_PER_PAGE * page;
