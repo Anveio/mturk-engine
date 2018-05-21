@@ -203,11 +203,11 @@ export interface WorkerHitDatabaseEntry extends LegacyHitDatabaseEntry {
 
 export type HitDatabaseEntry = LegacyHitDatabaseEntry | WorkerHitDatabaseEntry;
 
-export type StatusFilter = 'PENDING' | 'APPROVED' | 'PAID' | 'REJECTED';
+export type StatusFilterType = 'PENDING' | 'APPROVED' | 'PAID' | 'REJECTED';
 
-interface DatabaseFilterSettings {
+export interface DatabaseFilterSettings {
   readonly searchTerm: string;
-  readonly statusFilter: Set<StatusFilter>;
+  readonly statusFilters: Set<StatusFilterType>;
 }
 
 export interface QueueItem extends HumanIntelligenceTask {
