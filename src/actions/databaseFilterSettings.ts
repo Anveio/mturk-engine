@@ -1,7 +1,6 @@
 import { updateValue } from './updateValue';
 import { UPDATE_DB_SEARCH_TERM, UPDATE_DB_STATUS_FILTERS } from '../constants';
 import { StatusFilterType } from 'types';
-import { Set } from 'immutable';
 
 export interface UpdateDatabaseSearchTerm {
   readonly type: UPDATE_DB_SEARCH_TERM;
@@ -10,7 +9,7 @@ export interface UpdateDatabaseSearchTerm {
 
 export interface UpdateDatabaseStatusFilters {
   readonly type: UPDATE_DB_STATUS_FILTERS;
-  readonly data: Set<StatusFilterType>;
+  readonly data: StatusFilterType[];
 }
 
 export type DatabaseFilterAction =
@@ -20,7 +19,7 @@ export type DatabaseFilterAction =
 export const changeSearchTerm = updateValue<string>(UPDATE_DB_SEARCH_TERM);
 
 export const changeFilters = (
-  data: Set<StatusFilterType>
+  data: StatusFilterType[]
 ): UpdateDatabaseStatusFilters => ({
   type: UPDATE_DB_STATUS_FILTERS,
   data

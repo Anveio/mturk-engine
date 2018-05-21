@@ -7,10 +7,9 @@ import CompletedHitItem from '../SelectedHitDate/CompletedHitItem';
 import {
   statusFiltersToAppliedFilterArray,
   availableFilters,
-  appliedFiltersToStatusFilterTypeSet,
+  appliedFiltersToStatusFilterTypeArray,
   AppliedHitDatabaseFilter
 } from 'utils/databaseFilter';
-import { Set } from 'immutable';
 import { hitDatabaseFilteredBySearchTerm } from 'selectors/databaseFilterSettings';
 import {
   changeSearchTerm,
@@ -19,13 +18,13 @@ import {
 
 interface Props {
   readonly searchTerm: string;
-  readonly statusFilters: Set<StatusFilterType>;
+  readonly statusFilters: StatusFilterType[];
   readonly hitIds: HitId[];
 }
 
 interface Handlers {
   readonly onSearchChange: (value: string) => void;
-  readonly onFilterChange: (filters: Set<StatusFilterType>) => void;
+  readonly onFilterChange: (filters: StatusFilterType[]) => void;
 }
 
 interface OwnProps {
@@ -34,7 +33,7 @@ interface OwnProps {
 
 class ResultsList extends React.Component<Props & OwnProps & Handlers, never> {
   private handleFilterChange = (filters: AppliedHitDatabaseFilter[]) => {
-    const newFilters = appliedFiltersToStatusFilterTypeSet(filters);
+    const newFilters = appliedFiltersToStatusFilterTypeArray(filters);
     this.props.onFilterChange(newFilters);
   };
 

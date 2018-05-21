@@ -4,7 +4,7 @@ import {
   HitDatabaseEntry,
   HitStatus
 } from 'types';
-import { Map, Set } from 'immutable';
+import { Map } from 'immutable';
 import { AppliedFilter, FilterType } from '@shopify/polaris';
 
 const statusFilterTypeToLabel: Map<StatusFilterType, string> = Map([
@@ -50,22 +50,19 @@ export const availableFilters: HitDatabaseFilter[] = [
   }
 ];
 
-export const appliedFiltersToStatusFilterTypeSet = (
+export const appliedFiltersToStatusFilterTypeArray = (
   filters: AppliedHitDatabaseFilter[]
 ) =>
-  filters.reduce(
-    (acc, cur): Set<StatusFilterType> => acc.add(cur.value),
-    Set<StatusFilterType>([])
-  );
+  filters.reduce((acc: StatusFilterType[], cur) => acc.concat(cur.value), []);
 
 /**
  * Generates the
  * @param filters
  */
 export const statusFiltersToAppliedFilterArray = (
-  filters: Set<StatusFilterType>
+  filters: StatusFilterType[]
 ): AppliedFilter[] =>
-  filters.toArray().map((filter: StatusFilterType): AppliedFilter => ({
+  filters.map((filter: StatusFilterType): AppliedFilter => ({
     key: 'STATUS',
     value: filter,
     label: `Status: ${statusFilterTypeToLabel.get(filter)}`

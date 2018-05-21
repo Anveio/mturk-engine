@@ -1,11 +1,10 @@
 import { UPDATE_DB_SEARCH_TERM, UPDATE_DB_STATUS_FILTERS } from '../constants';
-import { DatabaseFilterSettings, StatusFilterType } from 'types';
+import { DatabaseFilterSettings } from 'types';
 import { DatabaseFilterAction } from 'actions/databaseFilterSettings';
-import { Set } from 'immutable';
 
 const initial: DatabaseFilterSettings = {
   searchTerm: '',
-  statusFilters: Set<StatusFilterType>([])
+  statusFilters: []
 };
 
 export default (

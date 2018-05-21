@@ -207,7 +207,7 @@ export type StatusFilterType = 'PENDING' | 'APPROVED' | 'PAID' | 'REJECTED';
 
 export interface DatabaseFilterSettings {
   readonly searchTerm: string;
-  readonly statusFilters: Set<StatusFilterType>;
+  readonly statusFilters: StatusFilterType[];
 }
 
 export interface QueueItem extends HumanIntelligenceTask {

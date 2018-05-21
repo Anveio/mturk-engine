@@ -7,7 +7,7 @@ import { Map } from 'immutable';
 export const hitDatabaseFilteredByStatus = createSelector(
   [hitDatabaseSelector, databaseFilterSettingsSelector],
   (hitDatabase, { statusFilters }) => {
-    if (statusFilters.isEmpty()) {
+    if (statusFilters.length === 0) {
       return hitDatabase;
     }
 
