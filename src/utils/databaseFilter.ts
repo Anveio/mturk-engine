@@ -7,6 +7,7 @@ import {
 } from 'types';
 import { Map } from 'immutable';
 import { AppliedFilter, FilterType } from '@shopify/polaris';
+import { legacyDateFormatToDateObj } from './dates';
 
 const statusFilterTypeToLabel: Map<StatusFilterType, string> = Map([
   ['PENDING', 'Pending'],
@@ -125,3 +126,22 @@ export const databaseFilterSortOptions: FilterSortOrderOption[] = [
     value: 'DATE_OLDEST_FIRST'
   }
 ];
+
+export type FilterOrderToSortFnMap = { [K in FilterOrderType]: DatabaseSortFn };
+
+const sortOrderToSortFnMap: FilterOrderToSortFnMap = {
+  PAY_DESC: (a, b) => b.reward + b.bonus - (a.reward + a.bonus),
+  DATE_RECENT_FIRST: (a, b) =>
+    legacyDateFormatToDateObj(a.date).valueOf() -
+    legacyDateFormatToDateObj(b.date).valueOf(),
+  DATE_OLDEST_FIRST: (a, b) =>
+    legacyDateFormatToDateObj(a.date).valueOf() -
+    legacyDateFormatToDateObj(b.date).valueOf()
+};
+
+interface DatabaseSortFn {
+  (a: HitDatabaseEntry, b: HitDatabaseEntry): number;
+}
+
+export const createSortFn = (sortOrder: FilterOrderType): DatabaseSortFn =>
+  sortOrderToSortFnMap[sortOrder];
