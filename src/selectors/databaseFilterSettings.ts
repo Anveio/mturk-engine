@@ -1,11 +1,11 @@
 import { hitDatabaseSelector, databaseFilterSettingsSelector } from './index';
 import { createSelector } from 'reselect';
-import { HitDatabaseEntry, HitDatabaseMap, StatusFilterType } from 'types';
-import { filterBy, createFilterFn } from 'utils/databaseFilter';
+import { HitDatabaseMap, StatusFilterType, HitDatabaseEntry } from 'types';
+import { filterBy, createFilterFn, createSortFn } from 'utils/databaseFilter';
 import { Map } from 'immutable';
 import { escapeUserInputForRegex } from 'utils/formatting';
 
-export const hitDatabaseFilteredByStatus = createSelector(
+const hitDatabaseFilteredByStatus = createSelector(
   [hitDatabaseSelector, databaseFilterSettingsSelector],
   (hitDatabase, { statusFilters }) => {
     if (statusFilters.length === 0) {
@@ -27,14 +27,25 @@ export const hitDatabaseFilteredByStatus = createSelector(
   }
 );
 
-export const hitDatabaseFilteredBySearchTerm = createSelector(
+const hitDatabaseFilteredBySearchTerm = createSelector(
   [hitDatabaseFilteredByStatus, databaseFilterSettingsSelector],
   (hitDatabase, { searchTerm }) => {
     const searchRegex = new RegExp(escapeUserInputForRegex(searchTerm), 'i');
     const hitMatchesSearchTerm = createFilterFn(searchTerm, searchRegex);
 
-    return hitDatabase
-      .filter(hitMatchesSearchTerm)
-      .map((el: HitDatabaseEntry) => el.id);
+    return hitDatabase.filter(hitMatchesSearchTerm);
   }
+);
+
+const hitDatabaseFilteredWithOptions = createSelector(
+  [hitDatabaseFilteredBySearchTerm, databaseFilterSettingsSelector],
+  (hitDatabase, { sortOrder }) => {
+    const sortFn = createSortFn(sortOrder);
+    return hitDatabase.sort(sortFn);
+  }
+);
+
+export const sortedAndFilteredHitDatabase = createSelector(
+  [hitDatabaseFilteredWithOptions],
+  hitDatabase => hitDatabase.map((hit: HitDatabaseEntry) => hit.id)
 );
