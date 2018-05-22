@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Card } from '@shopify/polaris';
 import { connect } from 'react-redux';
 import { RootState, HitId } from 'types';
-import { hitDatabaseFilteredBySearchTerm } from 'selectors/databaseFilterSettings';
+import { sortedAndFilteredHitDatabase } from 'selectors/databaseFilterSettings';
 import { Iterable } from 'immutable';
 import DatabaseFilterPagination, {
   DatabaseFilterPaginationProps
@@ -22,8 +22,11 @@ interface State {
 class DatabaseFilter extends React.Component<Props, State> {
   public readonly state: State = { page: 0, maxPage: 0 };
 
-  shouldComponentUpdate(nextProps: Props) {
-    return !nextProps.hitIds.equals(this.props.hitIds);
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
+    return (
+      nextState.page !== this.state.page ||
+      !nextProps.hitIds.equals(this.props.hitIds)
+    );
   }
 
   static getDerivedStateFromProps(nextProps: Props): State {
@@ -68,7 +71,7 @@ class DatabaseFilter extends React.Component<Props, State> {
 
     return (
       <Card title="Search your HIT database">
-        <ResultsList page={this.state.page} />
+        <ResultsList page={this.state.page} hitIds={this.props.hitIds} />
         <DatabaseFilterPagination {...paginationProps} />
       </Card>
     );
@@ -76,7 +79,7 @@ class DatabaseFilter extends React.Component<Props, State> {
 }
 
 const mapState = (state: RootState): Props => ({
-  hitIds: hitDatabaseFilteredBySearchTerm(state)
+  hitIds: sortedAndFilteredHitDatabase(state)
 });
 
 export default connect(mapState)(DatabaseFilter);
