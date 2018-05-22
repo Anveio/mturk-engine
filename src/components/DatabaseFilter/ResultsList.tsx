@@ -24,7 +24,10 @@ interface OwnProps {
 
 class ResultsList extends React.Component<Props & OwnProps & Handlers, never> {
   shouldComponentUpdate(nextProps: Props & OwnProps) {
-    return nextProps.page !== this.props.page || !nextProps.hitIds.equals(this.props.hitIds);
+    return (
+      nextProps.page !== this.props.page ||
+      !nextProps.hitIds.equals(this.props.hitIds)
+    );
   }
 
   public render() {
