@@ -30,6 +30,10 @@ const hitDatabaseFilteredByStatus = createSelector(
 const hitDatabaseFilteredBySearchTerm = createSelector(
   [hitDatabaseFilteredByStatus, databaseFilterSettingsSelector],
   (hitDatabase, { searchTerm }) => {
+    if (searchTerm.length === 0) {
+      return hitDatabase;
+    }
+
     const searchRegex = new RegExp(escapeUserInputForRegex(searchTerm), 'i');
     const hitMatchesSearchTerm = createFilterFn(searchTerm, searchRegex);
 
