@@ -4,23 +4,27 @@ import { RootState, HitId, FilterOrderType } from 'types';
 import { ResourceList } from '@shopify/polaris';
 import { DATABASE_FILTER_RESULTS_PER_PAGE } from 'constants/misc';
 import CompletedHitItem from '../SelectedHitDate/CompletedHitItem';
-import { hitDatabaseFilteredBySearchTerm } from 'selectors/databaseFilterSettings';
 import DatabaseFilterControl from './DatabaseFilterControl';
 import { Iterable } from 'immutable';
 import { databaseFilterSortOptions } from 'utils/databaseFilter';
+import { changeFilterSortOrder } from 'actions/databaseFilterSettings';
 
 interface Props {
-  readonly hitIds: Iterable<HitId, HitId>;
   readonly sortValue: FilterOrderType;
+}
+
+interface Handlers {
+  readonly onSortChange: (option: FilterOrderType) => void;
 }
 
 interface OwnProps {
   readonly page: number;
+  readonly hitIds: Iterable<HitId, HitId>;
 }
 
-class ResultsList extends React.Component<Props & OwnProps, never> {
-  shouldComponentUpdate(nextProps: Props) {
-    return !nextProps.hitIds.equals(this.props.hitIds);
+class ResultsList extends React.Component<Props & OwnProps & Handlers, never> {
+  shouldComponentUpdate(nextProps: Props & OwnProps) {
+    return nextProps.page !== this.props.page || !nextProps.hitIds.equals(this.props.hitIds);
   }
 
   public render() {
@@ -28,13 +32,14 @@ class ResultsList extends React.Component<Props & OwnProps, never> {
     const start = DATABASE_FILTER_RESULTS_PER_PAGE * page;
     const end = start + DATABASE_FILTER_RESULTS_PER_PAGE;
     const itemsToShow = hitIds.slice(start, end).toArray();
-
+    // tslint:disable
     return (
       <ResourceList
         showHeader
         filterControl={<DatabaseFilterControl />}
         sortValue={this.props.sortValue}
         sortOptions={databaseFilterSortOptions}
+        onSortChange={this.props.onSortChange}
         resourceName={{ singular: 'HIT', plural: 'HITs' }}
         items={itemsToShow}
         renderItem={(id: string) => <CompletedHitItem id={id} />}
@@ -44,8 +49,11 @@ class ResultsList extends React.Component<Props & OwnProps, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  sortValue: state.databaseFilterSettings.sortOrder,
-  hitIds: hitDatabaseFilteredBySearchTerm(state)
+  sortValue: state.databaseFilterSettings.sortOrder
 });
 
-export default connect(mapState)(ResultsList);
+const mapDispatch: Handlers = {
+  onSortChange: changeFilterSortOrder
+};
+
+export default connect(mapState, mapDispatch)(ResultsList);
