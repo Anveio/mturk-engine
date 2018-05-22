@@ -35,7 +35,6 @@ class ResultsList extends React.Component<Props & OwnProps & Handlers, never> {
     const start = DATABASE_FILTER_RESULTS_PER_PAGE * page;
     const end = start + DATABASE_FILTER_RESULTS_PER_PAGE;
     const itemsToShow = hitIds.slice(start, end).toArray();
-    // tslint:disable
     return (
       <ResourceList
         showHeader
