@@ -2,7 +2,8 @@ import {
   StatusFilterType,
   HitDatabaseMap,
   HitDatabaseEntry,
-  HitStatus
+  HitStatus,
+  FilterOrderType
 } from 'types';
 import { Map } from 'immutable';
 import { AppliedFilter, FilterType } from '@shopify/polaris';
@@ -103,3 +104,24 @@ export const createFilterFn = (searchTerm: string, searchRegex: RegExp) => (
   hit.requester.id === searchTerm ||
   searchRegex.test(hit.title) ||
   searchRegex.test(hit.requester.name);
+
+interface FilterSortOrderOption {
+  readonly value: FilterOrderType;
+  readonly label: string;
+  readonly disabled?: boolean;
+}
+
+export const databaseFilterSortOptions: FilterSortOrderOption[] = [
+  {
+    label: 'Highest Pay',
+    value: 'PAY_DESC'
+  },
+  {
+    label: 'Newest submitted',
+    value: 'DATE_RECENT_FIRST'
+  },
+  {
+    label: 'Oldest submitted',
+    value: 'DATE_OLDEST_FIRST'
+  }
+];
