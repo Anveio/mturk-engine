@@ -205,9 +205,15 @@ export type HitDatabaseEntry = LegacyHitDatabaseEntry | WorkerHitDatabaseEntry;
 
 export type StatusFilterType = 'PENDING' | 'APPROVED' | 'PAID' | 'REJECTED';
 
+export type FilterOrderType =
+  | 'PAY_DESC'
+  | 'DATE_RECENT_FIRST'
+  | 'DATE_OLDEST_FIRST';
+
 export interface DatabaseFilterSettings {
   readonly searchTerm: string;
   readonly statusFilters: StatusFilterType[];
+  readonly sortOrder: FilterOrderType;
 }
 
 export interface QueueItem extends HumanIntelligenceTask {
