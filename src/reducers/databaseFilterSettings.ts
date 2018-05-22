@@ -1,10 +1,15 @@
-import { UPDATE_DB_SEARCH_TERM, UPDATE_DB_STATUS_FILTERS } from '../constants';
+import {
+  UPDATE_DB_SEARCH_TERM,
+  UPDATE_DB_STATUS_FILTERS,
+  UPDATE_DB_SORT_ORDER
+} from '../constants';
 import { DatabaseFilterSettings } from 'types';
 import { DatabaseFilterAction } from 'actions/databaseFilterSettings';
 
 const initial: DatabaseFilterSettings = {
   searchTerm: '',
-  statusFilters: []
+  statusFilters: [],
+  sortOrder: 'DATE_RECENT_FIRST'
 };
 
 export default (
@@ -21,6 +26,11 @@ export default (
       return {
         ...state,
         statusFilters: action.data
+      };
+    case UPDATE_DB_SORT_ORDER:
+      return {
+        ...state,
+        sortOrder: action.data
       };
     default:
       return state;
