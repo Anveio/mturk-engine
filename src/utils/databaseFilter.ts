@@ -132,8 +132,8 @@ export type FilterOrderToSortFnMap = { [K in FilterOrderType]: DatabaseSortFn };
 const sortOrderToSortFnMap: FilterOrderToSortFnMap = {
   PAY_DESC: (a, b) => b.reward + b.bonus - (a.reward + a.bonus),
   DATE_RECENT_FIRST: (a, b) =>
-    legacyDateFormatToDateObj(a.date).valueOf() -
-    legacyDateFormatToDateObj(b.date).valueOf(),
+    legacyDateFormatToDateObj(b.date).valueOf() -
+    legacyDateFormatToDateObj(a.date).valueOf(),
   DATE_OLDEST_FIRST: (a, b) =>
     legacyDateFormatToDateObj(a.date).valueOf() -
     legacyDateFormatToDateObj(b.date).valueOf()
