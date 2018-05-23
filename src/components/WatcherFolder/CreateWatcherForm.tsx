@@ -54,13 +54,17 @@ class CreateWatcherForm extends React.PureComponent<
     descriptionInput: ''
   };
 
-  private createWatcher = (groupId: string, folderId: string): Watcher => ({
+  private createWatcher = (
+    groupId: string,
+    folderId: string,
+    createdOn: Date
+  ): Watcher => ({
     ...watcherDefaults,
     groupId,
     description: this.state.descriptionInput,
     folderId: folderId,
     title: this.state.titleInput || groupId,
-    createdOn: new Date()
+    createdOn
   });
 
   private confirmSubmit = (id: string, valid: boolean) => {
@@ -76,7 +80,9 @@ class CreateWatcherForm extends React.PureComponent<
       return;
     }
 
-    this.props.onAddWatcher(this.createWatcher(id, this.props.folderId));
+    this.props.onAddWatcher(
+      this.createWatcher(id, this.props.folderId, new Date())
+    );
     showPlainToast(`Watcher with ID: ${id} created.`);
   };
 
