@@ -2,18 +2,13 @@ import { createSelector } from 'reselect';
 import {
   HitDatabaseEntry,
   HitDatabaseMap,
-  HeatMapValue,
   RequesterMap,
   Requester,
   HitId,
   RequesterId,
   LegacyDateFormat
 } from '../types';
-import {
-  generateOneYearOfDates,
-  todayFormatted,
-  stringToDate
-} from '../utils/dates';
+import { todayFormatted, stringToDate } from '../utils/dates';
 import {
   rewardAndBonus,
   isPending,
@@ -58,24 +53,6 @@ export const dateMoneyMap = createSelector(
         ),
       Map<LegacyDateFormat, number>()
     )
-);
-
-// tslint:disable:align
-export const oneYearOfData = createSelector(
-  [dateMoneyMap],
-  (moneyEarnedPerDay: Map<LegacyDateFormat, number>): List<HeatMapValue> => {
-    const oneYearOfDates = generateOneYearOfDates(new Date());
-    return oneYearOfDates.reduce(
-      (acc: List<HeatMapValue>, date: LegacyDateFormat) => {
-        const count: number | undefined = moneyEarnedPerDay.get(date);
-        const data = count
-          ? { date, count: Math.round(count * 100) / 100 }
-          : { date, count: 0 };
-        return acc.push(data);
-      },
-      List()
-    );
-  }
 );
 
 export const hitsCompletedToday = createSelector(
