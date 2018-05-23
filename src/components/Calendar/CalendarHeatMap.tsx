@@ -3,13 +3,11 @@
  */
 
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { List } from 'immutable';
-import { RootState, HeatMapValue } from '../../types';
+import { HeatMapValue } from '../../types';
 import { shiftDate } from '../../utils/dates';
 import * as moment from 'moment';
 import { range } from '../../utils/arrays';
-import { oneYearOfData } from '../../selectors/hitDatabase';
 import {
   HEATMAP_CSS_PREFIX,
   GUTTER_SIZE,
@@ -211,8 +209,4 @@ class CalendarHeatMap extends React.Component<Props, never> {
   }
 }
 
-const mapState = (state: RootState): Props => ({
-  values: oneYearOfData(state)
-});
-
-export default connect(mapState)(CalendarHeatMap);
+export default CalendarHeatMap;
