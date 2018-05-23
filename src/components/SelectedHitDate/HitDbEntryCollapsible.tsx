@@ -46,12 +46,11 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
                 helpText={'Copy requester name'}
               />
             </Stack>
-            <Caption>
-              Feedback:{' '}
-              <TextStyle variation="strong">
-                {feedback || 'No feedback given.'}
-              </TextStyle>
-            </Caption>
+            {feedback && (
+              <Caption>
+                Feedback: <TextStyle variation="strong">{feedback}</TextStyle>
+              </Caption>
+            )}
             <EditBonusButton hitId={id} bonus={bonus} />
           </Stack>
         </Card.Section>
