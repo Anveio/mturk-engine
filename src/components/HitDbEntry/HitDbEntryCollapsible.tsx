@@ -22,7 +22,7 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
   public render() {
     const {
       open,
-      hit: { id, feedback, requester, bonus, date },
+      hit: { id, feedback, bonus, date },
       renderDate
     } = this.props;
     return (
@@ -48,20 +48,6 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
                 buttonText="Copy"
                 toastText={'HIT ID copied to clipboard.'}
                 helpText={'Copy HIT ID'}
-              />
-            </Stack>
-            <Stack vertical={false} alignment="center">
-              <TextContainer>
-                Requester:{' '}
-                <TextStyle variation="strong">{requester.name}</TextStyle>
-              </TextContainer>
-              <CopyTextButton
-                textOnly
-                primary
-                copyText={requester.name}
-                buttonText="Copy"
-                toastText={'Requester name copied to clipboard.'}
-                helpText={'Copy requester name'}
               />
             </Stack>
             {feedback && (
