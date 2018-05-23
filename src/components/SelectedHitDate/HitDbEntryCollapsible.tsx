@@ -1,5 +1,11 @@
 import * as React from 'react';
-import { Collapsible, Card, Stack, TextStyle, Caption } from '@shopify/polaris';
+import {
+  Collapsible,
+  Card,
+  Stack,
+  TextStyle,
+  TextContainer
+} from '@shopify/polaris';
 import { HitDatabaseEntry } from 'types';
 import EditBonusButton from './EditBonusButton';
 import CopyTextButton from '../Buttons/CopyTextButton';
@@ -20,9 +26,9 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
         <Card.Section>
           <Stack vertical distribution="equalSpacing">
             <Stack vertical={false} alignment="center">
-              <Caption>
+              <TextContainer>
                 Hit ID: <TextStyle variation="strong">{id}</TextStyle>
-              </Caption>
+              </TextContainer>
               <CopyTextButton
                 textOnly
                 primary
@@ -33,10 +39,10 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
               />
             </Stack>
             <Stack vertical={false} alignment="center">
-              <Caption>
+              <TextContainer>
                 Requester:{' '}
                 <TextStyle variation="strong">{requester.name}</TextStyle>
-              </Caption>
+              </TextContainer>
               <CopyTextButton
                 textOnly
                 primary
@@ -47,9 +53,9 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
               />
             </Stack>
             {feedback && (
-              <Caption>
+              <TextContainer>
                 Feedback: <TextStyle variation="strong">{feedback}</TextStyle>
-              </Caption>
+              </TextContainer>
             )}
             <EditBonusButton hitId={id} bonus={bonus} />
           </Stack>
