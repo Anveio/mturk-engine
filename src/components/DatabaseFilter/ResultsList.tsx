@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { RootState, HitId, FilterOrderType } from 'types';
 import { ResourceList } from '@shopify/polaris';
 import { DATABASE_FILTER_RESULTS_PER_PAGE } from 'constants/misc';
-import CompletedHitItem from '../SelectedHitDate/CompletedHitItem';
 import DatabaseFilterControl from './DatabaseFilterControl';
 import { Iterable } from 'immutable';
 import { databaseFilterSortOptions } from 'utils/databaseFilter';
 import { changeFilterSortOrder } from 'actions/databaseFilterSettings';
+import HitDbEntry from '../HitDbEntry/HitDbEntry';
 
 interface Props {
   readonly sortValue: FilterOrderType;
@@ -44,7 +44,7 @@ class ResultsList extends React.Component<Props & OwnProps & Handlers, never> {
         onSortChange={this.props.onSortChange}
         resourceName={{ singular: 'HIT', plural: 'HITs' }}
         items={itemsToShow}
-        renderItem={(id: string) => <CompletedHitItem id={id} />}
+        renderItem={(id: string) => <HitDbEntry id={id} />}
       />
     );
   }

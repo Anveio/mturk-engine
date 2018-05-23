@@ -27,7 +27,7 @@ interface State {
   readonly expanded: boolean;
 }
 
-class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
+class HitDbEntry extends React.PureComponent<Props & OwnProps, State> {
   public readonly state: State = { expanded: false };
 
   componentDidUpdate(nextProps: Props) {
@@ -88,7 +88,7 @@ class CompletedHitItem extends React.PureComponent<Props & OwnProps, State> {
               <Stack vertical={false}>
                 <Stack.Item>
                   <TextStyle variation="strong">
-                    {CompletedHitItem.displayEarnings(hit.reward, hit.bonus)}
+                    {HitDbEntry.displayEarnings(hit.reward, hit.bonus)}
                   </TextStyle>
                 </Stack.Item>
                 <Stack.Item>
@@ -108,4 +108,4 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   hit: state.hitDatabase.get(ownProps.id)
 });
 
-export default connect(mapState)(CompletedHitItem);
+export default connect(mapState)(HitDbEntry);

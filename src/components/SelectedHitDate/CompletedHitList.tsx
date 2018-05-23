@@ -5,8 +5,8 @@ import { List } from 'immutable';
 import { ResourceList } from '@shopify/polaris';
 import { hitsOnSelectedDateIds } from 'selectors/hitDatabaseDay';
 import { DATABASE_RESULTS_PER_PAGE } from 'constants/misc';
-import CompletedHitItem from './CompletedHitItem';
 import NoActivity from './NoActivity';
+import HitDbEntry from '../HitDbEntry/HitDbEntry';
 
 export interface Props {
   readonly hitIds: List<HitId>;
@@ -26,7 +26,7 @@ class CompletedHitList extends React.PureComponent<Props & OwnProps, never> {
     return hitIds.size > 0 ? (
       <ResourceList
         items={itemsToShow.toArray()}
-        renderItem={(id: string) => <CompletedHitItem id={id} />}
+        renderItem={(id: string) => <HitDbEntry id={id} />}
       />
     ) : (
       <NoActivity />
