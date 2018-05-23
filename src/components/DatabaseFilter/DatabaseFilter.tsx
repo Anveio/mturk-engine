@@ -70,7 +70,7 @@ class DatabaseFilter extends React.Component<Props, State> {
     };
 
     return (
-      <Card title="Search your HIT database">
+      <Card title={`Found ${this.props.hitIds.size} results in your database.`}>
         <ResultsList page={this.state.page} hitIds={this.props.hitIds} />
         <DatabaseFilterPagination {...paginationProps} />
       </Card>
