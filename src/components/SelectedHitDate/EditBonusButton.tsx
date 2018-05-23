@@ -14,16 +14,16 @@ import { successfulEditBonusToast } from 'utils/toaster';
 import { watchForEnter } from 'utils/watchForEnter';
 import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 
-export interface OwnProps {
+interface OwnProps {
   readonly bonus: number;
   readonly hitId: string;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onEditBonus: (id: string, value: number) => void;
 }
 
-export interface State {
+interface State {
   readonly value: string;
   readonly error?: string;
   readonly isOpen: boolean;
@@ -75,6 +75,9 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
     this.handleSubmit
   );
 
+  private generateButtonText = () =>
+    `Bonus: ${formatAsUsd(this.props.bonus)} (Edit)`;
+
   public render() {
     return (
       <Popover
@@ -86,7 +89,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
           className={SMALL_MINIMAL_BUTTON}
           icon="manually-entered-data"
         >
-          Bonus: {formatAsUsd(this.props.bonus)} (Edit)
+          {this.generateButtonText()}
         </Button>
         <Card sectioned title="Enter a new bonus.">
           <div onKeyPress={this.handleEnterKeyPress}>
@@ -102,7 +105,6 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
                 error={this.state.error}
                 helpText="Changes will apply after saving."
                 autoComplete={false}
-                autoFocus
               />
               <PolarisButton onClick={this.handleSubmit}>Save</PolarisButton>
             </FormLayout>
