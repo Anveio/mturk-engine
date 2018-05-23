@@ -57,7 +57,7 @@ class HitBlockList extends React.Component<Props & Handlers, never> {
             </Stack>
           </Card.Section>
           <ResourceList
-            items={blockedHitsSortedRecentFirst.toArray()}
+            items={blockedHitsSortedRecentFirst.slice(0, 20).toArray()}
             renderItem={({ groupId }: BlockedHit) => (
               <BlockedHitCard key={groupId} blockedHitId={groupId} />
             )}
