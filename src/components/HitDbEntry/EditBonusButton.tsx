@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect, Dispatch } from 'react-redux';
-import { Popover, Button, Intent } from '@blueprintjs/core';
+import { Popover, Button, Intent, Classes } from '@blueprintjs/core';
 import {
   Card,
   FormLayout,
@@ -12,7 +12,6 @@ import { formatAsUsd } from 'utils/formatting';
 import { EditBonus, editBonus } from 'actions/bonus';
 import { successfulEditBonusToast } from 'utils/toaster';
 import { watchForEnter } from 'utils/watchForEnter';
-import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 
 interface OwnProps {
   readonly bonus: number;
@@ -86,7 +85,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
       >
         <Button
           intent={Intent.PRIMARY}
-          className={SMALL_MINIMAL_BUTTON}
+          className={Classes.MINIMAL}
           icon="manually-entered-data"
         >
           {this.generateButtonText()}

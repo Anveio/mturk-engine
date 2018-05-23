@@ -11,6 +11,8 @@ import EditBonusButton from './EditBonusButton';
 import CopyTextButton from '../Buttons/CopyTextButton';
 import { stringToDate } from 'utils/dates';
 import { LEGACY_DATE_FORMAT } from 'constants/dates';
+import MenuActivator from '../HitActionMenu/MenuActivator';
+import HitDbEntryMenu from './HitDbEntryMenu';
 
 interface Props {
   readonly open: boolean;
@@ -55,7 +57,12 @@ class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
                 Feedback: <TextStyle variation="strong">{feedback}</TextStyle>
               </TextContainer>
             )}
-            <EditBonusButton hitId={id} bonus={bonus} />
+            <Stack vertical={false} alignment="center">
+              <MenuActivator accessibilityLabel="Additional actions">
+                <HitDbEntryMenu hit={this.props.hit} />
+              </MenuActivator>
+              <EditBonusButton hitId={id} bonus={bonus} />
+            </Stack>
           </Stack>
         </Card.Section>
       </Collapsible>
