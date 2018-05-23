@@ -2,16 +2,21 @@ import * as React from 'react';
 import { Card } from '@shopify/polaris';
 import { connect } from 'react-redux';
 import { RootState, HitId } from 'types';
-import { sortedAndFilteredHitDatabase } from 'selectors/databaseFilterSettings';
+import {
+  sortedAndFilteredHitDatabase,
+  databaseFilterResultsMoneyTotal
+} from 'selectors/databaseFilterSettings';
 import { Iterable } from 'immutable';
 import DatabaseFilterPagination, {
   DatabaseFilterPaginationProps
 } from './DatabaseFilterPagination';
 import { DATABASE_FILTER_RESULTS_PER_PAGE } from 'constants/misc';
 import ResultsList from './ResultsList';
+import { formatAsUsd, pluralize } from 'utils/formatting';
 
 interface Props {
   readonly hitIds: Iterable<HitId, HitId>;
+  readonly resultsMoneyTotal: number;
 }
 
 interface State {
@@ -57,6 +62,15 @@ class DatabaseFilter extends React.Component<Props, State> {
       page: Math.max(prevState.page - 1, 0)
     }));
 
+  private generateCardTitle = () =>
+    this.props.hitIds.size > 0
+      ? `Found ${this.props.hitIds.size} ${pluralize('result', 'results')(
+          this.props.hitIds.size
+        )} in your database totaling ${formatAsUsd(
+          this.props.resultsMoneyTotal
+        )}.`
+      : 'Search your HIT database.';
+
   public render() {
     const hasNext = this.calculateHasNext(this.state.page, this.state.maxPage);
     const hasPrevious = this.calculateHasPrevious(this.state.page);
@@ -70,7 +84,7 @@ class DatabaseFilter extends React.Component<Props, State> {
     };
 
     return (
-      <Card title={`Found ${this.props.hitIds.size} results in your database.`}>
+      <Card title={this.generateCardTitle()}>
         <ResultsList page={this.state.page} hitIds={this.props.hitIds} />
         <DatabaseFilterPagination {...paginationProps} />
       </Card>
@@ -79,7 +93,8 @@ class DatabaseFilter extends React.Component<Props, State> {
 }
 
 const mapState = (state: RootState): Props => ({
-  hitIds: sortedAndFilteredHitDatabase(state)
+  hitIds: sortedAndFilteredHitDatabase(state),
+  resultsMoneyTotal: databaseFilterResultsMoneyTotal(state)
 });
 
 export default connect(mapState)(DatabaseFilter);

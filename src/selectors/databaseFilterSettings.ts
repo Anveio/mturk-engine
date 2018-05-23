@@ -4,6 +4,7 @@ import { HitDatabaseMap, StatusFilterType, HitDatabaseEntry } from 'types';
 import { filterBy, createFilterFn, createSortFn } from 'utils/databaseFilter';
 import { Map } from 'immutable';
 import { escapeUserInputForRegex } from 'utils/formatting';
+import { rewardAndBonus } from 'utils/hitDatabase';
 
 const hitDatabaseFilteredByStatus = createSelector(
   [hitDatabaseSelector, databaseFilterSettingsSelector],
@@ -52,4 +53,13 @@ const hitDatabaseFilteredWithOptions = createSelector(
 export const sortedAndFilteredHitDatabase = createSelector(
   [hitDatabaseFilteredWithOptions],
   hitDatabase => hitDatabase.map((hit: HitDatabaseEntry) => hit.id)
+);
+
+export const databaseFilterResultsMoneyTotal = createSelector(
+  [hitDatabaseFilteredWithOptions],
+  hitDatabase =>
+    hitDatabase.reduce(
+      (acc: number, el: HitDatabaseEntry) => acc + rewardAndBonus(el),
+      0
+    )
 );
