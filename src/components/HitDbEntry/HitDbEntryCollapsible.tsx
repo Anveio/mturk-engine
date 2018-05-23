@@ -9,22 +9,34 @@ import {
 import { HitDatabaseEntry } from 'types';
 import EditBonusButton from './EditBonusButton';
 import CopyTextButton from '../Buttons/CopyTextButton';
+import { stringToDate } from 'utils/dates';
+import { LEGACY_DATE_FORMAT } from 'constants/dates';
 
 interface Props {
   readonly open: boolean;
   readonly hit: HitDatabaseEntry;
+  readonly renderDate?: boolean;
 }
 
 class HitDbEntryCollapsible extends React.PureComponent<Props, never> {
   public render() {
     const {
       open,
-      hit: { id, feedback, requester, bonus }
+      hit: { id, feedback, requester, bonus, date },
+      renderDate
     } = this.props;
     return (
       <Collapsible open={open} id={id}>
         <Card.Section>
           <Stack vertical distribution="equalSpacing">
+            {renderDate && (
+              <TextContainer>
+                Submitted:{' '}
+                <TextStyle variation="strong">
+                  {stringToDate(date)(LEGACY_DATE_FORMAT).toLocaleDateString()}
+                </TextStyle>
+              </TextContainer>
+            )}
             <Stack vertical={false} alignment="center">
               <TextContainer>
                 Hit ID: <TextStyle variation="strong">{id}</TextStyle>

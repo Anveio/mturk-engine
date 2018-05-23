@@ -44,7 +44,7 @@ class ResultsList extends React.Component<Props & OwnProps & Handlers, never> {
         onSortChange={this.props.onSortChange}
         resourceName={{ singular: 'HIT', plural: 'HITs' }}
         items={itemsToShow}
-        renderItem={(id: string) => <HitDbEntry id={id} />}
+        renderItem={(id: string) => <HitDbEntry id={id} renderDate />}
       />
     );
   }

@@ -17,6 +17,7 @@ import { generateHitStatusBadge } from 'utils/badges';
 
 interface OwnProps {
   readonly id: string;
+  readonly renderDate?: boolean;
 }
 
 interface Props {
@@ -98,7 +99,7 @@ class HitDbEntry extends React.PureComponent<Props & OwnProps, State> {
             </Stack.Item>
           </Stack>
         </ResourceList.Item>
-        <HitDbEntryCollapsible open={this.state.expanded} hit={hit} />
+        <HitDbEntryCollapsible open={this.state.expanded} {...this.props} />
       </React.Fragment>
     );
   }
