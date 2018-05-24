@@ -29,11 +29,20 @@ class DatabaseFilterControl extends React.Component<Props & Handlers, never> {
     this.props.onFilterChange(newFilters);
   };
 
+  private clearAllFields = () => {
+    this.props.onSearchChange('');
+    this.props.onFilterChange([]);
+  };
+
   public render() {
     const filters = statusFiltersToAppliedFilterArray(this.props.statusFilters);
 
     return (
       <ResourceList.FilterControl
+        additionalAction={{
+          content: 'Clear',
+          onAction: this.clearAllFields
+        }}
         searchValue={this.props.searchTerm}
         onSearchChange={this.props.onSearchChange}
         filters={availableFilters}
