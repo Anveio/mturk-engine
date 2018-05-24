@@ -92,6 +92,7 @@ class EditDailyGoalButton extends React.PureComponent<Props & Handlers, State> {
           <div onKeyPress={this.handleEnterKeyPress}>
             <FormLayout>
               <TextField
+                id="edit-daily-goal"
                 label="Daily Goal"
                 min={0}
                 value={this.state.value}

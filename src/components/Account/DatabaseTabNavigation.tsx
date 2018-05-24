@@ -25,7 +25,10 @@ class DatabaseTabNavigation extends React.PureComponent<{}, State> {
   public render() {
     return (
       <Tabs
-        tabs={[{ id: 'hi', content: 'Date' }, { id: 'hey', content: 'Search' }]}
+        tabs={[
+          { id: 'date-information', content: 'Date' },
+          { id: 'search-database', content: 'Search' }
+        ]}
         selected={this.state.selectedTabIndex}
         onSelect={this.handleTabSelect}
       >
