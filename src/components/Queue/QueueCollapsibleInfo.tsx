@@ -14,7 +14,6 @@ import AddAsWatcherButton from '../Buttons/AddAsWatcherButton';
 import MenuActivator from '../HitActionMenu/MenuActivator';
 import HitActionMenu from '../HitActionMenu/HitActionMenu';
 import ExternalPlainButtons from '../Buttons/ExternalPlainButtons';
-import TOpticonButton from '../Buttons/TOpticonButton';
 import { hitDatabaseToRequesterMap } from 'selectors/hitDatabase';
 
 interface Props {
@@ -51,10 +50,6 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
               <BlockRequesterButton requester={requester} withToast={true} />
               <AddAsWatcherButton hit={hit} />
               <ButtonGroup>
-                <TOpticonButton
-                  requesterId={hit.requester.id}
-                  turkopticon={hit.requester.turkopticon}
-                />
                 <ExternalPlainButtons.TurkopticonTwoLinkButton
                   requesterId={hit.requester.id}
                 />
