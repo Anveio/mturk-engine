@@ -42,12 +42,30 @@ const hitDatabaseFilteredBySearchTerm = createSelector(
   }
 );
 
-const sortedAndFilteredHitDatabase = createSelector(
-  [hitDatabaseFilteredBySearchTerm, databaseFilterSettingsSelector],
-  (hitDatabase, { sortOrder }) => {
+/**
+ * Without this specific selector, the hitDatabaseSortedByOption selector would
+ * recalculate whenever any property in the databaseFilterOptions object changes
+ *  in value.
+ */
+const databaseSortOrderSelector = createSelector(
+  [databaseFilterSettingsSelector],
+  settings => settings.sortOrder
+);
+
+const hitDatabaseSortedByOption = createSelector(
+  [hitDatabaseSelector, databaseSortOrderSelector],
+  (hitDatabase, sortOrder) => {
     const sortFn = createSortFn(sortOrder);
     return hitDatabase.sort(sortFn);
   }
+);
+
+const sortedAndFilteredHitDatabase = createSelector(
+  [hitDatabaseFilteredBySearchTerm, hitDatabaseSortedByOption],
+  (filteredHitDatabase, sortedHitDatabase) =>
+    sortedHitDatabase.filter((hit: HitDatabaseEntry) =>
+      filteredHitDatabase.has(hit.id)
+    )
 );
 
 export const filteredResultsIds = createSelector(
