@@ -4,7 +4,7 @@ import {
   Collapsible,
   Card,
   Stack,
-  Caption,
+  TextContainer,
   ButtonGroup
 } from '@shopify/polaris';
 import { RootState, QueueItem } from '../../types';
@@ -38,10 +38,9 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
       <Collapsible open={expanded} id={hit.hitId}>
         <Card.Section>
           <Stack vertical spacing="loose">
-            <Caption>{`Requester: ${requester.name}`}</Caption>
-            <Caption>
+            <TextContainer>
               {`Description: ${description || 'No description.'}`}
-            </Caption>
+            </TextContainer>
             {knownRequester && <KnownRequesterButton {...this.props} />}
             <Stack vertical={false} alignment="center">
               <MenuActivator accessibilityLabel="Additional actions">
