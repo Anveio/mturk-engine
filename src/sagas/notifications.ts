@@ -17,8 +17,8 @@ import {
   notificationPermissionBlockedToast
 } from '../utils/toaster';
 import { SearchSuccess } from 'actions/search';
-import { topThreePayingResultsSuitableForNotification } from 'selectors/notificationSettings';
-import { SearchResults, NotificationSettings } from 'types';
+import { topPayingResultSuitableForNotification } from 'selectors/notificationSettings';
+import { NotificationSettings, SearchResult } from 'types';
 import { notificationSettingsSelector } from 'selectors';
 
 export function* resolveNotificationPermissionRequest(
@@ -50,17 +50,15 @@ export function* resolveNotificationPermissionRequest(
 }
 
 export function* sendNotificationForSearchResult(action: SearchSuccess) {
-  const resultsToSendNotificationsFor: SearchResults = yield select(
-    topThreePayingResultsSuitableForNotification
+  const hit: SearchResult | undefined = yield select(
+    topPayingResultSuitableForNotification
   );
   const { enabled, durationInSeconds }: NotificationSettings = yield select(
     notificationSettingsSelector
   );
 
-  if (enabled) {
-    for (const result of resultsToSendNotificationsFor.toArray()) {
-      yield put<SendNotification>(sendNotification(result, durationInSeconds));
-    }
+  if (enabled && hit) {
+    yield put<SendNotification>(sendNotification(hit, durationInSeconds));
   }
 }
 

@@ -12,18 +12,16 @@ export const requestNotificationPermission = async (): Promise<
     return 'denied';
   }
 };
+
 export const createNotificationFromSearchResult = (
   hit: SearchResult
 ): Notification => {
   const { title, reward, description, timeAllottedInSeconds } = hit;
-  const notification = new Notification(
-    `${formatAsUsd(reward)} - ${title}`,
-    {
-      body: `Click to accept - ${secondsToMinutes(
-        timeAllottedInSeconds
-      )} minutes allotted - ${description}`
-    }
-  );
+  const notification = new Notification(`${formatAsUsd(reward)} - ${title}`, {
+    body: `Click to accept - ${secondsToMinutes(
+      timeAllottedInSeconds
+    )} minutes allotted - ${description}`
+  });
   notification.onclick = acceptHitOnClick(hit);
   return notification;
 };

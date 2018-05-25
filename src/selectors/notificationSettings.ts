@@ -15,11 +15,8 @@ const filterNewSearchResultsQualifiedOnly = createSelector(
 
 const newNeverLoggedSearchResults = createSelector(
   [filterNewSearchResultsQualifiedOnly, loggedSearchResultsSelector],
-  (results: SearchResults, loggedResults: SearchResults) => {
-    return results.filter(
-      (result: SearchResult) => !loggedResults.get(result.groupId)
-    );
-  }
+  (results: SearchResults, loggedResults: SearchResults) =>
+    results.filter((result: SearchResult) => !loggedResults.get(result.groupId))
 );
 
 const unreadSearchResultsAboveNotificationThreshold = createSelector(
@@ -31,16 +28,15 @@ const unreadSearchResultsAboveNotificationThreshold = createSelector(
 );
 
 /**
- * Users can receive 3 desktop notifications at a time.
- * So send notifications for only the 3 highest paying HITs.
+ * Users can receive 1 desktop notifications at a time.
+ * So send notifications for only the highest paying HIT.
  */
-export const topThreePayingResultsSuitableForNotification = createSelector(
+export const topPayingResultSuitableForNotification = createSelector(
   [unreadSearchResultsAboveNotificationThreshold],
   results =>
-    results.sort((a, b) => b.reward - a.reward).slice(0, 3) as SearchResults
-);
-
-export const topThreePayingResultsGroupIds = createSelector(
-  [topThreePayingResultsSuitableForNotification],
-  results => results.map((result: SearchResult) => result.groupId).toList()
+    results
+      .sort((a, b) => b.reward - a.reward)
+      .slice(0, 1)
+      .toList()
+      .get(0) as SearchResult | undefined
 );
