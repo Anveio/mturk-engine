@@ -18,9 +18,8 @@ class QueueDisclaimer extends React.PureComponent<{}, State> {
       this.state.visible && (
         <Layout.Section>
           <Banner status="warning" onDismiss={this.dismissBanner}>
-            Mturk Engine incorrectly reports a successful accept when
-            encountering a CAPTCHA. If you refresh your queue and your HIT isn't
-            there, accept it manually and successfully complete the CAPTCHA.
+            If the HIT you've accepted doesn't appear after a few seconds, you
+            may need to accept the HIT manually and complete a CAPTCHA.
           </Banner>
         </Layout.Section>
       )
