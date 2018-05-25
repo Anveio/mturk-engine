@@ -3,7 +3,7 @@ import { Card } from '@shopify/polaris';
 import { connect } from 'react-redux';
 import { RootState, HitId } from 'types';
 import {
-  sortedAndFilteredHitDatabase,
+  filteredResultsIds,
   databaseFilterResultsMoneyTotal
 } from 'selectors/databaseFilterSettings';
 import { Iterable } from 'immutable';
@@ -93,7 +93,7 @@ class DatabaseFilter extends React.Component<Props, State> {
 }
 
 const mapState = (state: RootState): Props => ({
-  hitIds: sortedAndFilteredHitDatabase(state),
+  hitIds: filteredResultsIds(state),
   resultsMoneyTotal: databaseFilterResultsMoneyTotal(state)
 });
 

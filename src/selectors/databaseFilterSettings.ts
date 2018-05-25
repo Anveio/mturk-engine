@@ -42,7 +42,7 @@ const hitDatabaseFilteredBySearchTerm = createSelector(
   }
 );
 
-const hitDatabaseFilteredWithOptions = createSelector(
+const sortedAndFilteredHitDatabase = createSelector(
   [hitDatabaseFilteredBySearchTerm, databaseFilterSettingsSelector],
   (hitDatabase, { sortOrder }) => {
     const sortFn = createSortFn(sortOrder);
@@ -50,13 +50,13 @@ const hitDatabaseFilteredWithOptions = createSelector(
   }
 );
 
-export const sortedAndFilteredHitDatabase = createSelector(
-  [hitDatabaseFilteredWithOptions],
+export const filteredResultsIds = createSelector(
+  [sortedAndFilteredHitDatabase],
   hitDatabase => hitDatabase.map((hit: HitDatabaseEntry) => hit.id)
 );
 
 export const databaseFilterResultsMoneyTotal = createSelector(
-  [hitDatabaseFilteredWithOptions],
+  [sortedAndFilteredHitDatabase],
   hitDatabase =>
     hitDatabase.reduce(
       (acc: number, el: HitDatabaseEntry) => acc + rewardAndBonus(el),
