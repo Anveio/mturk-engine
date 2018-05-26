@@ -9,7 +9,7 @@ import {
   RequesterId
 } from '../types';
 import {
-  filterBelowTOThreshold,
+  filterBelowTopticonThreshold,
   attributeWeightsSelector
 } from './turkopticon';
 import { sortBy } from '../utils/sorting';
@@ -59,7 +59,7 @@ const hideBlockedRequestersAndHits = createSelector(
 const filteredAndSortedResults = createSelector(
   [
     hideBlockedRequestersAndHits,
-    filterBelowTOThreshold,
+    filterBelowTopticonThreshold,
     sortOptionSelector,
     attributeWeightsSelector
   ],

@@ -7,7 +7,8 @@ import {
   Requester,
   RequesterMap,
   TOpticonAttributes,
-  AttributeWeights
+  AttributeWeights,
+  GroupId
 } from '../types';
 import { turkopticonBaseUrl } from '../constants/urls';
 
@@ -122,4 +123,21 @@ export const generateReviewLink = (
     '&report[hit_names]=' +
     hit.title
   );
+};
+
+export const sortByWeightedTo = (
+  weightedToMap: Map<GroupId, number | null>,
+  minScore: number
+) => (hit: SearchResult): boolean => {
+  if (!hit.requester.turkopticon) {
+    return true;
+  }
+
+  const averageScore = weightedToMap.get(hit.groupId);
+
+  if (!averageScore) {
+    return true;
+  }
+
+  return averageScore >= minScore;
 };

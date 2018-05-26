@@ -8,7 +8,8 @@ import {
 } from '../types';
 import {
   hasAValidScore,
-  calculateWeightedAverageScore
+  calculateWeightedAverageScore,
+  sortByWeightedTo
 } from '../utils/turkopticon';
 import { searchResultsSelector, turkopticonSettingsSelector } from './index';
 
@@ -62,7 +63,7 @@ export const searchResultsToWeightedToMap = createSelector(
     })
 );
 
-export const filterBelowTOThreshold = createSelector(
+export const filterBelowTopticonThreshold = createSelector(
   [
     useUserFilterNoTOsetting,
     searchResultsToWeightedToMap,
@@ -75,22 +76,10 @@ export const filterBelowTOThreshold = createSelector(
     minScore: number,
     minToEnabled: boolean
   ) => {
-    /**
-     * High complexity code. Todo: separate these into individual selectors and compose them instead of this.
-     * Basically: does nothing if setting isn't enabled, but if it is...
-     * Keeps HITs with TO above minimum score or if it has no reviews at all.
-     */
-    if (minToEnabled) {
-      return hits.filter((hit: SearchResult): boolean => {
-        if (!hit.requester.turkopticon) {
-          return true;
-        }
-
-        const averageScore = weightedToMap.get(hit.groupId);
-        return averageScore ? averageScore >= minScore : true;
-      });
-    } else {
+    if (!minToEnabled) {
       return hits;
     }
+
+    return hits.filter(sortByWeightedTo(weightedToMap, minScore));
   }
 );
