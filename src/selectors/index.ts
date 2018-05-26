@@ -15,7 +15,7 @@ export const notificationSettingsSelector = (state: RootState) =>
 
 export const queueSelector = (state: RootState) => state.queue;
 
-export const searchResultSelector = (state: RootState) => state.search;
+export const searchResultsSelector = (state: RootState) => state.search;
 
 export const selectedHitDbDateSelector = (state: RootState) =>
   state.selectedHitDbDate;

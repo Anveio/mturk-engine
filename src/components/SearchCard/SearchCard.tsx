@@ -12,7 +12,7 @@ import {
 import InfoContainer from './InfoContainer';
 import CollapsibleInfo from './CollapsibleInfo';
 import { blockedHitFactory } from 'utils/blocklist';
-import { searchResultSelector } from 'selectors/index';
+import { searchResultsSelector } from 'selectors/index';
 import { Text } from '@blueprintjs/core';
 import RequesterName from './RequesterName';
 import SearchResultExceptionList from './SearchResultExceptionList';
@@ -114,7 +114,7 @@ type SearchTableAction =
   | MarkHitAsRead;
 
 const mapState = (state: RootState, { groupId }: OwnProps): Props => ({
-  hit: searchResultSelector(state).get(groupId),
+  hit: searchResultsSelector(state).get(groupId),
   expanded: state.expandedSearchResults.has(groupId)
 });
 
