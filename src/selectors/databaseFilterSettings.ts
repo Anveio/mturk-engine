@@ -4,6 +4,7 @@ import { HitDatabaseMap, StatusFilterType, HitDatabaseEntry } from 'types';
 import { filterBy, createFilterFn, createSortFn } from 'utils/databaseFilter';
 import { Map } from 'immutable';
 import { escapeUserInputForRegex } from 'utils/formatting';
+import { rewardAndBonus } from 'utils/hitDatabase';
 
 const hitDatabaseFilteredByStatus = createSelector(
   [hitDatabaseSelector, databaseFilterSettingsSelector],
@@ -41,15 +42,42 @@ const hitDatabaseFilteredBySearchTerm = createSelector(
   }
 );
 
-const hitDatabaseFilteredWithOptions = createSelector(
-  [hitDatabaseFilteredBySearchTerm, databaseFilterSettingsSelector],
-  (hitDatabase, { sortOrder }) => {
+/**
+ * Without this specific selector, the hitDatabaseSortedByOption selector would
+ * recalculate whenever any property in the databaseFilterOptions object changes
+ *  in value.
+ */
+const databaseSortOrderSelector = createSelector(
+  [databaseFilterSettingsSelector],
+  settings => settings.sortOrder
+);
+
+const hitDatabaseSortedByOption = createSelector(
+  [hitDatabaseSelector, databaseSortOrderSelector],
+  (hitDatabase, sortOrder) => {
     const sortFn = createSortFn(sortOrder);
     return hitDatabase.sort(sortFn);
   }
 );
 
-export const sortedAndFilteredHitDatabase = createSelector(
-  [hitDatabaseFilteredWithOptions],
+const sortedAndFilteredHitDatabase = createSelector(
+  [hitDatabaseFilteredBySearchTerm, hitDatabaseSortedByOption],
+  (filteredHitDatabase, sortedHitDatabase) =>
+    sortedHitDatabase.filter((hit: HitDatabaseEntry) =>
+      filteredHitDatabase.has(hit.id)
+    )
+);
+
+export const filteredResultsIds = createSelector(
+  [sortedAndFilteredHitDatabase],
   hitDatabase => hitDatabase.map((hit: HitDatabaseEntry) => hit.id)
+);
+
+export const databaseFilterResultsMoneyTotal = createSelector(
+  [sortedAndFilteredHitDatabase],
+  hitDatabase =>
+    hitDatabase.reduce(
+      (acc: number, el: HitDatabaseEntry) => acc + rewardAndBonus(el),
+      0
+    )
 );

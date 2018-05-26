@@ -18,12 +18,13 @@ import {
   WRITE_PERSISTED_STATE,
   NOTIFICATION_PERM_REQUEST,
   SEND_NOTIFICATION,
-  ACCEPT_HIT_FROM_WATCHER
+  ACCEPT_HIT_FROM_WATCHER,
+  SEARCH_SUCCESS
 } from '../constants';
 import { ConnectAccountRequest } from '../actions/connectAccount';
 import { FetchQueueRequest } from '../actions/queue';
 import { ReturnHitRequest } from '../actions/return';
-import { SearchRequest } from '../actions/search';
+import { SearchRequest, SearchSuccess } from '../actions/search';
 import { ScheduleNextSearch } from '../actions/scheduler';
 import {
   AcceptHitRequest,
@@ -56,7 +57,8 @@ import { playAudioSaga } from './playAudio';
 import { handleFileUploadRequest } from './uploadFile';
 import {
   resolveNotificationPermissionRequest,
-  createDesktopNotification
+  createDesktopNotification,
+  sendNotificationForSearchResult
 } from './notifications';
 import {
   NotificationPermissionRequest,
@@ -66,6 +68,10 @@ import { acceptHitFromWatcher } from './acceptHitWatcher';
 
 export default function* rootSaga() {
   yield takeLatest<ScheduleNextSearch>(SCHEDULE_NEXT_SEARCH, searchAfterDelay);
+  yield takeLatest<SearchSuccess>(
+    SEARCH_SUCCESS,
+    sendNotificationForSearchResult
+  );
   yield takeLatest<FetchTOpticonRequest>(
     FETCH_TURKOPTICON_REQUEST,
     fetchTurkopticon

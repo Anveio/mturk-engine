@@ -43,10 +43,8 @@ export const approvedButNotPaidEarnings = createSelector(
 // tslint:disable:align
 export const dateMoneyMap = createSelector(
   [hitDatabaseSelector],
-  (hitDatabase): Map<HitId, number> => {
-    // tslint:disable
-    console.log('recalculating');
-    return hitDatabase.reduce(
+  (hitDatabase): Map<HitId, number> =>
+    hitDatabase.reduce(
       (acc: Map<LegacyDateFormat, number>, el: HitDatabaseEntry) =>
         acc.update(
           el.date,
@@ -54,8 +52,7 @@ export const dateMoneyMap = createSelector(
             reward ? reward + rewardAndBonus(el) : rewardAndBonus(el)
         ),
       Map<LegacyDateFormat, number>()
-    );
-  }
+    )
 );
 
 export const hitsCompletedToday = createSelector(

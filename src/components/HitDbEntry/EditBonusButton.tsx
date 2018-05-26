@@ -84,6 +84,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
         onInteraction={(nextState: boolean) => this.toggleOpen(nextState)}
       >
         <Button
+        
           intent={Intent.PRIMARY}
           className={Classes.MINIMAL}
           icon="manually-entered-data"
@@ -94,6 +95,7 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
           <div onKeyPress={this.handleEnterKeyPress}>
             <FormLayout>
               <TextField
+                id="edit-bonus"
                 label="Bonus"
                 value={this.state.value}
                 type="number"
