@@ -1,5 +1,5 @@
 import * as moment from 'moment';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 import {
   LEGACY_DATE_FORMAT,
   WORKER_DATE_FORMAT,
@@ -9,7 +9,7 @@ import {
   CONTACT_DATE_FORMAT
 } from '../constants/dates';
 import { range } from './arrays';
-import { LegacyDateFormat, WorkerDateFormat } from 'types';
+import { LegacyDateFormat, WorkerDateFormat, HeatMapValue } from 'types';
 import { Duration } from 'constants/enums';
 
 export type DurationUnit = moment.DurationInputArg2;
@@ -52,6 +52,22 @@ export const dateStringToLocaleDateString = (dateString: string): string =>
 export const generateOneYearOfDates = (startDate: Date) => {
   const startMoment = moment(startDate);
   return dateRange(startMoment, 365 + startMoment.day());
+};
+
+export const generateOneYearOfData = (
+  map: Map<LegacyDateFormat, number>,
+  oneYearOfDates: List<string>
+) => {
+  return oneYearOfDates.reduce(
+    (acc: List<HeatMapValue>, date: LegacyDateFormat) => {
+      const count: number | undefined = map.get(date);
+      const data = count
+        ? { date, count: Math.round(count * 100) / 100 }
+        : { date, count: 0 };
+      return acc.push(data);
+    },
+    List()
+  );
 };
 
 export const dateRange = (
