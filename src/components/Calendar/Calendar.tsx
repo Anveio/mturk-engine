@@ -37,17 +37,15 @@ class Calendar extends React.Component<Props, State> {
     );
   }
 
-  componentDidUpdate(prevProps: Props) {
+  static getDerivedStateFromProps(props: Props, state: State) {
     const freshDate = new Date();
 
     const cacheIsOutOfDate = Calendar.isCacheOutOfDate(
       freshDate,
-      this.state.cachedDate
+      state.cachedDate
     );
 
-    if (cacheIsOutOfDate) {
-      this.setState(Calendar.reinitializeState(freshDate));
-    }
+    return cacheIsOutOfDate ? Calendar.reinitializeState(freshDate) : state;
   }
 
   private static reinitializeState = (freshDate: Date): State => ({
