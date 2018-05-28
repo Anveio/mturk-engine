@@ -9,12 +9,12 @@ import {
   RequesterId
 } from '../types';
 import {
-  filterBelowTOThreshold,
+  filterBelowTopticonThreshold,
   attributeWeightsSelector
 } from './turkopticon';
 import { sortBy } from '../utils/sorting';
 import {
-  searchResultSelector,
+  searchResultsSelector,
   hitBlocklistSelector,
   requesterBlocklistSelector,
   sortOptionSelector
@@ -25,12 +25,12 @@ import { List } from 'immutable';
 const selectGroupId = (hit: SearchResult) => hit.groupId;
 
 export const resultsLengthSelector = createSelector(
-  [searchResultSelector],
+  [searchResultsSelector],
   (searchResults: SearchResults) => searchResults.size
 );
 
 const hideBlockedHits = createSelector(
-  [searchResultSelector, hitBlocklistSelector],
+  [searchResultsSelector, hitBlocklistSelector],
   (hits: SearchResults, blockedHits: HitBlockMap) =>
     hits.filter(
       (hit: SearchResult) => !blockedHits.has(hit.groupId)
@@ -38,7 +38,7 @@ const hideBlockedHits = createSelector(
 );
 
 export const hideBlockedRequesters = createSelector(
-  [searchResultSelector, requesterBlocklistSelector],
+  [searchResultsSelector, requesterBlocklistSelector],
   (hits: SearchResults, blockedRequesters: RequesterBlockMap) =>
     hits.filter(
       (hit: SearchResult) => !blockedRequesters.has(hit.requester.id)
@@ -59,7 +59,7 @@ const hideBlockedRequestersAndHits = createSelector(
 const filteredAndSortedResults = createSelector(
   [
     hideBlockedRequestersAndHits,
-    filterBelowTOThreshold,
+    filterBelowTopticonThreshold,
     sortOptionSelector,
     attributeWeightsSelector
   ],
@@ -105,7 +105,7 @@ export const filteredResultsGroupId = createSelector(
 );
 
 export const getSearchResultRequesterIds = createSelector(
-  [searchResultSelector],
+  [searchResultsSelector],
   searchResults =>
     searchResults
       .filter(noTurkopticon)

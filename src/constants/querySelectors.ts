@@ -1,14 +1,5 @@
 // tslint:disable:max-line-length
 
-export const errorBanner = 'td.error_title';
-
-export const acceptedHitTimeRemainingQuerySelector =
-  'span.detail-bar-value > span';
-
-export const hitDetailsModalQuerySelector = 'div.col-sm-4.col-xs-5 > div';
-
-export const returnAssignmentFormQuerySelector = `#MainContent > div.work-pipeline-bottom-bar.m-b-sm > div.action-buttons.text-xs-center > div > form`;
-
 /**
  * Account Info
  */

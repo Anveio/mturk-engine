@@ -1,4 +1,3 @@
-import { errorBanner } from '../constants/querySelectors';
 import { removeCurrencyFormatting } from './formatting';
 
 export const parseStringProperty = (queryString: string, fallback: string) => (
@@ -26,15 +25,6 @@ export const parseCurrencyProperty = (queryString: string) => (
   return maybeElem && maybeElem.textContent
     ? parseFloat(removeCurrencyFormatting(maybeElem.textContent))
     : 0;
-};
-
-export const rateLimitErrorPresent = (html: Document): boolean => {
-  const maybeRateLimitElem = html.querySelector(errorBanner);
-  if (maybeRateLimitElem && maybeRateLimitElem.textContent) {
-    return /exceeded/.test(maybeRateLimitElem.textContent);
-  } else {
-    return false;
-  }
 };
 
 export const findHitIframe = (input: Document) => {

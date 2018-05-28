@@ -73,7 +73,7 @@ class RequesterBlockList extends React.Component<Props & Handlers, never> {
 
 const mapState = (state: RootState): Props => ({
   blockedRequestersSortedRecentFirst: sortedRequesterBlockList(state),
-  blocklistSize: state.hitBlocklist.size
+  blocklistSize: state.requesterBlocklist.size
 });
 
 const mapDispatch = (dispatch: Dispatch<BlockRequesterAction>): Handlers => ({
