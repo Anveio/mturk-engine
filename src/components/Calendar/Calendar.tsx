@@ -40,12 +40,12 @@ class Calendar extends React.Component<Props, State> {
   static getDerivedStateFromProps(props: Props, state: State) {
     const freshDate = new Date();
 
-    const cacheIsOutOfDate = Calendar.isCacheOutOfDate(
+    const cacheIsUpToDate = Calendar.isCacheUpToDate(
       freshDate,
       state.cachedDate
     );
 
-    return cacheIsOutOfDate ? Calendar.reinitializeState(freshDate) : state;
+    return cacheIsUpToDate ? state : Calendar.reinitializeState(freshDate);
   }
 
   private static reinitializeState = (freshDate: Date): State => ({
@@ -54,10 +54,10 @@ class Calendar extends React.Component<Props, State> {
   });
 
   /**
-   * Will return true when the user's local time passes midnight between renders.
+   * Returns false when the user's local time passes midnight between renders.
    */
-  private static isCacheOutOfDate = (freshDate: Date, cachedDate: Date) =>
-    freshDate.getDate() !== cachedDate.getDate();
+  private static isCacheUpToDate = (freshDate: Date, cachedDate: Date) =>
+    freshDate.getDate() === cachedDate.getDate();
 
   private static displayDates = (values: List<HeatMapValue>) =>
     dateStringToLocaleDateString(values.get(0).date) + ' - Today';
@@ -65,7 +65,7 @@ class Calendar extends React.Component<Props, State> {
   public render() {
     const freshDate = new Date();
 
-    const cacheIsOutOfDate = Calendar.isCacheOutOfDate(
+    const cacheIsUpToDate = Calendar.isCacheUpToDate(
       freshDate,
       this.state.cachedDate
     );
@@ -76,9 +76,9 @@ class Calendar extends React.Component<Props, State> {
      */
     const values = generateOneYearOfData(
       this.props.moneyEarnedPerDay,
-      cacheIsOutOfDate
-        ? generateOneYearOfDates(freshDate)
-        : this.state.cachedYearOfDates
+      cacheIsUpToDate
+        ? this.state.cachedYearOfDates
+        : generateOneYearOfDates(freshDate)
     );
 
     return (
