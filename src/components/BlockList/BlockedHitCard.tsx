@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState, BlockedHit } from '../../types';
 import { ResourceList, Stack, TextStyle } from '@shopify/polaris';
-// import { truncate } from '../../utils/formatting';
-import { BlockHitAction, unblockSingleHit } from 'actions/blockHit';
+import { unblockSingleHit } from 'actions/blockHit';
 import { Text } from '@blueprintjs/core';
 
 interface Props {
@@ -60,8 +59,8 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   blockedHit: state.hitBlocklist.get(ownProps.blockedHitId)
 });
 
-const mapDispatch = (dispatch: Dispatch<BlockHitAction>): Handlers => ({
-  onUnblock: (groupId: string) => dispatch(unblockSingleHit(groupId))
-});
+const mapDispatch: Handlers = {
+  onUnblock: unblockSingleHit
+};
 
 export default connect(mapState, mapDispatch)(BlockedHitCard);
