@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState } from '../../types';
-import { ToggleAudioEnabled, toggleAudioEnabled } from '../../actions/audio';
+import { toggleAudioEnabled } from '../../actions/audio';
 import { SettingToggle, TextStyle } from '@shopify/polaris';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 interface Handlers {
-  readonly onChange: (value: boolean) => void;
+  readonly onChange: () => void;
 }
 
 class ToggleAudio extends React.PureComponent<Props & Handlers> {
@@ -26,7 +26,7 @@ class ToggleAudio extends React.PureComponent<Props & Handlers> {
       <SettingToggle
         action={{
           content: ToggleAudio.calculateButtonContent(value),
-          onAction: () => onChange(!value)
+          onAction: onChange
         }}
         enabled={value}
       >
@@ -40,10 +40,8 @@ const mapState = (state: RootState): Props => ({
   value: state.audioSettingsV1.enabled
 });
 
-const mapDispatch = (dispatch: Dispatch<ToggleAudioEnabled>): Handlers => ({
-  onChange: (value: boolean) => {
-    dispatch(toggleAudioEnabled());
-  }
-});
+const mapDispatch: Handlers = {
+  onChange: toggleAudioEnabled
+};
 
 export default connect(mapState, mapDispatch)(ToggleAudio);
