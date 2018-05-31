@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Stack, Button, TextContainer } from '@shopify/polaris';
-import { ReadPersistedState, readPersistedState } from '../../actions/backup';
+import { readPersistedState } from '../../actions/backup';
 
-export interface Handlers {
+interface Handlers {
   readonly onExport: () => void;
 }
 
@@ -22,8 +22,8 @@ class ExportUserSettings extends React.Component<Handlers, never> {
   }
 }
 
-const mapDispatch = (dispatch: Dispatch<ReadPersistedState>): Handlers => ({
-  onExport: () => dispatch(readPersistedState())
-});
+const mapDispatch: Handlers = {
+  onExport: readPersistedState
+};
 
 export default connect(null, mapDispatch)(ExportUserSettings);
