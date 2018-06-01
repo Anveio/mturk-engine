@@ -3,6 +3,7 @@ import { connect, Dispatch } from 'react-redux';
 import { changeTab } from '../../actions/updateValue';
 import { Button } from '@shopify/polaris';
 import { NonIdealState } from '@blueprintjs/core';
+import { TabIndex } from 'constants/enums';
 
 export interface Handlers {
   onChangeTab: () => void;
@@ -25,7 +26,7 @@ const EmptyQueue = ({ onChangeTab }: Handlers) => {
 };
 
 const mapDispatch = (dispatch: Dispatch): Handlers => ({
-  onChangeTab: () => dispatch(changeTab(0))
+  onChangeTab: () => dispatch(changeTab(TabIndex.SEARCH))
 });
 
 export default connect(null, mapDispatch)(EmptyQueue);
