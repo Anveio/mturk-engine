@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { ButtonGroup, Button } from '@shopify/polaris';
 import SelectSettingsDialog from './SelectSettingsDialog';
 import StateKeyCheckboxList from './StateKeyCheckboxList';
-import { writePersistedState, WritePersistedState } from '../../actions/backup';
+import { writePersistedState } from '../../actions/backup';
 import { PersistedState, RootState, PersistedStateKey } from '../../types';
 import { generateCheckStateKeysMap } from '../../utils/backup';
 import { validUploadedState } from '../../selectors/uploadedState';
@@ -99,9 +99,8 @@ const mapState = (state: RootState): Props => ({
   uploadedState: validUploadedState(state)
 });
 
-const mapDispatch = (dispatch: Dispatch<WritePersistedState>): Handlers => ({
-  onClick: (whiteList: PersistedStateKey[]) =>
-    dispatch(writePersistedState(whiteList))
-});
+const mapDispatch: Handlers = {
+  onClick: writePersistedState
+};
 
 export default connect(mapState, mapDispatch)(ConfirmImportButtons);
