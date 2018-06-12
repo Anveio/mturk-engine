@@ -5,7 +5,7 @@ import { RootState } from '../../types';
 import { queueItemsIds } from '../../selectors/queue';
 import { FetchQueueRequest, fetchQueueRequest } from '../../actions/queue';
 import EmptyQueue from './EmptyQueue';
-import QueueItemCard from '../Queue/QueueItemCard';
+import QueueItemCard from '../QueueCard/QueueItemCard';
 import QueueTableHeading from './QueueTableHeading';
 import { TabIndex } from 'constants/enums';
 
