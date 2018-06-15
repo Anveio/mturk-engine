@@ -51,7 +51,7 @@ class BlockRequesterButton extends React.PureComponent<
   public render() {
     return (
       <Tooltip
-        content="You unblock a requester in the Blocklist tab."
+        content="You can unblock a requester from the Blocklist tab."
         position={Position.RIGHT}
         isOpen={this.state.hovering}
       >
