@@ -53,8 +53,22 @@ const databaseSortOrderSelector = createSelector(
 );
 
 const hitDatabaseSortedByOption = createSelector(
-  [hitDatabaseSelector, databaseSortOrderSelector],
-  (hitDatabase, sortOrder) => {
+  [
+    hitDatabaseSelector,
+    databaseSortOrderSelector,
+    state => state.waitingForHitDbRefresh
+  ],
+  (hitDatabase, sortOrder, waitingForHitDbRefresh) => {
+    /**
+     * While refreshing the database, up to 45 changes to the Hit Database are
+     * dispatched in a short amount of time. Avoid repeating this expensive
+     * calculation until it's finished.
+     */
+
+    if (waitingForHitDbRefresh) {
+      return hitDatabase;
+    }
+
     const sortFn = createSortFn(sortOrder);
     return hitDatabase.sort(sortFn);
   }
