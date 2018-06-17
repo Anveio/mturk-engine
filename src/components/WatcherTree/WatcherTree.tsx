@@ -49,36 +49,10 @@ interface Handlers {
   readonly onToggleFolderExpand: (folderId: string) => void;
 }
 
-interface State {
-  readonly contents: FolderTreeNode[];
-}
-
 class WatcherTree extends React.Component<
   Props & OwnHandlers & Handlers,
-  State
+  never
 > {
-  public readonly state: State = {
-    contents: []
-  };
-
-  static getDerivedStateFromProps(props: Props) {
-    const {
-      currentlySelectedWatcherId,
-      watcherFolders,
-      watcherFolderMap,
-      expandedFolders
-    } = props;
-    const { createFolders } = WatcherTree;
-
-    const contents = createFolders(
-      watcherFolders,
-      watcherFolderMap,
-      expandedFolders
-    )(currentlySelectedWatcherId);
-
-    return { contents };
-  }
-
   shouldComponentUpdate(nextProps: Props & Handlers) {
     if (
       !nextProps.watcherFolderMap.equals(this.props.watcherFolderMap) ||
@@ -161,6 +135,20 @@ class WatcherTree extends React.Component<
   });
 
   public render() {
+    const {
+      currentlySelectedWatcherId,
+      watcherFolders,
+      watcherFolderMap,
+      expandedFolders
+    } = this.props;
+    const { createFolders } = WatcherTree;
+
+    const contents = createFolders(
+      watcherFolders,
+      watcherFolderMap,
+      expandedFolders
+    )(currentlySelectedWatcherId);
+
     return (
       <Layout>
         <Layout.Section secondary>
@@ -178,7 +166,7 @@ class WatcherTree extends React.Component<
               onNodeDoubleClick={this.props.handleDoubleClick}
               onNodeCollapse={this.handleNodeExpandToggle}
               onNodeExpand={this.handleNodeExpandToggle}
-              contents={this.state.contents}
+              contents={contents}
             />
             <CreateFolderButton />
           </Stack>
