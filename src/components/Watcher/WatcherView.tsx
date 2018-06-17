@@ -15,7 +15,8 @@ import WatcherInfo from './WatcherInfo';
 import WatcherSettings from './WatcherSettings';
 import InfoCallout from './InfoCallout';
 import WatcherActions from './WatcherActions';
-import WatcherProgressBar from './WatcherProgressBar';
+import WatcherProgressDisplay from '../ProgressDisplay/WatcherProgressDisplay';
+import { Intent, ProgressBar } from '@blueprintjs/core';
 
 interface OwnProps {
   readonly watcherId: string;
@@ -70,7 +71,15 @@ class WatcherView extends React.PureComponent<
           onToggle={this.handleToggle}
         />
         <InfoCallout />
-        <WatcherProgressBar key={watcherId} id={watcherId} />
+        <WatcherProgressDisplay
+          id={watcherId}
+          render={progress => (
+            <ProgressBar
+              intent={progress >= 1 ? Intent.PRIMARY : Intent.NONE}
+              value={progress}
+            />
+          )}
+        />
         <WatcherActions
           watcherActive={watcherActive}
           onDelete={this.handleDelete}

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../types';
-import ProgressSpinner from './ProgressSpinner';
 import { calculateSpinnerProgress } from 'utils/timers';
 
 interface OwnProps {
   readonly id: string;
+  readonly render: (progress: number, id: string) => JSX.Element;
 }
 
 interface Props {
@@ -33,7 +33,7 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => {
   };
 };
 
-class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
+class WatcherProgress extends React.Component<OwnProps & Props, State> {
   private static readonly tickRate: number = 100;
   private timerId?: number;
 
@@ -104,15 +104,9 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
   };
 
   public render() {
-    const { id, timeOfNextSearch } = this.props;
+    const { timeOfNextSearch, render, id } = this.props;
     const { spinnerProgress } = this.state;
-    return (
-      timeOfNextSearch && (
-        <div style={{ paddingTop: '0.75em' }}>
-          <ProgressSpinner id={id} progress={spinnerProgress} />
-        </div>
-      )
-    );
+    return timeOfNextSearch && render(spinnerProgress, id);
   }
 }
 

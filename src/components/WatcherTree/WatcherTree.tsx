@@ -27,10 +27,11 @@ import {
   sortedFolderWatcherMap
 } from '../../selectors/watcherFolders';
 import SelectedWatcherSection from './SelectedWatcherSection';
-import WatcherProgress from './WatcherProgress';
 import CreateFolderButton from './CreateFolderButton';
 import { WatcherFolderAction } from '../../actions/watcherFolders';
 import WatcherFolderActiveCount from './WatcherFolderActiveCount';
+import WatcherProgressDisplay from '../ProgressDisplay/WatcherProgressDisplay';
+import ProgressSpinner from './ProgressSpinner';
 
 interface OwnHandlers {
   readonly handleDoubleClick: (nodeData: GenericTreeNode) => void;
@@ -145,7 +146,16 @@ class WatcherTree extends React.Component<
     id: groupId,
     isSelected: selectionId === groupId ? true : false,
     icon: 'document',
-    secondaryLabel: <WatcherProgress id={groupId} />,
+    secondaryLabel: (
+      <WatcherProgressDisplay
+        id={groupId}
+        render={(spinnerProgress, id) => (
+          <div style={{ paddingTop: '0.75em' }}>
+            <ProgressSpinner progress={spinnerProgress} id={id} />
+          </div>
+        )}
+      />
+    ),
     label: title,
     kind: 'groupId'
   });
@@ -194,4 +204,7 @@ const mapDispatch = (
   onToggleFolderExpand: (id: string) => dispatch(toggleWatcherFolderExpand(id))
 });
 
-export default connect(mapState, mapDispatch)(WatcherTree);
+export default connect(
+  mapState,
+  mapDispatch
+)(WatcherTree);
