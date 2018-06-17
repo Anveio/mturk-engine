@@ -13,6 +13,11 @@ import DatabaseFilterPagination, {
 import { DATABASE_FILTER_RESULTS_PER_PAGE } from 'constants/misc';
 import ResultsList from './ResultsList';
 import { formatAsUsd, pluralize } from 'utils/formatting';
+import {
+  calculateMaxPage,
+  calculateHasNext,
+  calculateHasPrevious
+} from 'utils/pagination';
 
 interface Props {
   readonly hitIds: Iterable<HitId, HitId>;
@@ -21,11 +26,10 @@ interface Props {
 
 interface State {
   readonly page: number;
-  readonly maxPage: number;
 }
 
 class DatabaseFilter extends React.Component<Props, State> {
-  public readonly state: State = { page: 0, maxPage: 0 };
+  public readonly state: State = { page: 0 };
 
   shouldComponentUpdate(nextProps: Props, nextState: State) {
     return (
@@ -34,27 +38,28 @@ class DatabaseFilter extends React.Component<Props, State> {
     );
   }
 
-  static getDerivedStateFromProps(nextProps: Props): State {
-    return {
-      page: 0,
-      maxPage: DatabaseFilter.calculateMaxPage(
-        nextProps.hitIds.size,
-        DATABASE_FILTER_RESULTS_PER_PAGE
-      )
-    };
+  static getDerivedStateFromProps({ hitIds }: Props, state: State) {
+    if (
+      state.page >
+      calculateMaxPage(hitIds.size, DATABASE_FILTER_RESULTS_PER_PAGE)
+    ) {
+      return {
+        page: 0
+      };
+    }
+
+    return null;
   }
-
-  private static calculateMaxPage = (
-    numResults: number,
-    resultsPerPage: number
-  ) => Math.ceil(numResults / resultsPerPage) - 1;
-
-  private calculateHasNext = (page: number, maxPage: number) => page < maxPage;
-  private calculateHasPrevious = (page: number) => page > 0;
 
   private onNext = () =>
     this.setState((prevState: State) => ({
-      page: Math.min(prevState.page + 1, this.state.maxPage)
+      page: Math.min(
+        prevState.page + 1,
+        calculateMaxPage(
+          this.props.hitIds.size,
+          DATABASE_FILTER_RESULTS_PER_PAGE
+        )
+      )
     }));
 
   private onPrevious = () =>
@@ -72,20 +77,27 @@ class DatabaseFilter extends React.Component<Props, State> {
       : 'Search your HIT database.';
 
   public render() {
-    const hasNext = this.calculateHasNext(this.state.page, this.state.maxPage);
-    const hasPrevious = this.calculateHasPrevious(this.state.page);
+    const { hitIds } = this.props;
+    const { page } = this.state;
+
+    const hasNext = calculateHasNext(
+      page,
+      hitIds.size,
+      DATABASE_FILTER_RESULTS_PER_PAGE
+    );
+    const hasPrevious = calculateHasPrevious(page);
 
     const paginationProps: DatabaseFilterPaginationProps = {
       hasNext,
       hasPrevious,
       onNext: this.onNext,
       onPrevious: this.onPrevious,
-      shouldRender: this.props.hitIds.size > DATABASE_FILTER_RESULTS_PER_PAGE
+      shouldRender: hitIds.size > DATABASE_FILTER_RESULTS_PER_PAGE
     };
 
     return (
       <Card title={this.generateCardTitle()}>
-        <ResultsList page={this.state.page} hitIds={this.props.hitIds} />
+        <ResultsList page={page} hitIds={hitIds} />
         <DatabaseFilterPagination {...paginationProps} />
       </Card>
     );
