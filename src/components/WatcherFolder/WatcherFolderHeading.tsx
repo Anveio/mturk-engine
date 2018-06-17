@@ -16,13 +16,6 @@ interface State {
 class WatcherFolderHeading extends React.Component<Props, State> {
   public readonly state: State = { title: this.props.title, editing: false };
 
-  static getDerivedStateFromProps(nextProps: Props): Partial<State> {
-    return {
-      title: nextProps.title,
-      editing: false
-    };
-  }
-
   private toggleEditingState = () =>
     this.setState((prevState: State) => ({
       editing: !prevState.editing

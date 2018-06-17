@@ -42,6 +42,7 @@ class WatcherFolderView extends React.PureComponent<
     return (
       <Stack vertical>
         <WatcherFolderHeading
+          key={folder.id}
           title={folder.name}
           editable={folder.id !== DEFAULT_WATCHER_FOLDER_ID}
           onChange={(value: string) => onEdit(folder.id, 'name', value)}
@@ -71,4 +72,7 @@ const mapDispatch = (dispatch: Dispatch<WatcherFolderAction>): Handlers => ({
   onDeleteFolder: (id: string) => dispatch(deleteWatcherFolder(id))
 });
 
-export default connect(mapState, mapDispatch)(WatcherFolderView);
+export default connect(
+  mapState,
+  mapDispatch
+)(WatcherFolderView);

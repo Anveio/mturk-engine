@@ -51,7 +51,7 @@ class WatcherView extends React.PureComponent<
     const { watcherId, watcherActive } = this.props;
 
     return (
-      <Stack vertical>
+      <Stack vertical key={watcherId}>
         <WatcherHeading
           watcherId={watcherId}
           onChange={(value: string) =>
@@ -70,7 +70,7 @@ class WatcherView extends React.PureComponent<
           onToggle={this.handleToggle}
         />
         <InfoCallout />
-        <WatcherProgressBar id={watcherId} />
+        <WatcherProgressBar key={watcherId} id={watcherId} />
         <WatcherActions
           watcherActive={watcherActive}
           onDelete={this.handleDelete}
@@ -94,4 +94,7 @@ const mapDispatch = (dispatch: Dispatch<WatcherAction>): Handlers => ({
     dispatch(editWatcher(id, field, value))
 });
 
-export default connect(mapState, mapDispatch)(WatcherView);
+export default connect(
+  mapState,
+  mapDispatch
+)(WatcherView);
