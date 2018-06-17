@@ -64,7 +64,6 @@ class WatcherProgress extends React.Component<OwnProps & Props, State> {
 
   componentDidUpdate() {
     if (!this.props.timeOfNextSearch) {
-      this.setState({ spinnerProgress: 0 });
       this.cleanUp();
     }
 
