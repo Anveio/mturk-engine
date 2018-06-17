@@ -31,10 +31,8 @@ class RecentlySubmittedHits extends React.PureComponent<
                 hits.size
               )} from "${requesterName}" found in your database.`}
             </Heading>
-            {hits.size > 5 ? (
+            {hits.size > 5 && (
               <p>Showing the 5 most recently submitted HITs.</p>
-            ) : (
-              undefined
             )}
           </TextContainer>
           <SubmittedHitsCaptionedList
