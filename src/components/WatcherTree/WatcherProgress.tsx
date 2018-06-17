@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../types';
 import ProgressSpinner from './ProgressSpinner';
+import { calculateSpinnerProgress } from 'utils/timers';
 
 interface OwnProps {
   readonly id: string;
@@ -44,12 +45,10 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
       this.state = { spinnerProgress: 0 };
     } else {
       this.state = {
-        spinnerProgress: WatcherProgress.calculateProgress(
-          timeOfNextSearch - Date.now(),
-          WatcherProgress.calculateTimeBetweenStartAndEnd(
-            watcherStartTime,
-            timeOfNextSearch
-          )
+        spinnerProgress: calculateSpinnerProgress(
+          watcherStartTime,
+          Date.now(),
+          timeOfNextSearch
         )
       };
     }
@@ -83,24 +82,6 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
     this.timerId = undefined;
   };
 
-  private static calculateTimeBetweenStartAndEnd = (
-    startTime: number,
-    dateNumNextSearch: number
-  ): number => {
-    return Math.max(dateNumNextSearch - startTime, 0);
-  };
-
-  private static calculateProgress = (
-    timeLeft: number,
-    total: number
-  ): number => {
-    if (total === 0 || timeLeft <= 0) {
-      return 1;
-    }
-
-    return 1 - timeLeft / total;
-  };
-
   private startTimer = () => {
     this.cleanUp();
     this.timerId = window.setInterval(this.tick, WatcherProgress.tickRate);
@@ -114,12 +95,10 @@ class WatcherProgress extends React.PureComponent<OwnProps & Props, State> {
     }
 
     this.setState({
-      spinnerProgress: WatcherProgress.calculateProgress(
-        timeOfNextSearch - Date.now(),
-        WatcherProgress.calculateTimeBetweenStartAndEnd(
-          watcherStartTime,
-          timeOfNextSearch
-        )
+      spinnerProgress: calculateSpinnerProgress(
+        watcherStartTime,
+        Date.now(),
+        timeOfNextSearch
       )
     });
   };
