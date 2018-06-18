@@ -56,23 +56,26 @@ const hideBlockedRequestersAndHits = createSelector(
     ) as SearchResults
 );
 
+const searchResultsFilteredByAboveThreshold = createSelector(
+  [hideBlockedRequestersAndHits, filterBelowTopticonThreshold],
+  (hits: SearchResults, aboveThreshold: SearchResults) =>
+    hits.filter((hit: SearchResult) => aboveThreshold.has(hit.groupId))
+);
+
 const filteredAndSortedResults = createSelector(
   [
-    hideBlockedRequestersAndHits,
-    filterBelowTopticonThreshold,
+    searchResultsFilteredByAboveThreshold,
     sortOptionSelector,
     attributeWeightsSelector
   ],
   (
-    hits: SearchResults,
-    aboveThreshold: SearchResults,
+    filteredHits: SearchResults,
     sortingOption: SortingOption,
     weights: AttributeWeights
-  ) =>
-    hits
-      .filter((hit: SearchResult) => aboveThreshold.has(hit.groupId))
-      .sort(sortBy(sortingOption, weights))
-  // .sort(unreadFirst) as SearchResults
+  ) => {
+    const sortingFn = sortBy(sortingOption, weights);
+    return filteredHits.sort(sortingFn);
+  }
 );
 
 export const newResults = createSelector(
