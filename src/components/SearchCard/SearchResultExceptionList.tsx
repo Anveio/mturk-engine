@@ -31,7 +31,7 @@ class SearchResultExceptionList extends React.PureComponent<
       this.props,
       this.props.hitsInQueue
     );
-    return <ExceptionList items={exceptions} />;
+    return <ExceptionList {...exceptions} />;
   }
 }
 

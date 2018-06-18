@@ -25,7 +25,7 @@ class QueueItemExceptionList extends React.PureComponent<
 > {
   public render() {
     const exceptions = generateQueueCardExceptions(this.props);
-    return <ExceptionList items={exceptions} />;
+    return <ExceptionList {...exceptions} />;
   }
 }
 

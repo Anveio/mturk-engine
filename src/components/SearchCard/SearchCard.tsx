@@ -82,7 +82,12 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
             shortcutActions={this.generateActions(hit.markedAsRead)}
             ariaExpanded={expanded}
           >
-            <Stack vertical={false} wrap={false} alignment="center">
+            <Stack
+              vertical={false}
+              wrap={false}
+              alignment="center"
+              distribution="leading"
+            >
               <Stack.Item>
                 <RequesterName requesterName={hit.requester.name} />
               </Stack.Item>
@@ -133,4 +138,7 @@ const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(SearchCard);
+export default connect(
+  mapState,
+  mapDispatch
+)(SearchCard);
