@@ -200,10 +200,16 @@ export const failedImportPersistedState = () =>
     intent: Intent.DANGER
   });
 
-export const successfulAcceptToast = (title?: string) => ({
-  message: title
-    ? `"${truncate(title, 45)}" was added to your queue.`
-    : 'A hit was added to your queue',
+export const successfulAcceptToast = (title: string): IToastProps => ({
+  message: `"${truncate(title, 45)}" was added to your queue.`,
+  intent: Intent.SUCCESS,
+  timeout: 5000
+});
+
+export const successfulWatcherAcceptToast = (
+  watcherTitle: string
+): IToastProps => ({
+  message: `Watcher with title "${watcherTitle}" successfully accepted a HIT.`,
   intent: Intent.SUCCESS,
   timeout: 5000
 });

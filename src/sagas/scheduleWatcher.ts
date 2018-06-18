@@ -14,7 +14,11 @@ import { getWatcher } from '../selectors/watchers';
 
 export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
   try {
-    const watcher: Watcher = yield select(getWatcher(action.id));
+    const watcher: Watcher | undefined = yield select(getWatcher(action.id));
+
+    if (!watcher) {
+      return;
+    }
 
     const readyToAccept: boolean = yield waitForWatcherDelay(
       action,
@@ -23,7 +27,7 @@ export function* acceptHitAfterWatcherDelay(action: ScheduleWatcherTick) {
 
     if (readyToAccept) {
       return yield put<AcceptHitRequestFromWatcher>(
-        acceptHitRequestFromWatcher(watcher.groupId)
+        acceptHitRequestFromWatcher(watcher.groupId, watcher)
       );
     }
   } catch (e) {

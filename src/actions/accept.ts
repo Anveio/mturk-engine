@@ -4,7 +4,7 @@ import {
   ACCEPT_HIT_REQUEST,
   ACCEPT_HIT_FROM_WATCHER
 } from '../constants';
-import { SearchResult, QueueItem } from '../types';
+import { SearchResult, QueueItem, Watcher } from '../types';
 
 export interface AcceptHitSuccess {
   readonly type: ACCEPT_HIT_SUCCESS;
@@ -27,6 +27,7 @@ export interface AcceptHitRequest {
 export interface AcceptHitRequestFromWatcher {
   readonly type: ACCEPT_HIT_FROM_WATCHER;
   readonly groupId: string;
+  readonly watcher: Watcher;
 }
 
 export type AcceptAction =
@@ -74,8 +75,10 @@ export const acceptHitRequestfromSearch = (
 });
 
 export const acceptHitRequestFromWatcher = (
-  groupId: string
+  groupId: string,
+  watcher: Watcher
 ): AcceptHitRequestFromWatcher => ({
   type: ACCEPT_HIT_FROM_WATCHER,
-  groupId
+  groupId,
+  watcher
 });

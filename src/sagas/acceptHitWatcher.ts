@@ -15,13 +15,12 @@ import {
   scheduleWatcher
 } from '../actions/watcher';
 import { HitAcceptResponse, sendHitAcceptRequest } from '../api/acceptHit';
-import { getWatcher } from '../selectors/watchers';
 import { RootState, Watcher } from '../types';
 import { blankQueueItem } from '../utils/queueItem';
 import {
   sendToTopRightToaster,
-  successfulAcceptToast,
-  watcherExceededApiLimitToast
+  watcherExceededApiLimitToast,
+  successfulWatcherAcceptToast
 } from '../utils/toaster';
 
 export function* acceptHitFromWatcher(action: AcceptHitRequestFromWatcher) {
@@ -33,27 +32,23 @@ export function* acceptHitFromWatcher(action: AcceptHitRequestFromWatcher) {
 
     const { successful, rateLimitExceeded } = response;
 
-    const watcher: Watcher | undefined = yield select(
-      getWatcher(action.groupId)
-    );
-
     return yield successful
-      ? handleSuccessfulAccept(action, watcher)
-      : handleFailedAccept(action, rateLimitExceeded, watcher);
+      ? handleSuccessfulAccept(action)
+      : handleFailedAccept(action, rateLimitExceeded);
   } catch (e) {
     yield put<AcceptHitFailure>(acceptHitFailureFromWatcher(action.groupId));
     yield put<CancelWatcherTick>(cancelNextWatcherTick(action.groupId));
   }
 }
 
-function* handleSuccessfulAccept(
-  action: AcceptHitRequestFromWatcher,
-  watcher?: Watcher
-) {
+function* handleSuccessfulAccept({
+  watcher,
+  groupId
+}: AcceptHitRequestFromWatcher) {
   try {
-    sendToTopRightToaster(successfulAcceptToast());
+    sendToTopRightToaster(successfulWatcherAcceptToast(watcher.title));
     yield put<AcceptHitSuccess>(
-      acceptHitSuccessFromWatcher(blankQueueItem(action.groupId))
+      acceptHitSuccessFromWatcher(blankQueueItem(groupId))
     );
 
     if (watcher && watcher.playSoundAfterSuccess) {
@@ -67,31 +62,28 @@ function* handleSuccessfulAccept(
       return yield handleWatcherScheduling(watcher, Date.now());
     }
 
-    yield put<CancelWatcherTick>(cancelNextWatcherTick(action.groupId));
+    yield put<CancelWatcherTick>(cancelNextWatcherTick(groupId));
   } catch (e) {
     /**
      * Even if there is an error at this point, the hit was successfuly accepted.
      */
-    sendToTopRightToaster(successfulAcceptToast());
+    sendToTopRightToaster(successfulWatcherAcceptToast(watcher.title));
   }
 }
 
 function* handleFailedAccept(
-  action: AcceptHitRequestFromWatcher,
-  rateLimitExceeded: boolean,
-  watcher?: Watcher
+  { groupId, watcher }: AcceptHitRequestFromWatcher,
+  rateLimitExceeded: boolean
 ) {
-  yield put<AcceptHitFailure>(acceptHitFailureFromWatcher(action.groupId));
+  yield put<AcceptHitFailure>(acceptHitFailureFromWatcher(groupId));
 
   if (!watcher) {
-    return yield put<CancelWatcherTick>(cancelNextWatcherTick(action.groupId));
+    return yield put<CancelWatcherTick>(cancelNextWatcherTick(groupId));
   }
 
   if (rateLimitExceeded) {
     watcherExceededApiLimitToast(watcher.title);
-    return yield put<ApiRateLimitExceeded>(
-      watcherExceededApiLimit(action.groupId)
-    );
+    return yield put<ApiRateLimitExceeded>(watcherExceededApiLimit(groupId));
   }
 
   return yield handleWatcherScheduling(watcher, Date.now());
