@@ -62,28 +62,34 @@ export const sortByTurkopticonRating = (weights: AttributeWeights) => (
   a: SearchResult,
   b: SearchResult
 ) => {
+  /**
+   * Handle the case where one of the requesters Has no T.O data.
+   */
   if (!a.requester.turkopticon) {
     return 1;
   } else if (!b.requester.turkopticon) {
     return -1;
-  } else {
-    const aAverage = calculateWeightedAverageScore(
-      a.requester.turkopticon.scores,
-      weights
-    );
-    const bAverage = calculateWeightedAverageScore(
-      b.requester.turkopticon.scores,
-      weights
-    );
-
-    if (!aAverage) {
-      return 1;
-    } else if (!bAverage) {
-      return -1;
-    } else {
-      return bAverage - aAverage;
-    }
   }
+
+  const aAverage = calculateWeightedAverageScore(
+    a.requester.turkopticon.scores,
+    weights
+  );
+  const bAverage = calculateWeightedAverageScore(
+    b.requester.turkopticon.scores,
+    weights
+  );
+
+  /**
+   * Handle the case where, after applying weights, average T.O is null.
+   */
+  if (aAverage === null) {
+    return 1;
+  } else if (bAverage === null) {
+    return -1;
+  }
+
+  return bAverage - aAverage;
 };
 
 export const sortWatcherFoldersNewestFirst = (
