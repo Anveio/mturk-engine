@@ -7,12 +7,18 @@ import {
 } from '../types';
 import { calculateWeightedAverageScore } from './turkopticon';
 
+interface OptionsMap {
+  [key: string]: keyof Pick<
+    SearchResult,
+    'batchSize' | 'reward' | 'creationTime'
+  >;
+}
+
 /**
  * Translates UI text into the associated property
  */
-const optionsMap = {
+const optionsMap: OptionsMap = {
   'Batch Size': 'batchSize',
-  'Unread First': 'markedAsRead',
   Reward: 'reward',
   Latest: 'creationTime',
   default: 'creationTime'
