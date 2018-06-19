@@ -6,12 +6,11 @@ export const configureApiRoot = () => {
   switch (hostname) {
     case 'www.mturk.com':
       return 'https://www.mturk.com';
-    case 'worker.mturk.com':
-      return 'https://worker.mturk.com';
     case 'localhost':
       return 'http://localhost:7777';
+    case 'worker.mturk.com':
     default:
-      throw new Error('Invalid hostname');
+      return 'https://worker.mturk.com';
   }
 };
 
