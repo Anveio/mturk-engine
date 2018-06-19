@@ -4,11 +4,12 @@ import { Provider } from 'react-redux';
 import store from './store';
 import { API_URL } from './constants';
 import { clearDom, createRootDiv } from './utils/config';
+import { AppProvider as PolarisProvider } from '@shopify/polaris';
 
 import App from './components/App';
 import { createToastLayer } from 'utils/createToastLayer';
 
-// If not in development, kick off production configurations.
+// If not in development, kick off production specific DOM mutations.
 if (API_URL !== 'http://localhost:7777') {
   clearDom();
   createRootDiv();
@@ -17,9 +18,10 @@ if (API_URL !== 'http://localhost:7777') {
 export const TopRightToaster = createToastLayer();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <PolarisProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </PolarisProvider>,
   document.querySelector('#root') as HTMLElement
 );
-// registerServiceWorker();
