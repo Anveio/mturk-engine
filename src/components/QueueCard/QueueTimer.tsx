@@ -35,7 +35,7 @@ class QueueTimer extends React.PureComponent<Props, State> {
 
   private tick = () => {
     this.setState((prevState: State) => ({
-      secondsLeft: prevState.secondsLeft - 10 * QueueTimer.secondsPerTick
+      secondsLeft: prevState.secondsLeft - 1 * QueueTimer.secondsPerTick
     }));
   };
 
