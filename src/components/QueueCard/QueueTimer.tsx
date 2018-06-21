@@ -20,12 +20,6 @@ class QueueTimer extends React.PureComponent<Props, State> {
     this.state = { secondsLeft: props.timeLeftInSeconds };
   }
 
-  static getDerivedStateFromProps(props: Props): Partial<State> {
-    return {
-      secondsLeft: props.timeLeftInSeconds
-    };
-  }
-
   componentDidMount() {
     this.startTimer();
   }
@@ -39,10 +33,11 @@ class QueueTimer extends React.PureComponent<Props, State> {
     this.timerId = window.setInterval(this.tick, QueueTimer.tickRate);
   };
 
-  private tick = () =>
+  private tick = () => {
     this.setState((prevState: State) => ({
-      secondsLeft: prevState.secondsLeft - 1 * QueueTimer.secondsPerTick
+      secondsLeft: prevState.secondsLeft - 10 * QueueTimer.secondsPerTick
     }));
+  };
 
   public render() {
     return <Caption>{formatSecondsAsHhMmSs(this.state.secondsLeft)}</Caption>;
