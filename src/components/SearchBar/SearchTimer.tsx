@@ -4,18 +4,17 @@ import { RootState } from '../../types';
 import { TextContainer, Stack, Spinner } from '@shopify/polaris';
 
 interface Props {
-  readonly timeNextSearch: Date | null;
+  readonly timeNextSearch: number | null;
   readonly waitingForMturk: boolean;
 }
 
 interface State {
-  readonly memoizedDateNumNextSearch: number | null;
   readonly timeUntilNextSearch: number | null;
 }
 
 class SearchTimer extends React.PureComponent<Props, State> {
   private static readonly tickRate: number = 50;
-  private timerId: number;
+  private timerId: number | undefined;
   public readonly state: State = SearchTimer.defaultState;
 
   constructor(props: Props) {
@@ -24,37 +23,21 @@ class SearchTimer extends React.PureComponent<Props, State> {
   }
 
   private static defaultState: State = {
-    memoizedDateNumNextSearch: null,
     timeUntilNextSearch: null
   };
 
-  static getDerivedStateFromProps(nextProps: Props): Partial<State> {
-    if (!nextProps.timeNextSearch) {
-      return SearchTimer.defaultState;
+  componentDidUpdate() {
+    if (!this.props.timeNextSearch) {
+      this.cleanUp();
     }
 
-    const memoizedDateNumNextSearch = nextProps.timeNextSearch.valueOf();
-
-    const timeUntilNextSearch = SearchTimer.calculateTimeUntilNextSearch(
-      memoizedDateNumNextSearch
-    );
-
-    return {
-      timeUntilNextSearch,
-      memoizedDateNumNextSearch
-    };
-  }
-
-  componentDidUpdate() {
-    if (this.props.timeNextSearch !== null) {
+    if (!this.timerId) {
       this.startTimer();
-    } else {
-      clearInterval(this.timerId);
     }
   }
 
   componentWillUnmount() {
-    clearInterval(this.timerId);
+    this.cleanUp();
   }
 
   private static calculateTimeUntilNextSearch = (
@@ -70,19 +53,24 @@ class SearchTimer extends React.PureComponent<Props, State> {
     return (milliseconds / 1000).toFixed(sigFigs);
   };
 
-  private startTimer = () => {
+  private cleanUp = () => {
     clearInterval(this.timerId);
+    this.timerId = undefined;
+  };
+
+  private startTimer = () => {
+    this.cleanUp();
     this.timerId = window.setInterval(this.tick, SearchTimer.tickRate);
   };
 
   private tick = () => {
-    if (!this.state.memoizedDateNumNextSearch) {
+    if (!this.props.timeNextSearch) {
       return;
     }
 
     this.setState({
       timeUntilNextSearch: SearchTimer.calculateTimeUntilNextSearch(
-        this.state.memoizedDateNumNextSearch
+        this.props.timeNextSearch
       )
     });
   };
@@ -122,7 +110,7 @@ class SearchTimer extends React.PureComponent<Props, State> {
 }
 
 const mapState = (state: RootState): Props => ({
-  timeNextSearch: state.timeNextSearch,
+  timeNextSearch: state.timeNextSearch && state.timeNextSearch.valueOf(),
   waitingForMturk: state.waitingForMturk
 });
 
