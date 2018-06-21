@@ -66,10 +66,7 @@ class QueueItemCard extends React.PureComponent<
               <Text ellipsize>{hit.title}</Text>
             </Stack.Item>
             <Stack.Item>
-              <QueueItemInfo
-                reward={hit.reward}
-                timeLeftInSeconds={hit.timeLeftInSeconds}
-              />
+              <QueueItemInfo {...hit} />
             </Stack.Item>
           </Stack>
           <QueueItemExceptionList hit={hit} />
@@ -96,4 +93,7 @@ const mapDispatch = (
   onToggleExpand: (hitId: string) => dispatch(toggleQueueItemExpand(hitId))
 });
 
-export default connect(mapState, mapDispatch)(QueueItemCard);
+export default connect(
+  mapState,
+  mapDispatch
+)(QueueItemCard);
