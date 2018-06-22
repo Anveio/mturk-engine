@@ -10,6 +10,8 @@ This is a userscript. In order to use it, install Mturk Engine with a userscript
 
 ### Mturk Engine only works on this page: https://worker.mturk.com/?mturkengine
 
+A preview of Mturk Engine is available [here](https://mturk-engine.shovonhasan.com). Note that many features that depend on making requests to Mturk (search, queue monitoring, and account connection) will not work.
+
 ## What is Mturk Engine?
 
 Mturk Engine is a free and open source user script for Chrome & Firefox that enables you to be more productive on Amazon's Mechanical Turk work platform. You install it with one of the download links above and then navigate to https://worker.mturk.com/?mturkengine while logged in to use it. Mturk Engine brings everything you do on Amazon's Mechanical Turk work platform into a single page. You can search for HITs, accept HITs, add HITs to be auto accepted, monitor your queue, monitor your dashboard, keep track of all the HITs you've submitted and their statuses, and return HITs all in a single browser tab without ever waiting for a full page reload.
@@ -40,10 +42,10 @@ Mturk Engine's interface is intuitive and clear. You (hopefully) won't need to r
 
 If you want to know more about any of the following:
 
-* Starting Mturk Engine in development.
-* Creating a build (single file) of Mturk Engine.
-* Technologies used in Mturk Engine.
-* Explanation of file structure.
+- Starting Mturk Engine in development.
+- Creating a build (single file) of Mturk Engine.
+- Technologies used in Mturk Engine.
+- Explanation of file structure.
 
 Check out the [Developer Guide](https://github.com/Anveio/mturk-engine/blob/master/DEVELOPERS.md).
 
@@ -71,26 +73,19 @@ Check out the [Developer Guide](https://github.com/Anveio/mturk-engine/blob/mast
 
 ## Features
 
-* Search for HITs periodically without waiting for full page reloads.
-* New HITs are highlighted and grouped together at the top of your search results.
-* Optionally receive a sound alert or notification when you find a new HIT.
-* See what other HITs you've done for a requester in your search results.
-* Have TO data at your fingertips.
-* Use watchers to automatically accept HITs.
-* Add watchers manually or add them directly from search results.
-* Click on each search result to see additional info.
-* Block requesters (you can unblock them later).
-* Get instant feedback on whether a HIT you accepted was added to your queue.
-* Hide unwanted HITs easily.
-* Monitor your queue in the 'Queue' tab and refresh it instantly.
-* Return HITs instantly.
-* Monitor all the information in your dashboard.
-* Keep track of your work over time with the HIT Database.
-* Easily backup and import your data across devices and browsers.
-
-## Roadmap
-
-* ~~Watchers for continually accepting HITs and snagging rare ones.~~ <~ Added in 1.1.0
-* ~~Integration with your dashboard and data visualization of income over time, earning streaks etc.~~ <~ Added in 1.3.0
-* ~~New HIT highlighting~~ <~ Added in 1.2.0
-* CAPTCHA detection <~ Coming soon
+- Search for HITs periodically without waiting for full page reloads.
+- New HITs are highlighted and grouped together at the top of your search results.
+- Optionally receive a sound alert or notification when you find a new HIT.
+- See what other HITs you've done for a requester in your search results.
+- Have TO data at your fingertips.
+- Use watchers to automatically accept HITs.
+- Add watchers manually or add them directly from search results.
+- Click on each search result to see additional info.
+- Block requesters (you can unblock them later).
+- Get instant feedback on whether a HIT you accepted was added to your queue.
+- Hide unwanted HITs easily.
+- Monitor your queue in the 'Queue' tab and refresh it instantly.
+- Return HITs instantly.
+- Monitor all the information in your dashboard.
+- Keep track of your work over time with the HIT Database.
+- Easily backup and import your data across devices and browsers.
