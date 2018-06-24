@@ -1,5 +1,3 @@
-import { HitStatus } from './types';
-
 export interface SearchResultsApiResponse {
   readonly results: WorkerSearchResult[];
   readonly page_number: number;
