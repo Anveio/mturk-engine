@@ -71,7 +71,7 @@ class Calendar extends React.Component<Props, State> {
     );
 
     /**
-     * If cacheIsOutOfDate is true, generate a fresh set of dates.
+     * If cacheIsUpToDate is false, generate a fresh set of dates.
      * Otherwise, use the cached set of dates.
      */
     const values = generateOneYearOfData(
