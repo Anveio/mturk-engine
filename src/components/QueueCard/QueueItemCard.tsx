@@ -1,22 +1,15 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState, QueueItem } from 'types';
 import { ResourceList, Stack } from '@shopify/polaris';
-// import QueueItemInfo from './QueueItemInfo';
-import { ReturnAction, returnHitRequest } from 'actions/return';
-// import { generateContinueWorkUrl } from 'utils/urls';
-// import { truncate } from 'utils/formatting';
+import { returnHitRequest } from 'actions/return';
 import QueueCollapsibleInfo from './QueueCollapsibleInfo';
-import {
-  toggleQueueItemExpand,
-  ToggleQueueItemExpand
-} from 'actions/toggleExpand';
+import { toggleQueueItemExpand } from 'actions/toggleExpand';
 import { generateContinueWorkUrl } from 'utils/urls';
 import RequesterName from '../SearchCard/RequesterName';
 import { Text } from '@blueprintjs/core';
 import QueueItemInfo from './QueueItemInfo';
 import QueueItemExceptionList from './QueueItemExceptionList';
-// import { generateQueueCardExceptions } from 'utils/exceptions';
 
 interface Props {
   readonly hit: QueueItem;
@@ -86,14 +79,9 @@ const mapState = (state: RootState, { hitId }: OwnProps): Props => ({
   expanded: state.expandedQueueItems.has(hitId)
 });
 
-const mapDispatch = (
-  dispatch: Dispatch<ReturnAction | ToggleQueueItemExpand>
-): Handlers => ({
-  onReturn: (queueItem: QueueItem) => dispatch(returnHitRequest(queueItem)),
-  onToggleExpand: (hitId: string) => dispatch(toggleQueueItemExpand(hitId))
-});
+const mapDispatch: Handlers = {
+  onReturn: returnHitRequest,
+  onToggleExpand: toggleQueueItemExpand
+};
 
-export default connect(
-  mapState,
-  mapDispatch
-)(QueueItemCard);
+export default connect(mapState, mapDispatch)(QueueItemCard);
