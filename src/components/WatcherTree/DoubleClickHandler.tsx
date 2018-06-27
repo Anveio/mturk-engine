@@ -1,17 +1,10 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState, WatcherTimerMap } from '../../types';
 import WatcherTree from './WatcherTree';
 import { GenericTreeNode, WatcherTreeNode } from '../../utils/tree';
-import {
-  cancelNextWatcherTick,
-  scheduleWatcher,
-  WatcherAction
-} from '../../actions/watcher';
-import {
-  toggleWatcherFolderExpand,
-  ToggleWatcherFolderExpand
-} from '../../actions/watcherTree';
+import { cancelNextWatcherTick, scheduleWatcher } from '../../actions/watcher';
+import { toggleWatcherFolderExpand } from '../../actions/watcherTree';
 
 interface Props {
   readonly watcherTimers: WatcherTimerMap;
@@ -48,13 +41,10 @@ const mapState = (state: RootState): Props => ({
   watcherTimers: state.watcherTimers
 });
 
-const mapDispatch = (
-  dispatch: Dispatch<WatcherAction | ToggleWatcherFolderExpand>
-): Handlers => ({
-  onCancelWatcher: (id: string) => dispatch(cancelNextWatcherTick(id)),
-  onScheduleWatcher: (id: string, origin: number) =>
-    dispatch(scheduleWatcher(id, origin)),
-  onToggleFolderExpand: (id: string) => dispatch(toggleWatcherFolderExpand(id))
-});
+const mapDispatch: Handlers = {
+  onCancelWatcher: cancelNextWatcherTick,
+  onScheduleWatcher: scheduleWatcher,
+  onToggleFolderExpand: toggleWatcherFolderExpand
+};
 
 export default connect(mapState, mapDispatch)(DoubleClickHandler);
