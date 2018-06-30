@@ -2,12 +2,11 @@ import { Popover, Position } from '@blueprintjs/core';
 import { Button, Card, Heading, Stack } from '@shopify/polaris';
 import {
   blockMultipleRequesters,
-  unblockMultipleRequesters,
-  BlockRequesterAction
+  unblockMultipleRequesters
 } from 'actions/blockRequester';
 import { Set, List } from 'immutable';
 import * as React from 'react';
-import { Dispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { BlockedRequester, RootState } from '../../types';
 import BlockedRequesterTag from './BlockedRequesterTag';
 import SweepMenu from './SweepMenu';
@@ -76,10 +75,9 @@ const mapState = (state: RootState): Props => ({
   blocklistSize: state.requesterBlocklist.size
 });
 
-const mapDispatch = (dispatch: Dispatch<BlockRequesterAction>): Handlers => ({
-  massUnblock: (ids: Set<string>) => dispatch(unblockMultipleRequesters(ids)),
-  undoMassUnblock: (requesters: Set<BlockedRequester>) =>
-    dispatch(blockMultipleRequesters(requesters))
-});
+const mapDispatch: Handlers = {
+  massUnblock: unblockMultipleRequesters,
+  undoMassUnblock: blockMultipleRequesters
+};
 
 export default connect(mapState, mapDispatch)(RequesterBlockList);
