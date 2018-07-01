@@ -1,11 +1,8 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState, BlockedRequester } from '../../types';
 import { Tag } from '@shopify/polaris';
-import {
-  UnblockRequester,
-  unblockSingleRequester
-} from '../../actions/blockRequester';
+import { unblockSingleRequester } from '../../actions/blockRequester';
 
 import { truncate } from '../../utils/formatting';
 
@@ -40,8 +37,8 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   requester: state.requesterBlocklist.get(ownProps.blockedRequesterId)
 });
 
-const mapDispatch = (dispatch: Dispatch<UnblockRequester>): Handlers => ({
-  onUnblock: (id: string) => dispatch(unblockSingleRequester(id))
-});
+const mapDispatch: Handlers = {
+  onUnblock: unblockSingleRequester
+};
 
 export default connect(mapState, mapDispatch)(BlockedHitCard);
