@@ -73,9 +73,9 @@ const mapState = (state: RootState): Props => ({
   blocklistSize: state.hitBlocklist.size
 });
 
-const mapDispatch = (dispatch: Dispatch<BlockHitAction>): Handlers => ({
-  massUnblock: (ids: Set<string>) => dispatch(unblockMultipleHits(ids)),
-  undoMassUnblock: (hits: Set<BlockedHit>) => dispatch(blockMultipleHits(hits))
-});
+const mapDispatch: Handlers = {
+  massUnblock: unblockMultipleHits,
+  undoMassUnblock: blockMultipleHits
+};
 
 export default connect(mapState, mapDispatch)(HitBlockList);
