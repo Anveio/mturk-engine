@@ -3,11 +3,10 @@ import { Button, Card, Heading, ResourceList, Stack } from '@shopify/polaris';
 import {
   blockMultipleHits,
   unblockMultipleHits,
-  BlockHitAction
 } from 'actions/blockHit';
 import { Set, List } from 'immutable';
 import * as React from 'react';
-import { Dispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { BlockedHit, RootState } from '../../types';
 import BlockedHitCard from './BlockedHitCard';
 import SweepMenu from './SweepMenu';
