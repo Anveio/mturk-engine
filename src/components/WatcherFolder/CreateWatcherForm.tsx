@@ -142,7 +142,6 @@ class CreateWatcherForm extends React.PureComponent<
         <div onKeyPress={this.handleEnterKeyPress}>
           <FormLayout>
             <TextField
-              autoFocus
               label="Project ID"
               id="new-watcher-id"
               helpText="Can also be the URL of a 'Preview & Work' link."

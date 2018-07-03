@@ -84,6 +84,5 @@ export const defaultWatcherStats: WatcherStatistics = {
 };
 
 const generateWatcherDescription = (hit: HumanIntelligenceTask): string =>
-  `${formatAsUsd(hit.reward)} - ${hit.description} - Requester: ${
-    hit.requester.name
-  } (ID: ${hit.requester.id})`;
+  `${formatAsUsd(hit.reward)} - ${hit.description} - Requester: ${hit.requester
+    .name} (ID: ${hit.requester.id})`;
