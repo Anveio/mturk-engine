@@ -118,8 +118,8 @@ const mapState = (state: RootState): Props => ({
   dailyEarningsGoal: state.dailyEarningsGoal
 });
 
-const mapDispatch = (dispatch: Dispatch): Handlers => ({
-  onChange: (value: number) => dispatch(changeDailyGoal(value))
-});
+const mapDispatch: Handlers = {
+  onChange: changeDailyGoal
+}
 
 export default connect(mapState, mapDispatch)(EditDailyGoalButton);
