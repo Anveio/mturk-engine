@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Popover, Button, Intent } from '@blueprintjs/core';
 import {
   Card,
@@ -15,7 +15,7 @@ import { successfulEditDailyGoalToast } from '../../utils/toaster';
 import { watchForEnter } from '../../utils/watchForEnter';
 import { SMALL_MINIMAL_BUTTON } from 'constants/blueprint';
 
-export interface Props {
+interface Props {
   readonly dailyEarningsGoal: number;
 }
 
@@ -120,6 +120,6 @@ const mapState = (state: RootState): Props => ({
 
 const mapDispatch: Handlers = {
   onChange: changeDailyGoal
-}
+};
 
 export default connect(mapState, mapDispatch)(EditDailyGoalButton);
