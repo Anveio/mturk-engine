@@ -31,12 +31,14 @@ export function* requestDataForUnseenRequesters(action: SearchSuccess) {
   );
 }
 
-export function* fetchTurkopticon({ data }: FetchTOpticonRequest) {
-  try {
-    if (data.size === 0) {
-      return;
-    }
+export function* resolveFetchTurkopticonRequest({
+  data
+}: FetchTOpticonRequest) {
+  if (data.size === 0) {
+    return;
+  }
 
+  try {
     const rawTopticonData: TOpticonResponse = yield call(
       fetchTurkopticonData,
       data

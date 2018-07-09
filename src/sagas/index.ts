@@ -46,7 +46,7 @@ import { fetchSearchResults } from './fetchSearch';
 import { returnHit } from './returnHit';
 import { searchAfterDelay } from './scheduleSearch';
 import { acceptHit } from './acceptHit';
-import { fetchTurkopticon, requestDataForUnseenRequesters } from './fetchTurkopticon';
+import { resolveFetchTurkopticonRequest, requestDataForUnseenRequesters } from './fetchTurkopticon';
 import { toggleSearchActive } from './toggleSearchActive';
 import { acceptHitAfterWatcherDelay } from './scheduleWatcher';
 import { handleStatusDetailRequest } from './statusDetail';
@@ -75,7 +75,7 @@ export default function* rootSaga() {
   yield takeLatest<SearchSuccess>(SEARCH_SUCCESS, requestDataForUnseenRequesters);
   yield takeLatest<FetchTOpticonRequest>(
     FETCH_TURKOPTICON_REQUEST,
-    fetchTurkopticon
+    resolveFetchTurkopticonRequest
   );
   yield takeLatest<ToggleSearchActive>(
     TOGGLE_SEARCH_ACTIVITY,
