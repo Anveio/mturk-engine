@@ -35,6 +35,7 @@ export interface RootState {
   readonly expandedWatcherFolderIds: Set<GroupId>;
   readonly watcherStatistics: WatcherStatisticsMap;
   readonly queueSortingOption: QueueSortingOption;
+  readonly loggedRequesters: RequesterMap;
   readonly databaseFilterSettings: DatabaseFilterSettings;
 }
 
