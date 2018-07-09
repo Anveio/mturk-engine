@@ -31,6 +31,7 @@ import expandedQueueItems from './reducers/expandedQueueItems';
 import searchAudioEnabled from './reducers/searchAudioEnabled';
 import queueSortingOption from './reducers/queueSortingOption';
 import databaseFilterSettings from './reducers/databaseFilterSettings';
+import loggedRequesters from './reducers/loggedRequesters';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -50,6 +51,7 @@ export const rootReducer = combineReducers<RootState>({
   waitingForMturk,
   searchingActive,
   topticonSettings,
+  loggedRequesters,
   watcherStatistics,
   dailyEarningsGoal,
   selectedHitDbDate,
