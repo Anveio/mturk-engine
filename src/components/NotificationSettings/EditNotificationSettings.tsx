@@ -1,11 +1,8 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Card, FormLayout } from '@shopify/polaris';
 import { NotificationSettings, RootState } from '../../types';
-import {
-  notificationPermissionRequest,
-  NotificationPermissionRequest
-} from '../../actions/notifications';
+import { notificationPermissionRequest } from '../../actions/notifications';
 import {
   EditNotificationThresholdField,
   EditNotificationDurationField
@@ -52,10 +49,11 @@ const mapState = (state: RootState): Props => ({
   notificationSettings: state.notificationSettings
 });
 
-const mapDispatch = (
-  dispatch: Dispatch<NotificationPermissionRequest>
-): Handlers => ({
-  onRequestPermission: () => dispatch(notificationPermissionRequest())
-});
+const mapDispatch: Handlers = {
+  onRequestPermission: notificationPermissionRequest
+};
 
-export default connect(mapState, mapDispatch)(EditNotificationSettings);
+export default connect(
+  mapState,
+  mapDispatch
+)(EditNotificationSettings);
