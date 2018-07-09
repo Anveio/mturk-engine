@@ -64,22 +64,16 @@ export const filterCategories = (
 export const hasAValidScore = (scores: RequesterAttributes) =>
   Object.values(scores).some(value => value !== null);
 
-export const topticonMapFromTO = (
-  data: TOpticonResponse,
-  weights: AttributeWeights
-): RequesterMap =>
+export const topticonMapFromTO = (data: TOpticonResponse): RequesterMap =>
   Object.keys(data).reduce(
     (acc, id: string) =>
-      data[id]
-        ? acc.set(id, topticonRequesterToRequester(id, data[id], weights))
-        : acc,
+      data[id] ? acc.set(id, topticonRequesterToRequester(id, data[id])) : acc,
     Map<string, Requester>()
   );
 
 export const topticonRequesterToRequester = (
   id: string,
-  requester: TOpticonRequester,
-  weights: AttributeWeights
+  requester: TOpticonRequester
 ): Requester => {
   const scores = stringScoresToNumbers(requester.attrs);
 

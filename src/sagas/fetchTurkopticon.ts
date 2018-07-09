@@ -9,8 +9,7 @@ import {
   fetchTOpticonRequest
 } from '../actions/turkopticon';
 import { topticonMapFromTO, selectHitRequesterId } from '../utils/turkopticon';
-import { batchFetchTOpticon } from '../api/turkopticon';
-import { attributeWeightsSelector } from '../selectors/turkopticon';
+import { fetchTurkopticonData } from '../api/turkopticon';
 import { SearchSuccess } from 'actions/search';
 import { loggedRequestersSelector } from 'selectors';
 
@@ -34,18 +33,18 @@ export function* requestDataForUnseenRequesters(action: SearchSuccess) {
 
 export function* fetchTurkopticon({ data }: FetchTOpticonRequest) {
   try {
-    if (data.size > 0) {
-      const rawTopticonData: TOpticonResponse = yield call(
-        batchFetchTOpticon,
-        data
-      );
-
-      const attributeWeights = yield select(attributeWeightsSelector);
-
-      const topticonData = topticonMapFromTO(rawTopticonData, attributeWeights);
-
-      yield put<FetchTOpticonSuccess>(fetchTOpticonSuccess(topticonData));
+    if (data.size === 0) {
+      return;
     }
+
+    const rawTopticonData: TOpticonResponse = yield call(
+      fetchTurkopticonData,
+      data
+    );
+
+    const topticonData = topticonMapFromTO(rawTopticonData);
+
+    yield put<FetchTOpticonSuccess>(fetchTOpticonSuccess(topticonData));
   } catch (e) {
     yield put<FetchTOpticonFailure>(fetchTOpticonFailure());
   }

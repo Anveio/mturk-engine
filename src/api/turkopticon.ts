@@ -3,7 +3,7 @@ import { List } from 'immutable';
 import { TOpticonResponse, RequesterId } from '../types';
 import { turkopticonApiMulti } from '../constants/urls';
 
-export const batchFetchTOpticon = async (requesterIds: List<RequesterId>) => {
+export const fetchTurkopticonData = async (requesterIds: List<RequesterId>) => {
   try {
     const t0 = performance.now();
     const response = await axios.get<TOpticonResponse>(turkopticonApiMulti, {
