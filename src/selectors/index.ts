@@ -7,6 +7,9 @@ export const hitBlocklistSelector = (state: RootState) => state.hitBlocklist;
 export const loggedSearchResultsSelector = (state: RootState) =>
   state.loggedSearchResults;
 
+export const loggedRequestersSelector = (state: RootState) =>
+  state.loggedRequesters;
+
 export const requesterBlocklistSelector = (state: RootState) =>
   state.requesterBlocklist;
 

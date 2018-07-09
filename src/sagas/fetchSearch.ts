@@ -8,12 +8,7 @@ import {
   SearchSuccess
 } from '../actions/search';
 import { ScheduleNextSearch, scheduleSearch } from '../actions/scheduler';
-import {
-  FetchTOpticonRequest,
-  fetchTOpticonRequest
-} from '../actions/turkopticon';
 import { searchHits } from '../api/search';
-import { selectHitRequester } from '../utils/turkopticon';
 import { calculateDateAfterDelay } from '../utils/dates';
 import { failedSearchToast } from '../utils/toaster';
 
@@ -39,9 +34,6 @@ export function* fetchSearchResults(action: SearchRequest) {
     }
 
     yield put<SearchSuccess>(searchSuccess(hitData));
-    yield put<FetchTOpticonRequest>(
-      fetchTOpticonRequest(hitData.map(selectHitRequester).toArray())
-    );
 
     if (action.continuous) {
       yield put<ScheduleNextSearch>(

@@ -14,7 +14,7 @@ import { turkopticonBaseUrl } from '../constants/urls';
 
 import { Map } from 'immutable';
 export const noTurkopticon = (hit: SearchResult) => !hit.requester.turkopticon;
-export const selectHitRequester = (hit: SearchResult) => hit.requester;
+export const selectHitRequesterId = (hit: SearchResult) => hit.requester.id;
 export const selectRequesterId = (requester: Requester) => requester.id;
 export const invalidGroupId = (hit: SearchResult) =>
   !hit.groupId.startsWith('[Error:groupId]-');

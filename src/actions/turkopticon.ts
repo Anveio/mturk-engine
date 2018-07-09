@@ -1,4 +1,5 @@
-import { RequesterMap, Requester } from '../types';
+import { List } from 'immutable';
+import { RequesterMap, RequesterId } from '../types';
 import {
   FETCH_TURKOPTICON_REQUEST,
   FETCH_TURKOPTICON_SUCCESS,
@@ -7,7 +8,7 @@ import {
 
 export interface FetchTOpticonRequest {
   readonly type: FETCH_TURKOPTICON_REQUEST;
-  readonly data: Requester[];
+  readonly data: List<RequesterId>;
 }
 
 export interface FetchTOpticonSuccess {
@@ -33,7 +34,7 @@ export const fetchTOpticonFailure = (): FetchTOpticonFailure => ({
 });
 
 export const fetchTOpticonRequest = (
-  data: Requester[]
+  data: List<RequesterId>
 ): FetchTOpticonRequest => ({
   type: FETCH_TURKOPTICON_REQUEST,
   data
