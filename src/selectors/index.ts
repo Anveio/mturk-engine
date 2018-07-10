@@ -5,7 +5,7 @@ export const hitDatabaseSelector = (state: RootState) => state.hitDatabase;
 export const hitBlocklistSelector = (state: RootState) => state.hitBlocklist;
 
 export const loggedSearchResultsSelector = (state: RootState) =>
-  state.loggedSearchResults;
+  state.notifiedSearchResultIds;
 
 export const loggedRequestersSelector = (state: RootState) =>
   state.loggedRequesters;

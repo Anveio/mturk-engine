@@ -22,7 +22,7 @@ import watcherTimers from './reducers/watcherTimers';
 import uploadedState from './reducers/uploadedState';
 import expandedSearchResults from './reducers/expandedSearchResults';
 import notificationSettings from './reducers/notificationSettings';
-import loggedSearchResults from './reducers/loggedSearchResults';
+import notifiedSearchResultIds from './reducers/notifiedSearchResultIds';
 import watcherTreeSettings from './reducers/watcherTreeSettings';
 import watcherFolders from './reducers/watcherFolders';
 import watcherStatistics from './reducers/watcherStatistics';
@@ -60,7 +60,7 @@ export const rootReducer = combineReducers<RootState>({
   searchAudioEnabled,
   expandedQueueItems,
   watcherTreeSettings,
-  loggedSearchResults,
+  notifiedSearchResultIds,
   notificationSettings,
   expandedSearchResults,
   databaseFilterSettings,

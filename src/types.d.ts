@@ -28,7 +28,7 @@ export interface RootState {
   readonly expandedSearchResults: ExpandedSearchResultsSet;
   readonly expandedQueueItems: ExpandedQueueItemsSet;
   readonly notificationSettings: NotificationSettings;
-  readonly loggedSearchResults: SearchResults;
+  readonly notifiedSearchResultIds: Set<GroupId>;
   readonly watcherTreeSettings: WatcherTreeSettings;
   readonly searchAudioEnabled: boolean;
   readonly watcherFolders: WatcherFolderMap;
