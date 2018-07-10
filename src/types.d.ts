@@ -37,6 +37,7 @@ export interface RootState {
   readonly queueSortingOption: QueueSortingOption;
   readonly loggedRequesters: RequesterMap;
   readonly databaseFilterSettings: DatabaseFilterSettings;
+  readonly markedAsReadGroupIds: Set<GroupId>;
 }
 
 export type Primitive = string | number | boolean;
@@ -171,7 +172,6 @@ export interface HumanIntelligenceTask {
 export interface SearchResult extends HumanIntelligenceTask {
   readonly creationTime: number; // Date converted to number
   readonly lastUpdatedTime: number; // Date converted to number
-  readonly markedAsRead?: boolean;
   readonly qualified: boolean;
   readonly canPreview: boolean;
 }

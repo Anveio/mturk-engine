@@ -1,24 +1,31 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
-import { MarkAllHitsAsRead, markAllHitsAsRead } from '../../actions/markAsRead';
-import {
-  CollapseAllResults,
-  collapseAllSearchResults
-} from '../../actions/toggleExpand';
+import { Set } from 'immutable';
+import { connect } from 'react-redux';
+import { markAllHitsAsRead } from '../../actions/markAsRead';
+import { collapseAllSearchResults } from '../../actions/toggleExpand';
 import SortingMenu from './SortingMenu';
 import { ButtonGroup, Button } from '@shopify/polaris';
 import ToggleSearchAudioButton from '../Buttons/ToggleSearchAudioButton';
+import { GroupId, RootState } from 'types';
+import { filteredResultsGroupIdSet } from 'selectors/search';
 
-export interface Handlers {
-  readonly onMarkAllAsRead: () => void;
+interface Props {
+  readonly resultsIds: Set<GroupId>;
+}
+
+interface Handlers {
+  readonly onMarkAllAsRead: (hitIds: Set<GroupId>) => void;
   readonly collapseAllResults: () => void;
 }
 
-class SearchTableButtons extends React.PureComponent<Handlers, never> {
+class SearchTableButtons extends React.PureComponent<Props & Handlers, never> {
   public render() {
     return (
       <ButtonGroup>
-        <Button plain onClick={this.props.onMarkAllAsRead}>
+        <Button
+          plain
+          onClick={() => this.props.onMarkAllAsRead(this.props.resultsIds)}
+        >
           Mark all as read
         </Button>
         <Button plain onClick={this.props.collapseAllResults}>
@@ -31,13 +38,16 @@ class SearchTableButtons extends React.PureComponent<Handlers, never> {
   }
 }
 
-type SearchTableButtonsAction = MarkAllHitsAsRead | CollapseAllResults;
+const mapDispatch: Handlers = {
+  onMarkAllAsRead: markAllHitsAsRead,
+  collapseAllResults: collapseAllSearchResults
+};
 
-const mapDispatch = (
-  dispatch: Dispatch<SearchTableButtonsAction>
-): Handlers => ({
-  onMarkAllAsRead: () => dispatch(markAllHitsAsRead()),
-  collapseAllResults: () => dispatch(collapseAllSearchResults())
+const mapState = (state: RootState): Props => ({
+  resultsIds: filteredResultsGroupIdSet(state)
 });
 
-export default connect(null, mapDispatch)(SearchTableButtons);
+export default connect(
+  mapState,
+  mapDispatch
+)(SearchTableButtons);

@@ -7,7 +7,7 @@ import SearchTableHeading from './SearchTableHeading';
 import EmptySearchTable from './EmptySearchTable';
 
 import { List } from 'immutable';
-import { filteredResultsGroupId } from '../../selectors/search';
+import { filteredResultsGroupIdList } from '../../selectors/search';
 
 interface Props {
   readonly rawResultsSize: number;
@@ -36,7 +36,7 @@ class SearchTable extends React.Component<Props, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  resultsIds: filteredResultsGroupId(state),
+  resultsIds: filteredResultsGroupIdList(state),
   rawResultsSize: state.search.size
 });
 

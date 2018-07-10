@@ -4,7 +4,8 @@ import {
   loggedSearchResultsSelector
 } from './index';
 import { newResults } from './search';
-import { SearchResult, SearchResults } from '../types';
+import { SearchResult, SearchResults, GroupId } from '../types';
+import { Set } from 'immutable';
 
 const filterNewSearchResultsQualifiedOnly = createSelector(
   [newResults],
@@ -15,8 +16,8 @@ const filterNewSearchResultsQualifiedOnly = createSelector(
 
 const newNeverLoggedSearchResults = createSelector(
   [filterNewSearchResultsQualifiedOnly, loggedSearchResultsSelector],
-  (results: SearchResults, loggedResults: SearchResults) =>
-    results.filter((result: SearchResult) => !loggedResults.get(result.groupId))
+  (results: SearchResults, loggedResults: Set<GroupId>) =>
+    results.filter((result: SearchResult) => !loggedResults.has(result.groupId))
 );
 
 const unreadSearchResultsAboveNotificationThreshold = createSelector(

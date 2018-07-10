@@ -19,6 +19,7 @@ import SearchResultExceptionList from './SearchResultExceptionList';
 
 interface Props {
   readonly hit: SearchResult;
+  readonly markedAsRead: boolean;
   readonly expanded: boolean;
 }
 
@@ -70,8 +71,8 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
       : [this.markAsReadButton(), ...this.readActions()];
 
   public render() {
-    const { hit, expanded, onToggleExpand } = this.props;
-    const { groupId, requester, markedAsRead } = hit;
+    const { hit, expanded, onToggleExpand, markedAsRead } = this.props;
+    const { groupId, requester } = hit;
 
     return (
       <React.Fragment>
@@ -79,7 +80,7 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
           <ResourceList.Item
             id={hit.groupId}
             onClick={onToggleExpand}
-            shortcutActions={this.generateActions(hit.markedAsRead)}
+            shortcutActions={this.generateActions(markedAsRead)}
             ariaExpanded={expanded}
           >
             <Stack
@@ -120,7 +121,8 @@ type SearchTableAction =
 
 const mapState = (state: RootState, { groupId }: OwnProps): Props => ({
   hit: searchResultsSelector(state).get(groupId),
-  expanded: state.expandedSearchResults.has(groupId)
+  expanded: state.expandedSearchResults.has(groupId),
+  markedAsRead: state.markedAsReadGroupIds.has(groupId)
 });
 
 const mapDispatch = (dispatch: Dispatch<SearchTableAction>): Handlers => ({

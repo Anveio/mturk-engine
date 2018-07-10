@@ -8,15 +8,15 @@ export const updateTurkopticon = (requesterData: RequesterMap) => (
 
   if (!associatedRequester) {
     return hit;
-  } else {
-    return {
-      ...hit,
-      requester: {
-        ...hit.requester,
-        turkopticon: associatedRequester.turkopticon
-      }
-    };
   }
+
+  return {
+    ...hit,
+    requester: {
+      ...hit.requester,
+      turkopticon: associatedRequester.turkopticon
+    }
+  };
 };
 
 /**
@@ -28,18 +28,10 @@ export const resultsThatAppearInBoth = (action: SearchSuccess) => (
   prevSearchResult: SearchResult
 ): boolean => action.data.has(prevSearchResult.groupId);
 
-export const conflictsUseOldMarkedAsReadProp = (
+export const conflictsUseOldRequesterData = (
   oldResult: SearchResult,
   newResult: SearchResult
 ): SearchResult => ({
   ...newResult,
-  markedAsRead: oldResult.markedAsRead,
   requester: oldResult.requester
 });
-
-export const markAsRead = (hit: SearchResult): SearchResult => ({
-  ...hit,
-  markedAsRead: true
-});
-
-export const keepReadResults = (hit: SearchResult) => !!hit.markedAsRead;

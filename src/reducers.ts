@@ -32,6 +32,7 @@ import searchAudioEnabled from './reducers/searchAudioEnabled';
 import queueSortingOption from './reducers/queueSortingOption';
 import databaseFilterSettings from './reducers/databaseFilterSettings';
 import loggedRequesters from './reducers/loggedRequesters';
+import markedAsReadGroupIds from './reducers/markedAsReadGroupIds';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -60,10 +61,11 @@ export const rootReducer = combineReducers<RootState>({
   searchAudioEnabled,
   expandedQueueItems,
   watcherTreeSettings,
-  notifiedSearchResultIds,
+  markedAsReadGroupIds,
   notificationSettings,
   expandedSearchResults,
   databaseFilterSettings,
   waitingForHitDbRefresh,
+  notifiedSearchResultIds,
   expandedWatcherFolderIds
 });

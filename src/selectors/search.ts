@@ -17,12 +17,13 @@ import {
   searchResultsSelector,
   hitBlocklistSelector,
   requesterBlocklistSelector,
-  sortOptionSelector
+  sortOptionSelector,
+  markedAsReadGroupIdsSelector
 } from './index';
 import { noTurkopticon } from '../utils/turkopticon';
 import { List } from 'immutable';
 
-const selectGroupId = (hit: SearchResult) => hit.groupId;
+export const selectGroupId = (hit: SearchResult) => hit.groupId;
 
 export const resultsLengthSelector = createSelector(
   [searchResultsSelector],
@@ -79,9 +80,9 @@ const filteredAndSortedResults = createSelector(
 );
 
 export const newResults = createSelector(
-  [filteredAndSortedResults],
-  (hits: SearchResults) =>
-    hits.filter((hit: SearchResult) => !hit.markedAsRead) as SearchResults
+  [filteredAndSortedResults, markedAsReadGroupIdsSelector],
+  (hits, seenHITs) =>
+    hits.filterNot((hit: SearchResult) => seenHITs.has(hit.groupId))
 );
 
 export const newResultsGroupIdsList = createSelector(
@@ -90,9 +91,9 @@ export const newResultsGroupIdsList = createSelector(
 );
 
 const markedAsReadResults = createSelector(
-  [filteredAndSortedResults],
-  (hits: SearchResults) =>
-    hits.filter((hit: SearchResult) => !!hit.markedAsRead)
+  [filteredAndSortedResults, markedAsReadGroupIdsSelector],
+  (hits, seenHITs) =>
+    hits.filter((hit: SearchResult) => seenHITs.has(hit.groupId))
 );
 
 const groupNewHitsBeforeOldHits = createSelector(
@@ -100,7 +101,14 @@ const groupNewHitsBeforeOldHits = createSelector(
   (hits: SearchResults, readHits: SearchResults) => hits.concat(readHits)
 );
 
-export const filteredResultsGroupId = createSelector(
+export const filteredResultsGroupIdSet = createSelector(
+  [groupNewHitsBeforeOldHits],
+  (hits: SearchResults) => {
+    return hits.map(selectGroupId).toSet();
+  }
+);
+
+export const filteredResultsGroupIdList = createSelector(
   [groupNewHitsBeforeOldHits],
   (hits: SearchResults) => {
     return hits.map(selectGroupId).toList();

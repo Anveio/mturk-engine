@@ -1,4 +1,6 @@
+import { Set } from 'immutable';
 import { MARK_ALL_HITS_AS_READ, MARK_HIT_AS_READ } from '../constants';
+import { GroupId } from 'types';
 
 export interface MarkHitAsRead {
   readonly type: MARK_HIT_AS_READ;
@@ -6,7 +8,8 @@ export interface MarkHitAsRead {
 }
 
 export interface MarkAllHitsAsRead {
-  type: MARK_ALL_HITS_AS_READ;
+  readonly type: MARK_ALL_HITS_AS_READ;
+  readonly data: Set<GroupId>;
 }
 
 export type MarkAction = MarkHitAsRead | MarkAllHitsAsRead;
@@ -16,6 +19,7 @@ export const markHitAsRead = (groupId: string): MarkHitAsRead => ({
   groupId
 });
 
-export const markAllHitsAsRead = (): MarkAllHitsAsRead => ({
-  type: MARK_ALL_HITS_AS_READ
+export const markAllHitsAsRead = (data: Set<GroupId>): MarkAllHitsAsRead => ({
+  type: MARK_ALL_HITS_AS_READ,
+  data
 });

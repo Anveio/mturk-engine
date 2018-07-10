@@ -7,15 +7,11 @@ import {
 } from './qualifications';
 
 export const tabulateSearchData = (
-  input: WorkerSearchResult[],
-  freshSearch?: boolean
+  input: WorkerSearchResult[]
 ): SearchResults =>
   input.reduce(
     (map: SearchResults, hit: WorkerSearchResult) =>
-      map.set(hit.hit_set_id, {
-        ...createWorkerSearchItem(hit),
-        markedAsRead: !!freshSearch
-      }),
+      map.set(hit.hit_set_id, createWorkerSearchItem(hit)),
     Map<GroupId, SearchResult>()
   );
 

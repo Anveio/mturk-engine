@@ -7,7 +7,7 @@ import { tabulateSearchData } from '../utils/parsingSearch';
 import { SearchResultsApiResponse } from '../worker-mturk-api';
 import { MTURK_URL_ENCODING_FORMAT } from 'constants/misc';
 
-export const searchHits = async (options: SearchOptions, fresh?: boolean) => {
+export const searchHits = async (options: SearchOptions) => {
   try {
     const t0 = performance.now();
     const response = await axios.get<SearchResultsApiResponse>(`${API_URL}`, {
@@ -21,7 +21,7 @@ export const searchHits = async (options: SearchOptions, fresh?: boolean) => {
     });
     // tslint:disable-next-line:no-console
     console.log('Time to fetch HITs: ' + (performance.now() - t0));
-    return tabulateSearchData(response.data.results, fresh);
+    return tabulateSearchData(response.data.results);
   } catch (e) {
     throw Error('Problem fetching data from MTurk.');
   }

@@ -20,6 +20,9 @@ export const queueSelector = (state: RootState) => state.queue;
 
 export const searchResultsSelector = (state: RootState) => state.search;
 
+export const markedAsReadGroupIdsSelector = (state: RootState) =>
+  state.markedAsReadGroupIds;
+
 export const selectedHitDbDateSelector = (state: RootState) =>
   state.selectedHitDbDate;
 
