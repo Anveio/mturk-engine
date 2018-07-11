@@ -47,7 +47,7 @@ class CrashScreen extends React.PureComponent<Props, State> {
       <Page title="Mturk Engine (Crashed)">
         <Layout>
           <Layout.Section>
-            <NonIdealState title="Mturk Engine has crashed." visual="error" />
+            <NonIdealState title="Mturk Engine has crashed." icon="error" />
           </Layout.Section>
           <Layout.AnnotatedSection title="Refresh">
             <Card

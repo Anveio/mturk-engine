@@ -4,7 +4,7 @@ import { NonIdealState, Button } from '@blueprintjs/core';
 import { Layout } from '@shopify/polaris';
 import { connectAccountRequest } from '../../actions/connectAccount';
 
-export interface Handlers {
+interface Handlers {
   readonly onConnect: () => void;
 }
 
@@ -19,7 +19,7 @@ class DisconnectedAccount extends React.PureComponent<Handlers, never> {
         You will need to already be signed in to Mturk through Amazon for it to 
         work, however, because Mturk Engine does not store your log in 
         credentials and cannot log in for you.`}
-            visual="user"
+            icon="user"
             action={
               <Button onClick={this.props.onConnect}>Connect Account</Button>}
           />
@@ -33,4 +33,7 @@ const mapDispatch: Handlers = {
   onConnect: connectAccountRequest
 };
 
-export default connect(null, mapDispatch)(DisconnectedAccount);
+export default connect(
+  null,
+  mapDispatch
+)(DisconnectedAccount);
