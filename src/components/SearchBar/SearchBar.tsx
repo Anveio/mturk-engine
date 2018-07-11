@@ -15,10 +15,6 @@ interface Handlers {
 }
 
 class SearchBar extends React.PureComponent<Props & Handlers, never> {
-  private handleSearch = () => {
-    this.props.onToggleSearch();
-  };
-
   private static searchButtonText = (active: boolean) => {
     return active ? 'Stop searching' : 'Start searching';
   };
@@ -34,7 +30,7 @@ class SearchBar extends React.PureComponent<Props & Handlers, never> {
               primary
               icon="search"
               accessibilityLabel="Toggle Search Button"
-              onClick={this.handleSearch}
+              onClick={this.props.onToggleSearch}
               destructive={searchActive}
             >
               {SearchBar.searchButtonText(searchActive)}
