@@ -1,21 +1,16 @@
 import * as React from 'react';
 import { EmptyState } from '@shopify/polaris';
+import { connect } from 'react-redux';
+import { searchRequestSingular } from '../../actions/search';
 
-import { connect, Dispatch } from 'react-redux';
-import { SearchAction, searchRequestSingular } from '../../actions/search';
-
-export interface Handlers {
+interface Handlers {
   readonly onSearch: () => void;
 }
-
-const mapDispatch = (dispatch: Dispatch<SearchAction>): Handlers => ({
-  onSearch: () => dispatch(searchRequestSingular())
-});
 
 const EmptySearchTable: React.SFC<Handlers> = ({ onSearch }) => {
   return (
     <EmptyState
-      heading="You search results are empty."
+      heading="Welcome to Mturk Engine."
       action={{
         content: 'Search HITs',
         onAction: onSearch
@@ -27,4 +22,11 @@ const EmptySearchTable: React.SFC<Handlers> = ({ onSearch }) => {
   );
 };
 
-export default connect(null, mapDispatch)(EmptySearchTable);
+const mapDispatch: Handlers = {
+  onSearch: searchRequestSingular
+};
+
+export default connect(
+  null,
+  mapDispatch
+)(EmptySearchTable);
