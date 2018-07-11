@@ -27,7 +27,7 @@ class SearchBar extends React.PureComponent<Props & Handlers, never> {
     const { searchActive } = this.props;
 
     return (
-      <Card sectioned>
+      <Card.Section>
         <Stack vertical={false} alignment="center">
           <ButtonGroup segmented>
             <Button
@@ -43,7 +43,7 @@ class SearchBar extends React.PureComponent<Props & Handlers, never> {
           </ButtonGroup>
           <SearchTimer />
         </Stack>
-      </Card>
+      </Card.Section>
     );
   }
 }
@@ -56,4 +56,7 @@ const mapDispatch = (dispatch: Dispatch): Handlers => ({
   onToggleSearch: () => dispatch(toggleSearchActive())
 });
 
-export default connect(mapState, mapDispatch)(SearchBar);
+export default connect(
+  mapState,
+  mapDispatch
+)(SearchBar);

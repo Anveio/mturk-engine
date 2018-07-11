@@ -22,15 +22,19 @@ class SearchTable extends React.Component<Props, never> {
   public render() {
     const { resultsIds, rawResultsSize } = this.props;
     return rawResultsSize === 0 ? (
-      <EmptySearchTable />
+      <Card.Section>
+        <EmptySearchTable />
+      </Card.Section>
     ) : (
-      <Card>
-        <SearchTableHeading displayedResultsSize={resultsIds.size} />
+      <>
+        <Card.Section>
+          <SearchTableHeading displayedResultsSize={resultsIds.size} />
+        </Card.Section>
         <ResourceList
           items={resultsIds.toArray()}
           renderItem={(id: string) => <SearchCard key={id} groupId={id} />}
         />
-      </Card>
+      </>
     );
   }
 }
