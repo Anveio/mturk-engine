@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Badge } from '@shopify/polaris';
-import { RootState, GroupId } from 'types';
-import { searchResultsToWeightedToMap } from 'selectors/turkopticon';
+import { RootState, RequesterId } from 'types';
+import { requestersToWeightedToMap } from 'selectors/turkopticon';
 import { connect } from 'react-redux';
 import { assignScoreColor } from 'utils/badges';
 
 interface OwnProps {
-  readonly groupId: GroupId;
+  readonly requesterId: RequesterId;
 }
 
 interface Props {
@@ -27,7 +27,7 @@ class TOpticonBadge extends React.PureComponent<Props, never> {
 }
 
 const mapState = (state: RootState, ownProps: OwnProps): Props => ({
-  weightedToScore: searchResultsToWeightedToMap(state).get(ownProps.groupId)
+  weightedToScore: requestersToWeightedToMap(state).get(ownProps.requesterId)
 });
 
 export default connect(mapState)(TOpticonBadge);

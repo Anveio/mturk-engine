@@ -4,14 +4,19 @@ import {
   RootState,
   SearchResults,
   SearchResult,
-  AttributeWeights
+  AttributeWeights,
+  Requester
 } from '../types';
 import {
   hasAValidScore,
   calculateWeightedAverageScore,
   sortByWeightedTo
 } from '../utils/turkopticon';
-import { searchResultsSelector, turkopticonSettingsSelector } from './index';
+import {
+  searchResultsSelector,
+  turkopticonSettingsSelector,
+  loggedRequestersSelector
+} from './index';
 
 export const minTopticonScoreEnabled = createSelector(
   [turkopticonSettingsSelector],
@@ -50,11 +55,11 @@ export const useUserFilterNoTOsetting = createSelector(
   }
 );
 
-export const searchResultsToWeightedToMap = createSelector(
-  [searchResultsSelector, attributeWeightsSelector],
-  (results, weights) =>
-    results.map((hit: SearchResult) => {
-      const { turkopticon } = hit.requester;
+export const requestersToWeightedToMap = createSelector(
+  [loggedRequestersSelector, attributeWeightsSelector],
+  (requesters, weights) =>
+    requesters.map((requester: Requester) => {
+      const { turkopticon } = requester;
       if (!turkopticon) {
         return null;
       }
@@ -66,7 +71,7 @@ export const searchResultsToWeightedToMap = createSelector(
 export const filterBelowTopticonThreshold = createSelector(
   [
     useUserFilterNoTOsetting,
-    searchResultsToWeightedToMap,
+    requestersToWeightedToMap,
     minWeightedTopticonScore,
     minTopticonScoreEnabled
   ],

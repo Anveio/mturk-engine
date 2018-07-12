@@ -12,7 +12,7 @@ const InfoContainer: React.SFC<Props> = ({
   hit: { groupId, reward, batchSize, requester }
 }) => (
   <Stack vertical={false} alignment="baseline">
-    <TOpticonBadge groupId={groupId} />
+    <TOpticonBadge requesterId={requester.id} />
     <Caption>{batchSize} available</Caption>
     <DisplayText size="small">{formatAsUsd(reward)}</DisplayText>
   </Stack>
