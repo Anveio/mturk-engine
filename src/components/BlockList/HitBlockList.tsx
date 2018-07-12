@@ -1,9 +1,6 @@
 import { Popover, Position } from '@blueprintjs/core';
 import { Button, Card, Heading, ResourceList, Stack } from '@shopify/polaris';
-import {
-  blockMultipleHits,
-  unblockMultipleHits,
-} from 'actions/blockHit';
+import { blockMultipleHits, unblockMultipleHits } from 'actions/blockHit';
 import { Set, List } from 'immutable';
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -23,6 +20,12 @@ interface Handlers {
 }
 
 class HitBlockList extends React.Component<Props & Handlers, never> {
+  shouldComponentUpdate(nextProps: Props) {
+    return !nextProps.blockedHitsSortedRecentFirst.equals(
+      this.props.blockedHitsSortedRecentFirst
+    );
+  }
+
   public render() {
     const {
       blocklistSize,
@@ -77,4 +80,7 @@ const mapDispatch: Handlers = {
   undoMassUnblock: blockMultipleHits
 };
 
-export default connect(mapState, mapDispatch)(HitBlockList);
+export default connect(
+  mapState,
+  mapDispatch
+)(HitBlockList);
