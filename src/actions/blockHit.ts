@@ -19,7 +19,7 @@ export const blockSingleHit = (hit: BlockedHit): BlockHit => ({
   data: Set([hit])
 });
 
-export const unblockSingleHit = (groupId: string): UnblockHit => ({
+export const unblockSingleHit = (groupId: GroupId): UnblockHit => ({
   type: HIT_BLOCKLIST_REMOVE,
   groupIds: Set([groupId])
 });

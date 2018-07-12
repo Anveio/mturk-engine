@@ -8,14 +8,14 @@ import {
 } from '../types';
 import { DurationUnit, olderThan, youngerThan } from './dates';
 
-export const blockedHitFactory = (hit: SearchResult): BlockedHit => ({
+export const blockedHitFromSearchResult = (hit: SearchResult): BlockedHit => ({
   groupId: hit.groupId,
   requester: hit.requester,
   title: hit.title,
   dateBlocked: new Date()
 });
 
-export const blockedRequesterFactory = (item: Requester): BlockedRequester => ({
+export const createBlockedRequester = (item: Requester): BlockedRequester => ({
   ...item,
   dateBlocked: new Date()
 });

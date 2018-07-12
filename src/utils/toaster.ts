@@ -4,7 +4,8 @@ import { GenericWaitingToast } from '../components/Toasts';
 import {
   HumanIntelligenceTask,
   ImmutablePersistedStateKey,
-  SearchResult
+  SearchResult,
+  BlockedHit
 } from '../types';
 import { dateStringToLocaleDateString } from './dates';
 import { formatAsUsd, pluralize, pluralizeHits, truncate } from './formatting';
@@ -271,7 +272,7 @@ export const notificationPermissionBlockedToast = () =>
     timeout: 9000
   });
 
-export const massUnblockToast = (onClick: () => void, numEntries: number) =>
+export const massUnblockToast = (onUndo: () => void, numEntries: number) =>
   TopRightToaster.show({
     message: `Cleared ${numEntries} ${pluralize('entry', 'entries')(
       numEntries
@@ -279,9 +280,23 @@ export const massUnblockToast = (onClick: () => void, numEntries: number) =>
     intent: Intent.PRIMARY,
     action: {
       text: 'Undo',
-      onClick
+      onClick: onUndo
     },
     timeout: 8000
+  });
+
+export const blockHitToast = (onUndo: () => void, hit: BlockedHit) =>
+  TopRightToaster.show({
+    message: `Blocked "${truncate(
+      hit.title,
+      25
+    )}". Projects with this unique ID will no longer appear in search results.`,
+    intent: Intent.PRIMARY,
+    action: {
+      text: 'Undo',
+      onClick: onUndo
+    },
+    timeout: 5000
   });
 
 const successfulQueueToast = {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Requester, BlockedRequester } from '../../types';
 import { Button } from '@shopify/polaris';
 import { Tooltip, Position } from '@blueprintjs/core';
-import { blockedRequesterFactory } from '../../utils/blocklist';
+import { createBlockedRequester } from '../../utils/blocklist';
 import { connect, Dispatch } from 'react-redux';
 import {
   BlockRequesterAction,
@@ -32,7 +32,7 @@ class BlockRequesterButton extends React.PureComponent<
   };
 
   private handleBlockRequester = () => {
-    this.props.onBlockRequester(blockedRequesterFactory(this.props.requester));
+    this.props.onBlockRequester(createBlockedRequester(this.props.requester));
     if (this.props.withToast) {
       showPlainToast(
         `${this.props.requester.name} has been added to your blocklist.`
