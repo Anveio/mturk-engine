@@ -1,86 +1,39 @@
-import { Popover, Position } from '@blueprintjs/core';
-import { Button, Card, Heading, ResourceList, Stack } from '@shopify/polaris';
-import { blockMultipleHits, unblockMultipleHits } from 'actions/blockHit';
-import { Set, List } from 'immutable';
+import { ResourceList } from '@shopify/polaris';
+import { Iterable } from 'immutable';
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { BlockedHit, RootState } from '../../types';
+import { HitId } from '../../types';
 import BlockedHitCard from './BlockedHitCard';
-import SweepMenu from './SweepMenu';
-import { sortedHitBlocklist } from 'selectors/blocklists';
+import { DATABASE_FILTER_RESULTS_PER_PAGE } from 'constants/misc';
+import DatabaseFilterControl from '../DatabaseFilter/DatabaseFilterControl';
 
 interface Props {
-  readonly blockedHitsSortedRecentFirst: List<BlockedHit>;
-  readonly blocklistSize: number;
+  readonly page: number;
+  readonly hitIds: Iterable<HitId, HitId>;
 }
 
-interface Handlers {
-  readonly massUnblock: (ids: Set<string>) => void;
-  readonly undoMassUnblock: (requesters: Set<BlockedHit>) => void;
-}
-
-class HitBlockList extends React.Component<Props & Handlers, never> {
+class HitBlockList extends React.Component<Props, never> {
   shouldComponentUpdate(nextProps: Props) {
-    return !nextProps.blockedHitsSortedRecentFirst.equals(
-      this.props.blockedHitsSortedRecentFirst
+    return (
+      nextProps.page !== this.props.page ||
+      !nextProps.hitIds.equals(this.props.hitIds)
     );
   }
 
   public render() {
-    const {
-      blocklistSize,
-      blockedHitsSortedRecentFirst,
-      massUnblock,
-      undoMassUnblock
-    } = this.props;
+    const { hitIds, page } = this.props;
+    const start = DATABASE_FILTER_RESULTS_PER_PAGE * page;
+    const end = start + DATABASE_FILTER_RESULTS_PER_PAGE;
+    const itemsToShow = hitIds.slice(start, end).toArray();
     return (
-      blocklistSize > 0 && (
-        <Card>
-          <Card.Section>
-            <Stack vertical={false}>
-              <Stack.Item fill>
-                <Heading>Recently blocked HITs ({blocklistSize} total)</Heading>
-              </Stack.Item>
-
-              <Stack.Item>
-                <Popover position={Position.BOTTOM_RIGHT} canEscapeKeyClose>
-                  <Button plain disclosure>
-                    Sweep
-                  </Button>
-                  <SweepMenu
-                    kind="hit"
-                    title={'Unblock HITs...'}
-                    onMenuClick={massUnblock}
-                    onUndo={undoMassUnblock}
-                    blockedEntries={blockedHitsSortedRecentFirst}
-                  />
-                </Popover>
-              </Stack.Item>
-            </Stack>
-          </Card.Section>
-          <ResourceList
-            items={blockedHitsSortedRecentFirst.slice(0, 20).toArray()}
-            renderItem={({ groupId }: BlockedHit) => (
-              <BlockedHitCard key={groupId} blockedHitId={groupId} />
-            )}
-          />
-        </Card>
-      )
+      <ResourceList
+        showHeader
+        filterControl={<DatabaseFilterControl />}
+        resourceName={{ singular: 'HIT', plural: 'HITs' }}
+        items={itemsToShow}
+        renderItem={(id: string) => <BlockedHitCard blockedHitId={id} />}
+      />
     );
   }
 }
 
-const mapState = (state: RootState): Props => ({
-  blockedHitsSortedRecentFirst: sortedHitBlocklist(state),
-  blocklistSize: state.hitBlocklist.size
-});
-
-const mapDispatch: Handlers = {
-  massUnblock: unblockMultipleHits,
-  undoMassUnblock: blockMultipleHits
-};
-
-export default connect(
-  mapState,
-  mapDispatch
-)(HitBlockList);
+export default HitBlockList;
