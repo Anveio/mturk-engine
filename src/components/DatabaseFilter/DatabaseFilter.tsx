@@ -7,9 +7,9 @@ import {
   databaseFilterResultsMoneyTotal
 } from 'selectors/databaseFilterSettings';
 import { Iterable } from 'immutable';
-import DatabaseFilterPagination, {
+import PaginationButtons, {
   DatabaseFilterPaginationProps
-} from './DatabaseFilterPagination';
+} from '../Buttons/PaginationButtons';
 import { DATABASE_FILTER_RESULTS_PER_PAGE } from 'constants/misc';
 import ResultsList from './ResultsList';
 import { formatAsUsd, pluralize } from 'utils/formatting';
@@ -98,7 +98,7 @@ class DatabaseFilter extends React.Component<Props, State> {
     return (
       <Card title={this.generateCardTitle()}>
         <ResultsList page={page} hitIds={hitIds} />
-        <DatabaseFilterPagination {...paginationProps} />
+        <PaginationButtons {...paginationProps} />
       </Card>
     );
   }
