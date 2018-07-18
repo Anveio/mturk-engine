@@ -1,39 +1,97 @@
-import { ResourceList } from '@shopify/polaris';
-import { Iterable } from 'immutable';
 import * as React from 'react';
-import { HitId } from '../../types';
-import BlockedHitCard from './BlockedHitCard';
+import { Card } from '@shopify/polaris';
+import { connect } from 'react-redux';
+import { RootState, HitId } from 'types';
+import { Iterable } from 'immutable';
 import { DATABASE_FILTER_RESULTS_PER_PAGE } from 'constants/misc';
-import DatabaseFilterControl from '../DatabaseFilter/DatabaseFilterControl';
+import {
+  calculateMaxPage,
+  calculateHasNext,
+  calculateHasPrevious
+} from 'utils/pagination';
+import PaginationButtons, {
+  DatabaseFilterPaginationProps
+} from '../Buttons/PaginationButtons';
+import { hitBlocklistIds } from 'selectors/blocklists';
+import HitBlockListFilter from './HitBlockListFilter';
 
 interface Props {
-  readonly page: number;
   readonly hitIds: Iterable<HitId, HitId>;
 }
 
-class HitBlockList extends React.Component<Props, never> {
-  shouldComponentUpdate(nextProps: Props) {
+interface State {
+  readonly page: number;
+}
+
+class HitBlockList extends React.Component<Props, State> {
+  public readonly state: State = { page: 0 };
+
+  shouldComponentUpdate(nextProps: Props, nextState: State) {
     return (
-      nextProps.page !== this.props.page ||
+      nextState.page !== this.state.page ||
       !nextProps.hitIds.equals(this.props.hitIds)
     );
   }
 
+  static getDerivedStateFromProps({ hitIds }: Props, state: State) {
+    if (
+      state.page >
+      calculateMaxPage(hitIds.size, DATABASE_FILTER_RESULTS_PER_PAGE)
+    ) {
+      return {
+        page: 0
+      };
+    }
+
+    return null;
+  }
+
+  private onNext = () =>
+    this.setState((prevState: State) => ({
+      page: Math.min(
+        prevState.page + 1,
+        calculateMaxPage(
+          this.props.hitIds.size,
+          DATABASE_FILTER_RESULTS_PER_PAGE
+        )
+      )
+    }));
+
+  private onPrevious = () =>
+    this.setState((prevState: State) => ({
+      page: Math.max(prevState.page - 1, 0)
+    }));
+
   public render() {
-    const { hitIds, page } = this.props;
-    const start = DATABASE_FILTER_RESULTS_PER_PAGE * page;
-    const end = start + DATABASE_FILTER_RESULTS_PER_PAGE;
-    const itemsToShow = hitIds.slice(start, end).toArray();
+    const { hitIds } = this.props;
+    const { page } = this.state;
+
+    const hasNext = calculateHasNext(
+      page,
+      hitIds.size,
+      DATABASE_FILTER_RESULTS_PER_PAGE
+    );
+    const hasPrevious = calculateHasPrevious(page);
+
+    const paginationProps: DatabaseFilterPaginationProps = {
+      hasNext,
+      hasPrevious,
+      onNext: this.onNext,
+      onPrevious: this.onPrevious,
+      shouldRender: hitIds.size > DATABASE_FILTER_RESULTS_PER_PAGE
+    };
+
     return (
-      <ResourceList
-        showHeader
-        filterControl={<DatabaseFilterControl />}
-        resourceName={{ singular: 'HIT', plural: 'HITs' }}
-        items={itemsToShow}
-        renderItem={(id: string) => <BlockedHitCard blockedHitId={id} />}
-      />
+      <Card title={`Search blocked HITs (${hitIds.size} entries found).`}>
+        <HitBlockListFilter page={page} hitIds={hitIds} />
+        <PaginationButtons {...paginationProps} />
+      </Card>
     );
   }
 }
 
-export default HitBlockList;
+const mapState = (state: RootState): Props => ({
+  hitIds: hitBlocklistIds(state)
+});
+
+export default connect(mapState)(HitBlockList);

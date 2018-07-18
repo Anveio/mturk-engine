@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { blockListsAreEmpty } from 'selectors/blocklists';
 import { RootState } from '../../types';
 import EmptyBlockList from './EmptyBlockList';
-import HitBlockList from './HitBlockList';
 import RequesterBlockList from './RequesterBlockList';
+import HitBlockList from './HitBlockList';
 
 interface Props {
   readonly empty: boolean;
@@ -21,7 +21,7 @@ class BlockLists extends React.Component<Props, never> {
     ) : (
       <Layout>
         <Layout.Section>
-          <RequesterBlockList/>
+          <RequesterBlockList />
         </Layout.Section>
         <Layout.Section>
           <HitBlockList />
