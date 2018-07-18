@@ -2,7 +2,8 @@ import {
   HIT_BLOCKLIST_ADD,
   HIT_BLOCKLIST_REMOVE,
   HIT_BLOCKLIST_ADD_MULTIPLE,
-  HIT_BLOCKLIST_REMOVE_MULTIPLE
+  HIT_BLOCKLIST_REMOVE_MULTIPLE,
+  UPDATE_HIT_BLOCKLIST_SEARCH_TERM
 } from '../constants';
 import { BlockedHit, GroupId } from '../types';
 import { Set } from 'immutable';
@@ -25,6 +26,11 @@ export interface UnblockHit {
 export interface UnblockMultipleHits {
   readonly type: HIT_BLOCKLIST_REMOVE_MULTIPLE;
   readonly groupIds: Set<GroupId>;
+}
+
+export interface UpdateHitBlocklistSearchTerm {
+  readonly type: UPDATE_HIT_BLOCKLIST_SEARCH_TERM;
+  readonly data: string;
 }
 
 export type BlockHitAction =
@@ -55,4 +61,11 @@ export const unblockMultipleHits = (
 ): UnblockMultipleHits => ({
   type: HIT_BLOCKLIST_REMOVE_MULTIPLE,
   groupIds
+});
+
+export const updateHitBlocklistSearchTerm = (
+  data: string
+): UpdateHitBlocklistSearchTerm => ({
+  type: UPDATE_HIT_BLOCKLIST_SEARCH_TERM,
+  data
 });
