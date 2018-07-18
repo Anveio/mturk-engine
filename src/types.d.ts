@@ -38,6 +38,7 @@ export interface RootState {
   readonly loggedRequesters: RequesterMap;
   readonly databaseFilterSettings: DatabaseFilterSettings;
   readonly markedAsReadGroupIds: Set<GroupId>;
+  readonly hitBlocklistFilterSettings: HitBlocklistFilterSettings;
 }
 
 export type Primitive = string | number | boolean;
@@ -214,6 +215,11 @@ export type FilterOrderType =
 export interface DatabaseFilterSettings {
   readonly searchTerm: string;
   readonly statusFilters: StatusFilterType[];
+  readonly sortOrder: FilterOrderType;
+}
+
+export interface HitBlocklistFilterSettings {
+  readonly searchTerm: string;
   readonly sortOrder: FilterOrderType;
 }
 
