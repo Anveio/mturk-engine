@@ -5,8 +5,36 @@ import {
   RequesterBlockMap,
   BlockedRequester
 } from '../types';
-import { hitBlocklistSelector, requesterBlocklistSelector } from './index';
+import {
+  hitBlocklistSelector,
+  requesterBlocklistSelector,
+  hitBlocklistFilterSettingsSelector
+} from './index';
 import { List } from 'immutable';
+import { escapeUserInputForRegex } from 'utils/formatting';
+import { createBlocklistFilterFn } from 'utils/blocklist';
+
+export const hitBlocklistFilteredBySearchTerm = createSelector(
+  [hitBlocklistSelector, hitBlocklistFilterSettingsSelector],
+  (hitBlocklist, { searchTerm }) => {
+    if (searchTerm.length === 0) {
+      return hitBlocklist;
+    }
+
+    const searchRegex = new RegExp(escapeUserInputForRegex(searchTerm), 'i');
+    const hitMatchesSearchTerm = createBlocklistFilterFn(
+      searchTerm,
+      searchRegex
+    );
+
+    return hitBlocklist.filter(hitMatchesSearchTerm);
+  }
+);
+
+export const filteredHitBlocklistIds = createSelector(
+  [hitBlocklistFilteredBySearchTerm],
+  blockedHits => blockedHits.map((hit: BlockedHit) => hit.groupId)
+);
 
 export const blockListsAreEmpty = createSelector(
   [hitBlocklistSelector, requesterBlocklistSelector],

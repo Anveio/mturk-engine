@@ -12,7 +12,7 @@ import {
 import PaginationButtons, {
   DatabaseFilterPaginationProps
 } from '../Buttons/PaginationButtons';
-import { hitBlocklistIds } from 'selectors/blocklists';
+import { filteredHitBlocklistIds } from 'selectors/blocklists';
 import HitBlockListFilter from './HitBlockListFilter';
 
 interface Props {
@@ -91,7 +91,7 @@ class HitBlockList extends React.Component<Props, State> {
 }
 
 const mapState = (state: RootState): Props => ({
-  hitIds: hitBlocklistIds(state)
+  hitIds: filteredHitBlocklistIds(state)
 });
 
 export default connect(mapState)(HitBlockList);

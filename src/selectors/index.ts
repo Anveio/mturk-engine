@@ -4,6 +4,9 @@ export const hitDatabaseSelector = (state: RootState) => state.hitDatabase;
 
 export const hitBlocklistSelector = (state: RootState) => state.hitBlocklist;
 
+export const hitBlocklistFilterSettingsSelector = (state: RootState) =>
+  state.hitBlocklistFilterSettings;
+
 export const loggedSearchResultsSelector = (state: RootState) =>
   state.notifiedSearchResultIds;
 
