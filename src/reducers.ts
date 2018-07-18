@@ -33,6 +33,7 @@ import queueSortingOption from './reducers/queueSortingOption';
 import databaseFilterSettings from './reducers/databaseFilterSettings';
 import loggedRequesters from './reducers/loggedRequesters';
 import markedAsReadGroupIds from './reducers/markedAsReadGroupIds';
+import hitBlocklistFilterSettings from './reducers/hitBlocklistFilterSettings';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -67,5 +68,6 @@ export const rootReducer = combineReducers<RootState>({
   databaseFilterSettings,
   waitingForHitDbRefresh,
   notifiedSearchResultIds,
-  expandedWatcherFolderIds
+  expandedWatcherFolderIds,
+  hitBlocklistFilterSettings
 });
