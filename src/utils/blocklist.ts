@@ -35,3 +35,11 @@ export const blockedWithin = <T extends BlockedEntry>(
 export interface BlocklistProps<T extends BlockedEntry> {
   readonly blockedEntries: List<T>;
 }
+
+export const createBlocklistFilterFn = (searchTerm: string, searchRegex: RegExp) => (
+  hit: BlockedHit
+) =>
+  hit.groupId === searchTerm ||
+  hit.requester.id === searchTerm ||
+  searchRegex.test(hit.title) ||
+  searchRegex.test(hit.requester.name);
