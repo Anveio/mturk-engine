@@ -43,7 +43,7 @@ export const blockListsAreEmpty = createSelector(
 );
 
 export const sortedHitBlocklist = createSelector(
-  [hitBlocklistSelector],
+  [hitBlocklistFilteredBySearchTerm],
   (blockedHits: HitBlockMap) =>
     (blockedHits.toList() as List<BlockedHit>).sort(
       (a: BlockedHit, b: BlockedHit) =>

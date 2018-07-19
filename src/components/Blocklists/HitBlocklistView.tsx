@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Card } from '@shopify/polaris';
 import { connect } from 'react-redux';
-import { RootState, HitId } from 'types';
-import { Iterable } from 'immutable';
+import { RootState, BlockedHit } from 'types';
+import { List } from 'immutable';
 import { DATABASE_FILTER_RESULTS_PER_PAGE } from 'constants/misc';
 import {
   calculateMaxPage,
@@ -12,12 +12,12 @@ import {
 import PaginationButtons, {
   DatabaseFilterPaginationProps
 } from '../Buttons/PaginationButtons';
-import HitBlockListFilter from './HitBlockListFilter';
-import { filteredHitBlocklistIds } from 'selectors/blocklists';
+import { sortedHitBlocklist } from 'selectors/blocklists';
 import HitBlocklistHeading from './HitBlocklistHeading';
+import HitBlocklistDisplay from './HitBlocklistDisplay';
 
 interface Props {
-  readonly hitIds: Iterable<HitId, HitId>;
+  readonly blockedHits: List<BlockedHit>;
 }
 
 interface State {
@@ -30,14 +30,14 @@ class HitBlocklistView extends React.Component<Props, State> {
   shouldComponentUpdate(nextProps: Props, nextState: State) {
     return (
       nextState.page !== this.state.page ||
-      !nextProps.hitIds.equals(this.props.hitIds)
+      !nextProps.blockedHits.equals(this.props.blockedHits)
     );
   }
 
-  static getDerivedStateFromProps({ hitIds }: Props, state: State) {
+  static getDerivedStateFromProps({ blockedHits }: Props, state: State) {
     if (
       state.page >
-      calculateMaxPage(hitIds.size, DATABASE_FILTER_RESULTS_PER_PAGE)
+      calculateMaxPage(blockedHits.size, DATABASE_FILTER_RESULTS_PER_PAGE)
     ) {
       return {
         page: 0
@@ -52,7 +52,7 @@ class HitBlocklistView extends React.Component<Props, State> {
       page: Math.min(
         prevState.page + 1,
         calculateMaxPage(
-          this.props.hitIds.size,
+          this.props.blockedHits.size,
           DATABASE_FILTER_RESULTS_PER_PAGE
         )
       )
@@ -64,12 +64,12 @@ class HitBlocklistView extends React.Component<Props, State> {
     }));
 
   public render() {
-    const { hitIds } = this.props;
+    const { blockedHits } = this.props;
     const { page } = this.state;
 
     const hasNext = calculateHasNext(
       page,
-      hitIds.size,
+      blockedHits.size,
       DATABASE_FILTER_RESULTS_PER_PAGE
     );
     const hasPrevious = calculateHasPrevious(page);
@@ -79,7 +79,7 @@ class HitBlocklistView extends React.Component<Props, State> {
       hasPrevious,
       onNext: this.onNext,
       onPrevious: this.onPrevious,
-      shouldRender: hitIds.size > DATABASE_FILTER_RESULTS_PER_PAGE
+      shouldRender: blockedHits.size > DATABASE_FILTER_RESULTS_PER_PAGE
     };
 
     return (
@@ -87,7 +87,7 @@ class HitBlocklistView extends React.Component<Props, State> {
         <Card.Section>
           <HitBlocklistHeading />
         </Card.Section>
-        <HitBlockListFilter page={page} hitIds={hitIds} />
+        <HitBlocklistDisplay page={page} blockedHits={blockedHits} />
         <PaginationButtons {...paginationProps} />
       </Card>
     );
@@ -95,7 +95,7 @@ class HitBlocklistView extends React.Component<Props, State> {
 }
 
 const mapState = (state: RootState): Props => ({
-  hitIds: filteredHitBlocklistIds(state)
+  blockedHits: sortedHitBlocklist(state)
 });
 
 export default connect(mapState)(HitBlocklistView);

@@ -1,39 +1,41 @@
 import { ResourceList } from '@shopify/polaris';
-import { Iterable } from 'immutable';
+import { List } from 'immutable';
 import * as React from 'react';
-import { HitId } from '../../types';
+import { BlockedHit } from '../../types';
 import BlockedHitCard from './BlockedHitCard';
 import { DATABASE_FILTER_RESULTS_PER_PAGE } from 'constants/misc';
 import HitBlockListFilterControl from './HitBlockListFilterControl';
 
 interface Props {
   readonly page: number;
-  readonly hitIds: Iterable<HitId, HitId>;
+  readonly blockedHits: List<BlockedHit>;
 }
 
-class HitBlockListFilter extends React.Component<Props, never> {
+class HitBlocklistDisplay extends React.Component<Props, never> {
   shouldComponentUpdate(nextProps: Props) {
     return (
       nextProps.page !== this.props.page ||
-      !nextProps.hitIds.equals(this.props.hitIds)
+      !nextProps.blockedHits.equals(this.props.blockedHits)
     );
   }
 
   public render() {
-    const { hitIds, page } = this.props;
+    const { blockedHits, page } = this.props;
     const start = DATABASE_FILTER_RESULTS_PER_PAGE * page;
     const end = start + DATABASE_FILTER_RESULTS_PER_PAGE;
-    const itemsToShow = hitIds.slice(start, end).toArray();
+    const itemsToShow = blockedHits.slice(start, end).toArray();
     return (
       <ResourceList
         showHeader
         filterControl={<HitBlockListFilterControl />}
         resourceName={{ singular: 'Blocked HIT', plural: 'Blocked HITs' }}
         items={itemsToShow}
-        renderItem={(id: string) => <BlockedHitCard blockedHitId={id} />}
+        renderItem={({ groupId }: BlockedHit) => (
+          <BlockedHitCard blockedHitId={groupId} />
+        )}
       />
     );
   }
 }
 
-export default HitBlockListFilter;
+export default HitBlocklistDisplay;

@@ -4,7 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { blockListsAreEmpty } from 'selectors/blocklists';
 import { RootState } from '../../types';
-import EmptyBlockList from '../Blocklists/EmptyBlockList';
+import EmptyBlocklist from '../Blocklists/EmptyBlocklist';
 import RequesterBlocklistView from '../Blocklists/RequesterBlocklistView';
 import HitBlocklistView from '../Blocklists/HitBlocklistView';
 
@@ -15,7 +15,7 @@ interface Props {
 class BlocklistsTab extends React.Component<Props, never> {
   public render() {
     return this.props.empty ? (
-      <EmptyBlockList />
+      <EmptyBlocklist />
     ) : (
       <Layout>
         <Layout.Section>
