@@ -63,4 +63,7 @@ const mapDispatch: Handlers = {
   onUnblock: unblockSingleHit
 };
 
-export default connect(mapState, mapDispatch)(BlockedHitCard);
+export default connect(
+  mapState,
+  mapDispatch
+)(BlockedHitCard);

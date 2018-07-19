@@ -5,7 +5,7 @@ import { Button } from '@shopify/polaris';
 import { NonIdealState } from '@blueprintjs/core';
 import { TabIndex } from 'constants/enums';
 
-export interface Handlers {
+interface Handlers {
   onChangeTab: () => void;
 }
 

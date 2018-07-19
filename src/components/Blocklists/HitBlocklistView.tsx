@@ -12,8 +12,8 @@ import {
 import PaginationButtons, {
   DatabaseFilterPaginationProps
 } from '../Buttons/PaginationButtons';
-import { filteredHitBlocklistIds } from 'selectors/blocklists';
 import HitBlockListFilter from './HitBlockListFilter';
+import { filteredHitBlocklistIds } from 'selectors/blocklists';
 
 interface Props {
   readonly hitIds: Iterable<HitId, HitId>;

@@ -5,23 +5,21 @@ import { connect } from 'react-redux';
 import { blockListsAreEmpty } from 'selectors/blocklists';
 import { RootState } from '../../types';
 import EmptyBlockList from './EmptyBlockList';
-import RequesterBlockList from './RequesterBlockList';
-import HitBlocklistView from './HitBlockList';
+import HitBlocklistView from './HitBlocklistView';
+import RequesterBlocklistView from './RequesterBlocklistView';
 
 interface Props {
   readonly empty: boolean;
-  // readonly blockedHitIds: Set<GroupId>;
-  // readonly blockedRequesterIds: Set<RequesterId>;
 }
 
-class BlockLists extends React.Component<Props, never> {
+class BlocklistsTab extends React.Component<Props, never> {
   public render() {
     return this.props.empty ? (
       <EmptyBlockList />
     ) : (
       <Layout>
         <Layout.Section>
-          <RequesterBlockList />
+          <RequesterBlocklistView />
         </Layout.Section>
         <Layout.Section>
           <HitBlocklistView />
@@ -39,8 +37,6 @@ class BlockLists extends React.Component<Props, never> {
 
 const mapState = (state: RootState): Props => ({
   empty: blockListsAreEmpty(state)
-  // blockedHitIds: hitBlocklistIds(state),
-  // blockedRequesterIds: requesterBlocklistIds(state)
 });
 
-export default connect(mapState)(BlockLists);
+export default connect(mapState)(BlocklistsTab);

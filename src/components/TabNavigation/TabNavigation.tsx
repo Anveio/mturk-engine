@@ -6,10 +6,10 @@ import { changeTab } from '../../actions/updateValue';
 import SearchTab from './SearchTab';
 import QueueTab from './QueueTab';
 import Watchers from '../WatcherTree/DoubleClickHandler';
-import BlockLists from '../BlockList/BlockLists';
 import Account from '../Account/Account';
 import SettingsTab from './SettingsTab';
 import { TabIndex } from 'constants/enums';
+import BlocklistsTab from './BlocklistsTab';
 
 interface Props {
   readonly selected: number;
@@ -45,7 +45,11 @@ const TabNavigation: React.SFC<Props & Handlers> = ({
         title={`Watchers (${numActiveWatchers})`}
         panel={<Watchers />}
       />
-      <Tab id={TabIndex.BLOCKLIST} title="Blocklist" panel={<BlockLists />} />
+      <Tab
+        id={TabIndex.BLOCKLIST}
+        title="Blocklist"
+        panel={<BlocklistsTab />}
+      />
       <Tab id={TabIndex.ACCOUNT} title="Account" panel={<Account />} />
       <Tab id={TabIndex.SETTINGS} title="Settings" panel={<SettingsTab />} />
     </Tabs>
@@ -64,4 +68,7 @@ const mapDispatch = (dispatch: Dispatch): Handlers => ({
   }
 });
 
-export default connect(mapState, mapDispatch)(TabNavigation);
+export default connect(
+  mapState,
+  mapDispatch
+)(TabNavigation);
