@@ -14,6 +14,7 @@ import PaginationButtons, {
 } from '../Buttons/PaginationButtons';
 import HitBlockListFilter from './HitBlockListFilter';
 import { filteredHitBlocklistIds } from 'selectors/blocklists';
+import HitBlocklistHeading from './HitBlocklistHeading';
 
 interface Props {
   readonly hitIds: Iterable<HitId, HitId>;
@@ -82,7 +83,10 @@ class HitBlocklistView extends React.Component<Props, State> {
     };
 
     return (
-      <Card title={`Search blocked HITs (${hitIds.size} entries found).`}>
+      <Card>
+        <Card.Section>
+          <HitBlocklistHeading />
+        </Card.Section>
         <HitBlockListFilter page={page} hitIds={hitIds} />
         <PaginationButtons {...paginationProps} />
       </Card>
