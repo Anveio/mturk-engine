@@ -10,7 +10,7 @@ interface Handlers {
 }
 
 // tslint:disable:jsx-curly-spacing
-const EmptyQueue = ({ onChangeTab }: Handlers) => {
+const EmptyBlocklist = ({ onChangeTab }: Handlers) => {
   return (
     <NonIdealState
       title="Your blocklists are empty."
@@ -29,4 +29,7 @@ const mapDispatch = (dispatch: Dispatch): Handlers => ({
   onChangeTab: () => dispatch(changeTab(TabIndex.SEARCH))
 });
 
-export default connect(null, mapDispatch)(EmptyQueue);
+export default connect(
+  null,
+  mapDispatch
+)(EmptyBlocklist);
