@@ -3,10 +3,12 @@ import {
   HIT_BLOCKLIST_REMOVE,
   HIT_BLOCKLIST_ADD_MULTIPLE,
   HIT_BLOCKLIST_REMOVE_MULTIPLE,
-  UPDATE_HIT_BLOCKLIST_SEARCH_TERM
+  UPDATE_HIT_BLOCKLIST_SEARCH_TERM,
+  HIT_BLOCKLIST_TOGGLE_VISIBILITY
 } from '../constants';
 import { BlockedHit, GroupId } from '../types';
 import { Set } from 'immutable';
+import { toggleValue } from './updateValue';
 
 export interface BlockHit {
   readonly type: HIT_BLOCKLIST_ADD;
@@ -32,6 +34,14 @@ export interface UpdateHitBlocklistSearchTerm {
   readonly type: UPDATE_HIT_BLOCKLIST_SEARCH_TERM;
   readonly data: string;
 }
+
+export interface HitBlocklistToggleVisibility {
+  readonly type: HIT_BLOCKLIST_TOGGLE_VISIBILITY;
+}
+
+export type UpdateHitBlocklistSettings =
+  | UpdateHitBlocklistSearchTerm
+  | HitBlocklistToggleVisibility;
 
 export type BlockHitAction =
   | BlockHit
@@ -69,3 +79,7 @@ export const updateHitBlocklistSearchTerm = (
   type: UPDATE_HIT_BLOCKLIST_SEARCH_TERM,
   data
 });
+
+export const toggleHitBlocklistVisibility = toggleValue(
+  HIT_BLOCKLIST_TOGGLE_VISIBILITY
+);

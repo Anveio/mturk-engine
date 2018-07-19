@@ -219,6 +219,7 @@ export interface DatabaseFilterSettings {
 }
 
 export interface HitBlocklistFilterSettings {
+  readonly shouldRender: boolean;
   readonly searchTerm: string;
   readonly sortOrder: FilterOrderType;
 }
