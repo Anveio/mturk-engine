@@ -23,7 +23,7 @@ interface State {
   readonly page: number;
 }
 
-class HitBlockList extends React.Component<Props, State> {
+class HitBlocklistView extends React.Component<Props, State> {
   public readonly state: State = { page: 0 };
 
   shouldComponentUpdate(nextProps: Props, nextState: State) {
@@ -94,4 +94,4 @@ const mapState = (state: RootState): Props => ({
   hitIds: filteredHitBlocklistIds(state)
 });
 
-export default connect(mapState)(HitBlockList);
+export default connect(mapState)(HitBlocklistView);

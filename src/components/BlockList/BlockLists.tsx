@@ -6,7 +6,7 @@ import { blockListsAreEmpty } from 'selectors/blocklists';
 import { RootState } from '../../types';
 import EmptyBlockList from './EmptyBlockList';
 import RequesterBlockList from './RequesterBlockList';
-import HitBlockList from './HitBlockList';
+import HitBlocklistView from './HitBlockList';
 
 interface Props {
   readonly empty: boolean;
@@ -24,7 +24,7 @@ class BlockLists extends React.Component<Props, never> {
           <RequesterBlockList />
         </Layout.Section>
         <Layout.Section>
-          <HitBlockList />
+          <HitBlocklistView />
         </Layout.Section>
         <Layout.Section>
           <Callout intent={Intent.SUCCESS} icon="info-sign">
