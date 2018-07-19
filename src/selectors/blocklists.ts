@@ -45,10 +45,12 @@ export const blockListsAreEmpty = createSelector(
 export const sortedHitBlocklist = createSelector(
   [hitBlocklistFilteredBySearchTerm],
   (blockedHits: HitBlockMap) =>
-    (blockedHits.toList() as List<BlockedHit>).sort(
-      (a: BlockedHit, b: BlockedHit) =>
-        b.dateBlocked.valueOf() - a.dateBlocked.valueOf()
-    ) as List<BlockedHit>
+    blockedHits
+      .toList()
+      .sort(
+        (a: BlockedHit, b: BlockedHit) =>
+          b.dateBlocked.valueOf() - a.dateBlocked.valueOf()
+      ) as List<BlockedHit>
 );
 
 export const sortedRequesterBlockList = createSelector(

@@ -6,6 +6,7 @@ import { List, Set } from 'immutable';
 import { Popover, Position } from '@blueprintjs/core';
 import SweepMenu from './SweepMenu';
 import { unblockMultipleHits, blockMultipleHits } from 'actions/blockHit';
+import { sortedHitBlocklist } from 'selectors/blocklists';
 
 interface Props {
   readonly hitIds: List<BlockedHit>;
@@ -45,7 +46,7 @@ class HitBlocklistView extends React.Component<Props & Handlers, never> {
 }
 
 const mapState = (state: RootState): Props => ({
-  hitIds: state.hitBlocklist.toList()
+  hitIds: sortedHitBlocklist(state)
 });
 
 const mapDispatch: Handlers = {
