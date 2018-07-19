@@ -6,19 +6,19 @@ import { unblockSingleRequester } from '../../actions/blockRequester';
 
 import { truncate } from '../../utils/formatting';
 
-export interface Props {
+interface Props {
   readonly requester: BlockedRequester;
 }
 
-export interface OwnProps {
+interface OwnProps {
   readonly blockedRequesterId: string;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onUnblock: (groupId: string) => void;
 }
 
-class BlockedHitCard extends React.PureComponent<
+class BlockedRequesterTag extends React.PureComponent<
   Props & OwnProps & Handlers,
   never
 > {
@@ -44,4 +44,4 @@ const mapDispatch: Handlers = {
 export default connect(
   mapState,
   mapDispatch
-)(BlockedHitCard);
+)(BlockedRequesterTag);
