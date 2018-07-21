@@ -17,6 +17,7 @@ import HitBlocklistHeading from './HitBlocklistHeading';
 import HitBlocklistDisplay from './HitBlocklistDisplay';
 
 interface Props {
+  readonly shouldRender: boolean;
   readonly blockedHits: List<BlockedHit>;
 }
 
@@ -64,7 +65,7 @@ class HitBlocklistView extends React.Component<Props, State> {
     }));
 
   public render() {
-    const { blockedHits } = this.props;
+    const { shouldRender, blockedHits } = this.props;
     const { page } = this.state;
 
     const hasNext = calculateHasNext(
@@ -83,18 +84,21 @@ class HitBlocklistView extends React.Component<Props, State> {
     };
 
     return (
-      <Card>
-        <Card.Section>
-          <HitBlocklistHeading />
-        </Card.Section>
-        <HitBlocklistDisplay page={page} blockedHits={blockedHits} />
-        <PaginationButtons {...paginationProps} />
-      </Card>
+      shouldRender && (
+        <Card>
+          <Card.Section>
+            <HitBlocklistHeading />
+          </Card.Section>
+          <HitBlocklistDisplay page={page} blockedHits={blockedHits} />
+          <PaginationButtons {...paginationProps} />
+        </Card>
+      )
     );
   }
 }
 
 const mapState = (state: RootState): Props => ({
+  shouldRender: state.hitBlocklistFilterSettings.shouldRender,
   blockedHits: sortedHitBlocklist(state)
 });
 
