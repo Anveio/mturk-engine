@@ -82,4 +82,7 @@ const mapState = (state: RootState): Props => ({
   watcherTitles: watcherTitlesMap(state)
 });
 
-export default connect(mapState, mapDispatch)(AddAsWatcherButton);
+export default connect(
+  mapState,
+  mapDispatch
+)(AddAsWatcherButton);
