@@ -3,7 +3,6 @@ import { connect, Dispatch } from 'react-redux';
 import { RootState, SearchOptions, SortingOption } from '../../types';
 import { FormUpdate, updateForm } from '../../actions/form';
 import { TextField, Select } from '@shopify/polaris';
-import SearchTimer from './SearchTimer';
 
 interface Props {
   readonly value: string;
@@ -141,6 +140,7 @@ class SortTypeField extends React.PureComponent<Props & Handlers, never> {
 
 interface CustomSearchOwnProps {
   connectedRight?: React.ReactNode;
+  helpText?: React.ReactNode;
 }
 
 class CustomSearch extends React.PureComponent<
@@ -159,7 +159,7 @@ class CustomSearch extends React.PureComponent<
         placeholder="Title, requester name, keywords, etc."
         value={this.props.value}
         onChange={this.props.onChange}
-        helpText={<SearchTimer />}
+        helpText={this.props.helpText}
       />
     );
   }

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Card, ButtonGroup, Button } from '@shopify/polaris';
+import { Card, ButtonGroup, Button, Stack } from '@shopify/polaris';
 import { toggleSearchActive } from '../../actions/updateValue';
 import { RootState } from '../../types';
 import SearchSettings from './SearchSettings';
 import { ConnectedCustomSearchField as CustomSearchField } from './SearchFields';
 import { watchForEnter } from 'utils/watchForEnter';
 import { searchRequestSingular } from 'actions/search';
+import SearchTimer from './SearchTimer';
 
 interface Props {
   readonly searchActive: boolean;
@@ -28,25 +29,40 @@ class SearchBar extends React.PureComponent<Props & Handlers, never> {
     const { searchActive } = this.props;
 
     return (
-      <Card.Section >
-        <div onKeyPress={this.onEnter}>
-          <CustomSearchField
-            connectedRight={
-              <ButtonGroup segmented>
-                <SearchSettings />
-                <Button
-                  primary
-                  icon="search"
-                  accessibilityLabel="Toggle Search Button"
-                  onClick={this.props.onToggleSearch}
-                  destructive={searchActive}
-                >
-                  {SearchBar.searchButtonText(searchActive)}
-                </Button>
-              </ButtonGroup>
-            }
-          />
-        </div>
+      <Card.Section>
+        <Stack vertical={false} spacing="tight" alignment="center">
+          <Stack.Item fill>
+            <div onKeyPress={this.onEnter}>
+              <CustomSearchField
+                connectedRight={
+                  <>
+                    <ButtonGroup segmented>
+                      <SearchSettings />
+                      <Button
+                        primary
+                        icon="search"
+                        accessibilityLabel="Toggle Search Button"
+                        onClick={this.props.onToggleSearch}
+                        destructive={searchActive}
+                      >
+                        {SearchBar.searchButtonText(searchActive)}
+                      </Button>
+                    </ButtonGroup>
+                  </>
+                }
+              />
+            </div>
+          </Stack.Item>
+          <Stack.Item>
+            <div
+              style={{
+                width: '215px'
+              }}
+            >
+              <SearchTimer />
+            </div>
+          </Stack.Item>
+        </Stack>
       </Card.Section>
     );
   }
