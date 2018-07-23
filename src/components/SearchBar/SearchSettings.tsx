@@ -21,8 +21,16 @@ class SearchSettings extends React.PureComponent<Handlers, never> {
   public render() {
     return (
       <Popover position={Position.BOTTOM} canEscapeKeyClose={true}>
-        <Button disclosure>Settings</Button>
-        <Card title="Edit search settings">
+        <Button disclosure>Search settings</Button>
+        <Card
+          title="Edit search settings"
+          actions={[
+            {
+              content: 'Search',
+              onAction: this.props.onSearch
+            }
+          ]}
+        >
           <Card.Section>
             <div onKeyPress={this.onEnter}>
               <FormLayout>
