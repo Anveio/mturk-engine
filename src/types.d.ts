@@ -39,6 +39,7 @@ export interface RootState {
   readonly databaseFilterSettings: DatabaseFilterSettings;
   readonly markedAsReadGroupIds: Set<GroupId>;
   readonly hitBlocklistFilterSettings: HitBlocklistFilterSettings;
+  readonly recentlyBlockedHits: HitBlockMap;
 }
 
 export type Primitive = string | number | boolean;
