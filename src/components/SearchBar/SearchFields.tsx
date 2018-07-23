@@ -139,8 +139,8 @@ class SortTypeField extends React.PureComponent<Props & Handlers, never> {
 }
 
 interface CustomSearchOwnProps {
-  connectedRight?: React.ReactNode;
-  helpText?: React.ReactNode;
+  readonly connectedLeft?: React.ReactNode;
+  readonly helpText?: React.ReactNode;
 }
 
 class CustomSearch extends React.PureComponent<
@@ -152,7 +152,7 @@ class CustomSearch extends React.PureComponent<
       <TextField
         labelHidden
         type="search"
-        connectedRight={this.props.connectedRight}
+        connectedLeft={this.props.connectedLeft}
         label="Search Term"
         name="search-term"
         id="search-term"

@@ -34,10 +34,9 @@ class SearchBar extends React.PureComponent<Props & Handlers, never> {
           <Stack.Item fill>
             <div onKeyPress={this.onEnter}>
               <CustomSearchField
-                connectedRight={
+                connectedLeft={
                   <>
                     <ButtonGroup segmented>
-                      <SearchSettings />
                       <Button
                         primary
                         icon="search"
@@ -47,6 +46,7 @@ class SearchBar extends React.PureComponent<Props & Handlers, never> {
                       >
                         {SearchBar.searchButtonText(searchActive)}
                       </Button>
+                      <SearchSettings />
                     </ButtonGroup>
                   </>
                 }
