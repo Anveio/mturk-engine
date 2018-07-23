@@ -142,6 +142,7 @@ class CustomSearch extends React.PureComponent<Props & Handlers, never> {
   public render() {
     return (
       <TextField
+        labelHidden
         label="Search Term"
         name="search-term"
         id="search-term"
