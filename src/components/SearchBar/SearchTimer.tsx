@@ -4,6 +4,7 @@ import { RootState } from '../../types';
 import { TextContainer, Stack, Spinner } from '@shopify/polaris';
 
 interface Props {
+  readonly searchingActive: boolean;
   readonly timeNextSearch: number | null;
   readonly waitingForMturk: boolean;
 }
@@ -91,8 +92,13 @@ class SearchTimer extends React.PureComponent<Props, State> {
     );
   };
 
-  private generateTimerText = () => {
-    const { waitingForMturk, timeNextSearch } = this.props;
+  public render() {
+    const { waitingForMturk, timeNextSearch, searchingActive } = this.props;
+
+    if (!searchingActive) {
+      return null;
+    }
+
     if (waitingForMturk) {
       return SearchTimer.waitingForMturkMarkup();
     } else if (timeNextSearch && this.state.timeUntilNextSearch) {
@@ -102,14 +108,11 @@ class SearchTimer extends React.PureComponent<Props, State> {
     } else {
       return null;
     }
-  };
-
-  public render() {
-    return this.generateTimerText();
   }
 }
 
 const mapState = (state: RootState): Props => ({
+  searchingActive: state.searchingActive,
   timeNextSearch: state.timeNextSearch && state.timeNextSearch.valueOf(),
   waitingForMturk: state.waitingForMturk
 });
