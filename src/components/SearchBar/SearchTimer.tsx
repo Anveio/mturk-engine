@@ -76,7 +76,7 @@ class SearchTimer extends React.PureComponent<Props, State> {
   };
 
   static waitingForMturkMarkup = () => (
-    <Stack vertical={false} spacing="extraTight">
+    <Stack vertical={false} spacing="tight">
       <Spinner size="small" />
       <TextContainer>Waiting for Mturk response...</TextContainer>
     </Stack>

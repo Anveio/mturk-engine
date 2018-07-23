@@ -28,7 +28,7 @@ class SearchSettings extends React.PureComponent<Handlers, never> {
   public render() {
     return (
       <Popover position={Position.BOTTOM} canEscapeKeyClose={true}>
-        <Button disclosure>Search Settings</Button>
+        <Button disclosure>Settings</Button>
         <Card.Section>
           <div onKeyPress={this.onEnter}>
             <FormLayout>
@@ -56,4 +56,7 @@ const mapDispatch = (dispatch: Dispatch<SearchAction>): Handlers => ({
   }
 });
 
-export default connect(null, mapDispatch)(SearchSettings);
+export default connect(
+  null,
+  mapDispatch
+)(SearchSettings);

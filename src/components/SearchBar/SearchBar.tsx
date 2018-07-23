@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Card, Stack, ButtonGroup, Button } from '@shopify/polaris';
+import { Card, ButtonGroup, Button } from '@shopify/polaris';
 import { toggleSearchActive } from '../../actions/updateValue';
 import { RootState } from '../../types';
-import SearchTimer from './SearchTimer';
 import SearchSettings from './SearchSettings';
-import { ConnectedCustomSearchField } from './SearchFields';
+import { ConnectedCustomSearchField as CustomSearchField } from './SearchFields';
 import { watchForEnter } from 'utils/watchForEnter';
 import { searchRequestSingular } from 'actions/search';
 
@@ -29,37 +28,25 @@ class SearchBar extends React.PureComponent<Props & Handlers, never> {
     const { searchActive } = this.props;
 
     return (
-      <Card.Section>
-        <Stack vertical={false} alignment="center">
-          <Stack.Item>
-            <ButtonGroup segmented>
-              <Button
-                primary
-                icon="search"
-                accessibilityLabel="Toggle Search Button"
-                onClick={this.props.onToggleSearch}
-                destructive={searchActive}
-              >
-                {SearchBar.searchButtonText(searchActive)}
-              </Button>
-              <SearchSettings />
-            </ButtonGroup>
-          </Stack.Item>
-          <Stack.Item>
-            <div
-              style={{
-                maxWidth: '300px',
-                minWidth: '250px'
-              }}
-              onKeyPress={this.onEnter}
-            >
-              <ConnectedCustomSearchField />
-            </div>
-          </Stack.Item>
-          <Stack.Item>
-            <SearchTimer />
-          </Stack.Item>
-        </Stack>
+      <Card.Section >
+        <div onKeyPress={this.onEnter}>
+          <CustomSearchField
+            connectedRight={
+              <ButtonGroup segmented>
+                <SearchSettings />
+                <Button
+                  primary
+                  icon="search"
+                  accessibilityLabel="Toggle Search Button"
+                  onClick={this.props.onToggleSearch}
+                  destructive={searchActive}
+                >
+                  {SearchBar.searchButtonText(searchActive)}
+                </Button>
+              </ButtonGroup>
+            }
+          />
+        </div>
       </Card.Section>
     );
   }
