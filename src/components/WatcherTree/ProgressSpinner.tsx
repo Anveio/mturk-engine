@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Classes, Intent, Spinner } from '@blueprintjs/core';
+import { Intent, Spinner } from '@blueprintjs/core';
 import { RootState } from '../../types';
 import { connect } from 'react-redux';
 
@@ -17,7 +17,7 @@ class ProgressSpinner extends React.PureComponent<Props & OwnProps, never> {
     const { isSelected, progress } = this.props;
     return (
       <Spinner
-        className={Classes.SMALL}
+        size={Spinner.SIZE_SMALL}
         value={progress}
         intent={isSelected ? Intent.WARNING : Intent.NONE}
       />

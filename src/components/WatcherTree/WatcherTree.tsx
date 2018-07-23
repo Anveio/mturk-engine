@@ -124,7 +124,7 @@ class WatcherTree extends React.Component<
       <WatcherProgressDisplay
         id={groupId}
         render={(spinnerProgress, id) => (
-          <div style={{ paddingTop: '0.75em' }}>
+          <div style={{ paddingBottom: '0.25em' }}>
             <ProgressSpinner progress={spinnerProgress} id={id} />
           </div>
         )}
