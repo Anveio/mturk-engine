@@ -76,34 +76,35 @@ class SearchTimer extends React.PureComponent<Props, State> {
     });
   };
 
-  static waitingForMturkMarkup = () => (
+  static WaitingForMturk = () => (
     <Stack vertical={false} spacing="tight" wrap={false}>
       <Spinner size="small" />
       <TextContainer>Waiting for Mturk response...</TextContainer>
     </Stack>
   );
 
-  static waitingForNextSearchMarkup = (timeUntilNextSearch: number) => {
-    return (
-      <TextContainer>
-        Next search in {SearchTimer.formatAsSeconds(timeUntilNextSearch)}{' '}
-        seconds.
-      </TextContainer>
-    );
-  };
+  static WaitingForNextSearch = ({
+    timeUntilNextSearch
+  }: {
+    timeUntilNextSearch: number;
+  }) => (
+    <TextContainer>
+      Next search in {SearchTimer.formatAsSeconds(timeUntilNextSearch)} seconds.
+    </TextContainer>
+  );
 
   public render() {
     const { waitingForMturk, searchingActive } = this.props;
 
     if (waitingForMturk) {
-      return SearchTimer.waitingForMturkMarkup();
+      return <SearchTimer.WaitingForMturk />;
     } else if (this.state.timeUntilNextSearch && searchingActive) {
-      return SearchTimer.waitingForNextSearchMarkup(
-        this.state.timeUntilNextSearch
+      return (
+        <SearchTimer.WaitingForNextSearch
+          timeUntilNextSearch={this.state.timeUntilNextSearch}
+        />
       );
     } else {
-      // tslint:disable
-      console.log('rendering nothing');
       return null;
     }
   }
