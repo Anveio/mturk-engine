@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { List } from 'immutable';
 import { RootState, GroupId } from '../types';
-import { PlayAudio, playNewSearchResultAudio } from '../actions/audio';
+import { playNewSearchResultAudio } from '../actions/audio';
 import { newResultsGroupIdsList } from '../selectors/search';
 
 interface Props {
@@ -35,10 +35,8 @@ const mapState = (state: RootState): Props => ({
   searchAudioEnabled: state.searchAudioEnabled
 });
 
-const mapDispatch = (dispatch: Dispatch<PlayAudio>): Handlers => ({
-  onNewSearchResult: () => {
-    dispatch(playNewSearchResultAudio());
-  }
-});
+const mapDispatch: Handlers = {
+  onNewSearchResult: playNewSearchResultAudio
+}
 
 export default connect(mapState, mapDispatch)(NewResultAudioLayer);
