@@ -1,14 +1,9 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState, WatcherTimerMap, WatcherFolder } from '../../types';
 import { Card } from '@shopify/polaris';
-import {
-  cancelNextWatcherTick,
-  scheduleWatcher,
-  WatcherAction
-} from '../../actions/watcher';
+import { cancelNextWatcherTick, scheduleWatcher } from '../../actions/watcher';
 import { getWatcherIdsAssignedToFolder } from '../../selectors/watcherFolders';
-import { WatcherFolderAction } from '../../actions/watcherFolders';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../../constants/misc';
 import { pluralize } from '../../utils/formatting';
 
@@ -85,12 +80,12 @@ const mapState = (state: RootState, { folder }: OwnProps): Props => ({
   watcherTimers: state.watcherTimers
 });
 
-const mapDispatch = (
-  dispatch: Dispatch<WatcherFolderAction | WatcherAction>
-): Handlers => ({
-  onCancelWatcher: (id: string) => dispatch(cancelNextWatcherTick(id)),
-  onScheduleWatcher: (id: string, origin: number) =>
-    dispatch(scheduleWatcher(id, origin))
-});
+const mapDispatch: Handlers = {
+  onCancelWatcher: cancelNextWatcherTick,
+  onScheduleWatcher: scheduleWatcher
+};
 
-export default connect(mapState, mapDispatch)(WatcherFolderInfo);
+export default connect(
+  mapState,
+  mapDispatch
+)(WatcherFolderInfo);
