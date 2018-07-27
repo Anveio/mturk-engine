@@ -1,20 +1,20 @@
-import * as React from 'react';
 import { Card } from '@shopify/polaris';
-import { connect } from 'react-redux';
-import { RootState, BlockedHit } from 'types';
-import { List } from 'immutable';
 import { DATABASE_FILTER_RESULTS_PER_PAGE } from 'constants/misc';
+import { List } from 'immutable';
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { sortedHitBlocklist } from 'selectors/blocklists';
+import { BlockedHit, RootState } from 'types';
 import {
-  calculateMaxPage,
   calculateHasNext,
-  calculateHasPrevious
+  calculateHasPrevious,
+  calculateMaxPage
 } from 'utils/pagination';
 import PaginationButtons, {
   DatabaseFilterPaginationProps
 } from '../Buttons/PaginationButtons';
-import { sortedHitBlocklist } from 'selectors/blocklists';
-import HitBlocklistHeading from './HitBlocklistHeading';
 import HitBlocklistDisplay from './HitBlocklistDisplay';
+import HitBlocklistHeading from './HitBlocklistHeading';
 
 interface Props {
   readonly shouldRender: boolean;
@@ -83,13 +83,17 @@ class HitBlocklistView extends React.Component<Props, State> {
       shouldRender: blockedHits.size > DATABASE_FILTER_RESULTS_PER_PAGE
     };
 
+    const start = DATABASE_FILTER_RESULTS_PER_PAGE * page;
+    const end = start + DATABASE_FILTER_RESULTS_PER_PAGE;
+    const hitsToRender = blockedHits.slice(start, end) as List<BlockedHit>;
+
     return (
       shouldRender && (
         <Card>
           <Card.Section>
             <HitBlocklistHeading />
           </Card.Section>
-          <HitBlocklistDisplay page={page} blockedHits={blockedHits} />
+          <HitBlocklistDisplay hits={hitsToRender} />
           <PaginationButtons {...paginationProps} />
         </Card>
       )
