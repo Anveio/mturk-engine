@@ -7,13 +7,19 @@ import { RootState } from '../../types';
 import EmptyBlocklist from '../Blocklists/EmptyBlocklist';
 import RequesterBlocklistView from '../Blocklists/RequesterBlocklistView';
 import HitBlocklistView from '../Blocklists/HitBlocklistView';
+import { TabIndex } from 'constants/enums';
 
 interface Props {
+  readonly blocklistIsActiveTab: boolean;
   readonly empty: boolean;
 }
 
 class BlocklistsTab extends React.Component<Props, never> {
   public render() {
+    if (!this.props.blocklistIsActiveTab) {
+      return null;
+    }
+
     return this.props.empty ? (
       <EmptyBlocklist />
     ) : (
@@ -36,6 +42,7 @@ class BlocklistsTab extends React.Component<Props, never> {
 }
 
 const mapState = (state: RootState): Props => ({
+  blocklistIsActiveTab: state.tab === TabIndex.BLOCKLIST,
   empty: blockListsAreEmpty(state)
 });
 
