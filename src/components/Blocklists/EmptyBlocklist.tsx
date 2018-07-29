@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { changeTab } from '../../actions/updateValue';
 import { Button } from '@shopify/polaris';
 import { NonIdealState } from '@blueprintjs/core';
 import { TabIndex } from 'constants/enums';
+import { Dispatch } from 'redux';
 
 interface Handlers {
   onChangeTab: () => void;

@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState, NotificationSettings } from '../../types';
 import { TextField } from '@shopify/polaris';
 import { EditableNotificationField } from '../../actions/notifications';
 import { FormUpdate, updateForm } from '../../actions/form';
+import { Dispatch } from 'redux';
 
 interface Props {
   readonly value: number;

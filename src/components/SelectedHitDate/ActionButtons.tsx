@@ -1,11 +1,8 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Card, ButtonGroup, Button } from '@shopify/polaris';
 import { RootState } from 'types';
-import {
-  FetchStatusDetailRequest,
-  statusDetailRequest
-} from 'actions/statusDetail';
+import { statusDetailRequest } from 'actions/statusDetail';
 import { stringToDate } from 'utils/dates';
 import { LEGACY_DATE_FORMAT } from 'constants/dates';
 
@@ -43,10 +40,11 @@ const mapState = (state: RootState): Props => ({
   selectedDate: state.selectedHitDbDate
 });
 
-const mapDispatch = (
-  dispatch: Dispatch<FetchStatusDetailRequest>
-): Handlers => ({
-  onRefresh: date => dispatch(statusDetailRequest(date))
-});
+const mapDispatch: Handlers = {
+  onRefresh: statusDetailRequest
+};
 
-export default connect(mapState, mapDispatch)(ActionButtons);
+export default connect(
+  mapState,
+  mapDispatch
+)(ActionButtons);

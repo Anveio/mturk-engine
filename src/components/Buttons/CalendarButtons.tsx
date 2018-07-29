@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   Tooltip,
   Button,
@@ -9,14 +9,8 @@ import {
 } from '@blueprintjs/core';
 import { Stack, Caption } from '@shopify/polaris';
 import { RootState } from 'types';
-import {
-  FetchStatusSummaryRequest,
-  statusSummaryRequest
-} from 'actions/statusSummary';
-import {
-  statusDetailRequest,
-  FetchStatusDetailRequest
-} from 'actions/statusDetail';
+import { statusSummaryRequest } from 'actions/statusSummary';
+import { statusDetailRequest } from 'actions/statusDetail';
 import { MINIMAL_BUTTON_GROUP } from 'constants/blueprint';
 
 export interface Props {
@@ -25,7 +19,11 @@ export interface Props {
 
 export interface Handlers {
   readonly onRefreshDb: () => void;
-  readonly onRefreshToday: () => void;
+  readonly onRefreshDate: (
+    date: Date,
+    page: number,
+    withToast: boolean
+  ) => void;
 }
 
 export interface State {
@@ -69,7 +67,12 @@ class CalendarButtons extends React.PureComponent<Props & Handlers, State> {
               Refresh Database
             </AnchorButton>
           </Tooltip>
-          <Button icon="refresh" onClick={this.props.onRefreshToday}>
+          <Button
+            icon="refresh"
+            onClick={() => {
+              this.props.onRefreshDate(new Date(), 1, true);
+            }}
+          >
             Refresh {new Date().toLocaleDateString()} (Today)
           </Button>
         </div>
@@ -85,11 +88,12 @@ const mapState = (state: RootState): Props => ({
   waitingForHitDbRefresh: state.waitingForHitDbRefresh
 });
 
-const mapDispatch = (
-  dispatch: Dispatch<FetchStatusSummaryRequest | FetchStatusDetailRequest>
-): Handlers => ({
-  onRefreshDb: () => dispatch(statusSummaryRequest()),
-  onRefreshToday: () => dispatch(statusDetailRequest(new Date(), 1, true))
-});
+const mapDispatch: Handlers = {
+  onRefreshDate: statusDetailRequest,
+  onRefreshDb: statusSummaryRequest
+};
 
-export default connect(mapState, mapDispatch)(CalendarButtons);
+export default connect(
+  mapState,
+  mapDispatch
+)(CalendarButtons);

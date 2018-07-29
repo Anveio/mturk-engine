@@ -1,37 +1,35 @@
-import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { Classes, Tree } from '@blueprintjs/core';
+import { DisplayText, Layout, Stack } from '@shopify/polaris';
 import { Map, Set } from 'immutable';
-import { Tree, Classes } from '@blueprintjs/core';
-import { Layout, Stack, DisplayText } from '@shopify/polaris';
+import * as React from 'react';
+import { connect } from 'react-redux';
 import {
+  selectWatcherFile,
+  toggleWatcherFolderExpand
+} from '../../actions/watcherTree';
+import {
+  sortedFolderWatcherMap,
+  watcherFoldersSortedByCreationDate
+} from '../../selectors/watcherFolders';
+import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
+import {
+  FolderId,
   RootState,
   SelectionKind,
   Watcher,
   WatcherFolder,
-  WatcherFolderMap,
-  FolderId
+  WatcherFolderMap
 } from '../../types';
 import {
+  FolderTreeNode,
   GenericTreeNode,
-  WatcherTreeNode,
-  FolderTreeNode
+  WatcherTreeNode
 } from '../../utils/tree';
-import {
-  selectWatcherFile,
-  WatcherTreeAction
-} from '../../actions/watcherTree';
-import { toggleWatcherFolderExpand } from '../../actions/watcherTree';
-import { getCurrentSelectionIdOrNull } from '../../selectors/watcherTree';
-import {
-  watcherFoldersSortedByCreationDate,
-  sortedFolderWatcherMap
-} from '../../selectors/watcherFolders';
-import SelectedWatcherSection from './SelectedWatcherSection';
-import CreateFolderButton from './CreateFolderButton';
-import { WatcherFolderAction } from '../../actions/watcherFolders';
-import WatcherFolderActiveCount from './WatcherFolderActiveCount';
 import WatcherProgressDisplay from '../ProgressDisplay/WatcherProgressDisplay';
+import CreateFolderButton from './CreateFolderButton';
 import ProgressSpinner from './ProgressSpinner';
+import SelectedWatcherSection from './SelectedWatcherSection';
+import WatcherFolderActiveCount from './WatcherFolderActiveCount';
 
 interface OwnHandlers {
   readonly handleDoubleClick: (nodeData: GenericTreeNode) => void;
@@ -184,13 +182,10 @@ const mapState = (state: RootState): Props => ({
   currentlySelectedWatcherId: getCurrentSelectionIdOrNull(state)
 });
 
-const mapDispatch = (
-  dispatch: Dispatch<WatcherFolderAction | WatcherTreeAction>
-): Handlers => ({
-  onSelectTreeNode: (id: string, kind: SelectionKind) =>
-    dispatch(selectWatcherFile(id, kind)),
-  onToggleFolderExpand: (id: string) => dispatch(toggleWatcherFolderExpand(id))
-});
+const mapDispatch: Handlers = {
+  onSelectTreeNode: selectWatcherFile,
+  onToggleFolderExpand: toggleWatcherFolderExpand
+};
 
 export default connect(
   mapState,

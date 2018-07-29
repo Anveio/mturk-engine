@@ -1,22 +1,21 @@
-import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { Intent, ProgressBar } from '@blueprintjs/core';
 import { Stack } from '@shopify/polaris';
-import { RootState, Primitive } from '../../types';
+import * as React from 'react';
+import { connect } from 'react-redux';
 import {
-  scheduleWatcher,
   cancelNextWatcherTick,
   deleteWatcher,
   EditableWatcherField,
-  WatcherAction,
-  editWatcher
+  editWatcher,
+  scheduleWatcher
 } from '../../actions/watcher';
+import { RootState } from '../../types';
+import WatcherProgressDisplay from '../ProgressDisplay/WatcherProgressDisplay';
+import InfoCallout from './InfoCallout';
+import WatcherActions from './WatcherActions';
 import WatcherHeading from './WatcherHeading';
 import WatcherInfo from './WatcherInfo';
 import WatcherSettings from './WatcherSettings';
-import InfoCallout from './InfoCallout';
-import WatcherActions from './WatcherActions';
-import WatcherProgressDisplay from '../ProgressDisplay/WatcherProgressDisplay';
-import { Intent, ProgressBar } from '@blueprintjs/core';
 
 interface OwnProps {
   readonly watcherId: string;
@@ -94,14 +93,12 @@ const mapState = (state: RootState, ownProps: OwnProps): Props => ({
   watcherActive: state.watcherTimers.has(ownProps.watcherId)
 });
 
-const mapDispatch = (dispatch: Dispatch<WatcherAction>): Handlers => ({
-  onDelete: (id: string) => dispatch(deleteWatcher(id)),
-  onCancel: (id: string) => dispatch(cancelNextWatcherTick(id)),
-  onSchedule: (id: string, origin: number) =>
-    dispatch(scheduleWatcher(id, origin)),
-  onEdit: (id: string, field: EditableWatcherField, value: Primitive) =>
-    dispatch(editWatcher(id, field, value))
-});
+const mapDispatch: Handlers = {
+  onDelete: deleteWatcher,
+  onCancel: cancelNextWatcherTick,
+  onSchedule: scheduleWatcher,
+  onEdit: editWatcher
+};
 
 export default connect(
   mapState,

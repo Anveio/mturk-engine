@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState, SearchOptions, SortingOption } from '../../types';
 import { FormUpdate, updateForm } from '../../actions/form';
 import { TextField, Select } from '@shopify/polaris';
+import { Dispatch } from 'redux';
 
 interface Props {
   readonly value: string;

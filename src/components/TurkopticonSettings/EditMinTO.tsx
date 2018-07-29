@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState, TOpticonSettings } from '../../types';
 import { FormUpdate, updateForm } from '../../actions/form';
 import { Slider, Classes } from '@blueprintjs/core';
 import { Stack } from '@shopify/polaris';
+import { Dispatch } from 'redux';
 
 interface Props {
   readonly value: string;
@@ -63,4 +64,7 @@ class EditMinTO extends React.PureComponent<Props & Handlers, never> {
   }
 }
 
-export default connect(mapState, mapDispatch)(EditMinTO);
+export default connect(
+  mapState,
+  mapDispatch
+)(EditMinTO);

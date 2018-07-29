@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Card, ResourceList } from '@shopify/polaris';
 import { RootState } from '../../types';
 import { queueItemsIds } from '../../selectors/queue';
-import { FetchQueueRequest, fetchQueueRequest } from '../../actions/queue';
+import { fetchQueueRequest } from '../../actions/queue';
 import EmptyQueue from './EmptyQueue';
 import QueueItemCard from '../QueueCard/QueueItemCard';
 import QueueTableHeading from './QueueTableHeading';
@@ -60,8 +60,11 @@ const mapState = (state: RootState): Props => ({
   queueItemIds: queueItemsIds(state)
 });
 
-const mapDispatch = (dispatch: Dispatch<FetchQueueRequest>): Handlers => ({
-  onRefresh: () => dispatch(fetchQueueRequest())
-});
+const mapDispatch: Handlers = {
+  onRefresh: fetchQueueRequest
+};
 
-export default connect(mapState, mapDispatch)(QueueTable);
+export default connect(
+  mapState,
+  mapDispatch
+)(QueueTable);

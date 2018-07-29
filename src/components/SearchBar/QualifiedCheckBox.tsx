@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState, SearchOptions } from '../../types';
 import { FormUpdate, updateForm } from '../../actions/form';
 import { Checkbox } from '@shopify/polaris';
+import { Dispatch } from 'redux';
 
 interface Props {
   readonly value: boolean;
@@ -40,4 +41,7 @@ const mapDispatch = (
   }
 });
 
-export default connect(mapState, mapDispatch)(QualifiedBox);
+export default connect(
+  mapState,
+  mapDispatch
+)(QualifiedBox);

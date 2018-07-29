@@ -1,22 +1,22 @@
+import { Button, Card, FormLayout, TextField } from '@shopify/polaris';
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
-import { AddWatcher, addWatcher } from '../../actions/watcher';
-import { Card, FormLayout, TextField, Button } from '@shopify/polaris';
-import {
-  determineInputType,
-  parseProjectIdFromProjectLink,
-  parseGroupId,
-  watcherDefaults
-} from '../../utils/watchers';
-import { watchForEnter } from '../../utils/watchForEnter';
-import { Watcher, RootState, WatcherMap } from '../../types';
+import { connect } from 'react-redux';
+import { addWatcher } from '../../actions/watcher';
+import { normalizedWatchers } from '../../selectors/watchers';
+import { RootState, Watcher, WatcherMap } from '../../types';
+import { truncate } from '../../utils/formatting';
+import { showPlainToast } from '../../utils/toaster';
 import {
   validateInputPandaLink,
   validateProjectIdLink
 } from '../../utils/validation';
-import { normalizedWatchers } from '../../selectors/watchers';
-import { truncate } from '../../utils/formatting';
-import { showPlainToast } from '../../utils/toaster';
+import {
+  determineInputType,
+  parseGroupId,
+  parseProjectIdFromProjectLink,
+  watcherDefaults
+} from '../../utils/watchers';
+import { watchForEnter } from '../../utils/watchForEnter';
 
 interface OwnProps {
   readonly folderId: string;
@@ -127,10 +127,12 @@ class CreateWatcherForm extends React.PureComponent<
     }));
 
   private handleInput = (field: InputField) => (value: string) =>
-    this.setState((): Pick<State, 'error'> => ({
-      [field]: value,
-      error: undefined
-    }));
+    this.setState(
+      (): Pick<State, 'error'> => ({
+        [field]: value,
+        error: undefined
+      })
+    );
 
   private handleEnterKeyPress = watchForEnter<HTMLDivElement>(
     this.handleSubmit
@@ -181,8 +183,11 @@ const mapState = (state: RootState): Props => ({
   watchers: normalizedWatchers(state)
 });
 
-const mapDispatch = (dispatch: Dispatch<AddWatcher>): Handlers => ({
-  onAddWatcher: (watcher: Watcher) => dispatch(addWatcher(watcher))
-});
+const mapDispatch: Handlers = {
+  onAddWatcher: addWatcher
+};
 
-export default connect(mapState, mapDispatch)(CreateWatcherForm);
+export default connect(
+  mapState,
+  mapDispatch
+)(CreateWatcherForm);

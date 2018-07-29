@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { SettingToggle } from '@shopify/polaris';
-import {
-  ToggleNotifications,
-  toggleNotifications
-} from '../../actions/notifications';
-import { connect, Dispatch } from 'react-redux';
+import { toggleNotifications } from '../../actions/notifications';
+import { connect } from 'react-redux';
 import { RootState } from '../../types';
 
 interface Handlers {
@@ -34,12 +31,15 @@ class EnableNotifications extends React.Component<Props & Handlers, never> {
   }
 }
 
-const mapDispatch = (dispatch: Dispatch<ToggleNotifications>): Handlers => ({
-  onToggle: () => dispatch(toggleNotifications())
-});
+const mapDispatch: Handlers = {
+  onToggle: toggleNotifications
+};
 
 const mapState = (state: RootState): Props => ({
   enabled: state.notificationSettings.enabled
 });
 
-export default connect(mapState, mapDispatch)(EnableNotifications);
+export default connect(
+  mapState,
+  mapDispatch
+)(EnableNotifications);

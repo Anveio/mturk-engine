@@ -1,13 +1,10 @@
-import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
 import { Button } from '@shopify/polaris';
 import { Set } from 'immutable';
-import { RootState, WatcherFolder } from '../../types';
-import {
-  CreateWatcherFolder,
-  createWatcherFolder
-} from '../../actions/watcherFolders';
+import * as React from 'react';
+import { connect } from 'react-redux';
+import { createWatcherFolder } from '../../actions/watcherFolders';
 import { watcherFolderUniqueNames } from '../../selectors/watcherFolders';
+import { RootState, WatcherFolder } from '../../types';
 import {
   createDefaultFolderName,
   findUnusedNumericSuffix,
@@ -46,9 +43,11 @@ const mapState = (state: RootState): Props => ({
   watcherFolderNames: watcherFolderUniqueNames(state)
 });
 
-const mapDispatch = (dispatch: Dispatch<CreateWatcherFolder>): Handlers => ({
-  onCreateFolder: (payload: WatcherFolder) =>
-    dispatch(createWatcherFolder(payload))
-});
+const mapDispatch: Handlers = {
+  onCreateFolder: createWatcherFolder
+};
 
-export default connect(mapState, mapDispatch)(CreateFolderButton);
+export default connect(
+  mapState,
+  mapDispatch
+)(CreateFolderButton);

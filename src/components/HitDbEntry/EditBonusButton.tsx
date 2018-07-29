@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Popover, Button, Intent, Classes } from '@blueprintjs/core';
 import {
   Card,
@@ -9,7 +9,7 @@ import {
 } from '@shopify/polaris';
 import { validatePositiveNumber } from 'utils/validation';
 import { formatAsUsd } from 'utils/formatting';
-import { EditBonus, editBonus } from 'actions/bonus';
+import { editBonus } from 'actions/bonus';
 import { successfulEditBonusToast } from 'utils/toaster';
 import { watchForEnter } from 'utils/watchForEnter';
 
@@ -84,7 +84,6 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
         onInteraction={(nextState: boolean) => this.toggleOpen(nextState)}
       >
         <Button
-        
           intent={Intent.PRIMARY}
           className={Classes.MINIMAL}
           icon="manually-entered-data"
@@ -116,8 +115,11 @@ class EditBonusButton extends React.PureComponent<OwnProps & Handlers, State> {
   }
 }
 
-const mapDispatch = (dispatch: Dispatch<EditBonus>): Handlers => ({
-  onEditBonus: (id: string, value: number) => dispatch(editBonus(id, value))
-});
+const mapDispatch: Handlers = {
+  onEditBonus: editBonus
+};
 
-export default connect(null, mapDispatch)(EditBonusButton);
+export default connect(
+  null,
+  mapDispatch
+)(EditBonusButton);

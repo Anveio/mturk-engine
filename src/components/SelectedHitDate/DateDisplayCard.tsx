@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Card, DisplayText, Stack, Button } from '@shopify/polaris';
 import { RootState } from 'types';
 import {
@@ -8,12 +8,13 @@ import {
 } from 'actions/statusDetail';
 import { dateStringToLocaleDateString, stringToDate } from 'utils/dates';
 import { LEGACY_DATE_FORMAT } from 'constants/dates';
+import { Dispatch } from 'redux';
 
-export interface Props {
+interface Props {
   readonly selectedDate: string | null;
 }
 
-export interface Handlers {
+interface Handlers {
   readonly onRefresh: (date: Date) => void;
 }
 
@@ -76,4 +77,7 @@ const mapDispatch = (
   onRefresh: (date: Date) => dispatch(statusDetailRequest(date, 1, true))
 });
 
-export default connect(mapState, mapDispatch)(DateDisplayCard);
+export default connect(
+  mapState,
+  mapDispatch
+)(DateDisplayCard);

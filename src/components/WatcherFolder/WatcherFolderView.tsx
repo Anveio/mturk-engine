@@ -1,20 +1,18 @@
-import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
 import { Stack } from '@shopify/polaris';
-import { WatcherFolder, RootState } from '../../types';
-import { getWatcherIdsAssignedToFolder } from '../../selectors/watcherFolders';
-
+import * as React from 'react';
+import { connect } from 'react-redux';
 import {
-  editWatcherFolder,
-  WatcherFolderAction,
-  deleteWatcherFolder
+  deleteWatcherFolder,
+  editWatcherFolder
 } from '../../actions/watcherFolders';
 import { DEFAULT_WATCHER_FOLDER_ID } from '../../constants/misc';
-import WatcherFolderHeading from './WatcherFolderHeading';
+import { getWatcherIdsAssignedToFolder } from '../../selectors/watcherFolders';
+import { RootState, WatcherFolder } from '../../types';
 import CreateWatcherForm from './CreateWatcherForm';
-import WatcherFolderInfo from './WatcherFolderInfo';
 import InfoCallout from './InfoCallout';
 import WatcherFolderActions from './WatcherFolderActions';
+import WatcherFolderHeading from './WatcherFolderHeading';
+import WatcherFolderInfo from './WatcherFolderInfo';
 
 interface OwnProps {
   readonly folderId: string;
@@ -66,11 +64,10 @@ const mapState = (state: RootState, { folderId }: OwnProps): Props => ({
   assignedWatcherIds: getWatcherIdsAssignedToFolder(folderId)(state)
 });
 
-const mapDispatch = (dispatch: Dispatch<WatcherFolderAction>): Handlers => ({
-  onEdit: (id: string, field: 'name', value: string) =>
-    dispatch(editWatcherFolder(id, field, value)),
-  onDeleteFolder: (id: string) => dispatch(deleteWatcherFolder(id))
-});
+const mapDispatch: Handlers = {
+  onEdit: editWatcherFolder,
+  onDeleteFolder: deleteWatcherFolder
+};
 
 export default connect(
   mapState,

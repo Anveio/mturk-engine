@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Tabs, Tab } from '@blueprintjs/core';
 import { RootState } from '../../types';
 import { changeTab } from '../../actions/updateValue';
@@ -62,11 +62,9 @@ const mapState = (state: RootState): Props => ({
   numActiveWatchers: state.watcherTimers.size
 });
 
-const mapDispatch = (dispatch: Dispatch): Handlers => ({
-  onSelectTab: (selectedTabIndex: number) => {
-    dispatch(changeTab(selectedTabIndex));
-  }
-});
+const mapDispatch: Handlers = {
+  onSelectTab: changeTab
+};
 
 export default connect(
   mapState,

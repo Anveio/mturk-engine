@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { RootState, TOpticonSettings } from '../../types';
 import { FormUpdate, updateForm } from '../../actions/form';
 import { SettingToggle, TextStyle } from '@shopify/polaris';
+import { Dispatch } from 'redux';
 
 interface Props {
   readonly value: boolean;
@@ -55,4 +56,7 @@ const mapDispatch = (
   }
 });
 
-export default connect(mapState, mapDispatch)(EnableMinimumTO);
+export default connect(
+  mapState,
+  mapDispatch
+)(EnableMinimumTO);

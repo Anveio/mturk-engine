@@ -37,6 +37,9 @@ const mapState = (state: RootState): Props => ({
 
 const mapDispatch: Handlers = {
   onNewSearchResult: playNewSearchResultAudio
-}
+};
 
-export default connect(mapState, mapDispatch)(NewResultAudioLayer);
+export default connect(
+  mapState,
+  mapDispatch
+)(NewResultAudioLayer);

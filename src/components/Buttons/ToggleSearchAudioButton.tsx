@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { connect, Dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import {
   Tooltip,
   Button,
@@ -10,6 +10,7 @@ import {
 import { RootState } from 'types';
 import { toggleSearchAudio, changeTab } from 'actions/updateValue';
 import { TabIndex } from 'constants/enums';
+import { Dispatch } from 'redux';
 
 type AudioState = 'GLOBALLY_DISABLED' | 'ENABLED' | 'DISABLED';
 
@@ -123,4 +124,7 @@ const mapDispatch = (dispatch: Dispatch): Handlers => ({
   onChangeTab: () => dispatch(changeTab(TabIndex.SETTINGS))
 });
 
-export default connect(mapState, mapDispatch)(ToggleSearchAudioButton);
+export default connect(
+  mapState,
+  mapDispatch
+)(ToggleSearchAudioButton);
