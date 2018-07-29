@@ -51,7 +51,7 @@
     lodash "^4.17.4"
     lodash-decorators "^4.3.5"
 
-"@shopify/polaris@^2.3.1":
+"@shopify/polaris@^2.5.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@shopify/polaris/-/polaris-2.5.0.tgz#61375dbf03d23fefedc92d0726aa7dd13ae600de"
   dependencies:
@@ -143,7 +143,7 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-redux@^6.0.2":
+"@types/react-redux@^6.0.5":
   version "6.0.5"
   resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-6.0.5.tgz#bb44679588554f3b686666c0484a960aa7a47b86"
   dependencies:
