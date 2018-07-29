@@ -34,7 +34,6 @@ import databaseFilterSettings from './reducers/databaseFilterSettings';
 import loggedRequesters from './reducers/loggedRequesters';
 import markedAsReadGroupIds from './reducers/markedAsReadGroupIds';
 import hitBlocklistFilterSettings from './reducers/hitBlocklistFilterSettings';
-import recentlyBlockedHits from './reducers/recentlyBlockedHits';
 
 export const rootReducer = combineReducers<RootState>({
   tab,
@@ -62,7 +61,6 @@ export const rootReducer = combineReducers<RootState>({
   queueSortingOption,
   searchAudioEnabled,
   expandedQueueItems,
-  recentlyBlockedHits,
   watcherTreeSettings,
   markedAsReadGroupIds,
   notificationSettings,
