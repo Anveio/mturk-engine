@@ -13,7 +13,7 @@ import {
 import PaginationButtons, {
   DatabaseFilterPaginationProps
 } from '../Buttons/PaginationButtons';
-import HitBlocklistDisplay from './HitBlocklistDisplay';
+import BlockedHitsResourceList from './BlockedHitsResourceList';
 import HitBlocklistHeading from './HitBlocklistHeading';
 
 interface Props {
@@ -91,7 +91,7 @@ class HitBlocklistView extends React.Component<Props, State> {
         <Card.Section>
           <HitBlocklistHeading />
         </Card.Section>
-        <HitBlocklistDisplay hits={hitsToRender} />
+        <BlockedHitsResourceList hits={hitsToRender} />
         <PaginationButtons {...paginationProps} />
       </Card>
     );

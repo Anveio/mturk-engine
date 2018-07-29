@@ -9,7 +9,7 @@ interface Props {
   readonly hits: List<BlockedHit>;
 }
 
-class HitBlocklistDisplay extends React.Component<Props, never> {
+class BlockedHitsResourceList extends React.Component<Props, never> {
   shouldComponentUpdate(nextProps: Props) {
     return !nextProps.hits.equals(this.props.hits);
   }
@@ -31,4 +31,4 @@ class HitBlocklistDisplay extends React.Component<Props, never> {
   }
 }
 
-export default HitBlocklistDisplay;
+export default BlockedHitsResourceList;
