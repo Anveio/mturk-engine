@@ -1,10 +1,9 @@
 import { Menu, MenuDivider, MenuItem } from '@blueprintjs/core';
-import * as copy from 'copy-to-clipboard';
 import * as React from 'react';
 import { HumanIntelligenceTask, QueueItem } from 'types';
 import { generateHwtfUrl, generateMarkdownExport } from 'utils/export';
-import { showPlainToast } from 'utils/toaster';
 import { generateContactLinkQueue } from 'utils/urls';
+import { handleCopy } from 'utils/clipboard';
 
 interface Props {
   readonly hit: HumanIntelligenceTask;
@@ -12,11 +11,6 @@ interface Props {
 }
 
 class HitActionMenu extends React.PureComponent<Props, never> {
-  private static handleCopy = (copyText: string, toastText: string) => () => {
-    copy(copyText);
-    showPlainToast(toastText);
-  };
-
   public render() {
     const { hit, queueItem } = this.props;
     return (
@@ -35,7 +29,7 @@ class HitActionMenu extends React.PureComponent<Props, never> {
         <MenuDivider title="Copy" />
         <MenuItem
           icon="duplicate"
-          onClick={HitActionMenu.handleCopy(
+          onClick={handleCopy(
             generateMarkdownExport(hit),
             `Markdown for "${hit.title}" copied clipboard.`
           )}
@@ -43,15 +37,12 @@ class HitActionMenu extends React.PureComponent<Props, never> {
         />
         <MenuItem
           icon="duplicate"
-          onClick={HitActionMenu.handleCopy(
-            hit.title,
-            `"${hit.title}" copied to clipboard.`
-          )}
+          onClick={handleCopy(hit.title, `"${hit.title}" copied to clipboard.`)}
           text="HIT title"
         />
         <MenuItem
           icon="duplicate"
-          onClick={HitActionMenu.handleCopy(
+          onClick={handleCopy(
             hit.requester.name,
             `"${hit.requester.name}" copied to clipboard.`
           )}
@@ -59,7 +50,7 @@ class HitActionMenu extends React.PureComponent<Props, never> {
         />
         <MenuItem
           icon="duplicate"
-          onClick={HitActionMenu.handleCopy(
+          onClick={handleCopy(
             hit.requester.id,
             `Requester ID copied to clipboard.`
           )}
