@@ -9,7 +9,8 @@ import { showPlainToast } from 'utils/toaster';
 
 interface OwnProps {
   readonly requester: Requester;
-  readonly withToast: boolean;
+  readonly withToast?: boolean;
+  readonly withTooltip?: boolean;
 }
 
 interface Handlers {
@@ -29,11 +30,11 @@ class BlockRequesterButton extends React.PureComponent<
   };
 
   private handleBlockRequester = () => {
-    this.props.onBlockRequester(createBlockedRequester(this.props.requester));
-    if (this.props.withToast) {
-      showPlainToast(
-        `${this.props.requester.name} has been added to your blocklist.`
-      );
+    const { requester, withToast = false } = this.props;
+
+    this.props.onBlockRequester(createBlockedRequester(requester));
+    if (withToast) {
+      showPlainToast(`${requester.name} has been added to your blocklist.`);
     }
   };
 
@@ -46,8 +47,11 @@ class BlockRequesterButton extends React.PureComponent<
   };
 
   public render() {
+    const { withTooltip = true } = this.props;
+
     return (
       <Tooltip
+        disabled={!withTooltip}
         content="You can unblock a requester from the Blocklist tab."
         position={Position.RIGHT}
         isOpen={this.state.hovering}

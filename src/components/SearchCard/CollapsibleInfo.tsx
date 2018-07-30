@@ -56,7 +56,7 @@ class CollapsibleInfo extends React.PureComponent<Props & OwnProps, never> {
               <MenuActivator accessibilityLabel="Additional actions">
                 <HitActionMenu hit={hit} />
               </MenuActivator>
-              <BlockRequesterButton requester={requester} withToast={false} />
+              <BlockRequesterButton requester={requester} />
               <AddAsWatcherButton hit={hit} />
               <ExternalPlainButtons hit={hit} />
             </Stack>
