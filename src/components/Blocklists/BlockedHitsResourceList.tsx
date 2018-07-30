@@ -30,7 +30,7 @@ class BlockedHitsResourceList extends React.Component<Props, never> {
         resourceName={{ singular: 'Blocked HIT', plural: 'Blocked HITs' }}
         items={itemsToShow}
         renderItem={({ groupId }: BlockedHit) => (
-          <BlockedHitCard blockedHitId={groupId} onClick={console.log} />
+          <BlockedHitCard blockedHitId={groupId} />
         )}
       />
     );

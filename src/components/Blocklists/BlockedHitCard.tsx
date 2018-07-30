@@ -4,24 +4,36 @@ import { RootState, BlockedHit, GroupId } from '../../types';
 import { ResourceList, Stack, TextStyle } from '@shopify/polaris';
 import { unblockSingleHit } from 'actions/blockHit';
 import { Text } from '@blueprintjs/core';
+import BlockedHitCardCollapsible from './BlockedHitCardCollapsible';
 
 interface Props {
   readonly blockedHit: BlockedHit;
 }
 
 interface OwnProps {
-  readonly blockedHitId: string;
-  readonly onClick: (groupId: GroupId) => void;
+  readonly blockedHitId: GroupId;
 }
 
 interface Handlers {
   readonly onUnblock: (groupId: string) => void;
 }
 
+interface State {
+  readonly expanded: boolean;
+}
+
 class BlockedHitCard extends React.PureComponent<
   Props & OwnProps & Handlers,
-  never
+  State
 > {
+  public readonly state: State = { expanded: false };
+
+  private toggleExpand = () => {
+    this.setState(({ expanded }) => ({
+      expanded: !expanded
+    }));
+  };
+
   public render() {
     const { title, requester, groupId, dateBlocked } = this.props.blockedHit;
     const actions = [
@@ -33,26 +45,33 @@ class BlockedHitCard extends React.PureComponent<
     ];
 
     return (
-      <ResourceList.Item
-        id={groupId}
-        onClick={this.props.onClick}
-        shortcutActions={actions}
-         
-      >
-        <Stack vertical={false} wrap={false}>
-          <Stack.Item>
-            <TextStyle variation="strong">
-              <Text>{requester.name}</Text>
-            </TextStyle>
-          </Stack.Item>
-          <Stack.Item fill>
-            <Text ellipsize>{title}</Text>
-          </Stack.Item>
-          <Stack.Item>
-            <p>Blocked on: {dateBlocked.toLocaleDateString()}</p>
-          </Stack.Item>
-        </Stack>
-      </ResourceList.Item>
+      <React.Fragment>
+        <ResourceList.Item
+          id={groupId}
+          onClick={this.toggleExpand}
+          shortcutActions={actions}
+        >
+          <Stack vertical={false} wrap={false}>
+            <Stack.Item>
+              <TextStyle variation="strong">
+                <Text>{requester.name}</Text>
+              </TextStyle>
+            </Stack.Item>
+            <Stack.Item fill>
+              <Text ellipsize>{title}</Text>
+            </Stack.Item>
+            <Stack.Item>
+              <p>Blocked on: {dateBlocked.toLocaleDateString()}</p>
+            </Stack.Item>
+          </Stack>
+        </ResourceList.Item>
+        <BlockedHitCardCollapsible
+          expanded={this.state.expanded}
+          groupId={groupId}
+          requesterId={requester.id}
+          requesterName={requester.name}
+        />
+      </React.Fragment>
     );
   }
 }
