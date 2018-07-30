@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RootState, BlockedHit } from '../../types';
+import { RootState, BlockedHit, GroupId } from '../../types';
 import { ResourceList, Stack, TextStyle } from '@shopify/polaris';
 import { unblockSingleHit } from 'actions/blockHit';
 import { Text } from '@blueprintjs/core';
@@ -11,6 +11,7 @@ interface Props {
 
 interface OwnProps {
   readonly blockedHitId: string;
+  readonly onClick: (groupId: GroupId) => void;
 }
 
 interface Handlers {
@@ -34,8 +35,9 @@ class BlockedHitCard extends React.PureComponent<
     return (
       <ResourceList.Item
         id={groupId}
-        onClick={console.log}
+        onClick={this.props.onClick}
         shortcutActions={actions}
+         
       >
         <Stack vertical={false} wrap={false}>
           <Stack.Item>

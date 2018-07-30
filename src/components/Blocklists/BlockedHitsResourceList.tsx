@@ -6,17 +6,23 @@ import BlockedHitCard from './BlockedHitCard';
 import HitBlockListFilterControl from './HitBlockListFilterControl';
 
 interface Props {
+  readonly startIndex: number;
+  readonly endIndex: number;
   readonly hits: List<BlockedHit>;
 }
 
 class BlockedHitsResourceList extends React.Component<Props, never> {
   shouldComponentUpdate(nextProps: Props) {
-    return !nextProps.hits.equals(this.props.hits);
+    return (
+      !nextProps.hits.equals(this.props.hits) ||
+      !(nextProps.endIndex === this.props.endIndex) ||
+      !(nextProps.startIndex === this.props.startIndex)
+    );
   }
 
   public render() {
-    const itemsToShow = this.props.hits.toArray();
-
+    const { startIndex, endIndex, hits } = this.props;
+    const itemsToShow = hits.slice(startIndex, endIndex).toArray();
     return (
       <ResourceList
         showHeader
@@ -24,7 +30,7 @@ class BlockedHitsResourceList extends React.Component<Props, never> {
         resourceName={{ singular: 'Blocked HIT', plural: 'Blocked HITs' }}
         items={itemsToShow}
         renderItem={({ groupId }: BlockedHit) => (
-          <BlockedHitCard blockedHitId={groupId} />
+          <BlockedHitCard blockedHitId={groupId} onClick={console.log} />
         )}
       />
     );
