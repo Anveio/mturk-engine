@@ -84,14 +84,17 @@ class HitBlocklistView extends React.Component<Props, State> {
 
     const start = DATABASE_FILTER_RESULTS_PER_PAGE * page;
     const end = start + DATABASE_FILTER_RESULTS_PER_PAGE;
-    const hitsToRender = blockedHits.slice(start, end) as List<BlockedHit>;
 
     return (
       <Card>
         <Card.Section>
           <HitBlocklistHeading />
         </Card.Section>
-        <BlockedHitsResourceList hits={hitsToRender} />
+        <BlockedHitsResourceList
+          hits={blockedHits}
+          startIndex={start}
+          endIndex={end}
+        />
         <PaginationButtons {...paginationProps} />
       </Card>
     );
