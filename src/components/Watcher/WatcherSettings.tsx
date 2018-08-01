@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import * as copy from 'copy-to-clipboard';
 import {
   Card,
   FormLayout,
@@ -17,12 +16,12 @@ import {
   GroupId
 } from '../../types';
 import { EditableWatcherField } from '../../actions/watcher';
-import { showPlainToast } from '../../utils/toaster';
 import { watcherFoldersSortedByCreationDate } from '../../selectors/watcherFolders';
 import WatcherStatistics from './WatcherStatistics';
 import { validatePositiveNumber } from '../../utils/validation';
 import { watchForEnter } from '../../utils/watchForEnter';
 import { normalizedWatchers } from 'selectors/watchers';
+import { handleCopy } from 'utils/clipboard';
 
 interface OwnProps {
   readonly watcherId: GroupId;
@@ -56,11 +55,6 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
       ],
       []
     );
-
-  private copyId = () => {
-    copy(this.props.watcher.groupId);
-    showPlainToast(`"${this.props.watcher.groupId}" copied to clipboard.`);
-  };
 
   private handleEdit = <T extends string | boolean>(
     field: EditableWatcherField
@@ -98,7 +92,10 @@ class WatcherSettings extends React.PureComponent<Props & OwnProps, never> {
         actions={[
           {
             content: 'Copy ID',
-            onAction: this.copyId
+            onAction: handleCopy(
+              this.props.watcher.groupId,
+              `"${this.props.watcher.groupId}" copied to clipboard.`
+            )
           }
         ]}
       >
