@@ -2,20 +2,16 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Card, DisplayText, Stack, Button } from '@shopify/polaris';
 import { RootState } from 'types';
-import {
-  FetchStatusDetailRequest,
-  statusDetailRequest
-} from 'actions/statusDetail';
+import { statusDetailRequest } from 'actions/statusDetail';
 import { dateStringToLocaleDateString, stringToDate } from 'utils/dates';
 import { LEGACY_DATE_FORMAT } from 'constants/dates';
-import { Dispatch } from 'redux';
 
 interface Props {
   readonly selectedDate: string | null;
 }
 
 interface Handlers {
-  readonly onRefresh: (date: Date) => void;
+  readonly onRefresh: (date: Date, page: number, withToast: boolean) => void;
 }
 
 class DateDisplayCard extends React.PureComponent<Props & Handlers, never> {
@@ -28,7 +24,11 @@ class DateDisplayCard extends React.PureComponent<Props & Handlers, never> {
     const { selectedDate } = this.props;
 
     if (!!selectedDate) {
-      this.props.onRefresh(stringToDate(selectedDate)(LEGACY_DATE_FORMAT));
+      this.props.onRefresh(
+        stringToDate(selectedDate)(LEGACY_DATE_FORMAT),
+        1,
+        true
+      );
     }
   };
 
@@ -71,11 +71,9 @@ const mapState = (state: RootState): Props => ({
   selectedDate: state.selectedHitDbDate
 });
 
-const mapDispatch = (
-  dispatch: Dispatch<FetchStatusDetailRequest>
-): Handlers => ({
-  onRefresh: (date: Date) => dispatch(statusDetailRequest(date, 1, true))
-});
+const mapDispatch: Handlers = {
+  onRefresh: statusDetailRequest
+};
 
 export default connect(
   mapState,
