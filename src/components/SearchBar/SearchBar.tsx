@@ -30,25 +30,23 @@ class SearchBar extends React.PureComponent<Props & Handlers, never> {
 
     return (
       <Card.Section>
-        <Stack vertical={false} spacing="tight" alignment="center">
+        <Stack vertical={false} spacing="tight" alignment="center" >
           <Stack.Item fill>
             <div onKeyPress={this.onEnter}>
               <CustomSearchField
                 connectedLeft={
-                  <>
-                    <ButtonGroup segmented>
-                      <Button
-                        primary
-                        icon="search"
-                        accessibilityLabel="Toggle Search Button"
-                        onClick={this.props.onToggleSearch}
-                        destructive={searchActive}
-                      >
-                        {SearchBar.searchButtonText(searchActive)}
-                      </Button>
-                      <SearchSettings />
-                    </ButtonGroup>
-                  </>
+                  <ButtonGroup segmented>
+                    <Button
+                      primary
+                      icon="search"
+                      accessibilityLabel="Toggle Search Button"
+                      onClick={this.props.onToggleSearch}
+                      destructive={searchActive}
+                    >
+                      {SearchBar.searchButtonText(searchActive)}
+                    </Button>
+                    <SearchSettings />
+                  </ButtonGroup>
                 }
               />
             </div>
