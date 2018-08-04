@@ -9,32 +9,34 @@ interface Props {
 
 class HitDbEntryMenu extends React.PureComponent<Props, never> {
   public render() {
-    const { hit } = this.props;
+    const {
+      hit: { title, id, requester }
+    } = this.props;
     return (
       <Menu>
         <MenuDivider title="Copy..." />
         <MenuItem
           icon="duplicate"
-          onClick={handleCopy(hit.title, `"${hit.title}" copied to clipboard.`)}
+          onClick={handleCopy(title, `"${title}" copied to clipboard.`)}
           text="HIT title"
         />
         <MenuItem
           icon="duplicate"
-          onClick={handleCopy(hit.id, `"${hit.id}" copied to clipboard.`)}
+          onClick={handleCopy(id, `"${id}" copied to clipboard.`)}
           text="HIT ID"
         />
         <MenuItem
           icon="duplicate"
           onClick={handleCopy(
-            hit.requester.name,
-            `"${hit.requester.name}" copied to clipboard.`
+            requester.name,
+            `"${requester.name}" copied to clipboard.`
           )}
           text="Requester name"
         />
         <MenuItem
           icon="duplicate"
           onClick={handleCopy(
-            hit.requester.id,
+            requester.id,
             `Requester ID copied to clipboard.`
           )}
           text="Requester ID"
