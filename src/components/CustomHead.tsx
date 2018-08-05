@@ -13,7 +13,7 @@ export interface Props {
 class CustomHead extends React.PureComponent<Props, never> {
   private static calculateTitle = (numNewHits: number, queueSize: number) =>
     numNewHits || queueSize > 0
-      ? `${numNewHits} Unread/${queueSize} Queue - Mturk Engine`
+      ? `Unread: ${numNewHits}, Queued: ${queueSize} - Mturk Engine`
       : 'Mturk Engine';
 
   public render() {
