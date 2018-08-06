@@ -1,27 +1,48 @@
-import { Callout, Intent } from '@blueprintjs/core';
-import { Layout } from '@shopify/polaris';
+import { Callout, Intent, NonIdealState } from '@blueprintjs/core';
+import { Layout, Button } from '@shopify/polaris';
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { blockListsAreEmpty } from 'selectors/blocklists';
 import { RootState } from '../../types';
-import EmptyBlocklist from '../Blocklists/EmptyBlocklist';
-import RequesterBlocklistView from '../Blocklists/RequesterBlocklistView';
-import HitBlocklistView from '../Blocklists/HitBlocklistView';
+import RequesterBlocklistView from '../RequesterBlocklist/RequesterBlocklistView';
+import HitBlocklistView from '../HitBlocklist/HitBlocklistView';
 import { TabIndex } from 'constants/enums';
+import { Dispatch } from '../../../node_modules/redux';
+import { changeTab } from 'actions/updateValue';
 
 interface Props {
   readonly blocklistIsActiveTab: boolean;
   readonly empty: boolean;
 }
 
-class BlocklistsTab extends React.Component<Props, never> {
+interface Handlers {
+  readonly onChangeTab: () => void;
+}
+
+class BlocklistsTab extends React.Component<Props & Handlers, never> {
+  static EmptyBlocklist = ({ onChangeTab }: Handlers) => {
+    return (
+      <NonIdealState
+        title="Your blocklists are empty."
+        description="You can manage your block lists here once you've blocked a HIT or a requester."
+        icon="add-to-folder"
+        action={
+          <Button primary onClick={onChangeTab}>
+            Switch to search tab
+          </Button>}
+      />
+    );
+  };
+
   public render() {
     if (!this.props.blocklistIsActiveTab) {
       return null;
     }
 
     return this.props.empty ? (
-      <EmptyBlocklist />
+      <Layout>
+        <BlocklistsTab.EmptyBlocklist {...this.props} />
+      </Layout>
     ) : (
       <Layout>
         <Layout.Section>
@@ -46,4 +67,11 @@ const mapState = (state: RootState): Props => ({
   empty: blockListsAreEmpty(state)
 });
 
-export default connect(mapState)(BlocklistsTab);
+const mapDispatch = (dispatch: Dispatch): Handlers => ({
+  onChangeTab: () => dispatch(changeTab(TabIndex.SEARCH))
+});
+
+export default connect(
+  mapState,
+  mapDispatch
+)(BlocklistsTab);

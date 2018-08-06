@@ -11,8 +11,8 @@ import { RootState, QueueItem } from '../../types';
 import KnownRequesterButton from '../Buttons/KnownRequesterButton';
 import BlockRequesterButton from '../Buttons/BlockRequesterButton';
 import AddAsWatcherButton from '../Buttons/AddAsWatcherButton';
-import MenuActivator from '../HitActionMenu/MenuActivator';
-import HitActionMenu from '../HitActionMenu/HitActionMenu';
+import MenuActivator from '../Menu/MenuActivator';
+import HitActionMenu from '../Menu/HitActionMenu';
 import ExternalPlainButtons from '../Buttons/ExternalPlainButtons';
 import { hitDatabaseToRequesterMap } from 'selectors/hitDatabase';
 

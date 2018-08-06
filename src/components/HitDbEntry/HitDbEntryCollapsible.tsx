@@ -11,7 +11,7 @@ import EditBonusButton from './EditBonusButton';
 import CopyTextButton from '../Buttons/CopyTextButton';
 import { stringToDate } from 'utils/dates';
 import { LEGACY_DATE_FORMAT } from 'constants/dates';
-import MenuActivator from '../HitActionMenu/MenuActivator';
+import MenuActivator from '../Menu/MenuActivator';
 import HitDbEntryMenu from './HitDbEntryMenu';
 
 interface Props {

@@ -9,7 +9,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { BlockedRequester, RootState } from '../../types';
 import BlockedRequesterTag from './BlockedRequesterTag';
-import SweepMenu from './SweepMenu';
+import SweepMenu from '../Menu/SweepMenu';
 import { sortedRequesterBlockList } from 'selectors/blocklists';
 
 interface Props {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { RootState, BlockedHit } from 'types';
 import { List, Set } from 'immutable';
 import { Popover, Position } from '@blueprintjs/core';
-import SweepMenu from './SweepMenu';
+import SweepMenu from '../Menu/SweepMenu';
 import {
   unblockMultipleHits,
   blockMultipleHits,

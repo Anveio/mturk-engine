@@ -4,7 +4,7 @@ import { Collapsible, Card, Stack, ButtonGroup } from '@shopify/polaris';
 import { RootState, BlockedHit, GroupId } from '../../types';
 import KnownRequesterButton from '../Buttons/KnownRequesterButton';
 import BlockRequesterButton from '../Buttons/BlockRequesterButton';
-import MenuActivator from '../HitActionMenu/MenuActivator';
+import MenuActivator from '../Menu/MenuActivator';
 import ExternalPlainButtons from '../Buttons/ExternalPlainButtons';
 import { hitDatabaseToRequesterMap } from '../../selectors/hitDatabase';
 import { Menu, MenuDivider, MenuItem } from '@blueprintjs/core';

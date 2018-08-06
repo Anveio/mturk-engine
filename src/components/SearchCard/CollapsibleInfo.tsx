@@ -14,8 +14,8 @@ import BlockRequesterButton from '../Buttons/BlockRequesterButton';
 import ExternalPlainButtons from '../Buttons/ExternalPlainButtons';
 import KnownRequesterButton from '../Buttons/KnownRequesterButton';
 import QualificationsButton from '../Buttons/QualificationsButton';
-import HitActionMenu from '../HitActionMenu/HitActionMenu';
-import MenuActivator from '../HitActionMenu/MenuActivator';
+import HitActionMenu from '../Menu/HitActionMenu';
+import MenuActivator from '../Menu/MenuActivator';
 import { hitDatabaseToRequesterMap } from 'selectors/hitDatabase';
 
 interface Props {

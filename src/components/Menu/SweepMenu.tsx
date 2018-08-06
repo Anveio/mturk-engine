@@ -66,7 +66,7 @@ class SweepMenu extends React.Component<Props & Handlers, never> {
 
     if (ids.size === 0) {
       showPlainToast(
-        `Nothing was blocked in the selected time period. Your blocklist is unchanged.`
+        `Nothing was blocked in the selected time period. Your blocklist remains unchanged.`
       );
       return;
     }
