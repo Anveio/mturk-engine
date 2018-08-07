@@ -11,6 +11,7 @@ import { filteredResultsGroupIdSet } from 'selectors/search';
 
 interface Props {
   readonly resultsIds: Set<GroupId>;
+  readonly atLeastOneExpanded: boolean;
 }
 
 interface Handlers {
@@ -22,14 +23,16 @@ class SearchTableButtons extends React.PureComponent<Props & Handlers, never> {
   public render() {
     return (
       <ButtonGroup>
+        {this.props.atLeastOneExpanded && (
+          <Button plain onClick={this.props.collapseAllResults}>
+            Collapse all
+          </Button>
+        )}
         <Button
           plain
           onClick={() => this.props.onMarkAllAsRead(this.props.resultsIds)}
         >
           Mark all as read
-        </Button>
-        <Button plain onClick={this.props.collapseAllResults}>
-          Collapse all
         </Button>
         <SortingMenu />
         <ToggleSearchAudioButton />
@@ -44,7 +47,8 @@ const mapDispatch: Handlers = {
 };
 
 const mapState = (state: RootState): Props => ({
-  resultsIds: filteredResultsGroupIdSet(state)
+  resultsIds: filteredResultsGroupIdSet(state),
+  atLeastOneExpanded: state.expandedSearchResults.size !== 0
 });
 
 export default connect(
