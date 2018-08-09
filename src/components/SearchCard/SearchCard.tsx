@@ -62,7 +62,7 @@ class SearchCard extends React.Component<Props & OwnProps & Handlers, never> {
       }
     },
     {
-      content: 'Add',
+      content: 'Accept',
       icon: 'add',
       primary: true,
       onAction: () => {

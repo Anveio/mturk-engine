@@ -1,33 +1,47 @@
 import * as React from 'react';
-import { Card, Layout } from '@shopify/polaris';
 import { connect } from 'react-redux';
-import { RootState, HitId } from 'types';
-import {
-  filteredResultsIds,
-  databaseFilterResultsMoneyTotal
-} from 'selectors/databaseFilterSettings';
-import { Iterable } from 'immutable';
+import { ResourceList, Card } from '@shopify/polaris';
+import { RootState, GroupId } from '../../types';
+import SearchCard from '../SearchCard/SearchCard';
+import SearchTableHeading from './SearchTableHeading';
+import EmptySearchTable from './EmptySearchTable';
+
+import { List } from 'immutable';
+import { filteredResultsGroupIdList } from '../../selectors/search';
 
 interface Props {
-  readonly hitIds: Iterable<HitId, HitId>;
-  readonly resultsMoneyTotal: number;
+  readonly rawResultsSize: number;
+  readonly resultsIds: List<GroupId>;
 }
 
 class SearchLog extends React.Component<Props, never> {
+  shouldComponentUpdate(nextProps: Props) {
+    return !this.props.resultsIds.equals(nextProps.resultsIds);
+  }
+
   public render() {
-    return (
-      <Layout>
-        <Layout.Section>
-          <Card />
-        </Layout.Section>
-      </Layout>
+    const { resultsIds, rawResultsSize } = this.props;
+    return rawResultsSize === 0 ? (
+      <Card.Section>
+        <EmptySearchTable />
+      </Card.Section>
+    ) : (
+      <>
+        <Card.Section>
+          <SearchTableHeading displayedResultsSize={resultsIds.size} />
+        </Card.Section>
+        <ResourceList
+          items={resultsIds.toArray()}
+          renderItem={(id: string) => <SearchCard key={id} groupId={id} />}
+        />
+      </>
     );
   }
 }
 
 const mapState = (state: RootState): Props => ({
-  hitIds: filteredResultsIds(state),
-  resultsMoneyTotal: databaseFilterResultsMoneyTotal(state)
+  resultsIds: filteredResultsGroupIdList(state),
+  rawResultsSize: state.search
 });
 
 export default connect(mapState)(SearchLog);
