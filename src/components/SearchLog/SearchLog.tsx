@@ -1,13 +1,9 @@
+import { ResourceList } from '@shopify/polaris';
+import { List } from 'immutable';
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { ResourceList, Card } from '@shopify/polaris';
-import { RootState, GroupId } from '../../types';
+import { GroupId, RootState, SearchResult } from '../../types';
 import SearchCard from '../SearchCard/SearchCard';
-import SearchTableHeading from './SearchTableHeading';
-import EmptySearchTable from './EmptySearchTable';
-
-import { List } from 'immutable';
-import { filteredResultsGroupIdList } from '../../selectors/search';
 
 interface Props {
   readonly rawResultsSize: number;
@@ -22,26 +18,17 @@ class SearchLog extends React.Component<Props, never> {
   public render() {
     const { resultsIds, rawResultsSize } = this.props;
     return rawResultsSize === 0 ? (
-      <Card.Section>
-        <EmptySearchTable />
-      </Card.Section>
-    ) : (
-      <>
-        <Card.Section>
-          <SearchTableHeading displayedResultsSize={resultsIds.size} />
-        </Card.Section>
         <ResourceList
           items={resultsIds.toArray()}
           renderItem={(id: string) => <SearchCard key={id} groupId={id} />}
         />
-      </>
-    );
+    )  ;  
   }
 }
 
 const mapState = (state: RootState): Props => ({
-  resultsIds: filteredResultsGroupIdList(state),
-  rawResultsSize: state.search
+  rawResultsSize: state.searchResultsLog.size,
+  resultsIds: state.searchResultsLog.map((el: SearchResult) => el.groupId).toList()
 });
 
 export default connect(mapState)(SearchLog);
