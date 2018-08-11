@@ -18,17 +18,19 @@ class SearchLog extends React.Component<Props, never> {
   public render() {
     const { resultsIds, rawResultsSize } = this.props;
     return rawResultsSize === 0 ? (
-        <ResourceList
-          items={resultsIds.toArray()}
-          renderItem={(id: string) => <SearchCard key={id} groupId={id} />}
-        />
-    )  ;  
+      <ResourceList
+        items={resultsIds.toArray()}
+        renderItem={(id: string) => <SearchCard key={id} groupId={id} />}
+      />
+    ) : null;
   }
 }
 
 const mapState = (state: RootState): Props => ({
   rawResultsSize: state.searchResultsLog.size,
-  resultsIds: state.searchResultsLog.map((el: SearchResult) => el.groupId).toList()
+  resultsIds: state.searchResultsLog
+    .map((el: SearchResult) => el.groupId)
+    .toList()
 });
 
 export default connect(mapState)(SearchLog);
