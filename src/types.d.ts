@@ -1,8 +1,8 @@
-import { Map, Set } from 'immutable';
+import { Map, Set } from "immutable";
 import {
   WorkerSubmittedHitState,
   QualificationComparator
-} from './worker-mturk-api';
+} from "./worker-mturk-api";
 
 export interface RootState {
   readonly account: MaybeAccount;
@@ -39,7 +39,6 @@ export interface RootState {
   readonly databaseFilterSettings: DatabaseFilterSettings;
   readonly markedAsReadGroupIds: Set<GroupId>;
   readonly hitBlocklistFilterSettings: HitBlocklistFilterSettings;
-  readonly searchResultsLog: SearchResults;
 }
 
 export type Primitive = string | number | boolean;
@@ -80,28 +79,28 @@ export type BlockedEntry = BlockedHit | BlockedRequester;
  * See `PERSISTED_STATE_WHITELIST` in ./constants/settings
  */
 export type PersistedStateKey =
-  | 'tab'
-  | 'account'
-  | 'hitBlocklist'
-  | 'hitDatabase'
-  | 'requesterBlocklist'
-  | 'sortingOption'
-  | 'searchOptions'
-  | 'topticonSettings'
-  | 'watchers'
-  | 'watcherFolders'
-  | 'watcherTreeSettings'
-  | 'audioSettingsV1'
-  | 'dailyEarningsGoal'
-  | 'notificationSettings'
-  | 'searchAudioEnabled';
+  | "tab"
+  | "account"
+  | "hitBlocklist"
+  | "hitDatabase"
+  | "requesterBlocklist"
+  | "sortingOption"
+  | "searchOptions"
+  | "topticonSettings"
+  | "watchers"
+  | "watcherFolders"
+  | "watcherTreeSettings"
+  | "audioSettingsV1"
+  | "dailyEarningsGoal"
+  | "notificationSettings"
+  | "searchAudioEnabled";
 
 export type ImmutablePersistedStateKey =
-  | 'hitDatabase'
-  | 'hitBlocklist'
-  | 'watchers'
-  | 'watcherFolders'
-  | 'requesterBlocklist';
+  | "hitDatabase"
+  | "hitBlocklist"
+  | "watchers"
+  | "watcherFolders"
+  | "requesterBlocklist";
 
 export type ImmutablePersistedDataType =
   | HitBlockMap
@@ -118,11 +117,11 @@ export type ImmutablePersistedState = Pick<
 export type MaybeAccount = AccountInfo | null;
 
 export type FormTarget =
-  | 'searchOptions'
-  | 'topticonSettings'
-  | 'notificationSettings';
+  | "searchOptions"
+  | "topticonSettings"
+  | "notificationSettings";
 
-export type SearchSort = 'Latest' | 'Batch Size' | 'Reward';
+export type SearchSort = "Latest" | "Batch Size" | "Reward";
 export interface SearchOptions {
   readonly searchTerm: string;
   readonly delay: number;
@@ -132,10 +131,10 @@ export interface SearchOptions {
 }
 
 export type SortingOption =
-  | 'Batch Size'
-  | 'Reward'
-  | 'Latest'
-  | 'Weighted T.O.';
+  | "Batch Size"
+  | "Reward"
+  | "Latest"
+  | "Weighted T.O.";
 
 /**
  * On the legacy Mturk website, 'Approved' was called 'Pending Payment'
@@ -144,8 +143,8 @@ export type SortingOption =
  */
 export type HitStatus =
   | WorkerSubmittedHitState
-  | 'Pending Payment'
-  | 'Pending Approval';
+  | "Pending Payment"
+  | "Pending Approval";
 
 export interface AccountInfo {
   readonly id: string;
@@ -206,12 +205,12 @@ export interface WorkerHitDatabaseEntry extends LegacyHitDatabaseEntry {
 
 export type HitDatabaseEntry = LegacyHitDatabaseEntry | WorkerHitDatabaseEntry;
 
-export type StatusFilterType = 'PENDING' | 'APPROVED' | 'PAID' | 'REJECTED';
+export type StatusFilterType = "PENDING" | "APPROVED" | "PAID" | "REJECTED";
 
 export type FilterOrderType =
-  | 'PAY_DESC'
-  | 'DATE_RECENT_FIRST'
-  | 'DATE_OLDEST_FIRST';
+  | "PAY_DESC"
+  | "DATE_RECENT_FIRST"
+  | "DATE_OLDEST_FIRST";
 
 export interface DatabaseFilterSettings {
   readonly searchTerm: string;
@@ -363,9 +362,9 @@ export interface WatcherTreeSettings {
   readonly selectionId: FolderId | GroupId | null;
 }
 
-export type WatcherKind = 'groupId' | 'searchTerm' | 'requesterId';
+export type WatcherKind = "groupId" | "searchTerm" | "requesterId";
 
-export type SelectionKind = WatcherKind | 'folder' | 'none';
+export type SelectionKind = WatcherKind | "folder" | "none";
 
 export interface WatcherFolder {
   readonly id: FolderId;
@@ -373,4 +372,4 @@ export interface WatcherFolder {
   readonly dateNumCreation: number;
 }
 
-export type QueueSortingOption = 'REWARD_DESC' | 'TIME_LEFT_ASC';
+export type QueueSortingOption = "REWARD_DESC" | "TIME_LEFT_ASC";

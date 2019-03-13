@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { MaybeAccount, RootState } from '../../types';
-import { connect } from 'react-redux';
-import DisconectedAccount from './DisconnectedAccount';
-import ConnectedAccountLayout from './ConnectedAccountLayout';
-import { connectAccountRequest } from '../../actions/connectAccount';
-import { TabIndex } from 'constants/enums';
+import * as React from "react";
+import { MaybeAccount, RootState } from "../../types";
+import { connect } from "react-redux";
+import DisconectedAccount from "./DisconnectedAccount";
+import ConnectedAccountLayout from "./ConnectedAccountLayout";
+import { connectAccountRequest } from "../../actions/connectAccount";
+import { TabIndex } from "constants/enums";
 
 interface Props {
   readonly selectedTabIndex: number;
@@ -45,4 +45,7 @@ const mapDispatch: Handlers = {
   onConnect: connectAccountRequest
 };
 
-export default connect<Props, Handlers>(mapState, mapDispatch)(Account);
+export default connect(
+  mapState,
+  mapDispatch
+)(Account);
