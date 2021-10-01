@@ -1,9 +1,9 @@
 /**
  * The root URL for querying the attributes of multiple requesters simultaneously
  */
-export const turkopticonApiMulti = `https://turkopticon.ucsd.edu/api/multi-attrs.php`;
+export const turkopticonApiMulti = `https://turkopticon.net/api/multi-attrs.php`;
 
-export const turkopticonBaseUrl = `https://turkopticon.ucsd.edu/`;
+export const turkopticonBaseUrl = `https://turkopticon.net/`;
 
 export const turkopticonTwoBaseUrl = `https://turkopticon.info/requesters/`;
 
